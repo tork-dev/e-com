@@ -20,8 +20,8 @@ class SignUp extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Image(
-            image: AssetImage(AppImages.darkAppLogo),
-            width: AppSizes.imageThumbSize,
+            image: AssetImage(AppImages.darkAppLogo1),
+            width: 100,
           ),
           const Gap(AppSizes.spaceBtwSections),
           const SignUpFormsAndButton(),

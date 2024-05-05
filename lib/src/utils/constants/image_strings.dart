@@ -8,6 +8,10 @@ class AppImages {
   static const String darkAppLogo = "assets/images/logos/app_logo.png";
   static const String lightAppLogo = "assets/images/logos/app_logo.png";
 
+  // -- App Logos for Latest App
+  static const String darkAppLogo1 = "assets/images/logos/splash_screen_logo_new.png";
+  static const String lightAppLogo2 = "assets/images/logos/splash_screen_logo_new.png";
+
   // -- Social Logos
   static const String google = "assets/images/logos/google-icon.png";
   static const String facebook = "assets/images/logos/facebook-icon.png";
