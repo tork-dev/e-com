@@ -12,15 +12,9 @@ class AppVerticalCourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  AppCardContainer(
-      width: AppSizes.productItemHeight,
+      height: AppSizes.productItemHeight,
       onTap: onTap,
-      child: const Column(
-        children: [
-          AppProductImageContainer(
-              imgUrl: AppImages.banner2),
-          AppCourseTitleContainer()
-        ],
-      ),
+      child: const AppProductImage(imgUrl: AppImages.productImage4, fit: BoxFit.fill, ),
 
     );
   }

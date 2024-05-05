@@ -14,15 +14,9 @@ class AppHorizontalCourseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCardContainer(
       onTap: onTap,
-      //backgroundColor: Colors.red,
+      applyRadius: false,
       child: const Row(
         children: [
-          AppProductImageContainer(
-             width: 119,
-            height: 119,
-              fit: BoxFit.fill,
-              imgUrl: AppImages.banner2),
-          AppCourseTitleContainer()
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawe
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/widgets/containers/grid_scroll_card.dart';
+import 'package:torganic/src/common/widgets/containers/horizontal_scroll_card.dart';
 import 'package:torganic/src/common/widgets/containers/product_image.dart';
 import 'package:torganic/src/common/widgets/search_bar/search_bar.dart';
 import 'package:torganic/src/common/widgets/slider/view/app_slider.dart';
@@ -37,7 +38,9 @@ class HomeThree extends StatelessWidget {
               ],
             ),
             const Gap(AppSizes.spaceBtwSections),
-            AppGridScrollCard(onTap: (){})
+            AppHorizontalScrollProduct(
+              productImage: AppImages.productImage3,
+                onTap: (){})
            //  AppListViewLayout(
            //    itemCount: 10,
            //    imgUrl: AppImages.productImage5,

@@ -1,71 +1,45 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/helper_functions.dart';
 
-import '../../../utils/constants/image_strings.dart';
 
 class AppButtons {
   static ElevatedButton smallRoundButton(
       {required VoidCallback onPressed,
-        required Color buttonColor,
-        required Widget buttonChild}) {
+      required Color buttonColor,
+      required Widget buttonChild}) {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(),
-          backgroundColor: buttonColor,
-        ),
+            shape: const CircleBorder(), backgroundColor: buttonColor),
         child: buttonChild);
   }
 
-  static InkWell iconRoundButton(
-      {required VoidCallback onPressed,
-        required Color buttonColor,
-        required IconData icon,
-        required double iconSize}) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        padding: const EdgeInsets.all(AppSizes.sm),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: buttonColor,
-        ),
-        child: Icon(
-          icon,
-          size: iconSize,
-        ),
-      ),
-    );
-  }
-
   static ElevatedButton largeFlatFilledButton(
-      {required VoidCallback onPressed, required String buttonText}) {
+      {required VoidCallback onPressed,
+      required String buttonText}) {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             minimumSize:
-            Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)),
+                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)
+        ),
         child: Text(
           buttonText,
         ));
   }
 
   static OutlinedButton largeFlatOutlineButton(
-      {required VoidCallback onPressed, required String buttonText}) {
+      {required VoidCallback onPressed,
+      required String buttonText}) {
     return OutlinedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             minimumSize:
-            Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)),
+                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)),
         child: Text(
           buttonText,
         ));

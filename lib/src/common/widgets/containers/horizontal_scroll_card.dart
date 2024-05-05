@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:torganic/src/common/widgets/containers/product_image.dart';
 import 'package:torganic/src/common/widgets/containers/vertical_course_card.dart';
-
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../layouts/listview_layout/listview_layout.dart';
 import 'card_container.dart';
-import 'course_title_container.dart';
-import 'product_image.dart';
 
-class AppHorizontalScrollCard extends StatelessWidget {
-  const AppHorizontalScrollCard({required this.onTap, super.key});
+
+class AppHorizontalScrollProduct extends StatelessWidget {
+  const AppHorizontalScrollProduct({
+    required this.onTap,
+    required this.productImage,
+    super.key});
 
   final VoidCallback onTap;
+  final String productImage;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +23,7 @@ class AppHorizontalScrollCard extends StatelessWidget {
       child: AppListViewLayout(
           isScrollVertically: false,
           itemCount: 5,
-          builderFunction: (context, index) => AppVerticalCourseCard(
-            onTap: onTap,
-          )),
+          builderFunction: (context, index) => AppProductImage(imgUrl: productImage,)),
     );
   }
 }
