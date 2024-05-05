@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:torganic/src/features/authentication/data/repositories/auth_repositories.dart';
+import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/feedback/view/feedback_form.dart';
 import 'widgets/drawer_card.dart';
 import 'widgets/header_part.dart';
@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   CupertinoButton(
                       onPressed: () async {
-                        //controller.logout();
+                        Get.offAll(const LogIn());
                       },
                       child: Text(
                         AppLocalizations.of(context)!.yes,
