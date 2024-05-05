@@ -1,12 +1,8 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/helper_functions.dart';
 
-import '../../../utils/constants/image_strings.dart';
 
 class AppButtons {
   static ElevatedButton smallRoundButton(
@@ -28,7 +24,8 @@ class AppButtons {
         style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             minimumSize:
-                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)),
+                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)
+        ),
         child: Text(
           buttonText,
         ));

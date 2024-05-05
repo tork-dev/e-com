@@ -12,10 +12,11 @@ class AppBannerImage extends StatelessWidget {
     this.fit = BoxFit.contain,
     this.boarderRadius = AppSizes.md,
     this.isNetworkImage = false,
+    this.imageOpacity = 1,
     super.key,
   });
 
-  final double? height, width;
+  final double? height, width, imageOpacity;
   final String imgUrl;
   final bool applyImageRadius;
   final BoxFit? fit;
@@ -41,6 +42,8 @@ class AppBannerImage extends StatelessWidget {
                   ? NetworkImage(imgUrl)
                   : AssetImage(imgUrl) as ImageProvider,
               fit: fit,
+                opacity: AlwaysStoppedAnimation(imageOpacity!),
+              //color: Colors.red.withOpacity(.2),
             )),
       ),
     );

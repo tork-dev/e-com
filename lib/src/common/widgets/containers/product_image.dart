@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
+import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../styles/spacing_style.dart';
@@ -28,25 +33,32 @@ class AppProductImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      child: Container(
-        height: height,
-        width: width,
-        decoration:
-        BoxDecoration(
-          color: backgroundColor,
-            borderRadius: BorderRadius.circular(boarderRadius)),
-        child: Padding(
-          padding: AppSpacingStyle.allSIdeSpacing,
-          child: ClipRRect(
-              child: Image(
-                image: isNetworkImage
-                    ? NetworkImage(imgUrl)
-                    : AssetImage(imgUrl) as ImageProvider,
-                fit: fit,
-              )),
-        ),
+    return AppCardContainer(
+      //height: 200,
+      width: 150,
+      applyRadius: false,
+      backgroundColor: Colors.black,
+      child: Column(
+        children: [
+          InkWell(
+            onTap: onPress,
+            child: AppCardContainer(
+              padding: const EdgeInsets.all(AppSizes.sm),
+              width: 150,
+              height: 145,
+              applyRadius: false,
+              backgroundColor: Colors.red,
+                child: ClipRRect(
+                    child: Image(
+                      image: isNetworkImage
+                          ? NetworkImage(imgUrl)
+                          : AssetImage(imgUrl) as ImageProvider,
+                      fit: fit,
+                    )),
+              ),
+            ),
+          AppButtons.largeFlatFilledButton(onPressed: (){}, buttonText: 'Add To Cart')
+        ],
       ),
     );
   }
