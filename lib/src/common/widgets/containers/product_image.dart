@@ -1,10 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../styles/spacing_style.dart';
+import '../../../utils/helpers/helper_functions.dart';
+import '../buttons/app_buttons.dart';
+import 'banner_image.dart';
 
-class AppProductImage extends StatelessWidget {
-  const AppProductImage({
+class AppProductImageContainer extends StatelessWidget {
+  const AppProductImageContainer({
     this.height,
     this.width,
     this.border,
@@ -13,6 +18,7 @@ class AppProductImage extends StatelessWidget {
     this.fit = BoxFit.contain,
     this.boarderRadius = AppSizes.md,
     this.isNetworkImage = false,
+    this.applyImageRadius = true,
     this.backgroundColor = AppColors.light,
     super.key,
   });
@@ -22,31 +28,36 @@ class AppProductImage extends StatelessWidget {
   final BoxBorder? border;
   final Color backgroundColor;
   final BoxFit? fit;
-  final bool isNetworkImage;
+  final bool isNetworkImage, applyImageRadius;
   final double boarderRadius;
   final VoidCallback? onPress;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final isDark = AppHelperFunctions.isDarkMode(context);
+    return InkWell(
       onTap: onPress,
-      child: Container(
-        height: height,
-        width: width,
-        decoration:
-        BoxDecoration(
-          color: backgroundColor,
-            borderRadius: BorderRadius.circular(boarderRadius)),
-        child: Padding(
-          padding: AppSpacingStyle.allSIdeSpacing,
-          child: ClipRRect(
-              child: Image(
-                image: isNetworkImage
-                    ? NetworkImage(imgUrl)
-                    : AssetImage(imgUrl) as ImageProvider,
-                fit: fit,
-              )),
-        ),
+      child: Stack(
+        children: [
+          AppBannerImage(
+              onPress: onPress,
+              height: height,
+              width: width,
+              applyImageRadius: applyImageRadius,
+              isNetworkImage: isNetworkImage,
+              boarderRadius: boarderRadius,
+              fit: fit,
+              imgUrl: AppImages.banner3),
+          Positioned(
+            right: 10,
+            top: 10,
+            child: AppButtons.iconRoundButton(
+                onPressed: () {},
+                buttonColor: isDark? AppColors.black: AppColors.white,
+                icon: CupertinoIcons.bookmark,
+                iconSize: 14),
+          ),
+        ],
       ),
     );
   }

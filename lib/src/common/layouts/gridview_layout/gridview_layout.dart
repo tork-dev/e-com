@@ -8,12 +8,12 @@ import 'package:torganic/src/utils/helpers/helper_functions.dart';
 class AppGridViewLayout extends StatelessWidget {
   const AppGridViewLayout(
       {this.crossAxisCount = 2,
-      required this.imgUrl,
-      required this.itemCount,
-      super.key});
+        required this.child,
+        required this.itemCount,
+        super.key});
 
   final int crossAxisCount, itemCount;
-  final String imgUrl;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +25,11 @@ class AppGridViewLayout extends StatelessWidget {
           crossAxisCount: crossAxisCount,
           crossAxisSpacing: AppSizes.spaceBtwItems,
           mainAxisSpacing: AppSizes.spaceBtwItems,
-          mainAxisExtent: AppHelperFunctions.screenHeight() * 0.1,
+          mainAxisExtent: AppHelperFunctions.screenHeight() * 0.25,
+
         ),
         itemBuilder: (context, index) {
-          return AppProductImage(isNetworkImage: true, imgUrl: imgUrl);
+          return child;
         });
   }
 }
