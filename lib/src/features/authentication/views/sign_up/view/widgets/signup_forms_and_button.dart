@@ -25,23 +25,29 @@ class SignUpFormsAndButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text("Name",
-              style: TextStyle(
-                color: AppColors.primary,
-                fontSize: AppSizes.fontSizeSm,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          AuthInputField(
-            isDark: isDark,
-            controller: signUpController.nameController,
-            validator: (value) => AppValidator.validateEmailOrPhone(value),
-            hingText: "Your Name",
-            obscured: false,
-          ),
+          Obx(() => Visibility(
+            visible: signUpController.signupWithPassword.value,
+            child: Column(
+              children: [
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Name",
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: AppSizes.fontSizeSm,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                AuthInputField(
+                  isDark: isDark,
+                  controller: signUpController.nameController,
+                  validator: (value) => AppValidator.validateEmailOrPhone(value),
+                  hingText: "Your Name",
+                  obscured: false,
+                ),
+              ],
+            ),),),
 
           const Gap(AppSizes.spaceBtwRowItem),
 
@@ -63,72 +69,74 @@ class SignUpFormsAndButton extends StatelessWidget {
             obscured: false,
           ),
           const Gap(AppSizes.spaceBtwInputFields),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text("Password",
-              style: TextStyle(
-                color: AppColors.primary,
-                fontSize: AppSizes.fontSizeSm,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Obx(
-            () => AuthInputField(
-              isDark: isDark,
-              controller: signUpController.passwordController,
-              validator: (value) => AppValidator.validatePassword(value),
-              hingText: AppLocalizations.of(context)!.passwordHintText,
-              suffixIcon: InkWell(
-                onTap: () {
-                  signUpController.passwordObscured.value =
-                      !signUpController.passwordObscured.value;
-                },
-                child: Icon(signUpController.passwordObscured.value
-                    ? Icons.remove_red_eye
-                    : Icons.remove_red_eye_outlined),
-              ),
-              obscured: signUpController.passwordObscured.value,
-            ),
-          ),
-          const Gap(AppSizes.spaceBtwInputFields),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text("Retype Password",
-              style: TextStyle(
-                color: AppColors.primary,
-                fontSize: AppSizes.fontSizeSm,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Obx(
-            () => AuthInputField(
-              isDark: isDark,
-              controller: signUpController.confirmPasswordController,
-              validator: (value) => AppValidator.validateConfirmPassword(
-                  value, signUpController.passwordController),
-              hingText: AppLocalizations.of(context)!.confirmPasswordHintText,
-              suffixIcon: InkWell(
-                onTap: () {
-                  signUpController.confirmPasswordObscured.value =
-                      !signUpController.confirmPasswordObscured.value;
-                },
-                child: Icon(signUpController.confirmPasswordObscured.value
-                    ? Icons.remove_red_eye
-                    : Icons.remove_red_eye_outlined),
-              ),
-              obscured: signUpController.confirmPasswordObscured.value,
-            ),
-          ),
-          const Gap(AppSizes.spaceBtwSections),
-          AppButtons.largeFlatFilledButton(
-              onPressed: () {
-                signUpController.signUp();
-              },
-              buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signUp : AppLocalizations.of(context)!.sendOtp,
-          bcColor: AppColors.dark_grey,
-          ),
+          Obx(() => Visibility(
+              visible: signUpController.signupWithPassword.value,
+              child: Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Password",
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: AppSizes.fontSizeSm,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  AuthInputField(
+                    isDark: isDark,
+                    controller: signUpController.passwordController,
+                    validator: (value) => AppValidator.validatePassword(value),
+                    hingText: AppLocalizations.of(context)!.passwordHintText,
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        signUpController.passwordObscured.value =
+                        !signUpController.passwordObscured.value;
+                      },
+                      child: Icon(signUpController.passwordObscured.value
+                          ? Icons.remove_red_eye
+                          : Icons.remove_red_eye_outlined),
+                    ),
+                    obscured: signUpController.passwordObscured.value,
+                  ),
+                  const Gap(AppSizes.spaceBtwInputFields),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Retype Password",
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: AppSizes.fontSizeSm,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  AuthInputField(
+                    isDark: isDark,
+                    controller: signUpController.confirmPasswordController,
+                    validator: (value) => AppValidator.validateConfirmPassword(
+                        value, signUpController.passwordController),
+                    hingText: AppLocalizations.of(context)!.confirmPasswordHintText,
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        signUpController.confirmPasswordObscured.value =
+                        !signUpController.confirmPasswordObscured.value;
+                      },
+                      child: Icon(signUpController.confirmPasswordObscured.value
+                          ? Icons.remove_red_eye
+                          : Icons.remove_red_eye_outlined),
+                    ),
+                    obscured: signUpController.confirmPasswordObscured.value,
+                  ),
+                  const Gap(AppSizes.spaceBtwSections),
+                ],
+              ))),
+          Obx(() => AppButtons.largeFlatFilledButton(
+            onPressed: () {
+              signUpController.signUp();
+            },
+            buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signUp : AppLocalizations.of(context)!.sendOtp,
+            bcColor: AppColors.dark_grey,
+          )),
           const Gap(AppSizes.sm),
            Text(AppLocalizations.of(context)!.orSignUpWith,
              style: TextStyle(
@@ -138,13 +146,14 @@ class SignUpFormsAndButton extends StatelessWidget {
              ),
            ),
           const Gap(AppSizes.sm),
-          AppButtons.largeFlatFilledButton(
-              onPressed: () {
-                Get.offAll(const LogIn());
-              },
-            buttonText: "Register"
-             // buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signUp : AppLocalizations.of(context)!.SignupWithPassword,
-          ),
+          Obx(() => AppButtons.largeFlatFilledButton(
+            onPressed: () {
+              // Get.offAll(const LogIn());
+              signUpController.signupWithPassword.value = ! signUpController.signupWithPassword.value ;
+            },
+            //buttonText: "Register"
+            buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signupWithOtp : AppLocalizations.of(context)!.signupWithPassword,
+          ),),
 
           const Gap(AppSizes.lg),
 
