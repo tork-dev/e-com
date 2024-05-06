@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
+import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:torganic/src/utils/device/device_utility.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
@@ -70,7 +71,7 @@ class SplashController extends GetxController {
     Future.delayed(const Duration(seconds: 3), () {
       isNotFirst == true
           ? (isRememberMe || isGoogleLogin
-              ? Get.offAll(() => const BottomNavigation())
+              ? Get.offAll(() =>  const HelloConvexAppBar())
               : Get.offAll(() => const LogIn()))
           : Get.offAll(() => const OnBoarding());
     });
