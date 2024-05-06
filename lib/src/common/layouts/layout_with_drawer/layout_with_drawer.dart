@@ -15,7 +15,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
       required this.body,
       this.centerTitle = false,
       this.action,
-      this.padding = AppSizes.sm,
+      this.padding = 12,
       super.key});
 
   final Widget title, body;

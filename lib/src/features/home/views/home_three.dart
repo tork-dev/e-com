@@ -25,7 +25,11 @@ class HomeThree extends StatelessWidget {
     final isDark = AppHelperFunctions.isDarkMode(context);
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
-        title: const Text('Home'),
+        title: const Row(
+          children: [
+
+          ],
+        ),
         body: ListView(
           children:  [
             const AppSearchBar(),

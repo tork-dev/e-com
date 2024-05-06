@@ -1,12 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../styles/spacing_style.dart';
 
 class AppProductImage extends StatelessWidget {
   const AppProductImage({
@@ -37,7 +32,7 @@ class AppProductImage extends StatelessWidget {
       //height: 200,
       width: 150,
       applyRadius: false,
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.black,
       child: Column(
         children: [
           InkWell(
@@ -57,7 +52,19 @@ class AppProductImage extends StatelessWidget {
                     )),
               ),
             ),
-          AppButtons.largeFlatFilledButton(onPressed: (){}, buttonText: 'Add To Cart')
+           InkWell(
+            child: AppCardContainer(
+              applyRadius: false,
+              height: 40,
+              backgroundColor: AppColors.secondary,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                const Icon(Icons.shopping_bag_outlined, size: 17, color: AppColors.white,),
+                Text(' ADD TO CART', style: Theme.of(context).textTheme.bodyMedium!.apply(color: AppColors.white))
+              ],),
+            ),
+          )
         ],
       ),
     );
