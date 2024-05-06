@@ -2,17 +2,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/features/authentication/data/repositories/auth_repositories.dart';
+import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
+import 'package:torganic/src/features/authentication/views/log_in/repository/login_repository.dart';
 import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
 import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:torganic/src/features/personalization/controller/user_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:torganic/src/utils/constants/endpoints.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/utils/helpers/network_manager.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import 'package:torganic/src/utils/popups/loaders.dart';
+import '../../../../../utils/http/http_client.dart';
 import '../../../../../utils/popups/full_screen_loader.dart';
 import '../../forgot_password/view/otp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -32,23 +36,32 @@ class LogInPageController extends GetxController {
   Rx<bool> loginWithPassword = false.obs;
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> rememberMe = false.obs;
+  List<LoginResponse> loginList = [];
 
+  Future<void> emailPasswordLogIn(
 
-  Future<void> emailPasswordLogIn() async {
+      ) async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
       /// Validate Form
       if (!logInFormKey.currentState!.validate()) return;
+
+      ///Check Internet
+      if (!isConnected) return;
 
       /// Start Loading
       FullScreenLoader.openLoadingDialog(
           AppLocalizations.of(Get.overlayContext!)!.processing,
           AppImages.loading);
 
-      ///Check Internet
-      if (!isConnected) return;
+      ///Api Calling
+      var response = LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
+      loginList.add(response as LoginResponse);
+
+      ///Save 
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
+      
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());

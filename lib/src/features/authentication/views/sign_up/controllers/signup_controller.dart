@@ -18,7 +18,7 @@ class SignUpPageController extends GetxController {
 
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> confirmPasswordObscured = true.obs;
-  Rx<bool> signupWithPassword = true.obs;
+  Rx<bool> signupWithPassword = false.obs;
 
   Future<void> signUp() async {
     final isConnected = await NetworkManager.instance.isConnected();
