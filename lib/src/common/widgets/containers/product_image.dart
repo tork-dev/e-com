@@ -30,7 +30,7 @@ class AppProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCardContainer(
       //height: 200,
-      width: 150,
+     // width: 150,
       applyRadius: false,
       //backgroundColor: Colors.black,
       child: Column(

@@ -5,6 +5,7 @@ import 'package:torganic/src/common/layouts/gridview_layout/gridview_layout.dart
 import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
+import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/common/widgets/containers/grid_scroll_card.dart';
 import 'package:torganic/src/common/widgets/containers/horizontal_scroll_card.dart';
 import 'package:torganic/src/common/widgets/containers/product_image.dart';
@@ -25,9 +26,22 @@ class HomeThree extends StatelessWidget {
     final isDark = AppHelperFunctions.isDarkMode(context);
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
-        title: const Row(
+        title:  Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-
+            SizedBox(
+              width: 70,
+                child: Image.asset(AppImages.darkAppLogo1)),
+            SizedBox(
+              child: Row(
+                  children: [
+                    Text('Hi, User'), 
+                    AppCardContainer(
+                      height: 50,
+                      //borderRadius: 100,
+                        borderColor: Colors.red,
+                        child: Icon(Icons.verified_user))
+              ]))
           ],
         ),
         body: ListView(
@@ -43,8 +57,15 @@ class HomeThree extends StatelessWidget {
             ),
             const Gap(AppSizes.spaceBtwSections),
             AppHorizontalScrollProduct(
-              productImage: AppImages.productImage3,
-                onTap: (){})
+                onTap: (){},
+              itemCount: 5,
+              imgUrl: AppImages.productImage3,
+              productName: 'Skin Aqua super Moisture Gel',
+              price: '1450',
+              ratings: '4',
+              reviews: '41',
+              salePrice: '1500',
+            )
            //  AppListViewLayout(
            //    itemCount: 10,
            //    imgUrl: AppImages.productImage5,
