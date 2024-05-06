@@ -24,7 +24,8 @@ class AppButtons {
         style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             minimumSize:
-                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)
+                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight),
+            backgroundColor: AppColors.dark_grey,
         ),
         child: Text(
           buttonText,
