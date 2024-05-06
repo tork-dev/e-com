@@ -16,6 +16,7 @@ import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/image_strings.dart';
+import 'widgets/home_appbar_title.dart';
 
 class HomeThree extends StatelessWidget {
   const HomeThree({super.key});
@@ -23,27 +24,10 @@ class HomeThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
-    final isDark = AppHelperFunctions.isDarkMode(context);
+    //final isDark = AppHelperFunctions.isDarkMode(context);
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
-        title:  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              width: 70,
-                child: Image.asset(AppImages.darkAppLogo1)),
-            SizedBox(
-              child: Row(
-                  children: [
-                    Text('Hi, User'), 
-                    AppCardContainer(
-                      height: 50,
-                      //borderRadius: 100,
-                        borderColor: Colors.red,
-                        child: Icon(Icons.verified_user))
-              ]))
-          ],
-        ),
+        title: const AppHomeAppBarTitle(),
         body: ListView(
           children:  [
             const AppSearchBar(),
@@ -58,7 +42,9 @@ class HomeThree extends StatelessWidget {
             const Gap(AppSizes.spaceBtwSections),
             AppHorizontalScrollProduct(
                 onTap: (){},
+              onCartTap: (){},
               itemCount: 5,
+              isNetworkImage: false,
               imgUrl: AppImages.productImage3,
               productName: 'Skin Aqua super Moisture Gel',
               price: '1450',
@@ -74,3 +60,5 @@ class HomeThree extends StatelessWidget {
         ));
   }
 }
+
+

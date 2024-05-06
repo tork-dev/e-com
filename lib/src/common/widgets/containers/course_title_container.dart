@@ -10,6 +10,7 @@ class AppCourseTitleContainer extends StatelessWidget {
     super.key,
     this.height,
     this.width,
+    required this.onTap,
     required this.productName,
     required this.ratings,
     required this.reviews,
@@ -18,13 +19,14 @@ class AppCourseTitleContainer extends StatelessWidget {
 
   final double? height, width;
   final String productName, ratings, reviews, salePrice, price;
-
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Flexible(
       child: AppCardContainer(
         height: height,
           width: width,
+          onTap: onTap,
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
           //backgroundColor: Colors.red,
           child: Column(
