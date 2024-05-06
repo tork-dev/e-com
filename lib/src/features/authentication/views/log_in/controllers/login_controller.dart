@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/features/authentication/data/repositories/auth_repositories.dart';
 import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
+import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:torganic/src/features/personalization/controller/user_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
@@ -54,7 +55,7 @@ class LogInPageController extends GetxController {
     } finally {
       FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
-        Get.offAll(const BottomNavigation());
+        Get.offAll(const HelloConvexAppBar());
       }
     }
   }

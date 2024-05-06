@@ -40,17 +40,16 @@ class AppProductImage extends StatelessWidget {
           InkWell(
             onTap: onPress,
             child: AppCardContainer(
-              padding: const EdgeInsets.all(AppSizes.sm),
               width: 150,
               height: 145,
               applyRadius: false,
-              backgroundColor: Colors.red,
+              //backgroundColor: Colors.red,
                 child: ClipRRect(
                     child: Image(
                       image: isNetworkImage
                           ? NetworkImage(imgUrl)
                           : AssetImage(imgUrl) as ImageProvider,
-                      fit: fit,
+                      fit: BoxFit.fill,
                     )),
               ),
             ),

@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
+import '../../styles/skeleton_style.dart';
+import 'card_container.dart';
 
 class AppBannerImage extends StatelessWidget {
   const AppBannerImage({
@@ -28,23 +30,26 @@ class AppBannerImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPress,
-      child: Container(
-        height: height,
-        width: width,
-        decoration:
-        BoxDecoration(borderRadius: BorderRadius.circular(boarderRadius)),
+      child: AppCardContainer(
+        //height: 150,
+        //width: AppHelperFunctions.screenWidth() * 1,
         child: ClipRRect(
-            borderRadius: applyImageRadius
-                ? BorderRadius.circular(boarderRadius)
-                : BorderRadius.zero,
-            child: Image(
-              image: isNetworkImage
-                  ? NetworkImage(imgUrl)
-                  : AssetImage(imgUrl) as ImageProvider,
-              fit: fit,
-                opacity: AlwaysStoppedAnimation(imageOpacity!),
-              //color: Colors.red.withOpacity(.2),
-            )),
+          borderRadius: BorderRadius.circular(AppSizes.md),
+          child: isNetworkImage
+              ? CachedNetworkImage(
+                  imageUrl: imgUrl,
+                  fit: fit,
+                  placeholder: (context, url) =>
+                      ShimmerHelper().buildBasicShimmer(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                )
+              : Image(
+                  image: AssetImage(imgUrl) as ImageProvider,
+                  fit: fit,
+                  opacity: AlwaysStoppedAnimation(imageOpacity!),
+                  //color: Colors.red.withOpacity(.2),
+                ),
+        ),
       ),
     );
   }
