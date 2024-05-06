@@ -40,8 +40,8 @@ class LogIn extends StatelessWidget {
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: AppColors.primary,
-                fontSize: AppSizes.fontSizeLg,
-                fontWeight: FontWeight.w600,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
               ),
             ),
             const LogInFormsAndButton(),
@@ -53,7 +53,6 @@ class LogIn extends StatelessWidget {
             //   },
             //   facebookTap: () {},
             // ),
-            const Gap(AppSizes.spaceBtwSections),
             Center(
                 child: InkWell(
                     onTap: () {
@@ -66,6 +65,7 @@ class LogIn extends StatelessWidget {
                       ),
 
                     ))),
+            //const Gap(AppSizes.spaceBtwRowItem),
             TextButton(
               onPressed: () {
                 Get.to(const ForgotPassword());

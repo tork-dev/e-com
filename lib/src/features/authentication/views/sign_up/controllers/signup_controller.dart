@@ -10,6 +10,7 @@ class SignUpPageController extends GetxController {
   static SignUpPageController get instance => Get.find();
 
   ///Controllers
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -17,6 +18,7 @@ class SignUpPageController extends GetxController {
 
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> confirmPasswordObscured = true.obs;
+  Rx<bool> signupWithPassword = true.obs;
 
   Future<void> signUp() async {
     final isConnected = await NetworkManager.instance.isConnected();

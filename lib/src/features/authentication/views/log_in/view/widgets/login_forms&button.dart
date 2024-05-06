@@ -10,6 +10,7 @@ import 'package:torganic/src/features/authentication/views/forgot_password/contr
 import 'package:torganic/src/features/authentication/views/forgot_password/view/otp.dart';
 import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
+import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../../utils/validators/validation.dart';
@@ -69,7 +70,9 @@ class LogInFormsAndButton extends StatelessWidget {
                     : loginController.sendCode(),
                 buttonText: loginController.loginWithPassword.value
                     ? AppLocalizations.of(context)!.login
-                    : AppLocalizations.of(context)!.sendOtp),
+                    : AppLocalizations.of(context)!.sendOtp,
+                bcColor: AppColors.dark_grey,
+            ),
           ),
           const Gap(AppSizes.sm),
           Text(
@@ -78,14 +81,17 @@ class LogInFormsAndButton extends StatelessWidget {
           ),
           const Gap(AppSizes.sm),
           Obx(
-            () => AppButtons.largeFlatOutlineButton(
+            () => AppButtons.largeFlatFilledButton(
                 onPressed: () {
                   loginController.loginWithPassword.value =
                       !loginController.loginWithPassword.value;
                 },
                 buttonText: loginController.loginWithPassword.value
                     ? AppLocalizations.of(context)!.loginWithOtp
-                    : AppLocalizations.of(context)!.loginWithPassword),
+                    : AppLocalizations.of(context)!.loginWithPassword,
+            bcColor: loginController.loginWithPassword.value
+                ? AppColors.primary : AppColors.sign_up_with_password
+            ),
           )
         ],
       ),

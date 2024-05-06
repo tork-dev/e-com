@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
+import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../../utils/validators/validation.dart';
@@ -23,6 +25,36 @@ class SignUpFormsAndButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Name",
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          AuthInputField(
+            isDark: isDark,
+            controller: signUpController.nameController,
+            validator: (value) => AppValidator.validateEmailOrPhone(value),
+            hingText: "Your Name",
+            obscured: false,
+          ),
+
+          const Gap(AppSizes.spaceBtwRowItem),
+
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Phone",
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           AuthInputField(
             isDark: isDark,
             controller: signUpController.emailController,
@@ -31,6 +63,16 @@ class SignUpFormsAndButton extends StatelessWidget {
             obscured: false,
           ),
           const Gap(AppSizes.spaceBtwInputFields),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Password",
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           Obx(
             () => AuthInputField(
               isDark: isDark,
@@ -50,6 +92,16 @@ class SignUpFormsAndButton extends StatelessWidget {
             ),
           ),
           const Gap(AppSizes.spaceBtwInputFields),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Retype Password",
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           Obx(
             () => AuthInputField(
               isDark: isDark,
@@ -74,15 +126,44 @@ class SignUpFormsAndButton extends StatelessWidget {
               onPressed: () {
                 signUpController.signUp();
               },
-              buttonText: AppLocalizations.of(context)!.signUp),
-          const Gap(AppSizes.spaceBtwItems),
-          AppButtons.largeFlatOutlineButton(
+              buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signUp : AppLocalizations.of(context)!.sendOtp,
+          bcColor: AppColors.dark_grey,
+          ),
+          const Gap(AppSizes.sm),
+           Text(AppLocalizations.of(context)!.orSignUpWith,
+             style: TextStyle(
+               color: AppColors.dark_grey,
+               fontSize: AppSizes.fontSizeSm,
+               fontWeight: FontWeight.w500,
+             ),
+           ),
+          const Gap(AppSizes.sm),
+          AppButtons.largeFlatFilledButton(
               onPressed: () {
                 Get.offAll(const LogIn());
               },
-              buttonText: AppLocalizations.of(context)!.login)
+            buttonText: "Register"
+             // buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signUp : AppLocalizations.of(context)!.SignupWithPassword,
+          ),
+
+          const Gap(AppSizes.lg),
+
+          GestureDetector(
+            onTap: (){
+              Get.offAll(const LogIn());
+            },
+            child: const Text("Login Now !",
+              style: TextStyle(
+                color: AppColors.secondary,
+                fontSize: AppSizes.fontSizeLg,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
+
