@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -18,14 +20,16 @@ class AppButtons {
 
   static ElevatedButton largeFlatFilledButton(
       {required VoidCallback onPressed,
-      required String buttonText}) {
+      required String buttonText,
+       Color? bcColor,
+      }) {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             minimumSize:
                 Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight),
-            backgroundColor: AppColors.dark_grey,
+            backgroundColor: bcColor,
         ),
         child: Text(
           buttonText,
@@ -63,3 +67,5 @@ class AppButtons {
     );
   }
 }
+
+

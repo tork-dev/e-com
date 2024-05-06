@@ -53,7 +53,6 @@ class LogIn extends StatelessWidget {
             //   },
             //   facebookTap: () {},
             // ),
-            const Gap(AppSizes.spaceBtwSections),
             Center(
                 child: InkWell(
                     onTap: () {
@@ -66,6 +65,7 @@ class LogIn extends StatelessWidget {
                       ),
 
                     ))),
+            //const Gap(AppSizes.spaceBtwRowItem),
             TextButton(
               onPressed: () {
                 Get.to(const ForgotPassword());

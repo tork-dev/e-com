@@ -8,7 +8,7 @@
   "newPasswordHintText": "New Password",
   "confirmPasswordHintText": "Confirm Password",
   "createAccount" : "Create Account",
-  "loginWithOtp" : "LOGIN WITH OTP!",
+  "loginWithOtp" : "LOGIN WITH OTP !",
   "loginWithPassword" : "LOGIN WITH PASSWORD !",
   "orLogInWith" : "Or login with",
   "orSignUpWith" : "Or sign up with",
