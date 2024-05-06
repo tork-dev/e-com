@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import '../../../../../common/layouts/layout_without_appbar/layout_without_appbar.dart';
+import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../sign_up/view/signup.dart';
 import '../../widgets/header_logo_part.dart';
@@ -24,16 +25,33 @@ class LogIn extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             const HeaderLogoPart(),
+            const Gap(AppSizes.spaceBtwItems),
+            const Text("Login",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.primary,
+              fontSize: AppSizes.fontSizeLg,
+              fontWeight: FontWeight.w600,
+            ),
+            ),
             const Gap(AppSizes.spaceBtwSections),
+            const Text("Phone",
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeLg,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const LogInFormsAndButton(),
             const Gap(AppSizes.spaceBtwSections),
-            OtherLogInOrSignUpOption(
-              title: AppLocalizations.of(context)!.orLogInWith,
-              googleTap: () {
-                logInController.onPressedGoogleLogin();
-              },
-              facebookTap: () {},
-            ),
+            // OtherLogInOrSignUpOption(
+            //   title: AppLocalizations.of(context)!.orLogInWith,
+            //   googleTap: () {
+            //     logInController.onPressedGoogleLogin();
+            //   },
+            //   facebookTap: () {},
+            // ),
             const Gap(AppSizes.spaceBtwSections),
             Center(
                 child: InkWell(
