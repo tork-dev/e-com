@@ -71,7 +71,12 @@ class LogInFormsAndButton extends StatelessWidget {
                     ? AppLocalizations.of(context)!.login
                     : AppLocalizations.of(context)!.sendOtp),
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.sm),
+          Text(
+            AppLocalizations.of(context)!.orLogInWith,
+            textAlign: TextAlign.center,
+          ),
+          const Gap(AppSizes.sm),
           Obx(
             () => AppButtons.largeFlatOutlineButton(
                 onPressed: () {

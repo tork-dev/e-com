@@ -5,10 +5,10 @@
 class AppImages {
 
   // -- App Logos
-  static const String darkAppLogo = "assets/images/logos/app_logo.png";
-  static const String lightAppLogo = "assets/images/logos/app_logo.png";
+  static const String darkAppLogo = "assets/images/logos/app_logo_new.png";
+  static const String lightAppLogo = "assets/images/logos/app_logo_new.png";
 
-  // -- App Logos for Latest App
+  // -- Splash Screen Logo Latest App
   static const String darkAppLogo1 = "assets/images/logos/splash_screen_logo_new.png";
   static const String lightAppLogo2 = "assets/images/logos/splash_screen_logo_new.png";
 

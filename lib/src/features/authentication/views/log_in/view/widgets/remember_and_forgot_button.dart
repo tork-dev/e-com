@@ -33,7 +33,9 @@ class RememberAndForgotButton extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
-                    .apply(color: isDark ? AppColors.light : AppColors.dark))
+                    //.apply(color: isDark ? AppColors.light : AppColors.dark),
+                    .apply(color: AppColors.primary),
+            )
           ],
         ),
       ),
@@ -42,7 +44,7 @@ class RememberAndForgotButton extends StatelessWidget {
           Get.to(const ForgotPassword());
         },
         child: Text(AppLocalizations.of(context)!.forgotPassword,
-            style: Theme.of(context).textTheme.bodySmall),
+            style: Theme.of(context).textTheme.bodySmall?.apply(color: AppColors.primary)),
       )
     ]);
   }
