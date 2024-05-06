@@ -39,13 +39,13 @@ class RememberAndForgotButton extends StatelessWidget {
           ],
         ),
       ),
-      TextButton(
-        onPressed: () {
-          Get.to(const ForgotPassword());
-        },
-        child: Text(AppLocalizations.of(context)!.forgotPassword,
-            style: Theme.of(context).textTheme.bodySmall?.apply(color: AppColors.primary)),
-      )
+      // TextButton(
+      //   onPressed: () {
+      //     Get.to(const ForgotPassword());
+      //   },
+      //   child: Text(AppLocalizations.of(context)!.forgotPassword,
+      //       style: Theme.of(context).textTheme.bodySmall?.apply(color: AppColors.primary)),
+      // )
     ]);
   }
 }

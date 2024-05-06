@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../../common/layouts/layout_without_appbar/layout_without_appbar.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../forgot_password/view/forgot.dart';
 import '../../sign_up/view/signup.dart';
 import '../../widgets/header_logo_part.dart';
 import '../../widgets/other_login_option.dart';
@@ -60,8 +61,21 @@ class LogIn extends StatelessWidget {
                     },
                     child: Text(
                       AppLocalizations.of(context)!.dontHaveAccount,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )))
+                      style: Theme.of(context).textTheme.titleMedium!.apply(
+                        decoration: TextDecoration.underline,
+                      ),
+
+                    ))),
+            TextButton(
+              onPressed: () {
+                Get.to(const ForgotPassword());
+              },
+              child: Text(AppLocalizations.of(context)!.forgotPassword,
+                  style: Theme.of(context).textTheme.bodySmall?.apply(color: AppColors.primary,
+                  decoration: TextDecoration.underline,
+                    decorationColor: AppColors.primary,
+                  )),
+            )
           ],
         ),
       ),
