@@ -39,6 +39,9 @@ class AuthInputField extends StatelessWidget {
               color: AppColors.dark_grey,
             )
         ),
+        hintStyle: TextStyle(
+          color: AppColors.light_grey,
+        )
         // focusedBorder: OutlineInputBorder(
         //     borderSide: BorderSide(
         //         color: isDark ? AppColors.white : AppColors.darkGrey)),

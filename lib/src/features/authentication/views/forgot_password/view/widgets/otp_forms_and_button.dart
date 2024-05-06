@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:torganic/src/utils/constants/colors.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
@@ -35,7 +36,9 @@ class OtpFormsAndButton extends StatelessWidget {
               onPressed: () {
                 otpController.verify();
               },
-              buttonText: AppLocalizations.of(context)!.verify),
+              buttonText: AppLocalizations.of(context)!.verify,
+          bcColor: AppColors.secondary,
+          ),
         ],
       ),
     );
