@@ -9,28 +9,30 @@ class AppProductImage extends StatelessWidget {
     this.width,
     this.border,
     this.onPress,
+    this.onCartPress,
     required this.imgUrl,
     this.fit = BoxFit.contain,
     this.boarderRadius = AppSizes.md,
-    this.isNetworkImage = false,
-    this.backgroundColor = AppColors.light,
+    required this.isNetworkImage ,
+    required this.buttonName ,
+    required this.backgroundColor,
     super.key,
   });
 
   final double? height, width;
-  final String imgUrl;
+  final String imgUrl, buttonName;
   final BoxBorder? border;
   final Color backgroundColor;
   final BoxFit? fit;
   final bool isNetworkImage;
   final double boarderRadius;
-  final VoidCallback? onPress;
+  final VoidCallback? onPress, onCartPress;
 
   @override
   Widget build(BuildContext context) {
     return AppCardContainer(
       //height: 200,
-      width: 150,
+     // width: 150,
       applyRadius: false,
       //backgroundColor: Colors.black,
       child: Column(
@@ -53,15 +55,16 @@ class AppProductImage extends StatelessWidget {
               ),
             ),
            InkWell(
+             onTap: onCartPress,
             child: AppCardContainer(
               applyRadius: false,
               height: 40,
-              backgroundColor: AppColors.secondary,
+              backgroundColor: backgroundColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                 const Icon(Icons.shopping_bag_outlined, size: 17, color: AppColors.white,),
-                Text(' ADD TO CART', style: Theme.of(context).textTheme.bodyMedium!.apply(color: AppColors.white))
+                Text(' $buttonName', style: Theme.of(context).textTheme.bodyMedium!.apply(color: AppColors.white))
               ],),
             ),
           )

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         title: AppTexts.appName,
         themeMode: ThemeMode.system,
         theme: MyAppTheme.lightTheme,
-        darkTheme: MyAppTheme.darkTheme,
+        //darkTheme: MyAppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
           initialBinding: GeneralBindings(),
           locale: const Locale('en'),

@@ -5,6 +5,7 @@ import 'package:torganic/src/common/layouts/gridview_layout/gridview_layout.dart
 import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
+import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/common/widgets/containers/grid_scroll_card.dart';
 import 'package:torganic/src/common/widgets/containers/horizontal_scroll_card.dart';
 import 'package:torganic/src/common/widgets/containers/product_image.dart';
@@ -15,6 +16,7 @@ import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/image_strings.dart';
+import 'widgets/home_appbar_title.dart';
 
 class HomeThree extends StatelessWidget {
   const HomeThree({super.key});
@@ -22,14 +24,10 @@ class HomeThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
-    final isDark = AppHelperFunctions.isDarkMode(context);
+    //final isDark = AppHelperFunctions.isDarkMode(context);
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
-        title: const Row(
-          children: [
-
-          ],
-        ),
+        title: const AppHomeAppBarTitle(),
         body: ListView(
           children:  [
             const AppSearchBar(),
@@ -43,8 +41,17 @@ class HomeThree extends StatelessWidget {
             ),
             const Gap(AppSizes.spaceBtwSections),
             AppHorizontalScrollProduct(
-              productImage: AppImages.productImage3,
-                onTap: (){})
+                onTap: (){},
+              onCartTap: (){},
+              itemCount: 5,
+              isNetworkImage: false,
+              imgUrl: AppImages.productImage3,
+              productName: 'Skin Aqua super Moisture Gel',
+              price: '1450',
+              ratings: '4',
+              reviews: '41',
+              salePrice: '1500',
+            )
            //  AppListViewLayout(
            //    itemCount: 10,
            //    imgUrl: AppImages.productImage5,
@@ -53,3 +60,5 @@ class HomeThree extends StatelessWidget {
         ));
   }
 }
+
+
