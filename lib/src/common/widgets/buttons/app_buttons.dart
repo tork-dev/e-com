@@ -21,7 +21,7 @@ class AppButtons {
   static ElevatedButton largeFlatFilledButton(
       {required VoidCallback onPressed,
       required String buttonText,
-       Color? bcColor,
+       Color? backgroundColor,
       }) {
     return ElevatedButton(
         onPressed: onPressed,
@@ -29,7 +29,7 @@ class AppButtons {
             shape: const BeveledRectangleBorder(),
             minimumSize:
                 Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight),
-            backgroundColor: bcColor,
+            backgroundColor: backgroundColor,
         ),
         child: Text(
           buttonText,

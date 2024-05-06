@@ -18,6 +18,7 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     final signUpController = Get.put(SignUpPageController());
     return AppLayoutWithBackButton(
+      showBackButton: false,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

@@ -13,12 +13,14 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.centerTitle = false,
     this.action,
     this.backgroundColor,
+    this.showBackButton = true,
     super.key});
 
   final Widget? title, body;
   final bool centerTitle;
   final Color? backgroundColor;
   final List<Widget>? action;
+  final bool showBackButton;
 
 
   @override
@@ -28,7 +30,7 @@ class AppLayoutWithBackButton extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
         title: title,
-        showBackArrow: true,
+        showBackArrow: showBackButton,
         centerTitle: centerTitle,
         //backgroundColor: backgroundColor ?? (isDark? AppColors.dark : AppColors.light),
         actions: action,
