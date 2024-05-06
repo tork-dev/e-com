@@ -135,7 +135,7 @@ class SignUpFormsAndButton extends StatelessWidget {
               signUpController.signUp();
             },
             buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signUp : AppLocalizations.of(context)!.sendOtp,
-            bcColor: AppColors.dark_grey,
+            backgroundColor: AppColors.dark_grey,
           )),
           const Gap(AppSizes.sm),
            Text(AppLocalizations.of(context)!.orSignUpWith,

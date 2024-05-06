@@ -49,7 +49,7 @@ class ForgotFormsAndButton extends StatelessWidget {
                 forgotController.sendCode();
               },
               buttonText: AppLocalizations.of(context)!.sendCode,
-          bcColor: AppColors.secondary
+          backgroundColor: AppColors.secondary
           ),
         ],
       ),

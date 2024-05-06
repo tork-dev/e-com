@@ -1,4 +1,5 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -40,6 +41,17 @@ class LogInFormsAndButton extends StatelessWidget {
             obscured: false,
           ),
           const Gap(AppSizes.spaceBtwInputFields),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child:  Text("Password",
+              //textAlign: TextAlign.left,
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           Obx(
             () => Visibility(
               visible: loginController.loginWithPassword.value,
@@ -66,12 +78,17 @@ class LogInFormsAndButton extends StatelessWidget {
           Obx(
             () => AppButtons.largeFlatFilledButton(
                 onPressed: () => loginController.loginWithPassword.value
-                    ? loginController.emailPasswordLogIn()
+                    ? loginController.emailPasswordLogIn(
+                    // email: loginController.emailController.toString(),
+                    // password: loginController.passwordController.toString(),
+                    // remember_me: loginController.rememberMe.value,
+                    // context: context
+                )
                     : loginController.sendCode(),
                 buttonText: loginController.loginWithPassword.value
                     ? AppLocalizations.of(context)!.login
                     : AppLocalizations.of(context)!.sendOtp,
-                bcColor: AppColors.dark_grey,
+                backgroundColor: AppColors.dark_grey,
             ),
           ),
           const Gap(AppSizes.sm),
@@ -89,7 +106,7 @@ class LogInFormsAndButton extends StatelessWidget {
                 buttonText: loginController.loginWithPassword.value
                     ? AppLocalizations.of(context)!.loginWithOtp
                     : AppLocalizations.of(context)!.loginWithPassword,
-            bcColor: loginController.loginWithPassword.value
+            backgroundColor: loginController.loginWithPassword.value
                 ? AppColors.primary : AppColors.sign_up_with_password
             ),
           )

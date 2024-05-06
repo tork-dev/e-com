@@ -37,7 +37,7 @@ class OtpFormsAndButton extends StatelessWidget {
                 otpController.verify();
               },
               buttonText: AppLocalizations.of(context)!.verify,
-          bcColor: AppColors.secondary,
+          backgroundColor: AppColors.secondary,
           ),
         ],
       ),

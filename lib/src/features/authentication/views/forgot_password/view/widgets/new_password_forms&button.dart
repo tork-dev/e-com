@@ -88,7 +88,7 @@ class NewPasswordFormsAndButton extends StatelessWidget {
                newPasswordController.submit();
               },
               buttonText: AppLocalizations.of(context)!.submit,
-          bcColor: AppColors.secondary,
+          backgroundColor: AppColors.secondary,
           ),
         ],
       ),

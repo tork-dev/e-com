@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:http/http.dart' as http;
 
 class AppHttpHelper {
-  static const String _baseUrl = 'https://your-api-base-url.com'; // Replace with your API base URL
+  static const String _baseUrl = 'https://app.kireibd.com/api/v2'; // Replace with your API base URL
 
   // Helper method to make a GET request
   static Future<Map<String, dynamic>> get(String endpoint, modelClass) async {
@@ -15,7 +15,10 @@ class AppHttpHelper {
   static Future<Map<String, dynamic>> post(String endpoint, dynamic data, modelClass) async {
     final response = await http.post(
       Uri.parse('$_baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        "Accept": "*/*",
+        'Content-Type': 'application/json'
+      },
       body: json.encode(data),
     );
     return _handleResponse(response, modelClass);
