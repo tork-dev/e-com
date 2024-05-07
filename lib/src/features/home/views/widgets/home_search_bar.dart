@@ -5,8 +5,8 @@ import 'package:torganic/src/features/home/controller/home_controller.dart';
 
 import '../../../../utils/constants/colors.dart';
 
-class CustomHomeSearchBox extends StatelessWidget {
-  const CustomHomeSearchBox({super.key});
+class AppHomeSearchBox extends StatelessWidget {
+  const AppHomeSearchBox({super.key});
 
 
   @override
@@ -142,14 +142,14 @@ class CustomHomeSearchBox extends StatelessWidget {
           child: TextFormField(
               controller: controller,
               focusNode: focusNode,
-              autofocus: true,
+              //autofocus: true,
               decoration:  InputDecoration(
                 //icon: Icons.search,
                 fillColor: AppColors.grey,
                 filled: true,
                 focusColor: AppColors.grey,
                 prefixIcon: const Icon(Icons.search, color: AppColors.secondary,),
-                hintText: 'Search with AL (EX: Facewash for acne)',
+                hintText: 'Search with AI (EX: Facewash for acne)',
                 hintStyle: Theme.of(context).textTheme.bodySmall,
                 focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
                 border: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.grey, width: 0,), borderRadius: BorderRadius.circular(10)),

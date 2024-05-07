@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/common/layouts/gridview_layout/gridview_layout.dart';
 import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
@@ -38,54 +39,39 @@ class HomeThree extends StatelessWidget {
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
         title: const AppHomeAppBarTitle(),
-        body: Stack(
-          children: [
-            RefreshIndicator(
-              onRefresh: _onRefresh,
-              child: CustomScrollView(
-                  controller: ScrollController(),
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        const Gap(AppSizes.spaceBtwItems),
-                        const CustomHomeSearchBox(),
-                        const Gap(AppSizes.spaceBtwItems),
-                        //AppBannerImage(imgUrl: AppImages.banner2),
-                        const CustomSlider(
-                          items: [
-                            'https://app.kireibd.com/storage/all/Banner-2-8.jpg',
-                            'https://app.kireibd.com/storage/all/Banner-1-OPT.jpg',
-                            // AppImages.banner3,
-                          ],
-                        ),
-                        const Gap(AppSizes.spaceBtwItems),
-                        const HomeFeaturedCategories(),
-                        const Gap(AppSizes.spaceBtwSections),
-                        const AppSectionTitleText(
-                          sectionTitle: 'Best Selling Products',
-                          haveTxtButton: false,
-                        ),
-                        const AppHomeProductCard(),
-                        const Gap(AppSizes.spaceBtwSections),
-                        const AppSectionTitleText(
-                          sectionTitle: 'Popular Searched Products',
-                          haveTxtButton: false,
-                        ),
-                        const AppHomeProductCard(),
-                        const Gap(AppSizes.spaceBtwSections),
-                        const AppSectionTitleText(
-                          sectionTitle: 'Trending Products',
-                          haveTxtButton: false,
-                        ),
-                        const AppHomeProductCard(),
-                        const Gap(AppSizes.spaceBtwSections),
-                      ]),
-                    ),
-                  ]),
-            ),
-          ],
-        ));
+        body: AppLayoutWithRefresher(onRefresh: _onRefresh, children: const [
+          Gap(AppSizes.spaceBtwItems),
+          AppHomeSearchBox(),
+          Gap(AppSizes.spaceBtwItems),
+          //AppBannerImage(imgUrl: AppImages.banner2),
+          CustomSlider(
+            items: [
+              'https://app.kireibd.com/storage/all/Banner-2-8.jpg',
+              'https://app.kireibd.com/storage/all/Banner-1-OPT.jpg',
+              // AppImages.banner3,
+            ],
+          ),
+          Gap(AppSizes.spaceBtwItems),
+          HomeFeaturedCategories(),
+          Gap(AppSizes.spaceBtwItems),
+          AppSectionTitleText(
+            sectionTitle: 'Best Selling Products',
+            haveTxtButton: false,
+          ),
+          AppHomeProductCard(),
+          Gap(AppSizes.spaceBtwSections),
+          AppSectionTitleText(
+            sectionTitle: 'Popular Searched Products',
+            haveTxtButton: false,
+          ),
+          AppHomeProductCard(),
+          Gap(AppSizes.spaceBtwSections),
+          AppSectionTitleText(
+            sectionTitle: 'Trending Products',
+            haveTxtButton: false,
+          ),
+          AppHomeProductCard(),
+          Gap(AppSizes.spaceBtwSections),
+        ]));
   }
 }

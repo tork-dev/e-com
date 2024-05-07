@@ -7,7 +7,7 @@ class HomeFeaturedCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppFeatureCategories(
+    return const AppFeatureCategories(
         itemCount: 20,
         imgUrl: 'https://app.kireibd.com/storage/all/Skin-Care-.png',
         categoryName: 'Skin Care');

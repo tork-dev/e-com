@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/cart/view/cart.dart';
 import 'package:torganic/src/features/home/views/home_three.dart';
+import 'package:torganic/src/features/shop/view/shop.dart';
 
 import '../../utils/constants/colors.dart';
 
@@ -16,7 +17,8 @@ class HelloConvexAppBar extends StatelessWidget {
 
   static const List children = [
     HomeThree(),
-    Cart(),
+    ShopScreen(),
+    CartScreen(),
     // Cart(has_bottomnav: true),
     // Profile(),
   ];

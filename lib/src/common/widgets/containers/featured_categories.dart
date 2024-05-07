@@ -27,8 +27,8 @@ class AppFeatureCategories extends StatelessWidget {
           builderFunction: (BuildContext context, int index) => Column(
             children: [
               AppBannerImage(
-                height: 70,
-                width: 70,
+                height: 60,
+                width: 60,
                 isNetworkImage: true,
                 imgUrl: imgUrl,
               ),

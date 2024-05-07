@@ -25,7 +25,7 @@ class CustomSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(SliderController());
     return AppCardContainer(
-      height: 170,
+      height: 150,
      // width: AppHelperFunctions.screenWidth() * 1,
       //backgroundColor: Colors.black,
       child: Stack(
