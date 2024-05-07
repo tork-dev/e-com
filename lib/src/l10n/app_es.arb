@@ -20,6 +20,7 @@
   "signupWithOtp" : "SIGN UP WITH OTP !",
   "otp" : "AXB4JH",
   "verifyYourself" : "Verify your Phone Number",
+  "verifyYourselfSubtext" : "Enter the verification the code that sent to your phone recently",
   "verify" : "Confirm",
   "login" : "Login",
   "logoutWarning" : "Are you sure you want to Log out?",

@@ -29,7 +29,7 @@ class NewPasswordController extends GetxController{
     final isConnected = await NetworkManager.instance.isConnected();
     try{
       /// Start Loading
-      FullScreenLoader.openLoadingDialog('Processing', AppImages.loaderAnimation);
+      //FullScreenLoader.openLoadingDialog('Processing', AppImages.loaderAnimation);
 
       ///Check Internet
       if(!isConnected) return;
@@ -42,7 +42,7 @@ class NewPasswordController extends GetxController{
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     }finally{
-      FullScreenLoader.stopLoading();
+      //FullScreenLoader.stopLoading();
       if(newPasswordKey.currentState!.validate()){
         Get.offAll(const LogIn());
       }
