@@ -18,6 +18,7 @@ class ShopScreen extends StatelessWidget {
         globalKey: shopController.shopKey,
         backgroundColor: AppColors.primary,
         leadingIconColor: AppColors.white,
+        hasEndDrawer: true,
         action:  const[
           Icon(Icons.search, color: AppColors.white,),
           Gap(AppSizes.sm),
@@ -32,7 +33,14 @@ class ShopScreen extends StatelessWidget {
             enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
           ),
         ),
-        body: Container());
+        body: ListView(
+          children: [
+            Gap(AppSizes.spaceBtwItems),
+            AppButtons.largeFlatFilledButton(
+                onPressed: ()=> shopController.shopKey.currentState!.openEndDrawer(),
+                buttonText: 'open')
+          ],
+        ));
   }
 }
 

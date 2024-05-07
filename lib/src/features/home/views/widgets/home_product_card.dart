@@ -11,6 +11,7 @@ class AppHomeProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppHorizontalScrollProduct(
+      width: 150,
       onTap: () {},
       onCartTap: () {},
       itemCount: 5,

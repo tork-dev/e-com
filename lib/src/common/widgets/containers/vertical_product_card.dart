@@ -4,8 +4,8 @@ import 'card_container.dart';
 import 'course_title_container.dart';
 import 'product_image.dart';
 
-class AppVerticalCourseCard extends StatelessWidget {
-  const AppVerticalCourseCard({
+class AppVerticalProductCard extends StatelessWidget {
+  const AppVerticalProductCard({
     super.key,
     required this.imgUrl,
     required this.onTap,
@@ -20,6 +20,8 @@ class AppVerticalCourseCard extends StatelessWidget {
     required this.isNetworkImage,
     required this.isDiscountAvailable,
     required this.discount,
+     this.height,
+     this.width
   });
 
   final VoidCallback onTap, onCartTap;
@@ -31,12 +33,13 @@ class AppVerticalCourseCard extends StatelessWidget {
   final Color backgroundColor;
   final bool isNetworkImage, isDiscountAvailable;
   final int discount;
+  final double? height, width;
 
   @override
   Widget build(BuildContext context) {
     return AppCardContainer(
-        // height: AppSizes.productItemHeight,
-        width: 150,
+        height: height,
+        width: width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

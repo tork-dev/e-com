@@ -15,6 +15,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
     required this.body,
     this.backgroundColor,
     this.leadingIconColor,
+    this.hasEndDrawer = false,
     this.centerTitle = false,
     this.action,
     this.padding = 12,
@@ -22,7 +23,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
   });
 
   final Widget title, body;
-  final bool centerTitle;
+  final bool centerTitle, hasEndDrawer;
   final List<Widget>? action;
   final dynamic globalKey;
   final double padding;
@@ -37,10 +38,10 @@ class AppLayoutWithDrawer extends StatelessWidget {
         userName: 'User Name',
         email: 'example@email.com',
       ),
-      endDrawer: const AppDrawer(
+      endDrawer: hasEndDrawer? const AppDrawer(
         userName: 'User Name',
         email: 'example@email.com',
-      ),
+      ): null,
       appBar: CustomAppBar(
         title: title,
         showBackArrow: false,
