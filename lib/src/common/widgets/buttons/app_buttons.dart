@@ -66,6 +66,24 @@ class AppButtons {
       ),
     );
   }
+
+     static TextButton textUnderlineButton(
+      {required VoidCallback onPressed,
+        required String buttonText,
+        Color? backgroundColor,
+      }) {
+    return TextButton(
+        onPressed: onPressed,
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            fontSize: AppSizes.md,
+            decoration: TextDecoration.underline,
+            color: backgroundColor,
+            decorationColor: backgroundColor,
+          ),
+        ));
+  }
 }
 
 

@@ -68,7 +68,7 @@ class NewPasswordFormsAndButton extends StatelessWidget {
               isDark: isDark,
               controller: newPasswordController.newConfirmPassword,
               validator: (value) => AppValidator.validateConfirmPassword(
-                  value, newPasswordController),
+                  newPasswordController.newConfirmPassword.text, newPasswordController.newPassword.text),
               hingText: AppLocalizations.of(context)!.confirmPasswordHintText,
               obscured: newPasswordController.confirmPasswordObscured.value,
               suffixIcon: InkWell(
