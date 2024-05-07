@@ -18,18 +18,19 @@ class AppVerticalCourseCard extends StatelessWidget {
     required this.buttonName,
     required this.backgroundColor,
     required this.isNetworkImage,
+    required this.isDiscountAvailable,
+    required this.discount,
   });
 
   final VoidCallback onTap, onCartTap;
-  final String productName,
-      ratings,
+  final String productName, imgUrl, buttonName;
+  final int ratings,
       reviews,
       salePrice,
-      price,
-      imgUrl,
-      buttonName;
+      price;
   final Color backgroundColor;
-  final bool isNetworkImage;
+  final bool isNetworkImage, isDiscountAvailable;
+  final int discount;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +48,8 @@ class AppVerticalCourseCard extends StatelessWidget {
               buttonName: buttonName,
               backgroundColor: backgroundColor,
               fit: BoxFit.fill,
+              isDiscountAvailable: isDiscountAvailable,
+              discount: discount,
             ),
             AppCourseTitleContainer(
                 onTap: onTap,

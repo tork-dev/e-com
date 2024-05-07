@@ -23,7 +23,6 @@ class AppSearchBar extends StatelessWidget {
         children: [
           const Icon(Icons.search_outlined, color: AppColors.darkGrey,),
           const Gap(AppSizes.spaceBtwItems),
-          Text(AppLocalizations.of(context)!.search)
         ],
       ),
     );

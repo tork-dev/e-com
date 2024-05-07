@@ -14,6 +14,8 @@ import 'package:torganic/src/common/widgets/search_bar/search_bar.dart';
 import 'package:torganic/src/common/widgets/slider/view/app_slider.dart';
 import 'package:torganic/src/common/widgets/texts/section_title_text.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
+import 'package:torganic/src/features/home/views/widgets/home_featured_category.dart';
+import 'package:torganic/src/features/home/views/widgets/home_search_bar.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
@@ -36,35 +38,54 @@ class HomeThree extends StatelessWidget {
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
         title: const AppHomeAppBarTitle(),
-        body: RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: ListView(
-            children: const [
-              Gap(AppSizes.spaceBtwItems),
-              AppSearchBar(),
-              Gap(AppSizes.spaceBtwItems),
-              //AppBannerImage(imgUrl: AppImages.banner2),
-              CustomSlider(
-                items: [
-                  'https://app.kireibd.com/storage/all/Banner-2-8.jpg',
-                  'https://app.kireibd.com/storage/all/Banner-1-OPT.jpg',
-                 // AppImages.banner3,
-                ],
-              ),
-              Gap(AppSizes.spaceBtwSections),
-              AppSectionTitleText(sectionTitle: 'Best Selling Products', haveTxtButton: false,),
-              AppHomeProductCard(),
-              Gap(AppSizes.spaceBtwSections),
-              AppSectionTitleText(sectionTitle: 'Popular Searched Products', haveTxtButton: false,),
-              AppHomeProductCard(),
-              Gap(AppSizes.spaceBtwSections),
-              AppSectionTitleText(sectionTitle: 'Trending Products', haveTxtButton: false,),
-              AppHomeProductCard(),
-              Gap(AppSizes.spaceBtwSections),
-            ],
-          ),
+        body: Stack(
+          children: [
+            RefreshIndicator(
+              onRefresh: _onRefresh,
+              child: CustomScrollView(
+                  controller: ScrollController(),
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildListDelegate([
+                        const Gap(AppSizes.spaceBtwItems),
+                        const CustomHomeSearchBox(),
+                        const Gap(AppSizes.spaceBtwItems),
+                        //AppBannerImage(imgUrl: AppImages.banner2),
+                        const CustomSlider(
+                          items: [
+                            'https://app.kireibd.com/storage/all/Banner-2-8.jpg',
+                            'https://app.kireibd.com/storage/all/Banner-1-OPT.jpg',
+                            // AppImages.banner3,
+                          ],
+                        ),
+                        const Gap(AppSizes.spaceBtwItems),
+                        const HomeFeaturedCategories(),
+                        const Gap(AppSizes.spaceBtwSections),
+                        const AppSectionTitleText(
+                          sectionTitle: 'Best Selling Products',
+                          haveTxtButton: false,
+                        ),
+                        const AppHomeProductCard(),
+                        const Gap(AppSizes.spaceBtwSections),
+                        const AppSectionTitleText(
+                          sectionTitle: 'Popular Searched Products',
+                          haveTxtButton: false,
+                        ),
+                        const AppHomeProductCard(),
+                        const Gap(AppSizes.spaceBtwSections),
+                        const AppSectionTitleText(
+                          sectionTitle: 'Trending Products',
+                          haveTxtButton: false,
+                        ),
+                        const AppHomeProductCard(),
+                        const Gap(AppSizes.spaceBtwSections),
+                      ]),
+                    ),
+                  ]),
+            ),
+          ],
         ));
   }
 }
-
-

@@ -18,7 +18,8 @@ class AppCourseTitleContainer extends StatelessWidget {
     required this.price});
 
   final double? height, width;
-  final String productName, ratings, reviews, salePrice, price;
+  final String productName;
+  final int ratings, reviews, salePrice, price;
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
@@ -46,19 +47,19 @@ class AppCourseTitleContainer extends StatelessWidget {
                   RatingBar(
                     itemSize: 12.0,
                     ignoreGestures: true,
-                    initialRating: double.parse(ratings),
+                    initialRating: ratings.toDouble(),
                     direction: Axis.horizontal,
                     allowHalfRating: false,
                     itemCount: 5,
                     ratingWidget: RatingWidget(
-                      full: Icon(Icons.star,
+                      full: const Icon(Icons.star,
                           color: Color.fromRGBO(192, 53, 50, 1)),
-                      empty: Icon(Icons.star,
+                      empty: const Icon(Icons.star,
                           color: Color.fromRGBO(224, 224, 225, 1)),
-                      half: Icon(Icons.star,
+                      half: const Icon(Icons.star,
                           color: Color.fromRGBO(192, 53, 50, 1)),
                     ),
-                    itemPadding: EdgeInsets.only(right: 1.0),
+                    itemPadding: const EdgeInsets.only(right: 1.0),
                     onRatingUpdate: (rating) {
                       //print(rating);
                     },
@@ -68,7 +69,7 @@ class AppCourseTitleContainer extends StatelessWidget {
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
@@ -83,27 +84,27 @@ class AppCourseTitleContainer extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "৳" + price,
+                          "৳$price",
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                          style: TextStyle(
+                          style: const TextStyle(
                               decoration: TextDecoration.lineThrough,
-                              color: AppColors.dark_grey,
+                              color: AppColors.darkGrey,
                               fontSize: 9,
                               fontWeight: FontWeight.w600),
                         ),
-                        Gap(AppSizes.sm)
+                        const Gap(AppSizes.sm)
                       ],
                     ),
                   ),
 
                   Text(
-                    "৳" + salePrice,
+                    "৳$salePrice",
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 11,
                         fontWeight: FontWeight.w600),

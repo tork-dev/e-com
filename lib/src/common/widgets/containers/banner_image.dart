@@ -31,8 +31,8 @@ class AppBannerImage extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: AppCardContainer(
-        //height: 150,
-        //width: AppHelperFunctions.screenWidth() * 1,
+        height: height,
+        width: width,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(AppSizes.md),
           child: isNetworkImage

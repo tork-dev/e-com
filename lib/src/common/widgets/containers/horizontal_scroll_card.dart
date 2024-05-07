@@ -17,20 +17,21 @@ class AppHorizontalScrollProduct extends StatelessWidget {
       required this.price,
       required this.imgUrl,
       this.buttonName = "ADD TO CART",
-      this.backgroundColor = AppColors.add_to_cart_button,
-      this.isNetworkImage = true});
+      this.backgroundColor = AppColors.addToCartButton,
+      this.isNetworkImage = true,
+      required this.isDiscountAvailable,
+      required this.discount});
 
   final VoidCallback onTap, onCartTap;
   final int itemCount;
-  final String productName,
-      ratings,
+  final String productName,imgUrl, buttonName;
+  final int ratings,
       reviews,
       salePrice,
-      price,
-      imgUrl,
-      buttonName;
+      price;
   final Color backgroundColor;
-  final bool isNetworkImage;
+  final bool isNetworkImage, isDiscountAvailable;
+  final int discount;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,8 @@ class AppHorizontalScrollProduct extends StatelessWidget {
                 buttonName: buttonName,
                 backgroundColor: backgroundColor,
                 isNetworkImage: isNetworkImage,
+                isDiscountAvailable: isDiscountAvailable,
+                discount: discount,
               )),
     );
   }

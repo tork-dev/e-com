@@ -34,7 +34,7 @@ class HelloConvexAppBar extends StatelessWidget {
         style: TabStyle.react,
         backgroundColor: AppColors.primary,
         activeColor: AppColors.light,
-
+        color: AppColors.white,
         items: const [
           TabItem(
             icon: Icons.home_outlined,
@@ -44,7 +44,7 @@ class HelloConvexAppBar extends StatelessWidget {
           TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
 
           TabItem(
-            icon: Icon(Icons.shopping_bag_outlined, color: Colors.grey,),
+            icon: Icon(Icons.shopping_bag_outlined, color: AppColors.white,),
             title: 'Cart'
     ),
           TabItem(
