@@ -15,6 +15,8 @@ class ForgotPasswordController extends GetxController{
   ///Controllers
   final forgotPasswordEmail = TextEditingController();
 
+  RxBool isForgotPassword = false.obs;
+
   GlobalKey<FormState> forgotEmailKey = GlobalKey<FormState>();
 
 
@@ -29,7 +31,9 @@ class ForgotPasswordController extends GetxController{
       if(!forgotEmailKey.currentState!.validate()) return;
 
       /// Start Loading
-      FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
+      //FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
+
+      isForgotPassword.value = true;
 
     }catch(e){
       /// Error

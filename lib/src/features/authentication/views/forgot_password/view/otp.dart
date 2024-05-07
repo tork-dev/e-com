@@ -28,7 +28,18 @@ class Otp extends StatelessWidget {
                 color: AppColors.primary
               ),
             ),
-            const Gap(AppSizes.spaceBtwSections),
+
+            const Gap(AppSizes.sm),
+
+            Text(
+              textAlign: TextAlign.center,
+              AppLocalizations.of(context)!.verifyYourselfSubtext,
+              style: Theme.of(context).textTheme.titleMedium!.apply(
+                  color: AppColors.dark_grey,
+              ),
+            ),
+
+            const Gap(AppSizes.lg),
             const OtpFormsAndButton()
           ],
         ),

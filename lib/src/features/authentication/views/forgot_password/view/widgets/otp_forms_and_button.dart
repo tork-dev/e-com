@@ -31,7 +31,20 @@ class OtpFormsAndButton extends StatelessWidget {
             hingText: AppLocalizations.of(context)!.otp,
             obscured: false,
           ),
-          const Gap(AppSizes.spaceBtwSections),
+          const Gap(AppSizes.md),
+
+          Align(
+            alignment: Alignment.centerLeft,
+            child: AppButtons.textUnderlineButton(
+                onPressed: (){
+
+                },
+                buttonText: "Resend Code",
+              backgroundColor: AppColors.primary,
+            ),
+          ),
+
+          const Gap(AppSizes.md),
           AppButtons.largeFlatFilledButton(
               onPressed: () {
                 otpController.verify();

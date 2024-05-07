@@ -155,7 +155,7 @@ class LogInPageController extends GetxController {
       if(!logInFormKey.currentState!.validate()) return;
 
       /// Start Loading
-      FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
+      // FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
 
     }catch(e){
       /// Error

@@ -41,35 +41,39 @@ class LogInFormsAndButton extends StatelessWidget {
             obscured: false,
           ),
           const Gap(AppSizes.spaceBtwInputFields),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child:  Text("Password",
-              //textAlign: TextAlign.left,
-              style: TextStyle(
-                color: AppColors.primary,
-                fontSize: AppSizes.fontSizeSm,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
           Obx(
             () => Visibility(
               visible: loginController.loginWithPassword.value,
-              child: AuthInputField(
-                isDark: isDark,
-                controller: loginController.passwordController,
-                validator: (value) => AppValidator.validatePassword(value),
-                hingText: AppLocalizations.of(context)!.passwordHintText,
-                suffixIcon: InkWell(
-                  onTap: () {
-                    loginController.passwordObscured.value =
+              child: Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child:  Text("Password",
+                      //textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: AppSizes.fontSizeSm,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  AuthInputField(
+                    isDark: isDark,
+                    controller: loginController.passwordController,
+                    validator: (value) => AppValidator.validatePassword(value),
+                    hingText: AppLocalizations.of(context)!.passwordHintText,
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        loginController.passwordObscured.value =
                         !loginController.passwordObscured.value;
-                  },
-                  child: Icon(loginController.passwordObscured.value
-                      ? Icons.remove_red_eye
-                      : Icons.remove_red_eye_outlined),
-                ),
-                obscured: loginController.passwordObscured.value,
+                      },
+                      child: Icon(loginController.passwordObscured.value
+                          ? Icons.remove_red_eye
+                          : Icons.remove_red_eye_outlined),
+                    ),
+                    obscured: loginController.passwordObscured.value,
+                  )
+                ],
               ),
             ),
           ),
