@@ -9,20 +9,25 @@ import '../../drawer/view/drawer.dart';
 import '../../widgets/appbar/custom_app_bar.dart';
 
 class AppLayoutWithDrawer extends StatelessWidget {
-  const AppLayoutWithDrawer(
-      {required this.globalKey,
-      required this.title,
-      required this.body,
-      this.centerTitle = false,
-      this.action,
-      this.padding = 12,
-      super.key});
+  const AppLayoutWithDrawer({
+    required this.globalKey,
+    required this.title,
+    required this.body,
+    this.backgroundColor,
+    this.leadingIconColor,
+    this.hasEndDrawer = false,
+    this.centerTitle = false,
+    this.action,
+    this.padding = 12,
+    super.key,
+  });
 
   final Widget title, body;
-  final bool centerTitle;
+  final bool centerTitle, hasEndDrawer;
   final List<Widget>? action;
   final dynamic globalKey;
   final double padding;
+  final Color? backgroundColor, leadingIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +38,22 @@ class AppLayoutWithDrawer extends StatelessWidget {
         userName: 'User Name',
         email: 'example@email.com',
       ),
+      endDrawer: hasEndDrawer? const AppDrawer(
+        userName: 'User Name',
+        email: 'example@email.com',
+      ): null,
       appBar: CustomAppBar(
         title: title,
         showBackArrow: false,
         leadingIcon: Icons.menu,
         leadingOnPress: () => globalKey.currentState!.openDrawer(),
         centerTitle: centerTitle,
-        //backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor,
+        leadingIconColor: leadingIconColor,
         actions: action,
       ),
-      body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
+      body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: padding), child: body),
     );
   }
 }

@@ -51,7 +51,7 @@ class BottomNavigation extends StatelessWidget {
 List<Widget> _buildScreens() {
   return [
     const HomeThree(),
-    const Cart(),
+    const CartScreen(),
     const GraphScreen(),
     //const Profile()
   ];

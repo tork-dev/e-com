@@ -11,8 +11,8 @@ class AppBannerImage extends StatelessWidget {
     this.onPress,
     required this.imgUrl,
     this.applyImageRadius = true,
-    this.fit = BoxFit.contain,
-    this.boarderRadius = AppSizes.md,
+    this.fit = BoxFit.fill,
+    this.boarderRadius = 12,
     this.isNetworkImage = false,
     this.imageOpacity = 1,
     super.key,
@@ -31,10 +31,10 @@ class AppBannerImage extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: AppCardContainer(
-        //height: 150,
-        //width: AppHelperFunctions.screenWidth() * 1,
+        height: height,
+        width: width,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(AppSizes.md),
+          borderRadius:applyImageRadius? BorderRadius.circular(boarderRadius) : BorderRadius.zero,
           child: isNetworkImage
               ? CachedNetworkImage(
                   imageUrl: imgUrl,

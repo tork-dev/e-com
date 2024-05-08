@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/common/widgets/containers/horizontal_course_card.dart';
+import 'package:torganic/src/common/widgets/containers/horizontal_product_card.dart';
 import 'package:torganic/src/common/widgets/containers/horizontal_scroll_card.dart';
-import 'package:torganic/src/common/widgets/containers/vertical_course_card.dart';
+import 'package:torganic/src/common/widgets/containers/vertical_product_card.dart';
 
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
@@ -21,7 +21,7 @@ class AppVerticalScrollCard extends StatelessWidget {
       child: AppListViewLayout(
           isScrollVertically: true,
           itemCount: 5,
-          builderFunction: (BuildContext context, int index) => AppHorizontalCourseCard(
+          builderFunction: (BuildContext context, int index) => AppHorizontalProductCard(
               onTap: onTap,
             ),
            ),

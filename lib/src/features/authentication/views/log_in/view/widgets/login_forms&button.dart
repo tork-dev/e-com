@@ -92,7 +92,7 @@ class LogInFormsAndButton extends StatelessWidget {
                 buttonText: loginController.loginWithPassword.value
                     ? AppLocalizations.of(context)!.login
                     : AppLocalizations.of(context)!.sendOtp,
-                backgroundColor: AppColors.dark_grey,
+                backgroundColor: AppColors.darkGrey,
             ),
           ),
           const Gap(AppSizes.sm),
@@ -111,7 +111,7 @@ class LogInFormsAndButton extends StatelessWidget {
                     ? AppLocalizations.of(context)!.loginWithOtp
                     : AppLocalizations.of(context)!.loginWithPassword,
             backgroundColor: loginController.loginWithPassword.value
-                ? AppColors.primary : AppColors.sign_up_with_password
+                ? AppColors.primary : AppColors.signUpWithPassword
             ),
           )
         ],

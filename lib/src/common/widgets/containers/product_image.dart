@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:torganic/src/common/styles/spacing_style.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -13,9 +16,11 @@ class AppProductImage extends StatelessWidget {
     required this.imgUrl,
     this.fit = BoxFit.contain,
     this.boarderRadius = AppSizes.md,
-    required this.isNetworkImage ,
-    required this.buttonName ,
+    required this.isNetworkImage,
+    required this.buttonName,
     required this.backgroundColor,
+    required this.isDiscountAvailable,
+    required this.discount,
     super.key,
   });
 
@@ -24,37 +29,62 @@ class AppProductImage extends StatelessWidget {
   final BoxBorder? border;
   final Color backgroundColor;
   final BoxFit? fit;
-  final bool isNetworkImage;
+  final bool isNetworkImage, isDiscountAvailable;
   final double boarderRadius;
   final VoidCallback? onPress, onCartPress;
+  final int discount;
+
 
   @override
   Widget build(BuildContext context) {
     return AppCardContainer(
-      //height: 200,
-     // width: 150,
+      height: height,
+      width: width,
       applyRadius: false,
       //backgroundColor: Colors.black,
       child: Column(
         children: [
           InkWell(
             onTap: onPress,
-            child: AppCardContainer(
-              width: 150,
-              height: 145,
-              applyRadius: false,
-              //backgroundColor: Colors.red,
-                child: ClipRRect(
-                    child: Image(
-                      image: isNetworkImage
-                          ? NetworkImage(imgUrl)
-                          : AssetImage(imgUrl) as ImageProvider,
-                      fit: BoxFit.fill,
-                    )),
-              ),
+            child: Stack(
+              children: [
+                AppCardContainer(
+                  width: 150,
+                  height: 145,
+                  applyRadius: false,
+                  //backgroundColor: Colors.red,
+                  child: ClipRRect(
+                      child: Image(
+                    image: isNetworkImage
+                        ? NetworkImage(imgUrl)
+                        : AssetImage(imgUrl) as ImageProvider,
+                    fit: BoxFit.fill,
+                  )),
+                ),
+                Visibility(
+                  visible: isDiscountAvailable,
+                  child: Positioned(
+                    left: 10,
+                    top: 10,
+                    child: AppCardContainer(
+                        height: 32,
+                        width: 32,
+                        backgroundColor: AppColors.primary,
+                        child: Center(
+                            child: Text(
+                          '-$discount%',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall!
+                              .apply(color: AppColors.light),
+                        ))),
+                  ),
+                )
+              ],
             ),
-           InkWell(
-             onTap: onCartPress,
+          ),
+          InkWell(
+            onTap: onCartPress,
             child: AppCardContainer(
               applyRadius: false,
               height: 40,
@@ -62,9 +92,18 @@ class AppProductImage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                const Icon(Icons.shopping_bag_outlined, size: 17, color: AppColors.white,),
-                Text(' $buttonName', style: Theme.of(context).textTheme.bodyMedium!.apply(color: AppColors.white))
-              ],),
+                  const Icon(
+                    Icons.shopping_bag_outlined,
+                    size: 17,
+                    color: AppColors.white,
+                  ),
+                  Text(' $buttonName',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .apply(color: AppColors.white))
+                ],
+              ),
             ),
           )
         ],

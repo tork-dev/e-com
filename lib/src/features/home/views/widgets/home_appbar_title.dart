@@ -26,12 +26,12 @@ class AppHomeAppBarTitle extends StatelessWidget {
                   const AppCardContainer(
                       height: 40,
                       width: 40,
-                      borderRadius: 100,
+                      //borderRadius: 100,
                       //backgroundColor: Colors.black,
-                      hasBorder: true,
-                      borderWidth: 1,
+                     // hasBorder: true,
+                      //borderWidth: 1,
                       borderColor: AppColors.secondary,
-                      child: Icon(Icons.verified_user))
+                      child: Icon(Icons.account_circle_outlined, color: AppColors.secondary))
                 ]))
       ],
     );

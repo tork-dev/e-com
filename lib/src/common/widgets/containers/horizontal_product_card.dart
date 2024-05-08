@@ -6,8 +6,8 @@ import 'card_container.dart';
 import 'course_title_container.dart';
 import 'product_image.dart';
 
-class AppHorizontalCourseCard extends StatelessWidget {
-  const AppHorizontalCourseCard({required this.onTap,super.key});
+class AppHorizontalProductCard extends StatelessWidget {
+  const AppHorizontalProductCard({required this.onTap,super.key});
 
   final VoidCallback? onTap;
   @override

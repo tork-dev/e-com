@@ -11,8 +11,8 @@ import '../../pdf_viewer/view/pdf_screen.dart';
 import '../../web_view/web_view.dart';
 import '../controllers/cart_controller.dart';
 
-class Cart extends StatelessWidget {
-  const Cart({super.key});
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
