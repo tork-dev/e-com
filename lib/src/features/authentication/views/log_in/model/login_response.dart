@@ -8,11 +8,11 @@ LoginResponse loginResponseFromJson(String str) =>
     LoginResponse.fromJson(json.decode(str));
 
 String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
-// LoginOtpResponse loginOtpResponseFromJson(String str) =>
-//     LoginOtpResponse.fromJson(json.decode(str));
+LoginOtpResponse loginOtpResponseFromJson(String str) =>
+    LoginOtpResponse.fromJson(json.decode(str));
 
-// String loginOtpResponseToJson(LoginOtpResponse data) =>
-//     json.encode(data.toJson());
+String loginOtpResponseToJson(LoginOtpResponse data) =>
+    json.encode(data.toJson());
 
 class LoginResponse {
   //final loginController = LogInPageController.instance;
@@ -50,6 +50,38 @@ class LoginResponse {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
+    return data;
+  }
+}
+
+class LoginOtpResponse {
+  bool? result;
+  String? phone;
+  String? message;
+  //User? user;
+
+  LoginOtpResponse({
+    this.result,
+    this.phone,
+    this.message,
+    //this.user
+  });
+
+  LoginOtpResponse.fromJson(Map<String, dynamic> json) {
+    result = json['result'];
+    phone = json['phone'];
+    message = json['message'];
+    //user = json['user'] != null ? new User.fromJson(json['user']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['result'] = this.result;
+    data['phone'] = this.phone;
+    data['message'] = this.message;
+    // if (this.user != null) {
+    //   data['user'] = this.user!.toJson();
+    // }
     return data;
   }
 }
