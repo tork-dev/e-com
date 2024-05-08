@@ -22,6 +22,17 @@ class AuthHelper{
   }
 
 
+  clearUserData() {
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, false);
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, 0);
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, "");
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, "");
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, "");
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, "");
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, "");
+  }
+
+
   fetch_and_set() async {
     var userByTokenResponse = await LoginRepository().getUserByTokenResponse();
 
