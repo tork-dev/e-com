@@ -35,7 +35,7 @@ class Otp extends StatelessWidget {
               textAlign: TextAlign.center,
               AppLocalizations.of(context)!.verifyYourselfSubtext,
               style: Theme.of(context).textTheme.titleMedium!.apply(
-                  color: AppColors.dark_grey,
+                  color: AppColors.darkGrey,
               ),
             ),
 
