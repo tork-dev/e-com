@@ -39,6 +39,13 @@ class LogInPageController extends GetxController {
   Rx<bool> rememberMe = false.obs;
   List<LoginResponse> loginList = [];
 
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   Future<void> emailPasswordLogIn(
 
       ) async {

@@ -26,6 +26,15 @@ class SignUpPageController extends GetxController {
   Rx<bool> signupWithPassword = false.obs;
   List<SignupResponse> signupList = [];
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   Future<void> signUp() async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
