@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/endpoints.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
+import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/utils/helpers/network_manager.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
@@ -50,25 +51,33 @@ class LogInPageController extends GetxController {
       if (!isConnected) return;
 
       /// Start Loading
-      FullScreenLoader.openLoadingDialog(
-          AppLocalizations.of(Get.overlayContext!)!.processing,
-          AppImages.loading);
+      // FullScreenLoader.openLoadingDialog(
+      //     AppLocalizations.of(Get.overlayContext!)!.processing,
+      //     AppImages.loading);
 
       ///Api Calling
-      var response = LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
-      loginList.add(response as LoginResponse);
-
-      ///Save 
+      var response = await LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
+      //print("After Login: ${response.toString()}");
+      loginList.add(response);
+      //print("List data: ${loginList.toString()}");
+      AuthHelper().setUserData(response);
+      AuthHelper().fetch_and_set();
+      ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
-      
+
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     } finally {
-      FullScreenLoader.stopLoading();
+      //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
-        Get.offAll(const HelloConvexAppBar());
+        print("Condition: ${loginList[0].result}");
+        if(loginList[0].result == true){
+          Get.offAll(const HelloConvexAppBar());
+        } else{
+          AppHelperFunctions.showToast("Unauthorised user");
+        }
       }
     }
   }
