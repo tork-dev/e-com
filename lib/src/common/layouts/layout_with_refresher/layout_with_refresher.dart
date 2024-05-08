@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 
 class AppLayoutWithRefresher extends StatelessWidget {
-  const AppLayoutWithRefresher({super.key, this.onRefresh, required this.children});
+  const AppLayoutWithRefresher({super.key, required this.onRefresh, required this.children});
 
 
   final dynamic onRefresh;
@@ -10,7 +10,7 @@ class AppLayoutWithRefresher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
         children: [
         RefreshIndicator(
           color: AppColors.primary,

@@ -9,10 +9,10 @@ import 'package:torganic/src/utils/constants/colors.dart';
 import 'widgets/drawer_card.dart';
 import 'widgets/header_part.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppEndDrawer extends StatelessWidget {
   final String userName, email;
 
-  const AppDrawer({required this.userName, required this.email, super.key});
+  const AppEndDrawer({required this.userName, required this.email, super.key});
 
   void _showDialog() {
     //final controller = Get.put(AuthRepositories());
@@ -53,28 +53,28 @@ class AppDrawer extends StatelessWidget {
       backgroundColor: AppColors.white,
       applyRadius: false,
       child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DrawerHeaderPart(userName: userName, email: email),
-          DrawerCard(
-            onTap: () {
-              Get.to(()=> const FeedbackForm());
-            },
-            title: AppLocalizations.of(context)!.feedback,
-            icon: Icons.feedback,
-          ),
-          DrawerCard(
-            onTap: ()=> _showDialog(),
-            title: AppLocalizations.of(context)!.logout,
-            icon: Icons.logout,
+          Column(
+            children: [
+              DrawerHeaderPart(userName: userName, email: email),
+              DrawerCard(
+                onTap: () {
+                  Get.to(()=> const FeedbackForm());
+                },
+                title: AppLocalizations.of(context)!.feedback,
+                icon: Icons.feedback,
+              ),
+              DrawerCard(
+                onTap: ()=> _showDialog(),
+                title: AppLocalizations.of(context)!.logout,
+                icon: Icons.logout,
+              ),
+            ],
           ),
         ],
       ),
-            ],
-          ),
     );
   }
 }

@@ -61,6 +61,7 @@ class LogInPageController extends GetxController {
       ///Save 
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
+      print(AppLocalStorage().readData(LocalStorageKeys.isRememberMe).toString());
       
     } catch (e) {
       /// Error
