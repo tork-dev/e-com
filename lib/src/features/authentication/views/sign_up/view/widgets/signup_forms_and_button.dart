@@ -42,7 +42,7 @@ class SignUpFormsAndButton extends StatelessWidget {
                 AuthInputField(
                   isDark: isDark,
                   controller: signUpController.nameController,
-                  validator: (value) => AppValidator.validateEmailOrPhone(value),
+                  validator: (value) => null,
                   hingText: "Your Name",
                   obscured: false,
                 ),
@@ -114,7 +114,7 @@ class SignUpFormsAndButton extends StatelessWidget {
                     isDark: isDark,
                     controller: signUpController.confirmPasswordController,
                     validator: (value) => AppValidator.validateConfirmPassword(
-                        value, signUpController.passwordController),
+                        signUpController.confirmPasswordController.text, signUpController.passwordController.text),
                     hingText: AppLocalizations.of(context)!.confirmPasswordHintText,
                     suffixIcon: InkWell(
                       onTap: () {

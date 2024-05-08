@@ -57,9 +57,7 @@ class LogInPageController extends GetxController {
 
       ///Api Calling
       var response = await LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
-      //print("After Login: ${response.toString()}");
       loginList.add(response);
-      //print("List data: ${loginList.toString()}");
       AuthHelper().setUserData(response);
       AuthHelper().fetch_and_set();
       ///Save
@@ -72,11 +70,11 @@ class LogInPageController extends GetxController {
     } finally {
       //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
-        print("Condition: ${loginList[0].result}");
         if(loginList[0].result == true){
+          AppHelperFunctions.showToast(loginList[0].message.toString());
           Get.offAll(const HelloConvexAppBar());
         } else{
-          AppHelperFunctions.showToast("Unauthorised user");
+          AppHelperFunctions.showToast(loginList[0].message.toString());
         }
       }
     }

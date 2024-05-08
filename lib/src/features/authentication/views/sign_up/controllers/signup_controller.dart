@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/features/authentication/views/sign_up/model/signup_response.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
 import 'package:torganic/src/utils/helpers/network_manager.dart';
 import 'package:torganic/src/utils/popups/loaders.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../../utils/helpers/auth_helper.dart';
+import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../utils/popups/full_screen_loader.dart';
+import '../../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../repository/signup_repository.dart';
 
 class SignUpPageController extends GetxController {
   static SignUpPageController get instance => Get.find();
@@ -19,17 +24,31 @@ class SignUpPageController extends GetxController {
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> confirmPasswordObscured = true.obs;
   Rx<bool> signupWithPassword = false.obs;
+  List<SignupResponse> signupList = [];
 
   Future<void> signUp() async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
       /// Start Loading
-      FullScreenLoader.openLoadingDialog(
-          AppLocalizations.of(Get.overlayContext!)!.processing,
-          AppImages.loaderAnimation);
+      // FullScreenLoader.openLoadingDialog(
+      //     AppLocalizations.of(Get.overlayContext!)!.processing,
+      //     AppImages.loaderAnimation);
 
       ///Check Internet
       if (!isConnected) return;
+
+
+      ///API Calling
+      var response = await SignupRepository().getSignupResponse(
+          nameController.text,
+          emailController.text,
+          passwordController.text,
+          confirmPasswordController.text,
+          "email",
+      );
+
+      signupList.add(response);
+      AuthHelper().setUserData(response);
 
       /// Validate Form
       if (!signupFormKey.currentState!.validate()) return;
@@ -37,7 +56,15 @@ class SignUpPageController extends GetxController {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     } finally {
-      FullScreenLoader.stopLoading();
+      //FullScreenLoader.stopLoading();
+      if(signupFormKey.currentState!.validate()){
+        if(signupList[0].result==true){
+          AppHelperFunctions.showToast(signupList[0].message.toString());
+          Get.offAll(const HelloConvexAppBar());
+        } else{
+          AppHelperFunctions.showToast(signupList[0].message.toString());
+        }
+      }
     }
   }
 }
