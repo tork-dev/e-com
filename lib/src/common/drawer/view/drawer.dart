@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/feedback/view/feedback_form.dart';
+import '../../../utils/helpers/auth_helper.dart';
 import 'widgets/drawer_card.dart';
 import 'widgets/header_part.dart';
 
@@ -27,6 +28,7 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   CupertinoButton(
                       onPressed: () async {
+                        AuthHelper().clearUserData();
                         Get.offAll(const LogIn());
                       },
                       child: Text(
