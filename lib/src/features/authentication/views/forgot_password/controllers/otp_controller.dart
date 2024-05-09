@@ -7,6 +7,9 @@ import 'package:torganic/src/features/authentication/views/forgot_password/view/
 import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:torganic/src/features/authentication/views/log_in/repository/login_repository.dart';
+import 'package:torganic/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
+import 'package:torganic/src/features/authentication/views/sign_up/model/signup_response.dart';
+import 'package:torganic/src/features/authentication/views/sign_up/repository/signup_repository.dart';
 import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
 import 'package:torganic/src/features/home/views/home.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
@@ -20,6 +23,7 @@ import '../../../../bottom_navigation/convex-bottom_navigation.dart';
 class OtpController extends GetxController{
   static OtpController get instance => Get.find();
   final forgetPasswordController = Get.put(ForgotPasswordController());
+  final signUpController = Get.put(SignUpPageController());
   final loginController = LogInPageController.instance;
 
   ///Controllers
@@ -27,8 +31,13 @@ class OtpController extends GetxController{
 
   GlobalKey<FormState> otpKey = GlobalKey<FormState>();
   List<LoginResponse> otpLoginResponse = [];
+  List<SignupResponse> otpSignUpResponse = [];
 
-
+  @override
+  void dispose() {
+    otpCodeController.dispose();
+    super.dispose();
+  }
 
   Future<void> verify({bool? isOtpLogin}) async{
     final isConnected = await NetworkManager.instance.isConnected();
@@ -43,11 +52,18 @@ class OtpController extends GetxController{
       if(!otpKey.currentState!.validate()) return;
 
       ///Api Calling
-      var response = await LoginRepository().getLogInOtpConfirmCodeResponse(
+      var response = signUpController.isSignupOtp.value == true ?
+          await SignupRepository().getSignUpOtpConfirmCodeResponse(
+              signUpController.emailController.text,
+              otpCodeController.text
+          )
+          :
+      await LoginRepository().getLogInOtpConfirmCodeResponse(
           loginController.emailController.text,
           otpCodeController.text,
       );
 
+      //signUpController.isSignupOtp.value == true ? otpSignUpResponse.add(response) :
       otpLoginResponse.add(response);
       print("${otpLoginResponse}");
 
@@ -63,7 +79,7 @@ class OtpController extends GetxController{
       if(otpKey.currentState!.validate()){
         if(otpLoginResponse[0].result == true){
           AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());
-        if(forgetPasswordController.isForgotPassword.value != false ){
+        if(forgetPasswordController.isForgotPassword.value != false && signUpController.isSignupOtp.value != true){
           Get.to(const NewPassword());
         } else {
           Get.to(const HelloConvexAppBar());

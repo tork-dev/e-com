@@ -12,14 +12,13 @@ class SignupRepository{
   final signupController = SignUpPageController.instance;
 
   Future<SignupResponse> getSignupResponse(
-      @required String name,
-      @required String email_or_phone,
-      @required String password,
-      @required String passowrd_confirmation,
-      @required String register_by,
-      //@required BuildContext context,
+       String name,
+       String email_or_phone,
+       String password,
+       String passowrd_confirmation,
+       String register_by,
       ) async {
-    var post_body = jsonEncode({
+    var postBody = jsonEncode({
       "name": "$name",
       "email_or_phone": "${email_or_phone}",
       "password": "$password",
@@ -34,13 +33,45 @@ class SignupRepository{
           "Content-Type": "application/json",
           //"App-Language": app_language.$,
         },
-        body: post_body);
-    print("Request data: ${post_body}");
+        body: postBody);
+    print("Request data: ${postBody}");
     print(response.body);
     return signupResponseFromJson(response.body);
   }
 
+  Future<SignupResponse> getSignupOtpResponse(
+       String phone
+      ) async {
+    var postBody = jsonEncode({
+      "email": "${phone}",
+      //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
+    });
+    print(postBody);
+    Uri url = Uri.parse("${AppApiEndPoints.signupOtp}");
+    print(url);
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: postBody);
+    print(response.body);
+    return signupResponseFromJson(response.body);
+  }
 
+  Future<SignupResponse> getSignUpOtpConfirmCodeResponse(
+       String phone,  String verification_code) async {
+    var postBody =
+    jsonEncode({"email": "$phone", "otp_code": "$verification_code"});
+
+    Uri url = Uri.parse("${AppApiEndPoints.verifySignUpOtp}");
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: postBody);
+    print(response.body);
+    return signupResponseFromJson(response.body);
+  }
 
 
 }

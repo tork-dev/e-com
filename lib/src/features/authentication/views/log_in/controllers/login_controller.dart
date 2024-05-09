@@ -172,26 +172,20 @@ class LogInPageController extends GetxController {
       // FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
 
       ///Api Calling
-      print("Latest");
       var response = await LoginRepository().getLoginOTPResponse(emailController.text.toString(),);
-      print("Latest1");
+
       print("data: ${response.toString()}");
       otpLoginList.add(response);
-      print("data2: ${otpLoginList.toString()}");
-      print("Latest2");
 
     }catch(e){
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     }finally{
       if(logInFormKey.currentState!.validate()){
-        print("Latest3");
         if(otpLoginList[0].result == true){
-          print("Latest4");
           AppHelperFunctions.showToast(otpLoginList[0].message.toString());
           Get.to(const Otp());
         } else{
-          print("Latest5");
           AppHelperFunctions.showToast(otpLoginList[0].message.toString());
         }
       }

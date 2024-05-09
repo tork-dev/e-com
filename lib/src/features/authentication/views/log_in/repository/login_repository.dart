@@ -18,8 +18,8 @@ import '../model/user_by_token_response.dart';
 class LoginRepository{
   final loginController = LogInPageController.instance;
 
-  Future<dynamic> getLoginOTPResponse(@required String phone, ) async {
-    var post_body = jsonEncode({"email": "${phone}",
+  Future<dynamic> getLoginOTPResponse( String phone, ) async {
+    var postBody = jsonEncode({"email": "${phone}",
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
 
@@ -28,33 +28,31 @@ class LoginRepository{
         headers: {
           "Accept": "*/*",
           "Content-Type": "application/json",
-          //"App-Language": app_language.$,
         },
-        body: post_body);
+        body: postBody);
     print(response.body);
    // return loginResponseFromJson(response.body);
     return loginOtpResponseFromJson(response.body);
   }
 
   Future<dynamic> getLogInOtpConfirmCodeResponse(
-      @required String phone, @required String verification_code) async {
-    var post_body =
+       String phone,  String verification_code) async {
+    var postBody =
     jsonEncode({"email": "$phone", "otp_code": "$verification_code"});
 
     Uri url = Uri.parse("${AppApiEndPoints.verifyLoginOtp}");
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
-          //"App-Language": app_language.$,
         },
-        body: post_body);
+        body: postBody);
     print(response.body);
     return loginResponseFromJson(response.body);
   }
 
-  Future<dynamic> getLoginResponse(@required String email,
-      @required String password, @required bool remember_me,) async {
-    var post_body = jsonEncode({
+  Future<dynamic> getLoginResponse( String email,
+       String password,  bool remember_me,) async {
+    var postBody = jsonEncode({
       "email": "${email}",
       "password": "$password",
       "remember_me": remember_me,
@@ -66,10 +64,8 @@ class LoginRepository{
         headers: {
           "Accept": "*/*",
           "Content-Type": "application/json",
-          //"App-Language": app_language.$,
         },
-        body: post_body);
-    print("body data:"+post_body.toString());
+        body: postBody);
     print(response.body.toString());
 
     return loginResponseFromJson(response.body.toString());
@@ -77,14 +73,13 @@ class LoginRepository{
 
   Future<UserByTokenResponse> getUserByTokenResponse() async {
     final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
-    var post_body = jsonEncode({"access_token": "${accessToken}"});
+    var postBody = jsonEncode({"access_token": "${accessToken}"});
     Uri url = Uri.parse("${AppApiEndPoints.getUserAccessToken}");
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
-          //"App-Language": app_language.$,
         },
-        body: post_body);
+        body: postBody);
 
     return userByTokenResponseFromJson(response.body);
   }
