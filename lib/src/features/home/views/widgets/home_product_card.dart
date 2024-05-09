@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
@@ -12,38 +13,18 @@ class AppHomeProductCard extends StatelessWidget {
     super.key,
   });
 
-  final int discount = 30;
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return AppHorizontalScrollProduct(
-  //     width: 150,
-  //     onTap: () {},
-  //     onCartTap: () {},
-  //     itemCount: 5,
-  //     isNetworkImage: true,
-  //     imgUrl: 'https://app.kireibd.com//storage//all//Rohto-Melano-CC-Brightening-Gel.png',
-  //     productName: 'Skin Aqua super Moisture Gel',
-  //     price: 1450,
-  //     ratings: 4,
-  //     reviews: 41,
-  //     salePrice: 1500,
-  //     isDiscountAvailable: discount != 0,
-  //     discount: discount,
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
     print('this the product response ${homeController.homeProductResponse.success}');
     return SizedBox(
       height: 265,
-      child: Obx(() {
-          return AppListViewLayout(
+      child: AppListViewLayout(
                 isScrollVertically: false,
                 itemCount: homeController.homeProductResponse.newProducts!.length,
-                builderFunction: (context, index) => AppVerticalProductCard(
+                builderFunction: (context, index) => homeController.homeProductResponse.success == null?
+                    ShimmerHelper().buildBasicShimmer() :
+                AppVerticalProductCard(
                       //height: height,
                       width: 150,
                       onTap: () {},
@@ -77,9 +58,8 @@ class AppHomeProductCard extends StatelessWidget {
                           0,
                       discount: homeController.homeProductResponse
                           .bestsellingProducts![index].discount!,
-                    ));
-        }
-      )
+                )
+                )
     );
   }
 }

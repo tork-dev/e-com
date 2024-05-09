@@ -9,7 +9,6 @@ import '../../../utils/constants/app_api_end_points.dart';
 
 class HomeRepositories{
   static Future<HomeProductResponse> getHomeProducts() async {
-    try{
       final response = await http.get(Uri.parse(AppApiEndPoints.homeProducts));
       if (response.statusCode == 200) {
         var responseBody = jsonDecode(response.body.toString());
@@ -17,9 +16,5 @@ class HomeRepositories{
       } else {
         throw Exception('Failed to load data: ${response.statusCode}');
       }
-    }catch(e){
-      print(e.toString());
-      return AppLoaders.errorSnackBar(title: e.toString());
-    }
   }
 }
