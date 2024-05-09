@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/feedback/view/feedback_form.dart';
+import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/auth_helper.dart';
 import 'widgets/drawer_card.dart';
 import 'widgets/header_part.dart';
@@ -48,29 +50,33 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          children: [
-            DrawerHeaderPart(userName: userName, email: email),
-            DrawerCard(
-              onTap: () {
-                Get.to(()=> const FeedbackForm());
-              },
-              title: AppLocalizations.of(context)!.feedback,
-              icon: Icons.feedback,
-            ),
-            DrawerCard(
-              onTap: ()=> _showDialog(),
-              title: AppLocalizations.of(context)!.logout,
-              icon: Icons.logout,
-            ),
-          ],
-        ),
-      ],
-    ));
+    return AppCardContainer(
+      width: 300,
+      backgroundColor: AppColors.white,
+      applyRadius: false,
+      child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+      Column(
+        children: [
+          DrawerHeaderPart(userName: userName, email: email),
+          DrawerCard(
+            onTap: () {
+              Get.to(()=> const FeedbackForm());
+            },
+            title: AppLocalizations.of(context)!.feedback,
+            icon: Icons.feedback,
+          ),
+          DrawerCard(
+            onTap: ()=> _showDialog(),
+            title: AppLocalizations.of(context)!.logout,
+            icon: Icons.logout,
+          ),
+        ],
+      ),
+            ],
+          ),
+    );
   }
 }

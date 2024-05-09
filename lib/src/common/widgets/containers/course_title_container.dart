@@ -19,7 +19,8 @@ class AppCourseTitleContainer extends StatelessWidget {
 
   final double? height, width;
   final String productName;
-  final int ratings, reviews, salePrice, price;
+  final double ratings;
+  final int reviews, salePrice, price;
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {

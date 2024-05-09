@@ -62,6 +62,7 @@ class SplashController extends GetxController {
   }
 
   changeScreen() {
+    print(AppLocalStorage().readData(LocalStorageKeys.isRememberMe).toString());
     final isGoogleLogin =
         AppLocalStorage().readData(LocalStorageKeys.isGoogleLogIn) ?? false;
     final isRememberMe =

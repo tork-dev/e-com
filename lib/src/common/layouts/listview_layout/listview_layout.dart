@@ -12,18 +12,20 @@ class AppListViewLayout extends StatelessWidget {
       {required this.itemCount,
         required this.builderFunction,
         this.isScrollVertically = true,
+        this.physics = const BouncingScrollPhysics(),
         super.key});
 
   final int itemCount;
   final bool isScrollVertically;
   final Widget Function(BuildContext context, int index) builderFunction;
+  final ScrollPhysics physics;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         padding: AppSpacingStyle.zeroSpacing,
         shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
+        physics: physics,
         scrollDirection: isScrollVertically ? Axis.vertical : Axis.horizontal,
         itemCount: itemCount,
         itemBuilder: (context, index) {

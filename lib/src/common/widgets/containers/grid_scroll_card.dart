@@ -1,4 +1,6 @@
 // import 'package:flutter/material.dart';
+// import 'package:torganic/src/common/widgets/containers/vertical_product_card.dart';
+// import 'package:torganic/src/utils/constants/colors.dart';
 //
 // import '../../../utils/constants/image_strings.dart';
 // import '../../layouts/gridview_layout/gridview_layout.dart';
@@ -16,19 +18,22 @@
 //   Widget build(BuildContext context) {
 //     return  AppGridViewLayout(
 //       itemCount: itemCount,
-//       child:  AppCardContainer(
-//         onTap: onTap,
-//         child: const Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             AppProductImageContainer(
-//               // fit: BoxFit.fill,
-//                 imgUrl: AppImages.banner2),
-//             //const Gap(AppSizes.spaceBtwRowItem),
-//             AppCourseTitleContainer()
-//           ],
-//         ),
-//       ),
+//       child: AppVerticalProductCard(
+//         onTap: () {  },
+//         onCartTap: () {  },
+//         productName: 'NIVEA UV SUPER WATER GEL',
+//         ratings: 5,
+//         imgUrl: 'https://app.kireibd.com/storage/all/Kumano-Yushi-Deve-Deep-Cleansing-Oil-180ml.jpg',
+//         reviews: 5,
+//         salePrice: 2120,
+//         price: 2500,
+//         buttonName: 'ADD TO CART',
+//         backgroundColor: AppColors.error,
+//         isDiscountAvailable: true,
+//         isNetworkImage: true,
+//         discount: 5,
+//
+//       )
 //     );
 //   }
 // }
