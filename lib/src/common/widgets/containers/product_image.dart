@@ -27,12 +27,12 @@ class AppProductImage extends StatelessWidget {
   final double? height, width;
   final String imgUrl, buttonName;
   final BoxBorder? border;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final BoxFit? fit;
   final bool isNetworkImage, isDiscountAvailable;
-  final double boarderRadius;
+  final double? boarderRadius;
   final VoidCallback? onPress, onCartPress;
-  final int discount;
+  final int? discount;
 
 
   @override

@@ -11,6 +11,7 @@ class HomeRepositories{
       final response = await http.get(Uri.parse(ApiEndPoints.homeProducts));
       if (response.statusCode == 200) {
         var responseBody = jsonDecode(response.body.toString());
+        print(responseBody);
         return HomeProductResponse.fromJson(responseBody);
       } else {
         throw Exception('Failed to load data: ${response.statusCode}');

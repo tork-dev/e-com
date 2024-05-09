@@ -30,7 +30,7 @@ class AppVerticalProductCard extends StatelessWidget {
   final int reviews,
       salePrice,
       price;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final bool isNetworkImage, isDiscountAvailable;
   final int discount;
   final double? height, width;
