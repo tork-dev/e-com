@@ -26,8 +26,8 @@ class AppVerticalProductCard extends StatelessWidget {
 
   final VoidCallback onTap, onCartTap;
   final String productName, imgUrl, buttonName;
-  final int ratings,
-      reviews,
+  final double ratings;
+  final int reviews,
       salePrice,
       price;
   final Color backgroundColor;

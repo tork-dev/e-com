@@ -66,10 +66,10 @@ class ShopScreen extends StatelessWidget {
                 onRefresh: _onRefresh,
                   children:  [
                     const Gap(55),
-                    AppGridScrollCard(
-                      onTap: (){},
-                      itemCount: 20,
-                    )
+                    // AppGridScrollCard(
+                    //   onTap: (){},
+                    //   itemCount: 20,
+                    // )
                   ]),
             ),
              AppBarBottom(

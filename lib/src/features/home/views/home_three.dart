@@ -39,7 +39,8 @@ class HomeThree extends StatelessWidget {
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
         title: const AppHomeAppBarTitle(),
-        body: AppLayoutWithRefresher(onRefresh: _onRefresh, children: const [
+        body: AppLayoutWithRefresher(onRefresh: controller.getProductData,
+            children: const [
           Gap(AppSizes.spaceBtwItems),
           AppHomeSearchBox(),
           Gap(AppSizes.spaceBtwItems),
