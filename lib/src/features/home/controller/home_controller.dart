@@ -15,7 +15,7 @@ class HomeController extends GetxController{
 
   RxInt carousalCurrentIndex = 0.obs;
 
-  HomeProductResponse homeProductResponse = HomeProductResponse();
+  Rx<HomeProductResponse> homeProductResponse = HomeProductResponse().obs;
 
   @override
   void onInit(){
@@ -26,7 +26,7 @@ class HomeController extends GetxController{
 
 
   Future<HomeProductResponse> getProductData() async {
-   return homeProductResponse = await HomeRepositories.getHomeProducts();
+   return homeProductResponse.value = await HomeRepositories.getHomeProducts();
   }
 
 
