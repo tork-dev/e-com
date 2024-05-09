@@ -9,7 +9,7 @@ import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation
 import 'package:torganic/src/features/personalization/controller/user_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/endpoints.dart';
+import 'package:torganic/src/utils/constants/app_api_end_points.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
 import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:torganic/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
 import 'package:http/http.dart' as http;
+import 'package:torganic/src/utils/constants/app_api_end_points.dart';
 
 import '../../../../../utils/constants/app_config.dart';
 import '../model/signup_response.dart';
@@ -27,7 +28,7 @@ class SignupRepository{
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
 
-    Uri url = Uri.parse("${AppConfig.BASE_URL}/auth/signup");
+    Uri url = Uri.parse("${AppApiEndPoints.signUp}");
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
