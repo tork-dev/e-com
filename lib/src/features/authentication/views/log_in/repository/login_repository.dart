@@ -6,7 +6,7 @@ import 'package:torganic/src/features/authentication/views/log_in/model/login_re
 import 'package:torganic/src/utils/constants/app_config.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 
-import '../../../../../utils/constants/endpoints.dart';
+import '../../../../../utils/constants/app_api_end_points.dart';
 import '../../../../../utils/http/http_client.dart';
 import '../../../../../utils/local_storage/storage_utility.dart';
 import '../../../../personalization/model/user_by_token_model.dart';
@@ -23,7 +23,7 @@ class LoginRepository{
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
 
-    Uri url = Uri.parse("${AppConfig.BASE_URL}/send-login-otp");
+    Uri url = Uri.parse("${AppApiEndPoints.loginOtp}");
     final response = await http.post(url,
         headers: {
           "Accept": "*/*",
@@ -41,7 +41,7 @@ class LoginRepository{
     var post_body =
     jsonEncode({"email": "$phone", "otp_code": "$verification_code"});
 
-    Uri url = Uri.parse("${AppConfig.BASE_URL}/verify-login-otp");
+    Uri url = Uri.parse("${AppApiEndPoints.verifyLoginOtp}");
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ class LoginRepository{
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
 
-    Uri url = Uri.parse("${AppConfig.BASE_URL}/${ENDP.LOGIN}");
+    Uri url = Uri.parse("${AppApiEndPoints.logIn}");
     final response = await http.post(url,
         headers: {
           "Accept": "*/*",
@@ -78,7 +78,7 @@ class LoginRepository{
   Future<UserByTokenResponse> getUserByTokenResponse() async {
     final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
     var post_body = jsonEncode({"access_token": "${accessToken}"});
-    Uri url = Uri.parse("${AppConfig.BASE_URL}/get-user-by-access_token");
+    Uri url = Uri.parse("${AppApiEndPoints.getUserAccessToken}");
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
