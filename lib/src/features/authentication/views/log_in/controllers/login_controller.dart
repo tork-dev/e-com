@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/endpoints.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
+import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/utils/helpers/network_manager.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
@@ -37,6 +38,14 @@ class LogInPageController extends GetxController {
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> rememberMe = false.obs;
   List<LoginResponse> loginList = [];
+  List<LoginOtpResponse> otpLoginList = [];
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> emailPasswordLogIn(
 
@@ -50,26 +59,30 @@ class LogInPageController extends GetxController {
       if (!isConnected) return;
 
       /// Start Loading
-      FullScreenLoader.openLoadingDialog(
-          AppLocalizations.of(Get.overlayContext!)!.processing,
-          AppImages.loading);
+      // FullScreenLoader.openLoadingDialog(
+      //     AppLocalizations.of(Get.overlayContext!)!.processing,
+      //     AppImages.loading);
 
       ///Api Calling
-      var response = LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
-      loginList.add(response as LoginResponse);
-
-      ///Save 
+      var response = await LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
+      loginList.add(response);
+      AuthHelper().setUserData(response);
+      AuthHelper().fetch_and_set();
+      ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
-      print(AppLocalStorage().readData(LocalStorageKeys.isRememberMe).toString());
-      
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     } finally {
-      FullScreenLoader.stopLoading();
+      //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
-        Get.offAll(const HelloConvexAppBar());
+        if(loginList[0].result == true){
+          AppHelperFunctions.showToast(loginList[0].message.toString());
+          Get.offAll(const HelloConvexAppBar());
+        } else{
+          AppHelperFunctions.showToast(loginList[0].message.toString());
+        }
       }
     }
   }
@@ -158,12 +171,29 @@ class LogInPageController extends GetxController {
       /// Start Loading
       // FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
 
+      ///Api Calling
+      print("Latest");
+      var response = await LoginRepository().getLoginOTPResponse(emailController.text.toString(),);
+      print("Latest1");
+      print("data: ${response.toString()}");
+      otpLoginList.add(response);
+      print("data2: ${otpLoginList.toString()}");
+      print("Latest2");
+
     }catch(e){
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     }finally{
       if(logInFormKey.currentState!.validate()){
-        Get.to(const Otp());
+        print("Latest3");
+        if(otpLoginList[0].result == true){
+          print("Latest4");
+          AppHelperFunctions.showToast(otpLoginList[0].message.toString());
+          Get.to(const Otp());
+        } else{
+          print("Latest5");
+          AppHelperFunctions.showToast(otpLoginList[0].message.toString());
+        }
       }
     }
   }

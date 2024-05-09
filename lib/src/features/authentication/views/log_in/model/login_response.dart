@@ -1,12 +1,26 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
+
+
+LoginResponse loginResponseFromJson(String str) =>
+    LoginResponse.fromJson(json.decode(str));
+
+String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
+LoginOtpResponse loginOtpResponseFromJson(String str) =>
+    LoginOtpResponse.fromJson(json.decode(str));
+
+String loginOtpResponseToJson(LoginOtpResponse data) =>
+    json.encode(data.toJson());
+
 class LoginResponse {
-  final loginController = LogInPageController.instance;
+  //final loginController = LogInPageController.instance;
   bool? result;
   String? message;
   String? accessToken;
   String? tokenType;
-  Null? expiresAt;
+  DateTime? expiresAt;
   User? user;
 
   LoginResponse(
@@ -40,14 +54,46 @@ class LoginResponse {
   }
 }
 
+class LoginOtpResponse {
+  bool? result;
+  String? phone;
+  String? message;
+  //User? user;
+
+  LoginOtpResponse({
+    this.result,
+    this.phone,
+    this.message,
+    //this.user
+  });
+
+  LoginOtpResponse.fromJson(Map<String, dynamic> json) {
+    result = json['result'];
+    phone = json['phone'];
+    message = json['message'];
+    //user = json['user'] != null ? new User.fromJson(json['user']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['result'] = this.result;
+    data['phone'] = this.phone;
+    data['message'] = this.message;
+    // if (this.user != null) {
+    //   data['user'] = this.user!.toJson();
+    // }
+    return data;
+  }
+}
+
 class User {
   int? id;
   String? type;
   String? name;
   String? email;
-  Null? avatar;
+  String? avatar;
   String? avatarOriginal;
-  Null? phone;
+  String? phone;
   bool? passwordSaved;
 
   User(

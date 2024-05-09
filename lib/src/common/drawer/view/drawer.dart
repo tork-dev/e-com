@@ -5,7 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/feedback/view/feedback_form.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/helpers/auth_helper.dart';
 import 'widgets/drawer_card.dart';
 import 'widgets/header_part.dart';
 
@@ -29,6 +30,7 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   CupertinoButton(
                       onPressed: () async {
+                        AuthHelper().clearUserData();
                         Get.offAll(const LogIn());
                       },
                       child: Text(
