@@ -7,15 +7,21 @@ class AppApiEndPoints {
 
   ///Authentication
   static String logIn = "$baseUrl/auth/login";
-  static String loginOtp = "$baseUrl//send-login-otp";
+  static String loginOtp = "$baseUrl/send-login-otp";
   static String verifyLoginOtp = "$baseUrl/verify-login-otp";
-
   static String getUserAccessToken = "$baseUrl/get-user-by-access_token";
-
   static String signUp = "$baseUrl/auth/signup";
 
-
+  /// Home
   static String homeProducts = "$baseUrl/home-products";
+  static String homeSlider = "$baseUrl/sliders";
+  static String homeFeaturedCategory = "$baseUrl/home-featured-categories";
+  static String sideBarData = "$baseUrl/sidebar-data";
+  static String allCategories = "$baseUrl/all-categories";
+
+  ///Shop
+  static String shopProducts = "$baseUrl/gigalogy/items/search?";
+
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";

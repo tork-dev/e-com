@@ -8,12 +8,14 @@ import 'package:torganic/src/utils/helpers/helper_functions.dart';
 class AppGridViewLayout extends StatelessWidget {
   const AppGridViewLayout(
       {this.crossAxisCount = 2,
-        required this.child,
+        required this.builderFunction,
         required this.itemCount,
+
         super.key});
 
   final int crossAxisCount, itemCount;
-  final Widget child;
+  //final Widget child;
+  final Widget Function(BuildContext context, int index) builderFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class AppGridViewLayout extends StatelessWidget {
 
         ),
         itemBuilder: (context, index) {
-          return child;
+          return builderFunction(context, index);
         });
   }
 }

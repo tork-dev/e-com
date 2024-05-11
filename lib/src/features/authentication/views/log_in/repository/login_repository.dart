@@ -23,7 +23,7 @@ class LoginRepository{
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
 
-    Uri url = Uri.parse("${AppApiEndPoints.loginOtp}");
+    Uri url = Uri.parse(AppApiEndPoints.loginOtp);
     final response = await http.post(url,
         headers: {
           "Accept": "*/*",
@@ -37,17 +37,17 @@ class LoginRepository{
   }
 
   Future<dynamic> getLogInOtpConfirmCodeResponse(
-      @required String phone, @required String verification_code) async {
-    var post_body =
-    jsonEncode({"email": "$phone", "otp_code": "$verification_code"});
+      String phone, String verificationCode) async {
+    var postBody =
+    jsonEncode({"email": phone, "otp_code": verificationCode});
 
-    Uri url = Uri.parse("${AppApiEndPoints.verifyLoginOtp}");
+    Uri url = Uri.parse(AppApiEndPoints.verifyLoginOtp);
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
           //"App-Language": app_language.$,
         },
-        body: post_body);
+        body: postBody);
     print(response.body);
     return loginResponseFromJson(response.body);
   }

@@ -1,21 +1,57 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+import 'package:torganic/src/features/home/model/all_category_model.dart';
+import 'package:torganic/src/features/home/model/home_featured_category_model.dart';
 import 'package:torganic/src/features/home/model/home_products_model.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/utils/popups/loaders.dart';
-
 import '../../../utils/constants/app_api_end_points.dart';
+import '../model/home_sliders_model.dart';
+
 
 class HomeRepositories{
+
+  List<FeaturedCategory> homeCategory = [];
+
   static Future<HomeProductResponse> getHomeProducts() async {
       final response = await http.get(Uri.parse(AppApiEndPoints.homeProducts));
       if (response.statusCode == 200) {
         var responseBody = jsonDecode(response.body.toString());
-        print(responseBody);
         return HomeProductResponse.fromJson(responseBody);
       } else {
         throw Exception('Failed to load data: ${response.statusCode}');
       }
   }
+
+  Future<List<FeaturedCategory>> getHomeFeaturedCategories() async {
+    Uri url = Uri.parse(AppApiEndPoints.homeFeaturedCategory);
+    final response = await http.get(url, headers: {
+      //"App-Language": app_language.$,
+    });
+    return featuredCategoryListFromJson(response.body);
+  }
+
+
+  static Future<HomeSlidersResponse> getHomeSliders() async{
+    final response = await http.get(Uri.parse(AppApiEndPoints.homeSlider));
+    if (response.statusCode == 200) {
+      var responseBody = jsonDecode(response.body.toString());
+      return HomeSlidersResponse.fromJson(responseBody);
+    } else {
+      throw Exception('Failed to load data: ${response.statusCode}');
+    }
+  }
+
+  Future<List<AllCategory>> getAllCategories() async {
+    final Uri url = Uri.parse(AppApiEndPoints.allCategories);
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse.map((category) => AllCategory.fromJson(category)).toList();
+    } else {
+      throw Exception('Failed to load categories');
+    }
+  }
+
+
 }

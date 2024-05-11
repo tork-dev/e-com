@@ -32,6 +32,7 @@
 //         isDiscountAvailable: true,
 //         isNetworkImage: true,
 //         discount: 5,
+//         isStockAvailable: null,
 //
 //       )
 //     );

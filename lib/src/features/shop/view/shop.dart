@@ -9,6 +9,7 @@ import 'package:torganic/src/common/widgets/appbar/appbar_bottom.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
+import 'package:torganic/src/features/shop/view/widget/shop_page_cads.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
@@ -64,12 +65,9 @@ class ShopScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: AppLayoutWithRefresher(
                 onRefresh: _onRefresh,
-                  children:  [
-                    const Gap(55),
-                    // AppGridScrollCard(
-                    //   onTap: (){},
-                    //   itemCount: 20,
-                    // )
+                  children:  const [
+                    Gap(55),
+                    AppShopGridScrollCard()
                   ]),
             ),
              AppBarBottom(

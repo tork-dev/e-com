@@ -22,6 +22,7 @@ class AppProductImage extends StatelessWidget {
     required this.isDiscountAvailable,
     required this.discount,
     super.key,
+    required this.isStockAvailable,
   });
 
   final double? height, width;
@@ -29,7 +30,7 @@ class AppProductImage extends StatelessWidget {
   final BoxBorder? border;
   final Color? backgroundColor;
   final BoxFit? fit;
-  final bool isNetworkImage, isDiscountAvailable;
+  final bool isNetworkImage, isDiscountAvailable, isStockAvailable;
   final double? boarderRadius;
   final VoidCallback? onPress, onCartPress;
   final int? discount;
@@ -92,10 +93,13 @@ class AppProductImage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.shopping_bag_outlined,
-                    size: 17,
-                    color: AppColors.white,
+                  Visibility(
+                    visible: isStockAvailable,
+                    child: const Icon(
+                      Icons.shopping_bag_outlined,
+                      size: 17,
+                      color: AppColors.white,
+                    ),
                   ),
                   Text(' $buttonName',
                       style: Theme.of(context)

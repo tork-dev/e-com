@@ -1,42 +1,42 @@
 import 'dart:convert';
 
-class HomeProductResponse {
-  List<Product>? newProducts;
-  List<Product>? bestsellingProducts;
-  List<Product>? featuredProducts;
-  bool? success;
-  int? status;
+class ShopPageResponse {
+  bool? result;
+  List<Datum>? data;
+  String? others;
+  Meta? meta;
+  String? message;
 
-  HomeProductResponse({
-    this.newProducts,
-    this.bestsellingProducts,
-    this.featuredProducts,
-    this.success,
-    this.status,
+  ShopPageResponse({
+    this.result,
+    this.data,
+    this.others,
+    this.meta,
+    this.message,
   });
 
-  factory HomeProductResponse.fromRawJson(String str) => HomeProductResponse.fromJson(json.decode(str));
+  factory ShopPageResponse.fromRawJson(String str) => ShopPageResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory HomeProductResponse.fromJson(Map<String, dynamic> json) => HomeProductResponse(
-    newProducts: json["new_products"] == null ? [] : List<Product>.from(json["new_products"]!.map((x) => Product.fromJson(x))),
-    bestsellingProducts: json["bestselling_products"] == null ? [] : List<Product>.from(json["bestselling_products"]!.map((x) => Product.fromJson(x))),
-    featuredProducts: json["featured_products"] == null ? [] : List<Product>.from(json["featured_products"]!.map((x) => Product.fromJson(x))),
-    success: json["success"],
-    status: json["status"],
+  factory ShopPageResponse.fromJson(Map<String, dynamic> json) => ShopPageResponse(
+    result: json["result"],
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+    others: json["others"],
+    meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
+    message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
-    "new_products": newProducts == null ? [] : List<dynamic>.from(newProducts!.map((x) => x.toJson())),
-    "bestselling_products": bestsellingProducts == null ? [] : List<dynamic>.from(bestsellingProducts!.map((x) => x.toJson())),
-    "featured_products": featuredProducts == null ? [] : List<dynamic>.from(featuredProducts!.map((x) => x.toJson())),
-    "success": success,
-    "status": status,
+    "result": result,
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "others": others,
+    "meta": meta?.toJson(),
+    "message": message,
   };
 }
 
-class Product {
+class Datum {
   int? id;
   String? name;
   String? slug;
@@ -52,12 +52,12 @@ class Product {
   List<GoodFor>? keyIngredients;
   List<GoodFor>? goodFor;
   int? preorderAvailable;
-  PreorderDate? preorderDeliveryDate;
+  PreorderDeliveryDate? preorderDeliveryDate;
   int? preorderAmount;
-  PreorderDate? preorderStartDate;
+  PreorderStartDate? preorderStartDate;
   PreorderEndDate? preorderEndDate;
   int? saleCount;
-  double? ratings;
+  int? ratings;
   int? reviews;
   int? isHot;
   bool? isSale;
@@ -84,7 +84,7 @@ class Product {
   String? metaTags;
   String? productLink;
 
-  Product({
+  Datum({
     this.id,
     this.name,
     this.slug,
@@ -133,11 +133,11 @@ class Product {
     this.productLink,
   });
 
-  factory Product.fromRawJson(String str) => Product.fromJson(json.decode(str));
+  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     name: json["name"],
     slug: json["slug"],
@@ -153,12 +153,12 @@ class Product {
     keyIngredients: json["key_ingredients"] == null ? [] : List<GoodFor>.from(json["key_ingredients"]!.map((x) => GoodFor.fromJson(x))),
     goodFor: json["good_for"] == null ? [] : List<GoodFor>.from(json["good_for"]!.map((x) => GoodFor.fromJson(x))),
     preorderAvailable: json["preorder_available"],
-    preorderDeliveryDate: preorderDateValues.map[json["preorder_delivery_date"]]!,
+    preorderDeliveryDate: preorderDeliveryDateValues.map[json["preorder_delivery_date"]]!,
     preorderAmount: json["preorder_amount"],
-    preorderStartDate: preorderDateValues.map[json["preorder_start_date"]]!,
+    preorderStartDate: preorderStartDateValues.map[json["preorder_start_date"]]!,
     preorderEndDate: preorderEndDateValues.map[json["preorder_end_date"]]!,
     saleCount: json["sale_count"],
-    ratings: json["ratings"]?.toDouble(),
+    ratings: json["ratings"],
     reviews: json["reviews"],
     isHot: json["is_hot"],
     isSale: json["is_sale"],
@@ -202,9 +202,9 @@ class Product {
     "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x.toJson())),
     "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x.toJson())),
     "preorder_available": preorderAvailable,
-    "preorder_delivery_date": preorderDateValues.reverse[preorderDeliveryDate],
+    "preorder_delivery_date": preorderDeliveryDateValues.reverse[preorderDeliveryDate],
     "preorder_amount": preorderAmount,
-    "preorder_start_date": preorderDateValues.reverse[preorderStartDate],
+    "preorder_start_date": preorderStartDateValues.reverse[preorderStartDate],
     "preorder_end_date": preorderEndDateValues.reverse[preorderEndDate],
     "sale_count": saleCount,
     "ratings": ratings,
@@ -344,18 +344,14 @@ class LargePicturePivot {
   };
 }
 
-enum PreorderDate {
-  THE_01011970,
-  THE_20042024,
+enum PreorderDeliveryDate {
   THE_25042024,
   THE_30110001
 }
 
-final preorderDateValues = EnumValues({
-  "01-01-1970": PreorderDate.THE_01011970,
-  "20-04-2024": PreorderDate.THE_20042024,
-  "25-04-2024": PreorderDate.THE_25042024,
-  "30-11--0001": PreorderDate.THE_30110001
+final preorderDeliveryDateValues = EnumValues({
+  "25-04-2024": PreorderDeliveryDate.THE_25042024,
+  "30-11--0001": PreorderDeliveryDate.THE_30110001
 });
 
 enum PreorderEndDate {
@@ -364,6 +360,14 @@ enum PreorderEndDate {
 
 final preorderEndDateValues = EnumValues({
   "11-05-2024": PreorderEndDate.THE_11052024
+});
+
+enum PreorderStartDate {
+  THE_01011970
+}
+
+final preorderStartDateValues = EnumValues({
+  "01-01-1970": PreorderStartDate.THE_01011970
 });
 
 class ProductBrand {
@@ -471,6 +475,54 @@ class ProductCategoryPivot {
   Map<String, dynamic> toJson() => {
     "product_id": productId,
     "product_category_id": productCategoryId,
+  };
+}
+
+class Meta {
+  int? currentPage;
+  int? from;
+  int? lastPage;
+  List<String>? links;
+  String? path;
+  int? perPage;
+  int? to;
+  int? total;
+
+  Meta({
+    this.currentPage,
+    this.from,
+    this.lastPage,
+    this.links,
+    this.path,
+    this.perPage,
+    this.to,
+    this.total,
+  });
+
+  factory Meta.fromRawJson(String str) => Meta.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+    currentPage: json["current_page"],
+    from: json["from"],
+    lastPage: json["last_page"],
+    links: json["links"] == null ? [] : List<String>.from(json["links"]!.map((x) => x)),
+    path: json["path"],
+    perPage: json["per_page"],
+    to: json["to"],
+    total: json["total"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "current_page": currentPage,
+    "from": from,
+    "last_page": lastPage,
+    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x)),
+    "path": path,
+    "per_page": perPage,
+    "to": to,
+    "total": total,
   };
 }
 
