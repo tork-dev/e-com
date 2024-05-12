@@ -23,13 +23,13 @@ class AuthHelper{
 
 
   clearUserData() {
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, false);
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, 0);
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, "");
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, "");
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, "");
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, "");
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, "");
+    AppLocalStorage().removeData(LocalStorageKeys.isLoggedIn);
+    AppLocalStorage().removeData(LocalStorageKeys.userId);
+    AppLocalStorage().removeData(LocalStorageKeys.userName);
+    AppLocalStorage().removeData(LocalStorageKeys.userEmail);
+    AppLocalStorage().removeData(LocalStorageKeys.userPhone);
+    AppLocalStorage().removeData(LocalStorageKeys.userHavePassword);
+    AppLocalStorage().removeData(LocalStorageKeys.avatarOriginal);
   }
 
 

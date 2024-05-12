@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import '../../utils/local_storage/local_storage_keys.dart';
+import '../../utils/local_storage/storage_utility.dart';
+import '../authentication/views/log_in/view/login.dart';
+
 
 class ConvexBottomNavController extends GetxController{
   static ConvexBottomNavController get instance => Get.find();
@@ -8,5 +11,8 @@ class ConvexBottomNavController extends GetxController{
 
   void changePage(int index){
      pageIndex.value = index;
+     if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null && pageIndex.value == 3){
+       Get.offAll(()=> const LogIn());
+     }
   }
 }

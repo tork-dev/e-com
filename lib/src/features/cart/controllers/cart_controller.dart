@@ -7,4 +7,9 @@ class CartController extends GetxController{
   /// Key
   final GlobalKey<ScaffoldState> cartKey = GlobalKey<ScaffoldState>();
 
+
+  Future <void> onRefresh ()async {
+     print('refresh');
+  }
+
 }

@@ -11,6 +11,7 @@ class AppCardContainer extends StatelessWidget {
     this.backgroundColor,
     this.gradient,
     this.padding,
+    this.margin,
     this.borderRadius = AppSizes.cardRadiusLg,
     this.applyRadius = true,
     this.hasBorder = false,
@@ -19,15 +20,16 @@ class AppCardContainer extends StatelessWidget {
     required this.child,
     this.onTap,
     this.applyShadow = false,
+    this.isCircle = false,
     super.key});
 
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? padding, margin;
   final Color? backgroundColor, borderColor;
   final Gradient? gradient;
   final bool applyRadius;
   final double borderRadius;
   final double? height, width, borderWidth;
-  final bool hasBorder, applyShadow;
+  final bool hasBorder, applyShadow, isCircle;
   final Widget child;
   final VoidCallback? onTap;
 
@@ -36,15 +38,16 @@ class AppCardContainer extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
+        margin: margin,
         padding: padding,
         height: height,
         width: width,
         decoration: BoxDecoration(
           color: backgroundColor,
           gradient: gradient,
-
+          shape: isCircle? BoxShape.circle : BoxShape.rectangle,
           border: hasBorder ? Border.all(color: borderColor!, width: borderWidth!) : null,
-          borderRadius: applyRadius? BorderRadius.circular(borderRadius) : BorderRadius.zero,
+          borderRadius: applyRadius? BorderRadius.circular(borderRadius) : null,
           boxShadow: applyShadow? [
             const BoxShadow(color: AppColors.grey, blurRadius: 10)
           ]: null

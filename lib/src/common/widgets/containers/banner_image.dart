@@ -14,7 +14,7 @@ class AppBannerImage extends StatelessWidget {
     this.fit = BoxFit.fill,
     this.boarderRadius = 12,
     this.isNetworkImage = false,
-    this.imageOpacity = 1,
+    this.imageOpacity = 1.0,
     super.key,
   });
 
@@ -36,7 +36,9 @@ class AppBannerImage extends StatelessWidget {
         child: ClipRRect(
           borderRadius:applyImageRadius? BorderRadius.circular(boarderRadius) : BorderRadius.zero,
           child: isNetworkImage
-              ? CachedNetworkImage(
+              ?
+              //Image(image: NetworkImage(imgUrl), fit: fit,)
+          CachedNetworkImage(
                   imageUrl: imgUrl,
                   fit: fit,
                   placeholder: (context, url) =>
@@ -46,7 +48,7 @@ class AppBannerImage extends StatelessWidget {
               : Image(
                   image: AssetImage(imgUrl) as ImageProvider,
                   fit: fit,
-                  opacity: AlwaysStoppedAnimation(imageOpacity!),
+                  //opacity: AlwaysStoppedAnimation(imageOpacity!),
                   //color: Colors.red.withOpacity(.2),
                 ),
         ),
