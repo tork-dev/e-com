@@ -52,10 +52,10 @@ class Product {
   List<GoodFor>? keyIngredients;
   List<GoodFor>? goodFor;
   int? preorderAvailable;
-  PreorderDate? preorderDeliveryDate;
+  PreorderDeliveryDate? preorderDeliveryDate;
   int? preorderAmount;
   PreorderDate? preorderStartDate;
-  PreorderEndDate? preorderEndDate;
+  PreorderDate? preorderEndDate;
   int? saleCount;
   double? ratings;
   int? reviews;
@@ -153,10 +153,10 @@ class Product {
     keyIngredients: json["key_ingredients"] == null ? [] : List<GoodFor>.from(json["key_ingredients"]!.map((x) => GoodFor.fromJson(x))),
     goodFor: json["good_for"] == null ? [] : List<GoodFor>.from(json["good_for"]!.map((x) => GoodFor.fromJson(x))),
     preorderAvailable: json["preorder_available"],
-    preorderDeliveryDate: preorderDateValues.map[json["preorder_delivery_date"]]!,
+    preorderDeliveryDate: preorderDeliveryDateValues.map[json["preorder_delivery_date"]]!,
     preorderAmount: json["preorder_amount"],
     preorderStartDate: preorderDateValues.map[json["preorder_start_date"]]!,
-    preorderEndDate: preorderEndDateValues.map[json["preorder_end_date"]]!,
+    preorderEndDate: preorderDateValues.map[json["preorder_end_date"]]!,
     saleCount: json["sale_count"],
     ratings: json["ratings"]?.toDouble(),
     reviews: json["reviews"],
@@ -202,10 +202,10 @@ class Product {
     "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x.toJson())),
     "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x.toJson())),
     "preorder_available": preorderAvailable,
-    "preorder_delivery_date": preorderDateValues.reverse[preorderDeliveryDate],
+    "preorder_delivery_date": preorderDeliveryDateValues.reverse[preorderDeliveryDate],
     "preorder_amount": preorderAmount,
     "preorder_start_date": preorderDateValues.reverse[preorderStartDate],
-    "preorder_end_date": preorderEndDateValues.reverse[preorderEndDate],
+    "preorder_end_date": preorderDateValues.reverse[preorderEndDate],
     "sale_count": saleCount,
     "ratings": ratings,
     "reviews": reviews,
@@ -344,26 +344,32 @@ class LargePicturePivot {
   };
 }
 
+enum PreorderDeliveryDate {
+  THE_01011970,
+  THE_30110001
+}
+
+final preorderDeliveryDateValues = EnumValues({
+  "01-01-1970": PreorderDeliveryDate.THE_01011970,
+  "30-11--0001": PreorderDeliveryDate.THE_30110001
+});
+
 enum PreorderDate {
   THE_01011970,
-  THE_20042024,
-  THE_25042024,
-  THE_30110001
+  THE_12052024,
+  THE_15012023,
+  THE_20012023,
+  THE_21012023,
+  THE_24012023
 }
 
 final preorderDateValues = EnumValues({
   "01-01-1970": PreorderDate.THE_01011970,
-  "20-04-2024": PreorderDate.THE_20042024,
-  "25-04-2024": PreorderDate.THE_25042024,
-  "30-11--0001": PreorderDate.THE_30110001
-});
-
-enum PreorderEndDate {
-  THE_11052024
-}
-
-final preorderEndDateValues = EnumValues({
-  "11-05-2024": PreorderEndDate.THE_11052024
+  "12-05-2024": PreorderDate.THE_12052024,
+  "15-01-2023": PreorderDate.THE_15012023,
+  "20-01-2023": PreorderDate.THE_20012023,
+  "21-01-2023": PreorderDate.THE_21012023,
+  "24-01-2023": PreorderDate.THE_24012023
 });
 
 class ProductBrand {

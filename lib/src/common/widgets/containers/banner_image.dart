@@ -12,7 +12,7 @@ class AppBannerImage extends StatelessWidget {
     required this.imgUrl,
     this.applyImageRadius = true,
     this.fit = BoxFit.fill,
-    //this.boarderRadius = 12,
+    this.boarderRadius = 12,
     this.isNetworkImage = false,
     this.imageOpacity = 1.0,
     super.key,
@@ -23,7 +23,7 @@ class AppBannerImage extends StatelessWidget {
   final bool applyImageRadius;
   final BoxFit? fit;
   final bool isNetworkImage;
-  //final double boarderRadius;
+  final double boarderRadius;
   final VoidCallback? onPress;
 
   @override
@@ -34,7 +34,7 @@ class AppBannerImage extends StatelessWidget {
         height: height,
         width: width,
         child: ClipRRect(
-          borderRadius:applyImageRadius? BorderRadius.circular(12) : BorderRadius.zero,
+          borderRadius:applyImageRadius? BorderRadius.circular(boarderRadius) : BorderRadius.zero,
           child: isNetworkImage
               ?
               //Image(image: NetworkImage(imgUrl), fit: fit,)

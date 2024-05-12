@@ -5,7 +5,7 @@ import '../../utils/helpers/helper_functions.dart';
 
 class AppDividersStyle{
   static Container fullFlatAppDivider = Container(
-    width: AppHelperFunctions.screenWidth() * 0.3,
+    width: AppHelperFunctions.screenWidth() * 1,
     color: AppColors.grey,
     height: 1,
   );

@@ -27,7 +27,8 @@ class AppGridViewLayout extends StatelessWidget {
           crossAxisCount: crossAxisCount,
           crossAxisSpacing: AppSizes.spaceBtwItems,
           mainAxisSpacing: AppSizes.spaceBtwItems,
-          mainAxisExtent: AppHelperFunctions.screenHeight() * 0.30,
+         childAspectRatio: 0.69
+         // mainAxisExtent: AppHelperFunctions.screenHeight() * 0.30,
 
         ),
         itemBuilder: (context, index) {

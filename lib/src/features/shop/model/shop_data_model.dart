@@ -54,8 +54,8 @@ class Datum {
   int? preorderAvailable;
   PreorderDeliveryDate? preorderDeliveryDate;
   int? preorderAmount;
-  PreorderStartDate? preorderStartDate;
-  PreorderEndDate? preorderEndDate;
+  PreorderDate? preorderStartDate;
+  PreorderDate? preorderEndDate;
   int? saleCount;
   int? ratings;
   int? reviews;
@@ -155,8 +155,8 @@ class Datum {
     preorderAvailable: json["preorder_available"],
     preorderDeliveryDate: preorderDeliveryDateValues.map[json["preorder_delivery_date"]]!,
     preorderAmount: json["preorder_amount"],
-    preorderStartDate: preorderStartDateValues.map[json["preorder_start_date"]]!,
-    preorderEndDate: preorderEndDateValues.map[json["preorder_end_date"]]!,
+    preorderStartDate: preorderDateValues.map[json["preorder_start_date"]]!,
+    preorderEndDate: preorderDateValues.map[json["preorder_end_date"]]!,
     saleCount: json["sale_count"],
     ratings: json["ratings"],
     reviews: json["reviews"],
@@ -204,8 +204,8 @@ class Datum {
     "preorder_available": preorderAvailable,
     "preorder_delivery_date": preorderDeliveryDateValues.reverse[preorderDeliveryDate],
     "preorder_amount": preorderAmount,
-    "preorder_start_date": preorderStartDateValues.reverse[preorderStartDate],
-    "preorder_end_date": preorderEndDateValues.reverse[preorderEndDate],
+    "preorder_start_date": preorderDateValues.reverse[preorderStartDate],
+    "preorder_end_date": preorderDateValues.reverse[preorderEndDate],
     "sale_count": saleCount,
     "ratings": ratings,
     "reviews": reviews,
@@ -345,29 +345,21 @@ class LargePicturePivot {
 }
 
 enum PreorderDeliveryDate {
-  THE_25042024,
+  THE_30042024,
   THE_30110001
 }
 
 final preorderDeliveryDateValues = EnumValues({
-  "25-04-2024": PreorderDeliveryDate.THE_25042024,
+  "30-04-2024": PreorderDeliveryDate.THE_30042024,
   "30-11--0001": PreorderDeliveryDate.THE_30110001
 });
 
-enum PreorderEndDate {
-  THE_11052024
+enum PreorderDate {
+  THE_12052024
 }
 
-final preorderEndDateValues = EnumValues({
-  "11-05-2024": PreorderEndDate.THE_11052024
-});
-
-enum PreorderStartDate {
-  THE_01011970
-}
-
-final preorderStartDateValues = EnumValues({
-  "01-01-1970": PreorderStartDate.THE_01011970
+final preorderDateValues = EnumValues({
+  "12-05-2024": PreorderDate.THE_12052024
 });
 
 class ProductBrand {
