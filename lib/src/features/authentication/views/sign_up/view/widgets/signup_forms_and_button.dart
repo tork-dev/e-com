@@ -132,7 +132,7 @@ class SignUpFormsAndButton extends StatelessWidget {
               ))),
           Obx(() => AppButtons.largeFlatFilledButton(
             onPressed: () {
-              signUpController.signUp();
+              signUpController.signupWithPassword.value ? signUpController.emailPasswordSignUp() : signUpController.sendOtpSignUp();
             },
             buttonText: signUpController.signupWithPassword.value ? AppLocalizations.of(context)!.signUp : AppLocalizations.of(context)!.sendOtp,
             backgroundColor: AppColors.darkGrey,

@@ -11,6 +11,8 @@ class AppApiEndPoints {
   static String verifyLoginOtp = "$baseUrl/verify-login-otp";
   static String getUserAccessToken = "$baseUrl/get-user-by-access_token";
   static String signUp = "$baseUrl/auth/signup";
+  static String signupOtp = "$baseUrl/send-signup-otp";
+  static String verifySignUpOtp = "$baseUrl/verify-signup-otp";
 
   /// Home
   static String homeProducts = "$baseUrl/home-products";

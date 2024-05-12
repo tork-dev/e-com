@@ -40,7 +40,7 @@ class ForgotPasswordController extends GetxController{
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     }finally{
       if(forgotEmailKey.currentState!.validate()){
-        FullScreenLoader.stopLoading();
+        //FullScreenLoader.stopLoading();
         Get.to(()=> const Otp());
 
       }
