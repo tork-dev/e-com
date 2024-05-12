@@ -63,7 +63,7 @@ class OtpController extends GetxController{
           otpCodeController.text,
       );
 
-      //signUpController.isSignupOtp.value == true ? otpSignUpResponse.add(response) :
+      signUpController.isSignupOtp.value == true ? otpSignUpResponse.add(response) :
       otpLoginResponse.add(response);
       print("${otpLoginResponse}");
 
@@ -77,15 +77,16 @@ class OtpController extends GetxController{
     }finally{
       //FullScreenLoader.stopLoading();
       if(otpKey.currentState!.validate()){
-        if(otpLoginResponse[0].result == true){
-          AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());
-        if(forgetPasswordController.isForgotPassword.value != false && signUpController.isSignupOtp.value != true){
+        if(signUpController.isSignupOtp.value == true ? otpSignUpResponse[0].result == true : otpLoginResponse[0].result == true){
+          signUpController.isSignupOtp.value == true ? AppHelperFunctions.showToast(otpSignUpResponse[0].message.toString()) : AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());
+        if(forgetPasswordController.isForgotPassword.value != false || signUpController.isSignupOtp.value != true){
           Get.to(const NewPassword());
         } else {
           Get.to(const HelloConvexAppBar());
         }
       } else{
-          AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());
+          //AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());
+          signUpController.isSignupOtp.value == true ? AppHelperFunctions.showToast(otpSignUpResponse[0].message.toString()) : AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());
         }
       }
     }
