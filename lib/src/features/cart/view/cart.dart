@@ -1,15 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/widgets/appbar/sliver_app_bar.dart';
-import 'package:torganic/src/features/payment_gateway/bkash/payment_page.dart';
-import 'package:torganic/src/features/pdf_generator/view/pdf.dart';
-import '../../../common/layouts/layout_with_drawer/layout_with_drawer.dart';
-import '../../../common/widgets/buttons/app_buttons.dart';
-import '../../../utils/constants/sizes.dart';
-import '../../pdf_viewer/view/pdf_screen.dart';
-import '../../web_view/web_view.dart';
-import '../controllers/cart_controller.dart';
+import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:torganic/src/common/widgets/containers/horizontal_product_card.dart';
+import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
+import 'package:torganic/src/features/cart/view/widgets/cart_proceed_button.dart';
+import 'package:torganic/src/features/cart/view/widgets/cart_screen_card.dart';
+import 'package:torganic/src/features/cart/view/widgets/log_out_view.dart';
+import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
+import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -18,58 +22,36 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(CartController());
     return AppLayoutWithDrawer(
-      globalKey: controller.cartKey,
-      title: const Text('Cart'),
-      body: RefreshIndicator(
-        onRefresh: (){
-          return Future.delayed(const Duration(seconds: 5));
-        },
-        child: ListView(
+        globalKey: controller.cartKey,
+        title: const Text('Shopping Cart', style: TextStyle(color: AppColors.white)),
+        centerTitle: true,
+        bodyBackgroundColor: AppColors.lightGrey,
+        backgroundColor: AppColors.primary,
+        padding: 0,
+        body: Stack(
           children: [
-            AppButtons.largeFlatFilledButton(
-              onPressed: () {
-                Get.to(() => const PdfScreen(
-                      pdfUrl: 'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
-                    ));
-              },
-              buttonText: 'Show pdf'),
-            const Gap(AppSizes.spaceBtwItems),
-            AppButtons.largeFlatFilledButton(
-                onPressed: () {
-                  Get.to(() =>  WebViewScreen(
-                    url: 'https://www.google.com/',
-                  ));
-                },
-                buttonText: 'Show web'),
-            const Gap(AppSizes.spaceBtwItems),
-            AppButtons.largeFlatFilledButton(
-                onPressed: () {
-                  // Get.to(() => const VideoApp());
-                },
-                buttonText: 'Show video'),
-            const Gap(AppSizes.spaceBtwItems),
-            AppButtons.largeFlatFilledButton(
-                onPressed: () {
-                  Get.to(() => const Payment());
-                },
-                buttonText: 'Payment'),
-
-            const Gap(AppSizes.spaceBtwItems),
-            AppButtons.largeFlatFilledButton(
-                onPressed: () {
-                  Get.to(() => const PdfGenerate());
-                },
-                buttonText: 'Generated pdf'),
-
-            const Gap(AppSizes.spaceBtwItems),
-            AppButtons.largeFlatFilledButton(
-                onPressed: () {
-                  Get.to(() => const SliverAppBarTest());
-                },
-                buttonText: 'Show tabs')
-          ]
-        ),
-      ),
-    );
+            AppLayoutWithRefresher(
+              onRefresh: controller.onRefresh,
+              children: [
+                AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true ?
+                    Column(
+                      children: [
+                        const Gap(AppSizes.sm),
+                        AppCartProductCard(onTap: (){}),
+                        const Gap(200)
+                      ],
+                    )
+                    : const CartLogOutView()
+              ],
+            ),
+            Visibility(
+              visible:  AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true,
+              child: const Positioned(
+                  bottom: 0,
+                  child: AppCartProceedButton()),
+            ),
+          ],
+        ));
   }
 }
+

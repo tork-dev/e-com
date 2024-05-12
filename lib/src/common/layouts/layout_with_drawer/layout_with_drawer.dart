@@ -14,12 +14,13 @@ class AppLayoutWithDrawer extends StatelessWidget {
     required this.globalKey,
     required this.title,
     required this.body,
-    this.backgroundColor,
-    this.leadingIconColor,
+    this.backgroundColor = AppColors.primary,
+    this.leadingIconColor = AppColors.white,
     this.hasEndDrawer = false,
     this.centerTitle = false,
     this.action,
     this.padding = 12,
+    this.bodyBackgroundColor,
     super.key,
   });
 
@@ -28,11 +29,12 @@ class AppLayoutWithDrawer extends StatelessWidget {
   final List<Widget>? action;
   final dynamic globalKey;
   final double padding;
-  final Color? backgroundColor, leadingIconColor;
+  final Color? backgroundColor, leadingIconColor, bodyBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: bodyBackgroundColor,
       resizeToAvoidBottomInset: true,
       key: globalKey,
       drawer: const AppDrawer(

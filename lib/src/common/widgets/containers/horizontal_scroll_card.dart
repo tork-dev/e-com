@@ -27,7 +27,8 @@
 //   final VoidCallback onTap, onCartTap;
 //   final int itemCount;
 //   final String productName, imgUrl, buttonName;
-//   final int ratings, reviews, salePrice, price;
+//   final int reviews, salePrice, price;
+//   final double ratings;
 //   final Color backgroundColor;
 //   final bool isNetworkImage, isDiscountAvailable;
 //   final int discount;
@@ -54,6 +55,7 @@
 //                 buttonName: buttonName,
 //                 backgroundColor: backgroundColor,
 //                 isNetworkImage: isNetworkImage,
+//                 isStockAvailable: true,
 //                 isDiscountAvailable: isDiscountAvailable,
 //                 discount: discount,
 //               )),

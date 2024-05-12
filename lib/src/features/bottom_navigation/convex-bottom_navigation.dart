@@ -1,10 +1,14 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/cart/view/cart.dart';
 import 'package:torganic/src/features/home/views/home_three.dart';
+import 'package:torganic/src/features/personalization/view/profile.dart';
 import 'package:torganic/src/features/shop/view/shop.dart';
+import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
+import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 
 import '../../utils/constants/colors.dart';
 
@@ -15,12 +19,11 @@ class HelloConvexAppBar extends StatelessWidget {
 
 
 
-  static const List children = [
-    HomeThree(),
-    ShopScreen(),
-    CartScreen(),
-    // Cart(has_bottomnav: true),
-    // Profile(),
+  static List children = [
+    const HomeThree(),
+    const ShopScreen(),
+    const CartScreen(),
+    const ProfileScreen()
   ];
 
 

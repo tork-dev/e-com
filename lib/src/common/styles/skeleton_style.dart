@@ -7,14 +7,18 @@ import '../../utils/constants/colors.dart';
 class ShimmerHelper {
 
   buildBasicShimmer(
-      {double height = double.infinity, double width = double.infinity, isDark}) {
+      {double height = double.infinity, double width = double.infinity, double radius = 0.0, isDark}) {
     return Shimmer.fromColors(
       baseColor: AppColors.grey,
       highlightColor: AppColors.lightGrey.withOpacity(.5),
       child: Container(
         height: height,
         width: width,
-        color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
+          color: Colors.white,
+        ),
+
       ),
     );
   }

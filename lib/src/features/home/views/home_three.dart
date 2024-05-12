@@ -16,13 +16,15 @@ import 'package:torganic/src/common/widgets/slider/view/app_slider.dart';
 import 'package:torganic/src/common/widgets/texts/section_title_text.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
 import 'package:torganic/src/features/home/views/widgets/home_featured_category.dart';
+import 'package:torganic/src/features/home/views/widgets/home_hot_deals_product.dart';
+import 'package:torganic/src/features/home/views/widgets/home_new_arrivals_product.dart';
 import 'package:torganic/src/features/home/views/widgets/home_search_bar.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/image_strings.dart';
 import 'widgets/home_appbar_title.dart';
-import 'widgets/home_product_card.dart';
+import 'widgets/home_bestselling_product.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
 class HomeThree extends StatelessWidget {
@@ -39,40 +41,39 @@ class HomeThree extends StatelessWidget {
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
         title: const AppHomeAppBarTitle(),
+        leadingIconColor: AppColors.darkerGrey,
+        backgroundColor: AppColors.white,
         body: AppLayoutWithRefresher(onRefresh: controller.getProductData,
-            children: const [
+            children:  const [
           Gap(AppSizes.spaceBtwItems),
           AppHomeSearchBox(),
           Gap(AppSizes.spaceBtwItems),
-          //AppBannerImage(imgUrl: AppImages.banner2),
-          CustomSlider(
-            items: [
-              'https://app.kireibd.com/storage/all/Banner-2-8.jpg',
-              'https://app.kireibd.com/storage/all/Banner-1-OPT.jpg',
-              // AppImages.banner3,
-            ],
-          ),
+          // AppBannerImage(
+          //   height: 200,
+          //     width: 375,
+          //     imgUrl: AppImages.banner2),
+          CustomSlider(),
           Gap(AppSizes.spaceBtwItems),
-          HomeFeaturedCategories(),
+              AppFeatureCategories(),
           Gap(AppSizes.spaceBtwItems),
           AppSectionTitleText(
             sectionTitle: 'Best Selling Products',
             haveTxtButton: false,
           ),
-          AppHomeProductCard(),
+          AppHomeBestSellingProduct(),
           Gap(AppSizes.spaceBtwSections),
           AppSectionTitleText(
-            sectionTitle: 'Popular Searched Products',
+            sectionTitle: 'Hot Deals',
             haveTxtButton: false,
           ),
-          AppHomeProductCard(),
+          AppHomeHotDealsProduct(),
           Gap(AppSizes.spaceBtwSections),
           AppSectionTitleText(
-            sectionTitle: 'Trending Products',
+            sectionTitle: 'New Arrivals',
             haveTxtButton: false,
           ),
-          AppHomeProductCard(),
-          Gap(AppSizes.spaceBtwSections),
+          AppHomeNewArrivalsProduct(),
+          Gap(70),
         ]));
   }
 }

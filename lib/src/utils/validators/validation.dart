@@ -90,4 +90,13 @@ class AppValidator {
   }
 
 // Add more custom validators as needed for your specific requirements.
+
+  static String? validateAmount(String? value){
+    final amount = RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
+    if ((amount.hasMatch(value!))){
+      return null;
+    } else{
+      return 'Invalid email or phone';
+    }
+  }
 }

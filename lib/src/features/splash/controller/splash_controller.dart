@@ -18,7 +18,9 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     //appStatus();
-    changeScreen();
+    //changeScreen();
+    Future.delayed(const Duration(seconds: 3)).then((value) => Get.offAll(()=> const HelloConvexAppBar()));
+
   }
 
   Future<void> appStatus()async{
