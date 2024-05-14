@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
+import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
+import 'package:torganic/src/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../utils/constants/colors.dart';
@@ -40,12 +43,14 @@ class DetailsPicturePart extends StatelessWidget {
                           null
                       ? ShimmerHelper().buildBasicShimmer(height: 50, width: 50)
                       : InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            detailsController.getLargePicture(index);
+                          },
                           child: AppBannerImage(
                               height: 50,
                               width: 50,
                               fit: BoxFit.fill,
-                              hasBorder: true,
+                              hasBorder: detailsController.pictureIndex.value == index,
                               borderWidth: 2,
                               borderColor: AppColors.secondary,
                               boarderRadius: 8,
@@ -54,13 +59,17 @@ class DetailsPicturePart extends StatelessWidget {
                                   .detailedProducts!.pictures![index].url!),
                         )),
             ),
-            AppBannerImage(
-                width: MediaQuery.of(context).size.width - 96,
-                fit: BoxFit.scaleDown,
-                applyImageRadius: false,
-                isNetworkImage: true,
-                imgUrl: detailsController
-                    .productDetails.value.detailedProducts!.pictures![0].url!)
+            const Gap(AppSizes.spaceBtwSections),
+            detailsController.productDetails.value.detailedProducts == null
+                ? ShimmerHelper().buildBasicShimmer(
+                    height: 200, width: MediaQuery.of(context).size.width - 96)
+                : AppBannerImage(
+                    width: 250,
+                    fit: BoxFit.cover,
+                    applyImageRadius: false,
+                    isNetworkImage: true,
+                    imgUrl: detailsController.productDetails.value
+                        .detailedProducts!.pictures![detailsController.pictureIndex.value].url!)
           ],
         ),
       );

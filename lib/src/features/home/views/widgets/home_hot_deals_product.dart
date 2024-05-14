@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/features/details/view/details.dart';
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/containers/vertical_product_card.dart';
@@ -33,7 +34,9 @@ class AppHomeHotDealsProduct extends StatelessWidget {
                   : AppVerticalProductCard(
                 //height: height,
                 width: 150,
-                onTap: () {},
+                onTap: () {
+                  Get.to(()=> DetailsPage(productSlug: homeController.homeProductResponse.value.featuredProducts![index].id!));
+                },
                 onCartTap: () {},
                 productName: homeController.homeProductResponse.value
                     .featuredProducts![index].name ??

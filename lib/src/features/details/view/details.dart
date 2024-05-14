@@ -48,7 +48,7 @@ class DetailsPage extends StatelessWidget {
         body: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: AppLayoutWithRefresher(
                   onRefresh: controller.onRefresh,
                   children: [
