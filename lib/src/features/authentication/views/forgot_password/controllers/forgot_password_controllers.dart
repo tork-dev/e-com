@@ -39,31 +39,23 @@ class ForgotPasswordController extends GetxController{
       //FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
 
       ///Api calling
-      print("Forget password Api Hitting Start");
-      var response = await ForgotPasswordRepository().getPasswordForgetResponse(forgotPasswordEmail.toString());
-      print("After Api Hitting forget : ${response.toString()}");
+      var response = await ForgotPasswordRepository().getPasswordForgetResponse(forgotPasswordEmail.text);
 
-      print("list data add");
       forgotPasswordOtpList.add(response);
-      print("finish adding data on list");
 
       isForgotPassword.value = true;
 
     }catch(e){
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
-      print("Problem: ${e.toString()}");
+      //print("Problem: ${e.toString()}");
     }finally{
       if(forgotEmailKey.currentState!.validate()){
         //FullScreenLoader.stopLoading();
-        print("final stage start");
         if(forgotPasswordOtpList[0].result==true){
-          print("initial success");
           AppHelperFunctions.showToast(forgotPasswordOtpList[0].message.toString());
-          print("initial success1");
           Get.to(()=> const Otp());
         } else{
-          print("initial failed");
           AppHelperFunctions.showToast(forgotPasswordOtpList[0].message.toString());
         }
 

@@ -10,10 +10,14 @@ class AppApiEndPoints {
   static String loginOtp = "$baseUrl/send-login-otp";
   static String verifyLoginOtp = "$baseUrl/verify-login-otp";
   static String getUserAccessToken = "$baseUrl/get-user-by-access_token";
+
   static String signUp = "$baseUrl/auth/signup";
   static String signupOtp = "$baseUrl/send-signup-otp";
   static String verifySignUpOtp = "$baseUrl/verify-signup-otp";
+
   static String forgetPasswordOtpSend = "$baseUrl/send-reset-otp";
+  static String forgetConfirmPassword = "$baseUrl/verify-reset-otp";
+  static String passwordConfirmReset = "$baseUrl/auth/password/confirm_reset";
 
   /// Home
   static String homeProducts = "$baseUrl/home-products";

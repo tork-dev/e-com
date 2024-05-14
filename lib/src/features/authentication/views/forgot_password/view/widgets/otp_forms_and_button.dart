@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
+import 'package:torganic/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../../utils/constants/sizes.dart';
@@ -18,6 +20,7 @@ class OtpFormsAndButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
     final otpController = OtpController.instance;
+    final forgetPasswordController = Get.put(ForgotPasswordController());
     return Form(
       key: otpController.otpKey,
       child: Column(
