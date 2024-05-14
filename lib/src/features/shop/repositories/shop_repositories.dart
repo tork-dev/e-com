@@ -67,7 +67,6 @@ class ShopRepositories{
     final response = await http.get(url, headers: {
       //"App-Language": app_language.$,
     });
-
     return ShopPageResponse.fromJson(jsonDecode(response.body));
   }
 }

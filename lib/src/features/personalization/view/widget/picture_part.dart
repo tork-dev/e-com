@@ -38,7 +38,7 @@ class PicturePart extends StatelessWidget {
                     isCircle: true,
                     child:
                     AppBannerImage(
-                      boarderRadius: 100,
+                      imgBoarderRadius: 100,
                       isNetworkImage: true,
                       fit: BoxFit.fill,
                       imgUrl:

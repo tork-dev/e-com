@@ -16,6 +16,7 @@ class NewPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final newPasswordController = Get.put(NewPasswordController());
     return AppLayoutWithBackButton(
+      padding: AppSizes.defaultSpace,
         body: ListView(
           children: [
             const HeaderLogoPart(),

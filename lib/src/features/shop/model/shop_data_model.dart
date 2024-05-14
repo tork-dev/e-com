@@ -1,12 +1,15 @@
 import 'dart:convert';
 
-class ShopPageResponse {
-  bool? result;
-  List<Datum>? data;
-  String? others;
-  Meta? meta;
-  String? message;
+// To parse this JSON data, do
+//
+//     final shopResponse = shopResponseFromJson(jsonString);
 
+ShopPageResponse shopResponseFromJson(String str) =>
+    ShopPageResponse.fromJson(json.decode(str));
+
+String shopResponseToJson(ShopPageResponse data) => json.encode(data.toJson());
+
+class ShopPageResponse {
   ShopPageResponse({
     this.result,
     this.data,
@@ -15,76 +18,31 @@ class ShopPageResponse {
     this.message,
   });
 
-  factory ShopPageResponse.fromRawJson(String str) => ShopPageResponse.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  bool? result;
+  List<Data>? data;
+  String? others;
+  Meta? meta;
+  String? message;
 
   factory ShopPageResponse.fromJson(Map<String, dynamic> json) => ShopPageResponse(
     result: json["result"],
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+    data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
     others: json["others"],
-    meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
+    meta: Meta.fromJson(json["meta"]),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "result": result,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
     "others": others,
-    "meta": meta?.toJson(),
+    "meta": meta!.toJson(),
     "message": message,
   };
 }
 
-class Datum {
-  int? id;
-  String? name;
-  String? slug;
-  int? price;
-  int? salePrice;
-  int? discount;
-  String? sku;
-  int? stock;
-  String? shortDescription;
-  String? description;
-  String? guide;
-  List<GoodFor>? skinTypes;
-  List<GoodFor>? keyIngredients;
-  List<GoodFor>? goodFor;
-  int? preorderAvailable;
-  PreorderDeliveryDate? preorderDeliveryDate;
-  int? preorderAmount;
-  PreorderDate? preorderStartDate;
-  PreorderDate? preorderEndDate;
-  int? saleCount;
-  int? ratings;
-  int? reviews;
-  int? isHot;
-  bool? isSale;
-  int? isNew;
-  dynamic isOutOfStock;
-  dynamic releaseDate;
-  dynamic developer;
-  dynamic publisher;
-  dynamic gameMode;
-  dynamic rated;
-  dynamic until;
-  List<ProductCategory>? productCategories;
-  List<ProductBrand>? productBrands;
-  List<GoodFor>? productTags;
-  String? onlyTags;
-  List<Picture>? pictures;
-  List<Picture>? largePictures;
-  List<Picture>? smallPictures;
-  List<dynamic>? variants;
-  int? isCouponApplicable;
-  String? metaImage;
-  String? metaTitle;
-  String? metaDescription;
-  String? metaTags;
-  String? productLink;
-
-  Datum({
+class Data {
+  Data({
     this.id,
     this.name,
     this.slug,
@@ -133,11 +91,54 @@ class Datum {
     this.productLink,
   });
 
-  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
+  int? id;
+  String? name;
+  String? slug;
+  int? price;
+  int? salePrice;
+  int? discount;
+  String? sku;
+  int? stock;
+  String? shortDescription;
+  String? description;
+  String? guide;
+  List<SkinType>? skinTypes;
+  List<KeyIngredient>? keyIngredients;
+  List<GoodFor>? goodFor;
+  int? preorderAvailable;
+  String? preorderDeliveryDate;
+  dynamic preorderAmount;
+  String? preorderStartDate;
+  String? preorderEndDate;
+  int? saleCount;
+  int? ratings;
+  int? reviews;
+  int? isHot;
+  bool? isSale;
+  int? isNew;
+  dynamic isOutOfStock;
+  dynamic releaseDate;
+  dynamic developer;
+  dynamic publisher;
+  dynamic gameMode;
+  dynamic rated;
+  dynamic until;
+  List<ProductCategory>? productCategories;
+  List<ProductBrand>? productBrands;
+  List<ProductTag>? productTags;
+  String? onlyTags;
+  List<Picture>? pictures;
+  List<Picture>? largePictures;
+  List<Picture>? smallPictures;
+  List<dynamic>? variants;
+  int? isCouponApplicable;
+  String? metaImage;
+  String? metaTitle;
+  String? metaDescription;
+  String? metaTags;
+  String? productLink;
 
-  String toRawJson() => json.encode(toJson());
-
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
     id: json["id"],
     name: json["name"],
     slug: json["slug"],
@@ -149,14 +150,17 @@ class Datum {
     shortDescription: json["short_description"],
     description: json["description"],
     guide: json["guide"],
-    skinTypes: json["skin_types"] == null ? [] : List<GoodFor>.from(json["skin_types"]!.map((x) => GoodFor.fromJson(x))),
-    keyIngredients: json["key_ingredients"] == null ? [] : List<GoodFor>.from(json["key_ingredients"]!.map((x) => GoodFor.fromJson(x))),
-    goodFor: json["good_for"] == null ? [] : List<GoodFor>.from(json["good_for"]!.map((x) => GoodFor.fromJson(x))),
+    skinTypes: List<SkinType>.from(
+        json["skin_types"].map((x) => SkinType.fromJson(x))),
+    keyIngredients: List<KeyIngredient>.from(
+        json["key_ingredients"].map((x) => KeyIngredient.fromJson(x))),
+    goodFor: List<GoodFor>.from(
+        json["good_for"].map((x) => GoodFor.fromJson(x))),
     preorderAvailable: json["preorder_available"],
-    preorderDeliveryDate: preorderDeliveryDateValues.map[json["preorder_delivery_date"]]!,
+    preorderDeliveryDate: json["preorder_delivery_date"],
     preorderAmount: json["preorder_amount"],
-    preorderStartDate: preorderDateValues.map[json["preorder_start_date"]]!,
-    preorderEndDate: preorderDateValues.map[json["preorder_end_date"]]!,
+    preorderStartDate: json["preorder_start_date"],
+    preorderEndDate: json["preorder_end_date"],
     saleCount: json["sale_count"],
     ratings: json["ratings"],
     reviews: json["reviews"],
@@ -170,14 +174,20 @@ class Datum {
     gameMode: json["game_mode"],
     rated: json["rated"],
     until: json["until"],
-    productCategories: json["product_categories"] == null ? [] : List<ProductCategory>.from(json["product_categories"]!.map((x) => ProductCategory.fromJson(x))),
-    productBrands: json["product_brands"] == null ? [] : List<ProductBrand>.from(json["product_brands"]!.map((x) => ProductBrand.fromJson(x))),
-    productTags: json["product_tags"] == null ? [] : List<GoodFor>.from(json["product_tags"]!.map((x) => GoodFor.fromJson(x))),
+    productCategories: List<ProductCategory>.from(
+        json["product_categories"].map((x) => ProductCategory.fromJson(x))),
+    productBrands: List<ProductBrand>.from(
+        json["product_brands"].map((x) => ProductBrand.fromJson(x))),
+    productTags: List<ProductTag>.from(
+        json["product_tags"].map((x) => ProductTag.fromJson(x))),
     onlyTags: json["only_tags"],
-    pictures: json["pictures"] == null ? [] : List<Picture>.from(json["pictures"]!.map((x) => Picture.fromJson(x))),
-    largePictures: json["large_pictures"] == null ? [] : List<Picture>.from(json["large_pictures"]!.map((x) => Picture.fromJson(x))),
-    smallPictures: json["small_pictures"] == null ? [] : List<Picture>.from(json["small_pictures"]!.map((x) => Picture.fromJson(x))),
-    variants: json["variants"] == null ? [] : List<dynamic>.from(json["variants"]!.map((x) => x)),
+    pictures: List<Picture>.from(
+        json["pictures"].map((x) => Picture.fromJson(x))),
+    largePictures: List<Picture>.from(
+        json["large_pictures"].map((x) => Picture.fromJson(x))),
+    smallPictures: List<Picture>.from(
+        json["small_pictures"].map((x) => Picture.fromJson(x))),
+    variants: List<dynamic>.from(json["variants"].map((x) => x)),
     isCouponApplicable: json["is_coupon_applicable"],
     metaImage: json["meta_image"],
     metaTitle: json["meta_title"],
@@ -198,14 +208,15 @@ class Datum {
     "short_description": shortDescription,
     "description": description,
     "guide": guide,
-    "skin_types": skinTypes == null ? [] : List<dynamic>.from(skinTypes!.map((x) => x.toJson())),
-    "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x.toJson())),
-    "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x.toJson())),
+    "skin_types": List<dynamic>.from(skinTypes!.map((x) => x.toJson())),
+    "key_ingredients":
+    List<dynamic>.from(keyIngredients!.map((x) => x.toJson())),
+    "good_for": List<dynamic>.from(goodFor!.map((x) => x.toJson())),
     "preorder_available": preorderAvailable,
-    "preorder_delivery_date": preorderDeliveryDateValues.reverse[preorderDeliveryDate],
+    "preorder_delivery_date": preorderDeliveryDate,
     "preorder_amount": preorderAmount,
-    "preorder_start_date": preorderDateValues.reverse[preorderStartDate],
-    "preorder_end_date": preorderDateValues.reverse[preorderEndDate],
+    "preorder_start_date": preorderStartDate,
+    "preorder_end_date": preorderEndDate,
     "sale_count": saleCount,
     "ratings": ratings,
     "reviews": reviews,
@@ -219,14 +230,18 @@ class Datum {
     "game_mode": gameMode,
     "rated": rated,
     "until": until,
-    "product_categories": productCategories == null ? [] : List<dynamic>.from(productCategories!.map((x) => x.toJson())),
-    "product_brands": productBrands == null ? [] : List<dynamic>.from(productBrands!.map((x) => x.toJson())),
-    "product_tags": productTags == null ? [] : List<dynamic>.from(productTags!.map((x) => x.toJson())),
+    "product_categories":
+    List<dynamic>.from(productCategories!.map((x) => x.toJson())),
+    "product_brands":
+    List<dynamic>.from(productBrands!.map((x) => x.toJson())),
+    "product_tags": List<dynamic>.from(productTags!.map((x) => x.toJson())),
     "only_tags": onlyTags,
-    "pictures": pictures == null ? [] : List<dynamic>.from(pictures!.map((x) => x.toJson())),
-    "large_pictures": largePictures == null ? [] : List<dynamic>.from(largePictures!.map((x) => x.toJson())),
-    "small_pictures": smallPictures == null ? [] : List<dynamic>.from(smallPictures!.map((x) => x.toJson())),
-    "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
+    "pictures": List<dynamic>.from(pictures!.map((x) => x.toJson())),
+    "large_pictures":
+    List<dynamic>.from(largePictures!.map((x) => x.toJson())),
+    "small_pictures":
+    List<dynamic>.from(smallPictures!.map((x) => x.toJson())),
+    "variants": List<dynamic>.from(variants!.map((x) => x)),
     "is_coupon_applicable": isCouponApplicable,
     "meta_image": metaImage,
     "meta_title": metaTitle,
@@ -237,47 +252,39 @@ class Datum {
 }
 
 class GoodFor {
-  String? name;
-  String? slug;
-  GoodForPivot? pivot;
-
   GoodFor({
     this.name,
     this.slug,
     this.pivot,
   });
 
-  factory GoodFor.fromRawJson(String str) => GoodFor.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  String? name;
+  String? slug;
+  Pivot? pivot;
 
   factory GoodFor.fromJson(Map<String, dynamic> json) => GoodFor(
     name: json["name"],
     slug: json["slug"],
-    pivot: json["pivot"] == null ? null : GoodForPivot.fromJson(json["pivot"]),
+    pivot: Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "slug": slug,
-    "pivot": pivot?.toJson(),
+    "pivot": pivot!.toJson(),
   };
 }
 
-class GoodForPivot {
-  int? productId;
-  int? productTagId;
-
-  GoodForPivot({
+class Pivot {
+  Pivot({
     this.productId,
     this.productTagId,
   });
 
-  factory GoodForPivot.fromRawJson(String str) => GoodForPivot.fromJson(json.decode(str));
+  int? productId;
+  int? productTagId;
 
-  String toRawJson() => json.encode(toJson());
-
-  factory GoodForPivot.fromJson(Map<String, dynamic> json) => GoodForPivot(
+  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
     productId: json["product_id"],
     productTagId: json["product_tag_id"],
   );
@@ -288,12 +295,31 @@ class GoodForPivot {
   };
 }
 
-class Picture {
-  String? url;
-  int? width;
-  int? height;
-  LargePicturePivot? pivot;
+class KeyIngredient {
+  KeyIngredient({
+    this.name,
+    this.slug,
+    this.pivot,
+  });
 
+  String? name;
+  String? slug;
+  Pivot? pivot;
+
+  factory KeyIngredient.fromJson(Map<String, dynamic> json) => KeyIngredient(
+    name: json["name"],
+    slug: json["slug"],
+    pivot: Pivot.fromJson(json["pivot"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "slug": slug,
+    "pivot": pivot!.toJson(),
+  };
+}
+
+class Picture {
   Picture({
     this.url,
     this.width,
@@ -301,125 +327,51 @@ class Picture {
     this.pivot,
   });
 
-  factory Picture.fromRawJson(String str) => Picture.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  String? url;
+  int? width;
+  int? height;
+  Pivot? pivot;
 
   factory Picture.fromJson(Map<String, dynamic> json) => Picture(
     url: json["url"],
     width: json["width"],
     height: json["height"],
-    pivot: json["pivot"] == null ? null : LargePicturePivot.fromJson(json["pivot"]),
+    pivot: Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
     "url": url,
     "width": width,
     "height": height,
-    "pivot": pivot?.toJson(),
+    "pivot": pivot!.toJson(),
   };
 }
-
-class LargePicturePivot {
-  int? relatedId;
-  String? uploadFileId;
-
-  LargePicturePivot({
-    this.relatedId,
-    this.uploadFileId,
-  });
-
-  factory LargePicturePivot.fromRawJson(String str) => LargePicturePivot.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory LargePicturePivot.fromJson(Map<String, dynamic> json) => LargePicturePivot(
-    relatedId: json["related_id"],
-    uploadFileId: json["upload_file_id"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "related_id": relatedId,
-    "upload_file_id": uploadFileId,
-  };
-}
-
-enum PreorderDeliveryDate {
-  THE_30042024,
-  THE_30110001
-}
-
-final preorderDeliveryDateValues = EnumValues({
-  "30-04-2024": PreorderDeliveryDate.THE_30042024,
-  "30-11--0001": PreorderDeliveryDate.THE_30110001
-});
-
-enum PreorderDate {
-  THE_12052024
-}
-
-final preorderDateValues = EnumValues({
-  "12-05-2024": PreorderDate.THE_12052024
-});
 
 class ProductBrand {
-  String? name;
-  String? slug;
-  ProductBrandPivot? pivot;
-
   ProductBrand({
     this.name,
     this.slug,
     this.pivot,
   });
 
-  factory ProductBrand.fromRawJson(String str) => ProductBrand.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  String? name;
+  String? slug;
+  Pivot? pivot;
 
   factory ProductBrand.fromJson(Map<String, dynamic> json) => ProductBrand(
     name: json["name"],
     slug: json["slug"],
-    pivot: json["pivot"] == null ? null : ProductBrandPivot.fromJson(json["pivot"]),
+    pivot: Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "slug": slug,
-    "pivot": pivot?.toJson(),
-  };
-}
-
-class ProductBrandPivot {
-  int? productId;
-  int? productBrandId;
-
-  ProductBrandPivot({
-    this.productId,
-    this.productBrandId,
-  });
-
-  factory ProductBrandPivot.fromRawJson(String str) => ProductBrandPivot.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory ProductBrandPivot.fromJson(Map<String, dynamic> json) => ProductBrandPivot(
-    productId: json["product_id"],
-    productBrandId: json["product_brand_id"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "product_id": productId,
-    "product_brand_id": productBrandId,
+    "pivot": pivot!.toJson(),
   };
 }
 
 class ProductCategory {
-  String? name;
-  String? slug;
-  int? parentName;
-  ProductCategoryPivot? pivot;
-
   ProductCategory({
     this.name,
     this.slug,
@@ -427,59 +379,76 @@ class ProductCategory {
     this.pivot,
   });
 
-  factory ProductCategory.fromRawJson(String str) => ProductCategory.fromJson(json.decode(str));
+  String? name;
+  String? slug;
+  dynamic parentName;
+  Pivot? pivot;
 
-  String toRawJson() => json.encode(toJson());
-
-  factory ProductCategory.fromJson(Map<String, dynamic> json) => ProductCategory(
-    name: json["name"],
-    slug: json["slug"],
-    parentName: json["parent_name"],
-    pivot: json["pivot"] == null ? null : ProductCategoryPivot.fromJson(json["pivot"]),
-  );
+  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
+      ProductCategory(
+        name: json["name"],
+        slug: json["slug"],
+        parentName: json["parent_name"],
+        pivot: Pivot.fromJson(json["pivot"]),
+      );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "slug": slug,
     "parent_name": parentName,
-    "pivot": pivot?.toJson(),
+    "pivot": pivot!.toJson(),
   };
 }
 
-class ProductCategoryPivot {
-  int? productId;
-  int? productCategoryId;
-
-  ProductCategoryPivot({
-    this.productId,
-    this.productCategoryId,
+class ProductTag {
+  ProductTag({
+    this.name,
+    this.slug,
+    this.pivot,
   });
 
-  factory ProductCategoryPivot.fromRawJson(String str) => ProductCategoryPivot.fromJson(json.decode(str));
+  String? name;
+  String? slug;
+  Pivot? pivot;
 
-  String toRawJson() => json.encode(toJson());
-
-  factory ProductCategoryPivot.fromJson(Map<String, dynamic> json) => ProductCategoryPivot(
-    productId: json["product_id"],
-    productCategoryId: json["product_category_id"],
+  factory ProductTag.fromJson(Map<String, dynamic> json) => ProductTag(
+    name: json["name"],
+    slug: json["slug"],
+    pivot: Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "product_id": productId,
-    "product_category_id": productCategoryId,
+    "name": name,
+    "slug": slug,
+    "pivot": pivot!.toJson(),
+  };
+}
+
+class SkinType {
+  SkinType({
+    this.name,
+    this.slug,
+    this.pivot,
+  });
+
+  String? name;
+  String? slug;
+  Pivot? pivot;
+
+  factory SkinType.fromJson(Map<String, dynamic> json) => SkinType(
+    name: json["name"],
+    slug: json["slug"],
+    pivot: Pivot.fromJson(json["pivot"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "slug": slug,
+    "pivot": pivot!.toJson(),
   };
 }
 
 class Meta {
-  int? currentPage;
-  int? from;
-  int? lastPage;
-  List<String>? links;
-  String? path;
-  int? perPage;
-  int? to;
-  int? total;
-
   Meta({
     this.currentPage,
     this.from,
@@ -491,15 +460,20 @@ class Meta {
     this.total,
   });
 
-  factory Meta.fromRawJson(String str) => Meta.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  int? currentPage;
+  int? from;
+  int? lastPage;
+  List<String>? links;
+  String? path;
+  int? perPage;
+  int? to;
+  int? total;
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
     currentPage: json["current_page"],
     from: json["from"],
     lastPage: json["last_page"],
-    links: json["links"] == null ? [] : List<String>.from(json["links"]!.map((x) => x)),
+    links: List<String>.from(json["links"].map((x) => x)),
     path: json["path"],
     perPage: json["per_page"],
     to: json["to"],
@@ -510,22 +484,10 @@ class Meta {
     "current_page": currentPage,
     "from": from,
     "last_page": lastPage,
-    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x)),
+    "links": List<dynamic>.from(links!.map((x) => x)),
     "path": path,
     "per_page": perPage,
     "to": to,
     "total": total,
   };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

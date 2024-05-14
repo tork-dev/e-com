@@ -17,6 +17,7 @@ class Otp extends StatelessWidget {
   Widget build(BuildContext context) {
     final otpController = Get.put(OtpController());
     return AppLayoutWithBackButton(
+      padding: AppSizes.defaultSpace,
         body: ListView(
           children: [
             const HeaderLogoPart(),

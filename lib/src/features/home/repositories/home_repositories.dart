@@ -11,7 +11,6 @@ import '../model/home_sliders_model.dart';
 
 class HomeRepositories{
 
-  List<FeaturedCategory> homeCategory = [];
 
   static Future<HomeProductResponse> getHomeProducts() async {
       final response = await http.get(Uri.parse(AppApiEndPoints.homeProducts));

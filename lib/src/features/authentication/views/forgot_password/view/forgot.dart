@@ -18,6 +18,7 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final forgotController = Get.put(ForgotPasswordController());
     return AppLayoutWithBackButton(
+      padding: AppSizes.defaultSpace,
         body: ListView(
           shrinkWrap: true,
           children: [

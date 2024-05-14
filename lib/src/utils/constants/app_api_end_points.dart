@@ -24,6 +24,9 @@ class AppApiEndPoints {
   ///Shop
   static String shopProducts = "$baseUrl/gigalogy/items/search?";
 
+  ///Details
+  static String productDetails = "$baseUrl/products/details/";
+
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";
