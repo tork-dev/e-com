@@ -73,7 +73,7 @@ class SignUpPageController extends GetxController {
       if (signupFormKey.currentState!.validate()) {
         if(signupOtpList[0].result == true){
           AppHelperFunctions.showToast(signupOtpList[0].message.toString());
-          Get.to(const Otp());
+          Get.to(()=> const Otp());
         } else{
           AppHelperFunctions.showToast(signupOtpList[0].message.toString());
         }

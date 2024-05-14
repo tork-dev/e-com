@@ -178,6 +178,7 @@ class SignupResponse {
   String? tokenType;
   Null? expiresAt;
   User? user;
+  String? phone;
 
   SignupResponse(
       {this.result,
@@ -185,7 +186,9 @@ class SignupResponse {
         this.accessToken,
         this.tokenType,
         this.expiresAt,
-        this.user});
+        this.user,
+        this.phone,
+      });
 
   SignupResponse.fromJson(Map<String, dynamic> json) {
     result = json['result'];
@@ -193,6 +196,7 @@ class SignupResponse {
     accessToken = json['access_token'];
     tokenType = json['token_type'];
     expiresAt = json['expires_at'];
+    phone = json["phone"];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
@@ -203,6 +207,7 @@ class SignupResponse {
     data['access_token'] = this.accessToken;
     data['token_type'] = this.tokenType;
     data['expires_at'] = this.expiresAt;
+    data['phone'] = this.phone;
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
