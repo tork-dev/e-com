@@ -12,15 +12,14 @@ import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 
-class DetailsPicturePart extends StatelessWidget {
-  const DetailsPicturePart({
+class AppDetailsPicturePart extends StatelessWidget {
+  const AppDetailsPicturePart({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     final detailsController = DetailsPageController.instance;
-    // print('produts' +detailsController.productDetails.value.detailedProducts.toString());
     return Obx(() {
       return SizedBox(
         height: 200,
@@ -35,7 +34,7 @@ class DetailsPicturePart extends StatelessWidget {
                   itemCount:
                       detailsController.productDetails.value.detailedProducts ==
                               null
-                          ? 5
+                          ? 3
                           : detailsController.productDetails.value
                               .detailedProducts!.pictures!.length,
                   builderFunction: (context, index) => detailsController
@@ -54,6 +53,7 @@ class DetailsPicturePart extends StatelessWidget {
                               borderWidth: 2,
                               borderColor: AppColors.secondary,
                               boarderRadius: 8,
+
                               isNetworkImage: true,
                               imgUrl: detailsController.productDetails.value
                                   .detailedProducts!.pictures![index].url!),
@@ -62,10 +62,10 @@ class DetailsPicturePart extends StatelessWidget {
             const Gap(AppSizes.spaceBtwSections),
             detailsController.productDetails.value.detailedProducts == null
                 ? ShimmerHelper().buildBasicShimmer(
-                    height: 200, width: MediaQuery.of(context).size.width - 96)
+                    height: 200, width: 250)
                 : AppBannerImage(
                     width: 250,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     applyImageRadius: false,
                     isNetworkImage: true,
                     imgUrl: detailsController.productDetails.value
