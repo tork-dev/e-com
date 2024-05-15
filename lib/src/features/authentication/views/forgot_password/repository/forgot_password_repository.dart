@@ -12,11 +12,10 @@ class ForgotPasswordRepository{
 
   final forgetPassController = ForgotPasswordController.instance;
 
-  Future<ForgotPasswordResponse> getPasswordForgetResponse(
+  Future<ForgotPasswordResponse> getForgetPasswordResponse(
        String emailOrPhone) async {
     var postBody = jsonEncode({"email": emailOrPhone});
 
-    print(postBody);
     Uri url = Uri.parse(
       AppApiEndPoints.forgetPasswordOtpSend
     );
@@ -26,7 +25,7 @@ class ForgotPasswordRepository{
         },
         body: postBody);
 
-    print("Response body:"+response.body.toString());
+    print(response.body.toString());
 
     return passwordForgetResponseFromJson(response.body);
   }
@@ -35,7 +34,6 @@ class ForgotPasswordRepository{
       String verificationCode,  String phone) async {
     var postBody =
     jsonEncode({"otp_code": verificationCode, "email": phone});
-    print(postBody);
 
     Uri url = Uri.parse(AppApiEndPoints.forgetConfirmPassword
     );
@@ -45,13 +43,29 @@ class ForgotPasswordRepository{
         },
         body: postBody);
 
-    print("response :"+response.body.toString());
+    print(response.body.toString());
 
     return forgetPasswordConfirmResponseFromJson(response.body);
   }
 
 
+  Future<ResendForgetPasswordResponse> getResendForgetPasswordResponse(
+      String emailOrPhone) async {
+    var postBody = jsonEncode({"email": emailOrPhone});
 
+    Uri url = Uri.parse(
+        AppApiEndPoints.forgetPasswordOtpSend
+    );
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: postBody);
+
+    print(response.body);
+
+    return resendForgetPasswordResponseFromJson(response.body);
+  }
 
 
 }

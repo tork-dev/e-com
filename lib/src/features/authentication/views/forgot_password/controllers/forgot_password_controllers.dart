@@ -39,7 +39,7 @@ class ForgotPasswordController extends GetxController{
       //FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
 
       ///Api calling
-      var response = await ForgotPasswordRepository().getPasswordForgetResponse(forgotPasswordEmail.text);
+      var response = await ForgotPasswordRepository().getForgetPasswordResponse(forgotPasswordEmail.text);
 
       forgotPasswordOtpList.add(response);
 
