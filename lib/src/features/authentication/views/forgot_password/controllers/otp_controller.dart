@@ -29,7 +29,9 @@ class OtpController extends GetxController{
 
   GlobalKey<FormState> otpKey = GlobalKey<FormState>();
   List<LoginResponse> otpLoginResponse = [];
+  List<LoginResendOtpResponse> resendOtpLoginResponse = [];
   List<SignupResponse> otpSignUpResponse = [];
+  List<SignupResendOtpResponse> resendOtpSignUpResponse = [];
   List<ForgetPasswordConfirmResponse> otpForgetPasswordResponse = [];
 
   @override
@@ -93,4 +95,46 @@ class OtpController extends GetxController{
       }
     }
   }
+
+  Future<void> reSendCode() async{
+    final isConnected = await NetworkManager.instance.isConnected();
+    try{
+      /// Start Loading
+      // FullScreenLoader.openLoadingDialog('Processing', AppImages.loaderAnimation);
+
+      ///Check Internet
+      if(!isConnected) return;
+
+      /// Validate Form
+      //if(!otpKey.currentState!.validate()) return;
+
+      ///Api Calling
+
+      var response = signUpController.isSignupOtp.value == true ? await SignupRepository().getResendSignupOtpResponse(
+          signUpController.emailController.text,
+      )
+          :
+      await LoginRepository().getLoginResendOTPResponse(loginController.emailController.text);
+
+      signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse.add(response) : resendOtpLoginResponse.add(response);
+
+
+    } catch(e){
+      /// Error
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+     // print("Problem is: "+ e.toString());
+    }finally{
+      //FullScreenLoader.stopLoading();
+        if(signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].result == true : resendOtpLoginResponse[0].result == true){
+
+          AppHelperFunctions.showToast(signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].message.toString() : resendOtpLoginResponse[0].message.toString());
+
+        } else{
+          AppHelperFunctions.showToast(resendOtpLoginResponse[0].message.toString());
+        }
+    }
+
+  }
+
+
 }

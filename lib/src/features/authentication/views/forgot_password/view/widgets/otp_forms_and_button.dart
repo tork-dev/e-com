@@ -20,7 +20,8 @@ class OtpFormsAndButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
     final otpController = OtpController.instance;
-    final forgetPasswordController = Get.put(ForgotPasswordController());
+    //final forgetPasswordController = Get.put(ForgotPasswordController());
+
     return Form(
       key: otpController.otpKey,
       child: Column(
@@ -40,7 +41,7 @@ class OtpFormsAndButton extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: AppButtons.textUnderlineButton(
                 onPressed: (){
-
+                  otpController.reSendCode();
                 },
                 buttonText: "Resend Code",
               backgroundColor: AppColors.primary,
