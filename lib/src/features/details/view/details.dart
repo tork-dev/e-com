@@ -13,6 +13,7 @@ import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/common/widgets/search_bar/app_bar_search.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
+import 'package:torganic/src/features/details/view/widgets/details_description_part.dart';
 import 'package:torganic/src/features/details/view/widgets/details_product_name_part.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
@@ -56,7 +57,9 @@ class DetailsPage extends StatelessWidget {
                   children:  const [
                     AppDetailsPicturePart(),
                     Gap(AppSizes.spaceBtwItems),
-                    AppDetailsProductNamePart()
+                    AppDetailsProductNamePart(),
+                    Gap(AppSizes.spaceBtwItems),
+                    AppDetailsDescriptionPart()
                   ]),
             ),
             const Positioned(
