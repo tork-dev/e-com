@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -17,9 +18,11 @@ import 'package:torganic/src/common/widgets/search_bar/app_bar_search.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
 import 'package:torganic/src/features/details/view/widgets/details_categories_part.dart';
 import 'package:torganic/src/features/details/view/widgets/details_description_part.dart';
+import 'package:torganic/src/features/details/view/widgets/details_full_description.dart';
 import 'package:torganic/src/features/details/view/widgets/details_product_name_part.dart';
 import 'package:torganic/src/features/details/view/widgets/details_tag_with_border.dart';
 import 'package:torganic/src/features/details/view/widgets/details_tag_with_underline.dart';
+import 'package:torganic/src/features/details/view/widgets/review_and_question.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../common/styles/skeleton_style.dart';
@@ -65,14 +68,22 @@ class DetailsPage extends StatelessWidget {
                     const AppDetailsProductNamePart(),
                     const Gap(AppSizes.spaceBtwItems),
                     const AppDetailsDescriptionPart(),
+                    AppDividersStyle.fullFlatAppDivider,
                     const Gap(AppSizes.spaceBtwItems),
                     const AppDetailsCategoriesPart(),
-                    ExpansionTile(
-                        title: Text('Description'.toUpperCase(),
-
-                        )),
+                    const AppDetailsFullDescription(),
                     AppDividersStyle.fullFlatAppDivider,
-                    const Gap(AppSizes.spaceBtwSections),
+                     ReviewAndQuestion(
+                      onTap: (){},
+                      title: 'Review',
+                    ),
+                    AppDividersStyle.fullFlatAppDivider,
+                    ReviewAndQuestion(
+                      onTap: (){},
+                      title: 'questions about this products',
+                    ),
+                    AppDividersStyle.fullFlatAppDivider,
+                    const Gap(AppSizes.spaceBtwItems),
                   ]),
             ),
             const Positioned(

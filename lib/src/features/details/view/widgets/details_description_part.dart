@@ -18,64 +18,65 @@ class AppDetailsDescriptionPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final detailsController = DetailsPageController.instance;
-    return Obx(() {
-      return detailsController.productDetails.value.detailedProducts == null
-          ? ShimmerHelper().buildBasicShimmer(height: 50)
-          : Visibility(
-            child: ExpandableNotifier(
-                // <-- Provides ExpandableController to its children
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expandable(
-                      collapsed: SizedBox(
-                          height: 40,
-                          child: ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: [
-                              HtmlWidget(detailsController.productDetails.value
-                                      .detailedProducts!.shortDescription ??
-                                  ''),
-                            ],
-                          )),
-                      expanded: SizedBox(
-                          child: HtmlWidget(detailsController.productDetails
-                                  .value.detailedProducts!.shortDescription ??
-                              '')),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Builder(
-                          builder: (context) {
-                            var controller = ExpandableController.of(context);
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10.0, top: 8.0),
-                              child: GestureDetector(
-                                child: Text(
-                                    !controller!.expanded
-                                        ? 'view More'
-                                        : 'Show Less',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge!
-                                        .apply(color: AppColors.darkGrey)),
-                                onTap: () {
-                                  controller.toggle();
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    const Gap(AppSizes.spaceBtwItems),
-                    AppDividersStyle.fullFlatAppDivider
-                  ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Obx(() {
+        return detailsController.productDetails.value.detailedProducts == null
+            ? ShimmerHelper().buildBasicShimmer(height: 50)
+            : Visibility(
+              child: ExpandableNotifier(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expandable(
+                        collapsed: SizedBox(
+                            height: 40,
+                            child: ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: [
+                                HtmlWidget(detailsController.productDetails.value
+                                        .detailedProducts!.shortDescription ??
+                                    ''),
+                              ],
+                            )),
+                        expanded: SizedBox(
+                            child: HtmlWidget(detailsController.productDetails
+                                    .value.detailedProducts!.shortDescription ??
+                                '')),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Builder(
+                            builder: (context) {
+                              var controller = ExpandableController.of(context);
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10.0, top: 8.0),
+                                child: GestureDetector(
+                                  child: Text(
+                                      !controller!.expanded
+                                          ? 'view More'
+                                          : 'Show Less',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .apply(color: AppColors.darkGrey)),
+                                  onTap: () {
+                                    controller.toggle();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const Gap(AppSizes.spaceBtwItems),
+                    ],
+                  ),
                 ),
-              ),
-          );
-    });
+            );
+      }),
+    );
   }
 }
