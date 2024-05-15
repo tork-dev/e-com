@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
@@ -98,18 +99,24 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                 .apply(color: AppColors.darkGrey),
                           ),
                           const Gap(AppSizes.spaceBtwSections),
-                          Text(
-                              detailsController.productDetails.value
-                                  .detailedProducts!.productBrands![0].name!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .apply(color: AppColors.darkGrey)),
+                          Visibility(
+                            visible: detailsController.productDetails.value.detailedProducts!.productBrands!.isNotEmpty,
+                            child: Text(
+                                detailsController.productDetails.value
+                                    .detailedProducts?.productBrands?[0].name ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .apply(color: AppColors.darkGrey)),
+                          ),
                         ],
                       ),
               ],
             ),
           ),
+
+
+
           const Gap(AppSizes.spaceBtwItems),
           AppDividersStyle.fullFlatAppDivider,
           const Gap(AppSizes.spaceBtwItems),

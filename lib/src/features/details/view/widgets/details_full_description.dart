@@ -14,7 +14,9 @@ class AppDetailsFullDescription extends StatelessWidget {
     final detailsController = DetailsPageController.instance;
     return Obx(() {
       return detailsController.productDetails.value.detailedProducts == null
-          ? ShimmerHelper().buildBasicShimmer(height: 50)
+          ?  Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+          child: ShimmerHelper().buildBasicShimmer(height: 50))
           : ExpansionTile(
               title: Text('Description'.toUpperCase()),
               children: [

@@ -11,86 +11,49 @@ import '../../controller/home_controller.dart';
 class AppHomeBestSellingProduct extends StatelessWidget {
   const AppHomeBestSellingProduct({
     super.key,
+    this.sectionName,
   });
+
+  final List? sectionName;
 
   @override
   Widget build(BuildContext context) {
-    final homeController = HomeController.instance;
-    return Obx(() {
-      // print('this is product ' + homeController.homeProductResponse.value.success.toString());
-      return SizedBox(
-          height: homeController.homeProductResponse.value.success == null
-              ? 170
-              : 265,
-          child: AppListViewLayout(
-              isScrollVertically: false,
-              itemCount:
-                  homeController.homeProductResponse.value.success == null
-                      ? 5
-                      : homeController.homeProductResponse.value
-                          .bestsellingProducts!.length,
-              builderFunction: (context, index) => homeController
-                          .homeProductResponse.value.success ==
-                      null
-                  ?
-                  ShimmerHelper().buildBasicShimmer(width: 150)
-                  :
-                  AppVerticalProductCard(
-                      //height: height,
-                      width: 150,
-                      onTap: () {
-                        Get.to(() => DetailsPage(
-                              productSlug: homeController.homeProductResponse
-                                  .value.bestsellingProducts![index].id!,
-                            ));
-                      },
-                      onCartTap: () {},
-                      productName: homeController.homeProductResponse.value
-                          .bestsellingProducts![index].name!,
-                      ratings: homeController.homeProductResponse.value
-                          .bestsellingProducts![index].ratings!.toDouble(),
-                      reviews: homeController.homeProductResponse.value
-                          .bestsellingProducts![index].reviews!,
-                      salePrice: homeController.homeProductResponse.value
-                          .bestsellingProducts![index].salePrice!,
-                      price: homeController.homeProductResponse.value
-                          .bestsellingProducts![index].price!,
-                      imgUrl: homeController.homeProductResponse.value
-                          .bestsellingProducts![index].pictures![0].url!,
-                      isStockAvailable: homeController.homeProductResponse.value
-                              .bestsellingProducts![index].stock !=
-                          0,
-                      buttonName: homeController
-                                  .homeProductResponse
-                                  .value
-                                  .bestsellingProducts![index]
-                                  .preorderAvailable ==
-                              0
-                          ? homeController.homeProductResponse.value
-                                      .bestsellingProducts![index].stock !=
-                                  0
-                              ? 'ADD TO CART'
-                              : 'OUT OF STOCK'
-                          : 'PREORDER',
-                      backgroundColor: homeController
-                                  .homeProductResponse
-                                  .value
-                                  .bestsellingProducts![index]
-                                  .preorderAvailable ==
-                              0
-                          ? homeController.homeProductResponse.value
-                                      .bestsellingProducts![index].stock !=
-                                  0
-                              ? AppColors.secondary
-                              : AppColors.primary
-                          : AppColors.preorder,
-                      isNetworkImage: true,
-                      isDiscountAvailable: homeController.homeProductResponse
-                              .value.bestsellingProducts![index].discount !=
-                          0,
-                      discount: homeController.homeProductResponse.value
-                          .bestsellingProducts![index].discount!,
-                    )));
-    });
+    return SizedBox(
+        height: sectionName == null ? 170 : 265,
+        child: AppListViewLayout(
+            isScrollVertically: false,
+            itemCount: sectionName == null ? 5 : sectionName!.length,
+            builderFunction: (context, index) => sectionName == null
+                ? ShimmerHelper().buildBasicShimmer(width: 150)
+                : AppVerticalProductCard(
+                    //height: height,
+                    width: 150,
+                    onTap: () {
+                      Get.to(() => DetailsPage(
+                            productSlug: sectionName![index].slug!,
+                          ));
+                    },
+                    onCartTap: () {},
+                    productName: sectionName![index].name!,
+                    ratings: sectionName![index].ratings!.toDouble(),
+                    reviews: sectionName![index].reviews!,
+                    salePrice: sectionName![index].salePrice!,
+                    price: sectionName![index].price!,
+                    imgUrl: sectionName![index].pictures![0].url!,
+                    isStockAvailable: sectionName![index].stock != 0,
+                    buttonName: sectionName![index].preorderAvailable == 0
+                        ? sectionName![index].stock != 0
+                            ? 'ADD TO CART'
+                            : 'OUT OF STOCK'
+                        : 'PREORDER',
+                    backgroundColor: sectionName![index].preorderAvailable == 0
+                        ? sectionName![index].stock != 0
+                            ? AppColors.secondary
+                            : AppColors.primary
+                        : AppColors.preorder,
+                    isNetworkImage: true,
+                    isDiscountAvailable: sectionName![index].discount != 0,
+                    discount: sectionName![index].discount!,
+                  )));
   }
 }

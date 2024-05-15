@@ -7,8 +7,8 @@ import '../model/product_details_model.dart';
 class DetailsRepositories{
 
 
-  static Future<ProductDetailsResponse> getProductDetails(int id) async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.productDetails+id.toString()), headers: {
+  static Future<ProductDetailsResponse> getProductDetails(String slug) async {
+    final response = await http.get(Uri.parse(AppApiEndPoints.productDetails+slug), headers: {
 
     });
     var responseBody = jsonDecode(response.body.toString());

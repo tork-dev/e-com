@@ -32,7 +32,7 @@ import 'widgets/details_picture_part.dart';
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key, required this.productSlug});
 
-  final int productSlug;
+  final String productSlug;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torganic/src/common/widgets/containers/horizontal_product_card.dart';
-import 'package:torganic/src/common/widgets/containers/horizontal_scroll_card.dart';
+import 'package:torganic/src/common/widgets/containers/horizontal_scroll_product_card.dart';
 import 'package:torganic/src/common/widgets/containers/vertical_product_card.dart';
 
 import '../../../utils/constants/image_strings.dart';

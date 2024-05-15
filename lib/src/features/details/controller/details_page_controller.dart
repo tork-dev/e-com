@@ -9,7 +9,7 @@ class DetailsPageController extends GetxController{
   DetailsPageController({
     required this.productSlug ,
 });
-  final int productSlug;
+  final String productSlug;
 
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
