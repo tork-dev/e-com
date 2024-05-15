@@ -213,7 +213,6 @@ class AppDetailsProductNamePart extends StatelessWidget {
                   ],
                 ),
           const Gap(AppSizes.spaceBtwItems),
-          AppDividersStyle.fullFlatAppDivider,
         ],
       );
     });

@@ -20,59 +20,62 @@ class AppDetailsPicturePart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final detailsController = DetailsPageController.instance;
-    return Obx(() {
-      return SizedBox(
-        height: 200,
-        width: AppHelperFunctions.screenWidth() * 1,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 50,
-              child: AppListViewLayout(
-                  isScrollVertically: true,
-                  itemCount:
-                      detailsController.productDetails.value.detailedProducts ==
-                              null
-                          ? 3
-                          : detailsController.productDetails.value
-                              .detailedProducts!.pictures!.length,
-                  builderFunction: (context, index) => detailsController
-                              .productDetails.value.detailedProducts ==
-                          null
-                      ? ShimmerHelper().buildBasicShimmer(height: 50, width: 50)
-                      : InkWell(
-                          onTap: () {
-                            detailsController.getLargePicture(index);
-                          },
-                          child: AppBannerImage(
-                              height: 50,
-                              width: 50,
-                              fit: BoxFit.fill,
-                              hasBorder: detailsController.pictureIndex.value == index,
-                              borderWidth: 2,
-                              borderColor: AppColors.secondary,
-                              boarderRadius: 8,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Obx(() {
+        return SizedBox(
+          height: 200,
+          width: AppHelperFunctions.screenWidth() * 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 50,
+                child: AppListViewLayout(
+                    isScrollVertically: true,
+                    itemCount:
+                        detailsController.productDetails.value.detailedProducts ==
+                                null
+                            ? 3
+                            : detailsController.productDetails.value
+                                .detailedProducts!.pictures!.length,
+                    builderFunction: (context, index) => detailsController
+                                .productDetails.value.detailedProducts ==
+                            null
+                        ? ShimmerHelper().buildBasicShimmer(height: 50, width: 50)
+                        : InkWell(
+                            onTap: () {
+                              detailsController.getLargePicture(index);
+                            },
+                            child: AppBannerImage(
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.fill,
+                                hasBorder: detailsController.pictureIndex.value == index,
+                                borderWidth: 2,
+                                borderColor: AppColors.secondary,
+                                boarderRadius: 8,
 
-                              isNetworkImage: true,
-                              imgUrl: detailsController.productDetails.value
-                                  .detailedProducts!.pictures![index].url!),
-                        )),
-            ),
-            const Gap(AppSizes.spaceBtwSections),
-            detailsController.productDetails.value.detailedProducts == null
-                ? ShimmerHelper().buildBasicShimmer(
-                    height: 200, width: 250)
-                : AppBannerImage(
-                    width: 250,
-                    fit: BoxFit.contain,
-                    applyImageRadius: false,
-                    isNetworkImage: true,
-                    imgUrl: detailsController.productDetails.value
-                        .detailedProducts!.pictures![detailsController.pictureIndex.value].url!)
-          ],
-        ),
-      );
-    });
+                                isNetworkImage: true,
+                                imgUrl: detailsController.productDetails.value
+                                    .detailedProducts!.pictures![index].url!),
+                          )),
+              ),
+              const Gap(AppSizes.spaceBtwSections),
+              detailsController.productDetails.value.detailedProducts == null
+                  ? ShimmerHelper().buildBasicShimmer(
+                      height: 200, width: 250)
+                  : AppBannerImage(
+                      width: 250,
+                      fit: BoxFit.contain,
+                      applyImageRadius: false,
+                      isNetworkImage: true,
+                      imgUrl: detailsController.productDetails.value
+                          .detailedProducts!.pictures![detailsController.pictureIndex.value].url!)
+            ],
+          ),
+        );
+      }),
+    );
   }
 }

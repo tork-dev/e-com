@@ -13,7 +13,7 @@ class DetailsPageController extends GetxController{
 
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
- // RxBool hasBorder = false.obs;
+  RxBool viewMore = false.obs;
 
   Rx<ProductDetailsResponse> productDetails = ProductDetailsResponse().obs;
 

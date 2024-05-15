@@ -4,17 +4,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
+import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/widgets/buttons/bottom_button.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/common/widgets/search_bar/app_bar_search.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
+import 'package:torganic/src/features/details/view/widgets/details_categories_part.dart';
 import 'package:torganic/src/features/details/view/widgets/details_description_part.dart';
 import 'package:torganic/src/features/details/view/widgets/details_product_name_part.dart';
+import 'package:torganic/src/features/details/view/widgets/details_tag_with_border.dart';
+import 'package:torganic/src/features/details/view/widgets/details_tag_with_underline.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../common/styles/skeleton_style.dart';
@@ -51,15 +56,23 @@ class DetailsPage extends StatelessWidget {
         body: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.only(top: 8, bottom: 50),
               child: AppLayoutWithRefresher(
                   onRefresh: controller.onRefresh,
-                  children:  const [
-                    AppDetailsPicturePart(),
-                    Gap(AppSizes.spaceBtwItems),
-                    AppDetailsProductNamePart(),
-                    Gap(AppSizes.spaceBtwItems),
-                    AppDetailsDescriptionPart()
+                  children:  [
+                    const AppDetailsPicturePart(),
+                    const Gap(AppSizes.spaceBtwItems),
+                    const AppDetailsProductNamePart(),
+                    const Gap(AppSizes.spaceBtwItems),
+                    const AppDetailsDescriptionPart(),
+                    const Gap(AppSizes.spaceBtwItems),
+                    const AppDetailsCategoriesPart(),
+                    ExpansionTile(
+                        title: Text('Description'.toUpperCase(),
+
+                        )),
+                    AppDividersStyle.fullFlatAppDivider,
+                    const Gap(AppSizes.spaceBtwSections),
                   ]),
             ),
             const Positioned(
