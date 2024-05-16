@@ -83,10 +83,6 @@ class LogInFormsAndButton extends StatelessWidget {
             () => AppButtons.largeFlatFilledButton(
                 onPressed: () => loginController.loginWithPassword.value
                     ? loginController.emailPasswordLogIn(
-                    // email: loginController.emailController.toString(),
-                    // password: loginController.passwordController.toString(),
-                    // remember_me: loginController.rememberMe.value,
-                    // context: context
                 )
                     : loginController.sendCode(),
                 buttonText: loginController.loginWithPassword.value
