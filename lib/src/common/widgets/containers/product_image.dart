@@ -11,8 +11,8 @@ class AppProductImage extends StatelessWidget {
     this.height,
     this.width,
     this.border,
-    this.onPress,
-    this.onCartPress,
+    required this.onPress,
+    required this.onCartPress,
     required this.imgUrl,
     this.fit = BoxFit.contain,
     this.boarderRadius = AppSizes.md,
@@ -32,7 +32,7 @@ class AppProductImage extends StatelessWidget {
   final BoxFit? fit;
   final bool isNetworkImage, isDiscountAvailable, isStockAvailable;
   final double? boarderRadius;
-  final VoidCallback? onPress, onCartPress;
+  final VoidCallback onPress, onCartPress;
   final int? discount;
 
 

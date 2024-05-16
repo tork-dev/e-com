@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,10 +17,21 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     //appStatus();
+    appInfo();
     changeScreen();
     //Future.delayed(const Duration(seconds: 3)).then((value) => Get.offAll(()=> const HelloConvexAppBar()));
 
   }
+
+  Future<void> appInfo() async{
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.appVersion, version);
+    AppLocalStorage().saveData(LocalStorageKeys.appVersion, version);
+
+    print(AppLocalStorage().readData(LocalStorageKeys.accessToken).runtimeType);
+  }
+
 
   Future<void> appStatus()async{
     //AppStatusModel appStatusModel = await _appStatus.getAppStatus(context);
@@ -62,10 +75,10 @@ class SplashController extends GetxController {
 
   changeScreen() {
     //print(AppLocalStorage().readData(LocalStorageKeys.isRememberMe).toString());
-    final isGoogleLogin =
-        AppLocalStorage().readData(LocalStorageKeys.isGoogleLogIn) ?? false;
-    final isRememberMe =
-        AppLocalStorage().readData(LocalStorageKeys.isRememberMe) ?? false;
+    // final isGoogleLogin =
+    //     AppLocalStorage().readData(LocalStorageKeys.isGoogleLogIn) ?? false;
+    // final isRememberMe =
+    //     AppLocalStorage().readData(LocalStorageKeys.isRememberMe) ?? false;
     final isNotFirst =
         AppLocalStorage().readData(LocalStorageKeys.isNotFirstTime) ?? false;
     Future.delayed(const Duration(seconds: 3), () {

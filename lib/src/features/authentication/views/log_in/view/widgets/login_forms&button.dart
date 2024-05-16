@@ -48,7 +48,8 @@ class LogInFormsAndButton extends StatelessWidget {
                 children: [
                   const Align(
                     alignment: Alignment.centerLeft,
-                    child:  Text("Password",
+                    child: Text(
+                      "Password",
                       //textAlign: TextAlign.left,
                       style: TextStyle(
                         color: AppColors.primary,
@@ -65,7 +66,7 @@ class LogInFormsAndButton extends StatelessWidget {
                     suffixIcon: InkWell(
                       onTap: () {
                         loginController.passwordObscured.value =
-                        !loginController.passwordObscured.value;
+                            !loginController.passwordObscured.value;
                       },
                       child: Icon(loginController.passwordObscured.value
                           ? Icons.remove_red_eye
@@ -81,14 +82,13 @@ class LogInFormsAndButton extends StatelessWidget {
           const Gap(AppSizes.spaceBtwSections),
           Obx(
             () => AppButtons.largeFlatFilledButton(
-                onPressed: () => loginController.loginWithPassword.value
-                    ? loginController.emailPasswordLogIn(
-                )
-                    : loginController.sendCode(),
-                buttonText: loginController.loginWithPassword.value
-                    ? AppLocalizations.of(context)!.login
-                    : AppLocalizations.of(context)!.sendOtp,
-                backgroundColor: AppColors.darkGrey,
+              onPressed: () => loginController.loginWithPassword.value
+                  ? loginController.emailPasswordLogIn()
+                  : loginController.sendCode(),
+              buttonText: loginController.loginWithPassword.value
+                  ? AppLocalizations.of(context)!.login
+                  : AppLocalizations.of(context)!.sendOtp,
+              backgroundColor: AppColors.darkGrey,
             ),
           ),
           const Gap(AppSizes.sm),
@@ -106,9 +106,9 @@ class LogInFormsAndButton extends StatelessWidget {
                 buttonText: loginController.loginWithPassword.value
                     ? AppLocalizations.of(context)!.loginWithOtp
                     : AppLocalizations.of(context)!.loginWithPassword,
-            backgroundColor: loginController.loginWithPassword.value
-                ? AppColors.primary : AppColors.signUpWithPassword
-            ),
+                backgroundColor: loginController.loginWithPassword.value
+                    ? AppColors.primary
+                    : AppColors.signUpWithPassword),
           )
         ],
       ),

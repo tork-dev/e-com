@@ -47,9 +47,7 @@ class LogInPageController extends GetxController {
     super.dispose();
   }
 
-  Future<void> emailPasswordLogIn(
-
-      ) async {
+  Future<void> emailPasswordLogIn() async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
       /// Validate Form
@@ -68,6 +66,8 @@ class LogInPageController extends GetxController {
       loginList.add(response);
       AuthHelper().setUserData(response);
       AuthHelper().fetch_and_set();
+      print('this is access token' +AppLocalStorage().readData(LocalStorageKeys.accessToken));
+      print('this is access token' +AppLocalStorage().readData(LocalStorageKeys.userId));
       ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);

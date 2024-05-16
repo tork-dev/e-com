@@ -108,8 +108,6 @@ flutter:
     - assets/images/logos/
     - assets/images/icons/
     - assets/images/animations/
-    - assets/images/banners/
-    - assets/images/products/
     - assets/images/on_boarding_images/
     - assets/images/pdf_a/
     - .env

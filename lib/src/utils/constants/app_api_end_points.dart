@@ -32,6 +32,9 @@ class AppApiEndPoints {
   ///Details
   static String productDetails = "$baseUrl/products/details/";
 
+  ///Carts
+  static String addToCart = "$baseUrl/carts/add";
+
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";

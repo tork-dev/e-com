@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
+import 'package:torganic/src/features/cart/repositories/cart_repositories.dart';
 import 'package:torganic/src/features/details/view/details.dart';
+import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/containers/vertical_product_card.dart';

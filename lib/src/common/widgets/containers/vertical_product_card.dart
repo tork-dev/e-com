@@ -9,7 +9,7 @@ class AppVerticalProductCard extends StatelessWidget {
     super.key,
     required this.imgUrl,
     required this.onTap,
-    required this.onCartTap,
+     required this.onCartTap  ,
     required this.productName,
     required this.ratings,
     required this.reviews,
