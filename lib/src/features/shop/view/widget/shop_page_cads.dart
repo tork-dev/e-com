@@ -14,6 +14,7 @@ class AppShopGridScrollCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final shopController = ShopController.instance;
     return Obx(() {
+     // print('shop data ${shopController.shopPageProduct.value.data!.length}');
       return AppGridViewLayout(
           itemCount: shopController.shopPageProduct.value.result == null
               ? 10
@@ -26,22 +27,23 @@ class AppShopGridScrollCard extends StatelessWidget {
               AppVerticalProductCard(
                 onTap: () {},
                 onCartTap: () {},
-                productName: shopController.shopPageProduct.value.data![index].name!,
+                productName: shopController.shopPageProduct.value.data![index].name ?? '',
                 ratings: shopController.shopPageProduct.value.data![index].ratings!.toDouble(),
                 imgUrl:
-                shopController.shopPageProduct.value.data![index].pictures![0].url!,
-                reviews: shopController.shopPageProduct.value.data![index].reviews!,
-                salePrice: shopController.shopPageProduct.value.data![index].salePrice!,
-                price: shopController.shopPageProduct.value.data![index].price!,
+                shopController.shopPageProduct.value.data![index].pictures![0].url ?? '',
+                reviews: shopController.shopPageProduct.value.data![index].reviews ?? 0,
+                salePrice: shopController.shopPageProduct.value.data![index].salePrice ?? 0,
+                price: shopController.shopPageProduct.value.data![index].price ?? 0,
                 buttonName: shopController.shopPageProduct.value.data![index].preorderAvailable == 0 ?
                 shopController.shopPageProduct.value.data![index].stock !=0? 'ADD TO CART' : "OUT OF STOCK" : 'PREORDER',
                 backgroundColor: shopController.shopPageProduct.value.data![index].preorderAvailable == 0 ?
                 shopController.shopPageProduct.value.data![index].stock !=0? AppColors.secondary : AppColors.primary : AppColors.preorder,
                 isDiscountAvailable: shopController.shopPageProduct.value.data![index].salePrice != shopController.shopPageProduct.value.data![index].price,
                 isNetworkImage: true,
-                discount: shopController.shopPageProduct.value.data![index].discount!,
+                discount: shopController.shopPageProduct.value.data![index].discount ?? 0,
                 isStockAvailable: shopController.shopPageProduct.value.data![index].stock != 0,
-              ));
+              )
+      );
     });
   }
 }

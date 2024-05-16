@@ -39,7 +39,7 @@ class AppHomeNewArrivalsProduct extends StatelessWidget {
                     .newProducts![index].name ??
                     'name',
                 ratings: homeController.homeProductResponse.value
-                    .newProducts![index].ratings!,
+                    .newProducts![index].ratings!.toDouble(),
                 reviews: homeController.homeProductResponse.value
                     .newProducts![index].reviews!,
                 salePrice: homeController.homeProductResponse.value

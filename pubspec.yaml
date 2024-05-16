@@ -53,6 +53,8 @@ dependencies:
   cached_network_image: ^3.3.1
   convex_bottom_bar: ^3.2.0
   flutter_typeahead: ^5.2.0
+  expandable: ^5.0.1
+  flutter_widget_from_html_core: ^0.14.12
 
   # Icons
   cupertino_icons: ^1.0.6

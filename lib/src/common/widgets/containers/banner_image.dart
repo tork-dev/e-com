@@ -12,20 +12,24 @@ class AppBannerImage extends StatelessWidget {
     required this.imgUrl,
     this.applyImageRadius = true,
     this.fit = BoxFit.fill,
-    this.boarderRadius = 12,
+    this.imgBoarderRadius = AppSizes.borderRadiusMd,
+    this.boarderRadius = AppSizes.borderRadiusMd,
     this.isNetworkImage = false,
     this.imageOpacity = 1.0,
+    this.borderWidth,
+    this.hasBorder= false,
+    this.borderColor,
     super.key,
   });
 
-  final double? height, width, imageOpacity;
+  final double? height, width, imageOpacity, borderWidth;
   final String imgUrl;
   final bool applyImageRadius;
   final BoxFit? fit;
-  final bool isNetworkImage;
-  final double boarderRadius;
+  final bool isNetworkImage, hasBorder;
+  final double imgBoarderRadius, boarderRadius;
   final VoidCallback? onPress;
-
+  final Color? borderColor;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,8 +37,12 @@ class AppBannerImage extends StatelessWidget {
       child: AppCardContainer(
         height: height,
         width: width,
+        hasBorder: hasBorder,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
+        borderRadius: boarderRadius,
         child: ClipRRect(
-          borderRadius:applyImageRadius? BorderRadius.circular(boarderRadius) : BorderRadius.zero,
+          borderRadius:applyImageRadius? BorderRadius.circular(imgBoarderRadius) : BorderRadius.zero,
           child: isNetworkImage
               ?
               //Image(image: NetworkImage(imgUrl), fit: fit,)

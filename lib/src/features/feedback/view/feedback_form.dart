@@ -20,6 +20,7 @@ class FeedbackForm extends StatelessWidget {
     final isDark = AppHelperFunctions.isDarkMode(context);
     return AppLayoutWithBackButton(
         title: const Text('Feedback'),
+        padding: AppSizes.defaultSpace,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

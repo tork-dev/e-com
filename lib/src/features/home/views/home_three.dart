@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:torganic/src/common/layouts/gridview_layout/gridview_layout.dart';
 import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
@@ -9,7 +11,7 @@ import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/common/widgets/containers/grid_scroll_card.dart';
-import 'package:torganic/src/common/widgets/containers/horizontal_scroll_card.dart';
+import 'package:torganic/src/common/widgets/containers/horizontal_scroll_product_card.dart';
 import 'package:torganic/src/common/widgets/containers/product_image.dart';
 import 'package:torganic/src/common/widgets/search_bar/search_bar.dart';
 import 'package:torganic/src/common/widgets/slider/view/app_slider.dart';
@@ -44,36 +46,51 @@ class HomeThree extends StatelessWidget {
         leadingIconColor: AppColors.darkerGrey,
         backgroundColor: AppColors.white,
         body: AppLayoutWithRefresher(onRefresh: controller.getProductData,
-            children:  const [
-          Gap(AppSizes.spaceBtwItems),
-          AppHomeSearchBox(),
-          Gap(AppSizes.spaceBtwItems),
+            children:  [
+          const Gap(AppSizes.spaceBtwItems),
+          const AppHomeSearchBox(),
+          const Gap(AppSizes.spaceBtwItems),
           // AppBannerImage(
           //   height: 200,
           //     width: 375,
           //     imgUrl: AppImages.banner2),
-          CustomSlider(),
-          Gap(AppSizes.spaceBtwItems),
-              AppFeatureCategories(),
-          Gap(AppSizes.spaceBtwItems),
-          AppSectionTitleText(
+          const CustomSlider(),
+          const Gap(AppSizes.spaceBtwItems),
+              const AppFeatureCategories(),
+          const Gap(AppSizes.spaceBtwItems),
+          const AppSectionTitleText(
             sectionTitle: 'Best Selling Products',
             haveTxtButton: false,
           ),
-          AppHomeBestSellingProduct(),
-          Gap(AppSizes.spaceBtwSections),
-          AppSectionTitleText(
+          Obx(() {
+              return AppHomeBestSellingProduct(
+                sectionName: controller.homeProductResponse.value.bestsellingProducts
+              );
+            }
+          ),
+          const Gap(AppSizes.spaceBtwSections),
+          const AppSectionTitleText(
             sectionTitle: 'Hot Deals',
             haveTxtButton: false,
           ),
-          AppHomeHotDealsProduct(),
-          Gap(AppSizes.spaceBtwSections),
-          AppSectionTitleText(
+              Obx(() {
+                  return AppHomeBestSellingProduct(
+                      sectionName: controller.homeProductResponse.value.featuredProducts
+                  );
+                }
+              ),
+          const Gap(AppSizes.spaceBtwSections),
+          const AppSectionTitleText(
             sectionTitle: 'New Arrivals',
             haveTxtButton: false,
           ),
-          AppHomeNewArrivalsProduct(),
-          Gap(70),
+              Obx(() {
+                return AppHomeBestSellingProduct(
+                    sectionName: controller.homeProductResponse.value.newProducts
+                );
+              }
+              ),
+          const Gap(70),
         ]));
   }
 }

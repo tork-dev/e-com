@@ -14,13 +14,15 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.action,
     this.backgroundColor,
     this.showBackButton = true,
-    super.key});
+    this.leadingIconColor,
+    super.key, required this.padding, });
 
   final Widget? title, body;
   final bool centerTitle;
-  final Color? backgroundColor;
+  final Color? backgroundColor, leadingIconColor;
   final List<Widget>? action;
   final bool showBackButton;
+  final double padding;
 
 
   @override
@@ -31,11 +33,12 @@ class AppLayoutWithBackButton extends StatelessWidget {
       appBar: CustomAppBar(
         title: title,
         showBackArrow: showBackButton,
+        leadingIconColor: leadingIconColor,
         centerTitle: centerTitle,
-        //backgroundColor: backgroundColor ?? (isDark? AppColors.dark : AppColors.light),
+        backgroundColor: backgroundColor,
         actions: action,
       ),
-      body: Padding(padding: AppSpacingStyle.defaultSpacing, child: body),
+      body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
     );
   }
 }

@@ -10,7 +10,7 @@ class AppColors {
   static const Color white = Color(0xffffffff);
   static const Color darkGrey = Color(0xff707070);
   static const Color signUpWithPassword = Color(0xff254849);
-  static const Color lightGrey = Color(0xffefefef);
+  static const Color lightGrey = Color.fromRGBO(239, 239, 239, 1);
   static const Color addToCartButton = Color(0xff2a2b2d);
   static const Color facebookBg = Color(0xff4c69ba);
   static const Color googleBg = Color(0xffdd4b39);

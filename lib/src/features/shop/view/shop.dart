@@ -8,6 +8,7 @@ import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_re
 import 'package:torganic/src/common/widgets/appbar/appbar_bottom.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/common/widgets/search_bar/app_bar_search.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
 import 'package:torganic/src/features/shop/view/widget/shop_page_cads.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
@@ -39,26 +40,10 @@ class ShopScreen extends StatelessWidget {
           ),
           Gap(AppSizes.sm),
         ],
-        title: TextFormField(
-          cursorColor: AppColors.white,
-          decoration: InputDecoration(
-            hintText: 'Search with AI (EX: Facewash for acne)',
-            hintStyle: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .apply(color: AppColors.white),
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent)),
-            focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent)),
-            enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent)),
-          ),
-        ),
+        title: const AppBarSearch(),
         body: Stack(
           clipBehavior: Clip.none,
           // fit: StackFit.expand,
-
           children: [
 
             Padding(
