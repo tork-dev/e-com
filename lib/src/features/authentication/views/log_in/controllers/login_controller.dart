@@ -184,7 +184,7 @@ class LogInPageController extends GetxController {
       if(logInFormKey.currentState!.validate()){
         if(otpLoginList[0].result == true){
           AppHelperFunctions.showToast(otpLoginList[0].message.toString());
-          Get.to(const Otp());
+          Get.to(() => const Otp());
         } else{
           AppHelperFunctions.showToast(otpLoginList[0].message.toString());
         }
