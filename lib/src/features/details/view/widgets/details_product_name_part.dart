@@ -89,7 +89,9 @@ class AppDetailsProductNamePart extends StatelessWidget {
                 const Gap(AppSizes.spaceBtwItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
-                    : Row(
+                    :  detailsController.productDetails.value
+                    .detailedProducts!.productBrands!.isNotEmpty ?
+                Row(
                         children: [
                           Text(
                             'Brand: ',
@@ -99,24 +101,23 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                 .apply(color: AppColors.darkGrey),
                           ),
                           const Gap(AppSizes.spaceBtwSections),
-                          Visibility(
-                            visible: detailsController.productDetails.value.detailedProducts!.productBrands!.isNotEmpty,
-                            child: Text(
-                                detailsController.productDetails.value
-                                    .detailedProducts?.productBrands?[0].name ?? '',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .apply(color: AppColors.darkGrey)),
-                          ),
+                          Text(
+                                  detailsController
+                                          .productDetails
+                                          .value
+                                          .detailedProducts
+                                          ?.productBrands?[0]
+                                          .name ??
+                                      '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .apply(color: AppColors.darkGrey))
                         ],
-                      ),
+                      ) : const SizedBox()
               ],
             ),
           ),
-
-
-
           const Gap(AppSizes.spaceBtwItems),
           AppDividersStyle.fullFlatAppDivider,
           const Gap(AppSizes.spaceBtwItems),
@@ -151,7 +152,8 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                       .titleLarge!
                                       .apply(
                                           color: AppColors.darkGrey,
-                                          decoration: TextDecoration.lineThrough),
+                                          decoration:
+                                              TextDecoration.lineThrough),
                                 ),
                                 const Gap(AppSizes.spaceBtwRowItem)
                               ],
@@ -211,8 +213,11 @@ class AppDetailsProductNamePart extends StatelessWidget {
                           ),
                           const Gap(80),
                           Text(
-                              detailsController.productDetails.value
-                                          .detailedProducts!.preorderAvailable ==
+                              detailsController
+                                          .productDetails
+                                          .value
+                                          .detailedProducts!
+                                          .preorderAvailable ==
                                       0
                                   ? detailsController.productDetails.value
                                               .detailedProducts!.stock !=
