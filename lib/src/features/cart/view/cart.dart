@@ -20,7 +20,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CartController());
+    final controller = CartController.instance;
     return AppLayoutWithDrawer(
         globalKey: controller.cartKey,
         title: const Text('Shopping Cart', style: TextStyle(color: AppColors.white)),

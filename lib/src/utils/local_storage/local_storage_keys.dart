@@ -11,5 +11,6 @@ class LocalStorageKeys{
   static const String userPhone = "userPhone";
   static const String userHavePassword = "userHavePassword";
   static const String avatarOriginal = "avatarOriginal";
+  static const String cartCount = "cartCount";
 
  }

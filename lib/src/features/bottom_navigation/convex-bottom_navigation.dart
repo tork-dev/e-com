@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:badges/badges.dart' as badge;
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/cart/view/cart.dart';
@@ -40,19 +41,30 @@ class HelloConvexAppBar extends StatelessWidget {
         backgroundColor: AppColors.primary,
         activeColor: AppColors.light,
         color: AppColors.white,
-        items: const [
-          TabItem(
+        items:  [
+          const TabItem(
             icon: Icons.home_outlined,
             title: 'Home',
           ),
 
-          TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
+          const TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
 
           TabItem(
-            icon: Icon(Icons.shopping_bag_outlined, color: AppColors.white,),
+            icon: badge.Badge(
+                badgeContent: Obx(() {
+                    return Text(convexBottomNavController.cartController.cartCount.value,
+                      style: const TextStyle(color: AppColors.white),);
+                  }
+                ),
+                badgeStyle: const badge.BadgeStyle(
+                  badgeColor: AppColors.black,
+                  padding: EdgeInsets.all(6)
+                ),
+                
+                child: const Icon(Icons.shopping_bag_outlined, color: AppColors.white,)),
             title: 'Cart'
     ),
-          TabItem(
+          const TabItem(
               icon: Icons.account_circle_rounded,
               title: 'Profile')
         ],

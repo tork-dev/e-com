@@ -16,13 +16,15 @@ class CartController extends GetxController{
   RxList<CartItemGetResponse> allCartProducts = <CartItemGetResponse>[].obs;
   Rx<CartDeleteResponse> cartProductDeleteResponse = CartDeleteResponse().obs;
 
+  final RxString cartCount = '0'.obs;
+
   
   @override
   void onInit() {
     super.onInit();
    // getAllCartProducts();
     if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null){
-      getAllCartProducts();
+      getAllCartProducts().then((value) =>  updateQuantity());
     }
   }
 
@@ -30,6 +32,16 @@ class CartController extends GetxController{
      print('refresh');
      getAllCartProducts();
   }
+
+  void updateQuantity(){
+    int totalQuantity = 0;
+    for (var item in allCartProducts[0].cartItems!) {
+      totalQuantity += item.quantity!;
+      cartCount.value = totalQuantity.toString();
+    }
+  }
+
+
 
   Future<List<CartItemGetResponse>> getAllCartProducts() async {
     return allCartProducts.value = await CartRepositories().getCartProducts();
