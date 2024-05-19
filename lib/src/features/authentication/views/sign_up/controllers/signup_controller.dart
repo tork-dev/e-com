@@ -105,7 +105,7 @@ class SignUpPageController extends GetxController {
 
       signupList.add(response);
       AuthHelper().setUserData(response);
-      AuthHelper().fetch_and_set();
+      // AuthHelper().fetch_and_set();
       /// Validate Form
       if (!signupFormKey.currentState!.validate()) return;
     } catch (e) {

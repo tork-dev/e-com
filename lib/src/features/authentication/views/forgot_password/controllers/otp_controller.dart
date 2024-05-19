@@ -73,7 +73,7 @@ class OtpController extends GetxController{
       forgetPasswordController.isForgotPassword.value == true? otpForgetPasswordResponse.add(response) : signUpController.isSignupOtp.value == true ? otpSignUpResponse.add(response) :
       otpLoginResponse.add(response);
       forgetPasswordController.isForgotPassword.value == true? Container() : AuthHelper().setUserData(response);
-      forgetPasswordController.isForgotPassword.value == true? Container() : AuthHelper().fetch_and_set();
+      // forgetPasswordController.isForgotPassword.value == true? Container() : AuthHelper().fetch_and_set();
 
     }catch(e){
       /// Error

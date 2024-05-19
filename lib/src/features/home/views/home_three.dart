@@ -63,7 +63,7 @@ class HomeThree extends StatelessWidget {
             haveTxtButton: false,
           ),
           Obx(() {
-              return AppHomeBestSellingProduct(
+              return AppHorizontalScrollProductCard(
                 sectionName: controller.homeProductResponse.value.bestsellingProducts
               );
             }
@@ -74,7 +74,7 @@ class HomeThree extends StatelessWidget {
             haveTxtButton: false,
           ),
               Obx(() {
-                  return AppHomeBestSellingProduct(
+                  return AppHorizontalScrollProductCard(
                       sectionName: controller.homeProductResponse.value.featuredProducts
                   );
                 }
@@ -85,7 +85,7 @@ class HomeThree extends StatelessWidget {
             haveTxtButton: false,
           ),
               Obx(() {
-                return AppHomeBestSellingProduct(
+                return AppHorizontalScrollProductCard(
                     sectionName: controller.homeProductResponse.value.newProducts
                 );
               }

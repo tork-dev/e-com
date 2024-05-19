@@ -65,15 +65,14 @@ class LogInPageController extends GetxController {
       var response = await LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
       loginList.add(response);
       AuthHelper().setUserData(response);
-      AuthHelper().fetch_and_set();
-      print('this is access token' +AppLocalStorage().readData(LocalStorageKeys.accessToken));
-      print('this is access token' +AppLocalStorage().readData(LocalStorageKeys.userId));
+      // AuthHelper().fetch_and_set();
       ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      print('login error' + e.toString());
     } finally {
       //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {

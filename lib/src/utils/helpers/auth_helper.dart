@@ -11,50 +11,52 @@ class AuthHelper{
     print(loginResponse);
     if(loginResponse.result == true){
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, true);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.accessToken, loginResponse.accessToken ?? "");
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.accessToken, loginResponse.accessToken);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, loginResponse.user.id);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, loginResponse.user.name ?? "");
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, loginResponse.user.name);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, loginResponse.user.email );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user.phone );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user.passwordSaved);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user.avatarOriginal ?? "");
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user.avatarOriginal);
     }
   }
 
 
   clearUserData() {
-    AppLocalStorage().removeData(LocalStorageKeys.isLoggedIn);
+    AppLocalStorage().removeData(LocalStorageKeys.isLoggedIn, );
+    AppLocalStorage().removeData(LocalStorageKeys.accessToken,);
     AppLocalStorage().removeData(LocalStorageKeys.userId);
     AppLocalStorage().removeData(LocalStorageKeys.userName);
     AppLocalStorage().removeData(LocalStorageKeys.userEmail);
     AppLocalStorage().removeData(LocalStorageKeys.userPhone);
     AppLocalStorage().removeData(LocalStorageKeys.userHavePassword);
     AppLocalStorage().removeData(LocalStorageKeys.avatarOriginal);
+
   }
 
 
-  fetch_and_set() async {
-    var userByTokenResponse = await LoginRepository().getUserByTokenResponse();
-
-    if (userByTokenResponse.result == true) {
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, true);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, userByTokenResponse.id);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, userByTokenResponse.name ?? "");
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, userByTokenResponse.email );
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, userByTokenResponse.phone );
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, userByTokenResponse.passwordSaved);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, userByTokenResponse.avatarOriginal ?? "");
-    } else
-    {
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, false);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, 0);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, "");
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, "");
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, "");
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, "");
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, "");
-    }
-  }
+  // fetch_and_set() async {
+  //   var userByTokenResponse = await LoginRepository().getUserByTokenResponse();
+  //
+  //   if (userByTokenResponse.result == true) {
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, true);
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, userByTokenResponse.id);
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, userByTokenResponse.name ?? "");
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, userByTokenResponse.email );
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, userByTokenResponse.phone );
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, userByTokenResponse.passwordSaved);
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, userByTokenResponse.avatarOriginal ?? "");
+  //   } else
+  //   {
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, false);
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, 0);
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, "");
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, "");
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, "");
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, "");
+  //     AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, "");
+  //   }
+  // }
 
 
 

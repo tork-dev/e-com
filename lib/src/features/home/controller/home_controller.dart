@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../cart/model/card_add_response_model.dart';
+import '../../cart/repositories/cart_repositories.dart';
 import '../model/all_category_model.dart';
 import '../model/home_products_model.dart';
 import '../model/home_sliders_model.dart';
@@ -20,6 +22,7 @@ class HomeController extends GetxController{
   RxList homeFeaturedCategoryResponse = [].obs;
   RxList<AllCategory> allCategories = <AllCategory>[].obs;
   Rx<HomeSlidersResponse> homeSliders = HomeSlidersResponse().obs;
+  Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
 
   @override
   void onInit(){
@@ -42,6 +45,10 @@ class HomeController extends GetxController{
 
   void fetchAllCategories() async {
       allCategories.value = await HomeRepositories().getAllCategories();
+  }
+
+  Future<AddToCartResponse> getAddToCartResponse(int id, int quantity, dynamic preorderAvailable) async {
+    return addToCartResponse.value = await CartRepositories().getCartAddResponse(id, quantity, preorderAvailable);
   }
 
 

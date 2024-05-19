@@ -1,29 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/cart/model/card_add_response_model.dart';
-import 'package:torganic/src/features/cart/repositories/cart_repositories.dart';
+
+import '../../../utils/local_storage/local_storage_keys.dart';
+import '../../../utils/local_storage/storage_utility.dart';
+import '../model/cart_delete_response_model.dart';
+import '../model/cart_get_response_model.dart';
+import '../repositories/cart_repositories.dart';
+
 
 class CartController extends GetxController{
   static CartController get instance => Get.find();
 
   /// Key
   final GlobalKey<ScaffoldState> cartKey = GlobalKey<ScaffoldState>();
-  
-  Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
+  RxList<CartItemGetResponse> allCartProducts = <CartItemGetResponse>[].obs;
+  Rx<CartDeleteResponse> cartProductDeleteResponse = CartDeleteResponse().obs;
+
   
   @override
   void onInit() {
     super.onInit();
-    
+   // getAllCartProducts();
+    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null){
+      getAllCartProducts();
+    }
   }
 
   Future <void> onRefresh ()async {
      print('refresh');
+     getAllCartProducts();
   }
-  
-  Future<AddToCartResponse> getAddToCartResponse(int id, int quantity, dynamic preorderAvailable) async {
-    return addToCartResponse.value = await CartRepositories().getCartAddResponse(id, quantity, preorderAvailable);
+
+  Future<List<CartItemGetResponse>> getAllCartProducts() async {
+    return allCartProducts.value = await CartRepositories().getCartProducts();
   }
-  
+
+  Future<CartDeleteResponse> getCartDelete(int cartId) async{
+    return cartProductDeleteResponse.value = await CartRepositories().getCartDeleteResponse(cartId);
+  }
+
 
 }
