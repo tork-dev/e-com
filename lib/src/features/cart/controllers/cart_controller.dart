@@ -36,7 +36,10 @@ class CartController extends GetxController {
   Future <void> onRefresh() async {
     print('refresh');
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      getAllCartProducts().then((value) => updateTotalPrice());
+      getAllCartProducts().then((value) => {
+        updateTotalPrice(),
+        updateQuantity()
+      });
     }
   }
 
@@ -70,7 +73,7 @@ class CartController extends GetxController {
     await CartRepositories().getCartDeleteResponse(cartId);
   }
 
-  Future<CartUpdateResponse> getCartUpdate(int productId,
+  Future<CartUpdateResponse> getCartUpdateQuantity(int productId,
       int productQuantity) async {
     return cartUpdateResponse.value =
     await CartRepositories().getCartQuantityUpdate(productId, productQuantity);

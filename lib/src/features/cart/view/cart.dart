@@ -26,7 +26,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CartController.instance;
-    final bottomNavController = ConvexBottomNavController.instance;
+    // final bottomNavController = ConvexBottomNavController.instance;
     return AppLayoutWithDrawer(
         globalKey: controller.cartKey,
         title: const Text('Shopping Cart',

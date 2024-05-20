@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
 import 'package:torganic/src/features/cart/view/widgets/log_out_view.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
@@ -22,10 +23,13 @@ class AppCartProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
+    final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
       return cartController.allCartProducts.isEmpty
           ? CartLogOutView(
-              onTap: () {},
+              onTap: () {
+                bottomNavController.jumpToTab(1);
+              },
               imgUrl: AppImages.emptyShoppingBag,
               titleText: 'No Products added to the cart',
               buttonName: 'GO SHOP')
@@ -95,7 +99,7 @@ class AppCartProductCard extends StatelessWidget {
                                                         .then((value) => {
                                                               cartController
                                                                       .cartCount
-                                                                      ?.value =
+                                                                      .value =
                                                                   cartController
                                                                       .cartProductDeleteResponse
                                                                       .value
@@ -130,9 +134,36 @@ class AppCartProductCard extends StatelessWidget {
                                 children: [
                                   InkWell(
                                       onTap: () {
-                                        cartController.getCartUpdate(
-                                        cartController.allCartProducts[0].cartItems![index].id!,
-                                            productQuantity)
+                                        if (cartController.allCartProducts[0]
+                                                .cartItems![index].quantity! <
+                                            cartController
+                                                .allCartProducts[0]
+                                                .cartItems![index]
+                                                .upperLimit!) {
+                                          cartController
+                                              .getCartUpdateQuantity(
+                                                  cartController
+                                                      .allCartProducts[0]
+                                                      .cartItems![index]
+                                                      .id!,
+                                                  cartController
+                                                          .allCartProducts[0]
+                                                          .cartItems![index]
+                                                          .quantity! +
+                                                      1)
+                                              .then((value) =>
+                                                  cartController.onRefresh())
+                                              .then((value) => {
+                                                    AppHelperFunctions.showToast(
+                                                        cartController
+                                                            .cartUpdateResponse
+                                                            .value
+                                                            .message!),
+                                                  });
+                                        } else {
+                                          AppHelperFunctions.showToast(
+                                              'Cannot order more than ${cartController.allCartProducts[0].cartItems![index].upperLimit}');
+                                        }
                                       },
                                       child: const Icon(Icons.add)),
                                   AppCardContainer(
@@ -149,7 +180,38 @@ class AppCartProductCard extends StatelessWidget {
                                               .quantity!
                                               .toString()))),
                                   InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        if (cartController.allCartProducts[0]
+                                                .cartItems![index].quantity! <
+                                            cartController
+                                                .allCartProducts[0]
+                                                .cartItems![index]
+                                                .lowerLimit!) {
+                                          cartController
+                                              .getCartUpdateQuantity(
+                                                  cartController
+                                                      .allCartProducts[0]
+                                                      .cartItems![index]
+                                                      .id!,
+                                                  cartController
+                                                          .allCartProducts[0]
+                                                          .cartItems![index]
+                                                          .quantity! -
+                                                      1)
+                                              .then((value) =>
+                                                  cartController.onRefresh())
+                                              .then((value) => {
+                                                    AppHelperFunctions.showToast(
+                                                        cartController
+                                                            .cartUpdateResponse
+                                                            .value
+                                                            .message!),
+                                                  });
+                                        } else {
+                                          AppHelperFunctions.showToast(
+                                              'Cannot order less than ${cartController.allCartProducts[0].cartItems![index].lowerLimit}');
+                                        }
+                                      },
                                       child: const Icon(Icons.remove)),
                                 ],
                               ))
