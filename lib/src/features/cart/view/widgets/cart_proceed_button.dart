@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/device/device_utility.dart';
@@ -12,6 +14,7 @@ class AppCartProceedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = CartController.instance;
     return AppCardContainer(
       height: 150,
       width: AppHelperFunctions.screenWidth() * 1,
@@ -30,7 +33,10 @@ class AppCartProceedButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('SubTotal', style: Theme.of(context).textTheme.titleLarge,),
-                  Text('৳3130.00', style: Theme.of(context).textTheme.titleLarge,)
+                  Obx(() {
+                      return Text('৳${cartController.cartItemTotalPrice}', style: Theme.of(context).textTheme.titleLarge,);
+                    }
+                  )
                 ],
                            ),
              ),

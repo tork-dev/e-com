@@ -175,6 +175,7 @@ class AppImages {
   //Profile
   static const String user = "assets/images/content/user.png";
   static const String profileIcon = "assets/images/icons/profile.png";
+  static const String emptyShoppingBag = "assets/images/icons/cart_empty_bag.png";
   static const String homeIcon = "assets/images/icons/home_icon.png";
   static const String addressIcon = "assets/images/icons/address.png";
   static const String translateIcon = "assets/images/icons/translate.png";

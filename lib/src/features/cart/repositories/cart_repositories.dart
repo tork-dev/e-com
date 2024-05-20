@@ -8,6 +8,8 @@ import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../model/cart_update_response_model.dart';
+
 class CartRepositories {
 
   final int userId = AppLocalStorage().readData(LocalStorageKeys.userId);
@@ -53,7 +55,6 @@ class CartRepositories {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       List<dynamic> jsonResponse = json.decode(response.body);
       return jsonResponse.map((data) => CartItemGetResponse.fromJson(data)).toList();
     } else {
@@ -62,6 +63,35 @@ class CartRepositories {
   }
 
 
+  ///Cart Quantity Update
+  Future<CartUpdateResponse> getCartQuantityUpdate(
+      productId, int productQuantity) async {
+    Uri url = Uri.parse(AppApiEndPoints.cartQuantityUpdate);
+    print("cart Change Quantity");
+
+    var postBody = jsonEncode({
+      "id": productId,
+      "quantity": productQuantity,
+    });
+
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: postBody,
+    );
+    print("access token $accessToken");
+
+    print("cart Quantity res ${response.body}");
+
+    return CartUpdateResponse.fromJson(jsonDecode(response.body));
+  }
+
+
+
+  ///Delete Cart Product
   Future<CartDeleteResponse> getCartDeleteResponse(int cartId) async {
 
     Uri url = Uri.parse("${AppApiEndPoints.cartProductsDelete}/$cartId");
@@ -81,4 +111,5 @@ class CartRepositories {
 
 
   }
+
 }

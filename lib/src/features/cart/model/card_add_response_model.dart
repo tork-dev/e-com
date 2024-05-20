@@ -1,7 +1,7 @@
 class AddToCartResponse {
   bool? result;
   String? message;
-  String? cartQuantity;
+  dynamic cartQuantity;
 
   AddToCartResponse({this.result, this.message, this.cartQuantity});
 

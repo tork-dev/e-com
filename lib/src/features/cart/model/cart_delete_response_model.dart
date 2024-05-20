@@ -1,7 +1,7 @@
 class CartDeleteResponse {
   bool? result;
   String? message;
-  String? cartQuantity;
+  dynamic cartQuantity;
 
   CartDeleteResponse({this.result, this.message, this.cartQuantity});
 
