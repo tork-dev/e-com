@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -14,13 +15,16 @@ class AppBottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final detailsController = DetailsPageController.instance;
+    final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
       return detailsController.productDetails.value.detailedProducts == null
-          ? ShimmerHelper().buildBasicShimmer(height: 50, width: AppHelperFunctions.screenWidth() * 1)
+          ? ShimmerHelper().buildBasicShimmer(
+              height: 50, width: AppHelperFunctions.screenWidth() * 1)
           : detailsController.productDetails.value.detailedProducts!.stock != 0
               ? Row(
                   children: [
                     AppCardContainer(
+                        onTap: () => detailsController.onAddToCart(),
                         height: 50,
                         width: AppHelperFunctions.screenWidth() / 2,
                         applyRadius: false,
@@ -44,6 +48,9 @@ class AppBottomButton extends StatelessWidget {
                           ],
                         )),
                     AppCardContainer(
+                        onTap: () => detailsController.onAddToCart().then(
+                            (value) =>
+                                {bottomNavController.jumpToTab(2), Get.back()}),
                         height: 50,
                         width: AppHelperFunctions.screenWidth() / 2,
                         applyRadius: false,

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
 
+import '../../features/authentication/views/log_in/controllers/login_controller.dart';
 import '../../features/authentication/views/log_in/repository/login_repository.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
 
-
 class AuthHelper{
+
 
   setUserData(loginResponse) async{
     print(loginResponse);
-    if(loginResponse.result == true){
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, true);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.accessToken, loginResponse.accessToken);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, loginResponse.user.id);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, loginResponse.user.name);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, loginResponse.user.email );
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user.phone );
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user.passwordSaved);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user.avatarOriginal);
-    }
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, loginResponse.user?.id);
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, loginResponse.user?.name);
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, loginResponse.user?.email );
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user?.phone );
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user?.passwordSaved);
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avatar);
+
   }
 
 

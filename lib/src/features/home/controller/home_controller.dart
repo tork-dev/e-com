@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../model/all_category_model.dart';
+import '../model/home_featured_category_model.dart';
 import '../model/home_products_model.dart';
 import '../model/home_sliders_model.dart';
 import '../repositories/home_repositories.dart';
@@ -19,7 +20,7 @@ class HomeController extends GetxController{
 
   /// Model Class Instance
   Rx<HomeProductResponse> homeProductResponse = HomeProductResponse().obs;
-  RxList homeFeaturedCategoryResponse = [].obs;
+  RxList<FeaturedCategory>homeFeaturedCategoryResponse = <FeaturedCategory>[].obs;
   RxList<AllCategory> allCategories = <AllCategory>[].obs;
   Rx<HomeSlidersResponse> homeSliders = HomeSlidersResponse().obs;
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
@@ -38,9 +39,7 @@ class HomeController extends GetxController{
   }
 
   void fetchFeaturedCategories() async {
-    var categoryResponse =
-    await HomeRepositories().getHomeFeaturedCategories();
-    homeFeaturedCategoryResponse.addAll(categoryResponse);
+    homeFeaturedCategoryResponse.value = await HomeRepositories().getHomeFeaturedCategories();
   }
 
   void fetchAllCategories() async {

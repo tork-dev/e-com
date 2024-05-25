@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:torganic/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:torganic/src/features/authentication/views/forgot_password/model/forget_password_confrim_response.dart';
 import 'package:torganic/src/features/authentication/views/forgot_password/repository/forgot_password_repository.dart';
@@ -28,8 +29,8 @@ class OtpController extends GetxController{
   final otpCodeController = TextEditingController();
 
   GlobalKey<FormState> otpKey = GlobalKey<FormState>();
-  List<LoginResponse> otpLoginResponse = [];
-  List<LoginResendOtpResponse> resendOtpLoginResponse = [];
+  List<AppLoginResponse> otpLoginResponse = [];
+  Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
   List<SignupResponse> otpSignUpResponse = [];
   List<SignupResendOtpResponse> resendOtpSignUpResponse = [];
   List<ForgetPasswordConfirmResponse> otpForgetPasswordResponse = [];
@@ -70,8 +71,7 @@ class OtpController extends GetxController{
           loginController.emailController.text,
           otpCodeController.text,
       );
-      forgetPasswordController.isForgotPassword.value == true? otpForgetPasswordResponse.add(response) : signUpController.isSignupOtp.value == true ? otpSignUpResponse.add(response) :
-      otpLoginResponse.add(response);
+      //forgetPasswordController.isForgotPassword.value == true? otpForgetPasswordResponse.add(response) : signUpController.isSignupOtp.value == true ? otpSignUpResponse.add(response) :
       forgetPasswordController.isForgotPassword.value == true? Container() : AuthHelper().setUserData(response);
       // forgetPasswordController.isForgotPassword.value == true? Container() : AuthHelper().fetch_and_set();
 
@@ -121,7 +121,7 @@ class OtpController extends GetxController{
           :
       await LoginRepository().getLoginResendOTPResponse(loginController.emailController.text);
 
-      forgetPasswordController.isForgotPassword.value == true?  resendOtpForgetPasswordResponse.add(response) : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse.add(response) : resendOtpLoginResponse.add(response);
+      //forgetPasswordController.isForgotPassword.value == true?  resendOtpForgetPasswordResponse.add(response) : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse.add(response) : resendOtpLoginResponse.add(response);
 
 
     } catch(e){
@@ -130,12 +130,12 @@ class OtpController extends GetxController{
       //print("Problem is: "+ e.toString());
     }finally{
       //FullScreenLoader.stopLoading();
-        if(forgetPasswordController.isForgotPassword.value == true? resendOtpForgetPasswordResponse[0].result == true : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].result == true : resendOtpLoginResponse[0].result == true){
+        if(forgetPasswordController.isForgotPassword.value == true? resendOtpForgetPasswordResponse[0].result == true : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].result == true : loginResponse.value.result == true){
 
-          AppHelperFunctions.showToast(forgetPasswordController.isForgotPassword.value == true? resendOtpForgetPasswordResponse[0].message.toString() : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].message.toString() : resendOtpLoginResponse[0].message.toString());
+          AppHelperFunctions.showToast(forgetPasswordController.isForgotPassword.value == true? resendOtpForgetPasswordResponse[0].message.toString() : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].message.toString() : loginResponse.value.message.toString());
 
         } else{
-          AppHelperFunctions.showToast(forgetPasswordController.isForgotPassword.value == true? resendOtpForgetPasswordResponse[0].message.toString() : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].message.toString() : resendOtpLoginResponse[0].message.toString());
+          AppHelperFunctions.showToast(forgetPasswordController.isForgotPassword.value == true? resendOtpForgetPasswordResponse[0].message.toString() : signUpController.isSignupOtp.value == true ? resendOtpSignUpResponse[0].message.toString() : loginResponse.value.message.toString());
         }
     }
 

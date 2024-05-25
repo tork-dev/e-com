@@ -25,9 +25,9 @@ class AppFeatureCategories extends StatelessWidget {
         print('data category: ${homeController.homeFeaturedCategoryResponse.length}');
           return AppListViewLayout(
                   isScrollVertically: false,
-                  itemCount: homeController.homeFeaturedCategoryResponse.length == null ? 5  : homeController.homeFeaturedCategoryResponse.length,
+                  itemCount: homeController.homeFeaturedCategoryResponse.isEmpty ? 5  : homeController.homeFeaturedCategoryResponse.length,
                   builderFunction: (BuildContext context, int index) =>
-                  homeController.homeFeaturedCategoryResponse.length == null  ? ShimmerHelper().buildBasicShimmer(
+                  homeController.homeFeaturedCategoryResponse.isEmpty  ? ShimmerHelper().buildBasicShimmer(
                     height: 150,
                     width: 150
                   ) :

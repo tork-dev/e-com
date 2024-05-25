@@ -61,7 +61,9 @@ class CartScreen extends StatelessWidget {
               )
             : Center(
                 child: CartLogOutView(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(()=> const LogIn());
+                  },
                   imgUrl: AppImages.profileIcon,
                   titleText: 'Please log in to see cart item',
                   buttonName: 'Login Now',

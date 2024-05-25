@@ -24,6 +24,8 @@ import 'package:torganic/src/features/home/views/widgets/home_search_bar.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
+import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/image_strings.dart';
 import 'widgets/home_appbar_title.dart';
 import 'widgets/home_bestselling_product.dart';
@@ -45,52 +47,50 @@ class HomeThree extends StatelessWidget {
         title: const AppHomeAppBarTitle(),
         leadingIconColor: AppColors.darkerGrey,
         backgroundColor: AppColors.white,
-        body: AppLayoutWithRefresher(onRefresh: controller.getProductData,
-            children:  [
-          const Gap(AppSizes.spaceBtwItems),
-          const AppHomeSearchBox(),
-          const Gap(AppSizes.spaceBtwItems),
-          // AppBannerImage(
-          //   height: 200,
-          //     width: 375,
-          //     imgUrl: AppImages.banner2),
-          const CustomSlider(),
-          const Gap(AppSizes.spaceBtwItems),
+        body: AppLayoutWithRefresher(
+            onRefresh: controller.getProductData,
+            children: [
+              const Gap(AppSizes.spaceBtwItems),
+              const AppHomeSearchBox(),
+              const Gap(AppSizes.spaceBtwItems),
+              // AppBannerImage(
+              //   height: 200,
+              //     width: 375,
+              //     imgUrl: AppImages.banner2),
+              const CustomSlider(),
+              const Gap(AppSizes.spaceBtwItems),
               const AppFeatureCategories(),
-          const Gap(AppSizes.spaceBtwItems),
-          const AppSectionTitleText(
-            sectionTitle: 'Best Selling Products',
-            haveTxtButton: false,
-          ),
-          Obx(() {
-              return AppHorizontalScrollProductCard(
-                sectionName: controller.homeProductResponse.value.bestsellingProducts
-              );
-            }
-          ),
-          const Gap(AppSizes.spaceBtwSections),
-          const AppSectionTitleText(
-            sectionTitle: 'Hot Deals',
-            haveTxtButton: false,
-          ),
-              Obx(() {
-                  return AppHorizontalScrollProductCard(
-                      sectionName: controller.homeProductResponse.value.featuredProducts
-                  );
-                }
+              const Gap(AppSizes.spaceBtwItems),
+              const AppSectionTitleText(
+                sectionTitle: 'Best Selling Products',
+                haveTxtButton: false,
               ),
-          const Gap(AppSizes.spaceBtwSections),
-          const AppSectionTitleText(
-            sectionTitle: 'New Arrivals',
-            haveTxtButton: false,
-          ),
               Obx(() {
                 return AppHorizontalScrollProductCard(
-                    sectionName: controller.homeProductResponse.value.newProducts
-                );
-              }
+                    sectionName: controller
+                        .homeProductResponse.value.bestsellingProducts);
+              }),
+              const Gap(AppSizes.spaceBtwSections),
+              const AppSectionTitleText(
+                sectionTitle: 'Hot Deals',
+                haveTxtButton: false,
               ),
-          const Gap(70),
-        ]));
+              Obx(() {
+                return AppHorizontalScrollProductCard(
+                    sectionName:
+                        controller.homeProductResponse.value.featuredProducts);
+              }),
+              const Gap(AppSizes.spaceBtwSections),
+              const AppSectionTitleText(
+                sectionTitle: 'New Arrivals',
+                haveTxtButton: false,
+              ),
+              Obx(() {
+                return AppHorizontalScrollProductCard(
+                    sectionName:
+                        controller.homeProductResponse.value.newProducts);
+              }),
+              const Gap(70),
+            ]));
   }
 }

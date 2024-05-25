@@ -23,6 +23,9 @@ class ConvexBottomNavController extends GetxController with GetSingleTickerProvi
   void jumpToTab(int index) {
     tabController.animateTo(index);
     pageIndex.value = index;
+    if (pageIndex.value == 2) {
+      cartController.onRefresh();
+    }
   }
 
   void changePage(int index) {

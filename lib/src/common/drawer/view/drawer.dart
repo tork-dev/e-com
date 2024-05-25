@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/feedback/view/feedback_form.dart';
+import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/auth_helper.dart';
@@ -32,6 +33,7 @@ class AppDrawer extends StatelessWidget {
                   CupertinoButton(
                       onPressed: () async {
                         //AppLocalStorage().clearAll();
+                        //print(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn));
                         AuthHelper().clearUserData();
                         Get.offAll(const LogIn());
                       },

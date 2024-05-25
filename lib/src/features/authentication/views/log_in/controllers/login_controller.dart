@@ -31,14 +31,16 @@ class LogInPageController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   GlobalKey<FormState> logInFormKey = GlobalKey<FormState>();
+
   //final authController = Get.put(AuthRepositories());
 
   /// variables
   Rx<bool> loginWithPassword = false.obs;
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> rememberMe = false.obs;
-  List<LoginResponse> loginList = [];
-  List<LoginOtpResponse> otpLoginList = [];
+  Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
+
+  // List<LoginOtpResponse> otpLoginList = [];
 
   @override
   void dispose() {
@@ -62,10 +64,11 @@ class LogInPageController extends GetxController {
       //     AppImages.loading);
 
       ///Api Calling
-      var response = await LoginRepository().getLoginResponse(emailController.text.toString(), passwordController.text.toString(), rememberMe.value,);
-      loginList.add(response);
-      AuthHelper().setUserData(response);
-      // AuthHelper().fetch_and_set();
+      loginResponse.value = await LoginRepository().getLoginResponse(
+        emailController.text.toString(),
+        passwordController.text.toString(),
+        rememberMe.value,
+      );
       ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
@@ -73,27 +76,31 @@ class LogInPageController extends GetxController {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
       print('login error' + e.toString());
-    } finally {
+    }
+    finally {
       //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
-        if(loginList[0].result == true){
-          AppHelperFunctions.showToast(loginList[0].message.toString());
+        if (loginResponse.value.result == true) {
+          AuthHelper().setUserData(loginResponse.value);
+          AppHelperFunctions.showToast(loginResponse.value.message.toString());
           Get.offAll(const HelloConvexAppBar());
-        } else{
-          AppHelperFunctions.showToast(loginList[0].message.toString());
+        } else {
+          AppHelperFunctions.showToast(loginResponse.value.message.toString());
         }
       }
     }
   }
 
+
   /// Google SignIn with Api
-  Future <UserCredential?> onPressedGoogleLogin() async {
+  Future<UserCredential?> onPressedGoogleLogin() async {
     try {
       FullScreenLoader.openLoadingDialog("Processing", AppImages.loading);
 
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
       // final credential = GoogleAuthProvider.credential(
       //   accessToken: googleAuth?.accessToken,
@@ -105,23 +112,21 @@ class LogInPageController extends GetxController {
           accessToken: googleAuth?.accessToken);
 
       if (loginResponse.result == false) {
-       AppHelperFunctions.showSimpleSnackBar('${loginResponse.message}');
+        AppHelperFunctions.showSimpleSnackBar('${loginResponse.message}');
       } else {
         AppHelperFunctions.showSimpleSnackBar('${loginResponse.message}');
-         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isGoogleLogIn, true);
+        AppLocalStorage().saveDataIfNull(LocalStorageKeys.isGoogleLogIn, true);
 
         //AuthHelper().setUserData(loginResponse);
-        Get.offAll(()=> const BottomNavigation());
+        Get.offAll(() => const BottomNavigation());
       }
       GoogleSignIn().disconnect();
-
     } on Exception catch (e) {
       AppHelperFunctions.showSimpleSnackBar(e.toString());
       print("error is ....... $e");
       // TODO
     }
     return null;
-
   }
 
   // Future<void> googleSignIn() async {
@@ -158,34 +163,33 @@ class LogInPageController extends GetxController {
   //   }
   // }
 
-  Future<void> sendCode() async{
+  Future<void> sendCode() async {
     final isConnected = await NetworkManager.instance.isConnected();
-    try{
+    try {
       ///Check Internet
-      if(!isConnected) return;
+      if (!isConnected) return;
 
       /// Validate Form
-      if(!logInFormKey.currentState!.validate()) return;
+      if (!logInFormKey.currentState!.validate()) return;
 
       /// Start Loading
       // FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
 
       ///Api Calling
-      var response = await LoginRepository().getLoginOTPResponse(emailController.text.toString(),);
-
-      print("data: ${response.toString()}");
-      otpLoginList.add(response);
-
-    }catch(e){
+      loginResponse.value = await LoginRepository().getLoginOTPResponse(
+        emailController.text.toString(),
+      );
+      print("data: ${loginResponse.value.toString()}");
+    } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
-    }finally{
-      if(logInFormKey.currentState!.validate()){
-        if(otpLoginList[0].result == true){
-          AppHelperFunctions.showToast(otpLoginList[0].message.toString());
+    } finally {
+      if (logInFormKey.currentState!.validate()) {
+        if (loginResponse.value.result == true) {
+          AppHelperFunctions.showToast(loginResponse.value.message.toString());
           Get.to(() => const Otp());
-        } else{
-          AppHelperFunctions.showToast(otpLoginList[0].message.toString());
+        } else {
+          AppHelperFunctions.showToast(loginResponse.value.message.toString());
         }
       }
     }

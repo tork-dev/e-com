@@ -18,10 +18,8 @@ import '../model/user_by_token_response.dart';
 class LoginRepository{
   final loginController = LogInPageController.instance;
 
-  Future<dynamic> getLoginOTPResponse( String phone, ) async {
-    var postBody = jsonEncode({"email": phone,
-      //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
-    });
+  Future<AppLoginResponse> getLoginOTPResponse( String phone, ) async {
+    var postBody = jsonEncode({"email": phone});
 
     Uri url = Uri.parse(AppApiEndPoints.loginOtp);
     final response = await http.post(url,
@@ -30,12 +28,10 @@ class LoginRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    print(response.body);
-   // return loginResponseFromJson(response.body);
-    return loginOtpResponseFromJson(response.body);
+    return AppLoginResponse.fromJson(jsonDecode(response.body));
   }
 
-  Future<dynamic> getLogInOtpConfirmCodeResponse(
+  Future<AppLoginResponse> getLogInOtpConfirmCodeResponse(
       String phone, String verificationCode) async {
     var postBody =
     jsonEncode({"email": phone, "otp_code": verificationCode});
@@ -47,10 +43,10 @@ class LoginRepository{
         },
         body: postBody);
     print(response.body);
-    return loginResponseFromJson(response.body);
+    return AppLoginResponse.fromJson(jsonDecode(response.body));
   }
 
-  Future<dynamic> getLoginResponse( String email,
+  Future<AppLoginResponse> getLoginResponse( String email,
        String password,  bool rememberMe,) async {
     var postBody = jsonEncode({
       "email": email,
@@ -58,8 +54,9 @@ class LoginRepository{
       "remember_me": rememberMe,
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
+    print('credential $email,$password,$rememberMe');
 
-    Uri url = Uri.parse("${AppApiEndPoints.logIn}");
+    Uri url = Uri.parse(AppApiEndPoints.logIn);
     final response = await http.post(url,
         headers: {
           "Accept": "*/*",
@@ -68,7 +65,7 @@ class LoginRepository{
         body: postBody);
     print(response.body.toString());
 
-    return loginResponseFromJson(response.body.toString());
+    return AppLoginResponse.fromJson(jsonDecode( response.body.toString()));
   }
 
   Future<UserByTokenResponse> getUserByTokenResponse() async {
@@ -84,7 +81,7 @@ class LoginRepository{
     return userByTokenResponseFromJson(response.body);
   }
 
-  Future<dynamic> getLoginResendOTPResponse( String phone, ) async {
+  Future<AppLoginResponse> getLoginResendOTPResponse( String phone, ) async {
     var postBody = jsonEncode({"email": phone,
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
@@ -97,7 +94,7 @@ class LoginRepository{
         },
         body: postBody);
     print(response.body);
-    return loginResendOtpResponseFromJson(response.body);
+    return AppLoginResponse.fromJson(jsonDecode(response.body));
   }
 
 

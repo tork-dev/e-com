@@ -187,22 +187,22 @@ class AppDetailsProductNamePart extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
-                                    onTap: () {},
+                                    onTap: ()=> detailsController.onRemoveButtonTap(),
                                     child: const Icon(
                                       Icons.remove,
                                       size: 30,
                                     )),
-                                const AppCardContainer(
+                                 AppCardContainer(
                                     height: 30,
                                     width: 30,
                                     hasBorder: true,
                                     borderWidth: 1,
                                     applyRadius: false,
                                     child: Center(
-                                      child: Text('1'),
+                                      child: Text('${detailsController.productCount.value}'),
                                     )),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: ()=> detailsController.onAddButtonTap(),
                                   child: const Icon(
                                     Icons.add,
                                     size: 30,
