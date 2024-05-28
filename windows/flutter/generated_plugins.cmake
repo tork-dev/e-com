@@ -6,8 +6,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   cloud_firestore
   connectivity_plus
+  file_selector_windows
   firebase_auth
   firebase_core
+  permission_handler_windows
   printing
   syncfusion_pdfviewer_windows
   url_launcher_windows

@@ -1,8 +1,8 @@
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppApiEndPoints {
   AppApiEndPoints._();
+
   static final String baseUrl = dotenv.env["BASE_URL"]!;
 
   ///Authentication
@@ -38,6 +38,18 @@ class AppApiEndPoints {
   static String cartProductsDelete = "$baseUrl/carts";
   static String cartQuantityUpdate = "$baseUrl/carts/change-quantity";
 
+  ///Purchase History
+  static String purchaseHistory = "$baseUrl/purchase-history";
+  static String purchaseHistoryDetails = "$baseUrl/purchase-history-details";
+  static String purchaseHistoryItem = "$baseUrl/purchase-history-items";
+  static String reOrder = "$baseUrl/reorder/";
+
+  ///Update Profile info
+  static String updateProfile = "$baseUrl/profile/update";
+  static String updateProfileImage = "$baseUrl/profile/update-image";
+
+  ///Wishlist
+  static String wishlistProducts = "$baseUrl/wishlists";
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";

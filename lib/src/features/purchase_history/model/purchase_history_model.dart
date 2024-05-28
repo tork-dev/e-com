@@ -150,13 +150,13 @@ class OrderData {
   }
 }
 
-class OrderHistoryResponse {
+class PurchaseHistoryResponse {
   List<OrderData>? data;
 
-  OrderHistoryResponse({this.data});
+  PurchaseHistoryResponse({this.data});
 
-  factory OrderHistoryResponse.fromJson(Map<String, dynamic> json) {
-    return OrderHistoryResponse(
+  factory PurchaseHistoryResponse.fromJson(Map<String, dynamic> json) {
+    return PurchaseHistoryResponse(
       data: json['data'] != null
           ? (json['data'] as List).map((i) => OrderData.fromJson(i)).toList()
           : null,

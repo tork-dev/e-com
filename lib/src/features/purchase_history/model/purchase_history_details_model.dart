@@ -1,12 +1,12 @@
-class OrderHistoryDetailsResponse {
+class PurchaseHistoryDetailsResponse {
   List<OrderData>? data;
   bool? success;
   int? status;
 
-  OrderHistoryDetailsResponse({this.data, this.success, this.status});
+  PurchaseHistoryDetailsResponse({this.data, this.success, this.status});
 
-  factory OrderHistoryDetailsResponse.fromJson(Map<String, dynamic> json) {
-    return OrderHistoryDetailsResponse(
+  factory PurchaseHistoryDetailsResponse.fromJson(Map<String, dynamic> json) {
+    return PurchaseHistoryDetailsResponse(
       data: json['data'] != null
           ? (json['data'] as List).map((i) => OrderData.fromJson(i)).toList()
           : null,

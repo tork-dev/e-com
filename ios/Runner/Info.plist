@@ -52,5 +52,12 @@
         <key>NSCameraUsageDescription
         &lt;string&gt;To scan cards&lt;/string&gt;</key>
         <string>To scan cards</string>
+
+        <key>NSCameraUsageDescription</key>
+        <string>We need access to the camera for profile image upload</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>We need access to the photo library for profile image upload</string>
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>We need access to save photos to your photo library</string>
 	</dict>
 </plist>

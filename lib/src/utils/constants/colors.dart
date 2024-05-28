@@ -15,6 +15,7 @@ class AppColors {
   static const Color facebookBg = Color(0xff4c69ba);
   static const Color googleBg = Color(0xffdd4b39);
   static const Color preorder=Color(0xff17a2be);
+  static const Color inStock = Colors.green;
 
   // Text colors
   static const Color textPrimary = Color(0xFF333333);

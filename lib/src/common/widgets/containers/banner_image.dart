@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/constants/sizes.dart';
@@ -18,15 +20,16 @@ class AppBannerImage extends StatelessWidget {
     this.imageOpacity = 1.0,
     this.borderWidth,
     this.hasBorder= false,
+    this.isFileImage = false,
     this.borderColor,
     super.key,
   });
 
   final double? height, width, imageOpacity, borderWidth;
-  final String imgUrl;
+  final dynamic imgUrl;
   final bool applyImageRadius;
   final BoxFit? fit;
-  final bool isNetworkImage, hasBorder;
+  final bool isNetworkImage, hasBorder, isFileImage;
   final double imgBoarderRadius, boarderRadius;
   final VoidCallback? onPress;
   final Color? borderColor;
@@ -53,12 +56,12 @@ class AppBannerImage extends StatelessWidget {
                       ShimmerHelper().buildBasicShimmer(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )
-              : Image(
+              : !isFileImage ? Image(
                   image: AssetImage(imgUrl) as ImageProvider,
                   fit: fit,
                   //opacity: AlwaysStoppedAnimation(imageOpacity!),
                   //color: Colors.red.withOpacity(.2),
-                ),
+                ): Image(image: FileImage(imgUrl as File))
         ),
       ),
     );

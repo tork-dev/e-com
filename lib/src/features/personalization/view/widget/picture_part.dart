@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:torganic/src/utils/constants/image_strings.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 
@@ -24,38 +25,41 @@ class PicturePart extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ),
-            const Center(
+            Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children:[
+                children: [
                   AppCardContainer(
-                    width: 140,
-                    height: 140,
-                    applyRadius: false,
-                    borderColor: AppColors.white,
-                    borderWidth: 2 * 0.8,
-                    hasBorder: true,
-                    isCircle: true,
-                    child:
-                    AppBannerImage(
-                      imgBoarderRadius: 100,
-                      isNetworkImage: true,
-                      fit: BoxFit.fill,
-                      imgUrl:
-                          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                    ),
-                  ),
+                      width: 140,
+                      height: 140,
+                      applyRadius: false,
+                      borderColor: AppColors.white,
+                      borderWidth: 2 * 0.8,
+                      hasBorder: true,
+                      isCircle: true,
+                      child: AppBannerImage(
+                        imgBoarderRadius: 100,
+                        isNetworkImage: AppLocalStorage()
+                                .readData(LocalStorageKeys.avatarOriginal) !=
+                            null,
+                        fit: BoxFit.fill,
+                        imgUrl: AppLocalStorage().readData(
+                                    LocalStorageKeys.avatarOriginal) !=
+                                null
+                            ? 'https://app.kireibd.com/${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
+                            : AppImages.profileIcon,
+                      )),
                 ],
               ),
             )
           ],
         ),
       ),
-       Padding(
-        padding: EdgeInsets.only(top: 8.0),
+      Padding(
+        padding: const EdgeInsets.only(top: 8.0),
         child: Text(
           "${AppLocalStorage().readData(LocalStorageKeys.userName)}",
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14,
               color: AppColors.secondary,
               fontWeight: FontWeight.w600),

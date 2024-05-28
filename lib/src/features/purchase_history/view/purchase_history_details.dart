@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:torganic/src/features/purchase_history/view/widget/paschase_history_details_item.dart';
+import 'package:torganic/src/features/purchase_history/view/widget/purchase_history_summary.dart';
+import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:torganic/src/utils/constants/sizes.dart';
+import '../../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import '../controller/purchase_history_details_controller.dart';
+import 'widget/order_shipping_details_card.dart';
+
+
+class PurchaseHistoryDetails extends StatelessWidget {
+  const PurchaseHistoryDetails({required this.orderId, super.key});
+
+  final int orderId;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.put(PurchaseHistoryDetailsController(orderId: orderId));
+    return  AppLayoutWithBackButton(
+      title: const Text('Order Details', style: TextStyle(color: AppColors.primary),),
+        centerTitle: true,
+        padding: AppSizes.defaultSpace,
+        body: AppLayoutWithRefresher(
+          onRefresh: controller.onRefresh,
+            children: [
+              const AppOrderShippingDetailsCard(),
+              const Gap(AppSizes.spaceBtwSections),
+              Center(child: Text('Order Products', style: Theme.of(context).textTheme.titleLarge,)),
+              const Gap(AppSizes.spaceBtwItems),
+              const AppPurchaseHistoryDetailsItem(),
+              const Gap(AppSizes.spaceBtwSections),
+              const AppPurchaseHistoryDetailsSummary()
+            ]));
+  }
+}
+

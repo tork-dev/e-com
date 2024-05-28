@@ -4,7 +4,7 @@ import '../../../../utils/constants/colors.dart';
 class AuthInputField extends StatelessWidget {
   const AuthInputField({
     super.key,
-    required this.isDark,
+    this.isDark = false,
     required this.hingText,
     required this.controller,
     required this.obscured,
@@ -27,19 +27,19 @@ class AuthInputField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hingText,
         suffixIcon: suffixIcon,
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
               width: 1,
               color: AppColors.primary,
             )
         ),
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
               width: 1,
               color: AppColors.darkGrey,
             )
         ),
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: AppColors.lightGrey,
         )
         // focusedBorder: OutlineInputBorder(

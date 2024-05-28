@@ -24,7 +24,7 @@ class AppHomeAppBarTitle extends StatelessWidget {
          SizedBox(
             child: Row(
                 children: [
-                  Text('Hi, User', style: Theme.of(context).textTheme.bodyLarge,),
+                  Text('Hi, ${AppLocalStorage().readData(LocalStorageKeys.userName)}', style: Theme.of(context).textTheme.bodyLarge,),
                   const Gap(AppSizes.spaceBtwRowItem),
                   AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true?
                    AppCardContainer(
