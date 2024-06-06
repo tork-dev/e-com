@@ -5,7 +5,9 @@ import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_
 import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:torganic/src/features/authentication/views/widgets/auth_input_field.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/personalization/controller/account_details_controller.dart';
 import 'package:torganic/src/features/personalization/view/widget/edit_profile_text_fields.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
@@ -23,6 +25,7 @@ class AccountDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AccountDetailsController());
+    final loginController = Get.put(LogInPageController());
     return AppLayoutWithBackButton(
       padding: AppSizes.defaultSpace,
         title: const Text('Edit Profile', style: TextStyle(color: AppColors.white),),

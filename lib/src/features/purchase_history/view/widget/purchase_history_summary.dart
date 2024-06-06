@@ -18,34 +18,37 @@ class AppPurchaseHistoryDetailsSummary extends StatelessWidget {
       child: Obx((){
           return detailsController.purchaseHistoryDetails.value.data == null?
               ShimmerHelper().buildBasicShimmer(height: 150):
-          Column(
-            children: [
-              SummaryTextWidget(
-                  title: 'SUBTOTAL',
-                  amount: detailsController.purchaseHistoryDetails.value.data![0].subtotal!),
-              const Gap(AppSizes.xs),
-              SummaryTextWidget(
-                  title: 'TAX',
-                  amount: detailsController.purchaseHistoryDetails.value.data![0].tax!),
-              const Gap(AppSizes.xs),
-              SummaryTextWidget(
-                  title: 'SHIPPING COST',
-                  amount: detailsController.purchaseHistoryDetails.value.data![0].shippingCost!),
-              const Gap(AppSizes.xs),
-              SummaryTextWidget(
-                  title: 'DISCOUNT',
-                  amount: detailsController.purchaseHistoryDetails.value.data![0].couponDiscount!),
-              const Gap(AppSizes.xs),
-               SizedBox(
-                width: 270,
-                child: AppDividersStyle.fullFlatAppDivider,
-              ),
-              const Gap(AppSizes.xs),
-              SummaryTextWidget(
-                  title: 'GRAND TOTAL',
-                  amount: detailsController.purchaseHistoryDetails.value.data![0].grandTotal!),
-              const Gap(AppSizes.xl),
-            ],);
+          SizedBox(
+            width: 250,
+            child: Column(
+              children: [
+                AppSummaryTextWidget(
+                    title: 'SUBTOTAL',
+                    amount: detailsController.purchaseHistoryDetails.value.data![0].subtotal!),
+                const Gap(AppSizes.xs),
+                AppSummaryTextWidget(
+                    title: 'TAX',
+                    amount: detailsController.purchaseHistoryDetails.value.data![0].tax!),
+                const Gap(AppSizes.xs),
+                AppSummaryTextWidget(
+                    title: 'SHIPPING COST',
+                    amount: detailsController.purchaseHistoryDetails.value.data![0].shippingCost!),
+                const Gap(AppSizes.xs),
+                AppSummaryTextWidget(
+                    title: 'DISCOUNT',
+                    amount: detailsController.purchaseHistoryDetails.value.data![0].couponDiscount!),
+                const Gap(AppSizes.xs),
+                 SizedBox(
+                  width: 270,
+                  child: AppDividersStyle.fullFlatAppDivider,
+                ),
+                const Gap(AppSizes.xs),
+                AppSummaryTextWidget(
+                    title: 'GRAND TOTAL',
+                    amount: detailsController.purchaseHistoryDetails.value.data![0].grandTotal!),
+                const Gap(AppSizes.xl),
+              ],),
+          );
         }
       ),
     );

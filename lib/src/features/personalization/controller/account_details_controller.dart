@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/personalization/model/profile_update_image_model.dart';
 import 'package:torganic/src/features/personalization/model/profile_update_model.dart';
 import 'package:torganic/src/features/personalization/repositories/personalization_repositories.dart';
@@ -11,6 +12,8 @@ import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+
+import '../../../utils/helpers/file_helper.dart';
 
 class AccountDetailsController extends GetxController {
   static AccountDetailsController get instance => Get.find();
@@ -38,13 +41,10 @@ class AccountDetailsController extends GetxController {
         if (!updatePasswordFormKey.currentState!.validate()) return;
       }
       await getProfileUpdateResponse().then((value) {
-        if (profileUpdateResponse.value.result == true) {
-          AppLocalStorage().saveData(
-              LocalStorageKeys.userName, nameController.text.toString());
-        }
+        //convexBottomNavController.getUserDataByToken();
         AppHelperFunctions.showToast(profileUpdateResponse.value.message!);
+        Get.back();
       });
-      await uploadImage();
     } catch (e) {
       AppHelperFunctions.showToast('Failed To Update');
     }
@@ -53,51 +53,22 @@ class AccountDetailsController extends GetxController {
 
 
 
-  var image = File('').obs;
-  final picker = ImagePicker();
-  Rx<ProfileUpdateImageResponse> profileImageUpdateResponse = ProfileUpdateImageResponse().obs;
+  final ImagePicker _picker = ImagePicker();
+  XFile? _file;
 
-  Future<void> pickImage() async {
-    // Request photo library permission
-    var status = await Permission.storage.request();
-    if (!status.isGranted) {
-      status = await Permission.storage.request();
-      if (!status.isGranted) {
-        Get.snackbar('Error', 'Photo library permission is required to pick an image.');
-        return;
-      }
-    }
+  chooseAndUploadImage(context) async {
+    //var status = await Permission.photos.request();
+      _file = await _picker.pickImage(source: ImageSource.gallery);
 
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      image.value = File(pickedFile.path);
-    } else {
-      Get.snackbar('Error', 'No image selected');
-    }
-  }
-
-  Future<void> uploadImage() async {
-    if (image.value.path.isEmpty) {
-      Get.snackbar('Error', 'No image selected to upload');
-      return;
-    }
-
-    try {
-      profileImageUpdateResponse.value = await PersonalizationRepositories().updateProfileImage(
-        imagePath: image.value.path,
-        filename: image.value.path.split('/').last,
+      //return;
+      String base64Image = FileHelper.getBase64FormateFile(_file!.path);
+      String fileName = _file!.path.split("/").last;
+      await PersonalizationRepositories().getProfileImageUpdateResponse(
+        image: base64Image,
+        filename: fileName
       );
 
-      if (profileUpdateResponse.value.result != null) {
-        Get.snackbar('Success', profileUpdateResponse.value.message!);
-      } else {
-        Get.snackbar('Error', 'Failed to update profile image');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to update profile image: $e');
+
     }
   }
 
-
-}

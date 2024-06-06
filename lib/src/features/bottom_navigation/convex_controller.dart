@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
+import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import '../../utils/local_storage/local_storage_keys.dart';
 import '../../utils/local_storage/storage_utility.dart';
+import '../authentication/views/log_in/model/user_by_token_response.dart';
+import '../authentication/views/log_in/repository/login_repository.dart';
 import '../authentication/views/log_in/view/login.dart';
 
-class ConvexBottomNavController extends GetxController with GetSingleTickerProviderStateMixin {
+class ConvexBottomNavController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   static ConvexBottomNavController get instance => Get.find();
 
   final cartController = Get.put(CartController());
@@ -17,6 +21,7 @@ class ConvexBottomNavController extends GetxController with GetSingleTickerProvi
   @override
   void onInit() {
     super.onInit();
+
     tabController = TabController(length: 4, vsync: this);
   }
 
@@ -33,8 +38,10 @@ class ConvexBottomNavController extends GetxController with GetSingleTickerProvi
     if (pageIndex.value == 2) {
       cartController.onRefresh();
     }
-    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null && pageIndex.value == 3) {
+    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null &&
+        pageIndex.value == 3) {
       Get.offAll(() => const LogIn());
     }
   }
+
 }

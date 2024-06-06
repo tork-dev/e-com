@@ -8,7 +8,6 @@ import '../../../../utils/constants/colors.dart';
 class AppHomeSearchBox extends StatelessWidget {
   const AppHomeSearchBox({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final searchController = HomeController.instance;
@@ -134,7 +133,9 @@ class AppHomeSearchBox extends StatelessWidget {
     // );
 
     return TypeAheadField(
-      suggestionsCallback: (search) {print('value');},
+      suggestionsCallback: (search) {
+        print('value');
+      },
       // suggestionsCallback: (search) => CityService.of(context).find(search),
       builder: (context, controller, focusNode) {
         return SizedBox(
@@ -143,24 +144,38 @@ class AppHomeSearchBox extends StatelessWidget {
               controller: controller,
               focusNode: focusNode,
               //autofocus: true,
-              decoration:  InputDecoration(
-                //icon: Icons.search,
-                fillColor: AppColors.grey,
-                filled: true,
-                focusColor: AppColors.grey,
-                prefixIcon: const Icon(Icons.search, color: AppColors.secondary,),
-                hintText: 'Search with AI (EX: Facewash for acne)',
-                hintStyle: Theme.of(context).textTheme.bodySmall,
-                focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.grey), borderRadius: BorderRadius.circular(10)),
-                border: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.grey, width: 0,), borderRadius: BorderRadius.circular(10)),
-                enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.grey, width: 0,), borderRadius: BorderRadius.circular(10))
-              )
-          ),
+              decoration: InputDecoration(
+                  //icon: Icons.search,
+                  fillColor: AppColors.grey,
+                  filled: true,
+                  focusColor: AppColors.grey,
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppColors.secondary,
+                  ),
+                  hintText: 'Search with AI (EX: Facewash for acne)',
+                  hintStyle: Theme.of(context).textTheme.bodySmall,
+                  suffixIcon: const Icon(Icons.camera_alt),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: AppColors.grey),
+                      borderRadius: BorderRadius.circular(10)),
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: AppColors.grey,
+                        width: 0,
+                      ),
+                      borderRadius: BorderRadius.circular(10)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: AppColors.grey,
+                        width: 0,
+                      ),
+                      borderRadius: BorderRadius.circular(10)))),
         );
       },
-    itemBuilder: (context, suggestion) {
+      itemBuilder: (context, suggestion) {
         return Visibility(
-         // visible: searchController.searchController.text != "",
+          // visible: searchController.searchController.text != "",
           child: ListTile(
             onTap: () {
               // Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -194,7 +209,8 @@ class AppHomeSearchBox extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "suggestion.sale_price != suggestion.price ? ৳$suggestion.price.toString() : ''",
+                    text:
+                        "suggestion.sale_price != suggestion.price ? ৳$suggestion.price.toString() : ''",
                     style: const TextStyle(
                       color: AppColors.darkGrey,
                       //decoration: suggestion.sale_price != suggestion.price ? TextDecoration.lineThrough : TextDecoration.none,
@@ -221,4 +237,3 @@ class AppHomeSearchBox extends StatelessWidget {
     );
   }
 }
-

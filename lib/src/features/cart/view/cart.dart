@@ -43,7 +43,7 @@ class CartScreen extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          const Gap(AppSizes.sm),
+                          const Gap(AppSizes.md),
                           AppCartProductCard(onTap: () {}),
                           const Gap(200)
                         ],

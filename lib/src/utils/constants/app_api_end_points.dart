@@ -37,12 +37,20 @@ class AppApiEndPoints {
   static String cartProducts = "$baseUrl/carts";
   static String cartProductsDelete = "$baseUrl/carts";
   static String cartQuantityUpdate = "$baseUrl/carts/change-quantity";
+  static String proceedToCheckout = "$baseUrl/carts/process";
+
+  ///Checkout
+  static String checkoutSummary = "$baseUrl/cart-summary";
+  static String paymentTypes = "$baseUrl/payment-types";
+  static String couponAdd = "$baseUrl/coupon-apply/on-cart";
+  static String couponRemove = "$baseUrl/coupon-remove";
+  static String placeOrder = "$baseUrl/credential/order-store/v2";
 
   ///Purchase History
   static String purchaseHistory = "$baseUrl/purchase-history";
   static String purchaseHistoryDetails = "$baseUrl/purchase-history-details";
   static String purchaseHistoryItem = "$baseUrl/purchase-history-items";
-  static String reOrder = "$baseUrl/reorder/";
+  static String reOrder = "$baseUrl/reorder";
 
   ///Update Profile info
   static String updateProfile = "$baseUrl/profile/update";
@@ -50,6 +58,15 @@ class AppApiEndPoints {
 
   ///Wishlist
   static String wishlistProducts = "$baseUrl/wishlists";
+  static String addWishlistProduct = "$baseUrl/wishlists-add-product?product_id=";
+  static String removeWishlistProduct = "$baseUrl/wishlists-remove-product?product_id=";
+
+  ///Address
+  static String shippingAddress = "$baseUrl/user/shipping/address";
+  static String shippingAddressCreateOrUpdate = "$baseUrl/user/shipping/create-or-update";
+  static String cityAddresses  = "$baseUrl/cities-by-country/3069";
+  static String zoneAddresses  = "$baseUrl/zones-by-city";
+  static String areaAddresses  = "$baseUrl/areas-by-zone";
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";

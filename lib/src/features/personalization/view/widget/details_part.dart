@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/features/address/view/adress_screen.dart';
 import 'package:torganic/src/features/personalization/view/account_details.dart';
 import 'package:torganic/src/features/purchase_history/view/purchace_history.dart';
 import 'package:torganic/src/features/wishlist/view/wishlist.dart';
@@ -30,7 +31,7 @@ class DetailsCardPart extends StatelessWidget {
         const Gap(AppSizes.spaceBtwItems),
         DetailsCard(
             cardText: 'Address',
-            onTap: (){}),
+            onTap: ()=> Get.to(()=> const AddressScreen())),
         const Gap(AppSizes.spaceBtwItems),
       ],
     );

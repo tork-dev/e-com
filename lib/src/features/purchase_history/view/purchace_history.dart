@@ -15,7 +15,7 @@ class PurchaseHistory extends StatelessWidget {
     final controller = Get.put(PurchaseHistoryController());
     return  AppLayoutWithBackButton(
       padding: AppSizes.sm,
-      title: const Text('Purchase Hoistory', style: TextStyle(color: AppColors.primary),),
+      title: const Text('Purchase History', style: TextStyle(color: AppColors.primary),),
       body: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
           children: const [

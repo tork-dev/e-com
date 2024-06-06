@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
+import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../controller/purchase_history_controller.dart';
 import '../../controller/purchase_history_details_controller.dart';
 import 'payment_status_indicator.dart';
 
@@ -15,6 +19,8 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final detailsController = PurchaseHistoryDetailsController.instance;
+    final listController = PurchaseHistoryController.instance;
+    final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
       return detailsController.purchaseHistoryDetails.value.data == null
           ? ShimmerHelper().buildBasicShimmer(height: 250)
@@ -199,7 +205,14 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                   const Gap(AppSizes.spaceBtwItems),
                   AppButtons.largeFlatFilledButton(
                     backgroundColor: AppColors.secondary,
-                      onPressed: (){},
+                      onPressed: (){
+                      listController.getReorderResponse(detailsController.orderId).then((value) => {
+                        AppHelperFunctions.showToast(listController.reOrderResponse.value.message!),
+                        Get.back(),
+                        Get.back(),
+                        bottomNavController.jumpToTab(2)
+                      });
+                      },
                       buttonText: 'Re-Order'),
                   const Gap(AppSizes.spaceBtwItems),
                   Visibility(

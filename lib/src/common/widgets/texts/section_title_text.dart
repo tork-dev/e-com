@@ -38,7 +38,7 @@ class AppSectionTitleText extends StatelessWidget {
             )
           ],
         ),
-        const Gap(AppSizes.spaceBtwItems)
+        const Gap(AppSizes.sm)
       ],
     );
   }

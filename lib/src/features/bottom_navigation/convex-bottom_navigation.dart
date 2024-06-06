@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
@@ -8,6 +11,7 @@ import 'package:torganic/src/features/cart/view/cart.dart';
 import 'package:torganic/src/features/home/views/home_three.dart';
 import 'package:torganic/src/features/personalization/view/profile.dart';
 import 'package:torganic/src/features/shop/view/shop.dart';
+import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import '../../utils/constants/colors.dart';
@@ -26,47 +30,71 @@ class HelloConvexAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConvexBottomNavController controller = Get.put(ConvexBottomNavController());
 
-    return Scaffold(
-      extendBody: true,
-      body: Obx(() => children[controller.pageIndex.value]),
-      bottomNavigationBar: Obx(() {
-        return ConvexAppBar(
-          controller: controller.tabController,
-          style: TabStyle.react,
-          backgroundColor: AppColors.primary,
-          activeColor: AppColors.light,
-          color: AppColors.white,
-          items: [
-            const TabItem(
-              icon: Icons.home_outlined,
-              title: 'Home',
-            ),
-            const TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
-            TabItem(
-              icon: badge.Badge(
-                badgeContent: Obx((){
-                  return Text(
-                    controller.cartController.cartCount?.value.toString() ?? '0',
-                    style: const TextStyle(color: AppColors.white),
-                  );
-                }),
-                badgeStyle: const badge.BadgeStyle(
-                  badgeColor: AppColors.black,
-                  padding: EdgeInsets.all(6),
-                ),
-                child: const Icon(Icons.shopping_bag_outlined, color: AppColors.white),
-              ),
-              title: 'Cart',
-            ),
-            const TabItem(
-              icon: Icons.account_circle_rounded,
-              title: 'Profile',
-            ),
-          ],
-          initialActiveIndex: controller.pageIndex.value,
-          onTap: (index) => controller.changePage(index),
+    return Obx(() {
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (pop){
+            if(pop){
+              return;
+            }
+            if(controller.pageIndex.value == 0) {
+              AppHelperFunctions.showAlert(
+                  message: 'Do You want to close the app?',
+                  leftButtonName: 'Yes',
+                  rightButtonName: 'No',
+                  onRightPress: () {
+                    Get.back();
+                  },
+                  onLeftPress: () {
+                    Platform.isAndroid ? SystemNavigator.pop() : exit(0);
+                  },
+                  rightButtonTextColor: AppColors.secondary,
+                  buttonColor: Colors.transparent);
+            }else{
+              controller.jumpToTab(0);
+            }
+            },
+          child: Scaffold(
+            extendBody: true,
+            body:  children[controller.pageIndex.value],
+            bottomNavigationBar: ConvexAppBar(
+                controller: controller.tabController,
+                style: TabStyle.react,
+                backgroundColor: AppColors.primary,
+                activeColor: AppColors.light,
+                color: AppColors.white,
+                items: [
+                  const TabItem(
+                    icon: Icons.home_outlined,
+                    title: 'Home',
+                  ),
+                  const TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
+                  TabItem(
+                    icon: badge.Badge(
+                      badgeContent: Obx((){
+                        return Text(
+                          controller.cartController.cartCount?.value.toString() ?? '0',
+                          style: const TextStyle(color: AppColors.white),
+                        );
+                      }),
+                      badgeStyle: const badge.BadgeStyle(
+                        badgeColor: AppColors.black,
+                        padding: EdgeInsets.all(6),
+                      ),
+                      child: const Icon(Icons.shopping_bag_outlined, color: AppColors.white),
+                    ),
+                    title: 'Cart',
+                  ),
+                  const TabItem(
+                    icon: Icons.account_circle_rounded,
+                    title: 'Profile',
+                  ),
+                ],
+                initialActiveIndex: controller.pageIndex.value,
+                onTap: (index) => controller.changePage(index),
+              ),)
         );
-      }),
+      }
     );
   }
 }

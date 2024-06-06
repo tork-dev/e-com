@@ -68,23 +68,24 @@ class LoginRepository{
     return AppLoginResponse.fromJson(jsonDecode( response.body.toString()));
   }
 
+
   Future<UserByTokenResponse> getUserByTokenResponse() async {
     final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
-    var postBody = jsonEncode({"access_token": "${accessToken}"});
-    Uri url = Uri.parse("${AppApiEndPoints.getUserAccessToken}");
+    var postBody = jsonEncode({"access_token": accessToken});
+    Uri url = Uri.parse(AppApiEndPoints.getUserAccessToken);
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
         },
         body: postBody);
+    print(response.body);
 
-    return userByTokenResponseFromJson(response.body);
+    return UserByTokenResponse.fromJson(jsonDecode(response.body));
   }
 
+
   Future<AppLoginResponse> getLoginResendOTPResponse( String phone, ) async {
-    var postBody = jsonEncode({"email": phone,
-      //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
-    });
+    var postBody = jsonEncode({"email": phone});
 
     Uri url = Uri.parse(AppApiEndPoints.loginOtp);
     final response = await http.post(url,

@@ -14,7 +14,9 @@ class AppImages {
 
   // -- Social Logos
   static const String google = "assets/images/logos/google-icon.png";
-  static const String facebook = "assets/images/logos/facebook-icon.png";
+  static const String facebook = "assets/images/logos/facebook.png";
+  static const String instagram = "assets/images/logos/instagram.png";
+  static const String youtube = "assets/images/logos/youtube.png";
 
   // -- Lottie File
   static const String loaderAnimation = "assets/images/animations/loader-animation.json";

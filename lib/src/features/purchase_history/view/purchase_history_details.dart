@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:torganic/src/features/purchase_history/controller/purchase_history_controller.dart';
 import 'package:torganic/src/features/purchase_history/view/widget/paschase_history_details_item.dart';
 import 'package:torganic/src/features/purchase_history/view/widget/purchase_history_summary.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
@@ -19,6 +20,7 @@ class PurchaseHistoryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(PurchaseHistoryDetailsController(orderId: orderId));
+    final orderListController = Get.put(PurchaseHistoryController);
     return  AppLayoutWithBackButton(
       title: const Text('Order Details', style: TextStyle(color: AppColors.primary),),
         centerTitle: true,

@@ -13,13 +13,15 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.centerTitle = false,
     this.action,
     this.backgroundColor,
+    this.bodyBackgroundColor,
     this.showBackButton = true,
     this.leadingIconColor,
+    this.bottomNav,
     super.key,  });
 
-  final Widget? title, body;
+  final Widget? title, body, bottomNav;
   final bool centerTitle;
-  final Color? backgroundColor, leadingIconColor;
+  final Color? backgroundColor, leadingIconColor, bodyBackgroundColor;
   final List<Widget>? action;
   final bool showBackButton;
   final double padding;
@@ -30,6 +32,8 @@ class AppLayoutWithBackButton extends StatelessWidget {
     //final isDark = AppHelperFunctions.isDarkMode(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: bodyBackgroundColor,
+      bottomNavigationBar: bottomNav,
       appBar: CustomAppBar(
         title: title,
         showBackArrow: showBackButton,

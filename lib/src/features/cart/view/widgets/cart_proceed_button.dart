@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
+import 'package:torganic/src/features/checkout/view/checkout_screen.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/device/device_utility.dart';
@@ -41,7 +42,12 @@ class AppCartProceedButton extends StatelessWidget {
                            ),
              ),
             const Gap(AppSizes.spaceBtwItems),
-            AppButtons.largeFlatFilledButton(onPressed: (){}, buttonText: 'PROCEED TO CHECKOUT', backgroundColor: AppColors.secondary)
+            AppButtons.largeFlatFilledButton(
+                onPressed: (){
+                  cartController.proceedToCheckout();
+                  // Get.to(()=> const CheckoutScreen());
+                },
+                buttonText: 'PROCEED TO CHECKOUT', backgroundColor: AppColors.secondary)
           ],
         ));
   }

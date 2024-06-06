@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '../../../utils/constants/sizes.dart';
 import 'card_container.dart';
 import 'course_title_container.dart';

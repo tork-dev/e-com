@@ -22,13 +22,17 @@ class AppButtons {
       {required VoidCallback onPressed,
       required String buttonText,
        Color? backgroundColor,
+        double buttonRadius = 0,
+        double verticallyPadding = 16
       }) {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            shape: const BeveledRectangleBorder(),
-            minimumSize:
-                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(buttonRadius),
+            ),
+            minimumSize: Size(AppHelperFunctions.screenWidth(), 0),
+            //padding: EdgeInsets.symmetric(vertical: verticallyPadding),
             backgroundColor: backgroundColor,
         ),
         child: Text(

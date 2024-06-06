@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/features/authentication/data/repositories/auth_repositories.dart';
 import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
+import 'package:torganic/src/features/authentication/views/log_in/model/user_by_token_response.dart';
 import 'package:torganic/src/features/authentication/views/log_in/repository/login_repository.dart';
 import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
 import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
@@ -39,6 +40,8 @@ class LogInPageController extends GetxController {
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> rememberMe = false.obs;
   Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
+  Rx<UserByTokenResponse> userDataByToken = UserByTokenResponse().obs;
+
 
   // List<LoginOtpResponse> otpLoginList = [];
 
@@ -49,6 +52,7 @@ class LogInPageController extends GetxController {
     super.dispose();
   }
 
+  /// Log in with email and password
   Future<void> emailPasswordLogIn() async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
@@ -129,40 +133,8 @@ class LogInPageController extends GetxController {
     return null;
   }
 
-  // Future<void> googleSignIn() async {
-  //   final isConnected = await NetworkManager.instance.isConnected();
-  //   try {
-  //     FullScreenLoader.openLoadingDialog(
-  //         AppLocalizations.of(Get.overlayContext!)!.singingIn,
-  //         AppImages.loading);
-  //
-  //     if (!isConnected) {
-  //       FullScreenLoader.stopLoading();
-  //       return;
-  //     }
-  //
-  //     /// Google sign in
-  //     final userCredential = await authController.signInWithGoogle();
-  //
-  //     /// Save user record
-  //     await userController.saveUserData(userCredential);
-  //
-  //     /// Stop Loading
-  //     FullScreenLoader.stopLoading();
-  //
-  //     Get.offAll(const BottomNavigation());
-  //     AppHelperFunctions.getSnackBar(
-  //         title: AppLocalizations.of(Get.overlayContext!)!.loggedIn,
-  //         backgroundColor: AppColors.primary);
-  //
-  //     AppLocalStorage().saveData(LocalStorageKeys.isGoogleLogIn, true);
-  //   } catch (e) {
-  //     FullScreenLoader.stopLoading();
-  //     debugPrint(e.toString());
-  //     AppLoaders.errorSnackBar(title: 'oh Snap..', message: e.toString());
-  //   }
-  // }
 
+  /// Login with OTP
   Future<void> sendCode() async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
@@ -194,4 +166,11 @@ class LogInPageController extends GetxController {
       }
     }
   }
+
+  /// Get User Data By Token
+  Future<UserByTokenResponse> getUserDataByToken() async {
+    return userDataByToken.value = await LoginRepository()
+        .getUserByTokenResponse();
+  }
+
 }

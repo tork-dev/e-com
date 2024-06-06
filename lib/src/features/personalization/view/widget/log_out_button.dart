@@ -1,4 +1,8 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import '../../../../utils/constants/colors.dart';
 
 
@@ -13,8 +17,8 @@ class ProfileLogOutButton extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            //onTapLogout(context);
-            //logout();
+            AuthHelper().clearUserData();
+            Get.offAll(()=> const HelloConvexAppBar());
           },
           child: Row(
             children: [

@@ -109,18 +109,18 @@ class AppHelperFunctions {
   }
 
   static void showAlert({required String message, required String leftButtonName,
-      required String rightButtonName, required VoidCallback onConfirm, required Color buttonColor}) {
+      required String rightButtonName, required VoidCallback onRightPress, required VoidCallback onLeftPress, required Color buttonColor, Color rightButtonTextColor = AppColors.white }) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2),
+            borderRadius: BorderRadius.circular(10),
           ),
           contentPadding: const EdgeInsets.all(16),
           backgroundColor: AppColors.white,
           content: SizedBox(
-            height: 80.0,
+            height: 100.0,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -131,7 +131,7 @@ class AppHelperFunctions {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Get.back();
+                        onLeftPress();
                       },
                       child: Text(
                         leftButtonName,
@@ -140,7 +140,7 @@ class AppHelperFunctions {
                     ),
                     const Gap(AppSizes.spaceBtwRowItem),
                     InkWell(
-                      onTap: onConfirm,
+                      onTap: onRightPress,
                       child: Container(
                         height: 40,
                         width: 100,
@@ -150,7 +150,7 @@ class AppHelperFunctions {
                         child: Text(
                           rightButtonName,
                           style:
-                              const TextStyle(color: AppColors.white, fontSize: 14),
+                               TextStyle(color: rightButtonTextColor, fontSize: 14),
                         ),
                       ),
                     ),

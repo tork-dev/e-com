@@ -9,21 +9,22 @@ import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../model/cart_update_response_model.dart';
+import '../model/checkout_cart_update_model.dart';
 
 class CartRepositories {
-
   final int userId = AppLocalStorage().readData(LocalStorageKeys.userId);
-  final String version = AppLocalStorage().readData(
-      LocalStorageKeys.appVersion);
-  final dynamic accessToken = AppLocalStorage().readData(
-      LocalStorageKeys.accessToken);
-
+  final String version =
+      AppLocalStorage().readData(LocalStorageKeys.appVersion);
+  final dynamic accessToken =
+      AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
   /// Add To Cart
-  Future<AddToCartResponse> getCartAddResponse(int id,
-      //String variant,
-      int quantity,
-      dynamic preorderAvailable,) async {
+  Future<AddToCartResponse> getCartAddResponse(
+    int id,
+    //String variant,
+    int quantity,
+    dynamic preorderAvailable,
+  ) async {
     var postBody = jsonEncode({
       "id": id,
       "user_id": userId,
@@ -43,25 +44,23 @@ class CartRepositories {
 
   /// Get The Cart Products
   Future<List<CartItemGetResponse>> getCartProducts() async {
-    var postBody = jsonEncode({
-      "version" : version
-    });
+    var postBody = jsonEncode({"version": version});
     final response = await http.post(Uri.parse(AppApiEndPoints.cartProducts),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $accessToken",
         },
-        body: postBody
-    );
+        body: postBody);
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
-      return jsonResponse.map((data) => CartItemGetResponse.fromJson(data)).toList();
+      return jsonResponse
+          .map((data) => CartItemGetResponse.fromJson(data))
+          .toList();
     } else {
       throw Exception('Failed to load cart Products data');
     }
   }
-
 
   ///Cart Quantity Update
   Future<CartUpdateResponse> getCartQuantityUpdate(
@@ -89,11 +88,8 @@ class CartRepositories {
     return CartUpdateResponse.fromJson(jsonDecode(response.body));
   }
 
-
-
   ///Delete Cart Product
   Future<CartDeleteResponse> getCartDeleteResponse(int cartId) async {
-
     Uri url = Uri.parse("${AppApiEndPoints.cartProductsDelete}/$cartId");
     final response = await http.delete(
       url,
@@ -102,14 +98,29 @@ class CartRepositories {
         "Authorization": "Bearer $accessToken",
       },
     );
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       return CartDeleteResponse.fromJson(responseBody);
-    }else{
+    } else {
       throw 'Something went wrong';
     }
-
-
   }
 
+  Future<CheckoutCartUpdateResponse> getCartProcessResponse(
+      {required String cartIds, required String cartQuantities}) async {
+    var postBody =
+        jsonEncode({"cart_ids": cartIds, "cart_quantities": cartQuantities});
+    print(postBody);
+    Uri url = Uri.parse(AppApiEndPoints.proceedToCheckout);
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $accessToken",
+        },
+        body: postBody);
+
+    print(url);
+    print(response.body.toString());
+    return CheckoutCartUpdateResponse.fromJson(jsonDecode(response.body));
+  }
 }

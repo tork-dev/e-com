@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/purchase_history/controller/purchase_history_controller.dart';
-import 'package:torganic/src/features/purchase_history/controller/purchase_history_details_controller.dart';
 import 'package:torganic/src/features/purchase_history/view/purchase_history_details.dart';
 import 'package:torganic/src/features/purchase_history/view/widget/payment_status_indicator.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
@@ -20,6 +20,7 @@ class AppPurchaseHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final purchaseHistoryController = PurchaseHistoryController.instance;
+    final bottomNavigationController = ConvexBottomNavController.instance;
     return Obx(() {
       return AppListViewLayout(
           itemCount:
@@ -34,8 +35,9 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                 : AppCardContainer(
                     onTap: () {
                       Get.to(() => PurchaseHistoryDetails(
-                        orderId: purchaseHistoryController.purchaseHistoryList.value.data![index].id!,
-                      ));
+                            orderId: purchaseHistoryController
+                                .purchaseHistoryList.value.data![index].id!,
+                          ));
                     },
                     padding: const EdgeInsets.all(AppSizes.md),
                     width: AppHelperFunctions.screenWidth(),
@@ -58,7 +60,13 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 const Gap(AppSizes.sm),
-                                PaymentStatusIndicator(paymentStatus: purchaseHistoryController.purchaseHistoryList.value.data![index].paymentStatus!,)
+                                PaymentStatusIndicator(
+                                  paymentStatus: purchaseHistoryController
+                                      .purchaseHistoryList
+                                      .value
+                                      .data![index]
+                                      .paymentStatus!,
+                                )
                               ],
                             ),
                             const Gap(AppSizes.xs),
@@ -81,7 +89,24 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                                 '${purchaseHistoryController.purchaseHistoryList.value.data![index].date}'),
                             const Gap(AppSizes.xs),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                purchaseHistoryController
+                                    .getReorderResponse(
+                                        purchaseHistoryController
+                                            .purchaseHistoryList
+                                            .value
+                                            .data![index]
+                                            .id!)
+                                    .then((value) => {
+                                          AppHelperFunctions.showToast(
+                                              purchaseHistoryController
+                                                  .reOrderResponse
+                                                  .value
+                                                  .message!),
+                                  Get.back(),
+                                  bottomNavigationController.jumpToTab(2)
+                                        });
+                              },
                               child: AppCardContainer(
                                 padding: const EdgeInsets.all(AppSizes.sm),
                                 applyRadius: false,

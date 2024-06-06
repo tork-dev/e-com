@@ -28,7 +28,6 @@ class CustomSlider extends StatelessWidget {
     final controller = Get.put(SliderController());
     return AppCardContainer(
       height: 150,
-     // width: width,
       //backgroundColor: Colors.black,
       child: Obx(() {
         return controller.homeSliders.isEmpty ?  ShimmerHelper().buildBasicShimmer() :
@@ -39,6 +38,7 @@ class CustomSlider extends StatelessWidget {
                 child: CarouselSlider(
                      //items: items,
                     items: controller.homeSliders.map((url) => AppBannerImage(
+                      width: AppHelperFunctions.screenWidth() * 1,
                       isNetworkImage: true,
                         fit: BoxFit.fill,
                         imgUrl: url)).toList(),

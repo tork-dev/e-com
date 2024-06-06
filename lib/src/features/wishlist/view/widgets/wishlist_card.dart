@@ -126,10 +126,16 @@ class AppWishListProductCard extends StatelessWidget {
                                                 .data![index]
                                                 .product!
                                                 .preorderAvailable)
-                                        .then((value) =>
-                                            AppHelperFunctions.showToast(
-                                                cartController.addToCartResponse
-                                                    .value.message!));
+                                        .then((value) => {
+                                              AppHelperFunctions.showToast(
+                                                  cartController
+                                                      .addToCartResponse
+                                                      .value
+                                                      .message!),
+                                      if(cartController.addToCartResponse.value.result == true){
+                                        wishlistController.isAddedToCart.value = true
+                                      }
+                                            });
                                   },
                                   child: const Icon(
                                     Icons.shopping_cart_checkout,

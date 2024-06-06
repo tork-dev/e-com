@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
+import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/personalization/controller/account_details_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import 'package:torganic/src/utils/validators/validation.dart';
@@ -17,6 +21,7 @@ class AppEditProfileTextFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accountDetailsController = AccountDetailsController.instance;
+    final loginController = LogInPageController.instance;
     return Form(
       key: accountDetailsController.updatePasswordFormKey,
       child: Column(
@@ -36,8 +41,8 @@ class AppEditProfileTextFields extends StatelessWidget {
             validator: null,
           ),
           Visibility(
-            visible:
-                AppLocalStorage().readData(LocalStorageKeys.userHavePassword),
+            visible: true,
+            // AppLocalStorage().readData(LocalStorageKeys.userHavePassword),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,7 +56,8 @@ class AppEditProfileTextFields extends StatelessWidget {
                 ),
                 AuthInputField(
                   hingText: '******',
-                  controller: accountDetailsController.currentPasswordController,
+                  controller:
+                      accountDetailsController.currentPasswordController,
                   obscured: true,
                   validator: null,
                 ),
@@ -84,7 +90,8 @@ class AppEditProfileTextFields extends StatelessWidget {
             hingText: '******',
             controller: accountDetailsController.confirmNewPasswordController,
             obscured: false,
-            validator: (value) => AppValidator.validateConfirmPassword(value, accountDetailsController.newPasswordController.text),
+            validator: (value) => AppValidator.validateConfirmPassword(
+                value, accountDetailsController.newPasswordController.text),
           ),
           const Gap(AppSizes.spaceBtwItems),
           Row(
@@ -93,7 +100,12 @@ class AppEditProfileTextFields extends StatelessWidget {
               SizedBox(
                 width: 150,
                 child: AppButtons.largeFlatFilledButton(
-                    onPressed: ()=> accountDetailsController.profileUpdate(),
+                    onPressed: () {
+                      accountDetailsController.profileUpdate().then((value) =>
+                          loginController.getUserDataByToken().then((value) =>
+                              AuthHelper().saveUserDataByToken(
+                                  loginController.userDataByToken.value)));
+                    },
                     buttonText: 'Update'),
               ),
             ],

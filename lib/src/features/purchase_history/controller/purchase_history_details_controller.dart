@@ -10,6 +10,7 @@ class PurchaseHistoryDetailsController extends GetxController {
   PurchaseHistoryDetailsController({required this.orderId});
 
   final int orderId;
+
   Rx<PurchaseHistoryDetailsResponse> purchaseHistoryDetails =
       PurchaseHistoryDetailsResponse().obs;
   Rx<PurchaseHistoryItemsResponse> purchaseHistoryItemDetails =

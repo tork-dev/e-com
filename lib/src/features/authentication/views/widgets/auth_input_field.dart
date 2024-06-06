@@ -8,7 +8,7 @@ class AuthInputField extends StatelessWidget {
     required this.hingText,
     required this.controller,
     required this.obscured,
-    required this.validator,
+    this.validator,
     this.suffixIcon,
   });
 

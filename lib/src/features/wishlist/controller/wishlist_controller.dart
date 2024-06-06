@@ -10,6 +10,7 @@ class WishlistController extends GetxController {
   Rx<WishlistResponse> wishlistProducts = WishlistResponse().obs;
   Rx<WishlistRemoveResponse> removeWishlistProductsResponse =
       WishlistRemoveResponse().obs;
+  RxBool isAddedToCart = false.obs;
 
   @override
   void onInit() {

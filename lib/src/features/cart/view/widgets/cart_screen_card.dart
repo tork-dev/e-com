@@ -45,13 +45,15 @@ class AppCartProductCard extends StatelessWidget {
                       backgroundColor: AppColors.white,
                       applyRadius: false,
                       padding: const EdgeInsets.all(AppSizes.sm),
+                      margin: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
                       child: Row(
                         children: [
                           AppBannerImage(
                               height: 100,
-                              width: 100,
+                              width: 70,
                               applyImageRadius: false,
                               isNetworkImage: true,
+                              fit: BoxFit.fill,
                               imgUrl: cartController.allCartProducts[0]
                                   .cartItems![index].productThumbnailImage!),
                           const Gap(AppSizes.spaceBtwRowItem),
@@ -85,7 +87,7 @@ class AppCartProductCard extends StatelessWidget {
                                       InkWell(
                                           onTap: () {
                                             AppHelperFunctions.showAlert(
-                                                onConfirm: () {
+                                                onRightPress: () {
                                                   cartController
                                                       .getCartDelete(
                                                           cartController
@@ -113,6 +115,7 @@ class AppCartProductCard extends StatelessWidget {
                                                             });
                                                   });
                                                 },
+                                                onLeftPress: ()=> Get.back(),
                                                 message:
                                                     'Are you sure to remove this item?',
                                                 leftButtonName: 'Cancel',

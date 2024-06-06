@@ -28,22 +28,14 @@ class AppEditProfilePicturePart extends StatelessWidget {
               borderWidth: 2 * 0.8,
               hasBorder: true,
               isCircle: true,
-              child: Obx(() {
-                  return AppBannerImage(
+              child: AppBannerImage(
                     imgBoarderRadius: 100,
-                    isNetworkImage: AppLocalStorage()
-                        .readData(LocalStorageKeys.avatarOriginal) !=
-                        null && detailsController.image.value.path.isEmpty,
-                    isFileImage: detailsController.image.value.path.isNotEmpty,
+                    isNetworkImage: true,
                     fit: BoxFit.fill,
                     imgUrl: AppLocalStorage().readData(
-                        LocalStorageKeys.avatarOriginal) !=
-                        null  && detailsController.image.value.path.isEmpty
-                        ? 'https://app.kireibd.com/${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
-                        : detailsController.image.value ?? AppImages.profileIcon,
-                  );
-                }
-              )),
+                        LocalStorageKeys.avatarOriginal)
+                  )),
+
           Positioned(
               right: 0,
               bottom: 15,
@@ -53,7 +45,7 @@ class AppEditProfilePicturePart extends StatelessWidget {
                 backgroundColor: AppColors.grey,
                 child: InkWell(
                     onTap: (){
-                      detailsController.pickImage();
+                      detailsController.chooseAndUploadImage(context);
                     },
                     child: const Icon(Icons.edit, size: 20,)),
               ))

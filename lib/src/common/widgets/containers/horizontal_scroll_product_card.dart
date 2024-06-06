@@ -25,14 +25,14 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
     final homeController = HomeController.instance;
     final cartController = CartController.instance;
     return SizedBox(
-        height: sectionName == null ? 170 : 265,
+        height: sectionName == null ? 170 : 270,
         child: AppListViewLayout(
             isScrollVertically: false,
             itemCount: sectionName == null ? 5 : sectionName!.length,
             builderFunction: (context, index) => sectionName == null
                 ? ShimmerHelper().buildBasicShimmer(width: 150)
                 : AppVerticalProductCard(
-                    //height: height,
+                    height: 150,
                     width: 150,
                     onTap: () {
                       Get.to(() => DetailsPage(
@@ -66,7 +66,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                         ? sectionName![index].stock != 0
                             ? 'ADD TO CART'
                             : 'OUT OF STOCK'
-                        : 'PREORDER',
+                        : 'PREORDER NOW',
                     backgroundColor: sectionName![index].preorderAvailable == 0
                         ? sectionName![index].stock != 0
                             ? AppColors.secondary

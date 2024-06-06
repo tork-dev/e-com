@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/local_storage/local_storage_keys.dart';
+import '../../../../utils/local_storage/storage_utility.dart';
+import '../../../styles/app_dividers.dart';
 
-class DrawerHeaderPart extends StatelessWidget {
-  const DrawerHeaderPart({
-    super.key,
-    required this.userName,
-    required this.email,
-  });
+class AppDrawerHeaderPart extends StatelessWidget {
+  const AppDrawerHeaderPart({
+    super.key,});
 
-  final String userName;
-  final String email;
 
   @override
   Widget build(BuildContext context) {
-    return DrawerHeader(
-        child: Center(
-          child: Column(
-            children: [
-              const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 42,
-                  backgroundImage:
-                  AssetImage(AppImages.google)),
-              const Gap(AppSizes.sm),
-              Text(userName,
-                  style: Theme.of(context).textTheme.bodyLarge),
-              Text(email)
-            ],
+    final userImage = AppLocalStorage().readData(LocalStorageKeys.avatarOriginal);
+    final userName = AppLocalStorage().readData(LocalStorageKeys.userName);
+    final userPhone = AppLocalStorage().readData(LocalStorageKeys.userEmail);
+    return Column(
+      children: [
+        AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true ?
+        ListTile(
+          leading: CircleAvatar(
+            backgroundImage: userImage != null? NetworkImage(userImage) as ImageProvider
+                : const AssetImage(AppImages.profileIcon) as ImageProvider ,
           ),
-        ));
+            title: Text(userName),
+            subtitle: Text(userPhone)
+        ): const Center(
+          child: Text(
+              'Not Logged In',
+              style: TextStyle(fontSize: 13)),
+        ),
+        const Gap(AppSizes.xs),
+        AppDividersStyle.fullFlatAppDivider,
+      ],
+    );
   }
 }
-
