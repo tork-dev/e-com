@@ -37,11 +37,8 @@ class AppLayoutWithDrawer extends StatelessWidget {
       backgroundColor: bodyBackgroundColor,
       resizeToAvoidBottomInset: true,
       key: globalKey,
-      drawer: AppDrawer(),
-      endDrawer: hasEndDrawer? const AppEndDrawer(
-        userName: 'User Name',
-        email: 'example@email.com',
-      ): null,
+      drawer: const AppDrawer(),
+      endDrawer: hasEndDrawer? const AppEndDrawer(): null,
       appBar: CustomAppBar(
         title: title,
         showBackArrow: false,

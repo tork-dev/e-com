@@ -12,11 +12,12 @@ class AppListViewLayout extends StatelessWidget {
       {required this.itemCount,
         required this.builderFunction,
         this.isScrollVertically = true,
+        this.applyPadding = true,
         this.physics = const BouncingScrollPhysics(),
         super.key});
 
   final int itemCount;
-  final bool isScrollVertically;
+  final bool isScrollVertically, applyPadding;
   final Widget Function(BuildContext context, int index) builderFunction;
   final ScrollPhysics physics;
 
@@ -31,8 +32,8 @@ class AppListViewLayout extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
               padding: isScrollVertically
-                  ? const EdgeInsets.only(bottom: AppSizes.spaceBtwItems)
-                  : const EdgeInsets.only(right: AppSizes.spaceBtwItems),
+                  ?applyPadding? const EdgeInsets.only(bottom: AppSizes.spaceBtwItems) : EdgeInsets.zero
+                  :applyPadding? const EdgeInsets.only(right: AppSizes.spaceBtwItems) : EdgeInsets.zero,
               child: builderFunction(context, index));
         });
   }

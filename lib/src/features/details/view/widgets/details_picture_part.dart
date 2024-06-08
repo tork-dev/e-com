@@ -66,6 +66,9 @@ class AppDetailsPicturePart extends StatelessWidget {
                   ? ShimmerHelper().buildBasicShimmer(
                       height: 200, width: 250)
                   : AppBannerImage(
+                onPress: (){
+
+                },
                       width: 250,
                       fit: BoxFit.contain,
                       applyImageRadius: false,

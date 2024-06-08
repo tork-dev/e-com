@@ -36,6 +36,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                   onTap: () {
                     Get.to(() => DetailsPage(
                       productSlug: shopController.shopPageProduct.value.data![index].slug!,
+                      productId: shopController.shopPageProduct.value.data![index].id!,
                     ));
                   },
                   onCartTap: () {
@@ -70,10 +71,10 @@ class AppShopGridScrollCard extends StatelessWidget {
                           .shopPageProduct.value.data![index].reviews ??
                       0,
                   salePrice: shopController
-                          .shopPageProduct.value.data![index].salePrice ??
+                          .shopPageProduct.value.data![index].salePrice?.toInt() ??
                       0,
                   price:
-                      shopController.shopPageProduct.value.data![index].price ??
+                      shopController.shopPageProduct.value.data![index].price?.toInt() ??
                           0,
                   buttonName: shopController.shopPageProduct.value.data![index]
                               .preorderAvailable ==
@@ -98,7 +99,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                       shopController.shopPageProduct.value.data![index].price,
                   isNetworkImage: true,
                   discount: shopController
-                          .shopPageProduct.value.data![index].discount ??
+                          .shopPageProduct.value.data![index].discount!.toInt() ??
                       0,
                   isStockAvailable:
                       shopController.shopPageProduct.value.data![index].stock !=

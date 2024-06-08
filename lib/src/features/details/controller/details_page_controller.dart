@@ -2,8 +2,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:torganic/src/features/details/repositories/details_repositories.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
+import 'package:torganic/src/features/wishlist/model/wishlist_remove_model.dart';
+import 'package:torganic/src/features/wishlist/repositories/wishlist_repositories.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 
+import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
 
 class DetailsPageController extends GetxController {
@@ -13,9 +16,11 @@ class DetailsPageController extends GetxController {
 
   DetailsPageController({
     required this.productSlug,
+    required this.productId
   });
 
   final String productSlug;
+  final int productId;
 
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
@@ -25,12 +30,16 @@ class DetailsPageController extends GetxController {
   RxBool isAddedToCart = false.obs;
 
   Rx<ProductDetailsResponse> productDetails = ProductDetailsResponse().obs;
+  Rx<WishListAddResponse> addToWishlist = WishListAddResponse().obs;
+  Rx<WishListAddResponse> checkWishList = WishListAddResponse().obs;
+  Rx<WishListAddResponse> removeFromWishList = WishListAddResponse().obs;
 
   @override
   void onInit() {
     super.onInit();
     print('slug is $productSlug');
     getProductDetails();
+    checkWishListAdd();
   }
 
   Future<void> onRefresh() async {
@@ -73,5 +82,15 @@ class DetailsPageController extends GetxController {
           isAddedToCart.value = true,
           AppHelperFunctions.showToast(homeController.addToCartResponse.value.message!),
             });
+  }
+
+  Future<WishListAddResponse> getWishListAdd()async{
+    return addToWishlist.value = await WishlistRepositories().addToWishList(productId: productId);
+  }
+  Future<WishListAddResponse> checkWishListAdd()async{
+    return checkWishList.value = await WishlistRepositories().isProductInUserWishList(productId: productId);
+  }
+  Future<WishListAddResponse> wishListRemove()async{
+    return removeFromWishList.value = await WishlistRepositories().removeResponse(productId);
   }
 }

@@ -32,7 +32,7 @@ class AppButtons {
               borderRadius: BorderRadius.circular(buttonRadius),
             ),
             minimumSize: Size(AppHelperFunctions.screenWidth(), 0),
-            //padding: EdgeInsets.symmetric(vertical: verticallyPadding),
+            padding: EdgeInsets.symmetric(vertical: verticallyPadding),
             backgroundColor: backgroundColor,
         ),
         child: Text(

@@ -3,29 +3,30 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../../utils/constants/app_api_end_points.dart';
 import '../model/shop_data_model.dart';
+import '../model/skin_type_model.dart';
 
 
 class ShopRepositories{
   Future<ShopPageResponse> getFilteredProducts({
-    String name = "",
-    int page = 1,
-    String sortKey = "",
-    String categories = "",
-    String skinType = "",
-    String tag = "",
-    String min = "",
-    String max = "",
-    String type = "",
-    String search = "",
-    String keyIngredients = "",
-    String goodFor = "",
+    required String searchName,
+    required int pageNumber,
+    required String sortKey,
+    required String categories,
+    required String skinType,
+    required String tag,
+    required String min,
+    required String max,
+    required String type,
+    required String search,
+    required String keyIngredients,
+    required String goodFor,
   }) async {
     Map<dynamic, dynamic> parameters = {
-      'page': page,
+      'page': pageNumber,
       'order_by': sortKey,
     };
 
-    if (name != "") parameters['search'] = name;
+    if (searchName != "") parameters['search'] = searchName;
     if (categories != "") {
       parameters['category'] = categories.toLowerCase().replaceAll(' ', '-');
     }
@@ -69,4 +70,14 @@ class ShopRepositories{
     });
     return ShopPageResponse.fromJson(jsonDecode(response.body));
   }
+
+  ///Shop Page Skin Type
+  Future<SkinTypesResponse> getFilterPageSkinTypes() async {
+    Uri url = Uri.parse(AppApiEndPoints.shopSkinTypes);
+    final response = await http.get(url, headers: {
+    });
+    print("response,,,," + response.body);
+    return skinTypesResponseFromJson(response.body);
+  }
+
 }

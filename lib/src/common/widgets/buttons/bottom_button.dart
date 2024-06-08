@@ -24,7 +24,7 @@ class AppBottomButton extends StatelessWidget {
               ? Row(
                   children: [
                     AppCardContainer(
-                        onTap: () => detailsController.onAddToCart(),
+                        onTap: () => detailsController.onAddToCart().then((value) => detailsController.isAddedToCart.value = true),
                         height: 50,
                         width: AppHelperFunctions.screenWidth() / 2,
                         applyRadius: false,
@@ -48,15 +48,15 @@ class AppBottomButton extends StatelessWidget {
                           ],
                         )),
                     AppCardContainer(
-                        onTap: () => detailsController.onAddToCart().then(
+                        onTap: () => detailsController.isAddedToCart.value == false ? detailsController.onAddToCart().then(
                             (value) =>
-                                {bottomNavController.jumpToTab(2), Get.back()}),
+                                {bottomNavController.jumpToTab(2), Get.back()}) : {bottomNavController.jumpToTab(2), Get.back()},
                         height: 50,
                         width: AppHelperFunctions.screenWidth() / 2,
                         applyRadius: false,
-                        backgroundColor: AppColors.primary,
+                        backgroundColor: detailsController.isAddedToCart.value == false ? AppColors.primary : AppColors.warning,
                         child: Center(
-                            child: Text('Buy Now',
+                            child: Text(detailsController.isAddedToCart.value == false ? 'Buy Now' : 'Go To Cart',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium!

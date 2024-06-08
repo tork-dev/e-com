@@ -30,13 +30,14 @@ import '../../../utils/constants/sizes.dart';
 import 'widgets/details_picture_part.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({super.key, required this.productSlug});
+  const DetailsPage({super.key, required this.productSlug, required this.productId});
 
   final String productSlug;
+  final int productId;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DetailsPageController(productSlug: productSlug));
+    final controller = Get.put(DetailsPageController(productSlug: productSlug, productId: productId));
     return AppLayoutWithBackButton(
         padding: 0,
         backgroundColor: AppColors.primary,

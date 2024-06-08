@@ -28,6 +28,7 @@ class AppApiEndPoints {
 
   ///Shop
   static String shopProducts = "$baseUrl/gigalogy/items/search?";
+  static String shopSkinTypes = "$baseUrl/skin-types";
 
   ///Details
   static String productDetails = "$baseUrl/products/details/";
@@ -60,6 +61,7 @@ class AppApiEndPoints {
   static String wishlistProducts = "$baseUrl/wishlists";
   static String addWishlistProduct = "$baseUrl/wishlists-add-product?product_id=";
   static String removeWishlistProduct = "$baseUrl/wishlists-remove-product?product_id=";
+  static String checkWishlistProduct = "$baseUrl/wishlists-check-product?product_id=";
 
   ///Address
   static String shippingAddress = "$baseUrl/user/shipping/address";

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:torganic/src/features/wishlist/model/wish_list_add_model.dart';
 import 'package:torganic/src/utils/constants/app_api_end_points.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
@@ -9,6 +10,36 @@ import '../model/wishlist_remove_model.dart';
 
 class WishlistRepositories {
   final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
+
+
+  Future<WishListAddResponse> addToWishList({required int productId}) async {
+    Uri url = Uri.parse(
+        "${AppApiEndPoints.addWishlistProduct}$productId");
+
+    print(url.toString());
+    final response = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer $accessToken",
+      },
+    );
+
+    return WishListAddResponse.fromJson(jsonDecode(response.body));
+  }
+
+  Future<WishListAddResponse> isProductInUserWishList(
+      {required int productId}) async {
+    Uri url = Uri.parse(
+        "${AppApiEndPoints.checkWishlistProduct}$productId");
+    final response = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer $accessToken",
+      },
+    );
+    print(response.body);
+    return WishListAddResponse.fromJson(jsonDecode(response.body));
+  }
 
   Future<WishlistResponse> getWishlistProduct() async {
     final response = await http.get(Uri.parse(AppApiEndPoints.wishlistProducts),
@@ -34,6 +65,21 @@ class WishlistRepositories {
     if(response.statusCode == 200){
       var responseBody = jsonDecode(response.body);
       return WishlistRemoveResponse.fromJson(responseBody);
+    }else{
+      throw Error();
+    }
+  }
+
+
+  Future<WishListAddResponse> removeResponse(int id) async {
+    final response = await http.get(Uri.parse('${AppApiEndPoints.removeWishlistProduct}$id'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $accessToken",
+        });
+    if(response.statusCode == 200){
+      var responseBody = jsonDecode(response.body);
+      return WishListAddResponse.fromJson(responseBody);
     }else{
       throw Error();
     }

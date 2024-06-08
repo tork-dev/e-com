@@ -4,11 +4,14 @@ import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 
+import '../../controller/shop_controller.dart';
+
 class AppSortAlertDialog extends StatelessWidget {
   const AppSortAlertDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final shopController = ShopController.instance;
     return AlertDialog(
       contentPadding: const EdgeInsets.only(
         top: 16.0,
@@ -32,78 +35,85 @@ class AppSortAlertDialog extends StatelessWidget {
             RadioListTile(
               dense: true,
               value: "default",
-              groupValue: 1,
-              //activeColor: Theme.of(context).accentColor,
+              groupValue: shopController.sortKey.value,
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Default'),
               onChanged: (value) {
-                Navigator.pop(context);
+                shopController.updateSortKey(value!);
+                shopController.getShopData();
+                Get.back();
               },
             ),
             RadioListTile(
               dense: true,
               value: "bestseller",
-              groupValue: 1,
-              //activeColor: Theme.of(context).accentColor,
+              groupValue: shopController.sortKey.value,
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Best Selling'),
               onChanged: (value) {
-                Navigator.pop(context);
+                shopController.updateSortKey(value!);
+                shopController.getShopData();
+                Get.back();
               },
             ),
             RadioListTile(
               dense: true,
               value: "rating",
-              groupValue: 1,
-              //activeColor: Theme.of(context).accentColor,
+              groupValue: shopController.sortKey.value,
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Rating'),
               onChanged: (value) {
-                Navigator.pop(context);
+                shopController.updateSortKey(value!);
+                shopController.getShopData();
+                Get.back();
               },
             ),
             RadioListTile(
               dense: true,
               value: "new",
-              groupValue: 1,
-              //activeColor: Theme.of(context).accentColor,
+              groupValue: shopController.sortKey.value,
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Newest'),
               onChanged: (value) {
-                Navigator.pop(context);
+                shopController.updateSortKey(value!);
+                shopController.getShopData();
+                Get.back();
               },
             ),
             RadioListTile(
               dense: true,
               value: "hot",
-              groupValue: 1,
-              //activeColor: Theme.of(context).accentColor,
+              groupValue: shopController.sortKey.value,
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Hot Deal'),
               onChanged: (value) {
-                Navigator.pop(context);
+                shopController.updateSortKey(value!);
+                shopController.getShopData();
+                Get.back();
               },
             ),
             RadioListTile(
               dense: true,
               value: "price-desc",
-              groupValue: 1,
-              //activeColor: Theme.of(context).accentColor,
+              groupValue: shopController.sortKey.value,
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Price high to low'),
               onChanged: (value) {
-                Navigator.pop(context);
+                shopController.updateSortKey(value!);
+                shopController.getShopData();
+                Get.back();
               },
             ),
             RadioListTile(
               dense: true,
               value: "price-asc",
-              groupValue: 1,
-              //activeColor: Theme.of(context).accentColor,
+              groupValue: shopController.sortKey.value,
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Price low to high'),
               onChanged: (value) {
-                Navigator.pop(context);
+                shopController.updateSortKey(value!);
+                shopController.getShopData();
+                Get.back();
               },
             ),
             Row(

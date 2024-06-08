@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
+import 'package:torganic/src/features/wishlist/controller/wishlist_controller.dart';
+import 'package:torganic/src/features/wishlist/repositories/wishlist_repositories.dart';
+import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
+import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 
@@ -75,12 +82,36 @@ class AppDetailsProductNamePart extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(
+                           SizedBox(
                             child: Row(
                               children: [
-                                Icon(Icons.share),
+                                InkWell(
+                                  onTap: ()async{
+                                    final String link = detailsController.productDetails.value.detailedProducts!.productLink!;
+                                    await Share.share(link);
+                                  },
+                                    child: Icon(Icons.share)),
                                 Gap(AppSizes.spaceBtwItems),
-                                Icon(Icons.favorite_border)
+                                InkWell(
+                                  onTap: (){
+                                    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+
+                                      detailsController.checkWishList.value.isInWishlist == false ?
+                                      detailsController.getWishListAdd().then((value)=>{
+                                        detailsController.checkWishListAdd(),
+                                        AppHelperFunctions.showToast(detailsController.addToWishlist.value.message!),
+                                      }) : detailsController.wishListRemove().then((value) => {
+                                        detailsController.checkWishListAdd(),
+                                        AppHelperFunctions.showToast(detailsController.removeFromWishList.value.message!),
+                                      });
+                                    }else{
+                                      Get.to(()=> const LogIn());
+                                    }
+                                  },
+                                    child: Obx(() {
+                                        return Icon(detailsController.checkWishList.value.isInWishlist == true? Icons.favorite : Icons.favorite_border);
+                                      }
+                                    ))
                               ],
                             ),
                           )
@@ -211,7 +242,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const Gap(80),
+                          Gap(AppHelperFunctions.screenWidth() * 0.1),
                           Text(
                               detailsController
                                           .productDetails

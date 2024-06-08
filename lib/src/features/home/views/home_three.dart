@@ -53,10 +53,6 @@ class HomeThree extends StatelessWidget {
               const Gap(AppSizes.spaceBtwItems),
               const AppHomeSearchBox(),
               const Gap(AppSizes.spaceBtwItems),
-              // AppBannerImage(
-              //   height: 200,
-              //     width: 375,
-              //     imgUrl: AppImages.banner2),
               const CustomSlider(),
               const Gap(AppSizes.spaceBtwItems),
               const AppFeatureCategories(),
