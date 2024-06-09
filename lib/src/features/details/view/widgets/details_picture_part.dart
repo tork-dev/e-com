@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
@@ -33,16 +34,17 @@ class AppDetailsPicturePart extends StatelessWidget {
                 width: 50,
                 child: AppListViewLayout(
                     isScrollVertically: true,
-                    itemCount:
-                        detailsController.productDetails.value.detailedProducts ==
-                                null
-                            ? 3
-                            : detailsController.productDetails.value
-                                .detailedProducts!.pictures!.length,
+                    itemCount: detailsController
+                                .productDetails.value.detailedProducts ==
+                            null
+                        ? 3
+                        : detailsController.productDetails.value
+                            .detailedProducts!.pictures!.length,
                     builderFunction: (context, index) => detailsController
                                 .productDetails.value.detailedProducts ==
                             null
-                        ? ShimmerHelper().buildBasicShimmer(height: 50, width: 50)
+                        ? ShimmerHelper()
+                            .buildBasicShimmer(height: 50, width: 50)
                         : InkWell(
                             onTap: () {
                               detailsController.getLargePicture(index);
@@ -51,11 +53,12 @@ class AppDetailsPicturePart extends StatelessWidget {
                                 height: 50,
                                 width: 50,
                                 fit: BoxFit.fill,
-                                hasBorder: detailsController.pictureIndex.value == index,
+                                hasBorder:
+                                    detailsController.pictureIndex.value ==
+                                        index,
                                 borderWidth: 2,
                                 borderColor: AppColors.secondary,
                                 boarderRadius: 8,
-
                                 isNetworkImage: true,
                                 imgUrl: detailsController.productDetails.value
                                     .detailedProducts!.pictures![index].url!),
@@ -63,18 +66,22 @@ class AppDetailsPicturePart extends StatelessWidget {
               ),
               const Gap(AppSizes.spaceBtwSections),
               detailsController.productDetails.value.detailedProducts == null
-                  ? ShimmerHelper().buildBasicShimmer(
-                      height: 200, width: 250)
-                  : AppBannerImage(
-                onPress: (){
-
-                },
-                      width: 250,
-                      fit: BoxFit.contain,
-                      applyImageRadius: false,
-                      isNetworkImage: true,
-                      imgUrl: detailsController.productDetails.value
-                          .detailedProducts!.pictures![detailsController.pictureIndex.value].url!)
+                  ? ShimmerHelper().buildBasicShimmer(height: 200, width: 250)
+                  : InstaImageViewer(
+                    child: Material(
+                      child: AppBannerImage(
+                          width: 250,
+                          fit: BoxFit.contain,
+                          applyImageRadius: false,
+                          isNetworkImage: true,
+                          imgUrl: detailsController
+                              .productDetails
+                              .value
+                              .detailedProducts!
+                              .pictures![detailsController.pictureIndex.value]
+                              .url!),
+                    ),
+                  )
             ],
           ),
         );

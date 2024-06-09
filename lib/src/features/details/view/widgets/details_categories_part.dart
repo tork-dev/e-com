@@ -28,7 +28,8 @@ class AppDetailsCategoriesPart extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: AppDetailsTagBorderWidget(
-                          onTap: () {},
+                          onTap: () {
+                          },
                           title: 'Skin Types: ',
                           types: controller.productDetails.value
                               .detailedProducts!.skinTypes!,
@@ -51,7 +52,9 @@ class AppDetailsCategoriesPart extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: AppDetailsTagUnderlineWidget(
-                          onTap: () {},
+                          onTap: () {
+                            print(controller.productDetails.value.detailedProducts!.keyIngredients!);
+                          },
                           title: 'Key Ingredients: ',
                           types: controller.productDetails.value
                               .detailedProducts!.keyIngredients!,

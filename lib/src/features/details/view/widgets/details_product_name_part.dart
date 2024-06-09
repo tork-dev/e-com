@@ -90,8 +90,8 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                     final String link = detailsController.productDetails.value.detailedProducts!.productLink!;
                                     await Share.share(link);
                                   },
-                                    child: Icon(Icons.share)),
-                                Gap(AppSizes.spaceBtwItems),
+                                    child: const Icon(Icons.share)),
+                                const Gap(AppSizes.spaceBtwItems),
                                 InkWell(
                                   onTap: (){
                                     if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {

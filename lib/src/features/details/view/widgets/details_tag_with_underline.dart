@@ -2,10 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
 import 'package:torganic/src/features/details/model/product_details_model.dart';
+import 'package:torganic/src/features/shop/controller/shop_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 
@@ -25,6 +28,7 @@ class AppDetailsTagUnderlineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomController = ConvexBottomNavController.instance;
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
@@ -38,15 +42,18 @@ class AppDetailsTagUnderlineWidget extends StatelessWidget {
         ...List.generate(types.length, (index) {
           return InkWell(
             onTap: () {
-              onTap;
-              // value.setSkinTypesKey(skinType);
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) {
-              //       // return Filter(
-              //       //   selected_skin: skinType,
-              //       // );
-              //       return Main(pageIndex: 1,);
-              //     }));
+              final shopController = Get.put(ShopController());
+              shopController.resetAll();
+              if(title == 'Key Ingredients: '){
+                shopController.keyIngredients.value = types[index].slug!;
+              }else if(title == 'Tags: '){
+                shopController.tag.value = types[index].slug!;
+              }else if(title == 'Categories: '){
+                shopController.categories.value = types[index].slug;
+              }
+              shopController.getShopData();
+              Get.back();
+              bottomController.jumpToTab(1);
             },
             child: Text(
                 "${types[index].name!.substring(0, 1).toUpperCase()}${types[index].name!.substring(1)},  ",
