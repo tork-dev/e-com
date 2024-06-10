@@ -64,10 +64,12 @@ class ShopRepositories{
     Uri url =
     Uri.parse("${AppApiEndPoints.shopProducts}$queryString");
     print(url);
-
     final response = await http.get(url, headers: {
-      //"App-Language": app_language.$,
     });
+    var responseBody = jsonDecode(response.body);
+
+    print( 'this is response ${responseBody["result"] == true}');
+
     return ShopPageResponse.fromJson(jsonDecode(response.body));
   }
 
@@ -76,7 +78,6 @@ class ShopRepositories{
     Uri url = Uri.parse(AppApiEndPoints.shopSkinTypes);
     final response = await http.get(url, headers: {
     });
-    print("response,,,," + response.body);
     return skinTypesResponseFromJson(response.body);
   }
 

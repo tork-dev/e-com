@@ -11,8 +11,10 @@ import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/authentication/views/sign_up/view/signup.dart';
+import 'package:torganic/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
+import 'package:torganic/src/features/community/view/community_screen.dart';
 import 'package:torganic/src/features/feedback/view/feedback_form.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
@@ -195,7 +197,7 @@ class AppDrawer extends StatelessWidget {
               }),
           AppDrawerCard(
             title: 'beauty tips',
-            onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+            onPress: () => Get.offAll(() => const BeautyTipsScreen()),
           ),
           AppDrawerCard(
             title: 'ai recomendation',
@@ -203,7 +205,7 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'community',
-            onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+            onPress: () => Get.offAll(() => const CommunityScreen()),
           ),
           AppDrawerCard(
             title: 'appointment',

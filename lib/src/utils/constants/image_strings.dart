@@ -172,6 +172,8 @@ class AppImages {
   static const String banner6 = "assets/images/banners/banner_6.jpg";
   static const String banner7 = "assets/images/banners/banner_7.jpg";
   static const String banner8 = "assets/images/banners/banner_8.jpg";
+  static const String kireiYoutube = "assets/images/banners/kireibd-youtube.png";
+  static const String beautyTipsOne = "assets/images/banners/beauty_tips_one.png";
 
 
   //Profile

@@ -32,7 +32,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                       .shopPageProduct.value.result ==
                   null
               ? ShimmerHelper().buildBasicShimmer(height: 150, width: 150)
-              : AppVerticalProductCard(
+              : shopController.shopPageProduct.value.data?.length == null? const Center(child: Text('No Product Found'),) : AppVerticalProductCard(
                   onTap: () {
                     Get.to(() => DetailsPage(
                       productSlug: shopController.shopPageProduct.value.data![index].slug!,

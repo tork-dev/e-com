@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
 import 'package:torganic/src/features/details/model/product_details_model.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
+
+import '../../../shop/controller/shop_controller.dart';
 
 class AppDetailsTagBorderWidget extends StatelessWidget {
   const AppDetailsTagBorderWidget(
@@ -20,6 +24,7 @@ class AppDetailsTagBorderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomController = ConvexBottomNavController.instance;
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
@@ -34,15 +39,16 @@ class AppDetailsTagBorderWidget extends StatelessWidget {
           final value = types[index];
           return InkWell(
             onTap: () {
-              onTap;
-              // value.setSkinTypesKey(skinType);
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) {
-              //       // return Filter(
-              //       //   selected_skin: skinType,
-              //       // );
-              //       return Main(pageIndex: 1,);
-              //     }));
+              final shopController = Get.put(ShopController());
+              shopController.resetAll();
+              if(title == 'Skin Types: '){
+                shopController.skinType.value = types[index].slug!;
+              }else if(title == 'Good For: '){
+                shopController.goodFor.value = types[index].slug!;
+              }
+              shopController.getShopData();
+              Get.back();
+              bottomController.jumpToTab(1);
             },
             child: AppCardContainer(
               margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),

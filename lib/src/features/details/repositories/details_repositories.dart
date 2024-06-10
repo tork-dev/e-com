@@ -12,7 +12,7 @@ class DetailsRepositories{
 
     });
     var responseBody = jsonDecode(response.body.toString());
-    if (jsonDecode(response.body)["result"] == true) {
+    if (responseBody["result"] == true) {
       return ProductDetailsResponse.fromJson(responseBody);
     } else {
       throw Exception('Failed to load data: ${response.statusCode}');
