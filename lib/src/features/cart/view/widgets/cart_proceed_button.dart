@@ -18,7 +18,7 @@ class AppCartProceedButton extends StatelessWidget {
     final cartController = CartController.instance;
     return AppCardContainer(
       height: 150,
-      width: AppHelperFunctions.screenWidth() * 1,
+      width: AppHelperFunctions.screenWidth(),
       backgroundColor: AppColors.white,
         applyRadius: false,
         padding: const EdgeInsets.all(16),
@@ -28,7 +28,7 @@ class AppCartProceedButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              SizedBox(
-               width: AppHelperFunctions.screenWidth() * 1,
+               width: AppHelperFunctions.screenWidth(),
                child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,

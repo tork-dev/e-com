@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../model/all_category_model.dart';
@@ -11,6 +12,9 @@ import '../repositories/home_repositories.dart';
 
 class HomeController extends GetxController{
   static HomeController get instance => Get.find();
+
+  RxBool callApis = true.obs;
+
 
   /// Key
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
@@ -25,11 +29,14 @@ class HomeController extends GetxController{
   Rx<HomeSlidersResponse> homeSliders = HomeSlidersResponse().obs;
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
 
+
   @override
   void onInit(){
-    fetchFeaturedCategories();
-    getProductData();
-    fetchAllCategories();
+    if(callApis.value == true) {
+      fetchFeaturedCategories();
+      getProductData();
+    }
+      fetchAllCategories();
     super.onInit();
   }
 

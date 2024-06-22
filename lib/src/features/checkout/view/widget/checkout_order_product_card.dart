@@ -40,7 +40,9 @@ class AppCheckoutOrderProductsCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              '${productsList[index].productName}'),
+                              '${productsList[index].productName}', style: const TextStyle(
+                            overflow: TextOverflow.ellipsis
+                          ),),
                           const Gap(AppSizes.sm),
                           Row(
                             children: [

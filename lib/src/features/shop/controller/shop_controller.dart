@@ -12,6 +12,8 @@ import '../model/skin_type_model.dart';
 class ShopController extends GetxController{
   static ShopController get instance => Get.find();
 
+  RxBool callApis = false.obs;
+
   final bottomController = ConvexBottomNavController.instance;
 
   /// Key
@@ -45,8 +47,10 @@ class ShopController extends GetxController{
 
   @override
   void onInit() {
+    if(bottomController.pageIndex.value == 1 || callApis.value == true) {
       getShopData();
       getSkinTypesData();
+    }
     super.onInit();
   }
 

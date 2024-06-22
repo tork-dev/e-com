@@ -33,7 +33,7 @@ class WishlistScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Positioned(
+            const Positioned(
               bottom: 0,
                 child: AppWishlistBottomButton(
                 ))

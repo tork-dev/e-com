@@ -37,6 +37,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
     final shopController = Get.put(ShopController());
+    shopController.callApis.value = false;
     final bottomController = ConvexBottomNavController.instance;
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
@@ -122,9 +123,13 @@ class AppDrawer extends StatelessWidget {
                         onPress: () {
                           shopController.updateCategory(child.slug);
                           shopController.getShopData();
+                          if(homeController.callApis.value == false){
+                            print('back1');
+                            Get.back();
+                            Get.back();
+                          }
                           Get.back();
                           bottomController.jumpToTab(1);
-                          // bottomController.pageIndex.value = 1;
                         },
                       ),
                     );
@@ -138,6 +143,11 @@ class AppDrawer extends StatelessWidget {
                   onPress: () {
                     shopController.updateCategory(category.slug);
                     shopController.getShopData();
+                    print(homeController.callApis);
+                    if(homeController.callApis.value == false){
+                      print('back2');
+                      Get.back();
+                    }
                     Get.back();
                     bottomController.jumpToTab(1);
                   },
@@ -197,7 +207,7 @@ class AppDrawer extends StatelessWidget {
               }),
           AppDrawerCard(
             title: 'beauty tips',
-            onPress: () => Get.offAll(() => const BeautyTipsScreen()),
+            onPress: () => Get.to(() => const BeautyTipsScreen()),
           ),
           AppDrawerCard(
             title: 'ai recomendation',
@@ -205,7 +215,7 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'community',
-            onPress: () => Get.offAll(() => const CommunityScreen()),
+            onPress: () => Get.to(() => const CommunityScreen()),
           ),
           AppDrawerCard(
             title: 'appointment',

@@ -52,18 +52,19 @@ class AppDrawerBottomButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppBannerImage(
+
                 onPress: () {},
-                height: AppHelperFunctions.screenWidth() * 0.1,
+                height: 50,
                 imgUrl: AppImages.facebook),
             const Gap(AppSizes.sm),
             AppBannerImage(
                 onPress: () {},
-                height: AppHelperFunctions.screenWidth() * 0.1,
+                height: 50,
                 imgUrl: AppImages.youtube),
             const Gap(AppSizes.sm),
             AppBannerImage(
                 onPress: () {},
-                height: AppHelperFunctions.screenWidth() * 0.1,
+                height: 50,
                 imgUrl: AppImages.instagram),
             const Gap(AppSizes.sm),
           ],

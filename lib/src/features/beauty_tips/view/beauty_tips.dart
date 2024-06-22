@@ -9,6 +9,7 @@ import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/device/device_utility.dart';
+import 'package:torganic/src/utils/helpers/helper_functions.dart';
 
 class BeautyTipsScreen extends StatelessWidget {
   const BeautyTipsScreen({super.key});
@@ -22,26 +23,29 @@ class BeautyTipsScreen extends StatelessWidget {
         backgroundColor: AppColors.white,
         leadingIconColor: AppColors.darkGrey,
         centerTitle: true,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-             AppBannerImage(
-              onPress: (){
-                Get.to(()=> const WebViewScreen(
-                    url: 'https://kireibd.com/blogs?type=app',
-                    title: 'Blogs'));
-              },
-                imgUrl: AppImages.beautyTipsOne),
-            Text('Beauty Blogs', style: Theme.of(context).textTheme.titleMedium,),
-            const Gap(AppSizes.spaceBtwSections),
-             AppBannerImage(
-              onPress: (){
-                AppDeviceUtils.browseUrl('https://www.youtube.com/@j-beautybykirei213');
-              },
-                imgUrl: AppImages.kireiYoutube),
-            Text('Kirei Youtube', style: Theme.of(context).textTheme.titleMedium),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                 AppBannerImage(
+                  onPress: (){
+                    Get.to(()=> const WebViewScreen(
+                        url: 'https://kireibd.com/blogs?type=app',
+                        title: 'Blogs'));
+                  },
+                    imgUrl: AppImages.beautyTipsOne),
+                Text('Beauty Blogs', style: Theme.of(context).textTheme.titleMedium,),
+                const Gap(AppSizes.spaceBtwSections),
+                 AppBannerImage(
+                  onPress: (){
+                    AppDeviceUtils.browseUrl('https://www.youtube.com/@j-beautybykirei213');
+                  },
+                    imgUrl: AppImages.kireiYoutube),
+                Text('Kirei Youtube', style: Theme.of(context).textTheme.titleMedium),
 
-          ],
+              ],
+            ),
+          ),
         ));
   }
 }

@@ -32,77 +32,83 @@ class AppWishListProductCard extends StatelessWidget {
                     borderColor: AppColors.grey,
                     padding: const EdgeInsets.all(AppSizes.sm),
                     child: Row(
-                      //crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppBannerImage(
-                            width: 90,
-                            height: 90,
-                            applyImageRadius: false,
-                            isNetworkImage: true,
-                            imgUrl: wishlistController.wishlistProducts.value
-                                .data![index].product!.thumbnailImage!),
-                        const Gap(AppSizes.sm),
-                        SizedBox(
-                          width: AppHelperFunctions.screenWidth() * .5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${wishlistController.wishlistProducts.value.data![index].product!.name}',
-                                style: Theme.of(context).textTheme.bodyLarge,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const Gap(AppSizes.md),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            AppBannerImage(
+                                width: 90,
+                                height: 90,
+                                applyImageRadius: false,
+                                isNetworkImage: true,
+                                imgUrl: wishlistController.wishlistProducts.value
+                                    .data![index].product!.thumbnailImage!),
+                            const Gap(AppSizes.sm),
+                            SizedBox(
+                              width: AppHelperFunctions.screenWidth() * .4,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${wishlistController.wishlistProducts.value.data![index].product!.basePrice}',
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
+                                    '${wishlistController.wishlistProducts.value.data![index].product!.name}',
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  Text(
-                                    wishlistController.wishlistProducts.value
-                                                .data![index].product!.stock !=
-                                            0
-                                        ? 'In Stock'
-                                        : wishlistController
-                                                    .wishlistProducts
-                                                    .value
-                                                    .data![index]
-                                                    .product!
-                                                    .preorderAvailable !=
+                                  const Gap(AppSizes.md),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '${wishlistController.wishlistProducts.value.data![index].product!.basePrice}',
+                                        style:
+                                            Theme.of(context).textTheme.titleSmall,
+                                      ),
+                                      Text(
+                                        wishlistController.wishlistProducts.value
+                                                    .data![index].product!.stock !=
                                                 0
-                                            ? 'Stock out'
-                                            : 'Preorder Available',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .apply(
-                                            color: wishlistController
+                                            ? 'In Stock'
+                                            : wishlistController
                                                         .wishlistProducts
                                                         .value
                                                         .data![index]
                                                         .product!
-                                                        .stock !=
+                                                        .preorderAvailable !=
                                                     0
-                                                ? AppColors.inStock
-                                                : wishlistController
+                                                ? 'Stock out'
+                                                : 'Preorder Available',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .apply(
+                                                color: wishlistController
                                                             .wishlistProducts
                                                             .value
                                                             .data![index]
                                                             .product!
-                                                            .preorderAvailable !=
+                                                            .stock !=
                                                         0
-                                                    ? AppColors.error
-                                                    : AppColors.preorder),
+                                                    ? AppColors.inStock
+                                                    : wishlistController
+                                                                .wishlistProducts
+                                                                .value
+                                                                .data![index]
+                                                                .product!
+                                                                .preorderAvailable !=
+                                                            0
+                                                        ? AppColors.error
+                                                        : AppColors.preorder),
+                                      )
+                                    ],
                                   )
                                 ],
-                              )
-                            ],
-                          ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           width: AppHelperFunctions.screenWidth() * .1,
