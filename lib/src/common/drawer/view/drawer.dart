@@ -9,6 +9,7 @@ import 'package:torganic/src/common/drawer/view/widgets/drawer_bottom_button.dar
 import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/appoinment/view/appointment_screen.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/authentication/views/sign_up/view/signup.dart';
 import 'package:torganic/src/features/beauty_tips/view/beauty_tips.dart';
@@ -17,6 +18,8 @@ import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/community/view/community_screen.dart';
 import 'package:torganic/src/features/feedback/view/feedback_form.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
+import 'package:torganic/src/features/purchase_history/view/purchace_history.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
 import 'package:torganic/src/features/web_view/web_view.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
@@ -36,8 +39,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
-    final shopController = Get.put(ShopController());
-    shopController.callApis.value = false;
+    final shopController = Get.put(GetShopDataController());
     final bottomController = ConvexBottomNavController.instance;
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
@@ -53,7 +55,11 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'new arrivals',
-            onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+            onPress: () {
+              shopController.updateCategory('new');
+              shopController.getShopData();
+              bottomController.jumpToTab(1);
+            },
           ),
           ExpansionTile(
             title: Row(
@@ -123,12 +129,9 @@ class AppDrawer extends StatelessWidget {
                         onPress: () {
                           shopController.updateCategory(child.slug);
                           shopController.getShopData();
-                          if(homeController.callApis.value == false){
-                            print('back1');
-                            Get.back();
-                            Get.back();
+                          if(bottomController.pageIndex.value == 1){
                           }
-                          Get.back();
+                          Get.off(()=> const HelloConvexAppBar());
                           bottomController.jumpToTab(1);
                         },
                       ),
@@ -140,16 +143,13 @@ class AppDrawer extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: AppDrawerCard(
                   title: category.name,
-                  onPress: () {
-                    shopController.updateCategory(category.slug);
-                    shopController.getShopData();
-                    print(homeController.callApis);
+                  onPress: () async {
+                    await shopController.updateCategory(category.slug);
+                    await shopController.getShopData();
                     if(homeController.callApis.value == false){
-                      print('back2');
-                      Get.back();
+                      Get.to(()=> const HelloConvexAppBar());
                     }
-                    Get.back();
-                    bottomController.jumpToTab(1);
+                  bottomController.jumpToTab(1);
                   },
                 ),
               );
@@ -211,7 +211,7 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'ai recomendation',
-            onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+            onPress: () => Get.to(() => const HelloConvexAppBar()),
           ),
           AppDrawerCard(
             title: 'community',
@@ -219,7 +219,7 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'appointment',
-            onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+            onPress: () => Get.to(() => const AppointmentScreen()),
           ),
           AppDrawerCard(
             title: 'blog',
@@ -358,16 +358,18 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   AppDrawerCard(
                     title: 'profile',
-                    onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+                    onPress: () => bottomController.jumpToTab(3),
                   ),
                   AppDrawerCard(
                     title: 'orders',
-                    onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+                    onPress: () => Get.to(() => const PurchaseHistory()),
                   ),
                   AppDrawerCard(
                     title: 'logout',
-                    onPress: () => Get.offAll(() => const HelloConvexAppBar()),
-                  ),
+                    onPress: () {
+                      AuthHelper().clearUserData();
+                      Get.offAll(()=> const HelloConvexAppBar());
+                    }),
                 ],
               )),
           const Gap(AppSizes.xs),

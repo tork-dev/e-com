@@ -20,14 +20,15 @@ class AppWishListProductCard extends StatelessWidget {
     final wishlistController = WishlistController.instance;
     final cartController = HomeController.instance;
     return Obx(() {
+      print(wishlistController.wishlistProducts.value.data?.length);
       return AppListViewLayout(
           itemCount: wishlistController.wishlistProducts.value.data == null
               ? 10
               : wishlistController.wishlistProducts.value.data!.length,
           builderFunction: (context, index) {
             return wishlistController.wishlistProducts.value.data == null
-                ? ShimmerHelper().buildBasicShimmer(height: 120)
-                : AppCardContainer(
+                ? ShimmerHelper().buildBasicShimmer(height: 120):
+                AppCardContainer(
                     hasBorder: true,
                     borderColor: AppColors.grey,
                     padding: const EdgeInsets.all(AppSizes.sm),
@@ -156,7 +157,6 @@ class AppWishListProductCard extends StatelessWidget {
                                                 .wishlistProducts
                                                 .value
                                                 .data![index]
-                                                .product!
                                                 .id!)
                                         .then((value) => wishlistController
                                             .onRefresh()

@@ -17,6 +17,7 @@ import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import '../../utils/constants/colors.dart';
 
 class HelloConvexAppBar extends StatelessWidget {
+  // final int pageIndex;
   const HelloConvexAppBar({super.key});
 
   static final List<Widget> children = [
@@ -28,8 +29,8 @@ class HelloConvexAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ConvexBottomNavController controller = Get.put(ConvexBottomNavController());
-
+     ConvexBottomNavController controller = Get.put(ConvexBottomNavController());
+   // controller.pageIndex.value = pageIndex;
     return Obx(() {
         return PopScope(
           canPop: false,

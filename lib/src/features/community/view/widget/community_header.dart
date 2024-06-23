@@ -21,6 +21,7 @@ class CommunityHeader extends StatelessWidget {
     return AppCardContainer(
         backgroundColor: Colors.white,
         padding: const EdgeInsets.all(AppSizes.md),
+        applyShadow: true,
         child: Column(
           children: [
             Text(

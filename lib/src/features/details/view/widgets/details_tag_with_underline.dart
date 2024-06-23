@@ -8,6 +8,7 @@ import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
 import 'package:torganic/src/features/details/model/product_details_model.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
@@ -42,16 +43,17 @@ class AppDetailsTagUnderlineWidget extends StatelessWidget {
         ...List.generate(types.length, (index) {
           return InkWell(
             onTap: () {
-              final shopController = Get.put(ShopController());
-              shopController.resetAll();
+              final categoryPassingController = Get.put(GetShopDataController());
+              //final shopController = Get.put(ShopController());
+              categoryPassingController.resetAll();
               if(title == 'Key Ingredients: '){
-                shopController.keyIngredients.value = types[index].slug!;
+                categoryPassingController.keyIngredients.value = types[index].slug!;
               }else if(title == 'Tags: '){
-                shopController.tag.value = types[index].slug!;
+                categoryPassingController.tag.value = types[index].slug!;
               }else if(title == 'Categories: '){
-                shopController.categories.value = types[index].slug;
+                categoryPassingController.categories.value = types[index].slug;
               }
-              shopController.getShopData();
+              categoryPassingController.getShopData();
               Get.back();
               bottomController.jumpToTab(1);
             },

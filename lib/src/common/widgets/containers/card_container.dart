@@ -49,7 +49,7 @@ class AppCardContainer extends StatelessWidget {
           border: hasBorder ? Border.all(color: borderColor!, width: borderWidth!) : null,
           borderRadius: applyRadius? BorderRadius.circular(borderRadius) : null,
           boxShadow: applyShadow? [
-            const BoxShadow(color: AppColors.grey, blurRadius: 10)
+            const BoxShadow(color: AppColors.grey, blurRadius: 5, offset: Offset(0, 7))
           ]: null
 
         ),

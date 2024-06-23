@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/state_manager.dart';
 import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
@@ -12,6 +9,7 @@ import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/common/widgets/texts/section_title_text.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
 import 'package:torganic/src/features/shop/view/widget/price_filter_field.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
@@ -25,7 +23,8 @@ class AppEndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
-    final shopController = ShopController.instance;
+    //final shopController = ShopController.instance;
+    final categoryPassingController = Get.put(GetShopDataController());
     return AppCardContainer(
       padding: AppSpacingStyle.paddingWithAppBarHeight,
       width: 300,
@@ -48,12 +47,12 @@ class AppEndDrawer extends StatelessWidget {
                   children: [
                     AppPriceFilterField(
                       hintText: 'Minimum',
-                      controller: shopController.minimumPriceController,
+                      controller: categoryPassingController.minimumPriceController,
                     ),
                     AppDividersStyle.smallFlatAppDivider,
                     AppPriceFilterField(
                       hintText: 'Maximum',
-                      controller: shopController.maximumPriceController,
+                      controller: categoryPassingController.maximumPriceController,
                     ),
                   ],
                 )
@@ -84,16 +83,16 @@ class AppEndDrawer extends StatelessWidget {
                                   return Radio(
                                       activeColor: Colors.blueAccent,
                                       value: index,
-                                      groupValue: shopController
+                                      groupValue: categoryPassingController
                                           .selectedCategoryIndex.value,
                                       onChanged: (value) {
-                                        shopController
+                                        categoryPassingController
                                             .updateSelectedCategoryIndex(
                                           value!,
                                           homeController
                                               .allCategories[value].name,
                                         );
-                                        print(shopController.categories.value);
+                                        print(categoryPassingController.categories.value);
                                       });
                                 }),
                                 Text(homeController.allCategories[index].name)
@@ -108,14 +107,14 @@ class AppEndDrawer extends StatelessWidget {
                     Obx(() {
                       return AppListViewLayout(
                         applyPadding: false,
-                        itemCount: shopController
+                        itemCount: categoryPassingController
                                 .skinTypeResponse.value.skinTypes!.isEmpty
                             ? 5
-                            : shopController
+                            : categoryPassingController
                                 .skinTypeResponse.value.skinTypes!.length,
                         physics: const BouncingScrollPhysics(),
                         builderFunction: (BuildContext context, int index) =>
-                            shopController
+                        categoryPassingController
                                     .skinTypeResponse.value.skinTypes!.isEmpty
                                 ? ShimmerHelper().buildBasicShimmer(height: 30)
                                 : Obx(() {
@@ -123,20 +122,20 @@ class AppEndDrawer extends StatelessWidget {
                                       controlAffinity:
                                           ListTileControlAffinity.leading,
                                       dense: true,
-                                      title: Text(shopController
+                                      title: Text(categoryPassingController
                                           .skinTypeResponse
                                           .value
                                           .skinTypes![index]
                                           .title!),
-                                      value: shopController.selectedSkinTypes
-                                          .contains(shopController
+                                      value: categoryPassingController.selectedSkinTypes
+                                          .contains(categoryPassingController
                                               .skinTypeResponse
                                               .value
                                               .skinTypes![index]
                                               .slug!),
                                       onChanged: (value) {
-                                        shopController.selectSkinTypes(
-                                            shopController
+                                        categoryPassingController.selectSkinTypes(
+                                            categoryPassingController
                                                 .skinTypeResponse
                                                 .value
                                                 .skinTypes![index]
@@ -162,8 +161,8 @@ class AppEndDrawer extends StatelessWidget {
                 child: AppButtons.largeFlatFilledButton(
                   verticallyPadding: 0,
                     onPressed: (){
-                    shopController.resetAll();
-                    shopController.getShopData();
+                      categoryPassingController.resetAll();
+                    categoryPassingController.getShopData();
                     Get.back();
                     },
                     buttonText: 'CLEAR'),
@@ -175,7 +174,7 @@ class AppEndDrawer extends StatelessWidget {
                   verticallyPadding: 0,
                     backgroundColor: AppColors.success,
                     onPressed: (){
-                    shopController.getShopData();
+                    categoryPassingController.getShopData();
                     Get.back();
                     },
                     buttonText: 'APPLY'),

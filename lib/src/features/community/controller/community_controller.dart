@@ -21,7 +21,7 @@ class CommunityController extends GetxController{
   void onInit() {
     super.onInit();
     homeController.callApis.value = false;
-    shopController.callApis.value = false;
+   // shopController.callApis.value = false;
 
   }
 

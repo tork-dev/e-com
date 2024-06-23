@@ -7,57 +7,87 @@ import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/styles/spacing_style.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/appoinment/view/appointment_screen.dart';
+import 'package:torganic/src/features/beauty_tips/view/beauty_tips.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
+import 'package:torganic/src/features/community/view/community_screen.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
 import 'package:torganic/src/features/home/repositories/home_repositories.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:torganic/src/features/shop/controller/shop_controller.dart';
+import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 
 class AppFeatureCategories extends StatelessWidget {
-  const AppFeatureCategories(
-      {super.key});
-
+  const AppFeatureCategories({super.key});
 
   @override
   Widget build(BuildContext context) {
-  final homeController = HomeController.instance;
+    final homeController = HomeController.instance;
+    final categoryPassingController = Get.put(GetShopDataController());
+    final bottomController = ConvexBottomNavController.instance;
+
     return SizedBox(
-      height: 100,
-      child: Obx(() {
-        print('data category: ${homeController.homeFeaturedCategoryResponse.length}');
+        height: 100,
+        child: Obx(() {
           return AppListViewLayout(
-                  isScrollVertically: false,
-                  itemCount: homeController.homeFeaturedCategoryResponse.isEmpty ? 5  : homeController.homeFeaturedCategoryResponse.length,
-                  builderFunction: (BuildContext context, int index) =>
-                  homeController.homeFeaturedCategoryResponse.isEmpty  ? ShimmerHelper().buildBasicShimmer(
-                    height: 150,
-                    width: 150
-                  ) :
-                      Column(
-                    children: [
-                       AppBannerImage(
-                        height: 60,
-                        width: 60,
-                        isNetworkImage: true,
-                        imgUrl: homeController.homeFeaturedCategoryResponse[index].icon ?? 'https://kireibd.com/images/home/categories/New-Arrivals.png',
-                      ),
-
-                        //print('this is response' +homeController.homeFeaturedCategoryResponse.length.toString());
-                      //      SizedBox(
-                      //       height: 60,
-                      //         width: 60,
-                      //         child: Image.network(homeController.homeFeaturedCategoryResponse[index].icon ?? 'https://kireibd.com/images/home/categories/New-Arrivals.png')
-                      //
-                      // ),
-                      const Gap(8),
-                      Text(
-                        homeController.homeFeaturedCategoryResponse[index].name!
-                        ,
-                        style: Theme.of(context).textTheme.labelSmall,
-                      )
-                    ],
-                  ));
-        }
-      )
-
-    );
+              isScrollVertically: false,
+              itemCount: homeController.homeFeaturedCategoryResponse.isEmpty
+                  ? 5
+                  : homeController.homeFeaturedCategoryResponse.length,
+              builderFunction: (BuildContext context, int index) =>
+                  homeController.homeFeaturedCategoryResponse.isEmpty
+                      ? ShimmerHelper().buildBasicShimmer(
+                          height: 60, width: 100, radius: 100)
+                      : Column(
+                          children: [
+                            AppBannerImage(
+                              onPress: () {
+                                if (homeController
+                                        .homeFeaturedCategoryResponse[index]
+                                        .slug! ==
+                                    'BeautyTips()') {
+                                  Get.to(const BeautyTipsScreen());
+                                  return;
+                                }
+                                if (homeController
+                                        .homeFeaturedCategoryResponse[index]
+                                        .slug! ==
+                                    'FeedList()') {
+                                  Get.to(const CommunityScreen());
+                                  return;
+                                }
+                                if (homeController
+                                        .homeFeaturedCategoryResponse[index]
+                                        .slug! ==
+                                    'Appointment()') {
+                                  Get.to(const AppointmentScreen());
+                                  return;
+                                }
+                                categoryPassingController.updateCategory(
+                                    homeController
+                                        .homeFeaturedCategoryResponse[index]
+                                        .slug!);
+                                categoryPassingController.getShopData();
+                                categoryPassingController.getSubCategory();
+                                bottomController.jumpToTab(1);
+                              },
+                              height: 60,
+                              width: 60,
+                              isNetworkImage: true,
+                              imgUrl: homeController
+                                      .homeFeaturedCategoryResponse[index]
+                                      .icon ??
+                                  'https://kireibd.com/images/home/categories/New-Arrivals.png',
+                            ),
+                            const Gap(AppSizes.sm),
+                            Text(
+                              homeController
+                                  .homeFeaturedCategoryResponse[index].name!,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            )
+                          ],
+                        ));
+        }));
   }
 }

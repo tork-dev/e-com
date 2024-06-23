@@ -38,13 +38,13 @@ class CustomSlider extends StatelessWidget {
                 child: CarouselSlider(
                      //items: items,
                     items: controller.homeSliders.map((url) => AppBannerImage(
-                      width: AppHelperFunctions.screenWidth() * 1,
+                      width: AppHelperFunctions.screenWidth(),
                       isNetworkImage: true,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                         imgUrl: url)).toList(),
 
                     options: CarouselOptions(
-                       // aspectRatio: 2.67,
+                        //aspectRatio: 3.37,
                         viewportFraction: 1,
                         initialPage: 0,
                         enableInfiniteScroll: true,

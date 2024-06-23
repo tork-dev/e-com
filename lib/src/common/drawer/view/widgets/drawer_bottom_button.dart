@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
+import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
+import 'package:torganic/src/features/authentication/views/sign_up/view/signup.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
+import 'package:torganic/src/utils/device/device_utility.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
@@ -28,7 +33,9 @@ class AppDrawerBottomButton extends StatelessWidget {
               SizedBox(
                 width: 100,
                 child: AppButtons.largeFlatFilledButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(()=> const LogIn());
+                    },
                     backgroundColor: AppColors.secondary,
                     buttonRadius: 5,
                    // verticallyPadding: 0,
@@ -38,7 +45,9 @@ class AppDrawerBottomButton extends StatelessWidget {
               SizedBox(
                 width: 100,
                 child: AppButtons.largeFlatFilledButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(()=> const SignUp());
+                    },
                     backgroundColor: AppColors.secondary,
                     buttonRadius: 5,
                    // verticallyPadding: 0,
@@ -52,18 +61,23 @@ class AppDrawerBottomButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppBannerImage(
-
-                onPress: () {},
+                onPress: () {
+                  AppDeviceUtils.browseUrl('https://www.facebook.com/jbeautybyKirei');
+                },
                 height: 50,
                 imgUrl: AppImages.facebook),
             const Gap(AppSizes.sm),
             AppBannerImage(
-                onPress: () {},
+                onPress: () {
+                  AppDeviceUtils.browseUrl('https://www.youtube.com/channel/UCfcO3vgVRLyqcIoAl8AX8Ew');
+                },
                 height: 50,
                 imgUrl: AppImages.youtube),
             const Gap(AppSizes.sm),
             AppBannerImage(
-                onPress: () {},
+                onPress: () {
+                  AppDeviceUtils.browseUrl('https://www.instagram.com/accounts/login/?next=%2Fjbeauty_kirei%2F');
+                },
                 height: 50,
                 imgUrl: AppImages.instagram),
             const Gap(AppSizes.sm),

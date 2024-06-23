@@ -13,14 +13,14 @@ class BeautyTipsController extends GetxController{
 
   ConvexBottomNavController bottomController  = Get.put(ConvexBottomNavController());
   HomeController homeController  = Get.put(HomeController());
-  ShopController shopController = Get.put(ShopController());
+  //ShopController shopController = Get.put(ShopController());
 
 
   @override
   void onInit() {
     super.onInit();
     homeController.callApis.value = false;
-    shopController.callApis.value = false;
+    //shopController.callApis.value = false;
 
   }
 }

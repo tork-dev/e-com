@@ -24,6 +24,7 @@ class AuthInputField extends StatelessWidget {
       validator: validator,
       controller: controller,
       obscureText: obscured,
+      cursorColor: AppColors.primary,
       decoration: InputDecoration(
         hintText: hingText,
         suffixIcon: suffixIcon,
