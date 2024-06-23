@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:torganic/src/common/widgets/containers/product_image.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/image_strings.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
@@ -7,16 +8,17 @@ import 'package:torganic/src/utils/helpers/helper_functions.dart';
 
 class AppGridViewLayout extends StatelessWidget {
   const AppGridViewLayout(
-      {required this.builderFunction, required this.itemCount, required this.scrollController, super.key});
+      {required this.builderFunction, required this.itemCount, this.scrollController, super.key});
 
   final int itemCount;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
   //final Widget child;
   final Widget Function(BuildContext context, int index) builderFunction;
 
   @override
   Widget build(BuildContext context) {
+    final categoryPassignController = GetShopDataController.instance;
     return LayoutBuilder(builder: (context, constraints) {
       int crossAxisCount;
       double childAspectRatio;

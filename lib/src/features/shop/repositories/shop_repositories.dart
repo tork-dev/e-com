@@ -50,8 +50,9 @@ class ShopRepositories{
       parameters['type'] = type.toLowerCase().replaceAll(' ', '-');
     }
     if (search != "") {
-      parameters['search'] = type.toLowerCase().replaceAll(' ', '-');
+      parameters['search'] = search.toLowerCase().replaceAll(' ', '-');
     }
+
     // Constructing the query string manually
     String queryString = parameters.entries
         .map((entry) =>
@@ -62,16 +63,15 @@ class ShopRepositories{
     queryString += '&gaip_user_id=null';
 
     // Construct the final URL
-    Uri url =
-    Uri.parse("${AppApiEndPoints.shopProducts}$queryString");
+    Uri url = Uri.parse("${AppApiEndPoints.shopProducts}$queryString");
     print(url);
-    final response = await http.get(url, headers: {
-    });
+
+    final response = await http.get(url);
     var responseBody = jsonDecode(response.body);
 
-    print( 'this is response ${responseBody["result"] == true}');
+    print('this is response ${responseBody["result"] == true}');
 
-    return ShopPageResponse.fromJson(jsonDecode(response.body));
+    return ShopPageResponse.fromJson(responseBody);
   }
 
   ///Shop Page Skin Type

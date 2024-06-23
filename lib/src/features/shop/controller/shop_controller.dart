@@ -28,10 +28,15 @@ class ShopController extends GetxController{
 
   @override
   void onInit() {
-   // getShopDataController.scrollController.addListener(getShopDataController.scrollListener());
-      getShopDataController.getShopData();
-      getShopDataController.getSkinTypesData();
+    onRefresh();
+    getShopDataController.addItems();
+      //getShopDataController.scrollController.addListener(getShopDataController.scrollListener);
     super.onInit();
+  }
+
+  Future onRefresh()async{
+    getShopDataController.getShopData();
+    getShopDataController.getSkinTypesData();
   }
 
 

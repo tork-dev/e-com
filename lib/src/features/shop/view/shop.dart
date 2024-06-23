@@ -24,10 +24,6 @@ import '../controller/get_shop_data_controller.dart';
 class ShopScreen extends StatelessWidget {
   const ShopScreen({super.key});
 
-  Future<void> _onRefresh() async {
-    debugPrint('_onRefresh');
-  }
-
   @override
   Widget build(BuildContext context) {
     final shopController = Get.put(ShopController());
@@ -53,7 +49,8 @@ class ShopScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: AppLayoutWithRefresher(
-                  onRefresh: _onRefresh,
+                  onRefresh: shopController.onRefresh,
+                  scrollController: shopDataController.scrollController,
                   children: const [Gap(45), AppShopGridScrollCard()]),
             ),
             Column(

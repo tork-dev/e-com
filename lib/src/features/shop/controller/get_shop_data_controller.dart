@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/utils/helpers/helper_functions.dart';
 
 import '../model/shop_data_model.dart';
 import '../model/skin_type_model.dart';
@@ -14,14 +15,14 @@ class GetShopDataController extends GetxController {
 
   /// Model
   Rx<ShopPageResponse> shopPageProduct = ShopPageResponse().obs;
-  RxList<ProductSubCategoryItem> subCategoryResponse = <ProductSubCategoryItem>[
-  ].obs;
+  RxList<Product> allProducts = <Product>[].obs; // Accumulated products list
+  RxList<ProductSubCategoryItem> subCategoryResponse = <ProductSubCategoryItem>[].obs;
   Rx<SkinTypesResponse> skinTypeResponse = SkinTypesResponse().obs;
 
   ///Controllers
   final TextEditingController minimumPriceController = TextEditingController();
   final TextEditingController maximumPriceController = TextEditingController();
-  ScrollController scrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
 
   /// Searching params
   RxString searchName = ''.obs;
@@ -37,7 +38,6 @@ class GetShopDataController extends GetxController {
   Rx<int?> selectedCategoryIndex = Rx<int?>(null);
   RxList<String> selectedSkinTypes = <String>[].obs;
   RxInt selectedSortIndex = 0.obs;
-
 
   void resetAll() {
     searchName.value = '';
@@ -55,6 +55,7 @@ class GetShopDataController extends GetxController {
     selectedSkinTypes.clear();
     selectedCategoryIndex = Rx<int?>(null);
     isFromCategory.value = false;
+    allProducts.clear(); // Clear accumulated products list
   }
 
   updateCategory(String category) {
@@ -65,26 +66,70 @@ class GetShopDataController extends GetxController {
     selectedSortIndex.value = index;
     categories.value = value;
   }
+
   void updateSortKey(String value) {
     sortKey.value = value;
   }
 
+  // Future<void> getShopData() async {
+  //   hittingApi.value = true;
+  //
+  //   // Fetch products for the current page
+  //   ShopPageResponse response = await ShopRepositories().getFilteredProducts(
+  //     searchName: searchName.value,
+  //     tag: tag.value,
+  //     sortKey: sortKey.value,
+  //     skinType: selectedSkinTypes.isEmpty
+  //         ? skinType.value
+  //         : selectedSkinTypes.join(",").toString(),
+  //     search: search.value,
+  //     min: minimumPriceController.text,
+  //     max: maximumPriceController.text,
+  //     keyIngredients: keyIngredients.value,
+  //     goodFor: goodFor.value,
+  //     categories: categories.value,
+  //     pageNumber: pageNumber.value,
+  //     type: type.value,
+  //   );
+  //
+  //   if (response != null && response.data != null) {
+  //     allProducts.addAll(response.data!); // Add current page products to allProducts
+  //     pageNumber.value++; // Increment page number for next fetch
+  //   }
+  //
+  //   hittingApi.value = false;
+  // }
+
+
+
   Future<ShopPageResponse> getShopData() async {
-    return shopPageProduct.value = await ShopRepositories().getFilteredProducts(
-        searchName: searchName.value,
-        tag: tag.value,
-        sortKey: sortKey.value,
-        skinType: selectedSkinTypes.isEmpty ? skinType.value : selectedSkinTypes
-            .join(",").toString(),
-        search: search.value,
-        min: minimumPriceController.text,
-        max: maximumPriceController.text,
-        keyIngredients: keyIngredients.value,
-        goodFor: goodFor.value,
-        categories: categories.value,
-        pageNumber: pageNumber.value,
-        type: type.value
+    hittingApi.value = true;
+    // Fetch products for the current page
+    shopPageProduct.value = await ShopRepositories().getFilteredProducts(
+      searchName: searchName.value,
+      tag: tag.value,
+      sortKey: sortKey.value,
+      skinType: selectedSkinTypes.isEmpty
+          ? skinType.value
+          : selectedSkinTypes.join(",").toString(),
+      search: search.value,
+      min: minimumPriceController.text,
+      max: maximumPriceController.text,
+      keyIngredients: keyIngredients.value,
+      goodFor: goodFor.value,
+      categories: categories.value,
+      pageNumber: pageNumber.value,
+      type: type.value,
     );
+
+    if (shopPageProduct.value.data != null) {
+      allProducts.addAll(shopPageProduct.value.data ?? []);
+    }
+
+    //allProducts.addAll(shopPageProduct.value.data ?? []);
+
+    hittingApi.value = false;
+    return shopPageProduct.value;
   }
 
   Future getSubCategory() async {
@@ -92,13 +137,12 @@ class GetShopDataController extends GetxController {
     hittingApi.value = true;
     subCategoryResponse.value = await ShopRepositories().getSubCategories(categories.value);
     hittingApi.value = false;
-    if(subCategoryResponse.isEmpty){
+    if (subCategoryResponse.isEmpty) {
       isFromCategory.value = false;
-      return;
     }
   }
 
-  Future<SkinTypesResponse> getSkinTypesData() async{
+  Future<SkinTypesResponse> getSkinTypesData() async {
     return skinTypeResponse.value = await ShopRepositories().getFilterPageSkinTypes();
   }
 
@@ -106,11 +150,26 @@ class GetShopDataController extends GetxController {
     if (selectedSkinTypes.contains(title)) {
       selectedSkinTypes.remove(title);
     } else {
-     selectedSkinTypes.add(title);
+      selectedSkinTypes.add(title);
     }
   }
 
-   scrollListener(){
-    print('listening');
+  void addItems() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        if (!hittingApi.value) {
+          AppHelperFunctions.showToast('Loading more...');
+          print('Reached end of list, loading more...');
+          getShopData(); // Fetch more data when reaching end of list
+        }
+      }
+    });
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
   }
 }

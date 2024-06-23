@@ -268,55 +268,59 @@ class ProductCategory {
 
 class Pivot {
   int? productId;
-  int? productCategoryId;
+  int? categoryId;
 
   Pivot({
     this.productId,
-    this.productCategoryId,
+    this.categoryId,
   });
 
   factory Pivot.fromJson(Map<String, dynamic> json) {
     return Pivot(
       productId: json['product_id'],
-      productCategoryId: json['product_category_id'],
+      categoryId: json['category_id'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'product_id': productId,
-      'product_category_id': productCategoryId,
+      'category_id': categoryId,
     };
   }
 }
 
 class Picture {
+  int? id;
+  String? small;
+  String? large;
   String? url;
-  int? width;
-  int? height;
   Pivot? pivot;
 
   Picture({
+    this.id,
+    this.small,
+    this.large,
     this.url,
-    this.width,
-    this.height,
     this.pivot,
   });
 
   factory Picture.fromJson(Map<String, dynamic> json) {
     return Picture(
+      id: json['id'],
+      small: json['small'],
+      large: json['large'],
       url: json['url'],
-      width: json['width'],
-      height: json['height'],
       pivot: json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
+      'small': small,
+      'large': large,
       'url': url,
-      'width': width,
-      'height': height,
       'pivot': pivot?.toJson(),
     };
   }
@@ -326,7 +330,6 @@ class Meta {
   int? currentPage;
   int? from;
   int? lastPage;
-  List<String>? links;
   String? path;
   int? perPage;
   int? to;
@@ -336,7 +339,6 @@ class Meta {
     this.currentPage,
     this.from,
     this.lastPage,
-    this.links,
     this.path,
     this.perPage,
     this.to,
@@ -348,7 +350,6 @@ class Meta {
       currentPage: json['current_page'],
       from: json['from'],
       lastPage: json['last_page'],
-      links: json['links'] != null ? List<String>.from(json['links']) : [],
       path: json['path'],
       perPage: json['per_page'],
       to: json['to'],
@@ -361,7 +362,6 @@ class Meta {
       'current_page': currentPage,
       'from': from,
       'last_page': lastPage,
-      'links': links,
       'path': path,
       'per_page': perPage,
       'to': to,

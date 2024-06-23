@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 
 class AppLayoutWithRefresher extends StatelessWidget {
-  const AppLayoutWithRefresher({super.key, required this.onRefresh, required this.children});
+  const AppLayoutWithRefresher({
+    super.key, required this.onRefresh, required this.children, this.scrollController
+  });
 
 
   final dynamic onRefresh;
   final List<Widget> children;
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class AppLayoutWithRefresher extends StatelessWidget {
           color: AppColors.primary,
         onRefresh: onRefresh,
         child: CustomScrollView(
-            controller: ScrollController(),
+            controller: scrollController,
             physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics()),
             slivers: [

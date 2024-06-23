@@ -24,7 +24,6 @@ class ShopSubCategory extends StatelessWidget {
         ),
         height: 85,
         backgroundColor: AppColors.white,
-        //applyShadow: true,
         applyRadius: false,
         child: Obx(() {
           return AppListViewLayout(
