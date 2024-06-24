@@ -124,6 +124,8 @@ class GetShopDataController extends GetxController {
 
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);
+      debugPrint('//////////////////////////');
+      debugPrint(allProducts.length.toString());
     }
 
     //allProducts.addAll(shopPageProduct.value.data ?? []);
@@ -157,13 +159,29 @@ class GetShopDataController extends GetxController {
   void addItems() {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
+          scrollController.position.minScrollExtent && pageNumber.value < 1) {
+        if (!hittingApi.value) {
+          AppHelperFunctions.showToast('Loading more...');
+          print('Reached end of list, loading more...');
+          pageNumber.value--;
+          getShopData();
+          update();
+          return;
+        }
+      }
+
+      if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         if (!hittingApi.value) {
           AppHelperFunctions.showToast('Loading more...');
           print('Reached end of list, loading more...');
-          getShopData(); // Fetch more data when reaching end of list
+          pageNumber.value++;
+          getShopData();
+          update();
+          return;
         }
       }
+
     });
   }
 
