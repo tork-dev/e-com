@@ -71,6 +71,14 @@ class AppApiEndPoints {
   static String zoneAddresses  = "$baseUrl/zones-by-city";
   static String areaAddresses  = "$baseUrl/areas-by-zone";
 
+  ///Product Review
+  static String productReview = "$baseUrl/reviews/product";
+  static String submitReview = "$baseUrl/reviews/submit";
+
+
+  ///Community
+  static String communityPost = "$baseUrl/community-posts";
+
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";
 // static String AddAddr = "$baseUrl/user/shipping/create";

@@ -1,6 +1,5 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/common/styles/skeleton_style.dart';
@@ -8,8 +7,8 @@ import 'package:torganic/src/features/details/controller/details_page_controller
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 
-class AppDetailsDescriptionPart extends StatelessWidget {
-  const AppDetailsDescriptionPart({super.key});
+class AppQuestionDescriptionPart extends StatelessWidget {
+  const AppQuestionDescriptionPart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,29 +25,25 @@ class AppDetailsDescriptionPart extends StatelessWidget {
                     children: [
                       Expandable(
                         collapsed: SizedBox(
-                            height: 40,
-                            child: ListView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: [
-                                HtmlWidget(detailsController.productDetails.value
-                                        .detailedProducts!.shortDescription ??
-                                    ''),
-                              ],
-                            )),
+                          height: 40,
+                          child: Text(
+                              "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"),
+                        ),
                         expanded: SizedBox(
-                            child: HtmlWidget(detailsController.productDetails
-                                    .value.detailedProducts!.shortDescription ??
-                                '')),
+                          child: Text(
+                              "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"),
+                        ),
+
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
+                        children: [
                           Builder(
                             builder: (context) {
                               var controller = ExpandableController.of(context);
                               return Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 10.0, top: 8.0),
+                                padding: const EdgeInsets.only(
+                                    right: 10.0, top: 8.0),
                                 child: GestureDetector(
                                   child: Text(
                                       !controller!.expanded
@@ -57,7 +52,10 @@ class AppDetailsDescriptionPart extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
-                                          .apply(color: AppColors.darkGrey)),
+                                          .apply(
+                                              color: AppColors.primary,
+                                              decoration:
+                                                  TextDecoration.underline)),
                                   onTap: () {
                                     controller.toggle();
                                   },
@@ -71,7 +69,7 @@ class AppDetailsDescriptionPart extends StatelessWidget {
                     ],
                   ),
                 ),
-            );
+              );
       }),
     );
   }

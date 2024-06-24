@@ -1,9 +1,11 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
-
+import 'package:get/get.dart';
+import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
+import 'package:torganic/src/common/styles/skeleton_style.dart';
+import 'package:torganic/src/features/review/controller/review_controller.dart';
+import 'package:torganic/src/features/review/view/widgets/review_desc.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -14,64 +16,74 @@ class AppReviewCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AppBannerImage(
-                  applyPadding: true,
-                  backgroundColor: AppColors.grey,
-                  applyImageRadius: true,
-                  boarderRadius: 100,
-                  height: 50,
-                  width: 50,
-                  imgUrl: AppImages.profileIcon),
-              const Gap(AppSizes.sm),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    final reviewController = ReviewController.instance;
+    return Obx(() {
+      return AppListViewLayout(
+        itemCount: reviewController.apiHitting.value
+            ? 5
+            : reviewController.reviewResponse.value.data!.length,
+        builderFunction: (context, index) => reviewController.apiHitting.value
+            ? ShimmerHelper().buildBasicShimmer(height: 70)
+            : Column(
                 children: [
-                  Text('Mehtab Sultana',
-                      style: Theme.of(context).textTheme.bodyLarge!),
-                  Text(
-                    '2 week ago',
-                    style: Theme.of(context).textTheme.bodySmall,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                           AppBannerImage(
+                              applyPadding: true,
+                              backgroundColor: AppColors.grey,
+                              applyImageRadius: true,
+                              boarderRadius: 100,
+                              height: 50,
+                              width: 50,
+                              isNetworkImage: reviewController.reviewResponse.value.data![index].avatar != null,
+                              imgUrl: reviewController.reviewResponse.value.data![index].avatar ?? AppImages.profileIcon),
+                          const Gap(AppSizes.sm),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(reviewController.reviewResponse.value.data![index].userName ?? 'Guest',
+                                  style:
+                                      Theme.of(context).textTheme.bodyLarge!),
+                              Text(
+                                reviewController.reviewResponse.value.data![index].time!,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      RatingBar(
+                        itemSize: 14.0,
+                        ignoreGestures: true,
+                        initialRating: reviewController.reviewResponse.value.data![index].rating!.toDouble(),
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        ratingWidget: RatingWidget(
+                          full:
+                              const Icon(Icons.star, color: AppColors.warning),
+                          empty: const Icon(Icons.star, color: Colors.grey),
+                          half:
+                              const Icon(Icons.star, color: AppColors.warning),
+                        ),
+                        itemPadding: const EdgeInsets.only(right: 1.0),
+                        onRatingUpdate: (rating) {
+                          //print(rating);
+                        },
+                      ),
+                    ],
                   ),
-                  const Gap(AppSizes.xs),
-                  SizedBox(
-                    width: AppHelperFunctions.screenWidth() * .5,
-                    child: Text(
-                      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                   Padding(
+                    padding: const EdgeInsets.only(left: 40),
+                    child: AppReviewDescriptionPart(index: index,),
                   ),
                 ],
-              )
-            ],
-          ),
-        ),
-        RatingBar(
-          itemSize: 14.0,
-          ignoreGestures: true,
-          initialRating: 3.5,
-          direction: Axis.horizontal,
-          allowHalfRating: true,
-          itemCount: 5,
-          ratingWidget: RatingWidget(
-            full: const Icon(Icons.star, color: AppColors.warning),
-            empty: const Icon(Icons.star, color: Colors.grey),
-            half: const Icon(Icons.star, color: AppColors.warning),
-          ),
-          itemPadding: const EdgeInsets.only(right: 1.0),
-          onRatingUpdate: (rating) {
-            //print(rating);
-          },
-        ),
-      ],
-    );
+              ),
+      );
+    });
   }
 }
