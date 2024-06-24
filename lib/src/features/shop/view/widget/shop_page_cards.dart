@@ -30,93 +30,99 @@ class AppShopGridScrollCard extends StatelessWidget {
     final homeController = HomeController.instance;
     final cartController = CartController.instance;
     return Obx(() {
-      print('/////////hsdfjkskfjs//////////////');
-     // print(shopController.shopPageProduct.value.data!.length);
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Visibility(
-            visible: shopController.isFromCategory.value,
-              child: const ShopSubCategory()),
+              visible: shopController.isFromCategory.value,
+              child: Column(
+                children: [
+                  const ShopSubCategory(),
+                  AppDividersStyle.fullFlatAppDivider
+                ],
+              )),
           const Gap(AppSizes.sm),
           AppGridViewLayout(
-                itemCount: shopController.hittingApi.value
-                    ? 10
-                    : shopController.shopPageProduct.value.data!.length,
-                builderFunction: (context, index) => shopController.hittingApi.value
-                    ? ShimmerHelper().buildBasicShimmer(height: 150, width: 150)
-                    : shopController.shopPageProduct.value.data!.isEmpty? const Center(child: Text('No Product Found'),) : AppVerticalProductCard(
-                        onTap: () {
-                          Get.to(() => DetailsPage(
-                            productSlug: shopController.shopPageProduct.value.data![index].slug!,
-                            productId: shopController.shopPageProduct.value.data![index].id!,
-                          ));
-                        },
-                        onCartTap: () {
-                          if (AppLocalStorage()
-                                  .readData(LocalStorageKeys.isLoggedIn) !=
-                              null) {
-                            homeController
-                                .getAddToCartResponse(
-                                shopController.shopPageProduct.value.data![index].id!,
-                                1,
-                                shopController.shopPageProduct.value.data![index].preorderAvailable)
-                                .then((value) => {
-                                      cartController.cartCount.value = homeController
-                                          .addToCartResponse.value.cartQuantity!,
-                                      AppHelperFunctions.showToast(homeController
-                                          .addToCartResponse.value.message!)
-                                    });
-                          } else {
-                            Get.to(() => const LogIn());
-                          }
-                        },
-                        productName:
-                            shopController.shopPageProduct.value.data![index].name ??
-                                '',
-                        ratings: shopController
-                            .allProducts[index].ratings!
-                            .toDouble(),
-                        imgUrl: shopController.shopPageProduct.value.data![index]
-                                .pictures![0].url ??
-                            '',
-                        reviews: shopController
-                                .allProducts[index].reviews ??
-                            0,
-                        salePrice: shopController
-                                .allProducts[index].salePrice?.toInt() ??
-                            0,
-                        price:
-                            shopController.shopPageProduct.value.data![index].price?.toInt() ??
-                                0,
-                        buttonName: shopController.shopPageProduct.value.data![index]
-                                    .preorderAvailable ==
-                                0
-                            ? shopController
-                                        .allProducts[index].stock !=
-                                    0
-                                ? 'ADD TO CART'
-                                : "OUT OF STOCK"
-                            : 'PREORDER',
-                        backgroundColor: shopController.shopPageProduct.value
-                                    .data![index].preorderAvailable ==
-                                0
-                            ? shopController
-                                        .allProducts[index].stock !=
-                                    0
-                                ? AppColors.secondary
-                                : AppColors.primary
-                            : AppColors.preorder,
-                        isDiscountAvailable: shopController
-                                .allProducts[index].salePrice !=
-                            shopController.shopPageProduct.value.data![index].price,
-                        isNetworkImage: true,
-                        discount: shopController
-                                .allProducts[index].discount!.toInt() ??
-                            0,
-                        isStockAvailable:
-                            shopController.shopPageProduct.value.data![index].stock !=
-                                0,
-                      )),
+              itemCount: shopController.hittingApi.value
+                  ? 10
+                  : shopController.allProducts.length,
+              builderFunction: (context, index) => shopController
+                      .hittingApi.value
+                  ? ShimmerHelper().buildBasicShimmer(height: 150, width: 150)
+                  : shopController.allProducts.isEmpty
+                      ? const Center(
+                          child: Text('No Product Found'),
+                        )
+                      : AppVerticalProductCard(
+                          onTap: () {
+                            Get.to(() => DetailsPage(
+                                  productSlug:
+                                      shopController.allProducts[index].slug!,
+                                  productId:
+                                      shopController.allProducts[index].id!,
+                                ));
+                          },
+                          onCartTap: () {
+                            if (AppLocalStorage()
+                                    .readData(LocalStorageKeys.isLoggedIn) !=
+                                null) {
+                              homeController
+                                  .getAddToCartResponse(
+                                      shopController.allProducts[index].id!,
+                                      1,
+                                      shopController
+                                          .allProducts[index].preorderAvailable)
+                                  .then((value) => {
+                                        cartController.cartCount.value =
+                                            homeController.addToCartResponse
+                                                .value.cartQuantity!,
+                                        AppHelperFunctions.showToast(
+                                            homeController.addToCartResponse
+                                                .value.message!)
+                                      });
+                            } else {
+                              Get.to(() => const LogIn());
+                            }
+                          },
+                          productName:
+                              shopController.allProducts[index].name ?? '',
+                          ratings: shopController.allProducts[index].ratings!
+                              .toDouble(),
+                          imgUrl: shopController
+                                  .allProducts[index].pictures![0].url ??
+                              '',
+                          reviews:
+                              shopController.allProducts[index].reviews ?? 0,
+                          salePrice: shopController.allProducts[index].salePrice
+                                  ?.toInt() ??
+                              0,
+                          price: shopController.allProducts[index].price
+                                  ?.toInt() ??
+                              0,
+                          buttonName: shopController
+                                      .allProducts[index].preorderAvailable ==
+                                  0
+                              ? shopController.allProducts[index].stock != 0
+                                  ? 'ADD TO CART'
+                                  : "OUT OF STOCK"
+                              : 'PREORDER',
+                          backgroundColor: shopController
+                                      .allProducts[index].preorderAvailable ==
+                                  0
+                              ? shopController.allProducts[index].stock != 0
+                                  ? AppColors.secondary
+                                  : AppColors.primary
+                              : AppColors.preorder,
+                          isDiscountAvailable:
+                              shopController.allProducts[index].salePrice !=
+                                  shopController.allProducts[index].price,
+                          isNetworkImage: true,
+                          discount: shopController.allProducts[index].discount!
+                                  .toInt() ??
+                              0,
+                          isStockAvailable:
+                              shopController.allProducts[index].stock != 0,
+                        )),
         ],
       );
     });

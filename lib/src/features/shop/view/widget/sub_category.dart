@@ -35,26 +35,23 @@ class ShopSubCategory extends StatelessWidget {
                   shopController.hittingApi.value
                       ? ShimmerHelper()
                           .buildBasicShimmer(width: 85, radius: 100)
-                      :
-                  Column(
-                              children: [
-                                AppBannerImage(
-                                  height: 60,
-                                  width: 60,
-                                  isNetworkImage: true,
-                                  imgUrl: shopController
-                                          .subCategoryResponse[index].icon ??
-                                      'https://kireibd.com/images/home/categories/New-Arrivals.png',
-                                ),
-                                const Gap(AppSizes.sm),
-                                Text(
-                                  shopController
-                                      .subCategoryResponse[index].name,
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                AppDividersStyle.fullFlatAppDivider,
-                              ],
-                            ));
+                      : Column(
+                          children: [
+                            AppBannerImage(
+                              height: 60,
+                              width: 60,
+                              isNetworkImage: true,
+                              imgUrl: shopController
+                                      .subCategoryResponse[index].icon ??
+                                  'https://kireibd.com/images/home/categories/New-Arrivals.png',
+                            ),
+                            const Gap(AppSizes.xs),
+                            Text(
+                              shopController.subCategoryResponse[index].name,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ],
+                        ));
         }));
   }
 }

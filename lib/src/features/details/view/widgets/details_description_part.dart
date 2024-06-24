@@ -24,7 +24,7 @@ class AppDetailsDescriptionPart extends StatelessWidget {
         return detailsController.productDetails.value.detailedProducts == null
             ? ShimmerHelper().buildBasicShimmer(height: 50)
             : Visibility(
-              child: ExpandableNotifier(
+                child: ExpandableNotifier(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

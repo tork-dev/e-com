@@ -23,6 +23,7 @@ import 'package:torganic/src/features/details/view/widgets/details_product_name_
 import 'package:torganic/src/features/details/view/widgets/details_tag_with_border.dart';
 import 'package:torganic/src/features/details/view/widgets/details_tag_with_underline.dart';
 import 'package:torganic/src/features/details/view/widgets/review_and_question.dart';
+import 'package:torganic/src/features/review/view/review_screen.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../common/styles/skeleton_style.dart';
@@ -75,7 +76,9 @@ class DetailsPage extends StatelessWidget {
                     const AppDetailsFullDescription(),
                     AppDividersStyle.fullFlatAppDivider,
                      ReviewAndQuestion(
-                      onTap: (){},
+                      onTap: (){
+                        Get.to(()=> const ReviewScreen());
+                      },
                       title: 'Review',
                     ),
                     AppDividersStyle.fullFlatAppDivider,

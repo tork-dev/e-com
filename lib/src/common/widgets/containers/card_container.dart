@@ -51,7 +51,6 @@ class AppCardContainer extends StatelessWidget {
           boxShadow: applyShadow? [
             const BoxShadow(color: AppColors.grey, blurRadius: 5, offset: Offset(0, 7))
           ]: null
-
         ),
         child: child,
       ),

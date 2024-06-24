@@ -66,7 +66,7 @@ class AppCourseTitleContainer extends StatelessWidget {
                     },
                   ),
                   Text(
-                    "(${reviews})",
+                    "($reviews)",
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,

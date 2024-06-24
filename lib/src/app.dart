@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: GetMaterialApp(
+        initialBinding: GeneralBindings(),
         title: AppTexts.appName,
         themeMode: ThemeMode.system,
         theme: MyAppTheme.lightTheme,
         //darkTheme: MyAppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
-          initialBinding: GeneralBindings(),
           locale: const Locale('en'),
           localizationsDelegates: const [
             AppLocalizations.delegate, // Add this line
