@@ -5,7 +5,7 @@ class QuestionController extends GetxController{
   static QuestionController get instance => Get.find();
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController reviewController = TextEditingController();
+  TextEditingController questionController = TextEditingController();
 
 
   RxDouble givenRating = 1.0.obs;

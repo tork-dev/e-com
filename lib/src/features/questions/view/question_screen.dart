@@ -34,6 +34,10 @@ class QuestionScreen extends StatelessWidget {
                   onRefresh: controller.onRefresh,
                   children: const [
                     AppQuestionCards(),
+                    Padding(
+                      padding: EdgeInsets.only(left:40.0),
+                      child: AppQuestionCards(),
+                    ),
                   ]),
             ),
             const Positioned(

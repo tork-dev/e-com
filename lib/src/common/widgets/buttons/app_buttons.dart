@@ -14,7 +14,10 @@ class AppButtons {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(), backgroundColor: buttonColor),
+            shape: const CircleBorder(), 
+            backgroundColor: buttonColor,
+          padding: EdgeInsets.all(AppSizes.md)
+        ),
         child: buttonChild);
   }
 

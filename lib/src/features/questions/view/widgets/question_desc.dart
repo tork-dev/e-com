@@ -24,12 +24,12 @@ class AppQuestionDescriptionPart extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Expandable(
-                        collapsed: SizedBox(
-                          height: 40,
+                        collapsed: const SizedBox(
+                          height: 20,
                           child: Text(
                               "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"),
                         ),
-                        expanded: SizedBox(
+                        expanded: const SizedBox(
                           child: Text(
                               "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"),
                         ),
@@ -44,7 +44,7 @@ class AppQuestionDescriptionPart extends StatelessWidget {
                               return Padding(
                                 padding: const EdgeInsets.only(
                                     right: 10.0, top: 8.0),
-                                child: GestureDetector(
+                                child: InkWell(
                                   child: Text(
                                       !controller!.expanded
                                           ? 'view More'

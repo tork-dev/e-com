@@ -77,6 +77,9 @@ class AppApiEndPoints {
   static String productReview = "$baseUrl/reviews/product";
   static String submitReview = "$baseUrl/reviews/submit";
 
+  ///Product Questions
+  static String productQuestions = "$baseUrl/product-questions/";
+
 
   ///Community
   static String communityPost = "$baseUrl/community-posts";

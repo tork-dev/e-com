@@ -17,49 +17,27 @@ class AppQuestionCards extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
+            const AppBannerImage(
+                applyPadding: true,
+                backgroundColor: AppColors.grey,
+                applyImageRadius: true,
+                boarderRadius: 100,
+                height: 40,
+                width: 40,
+                imgUrl: AppImages.profileIcon),
+            const Gap(AppSizes.sm),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const AppBannerImage(
-                    applyPadding: true,
-                    backgroundColor: AppColors.grey,
-                    applyImageRadius: true,
-                    boarderRadius: 100,
-                    height: 50,
-                    width: 50,
-                    imgUrl: AppImages.profileIcon),
-                const Gap(AppSizes.sm),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Mehtab Sultana',
-                        style: Theme.of(context).textTheme.bodyLarge!),
-                    Text(
-                      '2 week ago',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
+                Text('Mehtab Sultana',
+                    style: Theme.of(context).textTheme.bodyLarge!),
+                Text(
+                  '2 week ago',
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
-            ),
-            RatingBar(
-              itemSize: 14.0,
-              ignoreGestures: true,
-              initialRating: 3.5,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              ratingWidget: RatingWidget(
-                full: const Icon(Icons.star, color: AppColors.warning),
-                empty: const Icon(Icons.star, color: Colors.grey),
-                half: const Icon(Icons.star, color: AppColors.warning),
-              ),
-              itemPadding: const EdgeInsets.only(right: 1.0),
-              onRatingUpdate: (rating) {
-                //print(rating);
-              },
             ),
           ],
         ),

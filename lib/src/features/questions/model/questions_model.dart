@@ -1,44 +1,46 @@
 import 'dart:convert';
 
-class ProductQuestionResponse {
-  List<ProductQuestion>? data;
-  Links? links;
-  Meta? meta;
+QuestionsResponse questionsResponseFromJson(String str) =>
+    QuestionsResponse.fromJson(json.decode(str));
+
+String questionsResponseToJson(QuestionsResponse data) => json.encode(data.toJson());
+
+class QuestionsResponse {
+  List<Question>? data;
+  QuestionMeta? meta;
   bool? success;
-  bool? result;
   int? status;
 
-  ProductQuestionResponse({
+  QuestionsResponse({
     this.data,
-    this.links,
     this.meta,
     this.success,
-    this.result,
     this.status,
   });
 
-  factory ProductQuestionResponse.fromJson(Map<String, dynamic> json) =>
-      ProductQuestionResponse(
-        data: json['data'] == null
-            ? null
-            : List<ProductQuestion>.from(
-            json['data'].map((x) => ProductQuestion.fromJson(x))),
-        links: json['links'] == null ? null : Links.fromJson(json['links']),
-        meta: json['meta'] == null ? null : Meta.fromJson(json['meta']),
-        success: json['success'],
-        result: json['result'],
-        status: json['status'],
-      );
+  factory QuestionsResponse.fromJson(Map<String, dynamic> json) => QuestionsResponse(
+    data: json['data'] == null ? null : List<Question>.from(json['data'].map((x) => Question.fromJson(x))),
+    meta: json['meta'] == null ? null : QuestionMeta.fromJson(json['meta']),
+    success: json['success'],
+    status: json['status'],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "data": data == null ? null : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "meta": meta?.toJson(),
+    "success": success,
+    "status": status,
+  };
 }
 
-class ProductQuestion {
+class Question {
   String? name;
   int? productId;
   String? text;
   String? time;
-  List<ProductQuestion>? replies;
+  List<Reply>? replies;
 
-  ProductQuestion({
+  Question({
     this.name,
     this.productId,
     this.text,
@@ -46,90 +48,87 @@ class ProductQuestion {
     this.replies,
   });
 
-  factory ProductQuestion.fromJson(Map<String, dynamic> json) =>
-      ProductQuestion(
-        name: json['name'],
-        productId: json['product_id'],
-        text: json['text'],
-        time: json['time'],
-        replies: json['replies'] == null
-            ? []
-            : List<ProductQuestion>.from(
-            json['replies'].map((x) => ProductQuestion.fromJson(x))),
-      );
+  factory Question.fromJson(Map<String, dynamic> json) => Question(
+    name: json['name'],
+    productId: json['product_id'],
+    text: json['text'],
+    time: json['time'],
+    replies: json['replies'] == null ? [] : List<Reply>.from(json['replies'].map((x) => Reply.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "product_id": productId,
+    "text": text,
+    "time": time,
+    "replies": replies == null ? [] : List<dynamic>.from(replies!.map((x) => x.toJson())),
+  };
 }
 
-class Links {
-  String? first;
-  String? last;
-  String? prev;
-  String? next;
+class Reply {
+  String? name;
+  int? productId; // It can be null
+  String? text;
+  String? time;
 
-  Links({
-    this.first,
-    this.last,
-    this.prev,
-    this.next,
+  Reply({
+    this.name,
+    this.productId,
+    this.text,
+    this.time,
   });
 
-  factory Links.fromJson(Map<String, dynamic> json) => Links(
-    first: json['first'],
-    last: json['last'],
-    prev: json['prev'],
-    next: json['next'],
+  factory Reply.fromJson(Map<String, dynamic> json) => Reply(
+    name: json['name'],
+    productId: json['product_id'],
+    text: json['text'],
+    time: json['time'],
   );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "product_id": productId,
+    "text": text,
+    "time": time,
+  };
 }
 
-class Meta {
+class QuestionMeta {
   int? currentPage;
   int? from;
   int? lastPage;
-  List<MetaLink>? links;
   String? path;
   int? perPage;
   int? to;
   int? total;
 
-  Meta({
+  QuestionMeta({
     this.currentPage,
     this.from,
     this.lastPage,
-    this.links,
     this.path,
     this.perPage,
     this.to,
     this.total,
   });
 
-  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+  factory QuestionMeta.fromJson(Map<String, dynamic> json) => QuestionMeta(
     currentPage: json['current_page'],
     from: json['from'],
     lastPage: json['last_page'],
-    links: json['links'] == null
-        ? null
-        : List<MetaLink>.from(
-        json['links'].map((x) => MetaLink.fromJson(x))),
     path: json['path'],
     perPage: json['per_page'],
     to: json['to'],
     total: json['total'],
   );
-}
 
-class MetaLink {
-  String? url;
-  String? label;
-  bool? active;
-
-  MetaLink({
-    this.url,
-    this.label,
-    this.active,
-  });
-
-  factory MetaLink.fromJson(Map<String, dynamic> json) => MetaLink(
-    url: json['url'],
-    label: json['label'],
-    active: json['active'],
-  );
+  Map<String, dynamic> toJson() => {
+    "current_page": currentPage,
+    "from": from,
+    "last_page": lastPage,
+    "path": path,
+    "per_page": perPage,
+    "to": to,
+    "total": total,
+  };
 }
