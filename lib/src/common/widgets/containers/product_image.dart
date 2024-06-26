@@ -12,6 +12,7 @@ class AppProductImage extends StatelessWidget {
     this.height,
     this.width,
     this.border,
+    required this.buttonColor,
     required this.onPress,
     required this.onCartPress,
     required this.imgUrl,
@@ -35,6 +36,7 @@ class AppProductImage extends StatelessWidget {
   final double? boarderRadius;
   final VoidCallback onPress, onCartPress;
   final int? discount;
+  final Color buttonColor;
 
 
   @override
@@ -107,7 +109,7 @@ class AppProductImage extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .apply(color: AppColors.white))
+                          .apply(color: buttonColor))
                 ],
               ),
             ),

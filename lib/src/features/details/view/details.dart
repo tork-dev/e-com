@@ -15,6 +15,7 @@ import 'package:torganic/src/common/widgets/buttons/bottom_button.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/common/widgets/search_bar/app_bar_search.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/details/controller/details_page_controller.dart';
 import 'package:torganic/src/features/details/view/widgets/details_categories_part.dart';
 import 'package:torganic/src/features/details/view/widgets/details_description_part.dart';
@@ -22,12 +23,16 @@ import 'package:torganic/src/features/details/view/widgets/details_full_descript
 import 'package:torganic/src/features/details/view/widgets/details_product_name_part.dart';
 import 'package:torganic/src/features/details/view/widgets/details_tag_with_border.dart';
 import 'package:torganic/src/features/details/view/widgets/details_tag_with_underline.dart';
+import 'package:torganic/src/features/details/view/widgets/recom_and_related_product.dart';
 import 'package:torganic/src/features/details/view/widgets/review_and_question.dart';
 import 'package:torganic/src/features/questions/view/question_screen.dart';
 import 'package:torganic/src/features/review/view/review_screen.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../common/styles/skeleton_style.dart';
+import '../../../common/widgets/containers/horizontal_scroll_product_card.dart';
+import '../../../common/widgets/texts/section_title_text.dart';
 import '../../../utils/constants/sizes.dart';
 import 'widgets/details_picture_part.dart';
 
@@ -40,10 +45,20 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(DetailsPageController(productSlug: productSlug, productId: productId));
+    final categoryController = Get.put(GetShopDataController());
+    final bottomController = Get.put(ConvexBottomNavController());
     return AppLayoutWithBackButton(
         padding: 0,
         backgroundColor: AppColors.primary,
-        title: const AppBarSearch(),
+        title: AppBarSearch(
+          onSubmit: (txt){
+            categoryController.search.value = txt;
+            categoryController.isFromSearch.value = true;
+            categoryController.getShopData();
+            Get.back();
+            bottomController.jumpToTab(1);
+          },
+        ),
         leadingIconColor: AppColors.white,
         action: const [
           Icon(
@@ -85,12 +100,14 @@ class DetailsPage extends StatelessWidget {
                     AppDividersStyle.fullFlatAppDivider,
                     ReviewAndQuestion(
                       onTap: (){
-                        //Get.to(()=> const QuestionScreen());
+                        Get.to(()=> const QuestionScreen());
                       },
                       title: 'questions about this products',
                     ),
                     AppDividersStyle.fullFlatAppDivider,
                     const Gap(AppSizes.spaceBtwItems),
+                    const Gap(AppSizes.spaceBtwItems),
+                    const AppRecommendedAndRelatedProducts()
                   ]),
             ),
             const Positioned(

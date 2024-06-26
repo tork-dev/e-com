@@ -29,6 +29,7 @@ class AppLayoutWithoutAppBar extends StatelessWidget {
         showLeadingIcon: false,
         centerTitle: centerTitle,
         actions: action,
+        backgroundColor: backgroundColor,
       ),
       body: Padding(padding: AppSpacingStyle.defaultSpacing, child: body),
     );

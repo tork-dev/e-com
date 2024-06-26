@@ -20,7 +20,7 @@ class QuestionScreen extends StatelessWidget {
     return AppLayoutWithBackButton(
         // bodyBackgroundColor: Colors.grey[100],
         title: const Text(
-          'Reviews',
+          'Questions',
           style: TextStyle(color: AppColors.primary),
         ),
         centerTitle: true,

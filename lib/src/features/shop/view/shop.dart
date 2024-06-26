@@ -41,7 +41,14 @@ class ShopScreen extends StatelessWidget {
           ),
           Gap(AppSizes.sm),
         ],
-        title: const AppBarSearch(),
+        title: AppBarSearch(
+          onSubmit: (txt){
+            shopDataController.search.value = txt;
+            shopDataController.isFromSearch.value = true;
+            shopDataController.allProducts.clear();
+            shopDataController.getShopData();
+          },
+        ),
         body: Stack(
           clipBehavior: Clip.none,
           // fit: StackFit.expand,

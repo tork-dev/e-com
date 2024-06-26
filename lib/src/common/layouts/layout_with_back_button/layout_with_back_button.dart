@@ -17,6 +17,7 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.showBackButton = true,
     this.leadingIconColor,
     this.bottomNav,
+    this.leadingOnPress,
     super.key,  });
 
   final Widget? title, body, bottomNav;
@@ -25,6 +26,7 @@ class AppLayoutWithBackButton extends StatelessWidget {
   final List<Widget>? action;
   final bool showBackButton;
   final double padding;
+  final VoidCallback? leadingOnPress;
 
 
   @override
@@ -41,6 +43,7 @@ class AppLayoutWithBackButton extends StatelessWidget {
         centerTitle: centerTitle,
         backgroundColor: backgroundColor,
         actions: action,
+        leadingOnPress: leadingOnPress,
       ),
       body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
     );

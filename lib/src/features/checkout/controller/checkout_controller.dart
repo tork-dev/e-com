@@ -9,11 +9,14 @@ import 'package:torganic/src/features/checkout/model/coupon_remove_model.dart';
 import 'package:torganic/src/features/checkout/model/order_create_model.dart';
 import 'package:torganic/src/features/checkout/model/payment_types_model.dart';
 import 'package:torganic/src/features/checkout/repositories/checkout_repositories.dart';
+import 'package:torganic/src/features/checkout/view/bkash_screen.dart';
 import 'package:torganic/src/features/checkout/view/order_status_page.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/features/address/controller/address_controller.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+
+import '../view/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();
@@ -42,6 +45,7 @@ class CheckoutController extends GetxController {
   String productQuantitiesString;
   RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -83,26 +87,27 @@ class CheckoutController extends GetxController {
         .getCouponApplyResponse(couponCode: couponController.text.toString());
   }
 
-  Future<void> onCouponApplied()async{
-    if(couponController.text == ''){
+  Future<void> onCouponApplied() async {
+    if (couponController.text == '') {
       AppHelperFunctions.showToast('Please enter a coupon code');
       return;
     }
     await getCouponAppliedResponse();
-    if(couponResponse.value.result == true){
+    if (couponResponse.value.result == true) {
       AppHelperFunctions.showToast(couponResponse.value.message!);
       isCouponApplied.value = true;
     }
   }
 
   /// Coupon Remove
-  Future<CouponRemoveResponse> getCouponRemoveResponse() async{
-    return couponRemoveResponse.value = await CheckoutRepositories().getCouponRemoveResponse();
+  Future<CouponRemoveResponse> getCouponRemoveResponse() async {
+    return couponRemoveResponse.value =
+        await CheckoutRepositories().getCouponRemoveResponse();
   }
 
-  Future<void> onCouponRemove() async{
+  Future<void> onCouponRemove() async {
     await getCouponRemoveResponse();
-    if(couponRemoveResponse.value.result == true){
+    if (couponRemoveResponse.value.result == true) {
       AppHelperFunctions.showToast(couponRemoveResponse.value.message!);
       isCouponApplied.value = false;
       couponController.clear();
@@ -112,25 +117,46 @@ class CheckoutController extends GetxController {
 
   /// Crete Order Method
   Future<void> onPressProceedToCheckout() async {
+    isLoading.value = true;
     if (!await validateCheckoutDetails()) return;
 
     Map<String, dynamic> requestBody = prepareRequestBody();
 
     try {
-      print('_selected_payment_method $selectedPaymentMethod');
+      print('_selected_payment_method $selectedPaymentMethodName');
       print('this is my Order request' + requestBody.toString());
 
-      orderCreateResponse.value = await CheckoutRepositories().getOrderCreateResponseFromCod(requestBody: requestBody);
+      orderCreateResponse.value = await CheckoutRepositories()
+          .getOrderCreateResponseFromCod(requestBody: requestBody);
 
-      // Check if the widget is mounted before updating the UI
-      if (orderCreateResponse.value.result == true) {
-        AppHelperFunctions.showToast(orderCreateResponse.value.message!);
-        Get.offAll(() => AppOrderStatusScreen(status: orderCreateResponse.value.message!));
+      isLoading.value = false;
+
+      if (selectedPaymentMethod.value == 1) {
+        Get.offAll(()=> BkashScreen(
+          bkashInitialUrl: orderCreateResponse.value.data?.paymentUrl,
+            orderId: orderCreateResponse.value.data!.order!.id!));
         return;
       }
+      if(selectedPaymentMethod.value == 2){
+        Get.offAll(()=> SslCommerzScreen(
+          orderId: orderCreateResponse.value.data!.order!.id!,
+          sslInitialUrl:  orderCreateResponse.value.data?.paymentUrl,
+          amount: orderCreateResponse.value.data!.order!.grandTotal!,
+          paymentMethodKey: 'ssl',
+          paymentType: orderCreateResponse.value.data!.order!.paymentType!,
+        ));
+        return;
+      }
+      // Check if the widget is mounted before updating the UI
+
+      AppHelperFunctions.showToast(orderCreateResponse.value.message!);
+      Get.offAll(() => AppOrderStatusScreen(
+            statusString: orderCreateResponse.value.message!,
+            status: orderCreateResponse.value.result ?? false,
+           orderId: orderCreateResponse.value.data!.order!.id!,
+          ));
 
       // Additional logic for payment handling can be added here
-
     } catch (e) {
       print('Error in onPressProceed: $e');
       // Handle the error appropriately, e.g., show a dialog or log it.
@@ -153,12 +179,14 @@ class CheckoutController extends GetxController {
       return false;
     }
 
-    if (addressController.nameController.text == "" || addressController.nameController.text.isEmpty) {
+    if (addressController.nameController.text == "" ||
+        addressController.nameController.text.isEmpty) {
       AppHelperFunctions.showToast('Name is required');
       return false;
     }
 
-    if (addressController.phoneController.text == "" || addressController.phoneController.text.isEmpty) {
+    if (addressController.phoneController.text == "" ||
+        addressController.phoneController.text.isEmpty) {
       AppHelperFunctions.showToast('Phone is required');
       return false;
     } else if (addressController.phoneController.text.length > 11 ||
@@ -168,7 +196,8 @@ class CheckoutController extends GetxController {
       return false;
     }
 
-    if (addressController.addressController.text == "" || addressController.addressController.text.isEmpty) {
+    if (addressController.addressController.text == "" ||
+        addressController.addressController.text.isEmpty) {
       AppHelperFunctions.showToast('Address is required');
       return false;
     } else if (addressController.addressController.value.text.length < 10) {
@@ -176,17 +205,20 @@ class CheckoutController extends GetxController {
       return false;
     }
 
-    if (addressController.selectedCityName.text == "" || addressController.selectedCityName.text.isEmpty) {
+    if (addressController.selectedCityName.text == "" ||
+        addressController.selectedCityName.text.isEmpty) {
       AppHelperFunctions.showToast('City is required');
       return false;
     }
 
-    if (addressController.selectedZoneName.text == "" || addressController.selectedZoneName.text.isEmpty) {
+    if (addressController.selectedZoneName.text == "" ||
+        addressController.selectedZoneName.text.isEmpty) {
       AppHelperFunctions.showToast('Zone is required');
       return false;
     }
 
-    if (addressController.selectedAreaName.text == "" || addressController.selectedAreaName.text.isEmpty) {
+    if (addressController.selectedAreaName.text == "" ||
+        addressController.selectedAreaName.text.isEmpty) {
       AppHelperFunctions.showToast('Area is required');
       return false;
     }
@@ -199,7 +231,8 @@ class CheckoutController extends GetxController {
     List<int> productIds = productIdsStringsArr.map(int.parse).toList();
 
     List<String> productQuantitiesStrings = productQuantitiesString.split(',');
-    List<int> productQuantities = productQuantitiesStrings.map(int.parse).toList();
+    List<int> productQuantities =
+        productQuantitiesStrings.map(int.parse).toList();
 
     String productIdsJsonArray = "[${productIds.join(',')}]";
     String productQuantitiesJsonArray = "[${productQuantities.join(',')}]";
@@ -224,5 +257,4 @@ class CheckoutController extends GetxController {
 
     return requestBody;
   }
-
 }

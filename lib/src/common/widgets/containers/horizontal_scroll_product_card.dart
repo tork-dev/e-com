@@ -63,19 +63,21 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     price: sectionName![index].price!,
                     imgUrl: sectionName![index].pictures![0].url!,
                     isStockAvailable: sectionName![index].stock != 0,
-                    buttonName: sectionName![index].preorderAvailable == 0
-                        ? sectionName![index].stock != 0
+                    buttonName: sectionName![index].stock != 0
                             ? 'ADD TO CART'
-                            : 'OUT OF STOCK'
+                            : sectionName![index].preorderAvailable == 0 ?
+                    sectionName![index].requestAvailable == 0 ?
+                    'OUT OF STOCK' : "REQUEST STOCK"
                         : 'PREORDER NOW',
-                    backgroundColor: sectionName![index].preorderAvailable == 0
-                        ? sectionName![index].stock != 0
+                    backgroundColor: sectionName![index].stock != 0
                             ? AppColors.secondary
-                            : AppColors.primary
+                            : sectionName![index].preorderAvailable == 0 ?
+                    sectionName![index].requestAvailable == 0 ? AppColors.primary : AppColors.request
                         : AppColors.preorder,
                     isNetworkImage: true,
                     isDiscountAvailable: sectionName![index].discount != 0,
                     discount: sectionName![index].discount!,
+              buttonColor: sectionName![index].requestAvailable == 0 ? AppColors.white : AppColors.secondary,
                   )));
   }
 }

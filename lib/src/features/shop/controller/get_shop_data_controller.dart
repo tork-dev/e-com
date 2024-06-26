@@ -12,6 +12,7 @@ class GetShopDataController extends GetxController {
 
   RxBool hittingApi = false.obs;
   RxBool isFromCategory = false.obs;
+  RxBool isFromSearch = false.obs;
 
   /// Model
   Rx<ShopPageResponse> shopPageProduct = ShopPageResponse().obs;
@@ -55,7 +56,8 @@ class GetShopDataController extends GetxController {
     selectedSkinTypes.clear();
     selectedCategoryIndex = Rx<int?>(null);
     isFromCategory.value = false;
-    allProducts.clear(); // Clear accumulated products list
+    allProducts.clear();
+    isFromSearch.value = false;
   }
 
   updateCategory(String category) {
@@ -70,35 +72,6 @@ class GetShopDataController extends GetxController {
   void updateSortKey(String value) {
     sortKey.value = value;
   }
-
-  // Future<void> getShopData() async {
-  //   hittingApi.value = true;
-  //
-  //   // Fetch products for the current page
-  //   ShopPageResponse response = await ShopRepositories().getFilteredProducts(
-  //     searchName: searchName.value,
-  //     tag: tag.value,
-  //     sortKey: sortKey.value,
-  //     skinType: selectedSkinTypes.isEmpty
-  //         ? skinType.value
-  //         : selectedSkinTypes.join(",").toString(),
-  //     search: search.value,
-  //     min: minimumPriceController.text,
-  //     max: maximumPriceController.text,
-  //     keyIngredients: keyIngredients.value,
-  //     goodFor: goodFor.value,
-  //     categories: categories.value,
-  //     pageNumber: pageNumber.value,
-  //     type: type.value,
-  //   );
-  //
-  //   if (response != null && response.data != null) {
-  //     allProducts.addAll(response.data!); // Add current page products to allProducts
-  //     pageNumber.value++; // Increment page number for next fetch
-  //   }
-  //
-  //   hittingApi.value = false;
-  // }
 
 
 

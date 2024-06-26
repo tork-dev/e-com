@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
 import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import '../../utils/local_storage/local_storage_keys.dart';
@@ -14,6 +15,8 @@ class ConvexBottomNavController extends GetxController
   static ConvexBottomNavController get instance => Get.find();
 
   final cartController = Get.put(CartController());
+  final categoryController = Get.put(GetShopDataController());
+  final shopController = Get.put(ShopController());
 
 
   RxInt pageIndex = 0.obs;
@@ -47,6 +50,15 @@ class ConvexBottomNavController extends GetxController
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null &&
         pageIndex.value == 3) {
       Get.to(() => const LogIn());
+      return;
+    }
+    if(pageIndex.value != 1){
+      categoryController.resetAll();
+      return;
+    }
+    if(categoryController.isFromSearch.value == false && pageIndex.value ==1 ){
+      shopController.onRefresh();
+      return;
     }
   }
 

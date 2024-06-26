@@ -46,6 +46,7 @@ class Product {
   List<GoodFor>? keyIngredients;
   List<GoodFor>? goodFor;
   int? preorderAvailable;
+  int? requestAvailable;
   PreorderDeliveryDate? preorderDeliveryDate;
   int? preorderAmount;
   PreorderDate? preorderStartDate;
@@ -89,6 +90,7 @@ class Product {
     this.keyIngredients,
     this.goodFor,
     this.preorderAvailable,
+    this.requestAvailable,
     this.preorderDeliveryDate,
     this.preorderAmount,
     this.preorderStartDate,
@@ -140,6 +142,7 @@ class Product {
           ?.map((e) => GoodFor.fromJson(e))
           .toList(),
       preorderAvailable: json['preorder_available'],
+      requestAvailable: json['request_available'],
       preorderDeliveryDate:
       _parsePreorderDeliveryDate(json['preorder_delivery_date']),
       preorderAmount: json['preorder_amount'],

@@ -122,6 +122,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                               0,
                           isStockAvailable:
                               shopController.allProducts[index].stock != 0,
+                buttonColor: AppColors.white,
                         )),
         ],
       );

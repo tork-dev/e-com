@@ -16,11 +16,14 @@ import 'package:torganic/src/common/widgets/containers/product_image.dart';
 import 'package:torganic/src/common/widgets/search_bar/search_bar.dart';
 import 'package:torganic/src/common/widgets/slider/view/app_slider.dart';
 import 'package:torganic/src/common/widgets/texts/section_title_text.dart';
+import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
 import 'package:torganic/src/features/home/controller/home_controller.dart';
 import 'package:torganic/src/features/home/views/widgets/home_featured_category.dart';
 import 'package:torganic/src/features/home/views/widgets/home_hot_deals_product.dart';
 import 'package:torganic/src/features/home/views/widgets/home_new_arrivals_product.dart';
-import 'package:torganic/src/features/home/views/widgets/home_search_bar.dart';
+import 'package:torganic/src/common/widgets/search_bar/search_widget.dart';
+import 'package:torganic/src/features/home/views/widgets/home_search_decoration.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
@@ -41,6 +44,10 @@ class HomeThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
+    final GetShopDataController getShopDataController =
+        Get.put(GetShopDataController());
+    final ConvexBottomNavController convexBottomNavController =
+        ConvexBottomNavController.instance;
     //final isDark = AppHelperFunctions.isDarkMode(context);
     return AppLayoutWithDrawer(
         globalKey: controller.homeKey,
@@ -48,10 +55,16 @@ class HomeThree extends StatelessWidget {
         leadingIconColor: AppColors.darkerGrey,
         backgroundColor: AppColors.white,
         body: AppLayoutWithRefresher(
-            onRefresh: controller.getProductData,
+            onRefresh: controller.onRefresh,
             children: [
               const Gap(AppSizes.spaceBtwItems),
-              const AppHomeSearchBox(),
+              AppSearchWidget(
+                  builder: (context, controller, focusNode) =>
+                      HomeSearchDecoration(
+                          categoryController: getShopDataController,
+                          bottomController: convexBottomNavController,
+                          controller: controller,
+                          focusNode: focusNode)),
               const Gap(AppSizes.spaceBtwItems),
               const CustomSlider(),
               const Gap(AppSizes.spaceBtwItems),

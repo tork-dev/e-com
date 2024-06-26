@@ -23,6 +23,7 @@ class AppVerticalProductCard extends StatelessWidget {
     required this.discount,
      this.height,
      this.width,
+    required this.buttonColor,
     required this.isStockAvailable
   });
 
@@ -32,7 +33,7 @@ class AppVerticalProductCard extends StatelessWidget {
   final int reviews,
       salePrice,
       price;
-  final Color? backgroundColor;
+  final Color? backgroundColor, buttonColor;
   final bool isNetworkImage, isDiscountAvailable, isStockAvailable;
   final int discount;
   final double? height, width;
@@ -56,6 +57,7 @@ class AppVerticalProductCard extends StatelessWidget {
               isDiscountAvailable: isDiscountAvailable,
               isStockAvailable: isStockAvailable,
               discount: discount,
+              buttonColor: buttonColor!,
             ),
             AppCourseTitleContainer(
                 onTap: onTap,

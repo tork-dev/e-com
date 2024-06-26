@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
+import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../model/all_category_model.dart';
@@ -14,6 +15,9 @@ class HomeController extends GetxController{
   static HomeController get instance => Get.find();
 
   RxBool callApis = true.obs;
+
+  ///Controller
+  final categoryController = Get.put(GetShopDataController());
 
 
   /// Key
@@ -38,6 +42,12 @@ class HomeController extends GetxController{
     }
       fetchAllCategories();
     super.onInit();
+  }
+
+  Future<void> onRefresh()async{
+    getProductData();
+    fetchFeaturedCategories();
+    fetchAllCategories();
   }
 
 

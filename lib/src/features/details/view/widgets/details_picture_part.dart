@@ -22,7 +22,7 @@ class AppDetailsPicturePart extends StatelessWidget {
   Widget build(BuildContext context) {
     final detailsController = DetailsPageController.instance;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
       child: Obx(() {
         return SizedBox(
           height: 200,

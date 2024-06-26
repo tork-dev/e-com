@@ -16,6 +16,7 @@ class AppColors {
   static const Color googleBg = Color(0xffdd4b39);
   static const Color preorder=Color(0xff17a2be);
   static const Color inStock = Colors.green;
+  static Color request = const Color.fromRGBO(254, 230, 170, 1);
 
   // Text colors
   static const Color textPrimary = Color(0xFF333333);

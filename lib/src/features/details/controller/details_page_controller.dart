@@ -5,9 +5,12 @@ import 'package:torganic/src/features/home/controller/home_controller.dart';
 import 'package:torganic/src/features/wishlist/model/wishlist_remove_model.dart';
 import 'package:torganic/src/features/wishlist/repositories/wishlist_repositories.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
+import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 
 import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
+import '../model/products_model.dart';
 
 class DetailsPageController extends GetxController {
   static DetailsPageController get instance => Get.find();
@@ -25,6 +28,7 @@ class DetailsPageController extends GetxController {
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
   RxBool viewMore = false.obs;
+  RxBool apiHitting = true.obs;
 
   RxInt productCount = 1.obs;
   RxBool isAddedToCart = false.obs;
@@ -33,18 +37,22 @@ class DetailsPageController extends GetxController {
   Rx<WishListAddResponse> addToWishlist = WishListAddResponse().obs;
   Rx<WishListAddResponse> checkWishList = WishListAddResponse().obs;
   Rx<WishListAddResponse> removeFromWishList = WishListAddResponse().obs;
+  Rx<DetailsProductsResponse> relatedProductsResponse = DetailsProductsResponse().obs;
+  Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
 
   @override
   void onInit() {
     super.onInit();
-    print('slug is $productSlug');
-    getProductDetails();
-    checkWishListAdd();
+    onRefresh();
   }
 
-  Future<void> onRefresh() async {
-    print('refresh');
-    getProductDetails();
+  Future<void> onRefresh() async{
+     await getProductDetails();
+     await getRelatedProducts();
+     await getRecommendedProducts();
+    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+      await checkWishListAdd();
+    }
   }
 
   void getLargePicture(index) {
@@ -92,5 +100,12 @@ class DetailsPageController extends GetxController {
   }
   Future<WishListAddResponse> wishListRemove()async{
     return removeFromWishList.value = await WishlistRepositories().removeResponse(productId);
+  }
+
+  Future<DetailsProductsResponse> getRelatedProducts() async{
+    return relatedProductsResponse.value = await DetailsRepositories.getRelatedProducts(productSlug);
+  }
+  Future<DetailsProductsResponse> getRecommendedProducts() async{
+    return recommendedProductsResponse.value = await DetailsRepositories.getRecommendedProduct();
   }
 }

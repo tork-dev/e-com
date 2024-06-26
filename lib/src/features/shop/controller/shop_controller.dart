@@ -15,10 +15,7 @@ import '../model/skin_type_model.dart';
 
 class ShopController extends GetxController{
   static ShopController get instance => Get.find();
-
   GetShopDataController getShopDataController = Get.put(GetShopDataController());
-
-  final bottomController = ConvexBottomNavController.instance;
 
   /// Key
   final GlobalKey<ScaffoldState> shopKey = GlobalKey<ScaffoldState>();
@@ -28,15 +25,18 @@ class ShopController extends GetxController{
 
   @override
   void onInit() {
-    onRefresh();
+    if(getShopDataController.isFromSearch.value == false) {
+      onRefresh();
+    }
     getShopDataController.addItems();
-      //getShopDataController.scrollController.addListener(getShopDataController.scrollListener);
     super.onInit();
   }
 
   Future onRefresh()async{
+    print('refresh');
     getShopDataController.getShopData();
     getShopDataController.getSkinTypesData();
+    print('refresh2');
   }
 
 
