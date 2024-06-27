@@ -96,7 +96,8 @@ class AppQuestionPostCard extends StatelessWidget {
                   ),
                   AppButtons.smallRoundButton(
                       onPressed: (){
-                       // print(controller.submitReview());
+                        //print(controller.submitReview());
+                        controller.submitQuestion();
                       },
                       buttonColor: AppColors.primary,
                       buttonChild: const Icon(Icons.send))

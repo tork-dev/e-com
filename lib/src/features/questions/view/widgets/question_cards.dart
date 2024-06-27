@@ -10,11 +10,18 @@ import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 
 class AppQuestionCards extends StatelessWidget {
-  const AppQuestionCards({super.key});
+  const AppQuestionCards(
+      {super.key,
+      required this.name,
+      required this.time,
+      required this.description});
+
+  final String name, time, description;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -31,19 +38,19 @@ class AppQuestionCards extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Mehtab Sultana',
+                Text(name,
                     style: Theme.of(context).textTheme.bodyLarge!),
                 Text(
-                  '2 week ago',
+                  time,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.only(left: 40),
-          child: AppQuestionDescriptionPart(),
+         Padding(
+          padding: const EdgeInsets.only(left: 35),
+          child: AppQuestionDescriptionPart(description: description,),
         ),
       ],
     );

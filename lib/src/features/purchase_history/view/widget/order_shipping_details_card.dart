@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
+import 'package:torganic/src/features/purchase_history/view/widget/shipping_address_alert.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/buttons/app_buttons.dart';
@@ -159,31 +160,20 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             Text(
-                                'Name: ${detailsController.purchaseHistoryDetails.value
-                                    .data![0].shippingAddress!.name}',
-                                style:
-                                Theme.of(context).textTheme.bodyMedium),
+                                'Name: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.name}',
+                                style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'Address: ${detailsController.purchaseHistoryDetails.value
-                                    .data![0].shippingAddress!.address}',
-                                style:
-                                Theme.of(context).textTheme.bodyMedium),
+                                'Address: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.address}',
+                                style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'City: ${detailsController.purchaseHistoryDetails.value
-                                    .data![0].shippingAddress!.city}',
-                                style:
-                                Theme.of(context).textTheme.bodyMedium),
+                                'City: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.city}',
+                                style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'Area: ${detailsController.purchaseHistoryDetails.value
-                                    .data![0].shippingAddress!.state}',
-                                style:
-                                Theme.of(context).textTheme.bodyMedium),
+                                'Area: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.state}',
+                                style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'Phone: ${detailsController.purchaseHistoryDetails.value
-                                    .data![0].shippingAddress!.phone}',
-                                style:
-                                Theme.of(context).textTheme.bodyMedium),
-
+                                'Phone: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.phone}',
+                                style: Theme.of(context).textTheme.bodyMedium),
                           ],
                         ),
                       ),
@@ -197,29 +187,62 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                           Text(
                               detailsController.purchaseHistoryDetails.value
                                   .data![0].grandTotal!,
-                              style: Theme.of(context).textTheme.titleLarge!.apply(color: AppColors.primary)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .apply(color: AppColors.primary)),
                         ],
                       ),
                     ],
                   ),
                   const Gap(AppSizes.spaceBtwItems),
                   AppButtons.largeFlatFilledButton(
-                    backgroundColor: AppColors.secondary,
-                      onPressed: (){
-                      listController.getReorderResponse(detailsController.orderId).then((value) => {
-                        AppHelperFunctions.showToast(listController.reOrderResponse.value.message!),
-                        Get.back(),
-                        Get.back(),
-                        bottomNavController.jumpToTab(2)
-                      });
+                      backgroundColor: AppColors.secondary,
+                      onPressed: () {
+                        listController
+                            .getReorderResponse(detailsController.orderId)
+                            .then((value) => {
+                                  AppHelperFunctions.showToast(listController
+                                      .reOrderResponse.value.message!),
+                                  Get.back(),
+                                  Get.back(),
+                                  bottomNavController.jumpToTab(2)
+                                });
                       },
                       buttonText: 'Re-Order'),
-                  const Gap(AppSizes.spaceBtwItems),
+                  const Gap(AppSizes.sm),
                   Visibility(
-                    visible: detailsController.purchaseHistoryDetails.value.data![0].deliveryStatus == 'Processing',
-                      child: AppButtons.largeFlatOutlineButton(
-                      onPressed: (){},
-                      buttonText: 'Update Info'))
+                      visible: detailsController.purchaseHistoryDetails.value
+                              .data![0].deliveryStatusString ==
+                          'Processing',
+                      child: AppButtons.largeFlatFilledButton(
+                          onPressed: () {
+                            detailsController.getCityList();
+                            showDialog(
+                                context: context,
+                                //barrierColor: AppColors.white,
+                                barrierDismissible: true,
+                                useSafeArea: true,
+                                builder: (context){
+                                  return AlertDialog(
+                                    title: Center(child: Text("Update Info",
+                                      style: Theme.of(context).textTheme.titleLarge
+                                    )),
+                                    backgroundColor: AppColors.white,
+                                    shadowColor: AppColors.white,
+                                    elevation: 0,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.zero,
+                                      side: BorderSide(color: AppColors.secondary)
+                                    ),
+                                    content: const AppAlertAllAddressFields(),
+                                   );
+                                }
+                            );
+
+                          },
+                          backgroundColor: AppColors.preorder,
+                          buttonText: 'Update Info'))
                 ],
               ));
     });

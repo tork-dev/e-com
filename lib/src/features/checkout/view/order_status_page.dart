@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:torganic/src/common/layouts/layout_without_appbar/layout_without_appbar.dart';
+import 'package:torganic/src/common/styles/skeleton_style.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/common/widgets/texts/section_title_text.dart';
 import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
-
+import '../../../common/widgets/containers/card_container.dart';
 import '../../purchase_history/controller/purchase_history_details_controller.dart';
 import '../../purchase_history/view/purchace_history.dart';
 import 'widget/status_section_details.dart';
@@ -36,94 +34,98 @@ class AppOrderStatusScreen extends StatelessWidget {
         ),
         backgroundColor: AppColors.primary,
         centerTitle: true,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppCardContainer(
-              padding: const EdgeInsets.all(AppSizes.md),
-              borderWidth: 3,
-              borderColor: status ? Colors.green : Colors.red,
-              hasBorder: true,
-              child: Row(
-                children: [
-                  AppButtons.smallRoundButton(
-                      onPressed: () {},
-                      buttonColor: status ? Colors.green : Colors.red,
-                      buttonChild: Icon(status ? Icons.done : Icons.close)),
-                  const Gap(AppSizes.sm),
-                  Text(
-                    statusString,
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            Visibility(
-              visible: status,
-              child: Column(
-                children: [
-                  const Gap(AppSizes.md),
-                  Text('Order Summary',
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  const Gap(AppSizes.md),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: Obx(() {
+            return controller.purchaseHistoryDetails.value.data!.isEmpty?
+            ShimmerHelper().buildBasicShimmer(height: 150) : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppCardContainer(
+                  padding: const EdgeInsets.all(AppSizes.md),
+                  borderWidth: 3,
+                  borderColor: status ? Colors.green : Colors.red,
+                  hasBorder: true,
+                  child: Row(
                     children: [
+                      AppButtons.smallRoundButton(
+                          onPressed: () {},
+                          buttonColor: status ? Colors.green : Colors.red,
+                          buttonChild: Icon(status ? Icons.done : Icons.close)),
+                      const Gap(AppSizes.sm),
                       Text(
-                        'Order Number',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        statusString,
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        controller.purchaseHistoryDetails.value.data![0].id
-                            .toString(),
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      )
                     ],
                   ),
-                  const Gap(AppSizes.md),
-                  AppOrderStatusDetailsSection(
-                    title: 'Subtotal',
-                    subTitle:
-                        controller.purchaseHistoryDetails.value.data![0].subtotal!,
+                ),
+                Visibility(
+                  visible: status,
+                  child: Column(
+                    children: [
+                      const Gap(AppSizes.md),
+                      Text('Order Summary',
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      const Gap(AppSizes.md),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Order Number',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Text(
+                            controller.purchaseHistoryDetails.value.data![0].id
+                                .toString(),
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          )
+                        ],
+                      ),
+                      const Gap(AppSizes.md),
+                      AppOrderStatusDetailsSection(
+                        title: 'Subtotal',
+                        subTitle:
+                            controller.purchaseHistoryDetails.value.data![0].subtotal!,
+                      ),
+                      AppOrderStatusDetailsSection(
+                        title: 'Coupon Discount',
+                        subTitle: controller
+                            .purchaseHistoryDetails.value.data![0].couponDiscount!,
+                      ),
+                      AppOrderStatusDetailsSection(
+                        title: 'Delivery Charge',
+                        subTitle: controller
+                            .purchaseHistoryDetails.value.data![0].shippingCost!,
+                      ),
+                      AppOrderStatusDetailsSection(
+                        title: 'Total',
+                        subTitle:
+                            controller.purchaseHistoryDetails.value.data![0].grandTotal!,
+                      ),
+                    ],
                   ),
-                  AppOrderStatusDetailsSection(
-                    title: 'Coupon Discount',
-                    subTitle: controller
-                        .purchaseHistoryDetails.value.data![0].couponDiscount!,
-                  ),
-                  AppOrderStatusDetailsSection(
-                    title: 'Delivery Charge',
-                    subTitle: controller
-                        .purchaseHistoryDetails.value.data![0].shippingCost!,
-                  ),
-                  AppOrderStatusDetailsSection(
-                    title: 'Total',
-                    subTitle:
-                        controller.purchaseHistoryDetails.value.data![0].grandTotal!,
-                  ),
-                ],
-              ),
-            ),
-            const Gap(AppSizes.lg),
-            SizedBox(
-                width: 200,
-                child: AppButtons.largeFlatFilledButton(
-                    onPressed: () {
-                      Get.offAll(()=> PurchaseHistory);
-                    },
-                    buttonText: 'Order History',
-                backgroundColor: AppColors.secondary)),
-            const Gap(AppSizes.md),
-            SizedBox(
-                width: 200,
-                child: AppButtons.largeFlatFilledButton(
-                    onPressed: () {
-                      Get.offAll(()=> const HelloConvexAppBar());
-                    },
-                    buttonText: 'Home',
-                    backgroundColor: AppColors.secondary))
-          ],
+                ),
+                const Gap(AppSizes.lg),
+                SizedBox(
+                    width: 200,
+                    child: AppButtons.largeFlatFilledButton(
+                        onPressed: () {
+                          Get.offAll(()=> PurchaseHistory);
+                        },
+                        buttonText: 'Order History',
+                    backgroundColor: AppColors.secondary)),
+                const Gap(AppSizes.md),
+                SizedBox(
+                    width: 200,
+                    child: AppButtons.largeFlatFilledButton(
+                        onPressed: () {
+                          Get.offAll(()=> const HelloConvexAppBar());
+                        },
+                        buttonText: 'Home',
+                        backgroundColor: AppColors.secondary))
+              ],
+            );
+          }
         ));
   }
 }

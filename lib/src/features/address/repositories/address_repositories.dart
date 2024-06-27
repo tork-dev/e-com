@@ -11,6 +11,8 @@ import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 import '../model/address_city_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/order_address_change.dart';
+
 class AddressRepositories{
 
   final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
@@ -107,5 +109,35 @@ class AddressRepositories{
     print("response.body.toString()${response.body.toString()}");
     return AddressResponse.fromJson(jsonDecode(response.body));
 
+  }
+
+  Future<ShippingResponse> getOrderProcessAddressUpdateResponse(
+      {required int orderId,
+        required String shippingName,
+        required String shippingAddress,
+        required int shippingAreaId,
+        required int shippingCityId,
+        required int shippingZoneId,
+        required String shippingPhone}) async {
+    var postBody = jsonEncode({
+      "shipping_name" : shippingName,
+      "shipping_address": shippingAddress,
+      "shipping_area_id": shippingAreaId,
+      "shipping_city_id": shippingCityId,
+      "shipping_zone_id": shippingZoneId,
+      "shipping_phone": shippingPhone
+    });
+
+    Uri url = Uri.parse("${AppApiEndPoints.changeOrderAddresses}$orderId");
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $accessToken",
+        },
+        body: postBody);
+    print(response.body.toString());
+    print("URL:$url");
+    return shippingResponseFromJson(response.body);
+    //return addressUpdateResponseFromJson(response.body);
   }
 }

@@ -6,7 +6,7 @@ import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'order_status_page.dart';
+import '../order_status_page.dart';
 
 class BkashScreen extends StatefulWidget {
   final double amount;

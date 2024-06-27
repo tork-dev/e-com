@@ -72,6 +72,7 @@ class AppApiEndPoints {
   static String cityAddresses  = "$baseUrl/cities-by-country/3069";
   static String zoneAddresses  = "$baseUrl/zones-by-city";
   static String areaAddresses  = "$baseUrl/areas-by-zone";
+  static String changeOrderAddresses  = "$baseUrl/order/shipping-update/";
 
   ///Product Review
   static String productReview = "$baseUrl/reviews/product";
@@ -79,6 +80,7 @@ class AppApiEndPoints {
 
   ///Product Questions
   static String productQuestions = "$baseUrl/product-questions/";
+  static String submitQuestion = "$baseUrl/product-question";
 
 
   ///Community

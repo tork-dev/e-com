@@ -173,7 +173,7 @@ class AppAllAddressFields extends StatelessWidget {
                     suffixIcon: Icon(Icons.arrow_drop_down_rounded),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                    hintText: 'Select city',
+                    hintText: 'Select zone',
                     hintStyle: TextStyle(
                         color: AppColors.grey, fontWeight: FontWeight.w400),
                     border: OutlineInputBorder(

@@ -7,16 +7,19 @@ import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_re
 import 'package:torganic/src/features/questions/controller/question_controller.dart';
 import 'package:torganic/src/features/questions/view/widgets/question_cards.dart';
 import 'package:torganic/src/features/questions/view/widgets/question_post_card.dart';
+import 'package:torganic/src/features/questions/view/widgets/questions_list.dart';
 
 import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:torganic/src/utils/helpers/helper_functions.dart';
 
 class QuestionScreen extends StatelessWidget {
-  const QuestionScreen({super.key});
+  final int productId;
+  const QuestionScreen({super.key, required this.productId});
 
   @override
   Widget build(BuildContext context) {
-    final QuestionController controller = Get.put(QuestionController());
+    final QuestionController controller = Get.put(QuestionController(productId: productId));
     return AppLayoutWithBackButton(
         // bodyBackgroundColor: Colors.grey[100],
         title: const Text(
@@ -32,12 +35,10 @@ class QuestionScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
               child: AppLayoutWithRefresher(
                   onRefresh: controller.onRefresh,
-                  children: const [
-                    AppQuestionCards(),
-                    Padding(
-                      padding: EdgeInsets.only(left:40.0),
-                      child: AppQuestionCards(),
-                    ),
+                  children:  [
+                    SizedBox(
+                      height: AppHelperFunctions.screenHeight() * .72,
+                        child: const AppQuestionList())
                   ]),
             ),
             const Positioned(

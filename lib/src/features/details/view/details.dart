@@ -100,7 +100,7 @@ class DetailsPage extends StatelessWidget {
                     AppDividersStyle.fullFlatAppDivider,
                     ReviewAndQuestion(
                       onTap: (){
-                        Get.to(()=> const QuestionScreen());
+                        Get.to(()=>  QuestionScreen(productId: productId));
                       },
                       title: 'questions about this products',
                     ),

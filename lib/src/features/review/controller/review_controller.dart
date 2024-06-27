@@ -66,7 +66,7 @@ class ReviewController extends GetxController {
           rating: givenRating.value.toInt(),
           comment: commentController.text.toString(),
           guestUserName: nameController.text.toString());
-      apiHitting.value = true;
+      apiHitting.value = false;
       givenRating.value = 1;
       nameController.text = '';
       commentController.text = '';

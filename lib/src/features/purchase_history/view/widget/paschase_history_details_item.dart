@@ -31,6 +31,7 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                     hasBorder: true,
                     padding: const EdgeInsets.all(AppSizes.md),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                             '${detailsItemController.purchaseHistoryItemDetails.value.data![0].productName}'),

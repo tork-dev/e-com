@@ -6,8 +6,8 @@ import 'package:torganic/src/utils/constants/colors.dart';
 import 'package:torganic/src/utils/constants/sizes.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../bottom_navigation/convex-bottom_navigation.dart';
-import 'order_status_page.dart';
+import '../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../order_status_page.dart';
 
 
 class SslCommerzScreen extends StatefulWidget {

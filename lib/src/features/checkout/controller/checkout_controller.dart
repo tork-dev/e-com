@@ -9,14 +9,14 @@ import 'package:torganic/src/features/checkout/model/coupon_remove_model.dart';
 import 'package:torganic/src/features/checkout/model/order_create_model.dart';
 import 'package:torganic/src/features/checkout/model/payment_types_model.dart';
 import 'package:torganic/src/features/checkout/repositories/checkout_repositories.dart';
-import 'package:torganic/src/features/checkout/view/bkash_screen.dart';
+import 'package:torganic/src/features/checkout/view/widget/bkash_screen.dart';
 import 'package:torganic/src/features/checkout/view/order_status_page.dart';
 import 'package:torganic/src/utils/helpers/helper_functions.dart';
 import 'package:torganic/src/features/address/controller/address_controller.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
 import 'package:torganic/src/utils/local_storage/storage_utility.dart';
 
-import '../view/ssl_screen.dart';
+import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();
