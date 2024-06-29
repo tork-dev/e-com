@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 class FileHelper {
-  static String getBase64FormateFile(String path) {
+  static String getBase64FormatedFile(String path) {
     File file = File(path);
     print('File is = ' + file.toString());
     List<int> fileInByte = file.readAsBytesSync();

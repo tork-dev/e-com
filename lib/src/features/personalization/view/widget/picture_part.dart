@@ -46,7 +46,7 @@ class PicturePart extends StatelessWidget {
                         imgUrl: AppLocalStorage().readData(
                                     LocalStorageKeys.avatarOriginal) !=
                                 null
-                            ? 'https://app.kireibd.com/${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
+                            ? '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
                             : AppImages.profileIcon,
                       )),
                 ],

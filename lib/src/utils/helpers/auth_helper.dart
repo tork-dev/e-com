@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torganic/src/features/authentication/model/login_model.dart';
 import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
 
 import '../../features/authentication/views/log_in/controllers/login_controller.dart';
@@ -8,7 +9,7 @@ import '../local_storage/storage_utility.dart';
 
 class AuthHelper{
 
-  setUserData(loginResponse) async{
+  setUserData(AppLoginResponse loginResponse) async{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, true);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.accessToken, loginResponse.accessToken);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, loginResponse.user?.id);
@@ -16,7 +17,7 @@ class AuthHelper{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, loginResponse.user?.email );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user?.phone );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user?.passwordSaved);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avaterOriginal);
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, "https://appbeta.kireibd.com/${loginResponse.user?.avatar }");
 
   }
 

@@ -9,6 +9,7 @@ import 'package:torganic/src/common/drawer/view/widgets/drawer_bottom_button.dar
 import 'package:torganic/src/common/styles/app_dividers.dart';
 import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:torganic/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:torganic/src/features/appoinment/view/appointment_screen.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
 import 'package:torganic/src/features/authentication/views/sign_up/view/signup.dart';
@@ -211,7 +212,7 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'ai recomendation',
-            onPress: () => Get.to(() => const HelloConvexAppBar()),
+            onPress: () => Get.to(() => const SkinCareHistoryOne()),
           ),
           AppDrawerCard(
             title: 'community',

@@ -57,6 +57,13 @@ dependencies:
   flutter_widget_from_html_core: ^0.14.12
   badges: ^3.1.2
   font_awesome_flutter: ^10.7.0
+  percent_indicator: ^4.2.3
+  mime: ^1.0.5
+  http_parser: ^4.0.2
+  image_picker: ^1.1.1
+  permission_handler: ^11.3.1
+  share_plus: ^9.0.0
+  insta_image_viewer: ^1.0.4
 
   # Icons
   cupertino_icons: ^1.0.6
@@ -81,12 +88,7 @@ dependencies:
   flutter_bkash: ^0.2.0
   flutter_stripe: ^10.1.1
   flutter_sslcommerz: ^2.2.2-nullsafety.0
-  mime: ^1.0.5
-  http_parser: ^4.0.2
-  image_picker: ^1.1.1
-  permission_handler: ^11.3.1
-  share_plus: ^9.0.0
-  insta_image_viewer: ^1.0.4
+
 
 
 
@@ -120,6 +122,7 @@ flutter:
     - assets/images/animations/
     - assets/images/on_boarding_images/
     - assets/images/pdf_a/
+    - assets/images/recommendation/
     - .env
 
 

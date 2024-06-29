@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:torganic/src/common/widgets/containers/card_container.dart';
 import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
@@ -37,13 +38,13 @@ class CommunityHeader extends StatelessWidget {
               onChanged: (value) {
                 if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) !=
                     true) {
-                  Get.to(()=> const LogIn());
+                  Get.to(() => const LogIn());
                 }
               },
               onFieldSubmitted: (value) {
                 if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) !=
                     true) {
-                  Get.to(()=> const LogIn());
+                  Get.to(() => const LogIn());
                 }
               },
               minLines: 3,
@@ -62,57 +63,75 @@ class CommunityHeader extends StatelessWidget {
                 return null;
               },
             ),
-            const Gap(AppSizes.spaceBtwItems,),
+            const Gap(
+              AppSizes.spaceBtwItems,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                SizedBox(
+                  width: 100,
+                  child: Obx(() {
+                    return Text(
+                      communityController.imageName.value,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelSmall!
+                          .apply(overflow: TextOverflow.ellipsis),
+                    );
+                  }),
+                ),
                 AppCardContainer(
                   height: 40,
                   applyRadius: false,
                   padding: const EdgeInsets.symmetric(horizontal: AppSizes.xl),
                   backgroundColor: Colors.blueGrey,
-                child:
-                InkWell(
-                  onTap: () async {
-                    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
-                        true) {
-                      //await pickCommunityImg(context);
-                    }else {
-                      Get.to(()=> const LogIn());
-                    }
-                  },
-                  child: const Icon(Icons.add_photo_alternate_outlined, color: Colors.white),
-                 // color: Colors.blueGrey,
-                ),),
+                  child: InkWell(
+                    onTap: () {
+                      if (AppLocalStorage()
+                              .readData(LocalStorageKeys.isLoggedIn) ==
+                          true) {
+                        communityController.pickImage();
+                      } else {
+                        Get.to(() => const LogIn());
+                      }
+                    },
+                    child: const Icon(Icons.add_photo_alternate_outlined,
+                        color: Colors.white),
+                    // color: Colors.blueGrey,
+                  ),
+                ),
                 const Gap(AppSizes.md),
                 AppCardContainer(
                   height: 40,
                   borderRadius: AppSizes.xs,
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.xl, vertical: AppSizes.xs),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.xl, vertical: AppSizes.xs),
                   gradient: const LinearGradient(colors: [
                     Colors.teal,
                     Colors.lightBlue,
                     Colors.deepPurple
                   ]),
-                  child:
-                  Center(
+                  child: Center(
                     child: InkWell(
-                      onTap: () async {
-                        if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                      onTap: () {
+                        if (AppLocalStorage()
+                                .readData(LocalStorageKeys.isLoggedIn) ==
                             true) {
-                          //await pickCommunityImg(context);
-                        }else {
-                          Get.to(()=> const LogIn());
+                          communityController.createCommunityPost();
+                        } else {
+                          Get.to(() => const LogIn());
                         }
                       },
                       child: Text(
-                                "Add",
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 16),
-                              ),
+                        "Add",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.ubuntu(
+                            color: Colors.white, fontSize: 16),
+                      ),
                     ),
-                  ),),
-
+                  ),
+                ),
 
                 // const SizedBox(width: 20),
                 // InkWell(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
 import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:torganic/src/features/shop/controller/shop_controller.dart';
@@ -16,7 +17,7 @@ class ConvexBottomNavController extends GetxController
 
   final cartController = Get.put(CartController());
   final categoryController = Get.put(GetShopDataController());
-  final shopController = Get.put(ShopController());
+  //final logInPageController = Get.put(LogInPageController());
 
 
   RxInt pageIndex = 0.obs;
@@ -24,10 +25,13 @@ class ConvexBottomNavController extends GetxController
   late TabController tabController;
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
     tabController = TabController(length: 4, vsync: this);
-
+    // if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+    //   await logInPageController.getUserDataByToken();
+    //   AuthHelper().saveUserDataByToken(logInPageController.userDataByToken);
+    // }
   }
 
   void jumpToTab(int index) {
@@ -57,6 +61,7 @@ class ConvexBottomNavController extends GetxController
       return;
     }
     if(categoryController.isFromSearch.value == false && pageIndex.value ==1 ){
+      ShopController shopController = Get.put(ShopController());
       shopController.onRefresh();
       return;
     }

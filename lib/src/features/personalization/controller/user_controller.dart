@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/utils/helpers/auth_helper.dart';
 import 'package:torganic/src/utils/popups/loaders.dart';
-import '../../../utils/local_storage/storage_utility.dart';
-import '../data/repositories/user_repositories.dart';
 import '../model/user_model.dart';
 
 class UserController extends GetxController {

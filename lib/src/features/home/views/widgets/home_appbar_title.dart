@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:torganic/src/common/widgets/containers/banner_image.dart';
 import 'package:torganic/src/utils/constants/app_api_end_points.dart';
 import 'package:torganic/src/utils/constants/colors.dart';
@@ -38,7 +39,7 @@ class AppHomeAppBarTitle extends StatelessWidget {
                       borderColor: AppColors.secondary,
                       child: AppBannerImage(
                         isNetworkImage: true,
-                          imgUrl: 'https://app.kireibd.com/${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'))
+                          imgUrl: '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'))
                       :
                   const Icon(Icons.account_circle_outlined, color: AppColors.secondary)
 

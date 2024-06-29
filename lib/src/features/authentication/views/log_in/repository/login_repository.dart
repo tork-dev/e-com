@@ -1,18 +1,10 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
-import 'package:torganic/src/utils/constants/app_config.dart';
 import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-
 import '../../../../../utils/constants/app_api_end_points.dart';
-import '../../../../../utils/http/http_client.dart';
 import '../../../../../utils/local_storage/storage_utility.dart';
-import '../../../../personalization/model/user_by_token_model.dart';
-import '../../../model/login_model.dart';
 import 'package:http/http.dart' as http;
-
 import '../model/user_by_token_response.dart';
 
 class LoginRepository{

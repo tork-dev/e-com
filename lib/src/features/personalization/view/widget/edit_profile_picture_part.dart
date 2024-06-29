@@ -45,7 +45,7 @@ class AppEditProfilePicturePart extends StatelessWidget {
                 backgroundColor: AppColors.grey,
                 child: InkWell(
                     onTap: (){
-                      detailsController.chooseAndUploadImage(context);
+                      detailsController.chooseAndUploadImage();
                     },
                     child: const Icon(Icons.edit, size: 20,)),
               ))

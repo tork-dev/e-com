@@ -21,11 +21,11 @@ class CommunityPostContainer extends StatelessWidget {
     final communityController = CommunityController.instance;
     return Obx(() {
       return AppListViewLayout(
-        itemCount: communityController.communityResponse.value.data == null
+        itemCount: communityController.isLoading.value
             ? 5
             : communityController.communityResponse.value.data!.length,
         builderFunction: (context, index) =>
-            communityController.communityResponse.value.data == null
+        communityController.isLoading.value
                 ? ShimmerHelper().buildBasicShimmer(height: 150)
                 : AppCardContainer(
                     backgroundColor: AppColors.white,

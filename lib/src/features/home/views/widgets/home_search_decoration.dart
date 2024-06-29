@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:torganic/src/features/home/controller/search_controller.dart';
 import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
 
 import '../../../../utils/constants/colors.dart';
@@ -20,6 +22,7 @@ class HomeSearchDecoration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final searchController = Get.put(AppSearchController());
     return SizedBox(
       height: 50,
       child: TextFormField(
@@ -41,7 +44,12 @@ class HomeSearchDecoration extends StatelessWidget {
               ),
               hintText: 'Search with AI (EX: Facewash for acne)',
               hintStyle: Theme.of(context).textTheme.bodySmall,
-              suffixIcon: const Icon(Icons.camera_alt),
+              suffixIcon: InkWell(
+                  onTap: () {
+                    print('clicked');
+                    searchController.searchByImage();
+                  },
+                  child: const Icon(Icons.camera_alt)),
               focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: AppColors.grey),
                   borderRadius: BorderRadius.circular(10)),

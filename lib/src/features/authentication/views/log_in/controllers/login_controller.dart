@@ -87,6 +87,7 @@ class LogInPageController extends GetxController {
         if (loginResponse.value.result == true) {
           AuthHelper().setUserData(loginResponse.value);
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
+          //await getUserDataByToken();
           Get.offAll(const HelloConvexAppBar());
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
