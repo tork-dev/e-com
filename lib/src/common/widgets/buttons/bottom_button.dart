@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/styles/skeleton_style.dart';
-import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
-import 'package:torganic/src/features/details/controller/details_page_controller.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../containers/card_container.dart';

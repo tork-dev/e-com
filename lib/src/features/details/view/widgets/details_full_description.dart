@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:torganic/src/common/styles/skeleton_style.dart';
-import 'package:torganic/src/features/details/controller/details_page_controller.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/features/details/controller/details_page_controller.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 class AppDetailsFullDescription extends StatelessWidget {
   const AppDetailsFullDescription({super.key});

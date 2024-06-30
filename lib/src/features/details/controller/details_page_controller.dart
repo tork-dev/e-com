@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:torganic/src/features/details/repositories/details_repositories.dart';
-import 'package:torganic/src/features/home/controller/home_controller.dart';
-import 'package:torganic/src/features/wishlist/model/wishlist_remove_model.dart';
-import 'package:torganic/src/features/wishlist/repositories/wishlist_repositories.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/features/details/repositories/details_repositories.dart';
+import 'package:kirei/src/features/home/controller/home_controller.dart';
+import 'package:kirei/src/features/home/repositories/home_repositories.dart';
+import 'package:kirei/src/features/wishlist/model/wishlist_remove_model.dart';
+import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
@@ -39,6 +40,7 @@ class DetailsPageController extends GetxController {
   Rx<WishListAddResponse> removeFromWishList = WishListAddResponse().obs;
   Rx<DetailsProductsResponse> relatedProductsResponse = DetailsProductsResponse().obs;
   Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
+
 
   @override
   void onInit() {
@@ -108,4 +110,5 @@ class DetailsPageController extends GetxController {
   Future<DetailsProductsResponse> getRecommendedProducts() async{
     return recommendedProductsResponse.value = await DetailsRepositories.getRecommendedProduct();
   }
+
 }

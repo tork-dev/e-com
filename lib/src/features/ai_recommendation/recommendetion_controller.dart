@@ -1,8 +1,8 @@
 // import 'dart:convert';
 // import 'package:http/http.dart' as http;
 // import 'package:flutter/material.dart';
-// import 'package:torganic/src/features/ai_recommendation/question_and_value.dart';
-// import 'package:torganic/src/features/ai_recommendation/question_model.dart';
+// import 'package:kirei/src/features/ai_recommendation/question_and_value.dart';
+// import 'package:kirei/src/features/ai_recommendation/question_model.dart';
 //
 //
 //

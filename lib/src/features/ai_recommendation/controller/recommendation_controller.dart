@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/home/model/search_model.dart';
+import 'package:kirei/src/features/home/model/search_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../model/products_response.dart';
 import '../question_and_value.dart';
 import '../question_model.dart';
 
@@ -15,14 +17,22 @@ class RecommendationController extends GetxController{
 
   // final RecommendationQuestionAndAns questions = ;
 
-  RxInt radioButtonSelectedValue = 0.obs;
+  TextEditingController ageController = TextEditingController();
+  Rxn<int> radioButtonSelectedValue = Rxn<int>();
   RxList checkboxSelectedValues = <int>[].obs;
  // int get radioButtonSelectedValue => _radioButtonSelectedValue;
-  Rx<ProductMiniResponse> productResponse = ProductMiniResponse().obs;
+  Rx<RecommendationProductResponse> productResponse = RecommendationProductResponse().obs;
 
-  setRadioButtonValue(int value){
+
+
+  setRadioButtonValue(int? value){
     radioButtonSelectedValue.value = value;
 
+  }
+  resetValues(){
+    radioButtonSelectedValue.value = null;
+    checkboxSelectedValues.value = <int>[];
+    ageController.clear();
   }
 
   void toggleCheckboxValue(int index) {
@@ -159,7 +169,7 @@ class RecommendationController extends GetxController{
 
 
 
-  Future<ProductMiniResponse> sendData() async {
+  Future<RecommendationProductResponse> sendData() async {
     // Replace this with your API endpoint
     String url = 'https://app.kireibd.com/api/v2/gigalogy/questions/recommend';
 
@@ -180,7 +190,7 @@ class RecommendationController extends GetxController{
       // If the server returns a 200 OK response, parse the JSON
       var responseData = jsonDecode(response.body);
       print('Response data: $responseData');
-      return productResponse.value = await productMiniResponseFromJson(response.body);
+      return productResponse.value =  RecommendationProductResponse.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response, throw an exception
       throw Exception('Failed to send data');

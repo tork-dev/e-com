@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/features/authentication/model/login_model.dart';
-import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
+import 'package:kirei/src/features/authentication/model/login_model.dart';
+import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 
 import '../../features/authentication/views/log_in/controllers/login_controller.dart';
 import '../../features/authentication/views/log_in/repository/login_repository.dart';

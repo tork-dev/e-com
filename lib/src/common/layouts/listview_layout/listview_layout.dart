@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/common/styles/spacing_style.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/common/widgets/containers/product_bottom_container.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:kirei/src/common/styles/spacing_style.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/common/widgets/containers/product_bottom_container.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../widgets/containers/product_image.dart';

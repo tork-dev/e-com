@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/ai_recommendation/controller/recommendation_controller.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_two.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_two.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
@@ -71,10 +72,10 @@ class SkinCareHistoryOne extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.selectedAge = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value).toLowerCase();
+                recommendationController.selectedAge = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 print(recommendationController.selectedAge);
                 Get.to(()=> const SkinCareHistoryTwo());
-                recommendationController.setRadioButtonValue(0);
+                recommendationController.resetValues();
               },
             )
           ],

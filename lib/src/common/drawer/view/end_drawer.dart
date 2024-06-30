@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
-import 'package:torganic/src/common/styles/app_dividers.dart';
-import 'package:torganic/src/common/styles/skeleton_style.dart';
-import 'package:torganic/src/common/styles/spacing_style.dart';
-import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/common/widgets/texts/section_title_text.dart';
-import 'package:torganic/src/features/home/controller/home_controller.dart';
-import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:torganic/src/features/shop/controller/shop_controller.dart';
-import 'package:torganic/src/features/shop/view/widget/price_filter_field.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
+import 'package:kirei/src/common/styles/app_dividers.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/styles/spacing_style.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
+import 'package:kirei/src/features/home/controller/home_controller.dart';
+import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/shop/controller/shop_controller.dart';
+import 'package:kirei/src/features/shop/view/widget/price_filter_field.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 
 class AppEndDrawer extends StatelessWidget {

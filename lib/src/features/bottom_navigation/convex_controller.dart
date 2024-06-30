@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
-import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
-import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:torganic/src/features/shop/controller/shop_controller.dart';
-import 'package:torganic/src/utils/helpers/auth_helper.dart';
+import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
+import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/shop/controller/shop_controller.dart';
+import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import '../../utils/local_storage/local_storage_keys.dart';
 import '../../utils/local_storage/storage_utility.dart';
 import '../authentication/views/log_in/model/user_by_token_response.dart';

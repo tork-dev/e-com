@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:torganic/src/features/cart/view/cart.dart';
-import 'package:torganic/src/features/graph_chart/view/graph_screen.dart';
-import 'package:torganic/src/features/home/views/home_three.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/features/cart/view/cart.dart';
+import 'package:kirei/src/features/graph_chart/view/graph_screen.dart';
+import 'package:kirei/src/features/home/views/home_three.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import '../personalization/view/profile.dart';
 

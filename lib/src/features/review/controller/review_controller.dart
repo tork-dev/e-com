@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/review/model/review_response_model.dart';
-import 'package:torganic/src/features/review/model/review_submit_response.dart';
-import 'package:torganic/src/features/review/repositories/review_repositories.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/features/review/model/review_response_model.dart';
+import 'package:kirei/src/features/review/model/review_submit_response.dart';
+import 'package:kirei/src/features/review/repositories/review_repositories.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class ReviewController extends GetxController {
   static ReviewController get instance => Get.find();

@@ -1,6 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 
 import '../../../utils/constants/sizes.dart';
 

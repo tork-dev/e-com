@@ -1,21 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../controller/recommendation_controller.dart';
 
 class RadioQuestionImageWidget extends StatelessWidget {
-  final String question, images;
-  final List option;
-  const RadioQuestionImageWidget({
-    super.key,
-    required this.question,
-    required this.option,
-    required this.images
-  });
+  final String question;
+  final List option, images;
 
+  const RadioQuestionImageWidget(
+      {super.key,
+      required this.question,
+      required this.option,
+      required this.images});
 
   @override
   Widget build(BuildContext context) {
@@ -30,38 +32,47 @@ class RadioQuestionImageWidget extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const Gap(AppSizes.md),
-        ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: option.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  //width: MediaQuery.of(context).size.width,
-                  //height: 70,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.grey[300]!)),
-                  child: Column(
-                    children: [
-                     // Image.asset(images[index]),
-                      Text(images[index]),
-                      Row(
+        GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisExtent: 185
+          ),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: option.length,
+          itemBuilder: (BuildContext context, int index) {
+            return AppCardContainer(
+              applyRadius: false,
+              margin: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
+              hasBorder: true,
+              borderWidth: 2,
+              borderColor: Colors.grey[300]!,
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppBannerImage(
+                      height: 100,
+                        width: 150,
+                        applyImageRadius: false,
+                        fit: BoxFit.cover,
+                        imgUrl: images[index]),
+                    SizedBox(
+                      width: 150,
+                      child: Row(
                         children: [
                           Obx(() {
                             return Radio<int>(
                                 activeColor: AppColors.secondary,
                                 value: index,
-                                groupValue: recommendationController.radioButtonSelectedValue.value,
+                                groupValue: recommendationController
+                                    .radioButtonSelectedValue.value,
                                 onChanged: (value) {
-                                  recommendationController.setRadioButtonValue(value!);
+                                  recommendationController
+                                      .setRadioButtonValue(value!);
                                 });
-                          }
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
+                          }),
                           SizedBox(
                             width: 100,
                             child: Text(
@@ -71,12 +82,13 @@ class RadioQuestionImageWidget extends StatelessWidget {
                           )
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            }),
-
+              ),
+            );
+          },
+        ),
       ],
     );
   }

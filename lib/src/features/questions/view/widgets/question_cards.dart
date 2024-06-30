@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
-import 'package:torganic/src/features/questions/view/widgets/question_desc.dart';
+import 'package:kirei/src/features/questions/view/widgets/question_desc.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';

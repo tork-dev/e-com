@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
-import 'package:torganic/src/features/appoinment/controller/appointment_controller.dart';
-import 'package:torganic/src/features/appoinment/view/widgets/appointment_form_widget.dart';
-import 'package:torganic/src/features/appoinment/view/widgets/appointment_forms.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
+import 'package:kirei/src/features/appoinment/view/widgets/appointment_form_widget.dart';
+import 'package:kirei/src/features/appoinment/view/widgets/appointment_forms.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({super.key});

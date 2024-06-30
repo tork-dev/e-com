@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../order_status_page.dart';
 

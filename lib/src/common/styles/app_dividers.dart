@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../utils/helpers/helper_functions.dart';
 
 class AppDividersStyle{

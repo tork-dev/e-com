@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/widgets/containers/banner_image.dart';
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/image_strings.dart';
 

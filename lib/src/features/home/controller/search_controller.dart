@@ -4,10 +4,10 @@ import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
-import 'package:torganic/src/features/home/model/search_model.dart';
-import 'package:torganic/src/features/home/repositories/search_repositories.dart';
-import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/home/model/search_model.dart';
+import 'package:kirei/src/features/home/repositories/search_repositories.dart';
+import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import '../../../utils/helpers/file_helper.dart';
 import '../../shop/model/shop_data_model.dart';
 

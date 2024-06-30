@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
-import 'package:torganic/src/features/cart/view/widgets/cart_screen_card.dart';
-import 'package:torganic/src/features/community/controller/community_controller.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
+import 'package:kirei/src/features/cart/view/widgets/cart_screen_card.dart';
+import 'package:kirei/src/features/community/controller/community_controller.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 class CommunityHeader extends StatelessWidget {
   const CommunityHeader({super.key});

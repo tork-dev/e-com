@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
-import 'package:torganic/src/common/styles/spacing_style.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/common/styles/spacing_style.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 

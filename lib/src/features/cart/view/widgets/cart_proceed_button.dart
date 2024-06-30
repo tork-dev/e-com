@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
-import 'package:torganic/src/features/checkout/view/checkout_screen.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/device/device_utility.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
+import 'package:kirei/src/features/checkout/view/checkout_screen.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppCartProceedButton extends StatelessWidget {
   const AppCartProceedButton({super.key});

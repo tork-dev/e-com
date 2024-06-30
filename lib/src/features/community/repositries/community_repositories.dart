@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../model/community_response.dart';
 import '../model/create_community_post_response.dart';
 

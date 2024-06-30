@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:torganic/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
+import 'package:kirei/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 
 import '../../../../../utils/constants/app_config.dart';
 import '../model/signup_response.dart';

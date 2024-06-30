@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
-import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
+import '../../details/model/products_model.dart';
+import '../../details/repositories/details_repositories.dart';
 import '../model/all_category_model.dart';
 import '../model/home_featured_category_model.dart';
 import '../model/home_products_model.dart';
@@ -32,6 +34,8 @@ class HomeController extends GetxController{
   RxList<AllCategory> allCategories = <AllCategory>[].obs;
   Rx<HomeSlidersResponse> homeSliders = HomeSlidersResponse().obs;
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
+  Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
+  Rx<DetailsProductsResponse> trendingProductsResponse = DetailsProductsResponse().obs;
 
 
   @override
@@ -48,6 +52,8 @@ class HomeController extends GetxController{
     getProductData();
     fetchFeaturedCategories();
     fetchAllCategories();
+    getRecommendedProducts();
+    getTrendingProducts();
   }
 
 
@@ -65,6 +71,13 @@ class HomeController extends GetxController{
 
   Future<AddToCartResponse> getAddToCartResponse(int id, int quantity, dynamic preorderAvailable) async {
     return addToCartResponse.value = await CartRepositories().getCartAddResponse(id, quantity, preorderAvailable);
+  }
+
+  Future<DetailsProductsResponse> getRecommendedProducts() async{
+    return recommendedProductsResponse.value = await DetailsRepositories.getRecommendedProduct();
+  }
+  Future<DetailsProductsResponse> getTrendingProducts() async{
+    return trendingProductsResponse.value = await HomeRepositories.getTrendingProduct();
   }
 
 

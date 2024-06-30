@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
-// import 'package:torganic/src/common/widgets/containers/vertical_product_card.dart';
-// import 'package:torganic/src/utils/constants/colors.dart';
+// import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
+// import 'package:kirei/src/utils/constants/colors.dart';
 //
 // import '../../../utils/constants/image_strings.dart';
 // import '../../layouts/gridview_layout/gridview_layout.dart';

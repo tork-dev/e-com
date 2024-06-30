@@ -168,9 +168,10 @@ class QuestionAndValues{
             "question": "Do you see wrinkles when your face is at rest?",
             "options": ["Yes", "No", "Yes but only on eye area"],
             "images": [
-              "assets/recommendation/aging_1_1.png",
-              "assets/recommendation/aging_1_2.png",
-              "assets/recommendation/aging_1_3.png"
+              "assets/images/recommendation/aging_1_1.png",
+              "assets/images/recommendation/aging_1_2.png",
+              "assets/images/recommendation/aging_1_3.png",
+
             ]
           },
           {
@@ -192,10 +193,10 @@ class QuestionAndValues{
             "Do you have open (blackhead) or closed (whitehead) comedones?",
             "options": ["Blackheads", "Whiteheads", "Both", "Not sure"],
             "images": [
-              "assets/recommendation/aging_3_1.png",
-              "assets/recommendation/aging_3_2.png",
-              "assets/recommendation/aging_3_3.png",
-              "assets/recommendation/aging_3_4.png"
+              "assets/images/recommendation/aging_3_1.png",
+              "assets/images/recommendation/aging_3_2.png",
+              "assets/images/recommendation/aging_3_3.png",
+              "assets/images/recommendation/aging_3_4.png"
             ]
           },
           {
@@ -209,7 +210,7 @@ class QuestionAndValues{
           },
         ]
       },
-      "hyperpigmentation": {
+      "hypigmentation": {
         "questions": [
           {
             "question":
@@ -228,12 +229,12 @@ class QuestionAndValues{
               "No spots"
             ],
             "images": [
-              "assets/recommendation/pigmantation_2_1.png",
-              "assets/recommendation/pigmantation_2_2.png",
-              "assets/recommendation/pigmantation_2_3.png",
-              "assets/recommendation/pigmantation_2_4.png",
-              "assets/recommendation/pigmantation_2_5.png",
-              "assets/recommendation/pigmantation_2_6.png",
+              "assets/images/recommendation/pigmantation_2_1.png",
+              "assets/images/recommendation/pigmantation_2_2.png",
+              "assets/images/recommendation/pigmantation_2_3.png",
+              "assets/images/recommendation/pigmantation_2_4.png",
+              "assets/images/recommendation/pigmantation_2_5.png",
+              "assets/images/recommendation/pigmantation_2_6.png",
             ]
 
           },
@@ -247,11 +248,11 @@ class QuestionAndValues{
               "I don’t have any hyperpigmentation"
             ],
             "images": [
-              "assets/recommendation/pigmantation_3_1.png",
-              "assets/recommendation/pigmantation_3_2.png",
-              "assets/recommendation/pigmantation_3_3.png",
-              "assets/recommendation/pigmantation_3_4.png",
-              "assets/recommendation/pigmantataion_3_5.png",
+              "assets/images/recommendation/pigmantation_3_1.png",
+              "assets/images/recommendation/pigmantation_3_2.png",
+              "assets/images/recommendation/pigmantation_3_3.png",
+              "assets/images/recommendation/pigmantation_3_4.png",
+              "assets/images/recommendation/pigmantataion_3_5.png",
             ]
           },
         ]

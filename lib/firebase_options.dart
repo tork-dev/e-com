@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '547850683072',
     projectId: 'app-boilerplate-8f2ca',
     storageBucket: 'app-boilerplate-8f2ca.appspot.com',
-    iosBundleId: 'com.example.torganic',
+    iosBundleId: 'com.thetork.kirei',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,6 +76,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '547850683072',
     projectId: 'app-boilerplate-8f2ca',
     storageBucket: 'app-boilerplate-8f2ca.appspot.com',
-    iosBundleId: 'com.example.torganic.RunnerTests',
+    iosBundleId: 'com.thetork.kirei.RunnerTests',
   );
 }

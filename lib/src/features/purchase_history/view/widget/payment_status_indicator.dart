@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:torganic/src/features/purchase_history/controller/purchase_history_controller.dart';
-import 'package:torganic/src/features/purchase_history/controller/purchase_history_details_controller.dart';
+import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
+import 'package:kirei/src/features/purchase_history/controller/purchase_history_details_controller.dart';
 
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';

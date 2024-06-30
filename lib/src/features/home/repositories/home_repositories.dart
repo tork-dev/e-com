@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/features/home/model/all_category_model.dart';
-import 'package:torganic/src/features/home/model/home_featured_category_model.dart';
-import 'package:torganic/src/features/home/model/home_products_model.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
-import 'package:torganic/src/utils/popups/loaders.dart';
+import 'package:kirei/src/features/home/model/all_category_model.dart';
+import 'package:kirei/src/features/home/model/home_featured_category_model.dart';
+import 'package:kirei/src/features/home/model/home_products_model.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../utils/constants/app_api_end_points.dart';
+import '../../details/model/products_model.dart';
 import '../model/home_sliders_model.dart';
 
 
@@ -49,6 +50,18 @@ class HomeRepositories{
       return jsonResponse.map((category) => AllCategory.fromJson(category)).toList();
     } else {
       throw Exception('Failed to load categories');
+    }
+  }
+
+  static Future<DetailsProductsResponse> getTrendingProduct() async {
+    final response = await http.get(Uri.parse("${AppApiEndPoints.trendingProduct}${null}"), headers: {
+
+    });
+    var responseBody = jsonDecode(response.body.toString());
+    if (responseBody["result"] == true) {
+      return DetailsProductsResponse.fromJson(responseBody);
+    } else {
+      throw Exception('Failed to load data: ${response.statusCode}');
     }
   }
 

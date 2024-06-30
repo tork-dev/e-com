@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:torganic/src/features/authentication/views/forgot_password/model/forget_password_confrim_response.dart';
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/features/authentication/views/forgot_password/model/forget_password_confrim_response.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 
 import '../controllers/forgot_password_controllers.dart';
 import '../model/forgot_password_reponse.dart';

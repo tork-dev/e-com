@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
-import 'package:torganic/src/features/review/controller/review_controller.dart';
-import 'package:torganic/src/features/review/view/widgets/review_cards.dart';
-import 'package:torganic/src/features/review/view/widgets/review_post_card.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:kirei/src/features/review/controller/review_controller.dart';
+import 'package:kirei/src/features/review/view/widgets/review_cards.dart';
+import 'package:kirei/src/features/review/view/widgets/review_post_card.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 class ReviewScreen extends StatelessWidget {
   final int productId;

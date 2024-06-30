@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../styles/skeleton_style.dart';
 import 'card_container.dart';

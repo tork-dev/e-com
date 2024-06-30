@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:torganic/src/utils/formaters/formatter.dart';
+import 'package:kirei/src/utils/formaters/formatter.dart';
 
 class UserModel {
   final String id;

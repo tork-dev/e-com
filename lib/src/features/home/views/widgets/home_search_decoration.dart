@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/home/controller/search_controller.dart';
-import 'package:torganic/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/home/controller/search_controller.dart';
+import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../bottom_navigation/convex_controller.dart';

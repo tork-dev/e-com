@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:torganic/src/features/address/model/address_create_model.dart';
-import 'package:torganic/src/features/address/model/address_model.dart';
-import 'package:torganic/src/features/address/model/area_response.dart';
-import 'package:torganic/src/features/address/model/zone_response.dart';
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/features/address/model/address_create_model.dart';
+import 'package:kirei/src/features/address/model/address_model.dart';
+import 'package:kirei/src/features/address/model/area_response.dart';
+import 'package:kirei/src/features/address/model/zone_response.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../model/address_city_model.dart';
 import 'package:http/http.dart' as http;

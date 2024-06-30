@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:torganic/src/features/authentication/views/log_in/controllers/login_controller.dart';
-import 'package:torganic/src/features/authentication/views/log_in/model/login_response.dart';
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
+import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import '../../../../../utils/constants/app_api_end_points.dart';
 import '../../../../../utils/local_storage/storage_utility.dart';
 import 'package:http/http.dart' as http;

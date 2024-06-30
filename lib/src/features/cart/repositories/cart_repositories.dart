@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/features/cart/model/card_add_response_model.dart';
-import 'package:torganic/src/features/cart/model/cart_delete_response_model.dart';
-import 'package:torganic/src/features/cart/model/cart_get_response_model.dart';
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/features/cart/model/card_add_response_model.dart';
+import 'package:kirei/src/features/cart/model/cart_delete_response_model.dart';
+import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../model/cart_update_response_model.dart';

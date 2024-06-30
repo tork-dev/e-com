@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/features/purchase_history/model/order_re_order_model.dart';
-import 'package:torganic/src/features/purchase_history/model/purchase_history_details_model.dart';
+import 'package:kirei/src/features/purchase_history/model/order_re_order_model.dart';
+import 'package:kirei/src/features/purchase_history/model/purchase_history_details_model.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';

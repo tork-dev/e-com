@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/ai_recommendation/controller/recommendation_controller.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_four.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_two.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_five.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../question_and_value.dart';
+import '../../recommended_products.dart';
 import '../../widgets/button_row.dart';
 import '../../widgets/circular_progress_section.dart';
 import '../../widgets/linear_progress_section.dart';
 import '../../widgets/radio_question_widget.dart';
 
-class RecommendationAcneThree extends StatelessWidget {
-  const RecommendationAcneThree({super.key});
+class RecommendationDehydrationTwo extends StatelessWidget {
+  const RecommendationDehydrationTwo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,7 @@ class RecommendationAcneThree extends StatelessWidget {
                   ),
                   const CircularProgressSection(
                     title: '2. Skincare Goal',
-                    circlePercent: 3/5,
+                    circlePercent: 2/3,
                     isNotActive: false,
                   )
                 ],
@@ -62,23 +60,23 @@ class RecommendationAcneThree extends StatelessWidget {
             ),
             const Gap(AppSizes.md),
             const LinearProgressSection(
-              linearPercent: 3/5,
-              linearPercentString: '3/5',
+              linearPercent: 2/3,
+              linearPercentString: '2/3',
             ),
             const Gap(AppSizes.md),
             RadioQuestionWidget(
               question: QuestionAndValues().recommendationQuestionAndAns[
-                  "related_questions_based_on_primary_concern"]["acne"]["questions"][2]["question"],
+                  "related_questions_based_on_primary_concern"]["dehydrated_skin"]["questions"][1]["question"],
               option: QuestionAndValues().recommendationQuestionAndAns[
-                  "related_questions_based_on_primary_concern"]["acne"]["questions"][2]["options"],
+                  "related_questions_based_on_primary_concern"]["dehydrated_skin"]["questions"][1]["options"],
             ),
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.acneThreeSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value).toLowerCase();
-                print(recommendationController.acneThreeSelected);
-                Get.to(()=> const RecommendationAcneFour());
-                recommendationController.setRadioButtonValue(0);
+                recommendationController.dehydredTwoSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+                recommendationController.sendData();
+                recommendationController.resetValues();
+                Get.to(()=> const RecommendedProducts());
               },
             )
           ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:torganic/src/features/cart/model/checkout_cart_update_model.dart';
-import 'package:torganic/src/features/checkout/view/checkout_screen.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/features/cart/model/checkout_cart_update_model.dart';
+import 'package:kirei/src/features/checkout/view/checkout_screen.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/authentication/views/sign_up/model/signup_response.dart';
-import 'package:torganic/src/utils/constants/image_strings.dart';
-import 'package:torganic/src/utils/helpers/network_manager.dart';
-import 'package:torganic/src/utils/popups/loaders.dart';
+import 'package:kirei/src/features/authentication/views/sign_up/model/signup_response.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/helpers/network_manager.dart';
+import 'package:kirei/src/utils/popups/loaders.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../utils/helpers/auth_helper.dart';
 import '../../../../../utils/helpers/helper_functions.dart';

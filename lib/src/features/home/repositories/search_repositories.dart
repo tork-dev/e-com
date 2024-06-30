@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import '../../shop/model/shop_data_model.dart';
 import '../model/search_model.dart';
 import 'package:http/http.dart' as http;

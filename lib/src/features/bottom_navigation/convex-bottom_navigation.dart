@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badge;
-import 'package:torganic/src/features/authentication/views/log_in/view/login.dart';
-import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
-import 'package:torganic/src/features/cart/view/cart.dart';
-import 'package:torganic/src/features/home/views/home_three.dart';
-import 'package:torganic/src/features/personalization/view/profile.dart';
-import 'package:torganic/src/features/shop/view/shop.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/cart/view/cart.dart';
+import 'package:kirei/src/features/home/views/home_three.dart';
+import 'package:kirei/src/features/personalization/view/profile.dart';
+import 'package:kirei/src/features/shop/view/shop.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../utils/constants/colors.dart';
 
 class HelloConvexAppBar extends StatelessWidget {

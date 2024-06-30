@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:torganic/src/common/widgets/buttons/app_buttons.dart';
-import 'package:torganic/src/features/appoinment/controller/appointment_controller.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
+import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
 import 'appointment_form_widget.dart';
 

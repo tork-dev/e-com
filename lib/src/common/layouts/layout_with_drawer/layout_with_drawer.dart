@@ -1,10 +1,10 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:torganic/src/common/drawer/view/end_drawer.dart';
-import 'package:torganic/src/common/styles/spacing_style.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/device/device_utility.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/common/drawer/view/end_drawer.dart';
+import 'package:kirei/src/common/styles/spacing_style.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
 import '../../drawer/view/drawer.dart';
 import '../../widgets/appbar/custom_app_bar.dart';

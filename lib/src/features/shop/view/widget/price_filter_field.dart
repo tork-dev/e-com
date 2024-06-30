@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/validators/validation.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/validators/validation.dart';
 import '../../../../utils/constants/colors.dart';
 
 

@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
-// import 'package:torganic/src/features/details/view/details.dart';
+// import 'package:kirei/src/features/details/view/details.dart';
 // import '../../../../common/layouts/listview_layout/listview_layout.dart';
 // import '../../../../common/styles/skeleton_style.dart';
 // import '../../../../common/widgets/containers/vertical_product_card.dart';

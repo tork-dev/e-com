@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../controller/recommendation_controller.dart';
 
 class ButtonRow extends StatelessWidget {
   final VoidCallback onTapNext;
+
   const ButtonRow({
     super.key, required this.onTapNext,
   });
 
   @override
   Widget build(BuildContext context) {
+    final recommendationController = Get.put(RecommendationController());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
       child: Row(
@@ -54,7 +58,16 @@ class ButtonRow extends StatelessWidget {
           SizedBox(
             width: 100,
             child: InkWell(
-              onTap: onTapNext,
+              onTap: () {
+                if (recommendationController.radioButtonSelectedValue.value ==
+                    null &&
+                    recommendationController.checkboxSelectedValues.isEmpty &&
+                   recommendationController.ageController.text == '') {
+                  AppHelperFunctions.showToast('Please select an answer');
+                  return;
+                }
+                onTapNext();
+              },
               child: Container(
                 alignment: Alignment.center,
                 height: 50,

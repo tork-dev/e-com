@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:torganic/src/features/purchase_history/model/purchase_history_model.dart';
-import 'package:torganic/src/features/purchase_history/repositories/purchase_history_repositories.dart';
+import 'package:kirei/src/features/purchase_history/model/purchase_history_model.dart';
+import 'package:kirei/src/features/purchase_history/repositories/purchase_history_repositories.dart';
 
 import '../model/order_re_order_model.dart';
 

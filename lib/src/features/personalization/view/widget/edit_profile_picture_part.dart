@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/personalization/controller/account_details_controller.dart';
+import 'package:kirei/src/features/personalization/controller/account_details_controller.dart';
 
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';

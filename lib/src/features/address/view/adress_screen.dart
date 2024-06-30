@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
-import 'package:torganic/src/features/address/controller/address_controller.dart';
-import 'package:torganic/src/features/address/view/widgets/all_address_fields.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:kirei/src/features/address/controller/address_controller.dart';
+import 'package:kirei/src/features/address/view/widgets/all_address_fields.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 import '../../../common/widgets/buttons/app_buttons.dart';
 

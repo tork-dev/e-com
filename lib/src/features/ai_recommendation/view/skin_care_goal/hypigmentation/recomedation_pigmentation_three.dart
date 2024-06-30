@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/ai_recommendation/controller/recommendation_controller.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_five.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_two.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_five.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_two.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/anti_aging/recomedation_anti_aging_two.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_five.dart';
+import 'package:kirei/src/features/ai_recommendation/view/widgets/checkbox_question_image_widget.dart';
+import 'package:kirei/src/features/ai_recommendation/view/widgets/radio_question_image_widget.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../question_and_value.dart';
+import '../../recommended_products.dart';
 import '../../widgets/button_row.dart';
 import '../../widgets/circular_progress_section.dart';
 import '../../widgets/linear_progress_section.dart';
 import '../../widgets/radio_question_widget.dart';
 
-class RecommendationAcneFour extends StatelessWidget {
-  const RecommendationAcneFour({super.key});
+
+class RecommendationPigmentationThree extends StatelessWidget {
+  const RecommendationPigmentationThree({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,7 @@ class RecommendationAcneFour extends StatelessWidget {
                   ),
                   const CircularProgressSection(
                     title: '2. Skincare Goal',
-                    circlePercent: 4/5,
+                    circlePercent: 3/3,
                     isNotActive: false,
                   )
                 ],
@@ -62,23 +66,27 @@ class RecommendationAcneFour extends StatelessWidget {
             ),
             const Gap(AppSizes.md),
             const LinearProgressSection(
-              linearPercent: 4/5,
-              linearPercentString: '4/5',
+              linearPercent: 3/3,
+              linearPercentString: '3/3',
             ),
             const Gap(AppSizes.md),
-            RadioQuestionWidget(
+            CheckBoxQuestionImageWidget(
               question: QuestionAndValues().recommendationQuestionAndAns[
-                  "related_questions_based_on_primary_concern"]["acne"]["questions"][3]["question"],
+                  "related_questions_based_on_primary_concern"]["hypigmentation"]["questions"][2]["question"],
               option: QuestionAndValues().recommendationQuestionAndAns[
-                  "related_questions_based_on_primary_concern"]["acne"]["questions"][3]["options"],
+                  "related_questions_based_on_primary_concern"]["hypigmentation"]["questions"][2]["options"],
+              images: QuestionAndValues().recommendationQuestionAndAns[
+                  "related_questions_based_on_primary_concern"]["hypigmentation"]["questions"][2]["images"],
             ),
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.acneFourSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value).toLowerCase();
-                print(recommendationController.acneFourSelected);
-                Get.to(()=> const RecommendationAcneFive());
-                recommendationController.setRadioButtonValue(0);
+                recommendationController.pigmentationThreeSelected = recommendationController.checkboxSelectedValues
+                    .map((index) => String.fromCharCode(65 + index as int).toLowerCase())
+                    .toList();
+                recommendationController.sendData();
+                recommendationController.resetValues();
+                Get.to(()=> const RecommendedProducts());
               },
             )
           ],

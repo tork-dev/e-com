@@ -1,8 +1,8 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-// import 'package:torganic/src/features/home/views/product_page.dart';
-// import 'package:torganic/src/features/authentication/views/log_in/widgets/login_forms&button.dart';
+// import 'package:kirei/src/features/home/views/product_page.dart';
+// import 'package:kirei/src/features/authentication/views/log_in/widgets/login_forms&button.dart';
 //
 //
 // PersistentTabController _controller = PersistentTabController(initialIndex: 0);

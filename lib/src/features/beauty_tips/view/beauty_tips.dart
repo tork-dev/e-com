@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
-import 'package:torganic/src/common/widgets/containers/banner_image.dart';
-import 'package:torganic/src/features/beauty_tips/controller/beauty_tips_controller.dart';
-import 'package:torganic/src/features/web_view/web_view.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/image_strings.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/device/device_utility.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
+import 'package:kirei/src/features/beauty_tips/controller/beauty_tips_controller.dart';
+import 'package:kirei/src/features/web_view/web_view.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class BeautyTipsScreen extends StatelessWidget {
   const BeautyTipsScreen({super.key});

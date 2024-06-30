@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/cart/controllers/cart_controller.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../features/details/view/details.dart';
 import '../../../features/home/controller/home_controller.dart';
@@ -77,7 +77,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     isNetworkImage: true,
                     isDiscountAvailable: sectionName![index].discount != 0,
                     discount: sectionName![index].discount!,
-              buttonColor: sectionName![index].requestAvailable == 0 ? AppColors.white : AppColors.secondary,
+              buttonColor: AppColors.white,
                   )));
   }
 }

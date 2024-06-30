@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
-import 'package:torganic/src/common/styles/skeleton_style.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/bottom_navigation/convex_controller.dart';
-import 'package:torganic/src/features/purchase_history/controller/purchase_history_controller.dart';
-import 'package:torganic/src/features/purchase_history/view/purchase_history_details.dart';
-import 'package:torganic/src/features/purchase_history/view/widget/payment_status_indicator.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
+import 'package:kirei/src/features/purchase_history/view/purchase_history_details.dart';
+import 'package:kirei/src/features/purchase_history/view/widget/payment_status_indicator.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppPurchaseHistoryCard extends StatelessWidget {
   const AppPurchaseHistoryCard({super.key});

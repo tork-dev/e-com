@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/ai_recommendation/controller/recommendation_controller.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_two.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/anti_aging/recomedation_anti_aging_one.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_five.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/features/ai_recommendation/view/recommended_products.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_two.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/anti_aging/recomedation_anti_aging_one.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_five.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../question_and_value.dart';
 import '../../widgets/button_row.dart';
@@ -75,10 +76,11 @@ class RecommendationAcneFive extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.acneFiveSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value).toLowerCase();
+                recommendationController.acneFiveSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 print(recommendationController.acneFiveSelected);
-                Get.to(()=> const RecommendationAntiAgingOne());
-                recommendationController.setRadioButtonValue(0);
+                recommendationController.sendData();
+                recommendationController.resetValues();
+                Get.to(()=> const RecommendedProducts());
               },
             )
           ],

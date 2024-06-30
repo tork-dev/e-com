@@ -22,10 +22,13 @@ class RadioQuestionWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          question,
-          style: Theme.of(context).textTheme.headlineMedium,
-          textAlign: TextAlign.center,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            question,
+            style: Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.center,
+          ),
         ),
         const Gap(AppSizes.md),
         ListView.builder(
@@ -50,6 +53,7 @@ class RadioQuestionWidget extends StatelessWidget {
                             groupValue: recommendationController.radioButtonSelectedValue.value,
                             onChanged: (value) {
                               recommendationController.setRadioButtonValue(value!);
+                              print(recommendationController.radioButtonSelectedValue);
                             });
                       }
                       ),

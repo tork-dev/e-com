@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:torganic/src/features/address/model/address_city_model.dart';
-import 'package:torganic/src/features/address/model/address_create_model.dart';
-import 'package:torganic/src/features/address/model/address_model.dart';
-import 'package:torganic/src/features/address/model/area_response.dart';
-import 'package:torganic/src/features/address/model/zone_response.dart';
-import 'package:torganic/src/features/address/repositories/address_repositories.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/features/address/model/address_city_model.dart';
+import 'package:kirei/src/features/address/model/address_create_model.dart';
+import 'package:kirei/src/features/address/model/address_model.dart';
+import 'package:kirei/src/features/address/model/area_response.dart';
+import 'package:kirei/src/features/address/model/zone_response.dart';
+import 'package:kirei/src/features/address/repositories/address_repositories.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AddressController extends GetxController {
   static AddressController get instance => Get.find();

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
-import 'package:torganic/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
-import 'package:torganic/src/features/community/controller/community_controller.dart';
-import 'package:torganic/src/features/community/view/widget/community_header.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:kirei/src/features/community/controller/community_controller.dart';
+import 'package:kirei/src/features/community/view/widget/community_header.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 import 'widget/community_post_card.dart';
 

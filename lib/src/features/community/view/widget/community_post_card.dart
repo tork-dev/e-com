@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/listview_layout/listview_layout.dart';
-import 'package:torganic/src/common/styles/skeleton_style.dart';
-import 'package:torganic/src/features/community/controller/community_controller.dart';
+import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/features/community/controller/community_controller.dart';
 
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';

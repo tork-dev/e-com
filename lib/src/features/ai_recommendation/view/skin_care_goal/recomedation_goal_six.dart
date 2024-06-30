@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/ai_recommendation/controller/recommendation_controller.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_one.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_seven.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_one.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/anti_aging/recomedation_anti_aging_one.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/blackheads/recomedation_black_heads_one.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/dehydration/recomedation_dehydration_one.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/dullness/recomedation_dullness_one.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/hypigmentation/recomedation_pigmentaion_one.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_seven.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
@@ -74,10 +79,22 @@ class RecommendationGoalSix extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.selectedDamaged = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value).toLowerCase();
+                if(recommendationController.skinCareConcern[0] == 'a'){
+                  Get.to(()=> const RecommendationAcneOne());
+                }else if(recommendationController.skinCareConcern[0] == 'b'){
+                  Get.to(()=> const RecommendationAntiAgingOne());
+                }else if(recommendationController.skinCareConcern[0] == 'c'){
+                  Get.to(()=> const RecommendationBlackHeadsOne());
+                }else if(recommendationController.skinCareConcern[0] == 'd'){
+                  Get.to(()=> const RecommendationPigmentationOne());
+                }else if(recommendationController.skinCareConcern[0] == 'e'){
+                  Get.to(()=> const RecommendationDullnessOne());
+                }else if(recommendationController.skinCareConcern[0] == 'f'){
+                  Get.to(()=> const RecommendationDehydrationOne());
+                }
+                recommendationController.selectedDamaged = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 print(recommendationController.selectedDamaged);
-                Get.to(()=> const RecommendationAcneOne());
-                recommendationController.setRadioButtonValue(0);
+                recommendationController.resetValues();
               },
             )
           ],

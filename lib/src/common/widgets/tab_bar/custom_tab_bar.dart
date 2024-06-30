@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/device/device_utility.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppTabBar extends StatelessWidget implements PreferredSizeWidget {
   const AppTabBar({required this.tabs, super.key});

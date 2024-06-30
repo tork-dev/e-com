@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import '../model/shop_data_model.dart';
 import '../model/skin_type_model.dart';

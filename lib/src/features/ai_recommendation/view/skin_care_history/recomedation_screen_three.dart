@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/ai_recommendation/controller/recommendation_controller.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_four.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_two.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_five.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_four.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_two.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
@@ -20,7 +21,7 @@ class SkinCareHistoryThree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController ageController = TextEditingController();
+
     RecommendationController recommendationController =
         Get.put(RecommendationController());
     return AppLayoutWithBackButton(
@@ -74,10 +75,10 @@ class SkinCareHistoryThree extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextFormField(
-                controller: ageController,
-                onChanged: (value){
-                  print('age' +ageController.text);
-                },
+                controller: recommendationController.ageController,
+                // onChanged: (value){
+                //   print('age' +ageController.text);
+                // },
                 decoration: InputDecoration(
                   enabledBorder:  OutlineInputBorder(
                       borderRadius: BorderRadius.zero,
@@ -93,10 +94,14 @@ class SkinCareHistoryThree extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.selectedAlergy = ageController.text.toLowerCase();
+                recommendationController.selectedAlergy = recommendationController.ageController.text.toLowerCase();
                 print(recommendationController.selectedAlergy);
+                if(recommendationController.selectedGender == 'a'){
+                  Get.to(()=> const SkinCareHistoryFive());
+                  return;
+                }
                 Get.to(()=> const SkinCareHistoryFour());
-                recommendationController.setRadioButtonValue(0);
+                recommendationController.resetValues();
               },
             )
           ],

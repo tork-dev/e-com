@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/address/view/adress_screen.dart';
-import 'package:torganic/src/features/personalization/view/account_details.dart';
-import 'package:torganic/src/features/purchase_history/view/purchace_history.dart';
-import 'package:torganic/src/features/wishlist/view/wishlist.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/features/address/view/adress_screen.dart';
+import 'package:kirei/src/features/personalization/view/account_details.dart';
+import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
+import 'package:kirei/src/features/wishlist/view/wishlist.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 import 'details_card.dart';
 

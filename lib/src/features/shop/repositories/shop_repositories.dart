@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/features/shop/model/sub_category_model.dart';
+import 'package:kirei/src/features/shop/model/sub_category_model.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../model/shop_data_model.dart';
 import '../model/skin_type_model.dart';

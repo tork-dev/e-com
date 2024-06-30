@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/ai_recommendation/controller/recommendation_controller.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_two.dart';
-import 'package:torganic/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_two.dart';
-import 'package:torganic/src/features/ai_recommendation/view/widgets/checkbox_question_widget.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_two.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_two.dart';
+import 'package:kirei/src/features/ai_recommendation/view/widgets/checkbox_question_widget.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
@@ -80,9 +80,10 @@ class RecommendationGoalOne extends StatelessWidget {
                     .toList();
                 print(recommendationController.selectedAge);
                 Get.to(()=> const RecommendationGoalTwo());
-                recommendationController.checkboxSelectedValues.value = [];
+                recommendationController.resetValues();
               },
-            )
+            ),
+            const Gap(AppSizes.defaultSpace)
           ],
         ));
   }

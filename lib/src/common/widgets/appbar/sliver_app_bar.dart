@@ -1,11 +1,11 @@
 //
 // import 'package:flutter/material.dart';
 // import 'package:gap/gap.dart';
-// import 'package:torganic/src/common/styles/spacing_style.dart';
-// import 'package:torganic/src/common/widgets/appbar/custom_app_bar.dart';
-// import 'package:torganic/src/common/widgets/search_bar/search_bar.dart';
-// import 'package:torganic/src/common/widgets/tab_bar/custom_tab_bar.dart';
-// import 'package:torganic/src/utils/constants/sizes.dart';
+// import 'package:kirei/src/common/styles/spacing_style.dart';
+// import 'package:kirei/src/common/widgets/appbar/custom_app_bar.dart';
+// import 'package:kirei/src/common/widgets/search_bar/search_bar.dart';
+// import 'package:kirei/src/common/widgets/tab_bar/custom_tab_bar.dart';
+// import 'package:kirei/src/utils/constants/sizes.dart';
 //
 // class SliverAppBarTest extends StatelessWidget {
 //   const SliverAppBarTest({super.key});

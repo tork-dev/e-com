@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:torganic/src/features/checkout/model/checkout_summary_respopnse.dart';
-import 'package:torganic/src/features/checkout/model/coupon_remove_model.dart';
-import 'package:torganic/src/features/checkout/model/order_create_model.dart';
-import 'package:torganic/src/features/checkout/model/payment_types_model.dart';
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
+import 'package:kirei/src/features/checkout/model/coupon_remove_model.dart';
+import 'package:kirei/src/features/checkout/model/order_create_model.dart';
+import 'package:kirei/src/features/checkout/model/payment_types_model.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
-import 'package:torganic/src/utils/local_storage/local_storage_keys.dart';
-import 'package:torganic/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../model/coupon_apply_model.dart';
 

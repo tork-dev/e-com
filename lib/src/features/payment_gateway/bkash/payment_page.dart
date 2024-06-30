@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bkash/flutter_bkash.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
-import 'package:torganic/src/features/payment_gateway/controllers/payment_controllers.dart';
-import 'package:torganic/src/features/payment_gateway/stripe/repository/stripe_repository.dart';
-import 'package:torganic/src/utils/constants/image_strings.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
-import 'package:torganic/src/utils/popups/full_screen_loader.dart';
+import 'package:kirei/src/features/bottom_navigation/bottom_navigation.dart';
+import 'package:kirei/src/features/payment_gateway/controllers/payment_controllers.dart';
+import 'package:kirei/src/features/payment_gateway/stripe/repository/stripe_repository.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/popups/full_screen_loader.dart';
 import 'widget/packageCard.dart';
 
 class Payment extends StatelessWidget {

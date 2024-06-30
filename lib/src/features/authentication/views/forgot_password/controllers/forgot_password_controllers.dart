@@ -1,13 +1,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/authentication/views/forgot_password/repository/forgot_password_repository.dart';
-import 'package:torganic/src/features/authentication/views/forgot_password/view/otp.dart';
-import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
-import 'package:torganic/src/features/home/views/home.dart';
-import 'package:torganic/src/utils/constants/image_strings.dart';
-import 'package:torganic/src/utils/helpers/network_manager.dart';
-import 'package:torganic/src/utils/popups/loaders.dart';
+import 'package:kirei/src/features/authentication/views/forgot_password/repository/forgot_password_repository.dart';
+import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
+import 'package:kirei/src/features/bottom_navigation/bottom_navigation.dart';
+import 'package:kirei/src/features/home/views/home.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/helpers/network_manager.dart';
+import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../utils/popups/full_screen_loader.dart';
 import '../model/forgot_password_reponse.dart';

@@ -35,6 +35,7 @@ class AppApiEndPoints {
   static String productDetails = "$baseUrl/products/details/";
   static String relatedProduct = "$baseUrl/gigalogy/related-products/";
   static String recommendedProduct = "$baseUrl/gigalogy/users/search/recommend?gaip_user_id=";
+  static String trendingProduct = "$baseUrl/gigalogy/items/trending?gaip_user_id=";
 
   ///Carts
   static String addToCart = "$baseUrl/carts/add";

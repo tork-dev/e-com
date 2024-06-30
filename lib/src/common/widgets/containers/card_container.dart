@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/common/styles/skeleton_style.dart';
-import 'package:torganic/src/common/widgets/containers/card_container.dart';
-import 'package:torganic/src/features/checkout/controller/checkout_controller.dart';
-import 'package:torganic/src/features/purchase_history/view/widget/summary_text_widget.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/checkout/controller/checkout_controller.dart';
+import 'package:kirei/src/features/purchase_history/view/widget/summary_text_widget.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 class AppCheckoutSummary extends StatelessWidget {
   const AppCheckoutSummary({super.key});

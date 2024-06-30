@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/common/styles/app_dividers.dart';
-import 'package:torganic/src/features/purchase_history/controller/purchase_history_details_controller.dart';
+import 'package:kirei/src/common/styles/app_dividers.dart';
+import 'package:kirei/src/features/purchase_history/controller/purchase_history_details_controller.dart';
 
 class AppOrderStatusDetailsSection extends StatelessWidget {
   const AppOrderStatusDetailsSection({super.key, required this.title, required this.subTitle});

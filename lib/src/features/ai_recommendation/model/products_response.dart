@@ -1,5 +1,51 @@
 import 'dart:convert';
 
+class RecommendationProductResponse {
+  bool? result;
+  List<ProductType>? data;
+
+  RecommendationProductResponse({this.result, this.data});
+
+  factory RecommendationProductResponse.fromJson(Map<String, dynamic> json) {
+    return RecommendationProductResponse(
+      result: json['result'] as bool?,
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => ProductType.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'result': result,
+      'data': data?.map((e) => e.toJson()).toList(),
+    };
+  }
+}
+
+class ProductType {
+  String? type;
+  List<Product>? products;
+
+  ProductType({this.type, this.products});
+
+  factory ProductType.fromJson(Map<String, dynamic> json) {
+    return ProductType(
+      type: json['type'] as String?,
+      products: (json['products'] as List<dynamic>?)
+          ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'products': products?.map((e) => e.toJson()).toList(),
+    };
+  }
+}
+
 class Product {
   int? id;
   String? name;
@@ -99,17 +145,17 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      name: json['name'],
-      slug: json['slug'],
-      price: json['price'],
-      salePrice: json['sale_price'],
-      discount: json['discount'],
-      sku: json['sku'],
-      stock: json['stock'],
-      shortDescription: json['short_description'],
-      description: json['description'],
-      guide: json['guide'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      price: json['price'] as int?,
+      salePrice: json['sale_price'] as int?,
+      discount: json['discount'] as int?,
+      sku: json['sku'] as String?,
+      stock: json['stock'] as int?,
+      shortDescription: json['short_description'] as String?,
+      description: json['description'] as String?,
+      guide: json['guide'] as String?,
       skinTypes: (json['skin_types'] as List<dynamic>?)
           ?.map((e) => SkinType.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -119,24 +165,24 @@ class Product {
       goodFor: (json['good_for'] as List<dynamic>?)
           ?.map((e) => GoodFor.fromJson(e as Map<String, dynamic>))
           .toList(),
-      preorderAvailable: json['preorder_available'],
-      preorderDeliveryDate: json['preorder_delivery_date'],
-      preorderAmount: json['preorder_amount'],
-      preorderStartDate: json['preorder_start_date'],
-      preorderEndDate: json['preorder_end_date'],
-      saleCount: json['sale_count'],
+      preorderAvailable: json['preorder_available'] as int?,
+      preorderDeliveryDate: json['preorder_delivery_date'] as String?,
+      preorderAmount: json['preorder_amount'] as int?,
+      preorderStartDate: json['preorder_start_date'] as String?,
+      preorderEndDate: json['preorder_end_date'] as String?,
+      saleCount: json['sale_count'] as int?,
       ratings: json['ratings'],
-      reviews: json['reviews'],
-      isHot: json['is_hot'],
-      isSale: json['is_sale'],
-      isNew: json['is_new'],
-      isOutOfStock: json['is_out_of_stock'],
-      releaseDate: json['release_date'],
-      developer: json['developer'],
-      publisher: json['publisher'],
-      gameMode: json['game_mode'],
-      rated: json['rated'],
-      until: json['until'],
+      reviews: json['reviews'] as int?,
+      isHot: json['is_hot'] as int?,
+      isSale: json['is_sale'] as bool?,
+      isNew: json['is_new'] as int?,
+      isOutOfStock: json['is_out_of_stock'] as bool?,
+      releaseDate: json['release_date'] as String?,
+      developer: json['developer'] as String?,
+      publisher: json['publisher'] as String?,
+      gameMode: json['game_mode'] as String?,
+      rated: json['rated'] as String?,
+      until: json['until'] as String?,
       productCategories: (json['product_categories'] as List<dynamic>?)
           ?.map((e) => ProductCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -146,7 +192,7 @@ class Product {
       productTags: (json['product_tags'] as List<dynamic>?)
           ?.map((e) => ProductTag.fromJson(e as Map<String, dynamic>))
           .toList(),
-      onlyTags: json['only_tags'],
+      onlyTags: json['only_tags'] as String?,
       pictures: (json['pictures'] as List<dynamic>?)
           ?.map((e) => Picture.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -156,13 +202,15 @@ class Product {
       smallPictures: (json['small_pictures'] as List<dynamic>?)
           ?.map((e) => Picture.fromJson(e as Map<String, dynamic>))
           .toList(),
-      // variants: (json['variants'] as List<dynamic>).map((e) => Variant.fromJson(e as Map<String, dynamic>)).toList(),
-      isCouponApplicable: json['is_coupon_applicable'],
-      metaImage: json['meta_image'],
-      metaTitle: json['meta_title'],
-      metaDescription: json['meta_description'],
-      metaTags: json['meta_tags'],
-      productLink: json['product_link'],
+      //variants: (json['variants'] as List<dynamic>?)
+      //    ?.map((e) => Variant.fromJson(e as Map<String, dynamic>))
+      //    .toList(),
+      isCouponApplicable: json['is_coupon_applicable'] as int?,
+      metaImage: json['meta_image'] as String?,
+      metaTitle: json['meta_title'] as String?,
+      metaDescription: json['meta_description'] as String?,
+      metaTags: json['meta_tags'] as String?,
+      productLink: json['product_link'] as String?,
     );
   }
 
@@ -207,7 +255,7 @@ class Product {
       'pictures': pictures?.map((e) => e.toJson()).toList(),
       'large_pictures': largePictures?.map((e) => e.toJson()).toList(),
       'small_pictures': smallPictures?.map((e) => e.toJson()).toList(),
-      //'variants': variants.map((e) => e.toJson()).toList(),
+      'variants': variants?.map((e) => e.toJson()).toList(),
       'is_coupon_applicable': isCouponApplicable,
       'meta_image': metaImage,
       'meta_title': metaTitle,
@@ -221,16 +269,19 @@ class Product {
 class SkinType {
   int? id;
   String? name;
+  String? slug;
+  String? description;
+  int? isSelected;
 
-  SkinType({
-    this.id,
-    this.name,
-  });
+  SkinType({this.id, this.name, this.slug, this.description, this.isSelected});
 
   factory SkinType.fromJson(Map<String, dynamic> json) {
     return SkinType(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      description: json['description'] as String?,
+      isSelected: json['is_selected'] as int?,
     );
   }
 
@@ -238,6 +289,9 @@ class SkinType {
     return {
       'id': id,
       'name': name,
+      'slug': slug,
+      'description': description,
+      'is_selected': isSelected,
     };
   }
 }
@@ -245,16 +299,19 @@ class SkinType {
 class KeyIngredient {
   int? id;
   String? name;
+  String? slug;
+  String? description;
+  int? isSelected;
 
-  KeyIngredient({
-    this.id,
-    this.name,
-  });
+  KeyIngredient({this.id, this.name, this.slug, this.description, this.isSelected});
 
   factory KeyIngredient.fromJson(Map<String, dynamic> json) {
     return KeyIngredient(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      description: json['description'] as String?,
+      isSelected: json['is_selected'] as int?,
     );
   }
 
@@ -262,6 +319,9 @@ class KeyIngredient {
     return {
       'id': id,
       'name': name,
+      'slug': slug,
+      'description': description,
+      'is_selected': isSelected,
     };
   }
 }
@@ -269,16 +329,19 @@ class KeyIngredient {
 class GoodFor {
   int? id;
   String? name;
+  String? slug;
+  String? description;
+  int? isSelected;
 
-  GoodFor({
-    this.id,
-    this.name,
-  });
+  GoodFor({this.id, this.name, this.slug, this.description, this.isSelected});
 
   factory GoodFor.fromJson(Map<String, dynamic> json) {
     return GoodFor(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      description: json['description'] as String?,
+      isSelected: json['is_selected'] as int?,
     );
   }
 
@@ -286,6 +349,9 @@ class GoodFor {
     return {
       'id': id,
       'name': name,
+      'slug': slug,
+      'description': description,
+      'is_selected': isSelected,
     };
   }
 }
@@ -293,16 +359,19 @@ class GoodFor {
 class ProductCategory {
   int? id;
   String? name;
+  String? slug;
+  String? image;
+  String? description;
 
-  ProductCategory({
-    this.id,
-    this.name,
-  });
+  ProductCategory({this.id, this.name, this.slug, this.image, this.description});
 
   factory ProductCategory.fromJson(Map<String, dynamic> json) {
     return ProductCategory(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      image: json['image'] as String?,
+      description: json['description'] as String?,
     );
   }
 
@@ -310,6 +379,9 @@ class ProductCategory {
     return {
       'id': id,
       'name': name,
+      'slug': slug,
+      'image': image,
+      'description': description,
     };
   }
 }
@@ -317,16 +389,19 @@ class ProductCategory {
 class ProductBrand {
   int? id;
   String? name;
+  String? slug;
+  String? image;
+  String? description;
 
-  ProductBrand({
-    this.id,
-    this.name,
-  });
+  ProductBrand({this.id, this.name, this.slug, this.image, this.description});
 
   factory ProductBrand.fromJson(Map<String, dynamic> json) {
     return ProductBrand(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      image: json['image'] as String?,
+      description: json['description'] as String?,
     );
   }
 
@@ -334,6 +409,9 @@ class ProductBrand {
     return {
       'id': id,
       'name': name,
+      'slug': slug,
+      'image': image,
+      'description': description,
     };
   }
 }
@@ -341,16 +419,17 @@ class ProductBrand {
 class ProductTag {
   int? id;
   String? name;
+  String? slug;
+  String? description;
 
-  ProductTag({
-    this.id,
-    this.name,
-  });
+  ProductTag({this.id, this.name, this.slug, this.description});
 
   factory ProductTag.fromJson(Map<String, dynamic> json) {
     return ProductTag(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      description: json['description'] as String?,
     );
   }
 
@@ -358,30 +437,29 @@ class ProductTag {
     return {
       'id': id,
       'name': name,
+      'slug': slug,
+      'description': description,
     };
   }
 }
 
 class Picture {
   int? id;
-  String? url;
+  String? image;
 
-  Picture({
-    this.id,
-    this.url,
-  });
+  Picture({this.id, this.image});
 
   factory Picture.fromJson(Map<String, dynamic> json) {
     return Picture(
-      id: json['id'],
-      url: json['url'],
+      id: json['id'] as int?,
+      image: json['image'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'url': url,
+      'image': image,
     };
   }
 }
@@ -389,16 +467,39 @@ class Picture {
 class Variant {
   int? id;
   String? name;
+  String? slug;
+  int? price;
+  int? salePrice;
+  int? discount;
+  String? sku;
+  int? stock;
+  List<VariantOption>? variantOptions;
 
   Variant({
     this.id,
     this.name,
+    this.slug,
+    this.price,
+    this.salePrice,
+    this.discount,
+    this.sku,
+    this.stock,
+    this.variantOptions,
   });
 
   factory Variant.fromJson(Map<String, dynamic> json) {
     return Variant(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      slug: json['slug'] as String?,
+      price: json['price'] as int?,
+      salePrice: json['sale_price'] as int?,
+      discount: json['discount'] as int?,
+      sku: json['sku'] as String?,
+      stock: json['stock'] as int?,
+      variantOptions: (json['variant_options'] as List<dynamic>?)
+          ?.map((e) => VariantOption.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 
@@ -406,6 +507,37 @@ class Variant {
     return {
       'id': id,
       'name': name,
+      'slug': slug,
+      'price': price,
+      'sale_price': salePrice,
+      'discount': discount,
+      'sku': sku,
+      'stock': stock,
+      'variant_options': variantOptions?.map((e) => e.toJson()).toList(),
+    };
+  }
+}
+
+class VariantOption {
+  int? id;
+  String? name;
+  int? isSelected;
+
+  VariantOption({this.id, this.name, this.isSelected});
+
+  factory VariantOption.fromJson(Map<String, dynamic> json) {
+    return VariantOption(
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      isSelected: json['is_selected'] as int?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'is_selected': isSelected,
     };
   }
 }

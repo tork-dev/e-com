@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:torganic/src/features/wishlist/model/wishlist_model.dart';
-import 'package:torganic/src/features/wishlist/model/wishlist_remove_model.dart';
-import 'package:torganic/src/features/wishlist/repositories/wishlist_repositories.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/features/wishlist/model/wishlist_model.dart';
+import 'package:kirei/src/features/wishlist/model/wishlist_remove_model.dart';
+import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class WishlistController extends GetxController {
   static WishlistController get instance => Get.find();

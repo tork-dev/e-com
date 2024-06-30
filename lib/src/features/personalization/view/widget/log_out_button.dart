@@ -1,8 +1,8 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/bottom_navigation/convex-bottom_navigation.dart';
-import 'package:torganic/src/utils/helpers/auth_helper.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import '../../../../utils/constants/colors.dart';
 
 

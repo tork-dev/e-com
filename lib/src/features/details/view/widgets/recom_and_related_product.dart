@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/features/details/controller/details_page_controller.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
+import 'package:kirei/src/features/details/controller/details_page_controller.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/containers/horizontal_scroll_product_card.dart';
 import '../../../../common/widgets/texts/section_title_text.dart';

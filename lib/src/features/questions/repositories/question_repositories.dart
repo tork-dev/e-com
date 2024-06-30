@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:torganic/src/utils/constants/app_api_end_points.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
 import '../model/question_submit_model.dart';
 import '../model/questions_model.dart';
