@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/home/model/search_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -20,6 +21,7 @@ class RecommendationController extends GetxController{
   TextEditingController ageController = TextEditingController();
   Rxn<int> radioButtonSelectedValue = Rxn<int>();
   RxList checkboxSelectedValues = <int>[].obs;
+  RxBool apiHitting = true.obs;
  // int get radioButtonSelectedValue => _radioButtonSelectedValue;
   Rx<RecommendationProductResponse> productResponse = RecommendationProductResponse().obs;
 
@@ -103,7 +105,7 @@ class RecommendationController extends GetxController{
 
 
   Future<void> onRefresh()async {
-    return print('refresh');
+    sendData();
   }
 
 
@@ -170,6 +172,7 @@ class RecommendationController extends GetxController{
 
 
   Future<RecommendationProductResponse> sendData() async {
+    apiHitting.value = true;
     // Replace this with your API endpoint
     String url = 'https://app.kireibd.com/api/v2/gigalogy/questions/recommend';
 
@@ -190,8 +193,10 @@ class RecommendationController extends GetxController{
       // If the server returns a 200 OK response, parse the JSON
       var responseData = jsonDecode(response.body);
       print('Response data: $responseData');
+      apiHitting.value = false;
       return productResponse.value =  RecommendationProductResponse.fromJson(jsonDecode(response.body));
     } else {
+      apiHitting.value = false;
       // If the server did not return a 200 OK response, throw an exception
       throw Exception('Failed to send data');
     }

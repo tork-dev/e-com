@@ -15,12 +15,6 @@ class RecommendationProductResponse {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'result': result,
-      'data': data?.map((e) => e.toJson()).toList(),
-    };
-  }
 }
 
 class ProductType {
@@ -38,12 +32,6 @@ class ProductType {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'type': type,
-      'products': products?.map((e) => e.toJson()).toList(),
-    };
-  }
 }
 
 class Product {
@@ -62,6 +50,7 @@ class Product {
   List<KeyIngredient>? keyIngredients;
   List<GoodFor>? goodFor;
   int? preorderAvailable;
+  int? requestAvailable;
   String? preorderDeliveryDate;
   int? preorderAmount;
   String? preorderStartDate;
@@ -110,6 +99,7 @@ class Product {
     this.keyIngredients,
     this.goodFor,
     this.preorderAvailable,
+    this.requestAvailable,
     this.preorderDeliveryDate,
     this.preorderAmount,
     this.preorderStartDate,
@@ -166,6 +156,7 @@ class Product {
           ?.map((e) => GoodFor.fromJson(e as Map<String, dynamic>))
           .toList(),
       preorderAvailable: json['preorder_available'] as int?,
+      requestAvailable: json['request_available'] as int?,
       preorderDeliveryDate: json['preorder_delivery_date'] as String?,
       preorderAmount: json['preorder_amount'] as int?,
       preorderStartDate: json['preorder_start_date'] as String?,
@@ -214,56 +205,6 @@ class Product {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'slug': slug,
-      'price': price,
-      'sale_price': salePrice,
-      'discount': discount,
-      'sku': sku,
-      'stock': stock,
-      'short_description': shortDescription,
-      'description': description,
-      'guide': guide,
-      'skin_types': skinTypes?.map((e) => e.toJson()).toList(),
-      'key_ingredients': keyIngredients?.map((e) => e.toJson()).toList(),
-      'good_for': goodFor?.map((e) => e.toJson()).toList(),
-      'preorder_available': preorderAvailable,
-      'preorder_delivery_date': preorderDeliveryDate,
-      'preorder_amount': preorderAmount,
-      'preorder_start_date': preorderStartDate,
-      'preorder_end_date': preorderEndDate,
-      'sale_count': saleCount,
-      'ratings': ratings,
-      'reviews': reviews,
-      'is_hot': isHot,
-      'is_sale': isSale,
-      'is_new': isNew,
-      'is_out_of_stock': isOutOfStock,
-      'release_date': releaseDate,
-      'developer': developer,
-      'publisher': publisher,
-      'game_mode': gameMode,
-      'rated': rated,
-      'until': until,
-      'product_categories': productCategories?.map((e) => e.toJson()).toList(),
-      'product_brands': productBrands?.map((e) => e.toJson()).toList(),
-      'product_tags': productTags?.map((e) => e.toJson()).toList(),
-      'only_tags': onlyTags,
-      'pictures': pictures?.map((e) => e.toJson()).toList(),
-      'large_pictures': largePictures?.map((e) => e.toJson()).toList(),
-      'small_pictures': smallPictures?.map((e) => e.toJson()).toList(),
-      'variants': variants?.map((e) => e.toJson()).toList(),
-      'is_coupon_applicable': isCouponApplicable,
-      'meta_image': metaImage,
-      'meta_title': metaTitle,
-      'meta_description': metaDescription,
-      'meta_tags': metaTags,
-      'product_link': productLink,
-    };
-  }
 }
 
 class SkinType {
@@ -444,23 +385,22 @@ class ProductTag {
 }
 
 class Picture {
-  int? id;
-  String? image;
+  String? url;
+  int? width;
+  int? height;
 
-  Picture({this.id, this.image});
+  Picture({
+    this.url,
+    this.width,
+    this.height,
+  });
 
   factory Picture.fromJson(Map<String, dynamic> json) {
     return Picture(
-      id: json['id'] as int?,
-      image: json['image'] as String?,
+      url: json['url'],
+      width: json['width'],
+      height: json['height'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'image': image,
-    };
   }
 }
 

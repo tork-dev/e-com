@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'dart:convert';
 import '../../../personalization/model/user_by_token_model.dart';
 import '../../model/confirm_code_model.dart';
@@ -11,6 +12,7 @@ import '../../model/password_confirm_model.dart';
 import '../../model/password_forgot_model.dart';
 import '../../model/resend_code_model.dart';
 import '../../model/signup_model.dart';
+import '../../views/log_in/model/login_response.dart';
 
 class AuthRepository extends GetxController {
   // Future<LoginResponse> loginWithEmail(String email, String password,
@@ -53,9 +55,9 @@ class AuthRepository extends GetxController {
   //   return loginResponseFromJson(response.body);
   // }
 
-  static const String baseUrl = 'https://appbeta.kireibd.com/api/v2';
+  //static const String baseUrl = 'https://appbeta.kireibd.com/api/v2';
 
-  Future<LoginResponse> getSocialLoginResponse(
+  Future<AppLoginResponse> getSocialLoginResponse(
     String? socialProvider,
     String? name,
     String? email,
@@ -72,7 +74,7 @@ class AuthRepository extends GetxController {
       "access_token": "$accessToken"
     });
 
-    Uri url = Uri.parse("$baseUrl/auth/social-login");
+    Uri url = Uri.parse(AppApiEndPoints.socialSignIn);
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
@@ -80,11 +82,11 @@ class AuthRepository extends GetxController {
         },
         body: postBody);
     var responseBody = jsonDecode(response.body);
-    return LoginResponse.fromJson(responseBody);
+    return AppLoginResponse.fromJson(responseBody);
   }
 
   Future<LogoutResponse> getLogoutResponse() async {
-    Uri url = Uri.parse("$baseUrl/auth/logout");
+    Uri url = Uri.parse(AppApiEndPoints.socialLogOut);
     final response = await http.get(
       url,
       headers: {

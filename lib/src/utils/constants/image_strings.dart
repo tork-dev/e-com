@@ -13,8 +13,9 @@ class AppImages {
   static const String lightAppLogo2 = "assets/images/logos/splash_screen_logo_new.png";
 
   // -- Social Logos
-  static const String google = "assets/images/logos/google-icon.png";
+  static const String google = "assets/images/logos/google_logo.png";
   static const String facebook = "assets/images/logos/facebook.png";
+  static const String appleLogo = "assets/images/logos/apple_logo.png";
   static const String instagram = "assets/images/logos/instagram.png";
   static const String youtube = "assets/images/logos/youtube.png";
 
@@ -52,7 +53,6 @@ class AppImages {
   // -- Brand Icons
   static const String nikeLogo = "assets/icons/brands/nike.png";
   static const String adidasLogo = "assets/icons/brands/adidas-logo.png";
-  static const String appleLogo = "assets/icons/brands/apple-logo.png";
   static const String jordanLogo = "assets/icons/brands/jordan-logo.png";
   static const String pumaLogo = "assets/icons/brands/puma-logo.png";
   static const String zaraLogo = "assets/icons/brands/zara-logo.png";

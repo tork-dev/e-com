@@ -51,7 +51,7 @@ class CheckoutScreen extends StatelessWidget {
       ),
       body: Obx(() {
         return controller.isLoading.value
-            ? const Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator(color: AppColors.primary,))
             : AppLayoutWithRefresher(
                 onRefresh: controller.onRefresh,
                 children: [

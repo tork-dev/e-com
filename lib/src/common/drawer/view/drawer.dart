@@ -212,7 +212,15 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'ai recomendation',
-            onPress: () => Get.to(() => const SkinCareHistoryOne()),
+            onPress: () {
+              if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+                  Get.to(()=> const SkinCareHistoryOne());
+              }else{
+                AppHelperFunctions.showToast('Please login first');
+                Get.to(()=> const LogIn());
+              }
+            }
+
           ),
           AppDrawerCard(
             title: 'community',

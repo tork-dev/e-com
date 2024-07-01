@@ -8,8 +8,8 @@ class HeaderLogoPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      height: 100,
-      width: 100,
+      height: 70,
+      width: 70,
       child: Image(
         image: AssetImage(AppImages.darkAppLogo),
         width: AppSizes.imageThumbSize,

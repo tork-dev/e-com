@@ -2,6 +2,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../main.dart';
+import '../local_storage/local_storage_keys.dart';
+import '../local_storage/storage_utility.dart';
 
 
 class PushNotificationService {
@@ -11,19 +13,19 @@ class PushNotificationService {
   Future<void> initNotifications() async{
 
     await _firebaseMessaging.requestPermission(
-      alert: true,
-      sound: true,
-      announcement: true,
-      badge: true,
-      carPlay: true,
-      criticalAlert: true,
-      provisional: true
+        alert: true,
+        sound: true,
+        announcement: true,
+        badge: true,
+        carPlay: true,
+        criticalAlert: true,
+        provisional: true
     );
 
     final fCMToken = await _firebaseMessaging.getToken();
 
     print("FCM TOKEN is : ${fCMToken}");
-
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.fcmToken, fCMToken);
     initPushNotifications();
   }
 
@@ -34,8 +36,8 @@ class PushNotificationService {
     }
 
     navigatorKey.currentState?.pushNamed(
-      "/notification_screen",
-      arguments: message
+        "/notification_screen",
+        arguments: message
     );
   }
 
@@ -44,7 +46,7 @@ class PushNotificationService {
     FirebaseMessaging.instance.getInitialMessage().then(handelMessage);
 
     FirebaseMessaging.onMessageOpenedApp.listen(handelMessage);
-    
+
 
 
   }

@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -55,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBbNVkYTBw1Oyx8jrEisTx6PHvb1Ccycd8',
-    appId: '1:547850683072:android:9cec3b56148073a574e325',
+    appId: '1:547850683072:android:c466642af1f3a41c74e325',
     messagingSenderId: '547850683072',
     projectId: 'app-boilerplate-8f2ca',
     storageBucket: 'app-boilerplate-8f2ca.appspot.com',
@@ -63,19 +60,34 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA4iUBdrqe7hRTszKOZPyBrPcfbQQ-OUO4',
-    appId: '1:547850683072:ios:e69646f8e83a228a74e325',
+    appId: '1:547850683072:ios:897898b48a9505f774e325',
     messagingSenderId: '547850683072',
     projectId: 'app-boilerplate-8f2ca',
     storageBucket: 'app-boilerplate-8f2ca.appspot.com',
+    androidClientId: '547850683072-ghibuud3arbjkr27o5uhp4g1ev4s1quf.apps.googleusercontent.com',
+    iosClientId: '547850683072-qeq9v7uitbsie821ccfis7idkjpierpi.apps.googleusercontent.com',
     iosBundleId: 'com.thetork.kirei',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyA4iUBdrqe7hRTszKOZPyBrPcfbQQ-OUO4',
-    appId: '1:547850683072:ios:74eed50296745a8474e325',
+    appId: '1:547850683072:ios:897898b48a9505f774e325',
     messagingSenderId: '547850683072',
     projectId: 'app-boilerplate-8f2ca',
     storageBucket: 'app-boilerplate-8f2ca.appspot.com',
-    iosBundleId: 'com.thetork.kirei.RunnerTests',
+    androidClientId: '547850683072-ghibuud3arbjkr27o5uhp4g1ev4s1quf.apps.googleusercontent.com',
+    iosClientId: '547850683072-qeq9v7uitbsie821ccfis7idkjpierpi.apps.googleusercontent.com',
+    iosBundleId: 'com.thetork.kirei',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAUTn2cddVXbVVvpjajAqz6CyDmHHPC6mE',
+    appId: '1:547850683072:web:b22900426b5542a374e325',
+    messagingSenderId: '547850683072',
+    projectId: 'app-boilerplate-8f2ca',
+    authDomain: 'app-boilerplate-8f2ca.firebaseapp.com',
+    storageBucket: 'app-boilerplate-8f2ca.appspot.com',
+    measurementId: 'G-RJNWBVC0HZ',
+  );
+
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/authentication/data/repositories/auth_repositories.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
@@ -18,6 +19,7 @@ import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../../../utils/http/http_client.dart';
 import '../../../../../utils/popups/full_screen_loader.dart';
 import '../../forgot_password/view/otp.dart';
@@ -41,7 +43,6 @@ class LogInPageController extends GetxController {
   Rx<bool> rememberMe = false.obs;
   Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
   Rx<UserByTokenResponse> userDataByToken = UserByTokenResponse().obs;
-
 
   // List<LoginOtpResponse> otpLoginList = [];
 
@@ -73,6 +74,7 @@ class LogInPageController extends GetxController {
         passwordController.text.toString(),
         rememberMe.value,
       );
+
       ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
@@ -80,8 +82,7 @@ class LogInPageController extends GetxController {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
       print('login error' + e.toString());
-    }
-    finally {
+    } finally {
       //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
         if (loginResponse.value.result == true) {
@@ -96,11 +97,10 @@ class LogInPageController extends GetxController {
     }
   }
 
-
   /// Google SignIn with Api
   Future<UserCredential?> onPressedGoogleLogin() async {
     try {
-      FullScreenLoader.openLoadingDialog("Processing", AppImages.loading);
+      // FullScreenLoader.openLoadingDialog("Processing", AppImages.loading);
 
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -112,18 +112,18 @@ class LogInPageController extends GetxController {
       //   idToken: googleAuth?.idToken,
       // );
 
-      var loginResponse = await AuthRepository().getSocialLoginResponse(
+      loginResponse.value = await AuthRepository().getSocialLoginResponse(
           "google", googleUser?.displayName, googleUser?.email, googleUser?.id,
           accessToken: googleAuth?.accessToken);
 
-      if (loginResponse.result == false) {
-        AppHelperFunctions.showSimpleSnackBar('${loginResponse.message}');
+      if (loginResponse.value.result == false) {
+        AppHelperFunctions.showSimpleSnackBar('${loginResponse.value.message}');
       } else {
-        AppHelperFunctions.showSimpleSnackBar('${loginResponse.message}');
-        AppLocalStorage().saveDataIfNull(LocalStorageKeys.isGoogleLogIn, true);
+        AppHelperFunctions.showSimpleSnackBar('${loginResponse.value.message}');
+        AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
-        //AuthHelper().setUserData(loginResponse);
-        Get.offAll(() => const BottomNavigation());
+        AuthHelper().setUserData(loginResponse.value);
+        Get.offAll(() => const HelloConvexAppBar());
       }
       GoogleSignIn().disconnect();
     } on Exception catch (e) {
@@ -134,6 +134,41 @@ class LogInPageController extends GetxController {
     return null;
   }
 
+////////////////////////facebook login //////////////////////
+  Future<UserCredential?> onPressedFacebookLogin() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      if (result.status == LoginStatus.success) {
+        final AccessToken? accessToken = result.accessToken;
+        final userData = await FacebookAuth.instance.getUserData();
+
+        print('this is our facebook response ${userData}');
+
+        loginResponse.value = await AuthRepository().getSocialLoginResponse(
+            "facebook",
+            userData["name"].toString(),
+            userData["email"].toString(),
+            userData["id"].toString(),
+            accessToken: accessToken?.tokenString);
+
+        debugPrint('this is login response $loginResponse');
+
+        if (loginResponse.value.result == true) {
+          Get.offAll(() => const HelloConvexAppBar());
+          AuthHelper().setUserData(loginResponse.value);
+        }
+        AppHelperFunctions.showToast(loginResponse.value.message!);
+      } else {
+        AppHelperFunctions.showToast(result.message!);
+      }
+    } on Exception catch (e) {
+      AppHelperFunctions.showSimpleSnackBar(e.toString());
+      print("error is ....... $e");
+      // TODO
+    }
+    return null;
+  }
 
   /// Login with OTP
   Future<void> sendCode() async {
@@ -170,8 +205,96 @@ class LogInPageController extends GetxController {
 
   /// Get User Data By Token
   Future<UserByTokenResponse> getUserDataByToken() async {
-    return userDataByToken.value = await LoginRepository()
-        .getUserByTokenResponse();
+    return userDataByToken.value =
+        await LoginRepository().getUserByTokenResponse();
   }
 
+  ///////////////////////// Apple Log In /////////////////////////////////////////
+  Future<UserCredential?> onPressAppleLogin() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      print(credential);
+      loginResponse.value = await AuthRepository().getSocialLoginResponse(
+          'apple',
+          credential.givenName,
+          credential.email,
+          credential.authorizationCode,
+          accessToken: credential.identityToken);
+    } on Exception catch (e) {
+      AppHelperFunctions.showSimpleSnackBar(e.toString());
+      print("error is ....... $e");
+      // TODO
+    }
+    return null;
+  }
+
+// Future<UserCredential> onPressAppleLogin() async {
+//   print('apple');
+//   try {
+//     final rawNonce = generateNonce();
+//     final nonce = sha256ofString(rawNonce);
+//
+//     final appleCredential = await SignInWithApple.getAppleIDCredential(
+//       scopes: [
+//         AppleIDAuthorizationScopes.email,
+//         AppleIDAuthorizationScopes.fullName,
+//       ],
+//       // webAuthenticationOptions: WebAuthenticationOptions(
+//       //   clientId: '6502335026', // Replace with your Client ID
+//       //   redirectUri: Uri.parse(
+//       //     'https://com.thetork.kirei.firebaseapp.com/__/auth/handler', // Replace with your redirect URI
+//       //   ),
+//       // ),
+//       nonce: nonce,
+//     );
+//
+//
+//     final oauthCredential = OAuthProvider("apple.com").credential(
+//       idToken: appleCredential.identityToken,
+//       rawNonce: rawNonce,
+//     );
+//
+//
+//
+//     var loginResponse = await AuthRepository().getSocialLoginResponse(
+//         "apple", appleCredential.givenName, appleCredential.email, appleCredential.authorizationCode,
+//         access_token: appleCredential.identityToken);
+//
+//     if (loginResponse.result == false) {
+//       ToastComponent.showDialog(loginResponse.message, context,
+//           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+//     } else if(loginResponse.result == true) {
+//       ToastComponent.showDialog(loginResponse.message, context,
+//           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+//       AuthHelper().setUserData(loginResponse);
+//       Navigator.push(context, MaterialPageRoute(builder: (context) {
+//         return Main();
+//       }));
+//     }
+//     // GoogleSignIn().disconnect();
+//
+//     final userCredential = await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+//     return userCredential;
+//   } catch (e) {
+//     print("Error during Apple Sign-In: $e");
+//     throw e;
+//   }
+// }
+//
+// String generateNonce([int length = 32]) {
+//   final charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+//   final random = Random.secure();
+//   return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
+// }
+//
+// String sha256ofString(String input) {
+//   final bytes = utf8.encode(input);
+//   final digest = sha256.convert(bytes);
+//   return digest.toString();
+// }
 }

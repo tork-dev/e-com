@@ -10,6 +10,8 @@ class AppApiEndPoints {
   static String loginOtp = "$baseUrl/send-login-otp";
   static String verifyLoginOtp = "$baseUrl/verify-login-otp";
   static String getUserAccessToken = "$baseUrl/get-user-by-access_token";
+  static String socialSignIn = "$baseUrl/auth/social-login";
+  static String socialLogOut = "$baseUrl/auth/logout";
 
   static String signUp = "$baseUrl/auth/signup";
   static String signupOtp = "$baseUrl/send-signup-otp";
@@ -25,6 +27,7 @@ class AppApiEndPoints {
   static String homeFeaturedCategory = "$baseUrl/home-featured-categories";
   static String sideBarData = "$baseUrl/sidebar-data";
   static String allCategories = "$baseUrl/all-categories";
+  static String deviceToken = "$baseUrl/profile/update-device-token";
 
   ///Shop
   static String shopProducts = "$baseUrl/gigalogy/items/search?";
@@ -43,6 +46,7 @@ class AppApiEndPoints {
   static String cartProductsDelete = "$baseUrl/carts";
   static String cartQuantityUpdate = "$baseUrl/carts/change-quantity";
   static String proceedToCheckout = "$baseUrl/carts/process";
+  static String requestStock = "$baseUrl/add-product-request/";
 
   ///Checkout
   static String checkoutSummary = "$baseUrl/cart-summary";

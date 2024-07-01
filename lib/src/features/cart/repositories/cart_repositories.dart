@@ -8,6 +8,7 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../home/model/request_stock_model.dart';
 import '../model/cart_update_response_model.dart';
 import '../model/checkout_cart_update_model.dart';
 
@@ -122,5 +123,21 @@ class CartRepositories {
     print(url);
     print(response.body.toString());
     return CheckoutCartUpdateResponse.fromJson(jsonDecode(response.body));
+  }
+
+   Future<ProductRequestResponse> getRequestStock({required int productId}) async {
+    final response = await http.post(
+        Uri.parse("${AppApiEndPoints.requestStock}$productId"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization":
+          "Bearer $accessToken",
+        });
+    if(response.statusCode == 200){
+    var responseBody = jsonDecode(response.body.toString());
+      return ProductRequestResponse.fromJson(responseBody);
+    }else {
+      throw Exception('Failed to load data: ${response.statusCode}');
+    }
   }
 }

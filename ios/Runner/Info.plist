@@ -60,4 +60,26 @@
         <key>NSPhotoLibraryAddUsageDescription</key>
         <string>We need access to save photos to your photo library</string>
 	</dict>
+
+	<key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb7989294924414445</string>
+        </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>7989294924414445</string>
+    <key>FacebookDisplayName</key>
+    <string>kirei</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+
 </plist>

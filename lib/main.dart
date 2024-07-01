@@ -62,6 +62,7 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(
+    name: 'Kirei',
     options: DefaultFirebaseOptions.currentPlatform,
   );
 

@@ -29,7 +29,7 @@ class OtpController extends GetxController {
   GlobalKey<FormState> otpKey = GlobalKey<FormState>();
   List<AppLoginResponse> otpLoginResponse = [];
   Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
-  List<SignupResponse> otpSignUpResponse = [];
+  List<AppLoginResponse> otpSignUpResponse = [];
   List<SignupResendOtpResponse> resendOtpSignUpResponse = [];
   List<ForgetPasswordConfirmResponse> otpForgetPasswordResponse = [];
   List<ResendForgetPasswordResponse> resendOtpForgetPasswordResponse = [];
@@ -66,7 +66,12 @@ class OtpController extends GetxController {
                   loginController.emailController.text,
                   otpCodeController.text,
                 );
-      forgetPasswordController.isForgotPassword.value == true? otpForgetPasswordResponse.add(response as ForgetPasswordConfirmResponse) : signUpController.isSignupOtp.value == true ? otpSignUpResponse.add(response as SignupResponse) : otpLoginResponse.add(response as AppLoginResponse);
+      forgetPasswordController.isForgotPassword.value == true
+          ? otpForgetPasswordResponse
+              .add(response as ForgetPasswordConfirmResponse)
+          : signUpController.isSignupOtp.value == true
+              ? otpSignUpResponse.add(response as AppLoginResponse)
+              : otpLoginResponse.add(response as AppLoginResponse);
       forgetPasswordController.isForgotPassword.value == true
           ? Container()
           : AuthHelper().setUserData(response as AppLoginResponse);
@@ -91,11 +96,11 @@ class OtpController extends GetxController {
                       otpSignUpResponse[0].message.toString())
                   : AppHelperFunctions.showToast(
                       otpLoginResponse[0].message.toString());
-          if (forgetPasswordController.isForgotPassword.value != false ||
+          if (forgetPasswordController.isForgotPassword.value != false &&
               signUpController.isSignupOtp.value != true) {
             Get.to(() => const NewPassword());
           } else {
-            Get.to(() => const HelloConvexAppBar());
+            Get.offAll(() => const HelloConvexAppBar());
           }
         } else {
           //AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());

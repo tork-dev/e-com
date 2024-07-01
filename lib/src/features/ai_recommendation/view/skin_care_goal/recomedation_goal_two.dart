@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_six.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_three.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -13,6 +14,12 @@ import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
 import '../widgets/linear_progress_section.dart';
 import '../widgets/radio_question_widget.dart';
+import 'acne/recomedation_acne_one.dart';
+import 'anti_aging/recomedation_anti_aging_one.dart';
+import 'blackheads/recomedation_black_heads_one.dart';
+import 'dehydration/recomedation_dehydration_one.dart';
+import 'dullness/recomedation_dullness_one.dart';
+import 'hypigmentation/recomedation_pigmentaion_one.dart';
 
 class RecommendationGoalTwo extends StatelessWidget {
   const RecommendationGoalTwo({super.key});
@@ -71,14 +78,20 @@ class RecommendationGoalTwo extends StatelessWidget {
                   "skincare_goal_questions"]["questions"][1]["options"],
             ),
             const Gap(AppSizes.md),
-            ButtonRow(
-              onTapNext: (){
-                recommendationController.selectedSkinType = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
-                print(recommendationController.selectedSkinType);
-                Get.to(()=> const RecommendationGoalThree());
-                recommendationController.resetValues();
-              },
-            ),
+         ButtonRow(
+           onTapNext: () {
+             recommendationController.selectedSkinType = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+             print(recommendationController.selectedSkinType);
+
+             if (recommendationController.radioButtonSelectedValue.value == 5) {
+               Get.to(() => const RecommendationGoalThree());
+             } else {
+               Get.to(()=> const RecommendationGoalSix());
+             }
+             recommendationController.resetValues();
+           },
+
+         ),
             const Gap(AppSizes.defaultSpace)
           ],
         ));

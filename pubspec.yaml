@@ -88,6 +88,8 @@ dependencies:
   flutter_bkash: ^0.2.0
   flutter_stripe: ^10.1.1
   flutter_sslcommerz: ^2.2.2-nullsafety.0
+  flutter_facebook_auth: ^7.0.1
+  sign_in_with_apple: ^6.1.1
 
 
 

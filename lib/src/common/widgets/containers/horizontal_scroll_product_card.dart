@@ -37,18 +37,30 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     onTap: () {
                       Get.to(() => DetailsPage(
                             productSlug: sectionName![index].slug!,
-                        productId: sectionName![index].id!,
+                            productId: sectionName![index].id!,
                           ));
                     },
                     onCartTap: () {
                       if (AppLocalStorage()
                               .readData(LocalStorageKeys.isLoggedIn) !=
                           null) {
+                        if (sectionName![index].requestAvailable != 0) {
+                          homeController
+                              .getRequestResponse(
+                                  productId: sectionName![index].id)
+                              .then((value) => AppHelperFunctions.showToast(
+                                  homeController
+                                      .requestStockResponse.value.message!));
+                          return;
+                        }
+
                         homeController
                             .getAddToCartResponse(sectionName![index].id, 1,
                                 sectionName![index].preorderAvailable)
                             .then((value) => {
-                              cartController.cartCount.value = homeController.addToCartResponse.value.cartQuantity!,
+                                  cartController.cartCount.value =
+                                      homeController.addToCartResponse.value
+                                          .cartQuantity!,
                                   AppHelperFunctions.showToast(homeController
                                       .addToCartResponse.value.message!)
                                 });
@@ -64,20 +76,23 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     imgUrl: sectionName![index].pictures![0].url!,
                     isStockAvailable: sectionName![index].stock != 0,
                     buttonName: sectionName![index].stock != 0
-                            ? 'ADD TO CART'
-                            : sectionName![index].preorderAvailable == 0 ?
-                    sectionName![index].requestAvailable == 0 ?
-                    'OUT OF STOCK' : "REQUEST STOCK"
-                        : 'PREORDER NOW',
+                        ? 'ADD TO CART'
+                        : sectionName![index].preorderAvailable == 0
+                            ? sectionName![index].requestAvailable == 0
+                                ? 'OUT OF STOCK'
+                                : "REQUEST STOCK"
+                            : 'PREORDER NOW',
                     backgroundColor: sectionName![index].stock != 0
-                            ? AppColors.secondary
-                            : sectionName![index].preorderAvailable == 0 ?
-                    sectionName![index].requestAvailable == 0 ? AppColors.primary : AppColors.request
-                        : AppColors.preorder,
+                        ? AppColors.secondary
+                        : sectionName![index].preorderAvailable == 0
+                            ? sectionName![index].requestAvailable == 0
+                                ? AppColors.primary
+                                : AppColors.request
+                            : AppColors.preorder,
                     isNetworkImage: true,
                     isDiscountAvailable: sectionName![index].discount != 0,
                     discount: sectionName![index].discount!,
-              buttonColor: AppColors.white,
+                    buttonColor: AppColors.white,
                   )));
   }
 }

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -16,7 +18,7 @@ class AppButtons {
         style: ElevatedButton.styleFrom(
             shape: const CircleBorder(), 
             backgroundColor: buttonColor,
-          padding: EdgeInsets.all(AppSizes.md)
+          padding: const EdgeInsets.all(AppSizes.md)
         ),
         child: buttonChild);
   }
@@ -41,6 +43,35 @@ class AppButtons {
         child: Text(
           buttonText,
         ));
+  }
+
+  static ElevatedButton largeFlatFilledIconButton(
+      {required VoidCallback onPressed,
+        Color? backgroundColor,
+        double buttonRadius = 0,
+        double verticallyPadding = 16,
+        required String imgUrl,
+        required String buttonName
+      }) {
+    return ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(buttonRadius),
+          ),
+          minimumSize: Size(AppHelperFunctions.screenWidth(), 0),
+          padding: EdgeInsets.symmetric(vertical: verticallyPadding),
+          backgroundColor: backgroundColor,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          SizedBox(
+            height: AppSizes.iconMd,
+              child: Image.asset(imgUrl)),
+            const Gap(AppSizes.spaceBtwItems),
+             Text(buttonName)
+        ],));
   }
 
   static OutlinedButton largeFlatOutlineButton(
