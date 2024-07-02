@@ -16,8 +16,8 @@ class CouponResponse {
   factory CouponResponse.fromJson(Map<String, dynamic> json) {
     return CouponResponse(
       result: json['result'],
-      data: Data.fromJson(json['data']),
-      amount: json['amount'].toDouble(),
+      data: _parseData(json['data']),
+      amount: json['amount'] != null ? json['amount'].toDouble() : null,
       message: json['message'],
     );
   }
@@ -29,6 +29,16 @@ class CouponResponse {
       'amount': amount,
       'message': message,
     };
+  }
+
+  static Data? _parseData(dynamic json) {
+    if (json == null || json == '') {
+      return null; // Handle case where data is null or empty string
+    } else if (json is Map<String, dynamic>) {
+      return Data.fromJson(json);
+    } else {
+      throw Exception('Invalid data format for Data');
+    }
   }
 }
 
@@ -73,7 +83,7 @@ class Data {
       userId: json['user_id'],
       type: json['type'],
       code: json['code'],
-      details: Details.fromJson(jsonDecode(json['details'])),
+      details: json['details'] != null && json['details'] != '' ? Details.fromJson(jsonDecode(json['details'])) : null,
       description: json['description'],
       discount: json['discount'].toDouble(),
       discountType: json['discount_type'],

@@ -94,9 +94,10 @@ class CheckoutController extends GetxController {
     }
     await getCouponAppliedResponse();
     if (couponResponse.value.result == true) {
-      AppHelperFunctions.showToast(couponResponse.value.message!);
+      getCheckoutSummary();
       isCouponApplied.value = true;
     }
+    AppHelperFunctions.showToast(couponResponse.value.message!);
   }
 
   /// Coupon Remove
@@ -108,11 +109,11 @@ class CheckoutController extends GetxController {
   Future<void> onCouponRemove() async {
     await getCouponRemoveResponse();
     if (couponRemoveResponse.value.result == true) {
-      AppHelperFunctions.showToast(couponRemoveResponse.value.message!);
       isCouponApplied.value = false;
+      getCheckoutSummary();
       couponController.clear();
-      return;
     }
+    AppHelperFunctions.showToast(couponRemoveResponse.value.message!);
   }
 
   /// Crete Order Method
