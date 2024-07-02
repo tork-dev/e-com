@@ -43,7 +43,7 @@ class ButtonRow extends StatelessWidget {
                       width: 12,
                     ),
                     Text(
-                      'Back',
+                      'BACK',
                       style: TextStyle(
                           color: AppColors.secondary,
                           fontWeight: FontWeight.bold),

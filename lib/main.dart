@@ -12,6 +12,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
 import 'src/features/authentication/data/repositories/auth_repositories.dart';
 
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 @pragma('vm:entry-point')
@@ -76,5 +77,8 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
+
+
+
   runApp(const MyApp());
 }

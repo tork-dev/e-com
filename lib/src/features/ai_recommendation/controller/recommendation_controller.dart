@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/home/model/search_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../model/products_response.dart';
@@ -174,14 +175,13 @@ class RecommendationController extends GetxController{
   Future<RecommendationProductResponse> sendData() async {
     apiHitting.value = true;
     // Replace this with your API endpoint
-    String url = 'https://app.kireibd.com/api/v2/gigalogy/questions/recommend';
 
     // Create the formatted data
     Map<String, dynamic> formattedData = formatDataToJson();
 
     // Send the POST request
     final response = await http.post(
-      Uri.parse(url),
+      Uri.parse(AppApiEndPoints.recommendationQuestion),
       headers: {
         'Content-Type': 'application/json',
         "Authorization": "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}",

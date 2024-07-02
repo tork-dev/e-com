@@ -32,7 +32,7 @@ class AppAllAddressFields extends StatelessWidget {
          AppAddressTextField(
            controller: addressController.phoneController,
           fieldTitle: 'Phone*',
-          hintText: 'Enter Phone',
+          hintText: 'Enter phone',
         ),
         const Gap(AppSizes.spaceBtwRowItem),
          AppAddressTextField(
@@ -236,7 +236,7 @@ class AppAllAddressFields extends StatelessWidget {
                     suffixIcon: Icon(Icons.arrow_drop_down_rounded),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                    hintText: 'Select Area',
+                    hintText: 'Select area',
                     hintStyle: TextStyle(
                         color: AppColors.grey, fontWeight: FontWeight.w400),
                     border: OutlineInputBorder(

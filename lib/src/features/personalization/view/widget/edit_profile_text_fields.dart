@@ -66,7 +66,7 @@ class AppEditProfileTextFields extends StatelessWidget {
           ),
           const Gap(AppSizes.spaceBtwItems),
           Text(
-            'New PassWord',
+            'New Password',
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!

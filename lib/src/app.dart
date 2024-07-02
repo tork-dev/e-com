@@ -1,4 +1,5 @@
 import 'package:connection_notifier/connection_notifier.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,6 +17,10 @@ import 'common/bindings/general_bindings.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  // Create an instance of FirebaseAnalytics
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
