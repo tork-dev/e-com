@@ -242,9 +242,10 @@ class QuestionAndValues{
             "question":
             "Which part of skin contain hyperpigmentation or uneven skin tone?",
             "options": [
+              "Under eyes",
+              "Forehead",
               "Mouth area",
               "Acne spots",
-              "Forehead",
               "I don’t have any hyperpigmentation"
             ],
             "images": [

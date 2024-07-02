@@ -109,7 +109,8 @@ class AppProductImage extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .apply(color: buttonColor))
+                          .apply(color: buttonColor)
+                  )
                 ],
               ),
             ),

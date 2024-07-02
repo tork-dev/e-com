@@ -80,7 +80,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                         : sectionName![index].preorderAvailable == 0
                             ? sectionName![index].requestAvailable == 0
                                 ? 'OUT OF STOCK'
-                                : "REQUEST STOCK"
+                                : "REQUEST FOR STOCK"
                             : 'PREORDER NOW',
                     backgroundColor: sectionName![index].stock != 0
                         ? AppColors.secondary
