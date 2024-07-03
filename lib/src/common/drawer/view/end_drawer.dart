@@ -76,22 +76,20 @@ class AppEndDrawer extends StatelessWidget {
                       itemCount: drawerController.allCategories.length,
                       physics: const BouncingScrollPhysics(),
                       builderFunction: (BuildContext context, int index) => Obx(() {
-                        return Row(
-                          children: [
-                            Radio<int?>(
-                              activeColor: Colors.blueAccent,
-                              value: index,
-                              groupValue: categoryPassingController.selectedCategoryIndex.value,
-                              onChanged: (value) {
-                                categoryPassingController.updateSelectedCategoryIndex(
-                                  value!,
-                                  drawerController.allCategories[value].name,
-                                );
-                                print(categoryPassingController.selectedCategoryIndex.value);
-                              },
-                            ),
-                            Text(drawerController.allCategories[index].name),
-                          ],
+                        return RadioListTile(
+                          contentPadding: EdgeInsets.zero,
+                          activeColor: AppColors.secondary,
+                          value: index,
+                          groupValue: categoryPassingController.selectedCategoryIndex.value,
+                          onChanged: (value) {
+                            categoryPassingController.updateSelectedCategoryIndex(
+                              value!,
+                              drawerController.allCategories[value].name,
+                            );
+                            print(categoryPassingController.selectedCategoryIndex.value);
+                          },
+                          dense: true,
+                          title: Text(drawerController.allCategories[index].name),
                         );
                       }),
                     ),
