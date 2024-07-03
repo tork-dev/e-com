@@ -21,15 +21,17 @@ class AppLayoutWithDrawer extends StatelessWidget {
     this.action,
     this.padding = 12,
     this.bodyBackgroundColor,
+    this.isFromOtherPage = false,
     super.key,
   });
 
   final Widget title, body;
-  final bool centerTitle, hasEndDrawer;
+  final bool centerTitle, hasEndDrawer, isFromOtherPage;
   final List<Widget>? action;
   final dynamic globalKey;
   final double padding;
   final Color? backgroundColor, leadingIconColor, bodyBackgroundColor;
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
       backgroundColor: bodyBackgroundColor,
       resizeToAvoidBottomInset: true,
       key: globalKey,
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
       endDrawer: hasEndDrawer? const AppEndDrawer(): null,
       appBar: CustomAppBar(
         title: title,

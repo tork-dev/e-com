@@ -8,6 +8,8 @@ import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/styles/spacing_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/authentication/data/repositories/auth_repositories.dart';
+import 'package:kirei/src/features/details/controller/details_page_controller.dart';
+import 'package:kirei/src/features/personalization/controller/account_details_controller.dart';
 import 'package:kirei/src/features/personalization/view/widget/log_out_button.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
@@ -24,6 +26,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileController = Get.put(UserController());
+
     // final authController = Get.put(AuthRepositories());
     return AppLayoutWithDrawer(
         globalKey: profileController.profileKey,

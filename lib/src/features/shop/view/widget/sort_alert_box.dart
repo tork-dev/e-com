@@ -40,6 +40,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Default'),
               onChanged: (value) {
+                categoryPassingController.resetAll();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                 Get.back();
@@ -52,6 +53,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Best Selling'),
               onChanged: (value) {
+                categoryPassingController.resetAll();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                 Get.back();
@@ -64,6 +66,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Rating'),
               onChanged: (value) {
+                categoryPassingController.resetAll();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                 Get.back();
@@ -76,6 +79,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Newest'),
               onChanged: (value) {
+                categoryPassingController.resetAll();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                 Get.back();
@@ -88,6 +92,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Hot Deal'),
               onChanged: (value) {
+                categoryPassingController.resetAll();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                 Get.back();
@@ -100,6 +105,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Price high to low'),
               onChanged: (value) {
+                categoryPassingController.resetAll();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                 Get.back();
@@ -112,6 +118,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Price low to high'),
               onChanged: (value) {
+                categoryPassingController.resetAll();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                 Get.back();

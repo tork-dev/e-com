@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
             Locale('es'), // Spanish
           ],
         home: UpgradeAlert(
+          showReleaseNotes: false,
           child: const SplashScreen(),
         ),
 

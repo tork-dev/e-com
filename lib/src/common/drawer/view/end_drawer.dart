@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
@@ -16,14 +17,12 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
-
 class AppEndDrawer extends StatelessWidget {
   const AppEndDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final homeController = HomeController.instance;
-    //final shopController = ShopController.instance;
+    final drawerController = Get.put(AppDrawerController());
     final categoryPassingController = Get.put(GetShopDataController());
     return AppCardContainer(
       padding: AppSpacingStyle.paddingWithAppBarHeight,
@@ -70,35 +69,32 @@ class AppEndDrawer extends StatelessWidget {
                       sectionTitle: 'Categories',
                       haveTxtButton: false,
                     ),
-                    homeController.allCategories.isEmpty
+                    drawerController.allCategories.isEmpty
                         ? const Text('No Categories Here')
                         : AppListViewLayout(
-                            applyPadding: false,
-                            itemCount: homeController.allCategories.length,
-                            physics: const BouncingScrollPhysics(),
-                            builderFunction:
-                                (BuildContext context, int index) => Row(
-                              children: [
-                                Obx(() {
-                                  return Radio(
-                                      activeColor: Colors.blueAccent,
-                                      value: index,
-                                      groupValue: categoryPassingController
-                                          .selectedCategoryIndex.value,
-                                      onChanged: (value) {
-                                        categoryPassingController
-                                            .updateSelectedCategoryIndex(
-                                          value!,
-                                          homeController
-                                              .allCategories[value].name,
-                                        );
-                                        print(categoryPassingController.categories.value);
-                                      });
-                                }),
-                                Text(homeController.allCategories[index].name)
-                              ],
+                      applyPadding: false,
+                      itemCount: drawerController.allCategories.length,
+                      physics: const BouncingScrollPhysics(),
+                      builderFunction: (BuildContext context, int index) => Obx(() {
+                        return Row(
+                          children: [
+                            Radio<int?>(
+                              activeColor: Colors.blueAccent,
+                              value: index,
+                              groupValue: categoryPassingController.selectedCategoryIndex.value,
+                              onChanged: (value) {
+                                categoryPassingController.updateSelectedCategoryIndex(
+                                  value!,
+                                  drawerController.allCategories[value].name,
+                                );
+                                print(categoryPassingController.selectedCategoryIndex.value);
+                              },
                             ),
-                          ),
+                            Text(drawerController.allCategories[index].name),
+                          ],
+                        );
+                      }),
+                    ),
                     const Gap(AppSizes.spaceBtwItems),
                     const AppSectionTitleText(
                       sectionTitle: 'Skin Types',
@@ -107,42 +103,26 @@ class AppEndDrawer extends StatelessWidget {
                     Obx(() {
                       return AppListViewLayout(
                         applyPadding: false,
-                        itemCount: categoryPassingController
-                                .skinTypeResponse.value.skinTypes!.isEmpty
+                        itemCount: categoryPassingController.skinTypeResponse.value.skinTypes!.isEmpty
                             ? 5
-                            : categoryPassingController
-                                .skinTypeResponse.value.skinTypes!.length,
+                            : categoryPassingController.skinTypeResponse.value.skinTypes!.length,
                         physics: const BouncingScrollPhysics(),
-                        builderFunction: (BuildContext context, int index) =>
-                        categoryPassingController
-                                    .skinTypeResponse.value.skinTypes!.isEmpty
-                                ? ShimmerHelper().buildBasicShimmer(height: 30)
-                                : Obx(() {
-                                    return CheckboxListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      dense: true,
-                                      title: Text(categoryPassingController
-                                          .skinTypeResponse
-                                          .value
-                                          .skinTypes![index]
-                                          .title!),
-                                      value: categoryPassingController.selectedSkinTypes
-                                          .contains(categoryPassingController
-                                              .skinTypeResponse
-                                              .value
-                                              .skinTypes![index]
-                                              .slug!),
-                                      onChanged: (value) {
-                                        categoryPassingController.selectSkinTypes(
-                                            categoryPassingController
-                                                .skinTypeResponse
-                                                .value
-                                                .skinTypes![index]
-                                                .slug!);
-                                      },
-                                    );
-                                  }),
+                        builderFunction: (BuildContext context, int index) => categoryPassingController
+                            .skinTypeResponse.value.skinTypes!.isEmpty
+                            ? ShimmerHelper().buildBasicShimmer(height: 30)
+                            : Obx(() {
+                          return CheckboxListTile(
+                            controlAffinity: ListTileControlAffinity.leading,
+                            dense: true,
+                            title: Text(categoryPassingController.skinTypeResponse.value.skinTypes![index].title!),
+                            value: categoryPassingController.selectedSkinTypes
+                                .contains(categoryPassingController.skinTypeResponse.value.skinTypes![index].slug!),
+                            onChanged: (value) {
+                              categoryPassingController.selectSkinTypes(
+                                  categoryPassingController.skinTypeResponse.value.skinTypes![index].slug!);
+                            },
+                          );
+                        }),
                       );
                     }),
                   ],
@@ -150,37 +130,40 @@ class AppEndDrawer extends StatelessWidget {
               ),
             );
           }),
-           AppCardContainer(
-              // height: AppHelperFunctions.screenHeight() * .075,
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 40,
-                width: 100,
-                child: AppButtons.largeFlatFilledButton(
-                  verticallyPadding: 0,
-                    onPressed: (){
+          AppCardContainer(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: 40,
+                  width: 100,
+                  child: AppButtons.largeFlatFilledButton(
+                    verticallyPadding: 0,
+                    onPressed: () {
                       categoryPassingController.resetAll();
-                    categoryPassingController.getShopData();
-                    Get.back();
+                      categoryPassingController.getShopData();
+                      Get.back();
                     },
-                    buttonText: 'CLEAR'),
-              ) ,
-              SizedBox(
-                height: 40,
-                width: 100,
-                child: AppButtons.largeFlatFilledButton(
-                  verticallyPadding: 0,
+                    buttonText: 'CLEAR',
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                  width: 100,
+                  child: AppButtons.largeFlatFilledButton(
+                    verticallyPadding: 0,
                     backgroundColor: AppColors.success,
-                    onPressed: (){
-                    categoryPassingController.getShopData();
-                    Get.back();
+                    onPressed: () {
+                      categoryPassingController.allProducts.clear();
+                      categoryPassingController.getShopData();
+                      Get.back();
                     },
-                    buttonText: 'APPLY'),
-              )
-            ],
-          ))
+                    buttonText: 'APPLY',
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

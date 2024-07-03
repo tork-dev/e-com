@@ -39,37 +39,31 @@ class RadioQuestionWidget extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm, vertical: AppSizes.sm),
                   width: MediaQuery.of(context).size.width,
                   height: 70,
                   decoration: BoxDecoration(
                       border: Border.all(width: 2, color: Colors.grey[300]!)),
-                  child: Row(
-                    children: [
-                      Obx(() {
-                        return Radio<int>(
-                            activeColor: AppColors.secondary,
-                            value: index,
-                            groupValue: recommendationController.radioButtonSelectedValue.value,
-                            onChanged: (value) {
-                              recommendationController.setRadioButtonValue(value!);
-                              print(recommendationController.radioButtonSelectedValue);
-                            });
-                      }
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      SizedBox(
-                        width: 250,
-                        child: Text(
+                  child: Obx(() {
+                      return RadioListTile(
+                        contentPadding: EdgeInsets.zero,
+                          dense: true,
+                          activeColor: AppColors.secondary,
+                          value: index,
+                          groupValue: recommendationController.radioButtonSelectedValue.value,
+                          onChanged: (value) {
+                            recommendationController.setRadioButtonValue(value!);
+                            print(recommendationController.radioButtonSelectedValue);
+                          },
+                        title: Text(
                           option[index],
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      )
-                    ],
+                      );
+                    }
+                  )
+
                   ),
-                ),
               );
             }),
 

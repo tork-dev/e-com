@@ -28,14 +28,16 @@ class AppEditProfilePicturePart extends StatelessWidget {
               borderWidth: 2 * 0.8,
               hasBorder: true,
               isCircle: true,
-              child: AppBannerImage(
+              child: Obx(() {
+                return AppBannerImage(
                     imgBoarderRadius: 100,
                     isNetworkImage: true,
                     fit: BoxFit.fill,
-                    imgUrl: AppLocalStorage().readData(
-                        LocalStorageKeys.avatarOriginal)
-                  )),
-
+                    imgUrl: detailsController
+                            .profileUpdateImageResponse.value.path ??
+                        AppLocalStorage()
+                            .readData(LocalStorageKeys.avatarOriginal));
+              })),
           Positioned(
               right: 0,
               bottom: 15,
@@ -44,10 +46,17 @@ class AppEditProfilePicturePart extends StatelessWidget {
                 height: 30,
                 backgroundColor: AppColors.grey,
                 child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       detailsController.chooseAndUploadImage();
+                      AppLocalStorage().saveData(
+                          LocalStorageKeys.avatarOriginal,
+                          detailsController
+                              .profileUpdateImageResponse.value.path);
                     },
-                    child: const Icon(Icons.edit, size: 20,)),
+                    child: const Icon(
+                      Icons.edit,
+                      size: 20,
+                    )),
               ))
         ],
       ),

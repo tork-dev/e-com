@@ -63,7 +63,7 @@ class AccountDetailsController extends GetxController {
       //return;
       String base64Image = FileHelper.getBase64FormatedFile(_file!.path);
       String fileName = _file!.path.split("/").last;
-      await PersonalizationRepositories().getProfileImageUpdateResponse(
+      profileUpdateImageResponse.value = await PersonalizationRepositories().getProfileImageUpdateResponse(
         image: base64Image,
         filename: fileName
       );

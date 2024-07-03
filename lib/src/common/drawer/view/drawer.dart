@@ -1,29 +1,21 @@
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/drawer/view/widgets/drawer_bottom_button.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
-import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
-import 'package:kirei/src/features/authentication/views/sign_up/view/signup.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
-import 'package:kirei/src/features/feedback/view/feedback_form.dart';
-import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -31,17 +23,17 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/auth_helper.dart';
 import 'widgets/common_drawer_card.dart';
-import 'widgets/drawer_card.dart';
 import 'widgets/header_part.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({super.key});
+  final bool isFromOtherPage;
+  const AppDrawer({super.key, required this.isFromOtherPage});
 
   @override
   Widget build(BuildContext context) {
-    final homeController = HomeController.instance;
+    final drawerController = Get.put(AppDrawerController());
     final shopController = Get.put(GetShopDataController());
-    final bottomController = ConvexBottomNavController.instance;
+    final bottomController = Get.put(ConvexBottomNavController());
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
       width: 300,
@@ -57,104 +49,112 @@ class AppDrawer extends StatelessWidget {
           AppDrawerCard(
             title: 'new arrivals',
             onPress: () {
+              if(isFromOtherPage){
+                Get.to(const HelloConvexAppBar(pageIndex: 1,));
+              }
               shopController.updateCategory('new');
               shopController.getShopData();
               bottomController.jumpToTab(1);
             },
           ),
-          ExpansionTile(
-            title: Row(
-              children: [
-                Text(
-                  "Categories".toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 13,
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.05,
-                ),
-                Stack(
+          Obx(() {
+              return ExpansionTile(
+                title: Row(
                   children: [
-                    Transform.rotate(
-                      angle: pi / 5,
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 3),
-                        height: 15,
-                        width: 15,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.pinkAccent,
-                        ),
+                    Text(
+                      "Categories".toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 13,
                       ),
                     ),
-                    Container(
-                      height: 22,
-                      width: 45,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.pinkAccent,
-                          borderRadius: BorderRadius.circular(2)),
-                      child: const Text(
-                        "New!",
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    )
+                    SizedBox(
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.05,
+                    ),
+                    Stack(
+                      children: [
+                        Transform.rotate(
+                          angle: pi / 5,
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 3),
+                            height: 15,
+                            width: 15,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: Colors.pinkAccent,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 22,
+                          width: 45,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.pinkAccent,
+                              borderRadius: BorderRadius.circular(2)),
+                          child: const Text(
+                            "New!",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-            children: homeController.allCategories.map((category) {
-              return category.children != null && category.children!.isNotEmpty
-                  ? Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: ExpansionTile(
-                  title: GestureDetector(
-                      onTap: () {
-                        // shopController.updateCategory(category.slug);
-                        // shopController.getShopData();
-                        // bottomController.jumpToTab(1);
+                children: drawerController.allCategories.map((category) {
+                  return category.children != null && category.children!.isNotEmpty
+                      ? Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: ExpansionTile(
+                      title: GestureDetector(
+                          onTap: () {
+                            shopController.resetAll();
+                            if(isFromOtherPage){
+                              Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                            }
+                            shopController.updateCategory(category.slug);
+                            shopController.getShopData();
+                            bottomController.jumpToTab(1);
+                          },
+                          child: Text(category.name)),
+                      children: category.children!.map((child) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: AppDrawerCard(
+                            title: child.name,
+                            onPress: () {
+                              shopController.resetAll();
+                              if(isFromOtherPage){
+                                Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                              }
+                              shopController.updateCategory(child.slug);
+                              shopController.getShopData();
+                              bottomController.jumpToTab(1);
+                            },
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  )
+                      : Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: AppDrawerCard(
+                      title: category.name,
+                      onPress: ()  {
+                         shopController.updateCategory(category.slug);
+                         shopController.getShopData();
+                      bottomController.jumpToTab(1);
                       },
-                      child: Text(category.name)),
-                  children: category.children!.map((child) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: AppDrawerCard(
-                        title: child.name,
-                        onPress: () {
-                          shopController.updateCategory(child.slug);
-                          shopController.getShopData();
-                          if(bottomController.pageIndex.value == 1){
-                          }
-                          Get.off(()=> const HelloConvexAppBar());
-                          bottomController.jumpToTab(1);
-                        },
-                      ),
-                    );
-                  }).toList(),
-                ),
-              )
-                  : Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: AppDrawerCard(
-                  title: category.name,
-                  onPress: () async {
-                    await shopController.updateCategory(category.slug);
-                    await shopController.getShopData();
-                    if(homeController.callApis.value == false){
-                      Get.to(()=> const HelloConvexAppBar());
-                    }
-                  bottomController.jumpToTab(1);
-                  },
-                ),
+                    ),
+                  );
+                }).toList(),
               );
-            }).toList(),
+            }
           ),
           ListTile(
               visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
@@ -208,10 +208,10 @@ class AppDrawer extends StatelessWidget {
               }),
           AppDrawerCard(
             title: 'beauty tips',
-            onPress: () => Get.to(() => const BeautyTipsScreen()),
+            onPress: () => Get.offAll(() => const BeautyTipsScreen()),
           ),
           AppDrawerCard(
-            title: 'ai recomendation',
+            title: 'AI Suggestion',
             onPress: () {
               if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
                   Get.to(()=> const SkinCareHistoryOne());
@@ -224,11 +224,11 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'community',
-            onPress: () => Get.to(() => const CommunityScreen()),
+            onPress: () => Get.offAll(() => const CommunityScreen()),
           ),
           AppDrawerCard(
             title: 'appointment',
-            onPress: () => Get.to(() => const AppointmentScreen()),
+            onPress: () => Get.offAll(() => const AppointmentScreen()),
           ),
           AppDrawerCard(
             title: 'blog',

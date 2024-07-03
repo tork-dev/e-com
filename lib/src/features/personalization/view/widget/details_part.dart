@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/address/view/adress_screen.dart';
+import 'package:kirei/src/features/de_active_account/view/de_active_account.dart';
 import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
@@ -33,6 +34,11 @@ class DetailsCardPart extends StatelessWidget {
             cardText: 'Address',
             onTap: ()=> Get.to(()=> const AddressScreen())),
         const Gap(AppSizes.spaceBtwItems),
+        DetailsCard(
+            cardText: 'Delete Account',
+            onTap: ()=> Get.to(()=> const DeActiveAccount())),
+        const Gap(AppSizes.spaceBtwItems),
+
       ],
     );
   }

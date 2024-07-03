@@ -117,9 +117,10 @@ class LogInPageController extends GetxController {
           accessToken: googleAuth?.accessToken);
 
       if (loginResponse.value.result == false) {
-        AppHelperFunctions.showSimpleSnackBar('${loginResponse.value.message}');
+        AppHelperFunctions.showToast('${loginResponse.value.message}');
       } else {
-        AppHelperFunctions.showSimpleSnackBar('${loginResponse.value.message}');
+        print(loginResponse.value);
+        AppHelperFunctions.showToast('${loginResponse.value.message}');
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
         AuthHelper().setUserData(loginResponse.value);

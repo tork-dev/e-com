@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/features/wishlist/controller/wishlist_controller.dart';
@@ -25,17 +26,25 @@ class WishlistScreen extends StatelessWidget {
           children: [
             AppLayoutWithRefresher(
               onRefresh: controller.onRefresh,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
-                  child: AppWishListProductCard(),
-                ),
+              children: [
+                Obx(() {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.defaultSpace),
+                    child: !controller.apiHitting.value &&
+                            controller.wishlistProducts.value.data!.isEmpty
+                        ? Center(
+                            child: Text(
+                              'No Wishlist Product',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          )
+                        : const AppWishListProductCard(),
+                  );
+                }),
               ],
             ),
-            const Positioned(
-              bottom: 0,
-                child: AppWishlistBottomButton(
-                ))
+            const Positioned(bottom: 0, child: AppWishlistBottomButton())
           ],
         ));
   }

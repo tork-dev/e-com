@@ -22,10 +22,10 @@ class CommunityController extends GetxController {
   TextEditingController communityFieldController = TextEditingController();
 
 
-  ConvexBottomNavController bottomController = Get.put(
-      ConvexBottomNavController());
-  HomeController homeController = Get.put(HomeController());
-  final shopController = Get.put(ShopController());
+  // ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
+
+  // HomeController homeController = Get.put(HomeController());
+  // final shopController = Get.put(ShopController());
 
   RxBool isLoading = false.obs;
 
@@ -38,7 +38,6 @@ class CommunityController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    homeController.callApis.value = false;
     onRefresh();
   }
 

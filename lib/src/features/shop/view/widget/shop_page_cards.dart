@@ -27,7 +27,6 @@ class AppShopGridScrollCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shopController = GetShopDataController.instance;
-    final homeController = HomeController.instance;
     final cartController = CartController.instance;
     return Obx(() {
       return Column(
@@ -66,7 +65,16 @@ class AppShopGridScrollCard extends StatelessWidget {
                             if (AppLocalStorage()
                                     .readData(LocalStorageKeys.isLoggedIn) !=
                                 null) {
-                              homeController
+                              if (shopController.allProducts[index].requestAvailable != 0) {
+                                cartController
+                                    .getRequestResponse(
+                                    productId: shopController.allProducts[index].id!)
+                                    .then((value) => AppHelperFunctions.showToast(
+                                    cartController
+                                        .requestStockResponse.value.message!));
+                                return;
+                              }
+                              cartController
                                   .getAddToCartResponse(
                                       shopController.allProducts[index].id!,
                                       1,
@@ -74,10 +82,10 @@ class AppShopGridScrollCard extends StatelessWidget {
                                           .allProducts[index].preorderAvailable)
                                   .then((value) => {
                                         cartController.cartCount.value =
-                                            homeController.addToCartResponse
-                                                .value.cartQuantity!,
+                                            cartController.addToCartResponse
+                                                .value.cartQuantity ?? 0,
                                         AppHelperFunctions.showToast(
-                                            homeController.addToCartResponse
+                                            cartController.addToCartResponse
                                                 .value.message!)
                                       });
                             } else {
@@ -99,20 +107,30 @@ class AppShopGridScrollCard extends StatelessWidget {
                           price: shopController.allProducts[index].price
                                   ?.toInt() ??
                               0,
-                          buttonName: shopController
-                                      .allProducts[index].preorderAvailable ==
-                                  0
-                              ? shopController.allProducts[index].stock != 0
+                          buttonName:
+                              shopController.allProducts[index].stock != 0
                                   ? 'ADD TO CART'
-                                  : "OUT OF STOCK"
-                              : 'PREORDER',
-                          backgroundColor: shopController
-                                      .allProducts[index].preorderAvailable ==
-                                  0
-                              ? shopController.allProducts[index].stock != 0
+                                  : shopController.allProducts[index]
+                                              .preorderAvailable ==
+                                          0
+                                      ? shopController.allProducts[index]
+                                                  .requestAvailable !=
+                                              0
+                                          ? "REQUEST FOR STOCK"
+                                          : "OUT OF STOCK"
+                                      : "PREORDER NOW",
+                          backgroundColor:
+                              shopController.allProducts[index].stock != 0
                                   ? AppColors.secondary
-                                  : AppColors.primary
-                              : AppColors.preorder,
+                                  : shopController.allProducts[index]
+                                              .preorderAvailable ==
+                                          0
+                                      ? shopController.allProducts[index]
+                                                  .requestAvailable !=
+                                              0
+                                          ? AppColors.request
+                                          : AppColors.primary
+                                      : AppColors.preorder,
                           isDiscountAvailable:
                               shopController.allProducts[index].salePrice !=
                                   shopController.allProducts[index].price,
@@ -122,7 +140,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                               0,
                           isStockAvailable:
                               shopController.allProducts[index].stock != 0,
-                buttonColor: AppColors.white,
+                          buttonColor: AppColors.white,
                         )),
         ],
       );

@@ -26,7 +26,7 @@ class DetailsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(cardText, style: Theme.of(context).textTheme.titleLarge!.apply(color: AppColors.darkGrey),),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.sm),
           AppDividersStyle.fullFlatAppDivider
         ],
       ),

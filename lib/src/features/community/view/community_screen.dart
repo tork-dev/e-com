@@ -23,6 +23,7 @@ class CommunityScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       leadingIconColor: AppColors.darkGrey,
       bodyBackgroundColor: Colors.grey[100],
+      isFromOtherPage: true,
       body: Padding(
         padding: const EdgeInsets.only(
             left: AppSizes.xs, right: AppSizes.xs, top: AppSizes.xs),

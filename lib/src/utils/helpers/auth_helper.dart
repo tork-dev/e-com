@@ -17,7 +17,7 @@ class AuthHelper{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, loginResponse.user?.email );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user?.phone );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user?.passwordSaved);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, "https://appbeta.kireibd.com/${loginResponse.user?.avatar }");
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avatar);
 
   }
 

@@ -17,8 +17,9 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../utils/constants/colors.dart';
 
 class HelloConvexAppBar extends StatelessWidget {
-  // final int pageIndex;
-  const HelloConvexAppBar({super.key});
+  final int pageIndex;
+
+  const HelloConvexAppBar({super.key, this.pageIndex = 0});
 
   static final List<Widget> children = [
     const HomeThree(),
@@ -29,16 +30,17 @@ class HelloConvexAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     ConvexBottomNavController controller = Get.put(ConvexBottomNavController());
-   // controller.pageIndex.value = pageIndex;
+    ConvexBottomNavController controller =
+        Get.put(ConvexBottomNavController(pageIndexInit: pageIndex));
+    // controller.pageIndex.value = pageIndex;
     return Obx(() {
-        return PopScope(
+      return PopScope(
           canPop: false,
-          onPopInvoked: (pop){
-            if(pop){
+          onPopInvoked: (pop) {
+            if (pop) {
               return;
             }
-            if(controller.pageIndex.value == 0) {
+            if (controller.pageIndex.value == 0) {
               AppHelperFunctions.showAlert(
                   message: 'Do You want to close the app?',
                   leftButtonName: 'Yes',
@@ -51,52 +53,61 @@ class HelloConvexAppBar extends StatelessWidget {
                   },
                   rightButtonTextColor: AppColors.secondary,
                   buttonColor: Colors.transparent);
-            }else{
+            } else {
               controller.jumpToTab(0);
             }
-            },
+          },
           child: Scaffold(
             extendBody: true,
-            body:  children[controller.pageIndex.value],
+            body: children[controller.pageIndex.value],
             bottomNavigationBar: ConvexAppBar(
-                controller: controller.tabController,
-                style: TabStyle.react,
-                backgroundColor: AppColors.primary,
-                activeColor: AppColors.light,
-                color: AppColors.white,
-                items: [
-                  const TabItem(
-                    icon: Icons.home_outlined,
-                    title: 'Home',
-                  ),
-                  const TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
-                  TabItem(
-                    icon: badge.Badge(
-                      badgeContent: Obx((){
-                        return Text(
-                          controller.cartController.cartCount?.value.toString() ?? '0',
-                          style: const TextStyle(color: AppColors.white),
-                        );
-                      }),
-                      badgeStyle: const badge.BadgeStyle(
-                        badgeColor: AppColors.black,
-                        padding: EdgeInsets.all(6),
-                      ),
-                      child: const Icon(Icons.shopping_bag_outlined, color: AppColors.white),
+              controller: controller.tabController,
+              style: TabStyle.react,
+              backgroundColor: AppColors.primary,
+              activeColor: AppColors.light,
+              color: AppColors.white,
+              items: [
+                const TabItem(
+                  icon: Icons.home_outlined,
+                  title: 'Home',
+                ),
+                const TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
+                TabItem(
+                  icon: badge.Badge(
+                    badgeContent: Obx(() {
+                      return Text(
+                        controller.cartController.cartCount?.value.toString() ??
+                            '0',
+                        style: const TextStyle(color: AppColors.white),
+                      );
+                    }),
+                    badgeStyle: const badge.BadgeStyle(
+                      badgeColor: AppColors.black,
+                      padding: EdgeInsets.all(6),
                     ),
-                    title: 'Cart',
+                    child: const Icon(Icons.shopping_bag_outlined,
+                        color: AppColors.white),
                   ),
-                  const TabItem(
-                    icon: Icons.account_circle_rounded,
-                    title: 'Profile',
-                  ),
-                ],
-                initialActiveIndex: controller.pageIndex.value,
-                onTap: (index) => controller.changePage(index),
-              ),)
-        );
-      }
-    );
+                  title: 'Cart',
+                ),
+                const TabItem(
+                  icon: Icons.account_circle_rounded,
+                  title: 'Profile',
+                ),
+              ],
+              initialActiveIndex: controller.pageIndex.value,
+              onTap: (index) {
+                if (index == 3) {
+                  if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) !=
+                      true) {
+                    Get.offAll(() => const LogIn());
+                    return;
+                  }
+                }
+                controller.changePage(index);
+              },
+            ),
+          ));
+    });
   }
 }
-

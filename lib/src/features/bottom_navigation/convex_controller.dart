@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/shop/controller/shop_controller.dart';
-import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import '../../utils/local_storage/local_storage_keys.dart';
 import '../../utils/local_storage/storage_utility.dart';
-import '../authentication/views/log_in/model/user_by_token_response.dart';
-import '../authentication/views/log_in/repository/login_repository.dart';
 import '../authentication/views/log_in/view/login.dart';
 
 class ConvexBottomNavController extends GetxController
     with GetSingleTickerProviderStateMixin {
   static ConvexBottomNavController get instance => Get.find();
+
+  final int pageIndexInit;
+  ConvexBottomNavController({this.pageIndexInit = 0});
 
   final cartController = Get.put(CartController());
   final categoryController = Get.put(GetShopDataController());
@@ -28,6 +27,7 @@ class ConvexBottomNavController extends GetxController
   void onInit() async{
     super.onInit();
     tabController = TabController(length: 4, vsync: this);
+    pageIndex.value = pageIndexInit;
     // if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
     //   await logInPageController.getUserDataByToken();
     //   AuthHelper().saveUserDataByToken(logInPageController.userDataByToken);
@@ -51,11 +51,11 @@ class ConvexBottomNavController extends GetxController
     if (pageIndex.value == 2) {
       cartController.onRefresh();
     }
-    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null &&
-        pageIndex.value == 3) {
-      Get.to(() => const LogIn());
-      return;
-    }
+    // if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null &&
+    //     pageIndex.value == 3) {
+    //   Get.offAll(() => const LogIn());
+    //   return;
+    // }
     if(pageIndex.value != 1){
       categoryController.resetAll();
       return;

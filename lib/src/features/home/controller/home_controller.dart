@@ -1,7 +1,5 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -9,8 +7,6 @@ import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../../details/model/products_model.dart';
 import '../../details/repositories/details_repositories.dart';
-import '../model/all_category_model.dart';
-import '../model/device_token_model.dart';
 import '../model/home_featured_category_model.dart';
 import '../model/home_products_model.dart';
 import '../model/home_sliders_model.dart';
@@ -36,7 +32,6 @@ class HomeController extends GetxController{
   /// Model Class Instance
   Rx<HomeProductResponse> homeProductResponse = HomeProductResponse().obs;
   RxList<FeaturedCategory>homeFeaturedCategoryResponse = <FeaturedCategory>[].obs;
-  RxList<AllCategory> allCategories = <AllCategory>[].obs;
   Rx<HomeSlidersResponse> homeSliders = HomeSlidersResponse().obs;
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
   Rx<ProductRequestResponse> requestStockResponse = ProductRequestResponse().obs;
@@ -53,7 +48,7 @@ class HomeController extends GetxController{
       getRecommendedProducts();
       getTrendingProducts();
     }
-      fetchAllCategories();
+
 
     if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
       HomeRepositories().getDeviceTokenUpdateResponse();
@@ -64,7 +59,6 @@ class HomeController extends GetxController{
   Future<void> onRefresh()async{
     getProductData();
     fetchFeaturedCategories();
-    fetchAllCategories();
     getRecommendedProducts();
     getTrendingProducts();
   }
@@ -78,9 +72,7 @@ class HomeController extends GetxController{
     homeFeaturedCategoryResponse.value = await HomeRepositories().getHomeFeaturedCategories();
   }
 
-  void fetchAllCategories() async {
-      allCategories.value = await HomeRepositories().getAllCategories();
-  }
+
 
   Future<AddToCartResponse> getAddToCartResponse(int id, int quantity, dynamic preorderAvailable) async {
     return addToCartResponse.value = await CartRepositories().getCartAddResponse(id, quantity, preorderAvailable);

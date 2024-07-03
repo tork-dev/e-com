@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:kirei/src/features/home/model/all_category_model.dart';
+import 'package:kirei/src/common/drawer/model/all_category_model.dart';
 import 'package:kirei/src/features/home/model/home_featured_category_model.dart';
 import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/features/home/model/request_stock_model.dart';
@@ -42,18 +42,7 @@ class HomeRepositories {
     }
   }
 
-  Future<List<AllCategory>> getAllCategories() async {
-    final Uri url = Uri.parse(AppApiEndPoints.allCategories);
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      final List<dynamic> jsonResponse = json.decode(response.body);
-      return jsonResponse
-          .map((category) => AllCategory.fromJson(category))
-          .toList();
-    } else {
-      throw Exception('Failed to load categories');
-    }
-  }
+
 
   static Future<DetailsProductsResponse> getTrendingProduct() async {
     final response = await http.get(

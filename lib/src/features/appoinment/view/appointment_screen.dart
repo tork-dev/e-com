@@ -13,6 +13,7 @@ class AppointmentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final appointmentController = Get.put(AppointmentController());
     return AppLayoutWithDrawer(
+      isFromOtherPage: true,
         backgroundColor: AppColors.white,
         globalKey: appointmentController.appointmentKey,
         title: const Text(

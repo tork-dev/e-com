@@ -11,6 +11,7 @@ class WishlistController extends GetxController {
   Rx<WishlistRemoveResponse> removeWishlistProductsResponse =
       WishlistRemoveResponse().obs;
   RxBool isAddedToCart = false.obs;
+  RxBool apiHitting = false.obs;
 
   @override
   void onInit() {
@@ -23,9 +24,11 @@ class WishlistController extends GetxController {
     print('refresh');
   }
 
-  Future<WishlistResponse> getWishlistData() async {
-    return wishlistProducts.value =
+  Future<void> getWishlistData() async {
+    apiHitting.value = true;
+     wishlistProducts.value =
         await WishlistRepositories().getWishlistProduct();
+     apiHitting.value = false;
   }
 
   Future<WishlistRemoveResponse> deleteWishlistProducts(int id) async {

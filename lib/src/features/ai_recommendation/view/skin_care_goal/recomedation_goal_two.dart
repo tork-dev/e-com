@@ -31,7 +31,7 @@ class RecommendationGoalTwo extends StatelessWidget {
     return AppLayoutWithBackButton(
         bodyBackgroundColor: Colors.grey[100],
         title: const Text(
-          'Ai Recommended',
+          'AI Suggestion',
           style: TextStyle(color: Colors.blueGrey),
         ),
         centerTitle: true,

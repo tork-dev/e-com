@@ -20,7 +20,7 @@ class GetShopDataController extends GetxController {
   RxList<ProductSubCategoryItem> subCategoryResponse = <ProductSubCategoryItem>[].obs;
   Rx<SkinTypesResponse> skinTypeResponse = SkinTypesResponse().obs;
 
-  ///Controllers
+  /// Controllers
   final TextEditingController minimumPriceController = TextEditingController();
   final TextEditingController maximumPriceController = TextEditingController();
   final ScrollController scrollController = ScrollController();
@@ -54,26 +54,24 @@ class GetShopDataController extends GetxController {
     pageNumber.value = 1;
     type.value = '';
     selectedSkinTypes.clear();
-    selectedCategoryIndex = Rx<int?>(null);
+    selectedCategoryIndex.value = null; // Correct this line
     isFromCategory.value = false;
     allProducts.clear();
     isFromSearch.value = false;
   }
 
-  updateCategory(String category) {
+  void updateCategory(String category) {
     categories.value = category;
   }
 
   void updateSelectedCategoryIndex(int index, String value) {
-    selectedSortIndex.value = index;
+    selectedCategoryIndex.value = index; // Update this observable
     categories.value = value;
   }
 
   void updateSortKey(String value) {
     sortKey.value = value;
   }
-
-
 
   Future<ShopPageResponse> getShopData() async {
     hittingApi.value = true;
@@ -100,8 +98,6 @@ class GetShopDataController extends GetxController {
       debugPrint('//////////////////////////');
       debugPrint(allProducts.length.toString());
     }
-
-    //allProducts.addAll(shopPageProduct.value.data ?? []);
 
     hittingApi.value = false;
     return shopPageProduct.value;
@@ -132,7 +128,8 @@ class GetShopDataController extends GetxController {
   void addItems() {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
-          scrollController.position.minScrollExtent && pageNumber.value < 1) {
+          scrollController.position.minScrollExtent &&
+          pageNumber.value < 1) {
         if (!hittingApi.value) {
           AppHelperFunctions.showToast('Loading more...');
           print('Reached end of list, loading more...');
@@ -154,13 +151,6 @@ class GetShopDataController extends GetxController {
           return;
         }
       }
-
     });
   }
-
-  // @override
-  // void onClose() {
-  //   scrollController.dispose();
-  //   super.onClose();
-  // }
 }

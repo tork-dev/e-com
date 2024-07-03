@@ -50,6 +50,7 @@ class Product {
   List<dynamic>? keyIngredients;
   List<dynamic>? goodFor;
   int? preorderAvailable;
+  int? requestAvailable;
   String? preorderDeliveryDate;
   dynamic preorderAmount;
   String? preorderStartDate;
@@ -98,6 +99,7 @@ class Product {
     this.keyIngredients,
     this.goodFor,
     this.preorderAvailable,
+    this.requestAvailable,
     this.preorderDeliveryDate,
     this.preorderAmount,
     this.preorderStartDate,
@@ -148,6 +150,7 @@ class Product {
       keyIngredients: json['key_ingredients'] != null ? List<dynamic>.from(json['key_ingredients']) : [],
       goodFor: json['good_for'] != null ? List<dynamic>.from(json['good_for']) : [],
       preorderAvailable: json['preorder_available'],
+      requestAvailable: json['request_available'],
       preorderDeliveryDate: json['preorder_delivery_date'],
       preorderAmount: json['preorder_amount'],
       preorderStartDate: json['preorder_start_date'],
@@ -199,6 +202,7 @@ class Product {
       'key_ingredients': keyIngredients,
       'good_for': goodFor,
       'preorder_available': preorderAvailable,
+      'request_available': requestAvailable,
       'preorder_delivery_date': preorderDeliveryDate,
       'preorder_amount': preorderAmount,
       'preorder_start_date': preorderStartDate,

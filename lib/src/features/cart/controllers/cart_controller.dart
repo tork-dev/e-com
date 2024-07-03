@@ -7,6 +7,8 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
+import '../../home/model/request_stock_model.dart';
+import '../model/card_add_response_model.dart';
 import '../model/cart_delete_response_model.dart';
 import '../model/cart_get_response_model.dart';
 import '../model/cart_update_response_model.dart';
@@ -20,6 +22,8 @@ class CartController extends GetxController {
   RxList<CartItemGetResponse> allCartProducts = <CartItemGetResponse>[].obs;
   Rx<CartDeleteResponse> cartProductDeleteResponse = CartDeleteResponse().obs;
   Rx<CartUpdateResponse> cartUpdateResponse = CartUpdateResponse().obs;
+  Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
+  Rx<ProductRequestResponse> requestStockResponse = ProductRequestResponse().obs;
   Rx<CheckoutCartUpdateResponse> checkoutCartUpdateResponse =
       CheckoutCartUpdateResponse().obs;
 
@@ -67,6 +71,14 @@ class CartController extends GetxController {
         cartItemTotalPrice.value = totalPrice;
       }
     }
+  }
+
+  Future<AddToCartResponse> getAddToCartResponse(int id, int quantity, dynamic preorderAvailable) async {
+    return addToCartResponse.value = await CartRepositories().getCartAddResponse(id, quantity, preorderAvailable);
+  }
+
+  Future<ProductRequestResponse> getRequestResponse({required int productId}) async {
+    return requestStockResponse.value = await CartRepositories().getRequestStock(productId: productId);
   }
 
   Future<List<CartItemGetResponse>> getAllCartProducts() async {

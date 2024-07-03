@@ -22,7 +22,6 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeController = HomeController.instance;
     final cartController = CartController.instance;
     return SizedBox(
         height: sectionName == null ? 170 : 270,
@@ -45,23 +44,23 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                               .readData(LocalStorageKeys.isLoggedIn) !=
                           null) {
                         if (sectionName![index].requestAvailable != 0) {
-                          homeController
+                          cartController
                               .getRequestResponse(
                                   productId: sectionName![index].id)
                               .then((value) => AppHelperFunctions.showToast(
-                                  homeController
+                                  cartController
                                       .requestStockResponse.value.message!));
                           return;
                         }
 
-                        homeController
+                        cartController
                             .getAddToCartResponse(sectionName![index].id, 1,
                                 sectionName![index].preorderAvailable)
                             .then((value) => {
                                   cartController.cartCount.value =
-                                      homeController.addToCartResponse.value
-                                          .cartQuantity!,
-                                  AppHelperFunctions.showToast(homeController
+                                      cartController.addToCartResponse.value
+                                          .cartQuantity ?? 0,
+                                  AppHelperFunctions.showToast(cartController
                                       .addToCartResponse.value.message!)
                                 });
                       } else {
