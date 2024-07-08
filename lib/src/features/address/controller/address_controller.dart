@@ -43,7 +43,7 @@ class AddressController extends GetxController {
     if(shippingAddress.value.data != null){
     setAddress();
     }
-    //getCityList();
+    getCityList();
     print('refresh');
   }
 
@@ -64,18 +64,37 @@ class AddressController extends GetxController {
     selectedAreaId.value = shippingAddress.value.data![0].areaId!;
   }
 
-  Future<CityResponse> getCityList() async {
-    return cityList.value = await AddressRepositories().getCities();
+  Future<void> getCityList() async {
+    if (cityList.value.cities == null) {
+      try {
+        cityList.value = await AddressRepositories().getCities();
+      } catch (e) {
+        print('Error fetching cities: $e');
+        // Handle error as needed
+      }
+    }
   }
 
-  Future<ZoneResponse> getZoneList(int selectedCityId) async {
-    return zoneList.value =
-        await AddressRepositories().getZones(selectedCityId);
+  Future<void> getZoneList(int selectedCityId) async {
+    if (zoneList.value.data == null || zoneList.value.data!.zones == null) {
+      try {
+        zoneList.value = await AddressRepositories().getZones(selectedCityId);
+      } catch (e) {
+        print('Error fetching zones: $e');
+        // Handle error as needed
+      }
+    }
   }
 
-  Future<AreaResponse> getAreaList(int selectedZoneId) async {
-    return areaList.value =
-        await AddressRepositories().getAreas(selectedZoneId);
+  Future<void> getAreaList(int selectedZoneId) async {
+    if (areaList.value.areas == null) {
+      try {
+        areaList.value = await AddressRepositories().getAreas(selectedZoneId);
+      } catch (e) {
+        print('Error fetching areas: $e');
+        // Handle error as needed
+      }
+    }
   }
 
 
