@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/address/model/address_city_model.dart';
 import 'package:kirei/src/features/address/model/address_create_model.dart';
@@ -64,37 +62,18 @@ class AddressController extends GetxController {
     selectedAreaId.value = shippingAddress.value.data![0].areaId!;
   }
 
-  Future<void> getCityList() async {
-    if (cityList.value.cities == null) {
-      try {
-        cityList.value = await AddressRepositories().getCities();
-      } catch (e) {
-        print('Error fetching cities: $e');
-        // Handle error as needed
-      }
-    }
+  Future<CityResponse> getCityList() async {
+    return cityList.value = await AddressRepositories().getCities();
   }
 
-  Future<void> getZoneList(int selectedCityId) async {
-    if (zoneList.value.data == null || zoneList.value.data!.zones == null) {
-      try {
-        zoneList.value = await AddressRepositories().getZones(selectedCityId);
-      } catch (e) {
-        print('Error fetching zones: $e');
-        // Handle error as needed
-      }
-    }
+  Future<ZoneResponse> getZoneList(int selectedCityId) async {
+    return zoneList.value =
+        await AddressRepositories().getZones(selectedCityId);
   }
 
-  Future<void> getAreaList(int selectedZoneId) async {
-    if (areaList.value.areas == null) {
-      try {
-        areaList.value = await AddressRepositories().getAreas(selectedZoneId);
-      } catch (e) {
-        print('Error fetching areas: $e');
-        // Handle error as needed
-      }
-    }
+  Future<AreaResponse> getAreaList(int selectedZoneId) async {
+    return areaList.value =
+        await AddressRepositories().getAreas(selectedZoneId);
   }
 
 

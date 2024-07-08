@@ -70,7 +70,9 @@ class ShopScreen extends StatelessWidget {
               child: AppLayoutWithRefresher(
                   onRefresh: shopController.onRefresh,
                   scrollController: shopDataController.scrollController,
-                  children: const [Gap(45), AppShopGridScrollCard()]),
+                  children: [
+                    Gap(45),
+                    AppShopGridScrollCard()]),
             ),
             Column(
               children: [

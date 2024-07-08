@@ -43,7 +43,7 @@ class AppLayoutWithBackButton extends StatelessWidget {
         centerTitle: centerTitle,
         backgroundColor: backgroundColor,
         actions: action,
-        leadingOnPress: leadingOnPress,
+        leadingOnPress:()=> leadingOnPress,
       ),
       body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
     );

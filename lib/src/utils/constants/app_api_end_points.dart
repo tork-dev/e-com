@@ -98,6 +98,10 @@ class AppApiEndPoints {
   ///Recommendation question
   static String recommendationQuestion = "$baseUrl/gigalogy/questions/recommend";
 
+
+  ///Appointment
+  static String appointmentStore = "$baseUrl/new-appointment/store";
+
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";
 // static String AddAddr = "$baseUrl/user/shipping/create";
