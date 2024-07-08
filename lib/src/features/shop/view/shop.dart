@@ -34,20 +34,32 @@ class ShopScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
         leadingIconColor: AppColors.white,
         hasEndDrawer: true,
-        action: const [
-          Icon(
-            Icons.search,
-            color: AppColors.white,
-          ),
-          Gap(AppSizes.sm),
+        action:  [
+          SizedBox()
+          // InkWell(
+          //   onTap: (){
+          //     print('print1');
+          //     shopDataController.searchOn.value.requestFocus();
+          //     print('print2');
+          //   },
+          //   child: const Icon(
+          //     Icons.search,
+          //     color: AppColors.white,
+          //   ),
+          // ),
+          // const Gap(AppSizes.sm),
         ],
-        title: AppBarSearch(
-          onSubmit: (txt){
-            shopDataController.search.value = txt;
-            shopDataController.isFromSearch.value = true;
-            shopDataController.allProducts.clear();
-            shopDataController.getShopData();
-          },
+        title: Obx(() {
+            return AppBarSearch(
+              focusOn: shopDataController.searchOn.value,
+              onSubmit: (txt){
+                shopDataController.search.value = txt;
+                shopDataController.isFromSearch.value = true;
+                shopDataController.allProducts.clear();
+                shopDataController.getShopData();
+              },
+            );
+          }
         ),
         body: Stack(
           clipBehavior: Clip.none,

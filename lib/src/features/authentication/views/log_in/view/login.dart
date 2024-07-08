@@ -13,7 +13,6 @@ import '../../../../../utils/constants/sizes.dart';
 import '../../forgot_password/view/forgot.dart';
 import '../../sign_up/view/signup.dart';
 import '../../widgets/header_logo_part.dart';
-import '../../widgets/other_login_option.dart';
 import '../controllers/login_controller.dart';
 import 'widgets/login_forms&button.dart';
 
@@ -31,83 +30,95 @@ class LogIn extends StatelessWidget {
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: AppLayoutWithoutAppBar(
-          body: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            children: [
-              const HeaderLogoPart(),
-              const Gap(AppSizes.spaceBtwItems),
-              const Text(
-                "Login",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: AppSizes.fontSizeLg,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const Gap(AppSizes.spaceBtwSections),
-              const Text(
-                "Phone",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: AppSizes.fontSizeSm,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const LogInFormsAndButton(),
-              const Gap(AppSizes.sm),
-              AppButtons.largeFlatFilledIconButton(
-                  onPressed: () {
-                    logInController.onPressedFacebookLogin();
-                  },
-                  verticallyPadding: 14,
-                  backgroundColor: AppColors.facebookBg,
-                  imgUrl: AppImages.facebook,
-                  buttonName: 'Login with facebook'.toUpperCase()),
-              const Gap(AppSizes.sm),
-              AppButtons.largeFlatFilledIconButton(
-                  onPressed: () {
-                    logInController.onPressedGoogleLogin();
-                  },
-                  verticallyPadding: 14,
-                  backgroundColor: AppColors.googleBg,
-                  imgUrl: AppImages.google,
-                  buttonName: 'Login with google'.toUpperCase()),
-              const Gap(AppSizes.sm),
-              Visibility(
-                visible: !Platform.isAndroid,
-                  child: AppButtons.largeFlatFilledIconButton(
-                      onPressed: () {},
-                      verticallyPadding: 14,
-                      backgroundColor: AppColors.secondary,
-                      imgUrl: AppImages.appleLogo,
-                      buttonName: 'Login with apple'.toUpperCase())),
-              const Gap(AppSizes.spaceBtwSections),
-              Center(
-                  child: InkWell(
-                      onTap: () {
-                        Get.to(const SignUp());
+          body: Center(
+            child: SizedBox(
+              width: 400,
+              child: ListView(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const HeaderLogoPart(),
+                  const Gap(AppSizes.spaceBtwItems),
+                  const Text(
+                    "Login",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: AppSizes.fontSizeLg,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Gap(AppSizes.spaceBtwSections),
+                  const Text(
+                    "Phone",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: AppSizes.fontSizeSm,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const LogInFormsAndButton(),
+                  const Gap(AppSizes.sm),
+                  AppButtons.largeFlatFilledIconButton(
+                      onPressed: () {
+                        logInController.onPressedFacebookLogin();
                       },
-                      child: Text(
-                        AppLocalizations.of(context)!.dontHaveAccount,
-                        style: Theme.of(context).textTheme.titleMedium!.apply(
+                      verticallyPadding: 14,
+                      backgroundColor: AppColors.facebookBg,
+                      imgUrl: AppImages.facebook,
+                      buttonName: 'Login with facebook'.toUpperCase(),
+                    gapBetweenIconAndText: 12
+                  ),
+                  const Gap(AppSizes.sm),
+                  AppButtons.largeFlatFilledIconButton(
+                      onPressed: () {
+                        logInController.onPressedGoogleLogin();
+                      },
+                      verticallyPadding: 14,
+                      backgroundColor: AppColors.googleBg,
+                      imgUrl: AppImages.google,
+                      buttonName: 'Login with google'.toUpperCase(),
+                      gapBetweenIconAndText: 5
+                  ),
+                  const Gap(AppSizes.sm),
+                  Visibility(
+                    visible: Platform.isAndroid,
+                      child: AppButtons.largeFlatFilledIconButton(
+                          onPressed: () {},
+                          verticallyPadding: 14,
+                          backgroundColor: AppColors.secondary,
+                          imgUrl: AppImages.appleLogo,
+                          buttonName: 'Login with apple'.toUpperCase(),
+                          gapBetweenIconAndText: 12
+                      ),
+                  ),
+                  const Gap(AppSizes.spaceBtwSections),
+                  Center(
+                      child: InkWell(
+                          onTap: () {
+                            Get.to(const SignUp());
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.dontHaveAccount,
+                            style: Theme.of(context).textTheme.titleMedium!.apply(
+                                  decoration: TextDecoration.underline,
+                                ),
+                          ))),
+                  TextButton(
+                    onPressed: () {
+                      Get.to(const ForgotPassword());
+                    },
+                    child: Text(AppLocalizations.of(context)!.forgotPassword,
+                        style: Theme.of(context).textTheme.bodySmall?.apply(
+                              color: AppColors.primary,
                               decoration: TextDecoration.underline,
-                            ),
-                      ))),
-              TextButton(
-                onPressed: () {
-                  Get.to(const ForgotPassword());
-                },
-                child: Text(AppLocalizations.of(context)!.forgotPassword,
-                    style: Theme.of(context).textTheme.bodySmall?.apply(
-                          color: AppColors.primary,
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppColors.primary,
-                        )),
-              )
-            ],
+                              decorationColor: AppColors.primary,
+                            )),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),

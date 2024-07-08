@@ -23,26 +23,26 @@ class AppAllAddressFields extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         AppAddressTextField(
+        AppAddressTextField(
           controller: addressController.nameController,
           fieldTitle: 'Name*',
           hintText: 'Enter name',
         ),
         const Gap(AppSizes.spaceBtwRowItem),
-         AppAddressTextField(
-           controller: addressController.phoneController,
+        AppAddressTextField(
+          controller: addressController.phoneController,
           fieldTitle: 'Phone*',
           hintText: 'Enter phone',
         ),
         const Gap(AppSizes.spaceBtwRowItem),
-         AppAddressTextField(
+        AppAddressTextField(
           controller: addressController.emailController,
           fieldTitle: 'Email',
           hintText: 'Enter email',
         ),
         const Gap(AppSizes.spaceBtwRowItem),
-         AppAddressTextField(
-           controller: addressController.addressController,
+        AppAddressTextField(
+          controller: addressController.addressController,
           verticalPadding: 20,
           fieldTitle: 'Address*',
           hintText: 'Enter address',
@@ -61,10 +61,10 @@ class AppAllAddressFields extends StatelessWidget {
               itemBuilder: (context, dataItem) {
                 return dataItem.name == null
                     ? const AppCardContainer(
-                        height: 50,
-                        child: Center(
-                          child: Text('Loading...'),
-                        ))
+                    height: 50,
+                    child: Center(
+                      child: Text('Loading...'),
+                    ))
                     : ListTile(dense: true, title: Text(dataItem.name!));
               },
               onSelected: (value) async {
@@ -98,22 +98,22 @@ class AppAllAddressFields extends StatelessWidget {
                   decoration: const InputDecoration(
                     suffixIcon: Icon(Icons.arrow_drop_down_rounded),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 0),
                     hintText: 'Select city',
                     hintStyle: TextStyle(
                         color: AppColors.grey, fontWeight: FontWeight.w400),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                   ),
                 );
               },
@@ -133,10 +133,10 @@ class AppAllAddressFields extends StatelessWidget {
               itemBuilder: (context, dataItem) {
                 return dataItem.name == null
                     ? const AppCardContainer(
-                        height: 50,
-                        child: Center(
-                          child: Text('Loading...'),
-                        ))
+                    height: 50,
+                    child: Center(
+                      child: Text('Loading...'),
+                    ))
                     : ListTile(dense: true, title: Text(dataItem.name!));
               },
               onSelected: (zone) async {
@@ -172,22 +172,22 @@ class AppAllAddressFields extends StatelessWidget {
                   decoration: const InputDecoration(
                     suffixIcon: Icon(Icons.arrow_drop_down_rounded),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 0),
                     hintText: 'Select zone',
                     hintStyle: TextStyle(
                         color: AppColors.grey, fontWeight: FontWeight.w400),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                   ),
                 );
               },
@@ -235,22 +235,22 @@ class AppAllAddressFields extends StatelessWidget {
                   decoration: const InputDecoration(
                     suffixIcon: Icon(Icons.arrow_drop_down_rounded),
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 0),
                     hintText: 'Select area',
                     hintStyle: TextStyle(
                         color: AppColors.grey, fontWeight: FontWeight.w400),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.zero,
                         borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                        BorderSide(color: AppColors.grey, width: 2)),
                   ),
                 );
               },

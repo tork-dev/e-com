@@ -36,7 +36,7 @@ class AppEditProfilePicturePart extends StatelessWidget {
                     imgUrl: detailsController
                             .profileUpdateImageResponse.value.path ??
                         AppLocalStorage()
-                            .readData(LocalStorageKeys.avatarOriginal));
+                            .readData(LocalStorageKeys.avatarOriginal)) ;
               })),
           Positioned(
               right: 0,

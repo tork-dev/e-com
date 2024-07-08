@@ -20,9 +20,6 @@ import 'widgets/home_appbar_title.dart';
 class HomeThree extends StatelessWidget {
   const HomeThree({super.key});
 
-  Future<void> _onRefresh() async {
-    debugPrint('_onRefresh');
-  }
 
   @override
   Widget build(BuildContext context) {

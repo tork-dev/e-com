@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
@@ -29,6 +30,7 @@ class AppShopGridScrollCard extends StatelessWidget {
     final shopController = GetShopDataController.instance;
     final cartController = CartController.instance;
     return Obx(() {
+      print('//////////////////${shopController.allProducts}/${shopController.hittingApi}');
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,7 +51,9 @@ class AppShopGridScrollCard extends StatelessWidget {
                       .hittingApi.value
                   ? ShimmerHelper().buildBasicShimmer(height: 150, width: 150)
                   : shopController.allProducts.isEmpty
-                      ? const Center(
+                      ? const AppCardContainer(
+                height: 350,
+                backgroundColor: AppColors.addToCartButton,
                           child: Text('No Product Found'),
                         )
                       : AppVerticalProductCard(

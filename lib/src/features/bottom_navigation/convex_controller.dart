@@ -49,7 +49,7 @@ class ConvexBottomNavController extends GetxController
   void changePage(int index) {
     pageIndex.value = index;
     if (pageIndex.value == 2) {
-      cartController.onRefresh();
+       cartController.onRefresh();
     }
     // if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null &&
     //     pageIndex.value == 3) {
@@ -61,8 +61,7 @@ class ConvexBottomNavController extends GetxController
       return;
     }
     if(categoryController.isFromSearch.value == false && pageIndex.value ==1 ){
-      ShopController shopController = Get.put(ShopController());
-      shopController.onRefresh();
+      categoryController.getShopData();
       return;
     }
   }

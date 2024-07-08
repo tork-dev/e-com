@@ -13,6 +13,7 @@ import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
+import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
@@ -41,7 +42,9 @@ class AppDrawer extends StatelessWidget {
       applyRadius: false,
       child: ListView(
         children: [
-          const AppDrawerHeaderPart(),
+          InkWell(
+              onTap:()=> Get.to(()=> const AccountDetailsScreen()),
+              child: const AppDrawerHeaderPart()),
           AppDrawerCard(
             title: 'HOME',
             onPress: () => Get.offAll(() => const HelloConvexAppBar()),

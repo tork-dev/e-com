@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -69,6 +70,9 @@ Future<void> main() async {
 
   await PushNotificationService().initNotifications();
 
+  // Get any initial links
+  final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+
 
 
   Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
@@ -80,5 +84,5 @@ Future<void> main() async {
 
 
 
-  runApp(const MyApp());
+  runApp(const  MyApp());
 }

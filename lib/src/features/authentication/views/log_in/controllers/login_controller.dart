@@ -22,6 +22,7 @@ import 'package:kirei/src/utils/popups/loaders.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../../../utils/http/http_client.dart';
 import '../../../../../utils/popups/full_screen_loader.dart';
+import '../../../model/resend_code_model.dart';
 import '../../forgot_password/view/otp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -43,6 +44,7 @@ class LogInPageController extends GetxController {
   Rx<bool> rememberMe = false.obs;
   Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
   Rx<UserByTokenResponse> userDataByToken = UserByTokenResponse().obs;
+  Rx<SendOtpCodeResponse> sendOtpResponse = SendOtpCodeResponse().obs;
 
   // List<LoginOtpResponse> otpLoginList = [];
 
@@ -185,20 +187,20 @@ class LogInPageController extends GetxController {
       // FullScreenLoader.openLoadingDialog('Processing', AppImages.loading);
 
       ///Api Calling
-      loginResponse.value = await LoginRepository().getLoginOTPResponse(
+      sendOtpResponse.value = await LoginRepository().getLoginOTPResponse(
         emailController.text.toString(),
       );
-      print("data: ${loginResponse.value.toString()}");
+      print("data: ${sendOtpResponse.value.toString()}");
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     } finally {
       if (logInFormKey.currentState!.validate()) {
-        if (loginResponse.value.result == true) {
-          AppHelperFunctions.showToast(loginResponse.value.message.toString());
+        if (sendOtpResponse.value.result == true) {
+          AppHelperFunctions.showToast(sendOtpResponse.value.message.toString());
           Get.to(() => const Otp());
         } else {
-          AppHelperFunctions.showToast(loginResponse.value.message.toString());
+          AppHelperFunctions.showToast(sendOtpResponse.value.message.toString());
         }
       }
     }

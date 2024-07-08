@@ -50,6 +50,7 @@ class HelloConvexAppBar extends StatelessWidget {
                   },
                   onLeftPress: () {
                     Platform.isAndroid ? SystemNavigator.pop() : exit(0);
+                    Get.back();
                   },
                   rightButtonTextColor: AppColors.secondary,
                   buttonColor: Colors.transparent);

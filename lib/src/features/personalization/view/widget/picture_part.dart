@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -15,7 +16,7 @@ class PicturePart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileDetailsController = Get.put(AccountDetailsController());
+    final loginController = Get.put(LogInPageController());
     return Column(children: [
       SizedBox(
         height: 170,
@@ -41,22 +42,15 @@ class PicturePart extends StatelessWidget {
                       hasBorder: true,
                       isCircle: true,
                       child: Obx(() {
-                          return AppBannerImage(
-                            imgBoarderRadius: 100,
-                            isNetworkImage: AppLocalStorage()
-                                    .readData(LocalStorageKeys.avatarOriginal) !=
-                                null,
-                            fit: BoxFit.fill,
-                            imgUrl: AppLocalStorage().readData(
-                                        LocalStorageKeys.avatarOriginal) !=
-                                    null
-                                ? profileDetailsController
-                                        .profileUpdateImageResponse.value.path ??
-                                    '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
-                                : AppImages.profileIcon,
-                          );
-                        }
-                      )),
+                        return AppBannerImage(
+                          imgBoarderRadius: 100,
+                          isNetworkImage: true,
+                          fit: BoxFit.fill,
+                          imgUrl: loginController
+                                      .userDataByToken.value.avatarOriginal ??
+                                  '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
+                        );
+                      })),
                 ],
               ),
             )
@@ -65,13 +59,16 @@ class PicturePart extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.only(top: 8.0),
-        child: Text(
-          "${AppLocalStorage().readData(LocalStorageKeys.userName)}",
-          style: const TextStyle(
-              fontSize: 14,
-              color: AppColors.secondary,
-              fontWeight: FontWeight.w600),
-        ),
+        child: Obx(() {
+          return Text(
+            loginController.userDataByToken.value.name ??
+                "${AppLocalStorage().readData(LocalStorageKeys.userName)}",
+            style: const TextStyle(
+                fontSize: 14,
+                color: AppColors.secondary,
+                fontWeight: FontWeight.w600),
+          );
+        }),
       )
     ]);
   }

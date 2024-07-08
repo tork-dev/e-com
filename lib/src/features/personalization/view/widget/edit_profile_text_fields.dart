@@ -41,8 +41,7 @@ class AppEditProfileTextFields extends StatelessWidget {
             validator: null,
           ),
           Visibility(
-            visible: true,
-            // AppLocalStorage().readData(LocalStorageKeys.userHavePassword),
+            visible: AppLocalStorage().readData(LocalStorageKeys.userHavePassword),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -89,7 +88,7 @@ class AppEditProfileTextFields extends StatelessWidget {
           AuthInputField(
             hingText: '******',
             controller: accountDetailsController.confirmNewPasswordController,
-            obscured: false,
+            obscured: true,
             validator: (value) => AppValidator.validateConfirmPassword(
                 value, accountDetailsController.newPasswordController.text),
           ),

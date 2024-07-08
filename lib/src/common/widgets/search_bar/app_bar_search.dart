@@ -6,10 +6,12 @@ import '../../../utils/constants/colors.dart';
 
 class AppBarSearch extends StatelessWidget {
   final Widget? Function(String txt) onSubmit;
-  const AppBarSearch({super.key, required this.onSubmit});
+  final FocusNode focusOn;
+  const AppBarSearch({super.key, required this.onSubmit, required this.focusOn});
 
   @override
   Widget build(BuildContext context) {
+   // final ValueNotifier<FocusNode?> currentFocusNode = ValueNotifier<FocusNode?>(focusOn);
     return AppSearchWidget(
       builder: (context, controller, focusNode)=>
       TextFormField(
@@ -19,6 +21,8 @@ class AppBarSearch extends StatelessWidget {
         cursorColor: AppColors.white,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
+          contentPadding: const EdgeInsets.only(right: 0),
+          suffixIcon: const Icon(Icons.search, color: AppColors.white,),
           hintText: 'Search with AI (EX: Facewash for acne)',
           hintStyle: Theme.of(context)
               .textTheme

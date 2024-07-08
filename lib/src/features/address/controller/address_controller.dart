@@ -43,7 +43,7 @@ class AddressController extends GetxController {
     if(shippingAddress.value.data != null){
     setAddress();
     }
-    getCityList();
+    //getCityList();
     print('refresh');
   }
 

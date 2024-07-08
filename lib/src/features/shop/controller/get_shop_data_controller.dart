@@ -13,6 +13,7 @@ class GetShopDataController extends GetxController {
   RxBool hittingApi = false.obs;
   RxBool isFromCategory = false.obs;
   RxBool isFromSearch = false.obs;
+  final searchOn = Rx<FocusNode>(FocusNode());
 
   /// Model
   Rx<ShopPageResponse> shopPageProduct = ShopPageResponse().obs;

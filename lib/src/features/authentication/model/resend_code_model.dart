@@ -4,26 +4,30 @@
 
 import 'dart:convert';
 
-ResendCodeResponse resendCodeResponseFromJson(String str) => ResendCodeResponse.fromJson(json.decode(str));
+SendOtpCodeResponse resendCodeResponseFromJson(String str) => SendOtpCodeResponse.fromJson(json.decode(str));
 
-String resendCodeResponseToJson(ResendCodeResponse data) => json.encode(data.toJson());
+String resendCodeResponseToJson(SendOtpCodeResponse data) => json.encode(data.toJson());
 
-class ResendCodeResponse {
-  ResendCodeResponse({
+class SendOtpCodeResponse {
+  SendOtpCodeResponse({
     this.result,
+    this.phone,
     this.message,
   });
 
   bool? result;
+  String? phone;
   String? message;
 
-  factory ResendCodeResponse.fromJson(Map<String, dynamic> json) => ResendCodeResponse(
+  factory SendOtpCodeResponse.fromJson(Map<String, dynamic> json) => SendOtpCodeResponse(
     result: json["result"],
+    phone: json["phone"],
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "result": result,
+    "phone" : phone,
     "message": message,
   };
 }

@@ -37,84 +37,88 @@ import '../../../utils/constants/sizes.dart';
 import 'widgets/details_picture_part.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({super.key, required this.productSlug, required this.productId});
+  const DetailsPage(
+      {super.key, required this.productSlug, required this.productId});
 
   final String productSlug;
   final int productId;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DetailsPageController(productSlug: productSlug, productId: productId));
+    final controller = Get.put(
+        DetailsPageController(productSlug: productSlug, productId: productId));
     final categoryController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
     return AppLayoutWithBackButton(
         padding: 0,
         backgroundColor: AppColors.primary,
-        title: AppBarSearch(
-          onSubmit: (txt){
-            categoryController.search.value = txt;
-            categoryController.isFromSearch.value = true;
-            categoryController.getShopData();
-            Get.back();
-            bottomController.jumpToTab(1);
-          },
-        ),
+        bottomNav: const AppBottomButton(),
+        title: Obx(() {
+          return AppBarSearch(
+            focusOn: categoryController.searchOn.value,
+            onSubmit: (txt) {
+              categoryController.search.value = txt;
+              categoryController.isFromSearch.value = true;
+              categoryController.getShopData();
+              Get.back();
+              bottomController.jumpToTab(1);
+            },
+          );
+        }),
         leadingIconColor: AppColors.white,
-        action: const [
-          Icon(
-            Icons.search,
-            color: AppColors.white,
-          ),
-          Gap(AppSizes.sm),
-          Icon(
-            Icons.home_outlined,
-            color: AppColors.white,
-          ),
-          Gap(AppSizes.sm),
-          Icon(Icons.shopping_bag_outlined, color: AppColors.white),
-          Gap(AppSizes.sm),
-        ],
-        body: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8, bottom: 50),
-              child: AppLayoutWithRefresher(
-                  onRefresh: controller.onRefresh,
-                  children:  [
-                    const AppDetailsPicturePart(),
-                    const Gap(AppSizes.spaceBtwItems),
-                    const AppDetailsProductNamePart(),
-                    const Gap(AppSizes.spaceBtwItems),
-                    const AppDetailsDescriptionPart(),
-                    AppDividersStyle.fullFlatAppDivider,
-                    const Gap(AppSizes.spaceBtwItems),
-                    const AppDetailsCategoriesPart(),
-                    const AppDetailsFullDescription(),
-                    AppDividersStyle.fullFlatAppDivider,
-                     ReviewAndQuestion(
-                      onTap: (){
-                        Get.to(()=>  ReviewScreen(productId: productId));
-                      },
-                      title: 'Review',
-                    ),
-                    AppDividersStyle.fullFlatAppDivider,
-                    ReviewAndQuestion(
-                      onTap: (){
-                        Get.to(()=>  QuestionScreen(productId: productId));
-                      },
-                      title: 'questions about this products',
-                    ),
-                    AppDividersStyle.fullFlatAppDivider,
-                    const Gap(AppSizes.spaceBtwItems),
-                    const Gap(AppSizes.spaceBtwItems),
-                    const AppRecommendedAndRelatedProducts()
-                  ]),
+        action: [
+          InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: const Icon(
+              Icons.home_outlined,
+              color: AppColors.white,
             ),
-            const Positioned(
-              bottom: 0,
-              child: AppBottomButton(),
-            )
-          ],
+          ),
+          const Gap(AppSizes.sm),
+          InkWell(
+              onTap: () {
+                Get.back();
+                bottomController.jumpToTab(2);
+              },
+              child: const Icon(Icons.shopping_bag_outlined,
+                  color: AppColors.white)),
+          const Gap(AppSizes.sm),
+        ],
+        body: Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: AppLayoutWithRefresher(
+              onRefresh: controller.onRefresh,
+              children: [
+                const AppDetailsPicturePart(),
+                const Gap(AppSizes.spaceBtwItems),
+                const AppDetailsProductNamePart(),
+                const Gap(AppSizes.spaceBtwItems),
+                const AppDetailsDescriptionPart(),
+                AppDividersStyle.fullFlatAppDivider,
+                const Gap(AppSizes.spaceBtwItems),
+                const AppDetailsCategoriesPart(),
+                const AppDetailsFullDescription(),
+                AppDividersStyle.fullFlatAppDivider,
+                ReviewAndQuestion(
+                  onTap: () {
+                    Get.to(() => ReviewScreen(productId: productId));
+                  },
+                  title: 'Review',
+                ),
+                AppDividersStyle.fullFlatAppDivider,
+                ReviewAndQuestion(
+                  onTap: () {
+                    Get.to(() => QuestionScreen(productId: productId));
+                  },
+                  title: 'questions about this products',
+                ),
+                AppDividersStyle.fullFlatAppDivider,
+                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwItems),
+                const AppRecommendedAndRelatedProducts()
+              ]),
         ));
   }
 }

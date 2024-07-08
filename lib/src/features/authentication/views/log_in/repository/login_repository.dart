@@ -5,12 +5,13 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import '../../../../../utils/constants/app_api_end_points.dart';
 import '../../../../../utils/local_storage/storage_utility.dart';
 import 'package:http/http.dart' as http;
+import '../../../model/resend_code_model.dart';
 import '../model/user_by_token_response.dart';
 
 class LoginRepository{
   final loginController = LogInPageController.instance;
 
-  Future<AppLoginResponse> getLoginOTPResponse( String phone, ) async {
+  Future<SendOtpCodeResponse> getLoginOTPResponse( String phone, ) async {
     var postBody = jsonEncode({"email": phone});
 
     Uri url = Uri.parse(AppApiEndPoints.loginOtp);
@@ -20,7 +21,7 @@ class LoginRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    return AppLoginResponse.fromJson(jsonDecode(response.body));
+    return SendOtpCodeResponse.fromJson(jsonDecode(response.body));
   }
 
   Future<AppLoginResponse> getLogInOtpConfirmCodeResponse(
@@ -76,7 +77,7 @@ class LoginRepository{
   }
 
 
-  Future<AppLoginResponse> getLoginResendOTPResponse( String phone, ) async {
+  Future<SendOtpCodeResponse> getLoginResendOTPResponse( String phone, ) async {
     var postBody = jsonEncode({"email": phone});
 
     Uri url = Uri.parse(AppApiEndPoints.loginOtp);
@@ -87,7 +88,7 @@ class LoginRepository{
         },
         body: postBody);
     print(response.body);
-    return AppLoginResponse.fromJson(jsonDecode(response.body));
+    return SendOtpCodeResponse.fromJson(jsonDecode(response.body));
   }
 
 

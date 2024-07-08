@@ -18,7 +18,6 @@ class AuthHelper{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user?.phone );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user?.passwordSaved);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avatar);
-
   }
 
 
@@ -50,7 +49,7 @@ class AuthHelper{
       AppLocalStorage().saveData(LocalStorageKeys.userEmail, userData.email );
       AppLocalStorage().saveData(LocalStorageKeys.userPhone, userData.phone );
       AppLocalStorage().saveData(LocalStorageKeys.userHavePassword, userData.passwordSaved);
-      AppLocalStorage().saveData(LocalStorageKeys.avatarOriginal, userData.avatarOriginal);
+      AppLocalStorage().saveData(LocalStorageKeys.avatarOriginal, userData.avatar);
   }
 
 
