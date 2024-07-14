@@ -12,6 +12,7 @@ class AppApiEndPoints {
   static String getUserAccessToken = "$baseUrl/get-user-by-access_token";
   static String socialSignIn = "$baseUrl/auth/social-login";
   static String socialLogOut = "$baseUrl/auth/logout";
+  static String socialOption = "$baseUrl/activated-social-login";
 
   static String signUp = "$baseUrl/auth/signup";
   static String signupOtp = "$baseUrl/send-signup-otp";
@@ -101,6 +102,9 @@ class AppApiEndPoints {
 
   ///Appointment
   static String appointmentStore = "$baseUrl/new-appointment/store";
+
+  /// De-Active Account
+  static String deActiveAccount = "$baseUrl/auth/deactive-account";
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";

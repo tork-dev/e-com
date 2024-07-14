@@ -1,9 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
@@ -23,9 +28,11 @@ class LogIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final logInController = Get.put(LogInPageController());
     return PopScope(
-      canPop: true,
-      onPopInvoked: (pop){
-        Get.offAll(const HelloConvexAppBar());
+      canPop: false,
+      onPopInvoked: (pop) {
+        Get.offAll(const HelloConvexAppBar(
+          pageIndex: 0,
+        ));
       },
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -60,39 +67,66 @@ class LogIn extends StatelessWidget {
                   ),
                   const LogInFormsAndButton(),
                   const Gap(AppSizes.sm),
-                  AppButtons.largeFlatFilledIconButton(
-                      onPressed: () {
-                        logInController.onPressedFacebookLogin();
-                      },
-                      verticallyPadding: 14,
-                      backgroundColor: AppColors.facebookBg,
-                      imgUrl: AppImages.facebook,
-                      buttonName: 'Login with facebook'.toUpperCase(),
-                    gapBetweenIconAndText: 12
-                  ),
-                  const Gap(AppSizes.sm),
-                  AppButtons.largeFlatFilledIconButton(
-                      onPressed: () {
-                        logInController.onPressedGoogleLogin();
-                      },
-                      verticallyPadding: 14,
-                      backgroundColor: AppColors.googleBg,
-                      imgUrl: AppImages.google,
-                      buttonName: 'Login with google'.toUpperCase(),
-                      gapBetweenIconAndText: 5
-                  ),
-                  const Gap(AppSizes.sm),
-                  Visibility(
-                    visible: Platform.isAndroid,
-                      child: AppButtons.largeFlatFilledIconButton(
-                          onPressed: () {},
-                          verticallyPadding: 14,
-                          backgroundColor: AppColors.secondary,
-                          imgUrl: AppImages.appleLogo,
-                          buttonName: 'Login with apple'.toUpperCase(),
-                          gapBetweenIconAndText: 12
-                      ),
-                  ),
+                  Obx(() {
+                    return logInController.hittingApi.value
+                        ? AppListViewLayout(
+                            itemCount: 3,
+                            builderFunction: (context, index) {
+                              return ShimmerHelper()
+                                  .buildBasicShimmer(height: 50);
+                            })
+                        : Column(
+                            children: [
+                              // const Gap(AppSizes.sm),
+                              Visibility(
+                                visible: logInController.socialOptionResponse
+                                        .value.loginOptions?[0].value ==
+                                    '1',
+                                child: AppButtons.largeFlatFilledIconButton(
+                                    onPressed: () {
+                                      logInController.onPressedFacebookLogin();
+                                    },
+                                    verticallyPadding: 14,
+                                    backgroundColor: AppColors.facebookBg,
+                                    imgUrl: AppImages.facebook,
+                                    buttonName:
+                                        'Login with facebook'.toUpperCase(),
+                                    gapBetweenIconAndText: 12),
+                              ),
+                              const Gap(AppSizes.sm),
+                              Visibility(
+                                visible: logInController.socialOptionResponse
+                                        .value.loginOptions?[1].value ==
+                                    '1',
+                                child: AppButtons.largeFlatFilledIconButton(
+                                    onPressed: () {
+                                      logInController.onPressedGoogleLogin();
+                                    },
+                                    verticallyPadding: 14,
+                                    backgroundColor: AppColors.googleBg,
+                                    imgUrl: AppImages.google,
+                                    buttonName:
+                                        'Login with google'.toUpperCase(),
+                                    gapBetweenIconAndText: 5),
+                              ),
+                              const Gap(AppSizes.sm),
+                              Visibility(
+                                visible: !Platform.isAndroid &&
+                                    logInController.socialOptionResponse.value
+                                            .loginOptions?[2].value ==
+                                        '1',
+                                child: AppButtons.largeFlatFilledIconButton(
+                                    onPressed: () {},
+                                    verticallyPadding: 14,
+                                    backgroundColor: AppColors.secondary,
+                                    imgUrl: AppImages.appleLogo,
+                                    buttonName:
+                                        'Login with apple'.toUpperCase(),
+                                    gapBetweenIconAndText: 12),
+                              ),
+                            ],
+                          );
+                  }),
                   const Gap(AppSizes.spaceBtwSections),
                   Center(
                       child: InkWell(
@@ -101,9 +135,10 @@ class LogIn extends StatelessWidget {
                           },
                           child: Text(
                             AppLocalizations.of(context)!.dontHaveAccount,
-                            style: Theme.of(context).textTheme.titleMedium!.apply(
-                                  decoration: TextDecoration.underline,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.titleMedium!.apply(
+                                      decoration: TextDecoration.underline,
+                                    ),
                           ))),
                   TextButton(
                     onPressed: () {

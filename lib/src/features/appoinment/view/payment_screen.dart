@@ -9,15 +9,19 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class AppointmentPaymentScreen extends StatefulWidget {
-  final String bkashInitialUrl;
+  final String initialUrl;
+  final String screenName;
+
 
   const AppointmentPaymentScreen({
     super.key,
-    required this.bkashInitialUrl,
+    required this.initialUrl,
+    required this.screenName
   });
 
   @override
-  _AppointmentPaymentScreenState createState() => _AppointmentPaymentScreenState();
+  _AppointmentPaymentScreenState createState() =>
+      _AppointmentPaymentScreenState();
 }
 
 class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
@@ -28,33 +32,32 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.bkashInitialUrl != null) {
-      webViewController = WebViewController()
-        ..setJavaScriptMode(JavaScriptMode.unrestricted)
-        ..setNavigationDelegate(
-          NavigationDelegate(
-            onPageFinished: (String url) {
-              readResponse();
-            },
-            onWebResourceError: (error) {
-              print(error);
-              AppHelperFunctions.showToast('Something went wrong');
-              Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
-            },
-          ),
-        )
-        ..loadRequest(Uri.parse(widget.bkashInitialUrl));
-    }
+    webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            readResponse();
+          },
+          onWebResourceError: (error) {
+            print(error);
+            AppHelperFunctions.showToast('Something went wrong');
+            Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.initialUrl));
   }
 
   @override
   Widget build(BuildContext context) {
-
     return AppLayoutWithBackButton(
-        title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
-        leadingOnPress: (){
+      backToHome: true,
+        title: Text('Pay with ${widget.screenName}',
+          style: const TextStyle(color: AppColors.primary),),
+        leadingOnPress: () {
           print('working');
-          Get.offAll(()=> const HelloConvexAppBar(pageIndex: 0,));
+          Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
         },
         padding: AppSizes.defaultSpace,
         body: buildBody());
@@ -62,12 +65,17 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
 
   Widget buildBody() {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height,
       child: WebViewWidget(controller: webViewController),
     );
   }
-
 
 
   void readResponse() async {
@@ -93,7 +101,6 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
   }
 
   void navigateToOrderSuccess() {
-
     // Navigator.pushAndRemoveUntil(
     //   context,
     //   MaterialPageRoute(

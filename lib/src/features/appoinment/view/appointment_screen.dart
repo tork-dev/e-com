@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
-import 'package:kirei/src/features/appoinment/view/widgets/appointment_form_widget.dart';
 import 'package:kirei/src/features/appoinment/view/widgets/appointment_forms.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+
 
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({super.key});
@@ -14,10 +14,11 @@ class AppointmentScreen extends StatelessWidget {
     final appointmentController = Get.put(AppointmentController());
     return AppLayoutWithDrawer(
       isFromOtherPage: true,
+        backToHome: true,
         backgroundColor: AppColors.white,
         globalKey: appointmentController.appointmentKey,
         title: const Text(
-          'Appointment',
+          'Dr. Appointment',
           style: TextStyle(color: Colors.blueGrey),
         ),
         centerTitle: true,

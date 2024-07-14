@@ -18,43 +18,38 @@ class BeautyTipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(BeautyTipsController());
-    return PopScope(
-      canPop: true,
-      onPopInvoked: (pop){
-        Get.offAll(const HelloConvexAppBar());
-      },
-      child: AppLayoutWithDrawer(
-        isFromOtherPage: true,
-          globalKey: controller.beautyKey,
-          title: const Text('Beauty Tips', style: TextStyle(color: Colors.blueGrey),),
-          backgroundColor: AppColors.white,
-          leadingIconColor: AppColors.darkGrey,
-          centerTitle: true,
-          body: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                   AppBannerImage(
-                    onPress: (){
-                      Get.to(()=> const WebViewScreen(
-                          url: 'https://kireibd.com/blogs?type=app',
-                          title: 'Blogs'));
-                    },
-                      imgUrl: AppImages.beautyTipsOne),
-                  Text('Beauty Blogs', style: Theme.of(context).textTheme.titleMedium,),
-                  const Gap(AppSizes.spaceBtwSections),
-                   AppBannerImage(
-                    onPress: (){
-                      AppDeviceUtils.browseUrl('https://www.youtube.com/@j-beautybykirei213');
-                    },
-                      imgUrl: AppImages.kireiYoutube),
-                  Text('Kirei Youtube', style: Theme.of(context).textTheme.titleMedium),
+    return AppLayoutWithDrawer(
+      backToHome: true,
+      isFromOtherPage: true,
+        globalKey: controller.beautyKey,
+        title: const Text('Beauty Tips', style: TextStyle(color: Colors.blueGrey),),
+        backgroundColor: AppColors.white,
+        leadingIconColor: AppColors.darkGrey,
+        centerTitle: true,
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                 AppBannerImage(
+                  onPress: (){
+                    Get.to(()=> const WebViewScreen(
+                        url: 'https://kireibd.com/blogs?type=app',
+                        title: 'Blogs'));
+                  },
+                    imgUrl: AppImages.beautyTipsOne),
+                Text('Beauty Blogs', style: Theme.of(context).textTheme.titleMedium,),
+                const Gap(AppSizes.spaceBtwSections),
+                 AppBannerImage(
+                  onPress: (){
+                    AppDeviceUtils.browseUrl('https://www.youtube.com/@j-beautybykirei213');
+                  },
+                    imgUrl: AppImages.kireiYoutube),
+                Text('Kirei Youtube', style: Theme.of(context).textTheme.titleMedium),
 
-                ],
-              ),
+              ],
             ),
-          )),
-    );
+          ),
+        ));
   }
 }
 

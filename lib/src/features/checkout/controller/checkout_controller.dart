@@ -118,8 +118,8 @@ class CheckoutController extends GetxController {
 
   /// Crete Order Method
   Future<void> onPressProceedToCheckout() async {
-    //isLoading.value = true;
-    if (!await validateCheckoutDetails()) return;
+    validateCheckoutDetails();
+
     isLoading.value = true;
 
     Map<String, dynamic> requestBody = prepareRequestBody();
@@ -165,67 +165,72 @@ class CheckoutController extends GetxController {
     }
   }
 
-  Future<bool> validateCheckoutDetails() async {
+  Future<void> validateCheckoutDetails() async {
     if (checkoutSummary.value.grandTotalValue == 0.00) {
       AppHelperFunctions.showToast('Nothing to pay');
-      return false;
+      return;
     }
 
     if (selectedPaymentMethodName.value == "") {
       AppHelperFunctions.showToast('Please select a payment method');
-      return false;
+      return;
     }
 
-    if (isTermsChecked.value == false) {
+    if(selectedPaymentMethodName.value == "bkash" && checkoutSummary.value.grandTotalValue! < 1 || selectedPaymentMethodName.value == "ssl" && checkoutSummary.value.grandTotalValue! < 10.00){
+      AppHelperFunctions.showToast('Minimum amount not reached. Please select cash on delivery');
+      return;
+    }
+
+    if (!isTermsChecked.value) {
       AppHelperFunctions.showToast("Please agree to the terms and conditions");
-      return false;
+      return;
     }
 
     if (addressController.nameController.text == "" ||
         addressController.nameController.text.isEmpty) {
       AppHelperFunctions.showToast('Name is required');
-      return false;
+      return;
     }
 
     if (addressController.phoneController.text == "" ||
         addressController.phoneController.text.isEmpty) {
       AppHelperFunctions.showToast('Phone is required');
-      return false;
+      return;
     } else if (addressController.phoneController.text.length > 11 ||
         addressController.phoneController.text.length < 11 ||
         !addressController.phoneController.text.startsWith("0")) {
       AppHelperFunctions.showToast('Invalid Phone');
-      return false;
+      return;
     }
 
     if (addressController.addressController.text == "" ||
         addressController.addressController.text.isEmpty) {
       AppHelperFunctions.showToast('Address is required');
-      return false;
+      return;
     } else if (addressController.addressController.value.text.length < 10) {
       AppHelperFunctions.showToast('Address must be at least 10 characters');
-      return false;
+      return;
     }
 
     if (addressController.selectedCityName.text == "" ||
         addressController.selectedCityName.text.isEmpty) {
       AppHelperFunctions.showToast('City is required');
-      return false;
+      return;
     }
 
     if (addressController.selectedZoneName.text == "" ||
         addressController.selectedZoneName.text.isEmpty) {
       AppHelperFunctions.showToast('Zone is required');
-      return false;
+      return;
     }
 
     if (addressController.selectedAreaName.text == "" ||
         addressController.selectedAreaName.text.isEmpty) {
       AppHelperFunctions.showToast('Area is required');
-      return false;
+      return;
     }
 
-    return true;
+    return;
   }
 
   Map<String, dynamic> prepareRequestBody() {

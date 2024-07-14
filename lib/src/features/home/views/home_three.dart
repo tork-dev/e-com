@@ -28,8 +28,9 @@ class HomeThree extends StatelessWidget {
         Get.put(GetShopDataController());
     final ConvexBottomNavController convexBottomNavController =
         ConvexBottomNavController.instance;
-    //final isDark = AppHelperFunctions.isDarkMode(context);
     return AppLayoutWithDrawer(
+      backToHome: true,
+         inHome: true,
         globalKey: controller.homeKey,
         title: const AppHomeAppBarTitle(),
         leadingIconColor: AppColors.darkerGrey,

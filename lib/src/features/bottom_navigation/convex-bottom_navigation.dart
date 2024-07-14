@@ -53,7 +53,7 @@ class HelloConvexAppBar extends StatelessWidget {
                     Get.back();
                   },
                   rightButtonTextColor: AppColors.secondary,
-                  buttonColor: Colors.transparent);
+                  rightButtonColor: Colors.transparent);
             } else {
               controller.jumpToTab(0);
             }

@@ -109,7 +109,7 @@ class AppHelperFunctions {
   }
 
   static void showAlert({required String message, required String leftButtonName,
-      required String rightButtonName, required VoidCallback onRightPress, required VoidCallback onLeftPress, required Color buttonColor, Color rightButtonTextColor = AppColors.white }) {
+      required String rightButtonName, required VoidCallback onRightPress, required VoidCallback onLeftPress, required Color rightButtonColor,  Color leftButtonColor = Colors.transparent,  Color rightButtonTextColor = AppColors.white, Color leftButtonTextColor = AppColors.black }) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -129,13 +129,18 @@ class AppHelperFunctions {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        onLeftPress();
-                      },
-                      child: Text(
-                        leftButtonName,
-                        style: const TextStyle(color: AppColors.black, fontSize: 14),
+                    InkWell(
+                      onTap: onLeftPress,
+                      child: Container(
+                        height: 40,
+                        width: 100,
+                        alignment: Alignment.center,
+                        decoration:
+                        BoxDecoration(color: leftButtonColor),
+                        child: Text(
+                          leftButtonName,
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: leftButtonTextColor),
+                        ),
                       ),
                     ),
                     const Gap(AppSizes.spaceBtwRowItem),
@@ -146,11 +151,10 @@ class AppHelperFunctions {
                         width: 100,
                         alignment: Alignment.center,
                         decoration:
-                             BoxDecoration(color: buttonColor),
+                             BoxDecoration(color: rightButtonColor),
                         child: Text(
                           rightButtonName,
-                          style:
-                               TextStyle(color: rightButtonTextColor, fontSize: 14),
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: rightButtonTextColor),
                         ),
                       ),
                     ),

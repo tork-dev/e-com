@@ -6,13 +6,7 @@ import 'package:kirei/src/features/authentication/data/repositories/auth_reposit
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/user_by_token_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/repository/login_repository.dart';
-import 'package:kirei/src/features/bottom_navigation/bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
-import 'package:kirei/src/features/personalization/controller/user_controller.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/app_api_end_points.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';
@@ -20,11 +14,11 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import '../../../../../utils/http/http_client.dart';
-import '../../../../../utils/popups/full_screen_loader.dart';
 import '../../../model/resend_code_model.dart';
 import '../../forgot_password/view/otp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../model/social_option_model.dart';
 
 class LogInPageController extends GetxController {
   static LogInPageController get instance => Get.find();
@@ -42,17 +36,30 @@ class LogInPageController extends GetxController {
   Rx<bool> loginWithPassword = false.obs;
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> rememberMe = false.obs;
+  Rx<bool> hittingApi = false.obs;
   Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
   Rx<UserByTokenResponse> userDataByToken = UserByTokenResponse().obs;
   Rx<SendOtpCodeResponse> sendOtpResponse = SendOtpCodeResponse().obs;
-
-  // List<LoginOtpResponse> otpLoginList = [];
+  Rx<SocialOptionsResponse> socialOptionResponse = SocialOptionsResponse().obs;
 
   @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
+  void onInit() {
+    getSocialOption();
+    print('shafi');
+    super.onInit();
+  }
+
+  // @override
+  // void dispose() {
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  //   super.dispose();
+  // }
+
+  Future<void> getSocialOption() async {
+     hittingApi.value = true;
+     socialOptionResponse.value = await LoginRepository().fetchLoginOptions();
+     hittingApi.value = false;
   }
 
   /// Log in with email and password
@@ -197,10 +204,12 @@ class LogInPageController extends GetxController {
     } finally {
       if (logInFormKey.currentState!.validate()) {
         if (sendOtpResponse.value.result == true) {
-          AppHelperFunctions.showToast(sendOtpResponse.value.message.toString());
+          AppHelperFunctions.showToast(
+              sendOtpResponse.value.message.toString());
           Get.to(() => const Otp());
         } else {
-          AppHelperFunctions.showToast(sendOtpResponse.value.message.toString());
+          AppHelperFunctions.showToast(
+              sendOtpResponse.value.message.toString());
         }
       }
     }

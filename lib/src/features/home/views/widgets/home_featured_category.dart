@@ -47,21 +47,21 @@ class AppFeatureCategories extends StatelessWidget {
                                         .homeFeaturedCategoryResponse[index]
                                         .slug! ==
                                     'BeautyTips()') {
-                                  Get.to(const BeautyTipsScreen());
+                                  Get.offAll(()=> const BeautyTipsScreen());
                                   return;
                                 }
                                 if (homeController
                                         .homeFeaturedCategoryResponse[index]
                                         .slug! ==
                                     'FeedList()') {
-                                  Get.to(const CommunityScreen());
+                                  Get.offAll(()=> const CommunityScreen());
                                   return;
                                 }
                                 if (homeController
                                         .homeFeaturedCategoryResponse[index]
                                         .slug! ==
                                     'Appointment()') {
-                                  Get.to(const AppointmentScreen());
+                                  Get.offAll(()=> const AppointmentScreen());
                                   return;
                                 }
                                 categoryPassingController.updateCategory(

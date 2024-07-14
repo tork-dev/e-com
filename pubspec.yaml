@@ -93,6 +93,7 @@ dependencies:
   firebase_analytics: ^10.10.7
   firebase_dynamic_links: ^5.5.7
   go_router: ^13.2.5
+  app_links: ^6.1.4
 
 
 

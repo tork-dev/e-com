@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/community/controller/community_controller.dart';
 import 'package:kirei/src/features/community/view/widget/community_header.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
@@ -18,6 +19,7 @@ class CommunityScreen extends StatelessWidget {
     final controller = Get.put(CommunityController());
     return AppLayoutWithDrawer(
       globalKey: controller.communityKey,
+      backToHome: true,
       title: const Text('Kirei Community',
           style: TextStyle(color: Colors.blueGrey)),
       backgroundColor: AppColors.white,

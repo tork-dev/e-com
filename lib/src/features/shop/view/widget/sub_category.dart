@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/app_dividers.dart';
@@ -18,40 +20,53 @@ class ShopSubCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GetShopDataController shopController = GetShopDataController.instance;
+    ConvexBottomNavController bottomNavController = ConvexBottomNavController.instance;
     return AppCardContainer(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.sm,
         ),
         height: 85,
+        width: AppHelperFunctions.screenWidth() * 1,
         backgroundColor: AppColors.white,
         applyRadius: false,
         child: Obx(() {
-          return AppListViewLayout(
-              isScrollVertically: false,
-              itemCount: shopController.hittingApi.value
-                  ? 5
-                  : shopController.subCategoryResponse.length,
-              builderFunction: (BuildContext context, int index) =>
-                  shopController.hittingApi.value
-                      ? ShimmerHelper()
-                          .buildBasicShimmer(width: 85, radius: 100)
-                      : Column(
-                          children: [
-                            AppBannerImage(
-                              height: 60,
-                              width: 60,
-                              isNetworkImage: true,
-                              imgUrl: shopController
-                                      .subCategoryResponse[index].icon ??
-                                  'https://kireibd.com/images/home/categories/New-Arrivals.png',
+          return Expanded(
+            child: AppListViewLayout(
+                isScrollVertically: false,
+                itemCount: shopController.hittingSubCategoryApi.value
+                    ? 5
+                    : shopController.subCategoryResponse.length,
+                builderFunction: (BuildContext context, int index) =>
+                    shopController.hittingSubCategoryApi.value
+                        ? ShimmerHelper()
+                            .buildBasicShimmer(width: 85, height: 85, radius: 100)
+                        : SizedBox(
+                            height: 60,
+                            width: 60,
+                            child: Column(
+                              children: [
+                                AppBannerImage(
+                                  onPress: (){
+                                    shopController.resetAll();
+                                    shopController.categories.value = shopController.subCategoryResponse[index].slug;
+                                    shopController.getShopData();
+                                    bottomNavController.jumpToTab(1);
+                                  },
+                                  isNetworkImage: true,
+                                  imgUrl: shopController
+                                          .subCategoryResponse[index].icon ??
+                                      'https://kireibd.com/images/home/categories/New-Arrivals.png',
+                                ),
+                                const Gap(AppSizes.xs),
+                                Text(
+                                  shopController.subCategoryResponse[index].name,
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
-                            const Gap(AppSizes.xs),
-                            Text(
-                              shopController.subCategoryResponse[index].name,
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
-                          ],
-                        ));
+                          )),
+          );
         }));
   }
 }

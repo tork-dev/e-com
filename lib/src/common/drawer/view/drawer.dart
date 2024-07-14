@@ -230,7 +230,7 @@ class AppDrawer extends StatelessWidget {
             onPress: () => Get.offAll(() => const CommunityScreen()),
           ),
           AppDrawerCard(
-            title: 'appointment',
+            title: 'dr. appointment',
             onPress: () => Get.offAll(() => const AppointmentScreen()),
           ),
           AppDrawerCard(

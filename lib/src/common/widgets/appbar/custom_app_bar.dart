@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ))
           : showLeadingIcon
               ? IconButton(
-                  onPressed: ()=> leadingOnPress,
+                  onPressed: ()=> leadingOnPress!(),
                   icon: Icon(leadingIcon, color: leadingIconColor))
               : null,
       title: title,

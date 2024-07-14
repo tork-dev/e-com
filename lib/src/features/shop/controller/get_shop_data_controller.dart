@@ -11,6 +11,7 @@ class GetShopDataController extends GetxController {
   static GetShopDataController get instance => Get.find();
 
   RxBool hittingApi = false.obs;
+  RxBool hittingSubCategoryApi = false.obs;
   RxBool isFromCategory = false.obs;
   RxBool isFromSearch = false.obs;
   final searchOn = Rx<FocusNode>(FocusNode());
@@ -18,7 +19,8 @@ class GetShopDataController extends GetxController {
   /// Model
   Rx<ShopPageResponse> shopPageProduct = ShopPageResponse().obs;
   RxList<Product> allProducts = <Product>[].obs; // Accumulated products list
-  RxList<ProductSubCategoryItem> subCategoryResponse = <ProductSubCategoryItem>[].obs;
+  RxList<ProductSubCategoryItem> subCategoryResponse =
+      <ProductSubCategoryItem>[].obs;
   Rx<SkinTypesResponse> skinTypeResponse = SkinTypesResponse().obs;
 
   /// Controllers
@@ -106,16 +108,18 @@ class GetShopDataController extends GetxController {
 
   Future getSubCategory() async {
     isFromCategory.value = true;
-    hittingApi.value = true;
-    subCategoryResponse.value = await ShopRepositories().getSubCategories(categories.value);
-    hittingApi.value = false;
+    hittingSubCategoryApi.value = true;
+    subCategoryResponse.value =
+        await ShopRepositories().getSubCategories(categories.value);
+    hittingSubCategoryApi.value = false;
     if (subCategoryResponse.isEmpty) {
       isFromCategory.value = false;
     }
   }
 
   Future<SkinTypesResponse> getSkinTypesData() async {
-    return skinTypeResponse.value = await ShopRepositories().getFilterPageSkinTypes();
+    return skinTypeResponse.value =
+        await ShopRepositories().getFilterPageSkinTypes();
   }
 
   void selectSkinTypes(String title) {
@@ -129,7 +133,7 @@ class GetShopDataController extends GetxController {
   void addItems() {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
-          scrollController.position.minScrollExtent &&
+              scrollController.position.minScrollExtent &&
           pageNumber.value < 1) {
         if (!hittingApi.value) {
           AppHelperFunctions.showToast('Loading more...');

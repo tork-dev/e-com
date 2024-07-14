@@ -124,7 +124,7 @@ class AppCartProductCard extends StatelessWidget {
                                                           'Are you sure to remove this item?',
                                                       leftButtonName: 'Cancel',
                                                       rightButtonName: 'Confirm',
-                                                      buttonColor: AppColors.primary);
+                                                      rightButtonColor: AppColors.primary);
                                                 },
                                                 child: const Icon(
                                                     Icons.delete_forever_outlined))
@@ -144,12 +144,6 @@ class AppCartProductCard extends StatelessWidget {
                                 children: [
                                   InkWell(
                                       onTap: () {
-                                        if (cartController.allCartProducts[0]
-                                                .cartItems![index].quantity! <
-                                            cartController
-                                                .allCartProducts[0]
-                                                .cartItems![index]
-                                                .upperLimit!) {
                                           cartController
                                               .getCartUpdateQuantity(
                                                   cartController
@@ -170,10 +164,6 @@ class AppCartProductCard extends StatelessWidget {
                                                             .value
                                                             .message!),
                                                   });
-                                        } else {
-                                          AppHelperFunctions.showToast(
-                                              'Cannot order more than ${cartController.allCartProducts[0].cartItems![index].upperLimit}');
-                                        }
                                       },
                                       child: const Icon(Icons.add)),
                                   AppCardContainer(

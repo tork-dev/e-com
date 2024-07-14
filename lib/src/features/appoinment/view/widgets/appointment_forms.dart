@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -52,28 +53,56 @@ class AppAppointmentForms extends StatelessWidget {
         ),
         const Gap(AppSizes.spaceBtwItems),
         const Text('Appointment Fee: 499 BDT', style: TextStyle(color: AppColors.warning),),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              width: AppHelperFunctions.screenWidth() * .5,
-              child: RadioListTile(
-                  value: 1,
-                  groupValue:1,
-                  onChanged: (value){},
-                  activeColor: AppColors.darkGrey,
-                title: Text('Bkash', style: TextStyle(color: AppColors.darkGrey),),
-
-              ),
-            ),
-            Icon(Icons.payment)
-          ],
+        Obx(() {
+            return Column(
+              children: [
+                RadioListTile(
+                  title: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Image.network(
+                      'https://app.kireibd.com/assets/img/cards/bkash.png',
+                      height: 30,
+                    ),
+                  ),
+                  value: 'bkash',
+                  groupValue: appointmentController.paymentMethod.value,
+                  activeColor: Colors.black,
+                  // Set the active color
+                  onChanged: (value) {
+                    appointmentController.paymentMethod.value = value!;
+                  },
+                  controlAffinity: ListTileControlAffinity.leading,
+                  // Align the icon to the left
+                  contentPadding: EdgeInsets.zero, // Remove any padding
+                ),
+                RadioListTile(
+                  title: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Image.network(
+                      'https://app.kireibd.com/assets/img/cards/sslcommerz.png',
+                      height: 30,
+                    ),
+                  ),
+                  value: 'ssl',
+                  groupValue: appointmentController.paymentMethod.value,
+                  activeColor: Colors.black,
+                  // Set the active color
+                  onChanged: (value) {
+                    appointmentController.paymentMethod.value = value!;
+                  },
+                  controlAffinity: ListTileControlAffinity.leading,
+                  // Align the icon to the left
+                  contentPadding: EdgeInsets.zero, // Remove any padding
+                ),
+              ],
+            );
+          }
         ),
         AppButtons.largeFlatFilledButton(
             onPressed: (){
               appointmentController.onMakePayment();
             },
-            backgroundColor: AppColors.darkGrey,
+            backgroundColor: AppColors.primary,
             buttonText: 'Make payment'.toUpperCase())
 
       ],

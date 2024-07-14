@@ -8,11 +8,11 @@ import '../../home/controller/home_controller.dart';
 import '../../shop/controller/shop_controller.dart';
 import '../model/appointment_model.dart';
 
-class AppointmentController extends GetxController{
-  static  AppointmentController get instance => Get.find();
+class AppointmentController extends GetxController {
+  static AppointmentController get instance => Get.find();
   final GlobalKey<ScaffoldState> appointmentKey = GlobalKey<ScaffoldState>();
-  // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -20,16 +20,18 @@ class AppointmentController extends GetxController{
   TextEditingController whatsAppNumberController = TextEditingController();
   TextEditingController problemController = TextEditingController();
 
- // ConvexBottomNavController bottomController  = Get.put(ConvexBottomNavController());
+  // ConvexBottomNavController bottomController  = Get.put(ConvexBottomNavController());
   //HomeController homeController  = Get.put(HomeController());
   //final shopController = Get.put(ShopController());
 
   Rx<AppointmentResponse> appointmentResponse = AppointmentResponse().obs;
 
+  RxString paymentMethod = 'bkash'.obs;
+
   @override
   void onInit() {
     super.onInit();
-   // homeController.callApis.value = false;
+    // homeController.callApis.value = false;
     //shopController.callApis.value = false;
   }
 
@@ -41,41 +43,50 @@ class AppointmentController extends GetxController{
   }
 
   void onMakePayment() async {
-    if(fullNameController.text == ''){
+    if (fullNameController.text == '') {
       return AppHelperFunctions.showToast('Name is required');
     }
-    if(ageController.text == ''){
+    if (ageController.text == '') {
       return AppHelperFunctions.showToast('Age is required');
     }
-    if(contactNumberController.text == ''){
+    if (contactNumberController.text == '') {
       return AppHelperFunctions.showToast('Number is required');
     }
-    if(whatsAppNumberController.text == ''){
-    return AppHelperFunctions.showToast('WhatsApp number is required');
+    if (whatsAppNumberController.text == '') {
+      return AppHelperFunctions.showToast('WhatsApp number is required');
     }
-    if(problemController.text == ''){
+    if (problemController.text == '') {
       print(problemController.text);
       return AppHelperFunctions.showToast('Problem is required');
     }
 
-    appointmentResponse.value= await AppointmentRepository().submitAppointment(
+    appointmentResponse.value = await AppointmentRepository().submitAppointment(
         age: ageController.text,
         contactNumber: contactNumberController.text,
         name: fullNameController.text,
-        paymentType: 'bkash',
+        paymentType: paymentMethod.value,
         problem: problemController.text,
         whatsappNumber: whatsAppNumberController.text);
 
-    if (appointmentResponse.value.result == true){
-      String? bkashUrl = appointmentResponse.value.data!.paymentUrl;
+    if (appointmentResponse.value.result == true) {
+      String? url = appointmentResponse.value.data!.paymentUrl;
       AppHelperFunctions.showToast(appointmentResponse.value.message!);
 
-      if(bkashUrl!.isNotEmpty){
-      Get.offAll(()=> AppointmentPaymentScreen(bkashInitialUrl: bkashUrl));
-      }else{
+      if (url!.isNotEmpty) {
+        if (paymentMethod.value == 'bkash') {
+          Get.offAll(() => AppointmentPaymentScreen(
+                initialUrl: url,
+                screenName: 'bKash',
+              ));
+        } else if (paymentMethod.value == 'ssl') {
+          Get.offAll(() => AppointmentPaymentScreen(
+                initialUrl: url,
+                screenName: 'sslcommerz',
+              ));
+        }
+      } else {
         AppHelperFunctions.showToast(appointmentResponse.value.message!);
       }
     }
-
   }
 }
