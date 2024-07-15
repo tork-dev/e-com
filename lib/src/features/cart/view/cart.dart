@@ -29,6 +29,8 @@ class CartScreen extends StatelessWidget {
     // final bottomNavController = ConvexBottomNavController.instance;
     return AppLayoutWithDrawer(
         globalKey: controller.cartKey,
+        backToHome: true,
+        inHome: true,
         title: const Text('Shopping Cart',
             style: TextStyle(color: AppColors.white)),
         centerTitle: true,

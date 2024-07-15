@@ -29,12 +29,14 @@ class ShopScreen extends StatelessWidget {
     final shopController = Get.put(ShopController());
     final shopDataController = Get.put(GetShopDataController());
     return AppLayoutWithDrawer(
+      backToHome: true,
+        inHome: true,
         padding: 0,
         globalKey: shopController.shopKey,
         backgroundColor: AppColors.primary,
         leadingIconColor: AppColors.white,
         hasEndDrawer: true,
-        action:  [
+        action:  const [
           SizedBox()
           // InkWell(
           //   onTap: (){

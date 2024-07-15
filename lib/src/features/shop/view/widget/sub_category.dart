@@ -25,48 +25,47 @@ class ShopSubCategory extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.sm,
         ),
-        height: 85,
-        width: AppHelperFunctions.screenWidth() * 1,
+         height: 85,
+         width: AppHelperFunctions.screenWidth() * 1,
         backgroundColor: AppColors.white,
         applyRadius: false,
         child: Obx(() {
-          return Expanded(
-            child: AppListViewLayout(
-                isScrollVertically: false,
-                itemCount: shopController.hittingSubCategoryApi.value
-                    ? 5
-                    : shopController.subCategoryResponse.length,
-                builderFunction: (BuildContext context, int index) =>
-                    shopController.hittingSubCategoryApi.value
-                        ? ShimmerHelper()
-                            .buildBasicShimmer(width: 85, height: 85, radius: 100)
-                        : SizedBox(
-                            height: 60,
-                            width: 60,
-                            child: Column(
-                              children: [
-                                AppBannerImage(
-                                  onPress: (){
-                                    shopController.resetAll();
-                                    shopController.categories.value = shopController.subCategoryResponse[index].slug;
-                                    shopController.getShopData();
-                                    bottomNavController.jumpToTab(1);
-                                  },
-                                  isNetworkImage: true,
-                                  imgUrl: shopController
-                                          .subCategoryResponse[index].icon ??
-                                      'https://kireibd.com/images/home/categories/New-Arrivals.png',
-                                ),
-                                const Gap(AppSizes.xs),
-                                Text(
-                                  shopController.subCategoryResponse[index].name,
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          )),
-          );
+          return AppListViewLayout(
+              isScrollVertically: false,
+              itemCount: shopController.hittingSubCategoryApi.value
+                  ? 5
+                  : shopController.subCategoryResponse.length,
+              builderFunction: (BuildContext context, int index) =>
+                  shopController.hittingSubCategoryApi.value
+                      ? ShimmerHelper()
+                          .buildBasicShimmer(width: 85, height: 85, radius: 100)
+                      : SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: Column(
+                            children: [
+                              AppBannerImage(
+                                height: 60,
+                                onPress: (){
+                                  shopController.resetAll();
+                                  shopController.categories.value = shopController.subCategoryResponse[index].slug;
+                                  shopController.getShopData();
+                                  bottomNavController.jumpToTab(1);
+                                },
+                                isNetworkImage: true,
+                                imgUrl: shopController
+                                        .subCategoryResponse[index].icon ??
+                                    'https://kireibd.com/images/home/categories/New-Arrivals.png',
+                              ),
+                              const Gap(AppSizes.xs),
+                              Text(
+                                shopController.subCategoryResponse[index].name,
+                                style: Theme.of(context).textTheme.labelSmall,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ));
         }));
   }
 }
