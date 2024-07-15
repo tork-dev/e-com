@@ -63,9 +63,9 @@ class AppButtons {
               vertical: verticallyPadding, horizontal: AppSizes.md),
           backgroundColor: backgroundColor,
         ),
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           AppBannerImage(height: 25, width: 25, imgUrl: imgUrl),
-          const Gap(55),
+           const Gap(AppSizes.sm),
           Align(alignment: Alignment.center, child: Text(buttonName)),
         ]));
   }

@@ -22,6 +22,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final addressController = PurchaseHistoryDetailsController.instance;
+    FocusNode areaNode = FocusNode();
     return SingleChildScrollView(
       child: AppCardContainer(
         backgroundColor: AppColors.white,
@@ -79,6 +80,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
                     addressController.selectedCityName.text = value.name!;
                     addressController.selectedZoneName.text = '';
                     addressController.selectedAreaName.text = '';
+                    areaNode.unfocus();
                   },
                   controller: addressController.selectedCityName,
                   suggestionsCallback: (value) {
@@ -101,6 +103,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
                       controller: controller,
                       focusNode: focusNode,
                       cursorColor: AppColors.primary,
+                      onTap: ()=> areaNode.unfocus(),
                       decoration: const InputDecoration(
                         suffixIcon: Icon(Icons.arrow_drop_down_rounded),
                         contentPadding:
@@ -153,6 +156,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
                     print(
                         '////////////////////////////////////////////////////////');
                     print(zone.id);
+                    areaNode.unfocus();
                   },
                   controller: addressController.selectedZoneName,
                   suggestionsCallback: (value) {
@@ -209,6 +213,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
                 ),
                 const Gap(AppSizes.xs),
                 TypeAheadField(
+                  focusNode: areaNode,
                   direction: VerticalDirection.up,
                   itemBuilder: (context, dataItem) {
                     return ListTile(dense: true, title: Text(dataItem.name!));
@@ -216,6 +221,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
                   onSelected: (area) async {
                     addressController.selectedAreaId.value = area.id!;
                     addressController.selectedAreaName.text = area.name!;
+                    areaNode.unfocus();
                   },
                   controller: addressController.selectedAreaName,
                   suggestionsCallback: (value) {

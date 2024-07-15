@@ -8,6 +8,7 @@ import 'package:kirei/src/common/styles/spacing_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
+import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
@@ -15,8 +16,13 @@ import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/home/repositories/home_repositories.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/shop/controller/shop_controller.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+
+import '../../../ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 
 class AppFeatureCategories extends StatelessWidget {
   const AppFeatureCategories({super.key});
@@ -45,23 +51,36 @@ class AppFeatureCategories extends StatelessWidget {
                               onPress: () {
                                 if (homeController
                                         .homeFeaturedCategoryResponse[index]
+                                        .slug ==
+                                    'AiSuggestion()') {
+                                  if (AppLocalStorage().readData(
+                                          LocalStorageKeys.isLoggedIn) ==
+                                      true) {
+                                    Get.offAll(
+                                        () => const SkinCareHistoryOne());
+                                  } else {
+                                    Get.to(()=>const LogIn());
+                                  }
+                                }
+                                if (homeController
+                                        .homeFeaturedCategoryResponse[index]
                                         .slug! ==
                                     'BeautyTips()') {
-                                  Get.offAll(()=> const BeautyTipsScreen());
+                                  Get.offAll(() => const BeautyTipsScreen());
                                   return;
                                 }
                                 if (homeController
                                         .homeFeaturedCategoryResponse[index]
                                         .slug! ==
                                     'FeedList()') {
-                                  Get.offAll(()=> const CommunityScreen());
+                                  Get.offAll(() => const CommunityScreen());
                                   return;
                                 }
                                 if (homeController
                                         .homeFeaturedCategoryResponse[index]
                                         .slug! ==
                                     'Appointment()') {
-                                  Get.offAll(()=> const AppointmentScreen());
+                                  Get.offAll(() => const AppointmentScreen());
                                   return;
                                 }
                                 categoryPassingController.updateCategory(
@@ -74,11 +93,15 @@ class AppFeatureCategories extends StatelessWidget {
                               },
                               height: 60,
                               width: 60,
-                              isNetworkImage: true,
+                              fit: BoxFit.cover,
+                              isNetworkImage: homeController
+                                      .homeFeaturedCategoryResponse[index]
+                                      .icon !=
+                                  null,
                               imgUrl: homeController
                                       .homeFeaturedCategoryResponse[index]
                                       .icon ??
-                                  'https://kireibd.com/images/home/categories/New-Arrivals.png',
+                                  AppImages.placeholder,
                             ),
                             const Gap(AppSizes.sm),
                             Text(

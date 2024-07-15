@@ -52,9 +52,10 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return AppLayoutWithBackButton(
-      backToHome: true,
         title: Text('Pay with ${widget.screenName}',
           style: const TextStyle(color: AppColors.primary),),
+        showBackButton: false,
+        customLeadingIcon: Icons.arrow_back,
         leadingOnPress: () {
           print('working');
           Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));

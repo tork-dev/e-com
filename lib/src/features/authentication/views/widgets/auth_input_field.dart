@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/colors.dart';
 
 class AuthInputField extends StatelessWidget {
@@ -27,7 +28,9 @@ class AuthInputField extends StatelessWidget {
       cursorColor: AppColors.primary,
       decoration: InputDecoration(
         hintText: hingText,
-        suffixIcon: suffixIcon,
+        suffix: suffixIcon,
+        //suffixIcon: suffixIcon,
+        contentPadding: const EdgeInsets.only(left: AppSizes.sm),
         focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
               width: 1,

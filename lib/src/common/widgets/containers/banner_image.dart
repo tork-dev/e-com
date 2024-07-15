@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../styles/skeleton_style.dart';
 import 'card_container.dart';
@@ -48,7 +45,7 @@ class AppBannerImage extends StatelessWidget {
         padding: applyPadding ? padding : const EdgeInsets.all(0),
         height: height,
         width: width,
-        hasBorder: hasBorder,
+        hasBorder: hasBorder, // if you want to use this. you must have use borderWidth and borderColor
         borderWidth: borderWidth,
         borderColor: borderColor,
         borderRadius: boarderRadius,

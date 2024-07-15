@@ -17,44 +17,41 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.backgroundColor,
     this.bodyBackgroundColor,
     this.showBackButton = true,
-    this.backToHome = false,
+    this.customLeadingIcon,
     this.leadingIconColor,
     this.bottomNav,
     this.leadingOnPress,
     super.key,  });
 
   final Widget? title, body, bottomNav;
-  final bool centerTitle, backToHome;
+  final bool centerTitle;
   final Color? backgroundColor, leadingIconColor, bodyBackgroundColor;
   final List<Widget>? action;
   final bool showBackButton;
   final double padding;
   final VoidCallback? leadingOnPress;
+  final IconData? customLeadingIcon;
 
 
   @override
   Widget build(BuildContext context) {
     //final isDark = AppHelperFunctions.isDarkMode(context);
-    return PopScope(
-      canPop: !backToHome,
-      onPopInvoked: (pop){
-        Get.offAll(()=> const HelloConvexAppBar(pageIndex: 0,));
-      },
-      child: Scaffold(
+    return
+      Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: bodyBackgroundColor,
         bottomNavigationBar: bottomNav,
         appBar: CustomAppBar(
           title: title,
+          leadingIcon: customLeadingIcon,
           showBackArrow: showBackButton,
           leadingIconColor: leadingIconColor,
           centerTitle: centerTitle,
           backgroundColor: backgroundColor,
           actions: action,
-          leadingOnPress:()=> leadingOnPress,
+          leadingOnPress: leadingOnPress,
         ),
         body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
-      ),
     );
   }
 }

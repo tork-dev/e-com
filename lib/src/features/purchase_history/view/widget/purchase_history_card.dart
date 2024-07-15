@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/purchase_history_details.dart';
@@ -20,7 +21,6 @@ class AppPurchaseHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final purchaseHistoryController = PurchaseHistoryController.instance;
-    final bottomNavigationController = ConvexBottomNavController.instance;
     return Obx(() {
       return AppListViewLayout(
           itemCount:
@@ -103,8 +103,7 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                                                   .reOrderResponse
                                                   .value
                                                   .message!),
-                                  Get.back(),
-                                  bottomNavigationController.jumpToTab(2)
+                                  Get.offAll(()=> const HelloConvexAppBar(pageIndex: 2,))
                                         });
                               },
                               child: AppCardContainer(

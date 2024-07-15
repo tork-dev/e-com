@@ -102,7 +102,7 @@ class OtpController extends GetxController {
               signUpController.isSignupOtp.value != true) {
             Get.to(() => const NewPassword());
           } else {
-            Get.offAll(() => const HelloConvexAppBar());
+            Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
           }
         } else {
           //AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());

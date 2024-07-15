@@ -19,6 +19,9 @@ class AppImages {
   static const String instagram = "assets/images/logos/instagram.png";
   static const String youtube = "assets/images/logos/youtube.png";
 
+  /// placeholder
+  static const String placeholder = "assets/images/placeholder.png";
+
   // -- Lottie File
   static const String loaderAnimation = "assets/images/animations/loader-animation.json";
   static const String emptyFile = "assets/images/animations/53207-empty-file.json";

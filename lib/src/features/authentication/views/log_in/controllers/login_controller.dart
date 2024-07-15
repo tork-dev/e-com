@@ -45,7 +45,6 @@ class LogInPageController extends GetxController {
   @override
   void onInit() {
     getSocialOption();
-    print('shafi');
     super.onInit();
   }
 
@@ -98,7 +97,7 @@ class LogInPageController extends GetxController {
           AuthHelper().setUserData(loginResponse.value);
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
           //await getUserDataByToken();
-          Get.offAll(const HelloConvexAppBar());
+          Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
         }
@@ -133,7 +132,7 @@ class LogInPageController extends GetxController {
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
         AuthHelper().setUserData(loginResponse.value);
-        Get.offAll(() => const HelloConvexAppBar());
+        Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
       }
       GoogleSignIn().disconnect();
     } on Exception catch (e) {
@@ -165,7 +164,7 @@ class LogInPageController extends GetxController {
         debugPrint('this is login response $loginResponse');
 
         if (loginResponse.value.result == true) {
-          Get.offAll(() => const HelloConvexAppBar());
+          Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
           AuthHelper().setUserData(loginResponse.value);
         }
         AppHelperFunctions.showToast(loginResponse.value.message!);
