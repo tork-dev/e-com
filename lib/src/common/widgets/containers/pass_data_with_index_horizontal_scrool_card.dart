@@ -49,7 +49,6 @@ class AppPassDataHorizontalProductCard extends StatelessWidget {
       onTap: () {
         Get.to(() => DetailsPage(
               productSlug: productSlug,
-              productId: productId,
             ));
       },
       onCartTap: () {

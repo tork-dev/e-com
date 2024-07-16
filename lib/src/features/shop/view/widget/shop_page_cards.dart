@@ -71,8 +71,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                                   Get.to(() => DetailsPage(
                                         productSlug: shopController
                                             .allProducts[index].slug!,
-                                        productId: shopController
-                                            .allProducts[index].id!,
+
                                       ));
                                 },
                                 onCartTap: () {

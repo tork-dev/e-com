@@ -36,7 +36,6 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     onTap: () {
                       Get.to(() => DetailsPage(
                             productSlug: sectionName![index].slug!,
-                            productId: sectionName![index].id!,
                           ));
                     },
                     onCartTap: () {

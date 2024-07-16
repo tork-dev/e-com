@@ -19,12 +19,10 @@ class DetailsPageController extends GetxController {
   final homeController = HomeController.instance;
 
   DetailsPageController({
-    required this.productSlug,
-    required this.productId
+    required this.productSlug
   });
 
   final String productSlug;
-  final int productId;
 
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
@@ -95,13 +93,13 @@ class DetailsPageController extends GetxController {
   }
 
   Future<WishListAddResponse> getWishListAdd()async{
-    return addToWishlist.value = await WishlistRepositories().addToWishList(productId: productId);
+    return addToWishlist.value = await WishlistRepositories().addToWishList(productId: productDetails.value.detailedProducts!.id!);
   }
   Future<WishListAddResponse> checkWishListAdd()async{
-    return checkWishList.value = await WishlistRepositories().isProductInUserWishList(productId: productId);
+    return checkWishList.value = await WishlistRepositories().isProductInUserWishList(productId: productDetails.value.detailedProducts!.id!);
   }
   Future<WishListAddResponse> wishListRemove()async{
-    return removeFromWishList.value = await WishlistRepositories().removeResponse(productId);
+    return removeFromWishList.value = await WishlistRepositories().removeResponse(productDetails.value.detailedProducts!.id!);
   }
 
   Future<DetailsProductsResponse> getRelatedProducts() async{

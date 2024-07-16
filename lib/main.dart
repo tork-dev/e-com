@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
 import 'src/features/authentication/data/repositories/auth_repositories.dart';
+import 'src/utils/firebase/awesome_notification.dart';
 
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -43,23 +44,26 @@ Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  AwesomeNotificationController().getFirebaseMessagingToken();
+  AwesomeNotificationController.initializeRemoteNotifications(debug: true);
 
-  AwesomeNotifications().initialize(
-      'resource://drawable/notification_icon',
-      [            // notification icon
-        NotificationChannel(
-          channelGroupKey: 'basic_test',
-          channelKey: 'basic',
-          channelName: 'Basic notifications',
-          channelDescription: 'Notification channel for basic tests',
-          channelShowBadge: true,
-          importance: NotificationImportance.High,
-        ),
-        //add more notification type with different configuration
-
-      ]
-  );
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  //
+  // AwesomeNotifications().initialize(
+  //     'resource://drawable/notification_icon',
+  //     [            // notification icon
+  //       NotificationChannel(
+  //         channelGroupKey: 'basic_test',
+  //         channelKey: 'basic',
+  //         channelName: 'Basic notifications',
+  //         channelDescription: 'Notification channel for basic tests',
+  //         channelShowBadge: true,
+  //         importance: NotificationImportance.High,
+  //       ),
+  //       //add more notification type with different configuration
+  //
+  //     ]
+  // );
 
   await dotenv.load(fileName: ".env");
 

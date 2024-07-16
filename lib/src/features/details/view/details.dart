@@ -38,15 +38,15 @@ import 'widgets/details_picture_part.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage(
-      {super.key, required this.productSlug, required this.productId});
+      {super.key, required this.productSlug});
 
   final String productSlug;
-  final int productId;
+
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(
-        DetailsPageController(productSlug: productSlug, productId: productId));
+        DetailsPageController(productSlug: productSlug));
     final categoryController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
     return AppLayoutWithBackButton(
@@ -103,14 +103,14 @@ class DetailsPage extends StatelessWidget {
                 AppDividersStyle.fullFlatAppDivider,
                 ReviewAndQuestion(
                   onTap: () {
-                    Get.to(() => ReviewScreen(productId: productId));
+                    Get.to(() => ReviewScreen(productId: controller.productDetails.value.detailedProducts!.id!));
                   },
                   title: 'Review',
                 ),
                 AppDividersStyle.fullFlatAppDivider,
                 ReviewAndQuestion(
                   onTap: () {
-                    Get.to(() => QuestionScreen(productId: productId));
+                    Get.to(() => QuestionScreen(productId: controller.productDetails.value.detailedProducts!.id!));
                   },
                   title: 'questions about this products',
                 ),

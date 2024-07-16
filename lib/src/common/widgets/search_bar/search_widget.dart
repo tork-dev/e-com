@@ -29,8 +29,7 @@ class AppSearchWidget extends StatelessWidget {
               : ListTile(
                   onTap: () {
                     Get.to(() => DetailsPage(
-                        productSlug: dataItem.slug ?? '',
-                        productId: dataItem.id ?? 0));
+                        productSlug: dataItem.slug ?? '',));
                   },
                   contentPadding: const EdgeInsets.all(AppSizes.sm),
                   dense: true,
