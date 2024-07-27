@@ -8,7 +8,7 @@ import '../local_storage/storage_utility.dart';
 
 class PushNotificationService {
 
-  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   Future<void> initNotifications() async{
 
@@ -25,8 +25,9 @@ class PushNotificationService {
     final fCMToken = await _firebaseMessaging.getToken();
 
     print("FCM TOKEN is : ${fCMToken}");
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.fcmToken, fCMToken);
-    initPushNotifications();
+    await AppLocalStorage().saveDataIfNull(LocalStorageKeys.fcmToken, fCMToken);
+    print("local fcm : ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}");
+    // initPushNotifications();
   }
 
   void handelMessage(RemoteMessage? message ){

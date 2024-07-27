@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/model/coupon_apply_model.dart';

@@ -57,10 +57,10 @@ class HomeRepositories {
   }
 
   Future<DeviceTokenUpdateResponse> getDeviceTokenUpdateResponse() async {
-    var postBody = jsonEncode({
-      "device_token": {AppLocalStorage().readData(LocalStorageKeys.fcmToken)}
-    });
 
+    var postBody = jsonEncode({
+      "device_token": AppLocalStorage().readData(LocalStorageKeys.fcmToken)
+    });
     Uri url = Uri.parse(AppApiEndPoints.deviceToken);
     final response = await http.post(url,
         headers: {
@@ -70,7 +70,6 @@ class HomeRepositories {
         },
         body: postBody);
 
-    print(response.body.toString());
     return deviceTokenUpdateResponseFromJson(response.body);
   }
 

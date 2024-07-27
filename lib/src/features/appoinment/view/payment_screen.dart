@@ -101,18 +101,18 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
     });
   }
 
-  void navigateToOrderSuccess() {
-    // Navigator.pushAndRemoveUntil(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => AppOrderStatusScreen(
-    //       orderId: widget.orderId,
-    //       statusString: message,
-    //       status: status,
-    //     ),
-    //   ),
-    //       (route) => false,
-    // );
-  }
+  // void navigateToOrderSuccess() {
+  //   // Navigator.pushAndRemoveUntil(
+  //   //   context,
+  //   //   MaterialPageRoute(
+  //   //     builder: (_) => AppOrderStatusScreen(
+  //   //       orderId: widget.orderId,
+  //   //       statusString: message,
+  //   //       status: status,
+  //   //     ),
+  //   //   ),
+  //   //       (route) => false,
+  //   // );
+  // }
 
 }

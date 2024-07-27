@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationController {
@@ -16,7 +18,7 @@ class NotificationController {
     }
 
     print("starting long task");
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4));
     final url = Uri.parse("http://google.com");
     final re = await http.get(url);
     print(re.body);
@@ -32,7 +34,35 @@ class NotificationController {
   static Future<void> myNativeTokenHandle(String token) async {
     debugPrint('Native Token:"$token"');
   }
+
+  static Future<void> onNotificationCreated(ReceivedNotification receivedNotification) async {
+    // Handle when a notification is created
+  }
+
+  static Future<void> onNotificationDisplayed(ReceivedNotification receivedNotification) async {
+    // Handle when a notification is displayed
+  }
+
+  static Future<void> onDismissAction(ReceivedAction receivedAction) async {
+    // Handle when a notification is dismissed
+  }
+
+  static Future<void> onActionReceived(ReceivedAction receivedAction) async {
+    print('notification');
+    print(receivedAction.payload);
+// // Handle when a notification action is received
+//     if (receivedAction.payload != null) {
+// // Assuming payload contains a "screen" parameter to navigate to
+//       String? screen = receivedAction.payload!['screen'];
+//       if (screen != null) {
+// // Navigate based on the "screen" parameter using GetX
+//         Get.toNamed(screen, arguments: receivedAction.payload);
+//       }
+//     }
+  }
 }
+
+
 
 class AwesomeNotificationController {
   static Future<void> initializeRemoteNotifications({
@@ -42,7 +72,7 @@ class AwesomeNotificationController {
     await AwesomeNotificationsFcm().initialize(
         onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
         onFcmTokenHandle: NotificationController.myFcmTokenHandle,
-        onNativeTokenHandle: NotificationController.myNativeTokenHandle,
+       // onNativeTokenHandle: NotificationController.myNativeTokenHandle,
         licenseKeys: null,
         debug: debug
     );
@@ -67,6 +97,13 @@ class AwesomeNotificationController {
         ],
         debug: debug
     );
+
+    // Set up event listeners
+    AwesomeNotifications().setListeners(
+      onActionReceivedMethod: NotificationController.onActionReceived,
+      onNotificationCreatedMethod: NotificationController.onNotificationCreated,
+      onNotificationDisplayedMethod: NotificationController.onNotificationDisplayed,
+    );
   }
 
   static Future<void> showNotification() async {
@@ -77,6 +114,7 @@ class AwesomeNotificationController {
           title: 'Hello Awesome Notifications!',
           body: 'This is a simple notification.',
           notificationLayout: NotificationLayout.Default,
+          payload: {'screen': '/details_screen', 'id': '12345'}
         )
     );
   }
