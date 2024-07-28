@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
@@ -5,6 +6,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+
+import '../../../main.dart';
 
 class NotificationController {
   @pragma("vm:entry-point")
@@ -49,7 +54,13 @@ class NotificationController {
 
   static Future<void> onActionReceived(ReceivedAction receivedAction) async {
     print('notification');
+    print(receivedAction.id);
+    print(receivedAction.body);
+    print(receivedAction.actionType);
     print(receivedAction.payload);
+    if(receivedAction.payload!['item_type_id'] != null){
+      print(receivedAction.payload?['item_type_id']);
+    }
 // // Handle when a notification action is received
 //     if (receivedAction.payload != null) {
 // // Assuming payload contains a "screen" parameter to navigate to
@@ -65,7 +76,7 @@ class NotificationController {
 
 
 class AwesomeNotificationController {
-  static Future<void> initializeRemoteNotifications({
+   Future<void> initializeRemoteNotifications({
     required bool debug
   }) async {
     await Firebase.initializeApp();
@@ -117,7 +128,12 @@ class AwesomeNotificationController {
           payload: {'screen': '/details_screen', 'id': '12345'}
         )
     );
+
   }
+
+
+
+
 
   // Request FCM token to Firebase
   Future<String> getFirebaseMessagingToken() async {

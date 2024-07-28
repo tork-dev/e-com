@@ -67,9 +67,9 @@ class Order {
   int? date;
   dynamic note;
   int? isRecurring;
-  int? grandTotal;
+  dynamic grandTotal;
   int? shippingCost;
-  int? couponDiscount;
+  dynamic couponDiscount;
   DateTime? updatedAt;
   DateTime? createdAt;
   int? id;

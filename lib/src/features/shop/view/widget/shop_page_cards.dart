@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
-import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
@@ -19,7 +17,6 @@ import '../../../../utils/local_storage/local_storage_keys.dart';
 import '../../../../utils/local_storage/storage_utility.dart';
 import '../../../authentication/views/log_in/view/login.dart';
 import '../../../cart/controllers/cart_controller.dart';
-import '../../../details/view/details.dart';
 import 'sub_category.dart';
 
 class AppShopGridScrollCard extends StatelessWidget {
@@ -68,11 +65,8 @@ class AppShopGridScrollCard extends StatelessWidget {
                               )
                             : AppVerticalProductCard(
                                 onTap: () {
-                                  Get.to(() => DetailsPage(
-                                        productSlug: shopController
-                                            .allProducts[index].slug!,
-
-                                      ));
+                                  Get.toNamed('/product/${shopController
+                                      .allProducts[index].slug!}');
                                 },
                                 onCartTap: () {
                                   if (AppLocalStorage().readData(

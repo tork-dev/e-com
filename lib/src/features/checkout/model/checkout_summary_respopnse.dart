@@ -6,7 +6,7 @@ class CheckoutSummaryResponse {
   String? shippingCost;
   String? discount;
   String? grandTotal;
-  double? grandTotalValue;
+  dynamic grandTotalValue;
   dynamic couponCode;
   bool? couponApplied;
 

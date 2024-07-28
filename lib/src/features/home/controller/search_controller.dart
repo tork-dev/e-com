@@ -18,7 +18,7 @@ class AppSearchController extends GetxController{
   GetShopDataController shopDataController = Get.put(GetShopDataController());
 
 
-  RxBool isLoading = false.obs;
+  //RxBool isLoading = false.obs;
 
   final ImagePicker _picker = ImagePicker();
   XFile? _file;
@@ -48,7 +48,9 @@ class AppSearchController extends GetxController{
     _file = await _picker.pickImage(source: ImageSource.gallery);
 
     if (_file != null) {
-      isLoading(true);
+     // isLoading(true);
+      shopDataController.isFromSearch.value = true;
+      bottomController.jumpToTab(1);
       File imageFile = File(_file!.path);
       Uint8List imageBytes = await imageFile.readAsBytes();
       String imageName = _file!.path.split("/").last;
@@ -58,15 +60,13 @@ class AppSearchController extends GetxController{
           imageBytes: imageBytes,
           imageName: imageName,
         );
-        shopDataController.allProducts.addAll(shopDataController.shopPageProduct.value.data ?? []);
+        shopDataController.allProducts.addAll(shopDataController.shopPageProduct.value.data!);
         print('Image search successful');
-        shopDataController.isFromSearch.value = true;
-        bottomController.jumpToTab(1);
 
       } catch (e) {
         print('Image search failed: $e');
       } finally {
-        isLoading(false);
+        //isLoading(false);
       }
     }
   }

@@ -28,18 +28,6 @@ class ShopScreen extends StatelessWidget {
         hasEndDrawer: true,
         action:  const [
           SizedBox()
-          // InkWell(
-          //   onTap: (){
-          //     print('print1');
-          //     shopDataController.searchOn.value.requestFocus();
-          //     print('print2');
-          //   },
-          //   child: const Icon(
-          //     Icons.search,
-          //     color: AppColors.white,
-          //   ),
-          // ),
-          // const Gap(AppSizes.sm),
         ],
         title: Obx(() {
             return AppBarSearch(

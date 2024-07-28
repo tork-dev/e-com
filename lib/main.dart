@@ -1,16 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/app.dart';
-import 'package:kirei/src/utils/firebase/push_notification.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
-import 'src/features/authentication/data/repositories/auth_repositories.dart';
 import 'src/utils/firebase/awesome_notification.dart';
 
 
@@ -44,7 +39,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   AwesomeNotificationController().getFirebaseMessagingToken();
-  AwesomeNotificationController.initializeRemoteNotifications(debug: true);
+  AwesomeNotificationController().initializeRemoteNotifications(debug: true);
 
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   //

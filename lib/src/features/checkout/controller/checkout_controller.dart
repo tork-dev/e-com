@@ -116,7 +116,8 @@ class CheckoutController extends GetxController {
 
   /// Crete Order Method
   Future<void> onPressProceedToCheckout() async {
-    validateCheckoutDetails();
+
+    await validateCheckoutDetails();
 
     isLoading.value = true;
 

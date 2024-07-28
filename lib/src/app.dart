@@ -5,9 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kirei/src/features/appoinment/model/appointment_model.dart';
+import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
+import 'package:kirei/src/features/authentication/views/sign_up/view/signup.dart';
+import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/community/view/community_screen.dart';
+import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/personalization/view/profile.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:upgrader/upgrader.dart';
+import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
+import 'features/appoinment/view/appointment_screen.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
 import './utils/constants/text_strings.dart';
@@ -21,11 +30,6 @@ class MyApp extends StatelessWidget {
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
 
-  // final routes = [
-  //   GetPage(name: '/', page: () => SplashScreen()),
-  //    GetPage(name: '/second', page: () => SecondScreen()),
-  //   // GetPage(name: '/third', page: () => ThirdScreen()),
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +52,8 @@ class MyApp extends StatelessWidget {
           Locale('en'), // English
           Locale('es'), // Spanish
         ],
-        // home: UpgradeAlert(
-        //   showReleaseNotes: false,
-        //   child: const SplashScreen(),
-        // ),
         initialRoute: '/',
+        navigatorObservers: [observer],
         getPages: [
           GetPage(
             name: '/',
@@ -61,10 +62,17 @@ class MyApp extends StatelessWidget {
               child: const SplashScreen(),
             ),
           ),
-          GetPage(name: '/home', page: () => const SplashScreen()),
-          GetPage(name: '/filter', page: () => const ProfileScreen()),
-
-          // Add more routes as needed
+          GetPage(name: '/login', page: () => const LogIn()),
+          GetPage(name: '/register', page: () => const SignUp()),
+          GetPage(name: '/home', page: () => const HelloConvexAppBar(pageIndex: 0,)),
+          GetPage(name: '/shop', page: () => const HelloConvexAppBar(pageIndex: 1,)),
+          GetPage(name: '/cart', page: () => const HelloConvexAppBar(pageIndex: 2,)),
+          GetPage(name: '/account', page: () => const HelloConvexAppBar(pageIndex: 3,)),
+          GetPage(name: '/product/:id', page: () => const DetailsPage()),
+          GetPage(name: '/beauty-tips', page: () => const BeautyTipsScreen()),
+          GetPage(name: '/personal-recommendation/skincare-recommendation', page: () => const SkinCareHistoryOne()),
+          GetPage(name: '/community', page: () => const CommunityScreen()),
+          GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
         ],
 
         //navigatorKey: navigatorKey,

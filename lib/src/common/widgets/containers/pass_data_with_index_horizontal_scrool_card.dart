@@ -47,9 +47,7 @@ class AppPassDataHorizontalProductCard extends StatelessWidget {
       height: 150,
       width: 150,
       onTap: () {
-        Get.to(() => DetailsPage(
-              productSlug: productSlug,
-            ));
+        Get.toNamed('/product/$productSlug');
       },
       onCartTap: () {
         if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {

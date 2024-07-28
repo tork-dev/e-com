@@ -37,16 +37,13 @@ import '../../../utils/constants/sizes.dart';
 import 'widgets/details_picture_part.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage(
-      {super.key, required this.productSlug});
-
-  final String productSlug;
-
+  const DetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String id = Get.parameters['id'] ?? '';
     final controller = Get.put(
-        DetailsPageController(productSlug: productSlug));
+        DetailsPageController(productSlug: id));
     final categoryController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
     return AppLayoutWithBackButton(
