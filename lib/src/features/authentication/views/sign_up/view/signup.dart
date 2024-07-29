@@ -25,12 +25,12 @@ class SignUp extends StatelessWidget {
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Image(
+            Image(
               image: AssetImage(AppImages.darkAppLogo),
               width: 150,
             ),
-            const Gap(AppSizes.spaceBtwRowItem),
-            const Text("Register",
+            Gap(AppSizes.spaceBtwRowItem),
+            Text("Register",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.primary,
@@ -38,7 +38,7 @@ class SignUp extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const Gap(AppSizes.spaceBtwSections),
+            Gap(AppSizes.spaceBtwSections),
            // const Align(
            //    alignment: Alignment.centerLeft,
            //    child: Text("Phone",
@@ -50,8 +50,8 @@ class SignUp extends StatelessWidget {
            //    ),
            //  ),
             //const Gap(AppSizes.spaceBtwRowItem),
-            const SignUpFormsAndButton(),
-            const Gap(AppSizes.spaceBtwSections),
+            SignUpFormsAndButton(),
+            Gap(AppSizes.spaceBtwSections),
             // OtherLogInOrSignUpOption(
             //   title: AppLocalizations.of(context)!.orSignUpWith,
             //   googleTap: () {},

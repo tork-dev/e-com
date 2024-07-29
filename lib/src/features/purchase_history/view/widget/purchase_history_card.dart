@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
-import 'package:kirei/src/features/purchase_history/view/purchase_history_details.dart';
 import 'package:kirei/src/features/purchase_history/view/widget/payment_status_indicator.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -34,10 +31,8 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                 ? ShimmerHelper().buildBasicShimmer(height: 125)
                 : AppCardContainer(
                     onTap: () {
-                      Get.to(() => PurchaseHistoryDetails(
-                            orderId: purchaseHistoryController
-                                .purchaseHistoryList.value.data![index].id!,
-                          ));
+                      Get.toNamed('/order/${purchaseHistoryController
+                          .purchaseHistoryList.value.data![index].id!}');
                     },
                     padding: const EdgeInsets.all(AppSizes.md),
                     width: AppHelperFunctions.screenWidth(),

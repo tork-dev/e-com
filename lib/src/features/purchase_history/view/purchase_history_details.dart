@@ -13,14 +13,14 @@ import 'widget/order_shipping_details_card.dart';
 
 
 class PurchaseHistoryDetails extends StatelessWidget {
-  const PurchaseHistoryDetails({required this.orderId, super.key});
-
-  final int orderId;
+  const PurchaseHistoryDetails({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(PurchaseHistoryDetailsController(orderId: orderId));
-    final orderListController = Get.put(PurchaseHistoryController);
+    String orderId = Get.parameters['id'] ?? '';
+    final controller = Get.put(PurchaseHistoryDetailsController(orderId: int.parse(orderId)));
+    Get.put(PurchaseHistoryController);
     return  AppLayoutWithBackButton(
       title: const Text('Order Details', style: TextStyle(color: AppColors.primary),),
         centerTitle: true,

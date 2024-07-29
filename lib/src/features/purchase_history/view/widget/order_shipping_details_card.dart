@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/widget/shipping_address_alert.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -21,7 +22,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final detailsController = PurchaseHistoryDetailsController.instance;
     final listController = PurchaseHistoryController.instance;
-    final bottomNavController = ConvexBottomNavController.instance;
+    // final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
       return detailsController.purchaseHistoryDetails.value.data == null
           ? ShimmerHelper().buildBasicShimmer(height: 250)
@@ -196,6 +197,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                     ],
                   ),
                   const Gap(AppSizes.spaceBtwItems),
+
                   AppButtons.largeFlatFilledButton(
                       backgroundColor: AppColors.secondary,
                       onPressed: () {
@@ -204,12 +206,11 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                             .then((value) => {
                                   AppHelperFunctions.showToast(listController
                                       .reOrderResponse.value.message!),
-                                  Get.back(),
-                                  Get.back(),
-                                  bottomNavController.jumpToTab(2)
+                                  Get.offAll(()=> const HelloConvexAppBar(pageIndex: 2,))
                                 });
                       },
                       buttonText: 'Re-Order'),
+
                   const Gap(AppSizes.sm),
                   Visibility(
                       visible: detailsController.purchaseHistoryDetails.value

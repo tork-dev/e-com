@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
@@ -40,11 +41,14 @@ class NotificationController {
     debugPrint('Native Token:"$token"');
   }
 
-  static Future<void> onNotificationCreated(ReceivedNotification receivedNotification) async {
+  static Future<void> onNotificationCreated(
+      ReceivedNotification receivedNotification) async {
+    print(receivedNotification.payload);
     // Handle when a notification is created
   }
 
-  static Future<void> onNotificationDisplayed(ReceivedNotification receivedNotification) async {
+  static Future<void> onNotificationDisplayed(
+      ReceivedNotification receivedNotification) async {
     // Handle when a notification is displayed
   }
 
@@ -53,14 +57,16 @@ class NotificationController {
   }
 
   static Future<void> onActionReceived(ReceivedAction receivedAction) async {
-    print('notification');
-    print(receivedAction.id);
-    print(receivedAction.body);
-    print(receivedAction.actionType);
-    print(receivedAction.payload);
-    if(receivedAction.payload!['item_type_id'] != null){
-      print(receivedAction.payload?['item_type_id']);
+    if (receivedAction.payload!['route'] != null) {
+
+      // const String baseUrl = 'https://kireibd.com';
+
+      const String baseUrl = 'https://beta.kireibd.com';
+
+      String route = receivedAction.payload!['route']!.replaceFirst(baseUrl, '');
+      Get.toNamed(route);
     }
+
 // // Handle when a notification action is received
 //     if (receivedAction.payload != null) {
 // // Assuming payload contains a "screen" parameter to navigate to
@@ -73,20 +79,15 @@ class NotificationController {
   }
 }
 
-
-
 class AwesomeNotificationController {
-   Future<void> initializeRemoteNotifications({
-    required bool debug
-  }) async {
+  Future<void> initializeRemoteNotifications({required bool debug}) async {
     await Firebase.initializeApp();
     await AwesomeNotificationsFcm().initialize(
         onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
         onFcmTokenHandle: NotificationController.myFcmTokenHandle,
-       // onNativeTokenHandle: NotificationController.myNativeTokenHandle,
+        // onNativeTokenHandle: NotificationController.myNativeTokenHandle,
         licenseKeys: null,
-        debug: debug
-    );
+        debug: debug);
 
     // Request initial notification permissions
     await AwesomeNotifications().requestPermissionToSendNotifications();
@@ -103,46 +104,43 @@ class AwesomeNotificationController {
               defaultColor: const Color(0xFF9D50DD),
               ledColor: Colors.white,
               importance: NotificationImportance.High,
-              defaultRingtoneType: DefaultRingtoneType.Notification
-          )
+              defaultRingtoneType: DefaultRingtoneType.Notification)
         ],
-        debug: debug
-    );
+        debug: debug);
 
     // Set up event listeners
     AwesomeNotifications().setListeners(
       onActionReceivedMethod: NotificationController.onActionReceived,
       onNotificationCreatedMethod: NotificationController.onNotificationCreated,
-      onNotificationDisplayedMethod: NotificationController.onNotificationDisplayed,
+      onNotificationDisplayedMethod:
+          NotificationController.onNotificationDisplayed,
     );
   }
 
   static Future<void> showNotification() async {
     await AwesomeNotifications().createNotification(
         content: NotificationContent(
-          id: 10,
-          channelKey: 'basic_channel',
-          title: 'Hello Awesome Notifications!',
-          body: 'This is a simple notification.',
-          notificationLayout: NotificationLayout.Default,
-          payload: {'screen': '/details_screen', 'id': '12345'}
-        )
-    );
-
+            id: 10,
+            channelKey: 'basic_channel',
+            title: 'Hello Awesome Notifications!',
+            body: 'This is a simple notification.',
+            notificationLayout: NotificationLayout.Default,
+            payload: {
+          'route': 'https://beta.kireibd.com/order/168813',
+          'item_type_id': 'rhoto-hadalabo-gokujun-aging-care-milk-lotion-140ml',
+          'item_type': 'Request Stock',
+          'click_action': 'FLUTTER_NOTIFICATION_CLICK'
+        }));
   }
-
-
-
-
 
   // Request FCM token to Firebase
   Future<String> getFirebaseMessagingToken() async {
     String firebaseAppToken = '';
     if (await AwesomeNotificationsFcm().isFirebaseAvailable) {
       try {
-        firebaseAppToken = await AwesomeNotificationsFcm().requestFirebaseAppToken();
-      }
-      catch (exception){
+        firebaseAppToken =
+            await AwesomeNotificationsFcm().requestFirebaseAppToken();
+      } catch (exception) {
         debugPrint('$exception');
       }
     } else {
@@ -151,7 +149,3 @@ class AwesomeNotificationController {
     return firebaseAppToken;
   }
 }
-
-
-
-

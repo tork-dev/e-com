@@ -55,23 +55,25 @@ class CheckoutController extends GetxController {
   Future<void> onRefresh() async {
     print('refresh');
     await getCheckoutSummary();
-    getPaymentMethods();
+    await getPaymentMethods();
     AppHelperFunctions.showToast('Cart Updated');
-    addressAvailabilityCheck();
+      addressAvailabilityCheck();
   }
 
-  bool addressAvailabilityCheck() {
+  void addressAvailabilityCheck() {
     if (addressController.nameController.text == "Guest" ||
         addressController.addressController.text == "") {
-      return isAddressAvailable.value = false;
+      isAddressAvailable.value = false;
     } else {
-      return isAddressAvailable.value = true;
+      isAddressAvailable.value = true;
     }
   }
 
-  Future<CheckoutSummaryResponse> getCheckoutSummary() async {
-    return checkoutSummary.value =
+  Future<void> getCheckoutSummary() async {
+    checkoutSummary.value =
         await CheckoutRepositories().getCartSummaryResponse();
+    couponController.text = checkoutSummary.value.couponCode ?? '';
+    isCouponApplied.value = checkoutSummary.value.couponApplied!;
   }
 
   Future<List<PaymentMethodResponse>> getPaymentMethods() async {
@@ -117,7 +119,8 @@ class CheckoutController extends GetxController {
   /// Crete Order Method
   Future<void> onPressProceedToCheckout() async {
 
-    await validateCheckoutDetails();
+    if(!await validateCheckoutDetails()) return;
+
 
     isLoading.value = true;
 
@@ -133,19 +136,19 @@ class CheckoutController extends GetxController {
       isLoading.value = false;
 
       if (selectedPaymentMethod.value == 1) {
-        Get.offAll(()=> BkashScreen(
-          bkashInitialUrl: orderCreateResponse.value.data?.paymentUrl,
+        Get.offAll(() => BkashScreen(
+            bkashInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
             orderId: orderCreateResponse.value.data!.order!.id!));
         return;
       }
-      if(selectedPaymentMethod.value == 2){
-        Get.offAll(()=> SslCommerzScreen(
-          orderId: orderCreateResponse.value.data!.order!.id!,
-          sslInitialUrl:  orderCreateResponse.value.data?.paymentUrl,
-          amount: orderCreateResponse.value.data!.order!.grandTotal!,
-          paymentMethodKey: 'ssl',
-          paymentType: orderCreateResponse.value.data!.order!.paymentType!,
-        ));
+      if (selectedPaymentMethod.value == 2) {
+        Get.offAll(() => SslCommerzScreen(
+              orderId: orderCreateResponse.value.data!.order!.id!,
+              sslInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
+              amount: orderCreateResponse.value.data!.order!.grandTotal!,
+              paymentMethodKey: 'ssl',
+              paymentType: orderCreateResponse.value.data!.order!.paymentType!,
+            ));
         return;
       }
       // Check if the widget is mounted before updating the UI
@@ -154,7 +157,7 @@ class CheckoutController extends GetxController {
       Get.offAll(() => AppOrderStatusScreen(
             statusString: orderCreateResponse.value.message!,
             status: orderCreateResponse.value.result ?? false,
-           orderId: orderCreateResponse.value.data!.order!.id!,
+            orderId: orderCreateResponse.value.data!.order!.id!,
           ));
 
       // Additional logic for payment handling can be added here
@@ -164,72 +167,76 @@ class CheckoutController extends GetxController {
     }
   }
 
-  Future<void> validateCheckoutDetails() async {
+  Future<bool> validateCheckoutDetails() async {
     if (checkoutSummary.value.grandTotalValue == 0.00) {
       AppHelperFunctions.showToast('Nothing to pay');
-      return;
+      return false;
     }
 
     if (selectedPaymentMethodName.value == "") {
       AppHelperFunctions.showToast('Please select a payment method');
-      return;
+      return false;
     }
 
-    if(selectedPaymentMethodName.value == "bkash" && checkoutSummary.value.grandTotalValue! < 1 || selectedPaymentMethodName.value == "ssl" && checkoutSummary.value.grandTotalValue! < 10.00){
-      AppHelperFunctions.showToast('Minimum amount not reached. Please select cash on delivery');
-      return;
+    if (selectedPaymentMethodName.value == "bkash" &&
+            checkoutSummary.value.grandTotalValue! < 1 ||
+        selectedPaymentMethodName.value == "ssl" &&
+            checkoutSummary.value.grandTotalValue! < 10.00) {
+      AppHelperFunctions.showToast(
+          'Minimum amount not reached. Please select cash on delivery');
+      return false;
     }
 
     if (!isTermsChecked.value) {
       AppHelperFunctions.showToast("Please agree to the terms and conditions");
-      return;
+      return false;
     }
 
     if (addressController.nameController.text == "" ||
         addressController.nameController.text.isEmpty) {
       AppHelperFunctions.showToast('Name is required');
-      return;
+      return false;
     }
 
     if (addressController.phoneController.text == "" ||
         addressController.phoneController.text.isEmpty) {
       AppHelperFunctions.showToast('Phone is required');
-      return;
+      return false;
     } else if (addressController.phoneController.text.length > 11 ||
         addressController.phoneController.text.length < 11 ||
         !addressController.phoneController.text.startsWith("0")) {
       AppHelperFunctions.showToast('Invalid Phone');
-      return;
+      return false;
     }
 
     if (addressController.addressController.text == "" ||
         addressController.addressController.text.isEmpty) {
       AppHelperFunctions.showToast('Address is required');
-      return;
+      return false;
     } else if (addressController.addressController.value.text.length < 10) {
       AppHelperFunctions.showToast('Address must be at least 10 characters');
-      return;
+      return false;
     }
 
     if (addressController.selectedCityName.text == "" ||
         addressController.selectedCityName.text.isEmpty) {
       AppHelperFunctions.showToast('City is required');
-      return;
+      return false;
     }
 
     if (addressController.selectedZoneName.text == "" ||
         addressController.selectedZoneName.text.isEmpty) {
       AppHelperFunctions.showToast('Zone is required');
-      return;
+      return false;
     }
 
     if (addressController.selectedAreaName.text == "" ||
         addressController.selectedAreaName.text.isEmpty) {
       AppHelperFunctions.showToast('Area is required');
-      return;
+      return false;
     }
 
-    return;
+    return true;
   }
 
   Map<String, dynamic> prepareRequestBody() {

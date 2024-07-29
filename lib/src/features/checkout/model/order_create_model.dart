@@ -67,13 +67,15 @@ class Order {
   int? date;
   dynamic note;
   int? isRecurring;
-  dynamic grandTotal;
+  double? grandTotal;
   int? shippingCost;
-  dynamic couponDiscount;
+  double? couponDiscount;
   DateTime? updatedAt;
   DateTime? createdAt;
   int? id;
+  double? rewardPointEarned;
   List<OrderDetail>? orderDetails;
+  User? user;
 
   Order({
     this.userId,
@@ -92,7 +94,9 @@ class Order {
     this.updatedAt,
     this.createdAt,
     this.id,
+    this.rewardPointEarned,
     this.orderDetails,
+    this.user,
   });
 
   factory Order.fromRawJson(String str) => Order.fromJson(json.decode(str));
@@ -110,13 +114,15 @@ class Order {
     date: json["date"],
     note: json["note"],
     isRecurring: json["is_recurring"],
-    grandTotal: json["grand_total"],
+    grandTotal: json["grand_total"]?.toDouble(),
     shippingCost: json["shipping_cost"],
-    couponDiscount: json["coupon_discount"],
+    couponDiscount: json["coupon_discount"]?.toDouble(),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     id: json["id"],
+    rewardPointEarned: json["reward_point_earned"]?.toDouble(),
     orderDetails: json["order_details"] == null ? [] : List<OrderDetail>.from(json["order_details"]!.map((x) => OrderDetail.fromJson(x))),
+    user: json["user"] == null ? null : User.fromJson(json["user"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -136,7 +142,9 @@ class Order {
     "updated_at": updatedAt?.toIso8601String(),
     "created_at": createdAt?.toIso8601String(),
     "id": id,
+    "reward_point_earned": rewardPointEarned,
     "order_details": orderDetails == null ? [] : List<dynamic>.from(orderDetails!.map((x) => x.toJson())),
+    "user": user?.toJson(),
   };
 }
 
@@ -149,7 +157,8 @@ class OrderDetail {
   dynamic variation;
   int? unitPrice;
   int? price;
-  int? discount;
+  int? rewardPointUsed;
+  double? discount;
   dynamic couponCode;
   int? tax;
   int? shippingCost;
@@ -174,6 +183,7 @@ class OrderDetail {
     this.variation,
     this.unitPrice,
     this.price,
+    this.rewardPointUsed,
     this.discount,
     this.couponCode,
     this.tax,
@@ -204,7 +214,8 @@ class OrderDetail {
     variation: json["variation"],
     unitPrice: json["unit_price"],
     price: json["price"],
-    discount: json["discount"],
+    rewardPointUsed: json["reward_point_used"],
+    discount: json["discount"]?.toDouble(),
     couponCode: json["coupon_code"],
     tax: json["tax"],
     shippingCost: json["shipping_cost"],
@@ -230,6 +241,7 @@ class OrderDetail {
     "variation": variation,
     "unit_price": unitPrice,
     "price": price,
+    "reward_point_used": rewardPointUsed,
     "discount": discount,
     "coupon_code": couponCode,
     "tax": tax,
@@ -255,7 +267,7 @@ class Product {
   int? userId;
   int? categoryId;
   int? brandId;
-  dynamic photos;
+  String? photos;
   String? thumbnailImg;
   int? videoProvider;
   dynamic videoLink;
@@ -268,7 +280,10 @@ class Product {
   String? keyIngredients;
   int? unitPrice;
   int? purchasePrice;
+  int? groupPurchasePrice;
+  int? groupMemberQuantity;
   int? costPrice;
+  int? rewardPoint;
   int? variantProduct;
   String? attributes;
   String? choiceOptions;
@@ -284,6 +299,7 @@ class Product {
   int? sellerFeatured;
   int? currentStock;
   int? preorderAvailable;
+  int? requestAvailable;
   int? preorderAmount;
   DateTime? preorderDeliveryDate;
   dynamic preorderStartDate;
@@ -320,7 +336,7 @@ class Product {
   String? externalLinkBtn;
   int? wholesaleProduct;
   String? totalStock;
-  String? totalSale;
+  int? totalSale;
   String? sixtyDaysSale;
   int? isCombo;
   dynamic comboIds;
@@ -350,7 +366,10 @@ class Product {
     this.keyIngredients,
     this.unitPrice,
     this.purchasePrice,
+    this.groupPurchasePrice,
+    this.groupMemberQuantity,
     this.costPrice,
+    this.rewardPoint,
     this.variantProduct,
     this.attributes,
     this.choiceOptions,
@@ -366,6 +385,7 @@ class Product {
     this.sellerFeatured,
     this.currentStock,
     this.preorderAvailable,
+    this.requestAvailable,
     this.preorderAmount,
     this.preorderDeliveryDate,
     this.preorderStartDate,
@@ -437,7 +457,10 @@ class Product {
     keyIngredients: json["key_ingredients"],
     unitPrice: json["unit_price"],
     purchasePrice: json["purchase_price"],
+    groupPurchasePrice: json["group_purchase_price"],
+    groupMemberQuantity: json["group_member_quantity"],
     costPrice: json["cost_price"],
+    rewardPoint: json["reward_point"],
     variantProduct: json["variant_product"],
     attributes: json["attributes"],
     choiceOptions: json["choice_options"],
@@ -453,6 +476,7 @@ class Product {
     sellerFeatured: json["seller_featured"],
     currentStock: json["current_stock"],
     preorderAvailable: json["preorder_available"],
+    requestAvailable: json["request_available"],
     preorderAmount: json["preorder_amount"],
     preorderDeliveryDate: json["preorder_delivery_date"] == null ? null : DateTime.parse(json["preorder_delivery_date"]),
     preorderStartDate: json["preorder_start_date"],
@@ -520,7 +544,10 @@ class Product {
     "key_ingredients": keyIngredients,
     "unit_price": unitPrice,
     "purchase_price": purchasePrice,
+    "group_purchase_price": groupPurchasePrice,
+    "group_member_quantity": groupMemberQuantity,
     "cost_price": costPrice,
+    "reward_point": rewardPoint,
     "variant_product": variantProduct,
     "attributes": attributes,
     "choice_options": choiceOptions,
@@ -536,6 +563,7 @@ class Product {
     "seller_featured": sellerFeatured,
     "current_stock": currentStock,
     "preorder_available": preorderAvailable,
+    "request_available": requestAvailable,
     "preorder_amount": preorderAmount,
     "preorder_delivery_date": "${preorderDeliveryDate!.year.toString().padLeft(4, '0')}-${preorderDeliveryDate!.month.toString().padLeft(2, '0')}-${preorderDeliveryDate!.day.toString().padLeft(2, '0')}",
     "preorder_start_date": preorderStartDate,
@@ -627,6 +655,138 @@ class ProductTranslation {
     "unit": unit,
     "description": description,
     "lang": lang,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+  };
+}
+
+class User {
+  int? id;
+  dynamic referredBy;
+  dynamic providerId;
+  String? userType;
+  String? name;
+  String? email;
+  dynamic emailVerifiedAt;
+  dynamic verificationCode;
+  dynamic newEmailVerificiationCode;
+  String? deviceToken;
+  String? avatar;
+  String? avatarOriginal;
+  dynamic address;
+  dynamic country;
+  dynamic state;
+  dynamic city;
+  dynamic cityId;
+  dynamic zoneId;
+  dynamic areaId;
+  dynamic postalCode;
+  dynamic phone;
+  int? balance;
+  int? isDeactive;
+  int? banned;
+  dynamic referralCode;
+  dynamic customerPackageId;
+  int? remainingUploads;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  User({
+    this.id,
+    this.referredBy,
+    this.providerId,
+    this.userType,
+    this.name,
+    this.email,
+    this.emailVerifiedAt,
+    this.verificationCode,
+    this.newEmailVerificiationCode,
+    this.deviceToken,
+    this.avatar,
+    this.avatarOriginal,
+    this.address,
+    this.country,
+    this.state,
+    this.city,
+    this.cityId,
+    this.zoneId,
+    this.areaId,
+    this.postalCode,
+    this.phone,
+    this.balance,
+    this.isDeactive,
+    this.banned,
+    this.referralCode,
+    this.customerPackageId,
+    this.remainingUploads,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json["id"],
+    referredBy: json["referred_by"],
+    providerId: json["provider_id"],
+    userType: json["user_type"],
+    name: json["name"],
+    email: json["email"],
+    emailVerifiedAt: json["email_verified_at"],
+    verificationCode: json["verification_code"],
+    newEmailVerificiationCode: json["new_email_verificiation_code"],
+    deviceToken: json["device_token"],
+    avatar: json["avatar"],
+    avatarOriginal: json["avatar_original"],
+    address: json["address"],
+    country: json["country"],
+    state: json["state"],
+    city: json["city"],
+    cityId: json["city_id"],
+    zoneId: json["zone_id"],
+    areaId: json["area_id"],
+    postalCode: json["postal_code"],
+    phone: json["phone"],
+    balance: json["balance"],
+    isDeactive: json["is_deactive"],
+    banned: json["banned"],
+    referralCode: json["referral_code"],
+    customerPackageId: json["customer_package_id"],
+    remainingUploads: json["remaining_uploads"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "referred_by": referredBy,
+    "provider_id": providerId,
+    "user_type": userType,
+    "name": name,
+    "email": email,
+    "email_verified_at": emailVerifiedAt,
+    "verification_code": verificationCode,
+    "new_email_verificiation_code": newEmailVerificiationCode,
+    "device_token": deviceToken,
+    "avatar": avatar,
+    "avatar_original": avatarOriginal,
+    "address": address,
+    "country": country,
+    "state": state,
+    "city": city,
+    "city_id": cityId,
+    "zone_id": zoneId,
+    "area_id": areaId,
+    "postal_code": postalCode,
+    "phone": phone,
+    "balance": balance,
+    "is_deactive": isDeactive,
+    "banned": banned,
+    "referral_code": referralCode,
+    "customer_package_id": customerPackageId,
+    "remaining_uploads": remainingUploads,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
   };

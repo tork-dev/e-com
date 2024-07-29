@@ -25,7 +25,7 @@ class AppCartProductCard extends StatelessWidget {
     final cartController = CartController.instance;
     final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
-      return cartController.allCartProducts.isEmpty
+      return cartController.allCartProducts.isEmpty && !cartController.hittingApi.value
           ? CartLogOutView(
               onTap: () {
                 bottomNavController.jumpToTab(1);

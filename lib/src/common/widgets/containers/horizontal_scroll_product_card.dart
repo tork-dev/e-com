@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
+import 'package:kirei/src/utils/firebase/awesome_notification.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../features/details/view/details.dart';
 import '../../../features/home/controller/home_controller.dart';
@@ -47,6 +48,8 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                               .then((value) => AppHelperFunctions.showToast(
                                   cartController
                                       .requestStockResponse.value.message!));
+
+                          AwesomeNotificationController.showNotification();
                           return;
                         }
 

@@ -11,7 +11,7 @@ import '../order_status_page.dart';
 
 
 class SslCommerzScreen extends StatefulWidget {
-  final int amount;
+  final double amount;
   final String paymentType;
   final String paymentMethodKey;
   final String sslInitialUrl;

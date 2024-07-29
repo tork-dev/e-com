@@ -23,9 +23,11 @@ class CartController extends GetxController {
   Rx<CartDeleteResponse> cartProductDeleteResponse = CartDeleteResponse().obs;
   Rx<CartUpdateResponse> cartUpdateResponse = CartUpdateResponse().obs;
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
-  Rx<ProductRequestResponse> requestStockResponse = ProductRequestResponse().obs;
+  Rx<ProductRequestResponse> requestStockResponse =
+      ProductRequestResponse().obs;
   Rx<CheckoutCartUpdateResponse> checkoutCartUpdateResponse =
       CheckoutCartUpdateResponse().obs;
+  RxBool hittingApi = false.obs;
 
   //Rx<dynamic> cartCount = 0.obs;
   var cartCount = Rx<dynamic>(0);
@@ -73,16 +75,22 @@ class CartController extends GetxController {
     }
   }
 
-  Future<AddToCartResponse> getAddToCartResponse(int id, int quantity, dynamic preorderAvailable) async {
-    return addToCartResponse.value = await CartRepositories().getCartAddResponse(id, quantity, preorderAvailable);
+  Future<AddToCartResponse> getAddToCartResponse(
+      int id, int quantity, dynamic preorderAvailable) async {
+    return addToCartResponse.value = await CartRepositories()
+        .getCartAddResponse(id, quantity, preorderAvailable);
   }
 
-  Future<ProductRequestResponse> getRequestResponse({required int productId}) async {
-    return requestStockResponse.value = await CartRepositories().getRequestStock(productId: productId);
+  Future<ProductRequestResponse> getRequestResponse(
+      {required int productId}) async {
+    return requestStockResponse.value =
+        await CartRepositories().getRequestStock(productId: productId);
   }
 
-  Future<List<CartItemGetResponse>> getAllCartProducts() async {
-    return allCartProducts.value = await CartRepositories().getCartProducts();
+  Future<void> getAllCartProducts() async {
+    hittingApi.value = true;
+    allCartProducts.value = await CartRepositories().getCartProducts();
+    hittingApi.value = false;
   }
 
   Future<CartDeleteResponse> getCartDelete(int cartId) async {

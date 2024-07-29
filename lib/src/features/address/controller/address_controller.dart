@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/address/model/address_city_model.dart';
 import 'package:kirei/src/features/address/model/address_create_model.dart';
@@ -21,6 +22,7 @@ class AddressController extends GetxController {
   RxInt selectedCityId = 0.obs;
   RxInt selectedZoneId = 0.obs;
   RxInt selectedAreaId = 0.obs;
+  RxBool hittingApi = true.obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -45,8 +47,10 @@ class AddressController extends GetxController {
     print('refresh');
   }
 
-  Future<AddressResponse> getShippingAddress()async{
-    return shippingAddress.value = await AddressRepositories().getAddressList();
+  Future<void> getShippingAddress()async{
+    hittingApi.value = true;
+     shippingAddress.value = await AddressRepositories().getAddressList();
+     hittingApi.value = false;
   }
 
   void setAddress(){

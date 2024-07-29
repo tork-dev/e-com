@@ -17,6 +17,7 @@ class AppShippingAddressContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
         return Obx(() {
+          print('address check ${checkoutController.isAddressAvailable.value}');
             return AppCardContainer(
               padding: const EdgeInsets.only(top: AppSizes.sm, bottom: AppSizes.sm),
               backgroundColor: AppColors.white,
