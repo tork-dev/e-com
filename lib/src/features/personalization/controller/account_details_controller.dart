@@ -59,15 +59,24 @@ class AccountDetailsController extends GetxController {
   chooseAndUploadImage() async {
     // var status = await Permission.photos.request();
       _file = await _picker.pickImage(source: ImageSource.gallery);
+      print(_file);
 
-      //return;
-      String base64Image = FileHelper.getBase64FormatedFile(_file!.path);
-      String fileName = _file!.path.split("/").last;
-      profileUpdateImageResponse.value = await PersonalizationRepositories().getProfileImageUpdateResponse(
-        image: base64Image,
-        filename: fileName
-      );
-
+      if(_file!= null) {
+        String base64Image = FileHelper.getBase64FormatedFile(_file!.path);
+        String fileName = _file!
+            .path
+            .split("/")
+            .last;
+        profileUpdateImageResponse.value =
+        await PersonalizationRepositories().getProfileImageUpdateResponse(
+            image: base64Image,
+            filename: fileName
+        );
+        AppLocalStorage().saveData(
+            LocalStorageKeys.avatarOriginal, profileUpdateImageResponse.value.path);
+      }else {
+        return null;
+      }
     }
   }
 

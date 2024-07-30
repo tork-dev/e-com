@@ -12,6 +12,7 @@ class SliderController extends GetxController{
   final carouselCurrentIndex = 0.obs;
   final pageController = CarouselController();
   RxList homeSliders = [].obs;
+  RxList homeSlidersLink = [].obs;
 
   @override
   void onInit() {
@@ -33,6 +34,7 @@ class SliderController extends GetxController{
     carouselResponse.data?.forEach((slider) {
       if(slider.photo != null) {
         homeSliders.add(slider.photo);
+        homeSlidersLink.add(slider.link);
       }
     });
     // _isCarouselInitial = false;

@@ -39,9 +39,10 @@ class GetShopDataController extends GetxController {
   RxString categories = ''.obs;
   RxInt pageNumber = 1.obs;
   RxString type = ''.obs;
+
   Rx<int?> selectedCategoryIndex = Rx<int?>(null);
   RxList<String> selectedSkinTypes = <String>[].obs;
-  RxInt selectedSortIndex = 0.obs;
+  // RxInt selectedSortIndex = 0.obs;
 
   void resetAll() {
     searchName.value = '';

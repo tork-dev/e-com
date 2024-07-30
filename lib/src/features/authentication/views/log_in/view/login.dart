@@ -1,17 +1,15 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../../../common/layouts/layout_without_appbar/layout_without_appbar.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -26,7 +24,8 @@ class LogIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logInController = Get.put(LogInPageController());
+    String previousRoute = Get.parameters['prevRoute'] ?? '/home';
+    final logInController = Get.put(LogInPageController(previousRoute: previousRoute));
     return PopScope(
       canPop: false,
       onPopInvoked: (pop) {
@@ -79,9 +78,7 @@ class LogIn extends StatelessWidget {
                             children: [
                               // const Gap(AppSizes.sm),
                               Visibility(
-                                visible: logInController.socialOptionResponse
-                                        .value.loginOptions?[0].value ==
-                                    '1',
+                                visible: AppLocalStorage().readData(LocalStorageKeys.facebookLogin),
                                 child: AppButtons.largeFlatFilledIconButton(
                                     onPressed: () {
                                       logInController.onPressedFacebookLogin();
@@ -95,9 +92,7 @@ class LogIn extends StatelessWidget {
                               ),
                               const Gap(AppSizes.sm),
                               Visibility(
-                                visible: logInController.socialOptionResponse
-                                        .value.loginOptions?[1].value ==
-                                    '1',
+                                visible: AppLocalStorage().readData(LocalStorageKeys.googleLogin),
                                 child: AppButtons.largeFlatFilledIconButton(
                                     onPressed: () {
                                       logInController.onPressedGoogleLogin();
@@ -112,9 +107,7 @@ class LogIn extends StatelessWidget {
                               const Gap(AppSizes.sm),
                               Visibility(
                                 visible: !Platform.isAndroid &&
-                                    logInController.socialOptionResponse.value
-                                            .loginOptions?[2].value ==
-                                        '1',
+                                    AppLocalStorage().readData(LocalStorageKeys.appleLogin),
                                 child: AppButtons.largeFlatFilledIconButton(
                                     onPressed: () {},
                                     verticallyPadding: 14,

@@ -21,13 +21,15 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.leadingIconColor,
     this.bottomNav,
     this.leadingOnPress,
+    this.backToHome = false,
+    this.showCustomLeading = false,
     super.key,  });
 
   final Widget? title, body, bottomNav;
   final bool centerTitle;
   final Color? backgroundColor, leadingIconColor, bodyBackgroundColor;
   final List<Widget>? action;
-  final bool showBackButton;
+  final bool showBackButton, showCustomLeading, backToHome;
   final double padding;
   final VoidCallback? leadingOnPress;
   final IconData? customLeadingIcon;
@@ -37,22 +39,31 @@ class AppLayoutWithBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     //final isDark = AppHelperFunctions.isDarkMode(context);
     return
-      Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: bodyBackgroundColor,
-        bottomNavigationBar: bottomNav,
-        appBar: CustomAppBar(
-          title: title,
-          leadingIcon: customLeadingIcon,
-          showBackArrow: showBackButton,
-          leadingIconColor: leadingIconColor,
-          centerTitle: centerTitle,
-          backgroundColor: backgroundColor,
-          actions: action,
-          leadingOnPress: leadingOnPress,
-        ),
-        body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
-    );
+      PopScope(
+        canPop: !backToHome,
+        onPopInvoked: (pop) {
+          backToHome
+              ? Get.offAllNamed('/home')
+              : null;
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: bodyBackgroundColor,
+          bottomNavigationBar: bottomNav,
+          appBar: CustomAppBar(
+            title: title,
+            leadingIcon: customLeadingIcon,
+            showBackArrow: showBackButton,
+            leadingIconColor: leadingIconColor,
+            centerTitle: centerTitle,
+            backgroundColor: backgroundColor,
+            actions: action,
+            leadingOnPress: leadingOnPress,
+            showLeadingIcon: showCustomLeading,
+          ),
+          body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
+            ),
+      );
   }
 }
 

@@ -13,5 +13,9 @@ class LocalStorageKeys{
   static const String avatarOriginal = "avatarOriginal";
   static const String cartCount = "cartCount";
   static const String fcmToken = "fcmToken";
+  static const String facebookLogin = "facebookLogin";
+  static const String googleLogin = "googleLogin";
+  static const String appleLogin = "appleLogin";
+  static const String activeDoctorAppointment = "activeDoctorAppointment";
 
  }

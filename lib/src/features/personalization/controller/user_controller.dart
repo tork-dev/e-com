@@ -10,7 +10,6 @@ class UserController extends GetxController {
   final GlobalKey<ScaffoldState> profileKey = GlobalKey<ScaffoldState>();
 
   Rx<UserModel> user = UserModel.empty().obs;
-  //final userRepository = Get.put(UserRepositories());
 
 
   @override

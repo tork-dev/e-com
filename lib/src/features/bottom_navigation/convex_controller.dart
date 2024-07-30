@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:kirei/src/features/shop/controller/shop_controller.dart';
-import '../../utils/local_storage/local_storage_keys.dart';
-import '../../utils/local_storage/storage_utility.dart';
-import '../authentication/views/log_in/view/login.dart';
+
 
 class ConvexBottomNavController extends GetxController
     with GetSingleTickerProviderStateMixin {

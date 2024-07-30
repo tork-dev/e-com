@@ -106,6 +106,10 @@ class AppApiEndPoints {
   /// De-Active Account
   static String deActiveAccount = "$baseUrl/auth/deactive-account";
 
+  /// Business-settings
+  static String businessSettings = "$baseUrl/business-settings";
+
+
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";
 // static String AddAddr = "$baseUrl/user/shipping/create";

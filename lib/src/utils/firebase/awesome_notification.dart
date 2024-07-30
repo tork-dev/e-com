@@ -9,6 +9,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../../main.dart';
 
@@ -58,13 +61,7 @@ class NotificationController {
 
   static Future<void> onActionReceived(ReceivedAction receivedAction) async {
     if (receivedAction.payload!['route'] != null) {
-
-      // const String baseUrl = 'https://kireibd.com';
-
-      const String baseUrl = 'https://beta.kireibd.com';
-
-      String route = receivedAction.payload!['route']!.replaceFirst(baseUrl, '');
-      Get.toNamed(route);
+      RoutingHelper.urlRouting(receivedAction.payload!['route']!);
     }
 
 // // Handle when a notification action is received
@@ -126,7 +123,7 @@ class AwesomeNotificationController {
             body: 'This is a simple notification.',
             notificationLayout: NotificationLayout.Default,
             payload: {
-          'route': 'https://beta.kireibd.com/order/168813',
+          'route': 'https://beta.kireibd.com/personal-recommendation/skincare-recommendation',
           'item_type_id': 'rhoto-hadalabo-gokujun-aging-care-milk-lotion-140ml',
           'item_type': 'Request Stock',
           'click_action': 'FLUTTER_NOTIFICATION_CLICK'

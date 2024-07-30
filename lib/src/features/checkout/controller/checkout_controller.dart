@@ -168,10 +168,10 @@ class CheckoutController extends GetxController {
   }
 
   Future<bool> validateCheckoutDetails() async {
-    if (checkoutSummary.value.grandTotalValue == 0.00) {
-      AppHelperFunctions.showToast('Nothing to pay');
-      return false;
-    }
+    // if (checkoutSummary.value.grandTotalValue == 0.00) {
+    //   AppHelperFunctions.showToast('Nothing to pay');
+    //   return false;
+    // }
 
     if (selectedPaymentMethodName.value == "") {
       AppHelperFunctions.showToast('Please select a payment method');

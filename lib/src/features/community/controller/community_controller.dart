@@ -81,6 +81,7 @@ class CommunityController extends GetxController {
           imageFile: imageFile!,
           filename: imageName.value,
           description: communityFieldController.text);
+      AppHelperFunctions.showToast(createCommunityResponse.value.message!);
       await getCommunityResponse();
       isLoading.value = false;
       communityFieldController.clear();

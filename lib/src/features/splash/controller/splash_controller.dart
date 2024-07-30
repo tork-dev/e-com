@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/utils/helpers/business_setting/business_setting_helper.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/device/device_utility.dart';
@@ -19,6 +20,7 @@ class SplashController extends GetxController {
     //appStatus();
     appInfo();
     changeScreen();
+    BusinessSettingHelper.setBusinessSettingData();
     //Future.delayed(const Duration(seconds: 3)).then((value) => Get.offAll(()=> const HelloConvexAppBar()));
 
   }

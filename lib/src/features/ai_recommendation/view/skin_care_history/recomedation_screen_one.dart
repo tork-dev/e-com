@@ -8,7 +8,6 @@ import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/reco
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
-import '../../../../utils/helpers/helper_functions.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
@@ -23,6 +22,7 @@ class SkinCareHistoryOne extends StatelessWidget {
     RecommendationController recommendationController =
         Get.put(RecommendationController());
     return AppLayoutWithBackButton(
+      backToHome: true,
         bodyBackgroundColor: Colors.grey[100],
         title: const Text(
           'AI Suggestion',
@@ -30,6 +30,11 @@ class SkinCareHistoryOne extends StatelessWidget {
         ),
         centerTitle: true,
         leadingIconColor: AppColors.darkGrey,
+        customLeadingIcon: Icons.arrow_back,
+        showBackButton: false,
+        showCustomLeading: true,
+        leadingOnPress: ()=> Get.offAllNamed('/home'),
+
         padding: 0,
         body: ListView(
           children: [

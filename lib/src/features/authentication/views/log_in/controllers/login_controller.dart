@@ -22,6 +22,8 @@ import '../model/social_option_model.dart';
 
 class LogInPageController extends GetxController {
   static LogInPageController get instance => Get.find();
+  final String? previousRoute;
+  LogInPageController({this.previousRoute});
 
   //final userController = Get.put(UserController());
 
@@ -44,7 +46,7 @@ class LogInPageController extends GetxController {
 
   @override
   void onInit() {
-    getSocialOption();
+    //getSocialOption();
     super.onInit();
   }
 
@@ -97,7 +99,7 @@ class LogInPageController extends GetxController {
           AuthHelper().setUserData(loginResponse.value);
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
           //await getUserDataByToken();
-          Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+          Get.offAllNamed(previousRoute!);
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
         }

@@ -36,7 +36,7 @@ class AppEditProfilePicturePart extends StatelessWidget {
                     imgUrl: detailsController
                             .profileUpdateImageResponse.value.path ??
                         AppLocalStorage()
-                            .readData(LocalStorageKeys.avatarOriginal)) ;
+                            .readData(LocalStorageKeys.avatarOriginal) ?? '') ;
               })),
           Positioned(
               right: 0,
@@ -48,10 +48,6 @@ class AppEditProfilePicturePart extends StatelessWidget {
                 child: InkWell(
                     onTap: () {
                       detailsController.chooseAndUploadImage();
-                      AppLocalStorage().saveData(
-                          LocalStorageKeys.avatarOriginal,
-                          detailsController
-                              .profileUpdateImageResponse.value.path);
                     },
                     child: const Icon(
                       Icons.edit,

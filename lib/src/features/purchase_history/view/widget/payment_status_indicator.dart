@@ -13,7 +13,6 @@ class PaymentStatusIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final purchaseHistoryController = PurchaseHistoryController.instance;
     return AppCardContainer(
         height: 20,
         width: 20,

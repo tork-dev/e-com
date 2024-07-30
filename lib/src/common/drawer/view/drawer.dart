@@ -220,7 +220,7 @@ class AppDrawer extends StatelessWidget {
                   Get.to(()=> const SkinCareHistoryOne());
               }else{
                 AppHelperFunctions.showToast('Please login first');
-                Get.to(()=> const LogIn());
+                Get.toNamed('/login/personal-recommendation');
               }
             }
 

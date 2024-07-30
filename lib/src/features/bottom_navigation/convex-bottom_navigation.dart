@@ -101,7 +101,7 @@ class HelloConvexAppBar extends StatelessWidget {
                 if (index == 3) {
                   if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) !=
                       true) {
-                    Get.offAll(() => const LogIn());
+                    Get.offAllNamed('/login/account');
                     return;
                   }
                 }

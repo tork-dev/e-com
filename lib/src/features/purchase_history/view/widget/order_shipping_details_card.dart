@@ -21,7 +21,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final detailsController = PurchaseHistoryDetailsController.instance;
-    final listController = PurchaseHistoryController.instance;
+    final listController = PurchaseHistoryController();
     // final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
       return detailsController.purchaseHistoryDetails.value.data == null

@@ -1,22 +1,22 @@
 import 'dart:convert';
 
-class HomeSlidersResponse {
+class BusinessSettingResponse {
   List<Datum>? data;
   bool? success;
   int? status;
 
-  HomeSlidersResponse({
+  BusinessSettingResponse({
     this.data,
     this.success,
     this.status,
   });
 
-  factory HomeSlidersResponse.fromRawJson(String str) => HomeSlidersResponse.fromJson(json.decode(str));
+  factory BusinessSettingResponse.fromRawJson(String str) => BusinessSettingResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory HomeSlidersResponse.fromJson(Map<String, dynamic> json) => HomeSlidersResponse(
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+  factory BusinessSettingResponse.fromJson(Map<String, dynamic> json) => BusinessSettingResponse(
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     success: json["success"],
     status: json["status"],
   );
@@ -29,12 +29,12 @@ class HomeSlidersResponse {
 }
 
 class Datum {
-  String? photo;
-  String? link;
+  String? type;
+  String? value;
 
   Datum({
-    this.photo,
-    this.link,
+    this.type,
+    this.value,
   });
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
@@ -42,12 +42,12 @@ class Datum {
   String toRawJson() => json.encode(toJson());
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    photo: json["photo"],
-    link: json["link"],
+    type: json["type"],
+    value: json["value"],
   );
 
   Map<String, dynamic> toJson() => {
-    "photo": photo,
-    "link": link,
+    "type": type,
+    "value": value,
   };
 }

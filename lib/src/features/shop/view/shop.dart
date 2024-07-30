@@ -16,8 +16,32 @@ class ShopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    String? searchName = Get.parameters['search'];
+    String? sortKey = Get.parameters['order_by'];
+    String? tag = Get.parameters['tag'];
+    String? skinType = Get.parameters['skin_type'];
+    String? search = Get.parameters['search'];
+    String? keyIngredients = Get.parameters['key_ingredients'];
+    String? goodFor = Get.parameters['good_for'];
+    String? categories = Get.parameters['category'];
+    String? pageNumber = Get.parameters['page'];
+    String? type = Get.parameters['type'];
+
     final shopController = Get.put(ShopController());
     final shopDataController = Get.put(GetShopDataController());
+
+    // shopDataController.searchName.value = search;
+    // RxString sortKey = 'default'.obs;
+    // RxString tag = ''.obs;
+    // RxString skinType = ''.obs;
+    // RxString search = ''.obs;
+    // RxString keyIngredients = ''.obs;
+    // RxString goodFor = ''.obs;
+    // RxString categories = ''.obs;
+    // RxInt pageNumber = 1.obs;
+    // RxString type = ''.obs;
+
     return AppLayoutWithDrawer(
       backToHome: true,
         inHome: true,
