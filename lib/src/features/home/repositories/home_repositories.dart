@@ -69,6 +69,7 @@ class HomeRepositories {
               "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}",
         },
         body: postBody);
+    print('sending fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
 
     return deviceTokenUpdateResponseFromJson(response.body);
   }

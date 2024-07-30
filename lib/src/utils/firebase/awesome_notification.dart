@@ -1,19 +1,12 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
-import '../../../main.dart';
+import '../local_storage/local_storage_keys.dart';
+import '../local_storage/storage_utility.dart';
 
 class NotificationController {
   @pragma("vm:entry-point")
@@ -123,7 +116,7 @@ class AwesomeNotificationController {
             body: 'This is a simple notification.',
             notificationLayout: NotificationLayout.Default,
             payload: {
-          'route': 'https://beta.kireibd.com/personal-recommendation/skincare-recommendation',
+          'route': 'https://beta.kireibd.com/shop?category=foundation&page=1&order_by=rating&per_page=24',
           'item_type_id': 'rhoto-hadalabo-gokujun-aging-care-milk-lotion-140ml',
           'item_type': 'Request Stock',
           'click_action': 'FLUTTER_NOTIFICATION_CLICK'
@@ -137,6 +130,7 @@ class AwesomeNotificationController {
       try {
         firebaseAppToken =
             await AwesomeNotificationsFcm().requestFirebaseAppToken();
+        await AppLocalStorage().saveDataIfNull(LocalStorageKeys.fcmToken, firebaseAppToken);
       } catch (exception) {
         debugPrint('$exception');
       }

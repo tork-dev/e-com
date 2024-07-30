@@ -16,55 +16,28 @@ class ShopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    String? searchName = Get.parameters['search'];
-    String? sortKey = Get.parameters['order_by'];
-    String? tag = Get.parameters['tag'];
-    String? skinType = Get.parameters['skin_type'];
-    String? search = Get.parameters['search'];
-    String? keyIngredients = Get.parameters['key_ingredients'];
-    String? goodFor = Get.parameters['good_for'];
-    String? categories = Get.parameters['category'];
-    String? pageNumber = Get.parameters['page'];
-    String? type = Get.parameters['type'];
-
-    final shopController = Get.put(ShopController());
     final shopDataController = Get.put(GetShopDataController());
-
-    // shopDataController.searchName.value = search;
-    // RxString sortKey = 'default'.obs;
-    // RxString tag = ''.obs;
-    // RxString skinType = ''.obs;
-    // RxString search = ''.obs;
-    // RxString keyIngredients = ''.obs;
-    // RxString goodFor = ''.obs;
-    // RxString categories = ''.obs;
-    // RxInt pageNumber = 1.obs;
-    // RxString type = ''.obs;
-
+    final shopController = Get.put(ShopController());
     return AppLayoutWithDrawer(
-      backToHome: true,
+        backToHome: true,
         inHome: true,
         padding: 0,
         globalKey: shopController.shopKey,
         backgroundColor: AppColors.primary,
         leadingIconColor: AppColors.white,
         hasEndDrawer: true,
-        action:  const [
-          SizedBox()
-        ],
+        action: const [SizedBox()],
         title: Obx(() {
-            return AppBarSearch(
-              focusOn: shopDataController.searchOn.value,
-              onSubmit: (txt){
-                shopDataController.search.value = txt;
-                shopDataController.isFromSearch.value = true;
-                shopDataController.allProducts.clear();
-                shopDataController.getShopData();
-              },
-            );
-          }
-        ),
+          return AppBarSearch(
+            focusOn: shopDataController.searchOn.value,
+            onSubmit: (txt) {
+              shopDataController.search.value = txt;
+              shopDataController.isFromSearch.value = true;
+              shopDataController.allProducts.clear();
+              shopDataController.getShopData();
+            },
+          );
+        }),
         body: Stack(
           clipBehavior: Clip.none,
           // fit: StackFit.expand,
@@ -74,9 +47,7 @@ class ShopScreen extends StatelessWidget {
               child: AppLayoutWithRefresher(
                   onRefresh: shopController.onRefresh,
                   scrollController: shopDataController.scrollController,
-                  children: const [
-                    Gap(45),
-                    AppShopGridScrollCard()]),
+                  children: const [Gap(45), AppShopGridScrollCard()]),
             ),
             Column(
               children: [

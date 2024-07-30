@@ -40,6 +40,50 @@ class GetShopDataController extends GetxController {
   RxInt pageNumber = 1.obs;
   RxString type = ''.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    final uri = Uri.parse(Get.currentRoute);
+    print('this is the url ${uri.path}');
+
+    if (uri.queryParameters.containsKey('type')) {
+      type.value = uri.queryParameters['type'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('order_by')) {
+      sortKey.value = uri.queryParameters['order_by'] ?? 'default';
+    }
+    if (uri.queryParameters.containsKey('page')) {
+      pageNumber.value = int.tryParse(uri.queryParameters['page'] ?? '1') ?? 1;
+    }
+    if (uri.queryParameters.containsKey('search_name')) {
+      searchName.value = uri.queryParameters['search_name'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('tag')) {
+      tag.value = uri.queryParameters['tag'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('skin_type')) {
+      skinType.value = uri.queryParameters['skin_type'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('search')) {
+      search.value = uri.queryParameters['search'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('key_ingredients')) {
+      keyIngredients.value = uri.queryParameters['key_ingredients'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('good_for')) {
+      goodFor.value = uri.queryParameters['good_for'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('category')) {
+      categories.value = uri.queryParameters['category'] ?? '';
+    }
+    if(uri.path == '/shop'){
+      getShopData();
+    }
+
+    }
+
+
+
   Rx<int?> selectedCategoryIndex = Rx<int?>(null);
   RxList<String> selectedSkinTypes = <String>[].obs;
   // RxInt selectedSortIndex = 0.obs;
