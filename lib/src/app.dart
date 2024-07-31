@@ -14,6 +14,7 @@ import 'package:kirei/src/features/checkout/model/order_create_model.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/personalization/view/profile.dart';
+import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
@@ -76,6 +77,18 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/community', page: () => const CommunityScreen()),
           GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
           GetPage(name: '/order/:id', page: () => const PurchaseHistoryDetails()),
+          GetPage(name: '/blogs', page: () => const WebViewScreen(url: 'https://kireibd.com/blogs?type=app', title: 'Bogs')),
+          GetPage(name: '/about-us', page: () => const WebViewScreen(url: 'https://kireibd.com/about-us?type=app', title: 'Who We Are?')),
+          GetPage(name: '/faq', page: () => const WebViewScreen(url: 'https://kireibd.com/faq?type=app', title: 'FAQs')),
+          GetPage(name: '/contact-us', page: () => const WebViewScreen(url: 'https://kireibd.com/contact-us?type=app', title: 'Contact Us')),
+          GetPage(name: '/testimonials', page: () => const WebViewScreen(url: 'https://kireibd.com/testimonials?type=app', title: 'Testimonials')),
+          GetPage(name: '/testimonials', page: () => const WebViewScreen(url: 'https://kireibd.com/testimonials?type=app', title: 'Testimonials')),
+          GetPage(name: '/privacy-policy', page: () => const WebViewScreen(url: 'https://kireibd.com/privacy-policy?type=app', title: 'Privacy & Policy')),
+          GetPage(name: '/term-condition', page: () => const WebViewScreen(url: 'https://kireibd.com/term-condition?type=app', title: 'Terms & Conditions')),
+          GetPage(name: '/return-refund', page: () => const WebViewScreen(url: 'https://kireibd.com/return-refund?type=app', title: 'Returns & Refunds')),
+          GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
+          GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
+
         ],
 
         //navigatorKey: navigatorKey,
