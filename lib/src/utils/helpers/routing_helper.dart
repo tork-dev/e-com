@@ -9,15 +9,20 @@ class RoutingHelper{
     if (url.contains(baseUrl)) {
       String route = url.replaceFirst(baseUrl, '');
 
-      if (route == '/personal-recommendation/skincare-recommendation' &&
-          AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true) {
-        Get.toNamed('/login');
-        return;
-      }
-      if(route.contains('/shop') || route.contains('/home') || route.contains('/account') || route.contains('/cart')){
+      // if (route == '/personal-recommendation/skincare-recommendation' &&
+      //     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true) {
+      //   Get.toNamed('/login');
+      //   return;
+      // }
+      if(route.startsWith('/shop') || route.startsWith('/home') || route.startsWith('/account') || route.startsWith('/cart')){
       Get.offAllNamed(route);
-      }else if(route == '/personal-recommendation/skincare-recommendation') {
-        Get.toNamed(route.replaceAll('/skincare-recommendation', ''));
+      }else if(route.endsWith('/skincare-recommendation')) {
+        final aiRoute = route.replaceAll('/skincare-recommendation', '');
+        if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+        Get.toNamed(aiRoute);
+        }else{
+          Get.toNamed('/login/personal-recommendation');
+        }
       }else{
         Get.toNamed(route);
       }

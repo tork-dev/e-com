@@ -226,7 +226,7 @@ class AppDrawer extends StatelessWidget {
 
           ),
           AppDrawerCard(
-            title: 'community',
+            title: 'kirei community',
             onPress: () => Get.offAll(() => const CommunityScreen()),
           ),
           AppDrawerCard(

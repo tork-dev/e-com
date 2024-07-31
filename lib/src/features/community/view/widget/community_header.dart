@@ -85,7 +85,7 @@ class CommunityHeader extends StatelessWidget {
                   height: 40,
                   applyRadius: false,
                   padding: const EdgeInsets.symmetric(horizontal: AppSizes.xl),
-                  backgroundColor: Colors.blueGrey,
+                  backgroundColor: AppColors.backLayoutAppBarTitle,
                   child: InkWell(
                     onTap: () {
                       if (AppLocalStorage()

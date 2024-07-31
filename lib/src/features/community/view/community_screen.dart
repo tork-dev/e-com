@@ -21,7 +21,7 @@ class CommunityScreen extends StatelessWidget {
       globalKey: controller.communityKey,
       backToHome: true,
       title: const Text('Kirei Community',
-          style: TextStyle(color: Colors.blueGrey)),
+          style: TextStyle(color: AppColors.backLayoutAppBarTitle)),
       backgroundColor: AppColors.white,
       leadingIconColor: AppColors.darkGrey,
       bodyBackgroundColor: Colors.grey[100],

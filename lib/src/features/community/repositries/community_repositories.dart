@@ -4,10 +4,15 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../controller/community_comment_controller.dart';
+import '../model/community_comment_response.dart';
+import '../model/community_like_create_response.dart';
 import '../model/community_response.dart';
 import '../model/create_community_post_response.dart';
 
 class CommunityRepositories{
+
+  final dynamic accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
   Future<CommunityResponse> getCommunityPost()async{
     Uri url = Uri.parse(AppApiEndPoints.communityPost);
@@ -15,6 +20,7 @@ class CommunityRepositories{
       url,
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
         "type": "app"
       },
     );
@@ -73,6 +79,59 @@ class CommunityRepositories{
       print("Exception occurred: $e");
       throw e;
     }
+  }
+
+
+  Future<AddCommunityLike> getCommunityLikeCreateResponse(
+      String postId) async {
+    var postBody = jsonEncode({"post_id": postId});
+
+    Uri url = Uri.parse(AppApiEndPoints.createCommunityLike);
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $accessToken",
+        },
+        body: postBody);
+    print(url);
+    print(response.body.toString());
+    return addCommunityLikeFromJson(response.body);
+  }
+
+
+  Future<CommunityCommentResponse> getCommunityComment(int postId) async {
+    Uri url = Uri.parse("${AppApiEndPoints.communityCommentList}/$postId");
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var responseBody = jsonDecode(response.body);
+      return CommunityCommentResponse.fromJson(responseBody);
+    }else{
+      throw ' Not Working';
+    }
+  }
+
+  Future<NewCommunityPostResponse> getCommunityCommentCreateResponse(
+      String comment,
+      int postId,
+      ) async {
+    var postBody = jsonEncode({
+      "comment": comment,
+      "post_id": postId,
+      "customer_id": "${AppLocalStorage().readData(LocalStorageKeys.userId)}",
+      // "parent_id": "$parent_id"
+    });
+
+    Uri url = Uri.parse(AppApiEndPoints.communityCommentCreate);
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $accessToken",
+        },
+        body: postBody);
+
+    print(url);
+    print(response.body.toString());
+    return newCommunityPostResponseFromJson(response.body);
   }
 }
 

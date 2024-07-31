@@ -17,7 +17,7 @@ class DeActiveAccount extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .titleLarge!
-              .apply(color: Colors.blueGrey),
+              .apply(color: AppColors.backLayoutAppBarTitle),
         ),
         leadingIconColor: AppColors.darkGrey,
         padding: 8,

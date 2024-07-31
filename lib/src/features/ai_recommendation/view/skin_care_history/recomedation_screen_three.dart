@@ -28,7 +28,7 @@ class SkinCareHistoryThree extends StatelessWidget {
         bodyBackgroundColor: Colors.grey[100],
         title: const Text(
           'AI Suggestion',
-          style: TextStyle(color: Colors.blueGrey),
+          style: TextStyle(color: AppColors.backLayoutAppBarTitle),
         ),
         centerTitle: true,
         leadingIconColor: AppColors.darkGrey,

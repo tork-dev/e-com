@@ -19,7 +19,7 @@ class AppointmentScreen extends StatelessWidget {
         globalKey: appointmentController.appointmentKey,
         title: const Text(
           'Dr. Appointment',
-          style: TextStyle(color: Colors.blueGrey),
+          style: TextStyle(color: AppColors.backLayoutAppBarTitle),
         ),
         centerTitle: true,
         leadingIconColor: AppColors.darkGrey,

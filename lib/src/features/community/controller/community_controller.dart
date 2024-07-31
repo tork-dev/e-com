@@ -1,4 +1,3 @@
-
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/community/model/community_like_create_response.dart';
 import 'package:kirei/src/features/community/model/create_community_post_response.dart';
 import 'package:kirei/src/features/community/repositries/community_repositories.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
@@ -21,7 +21,6 @@ class CommunityController extends GetxController {
 
   TextEditingController communityFieldController = TextEditingController();
 
-
   // ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
 
   // HomeController homeController = Get.put(HomeController());
@@ -31,9 +30,9 @@ class CommunityController extends GetxController {
 
   ///Model
   Rx<CommunityResponse> communityResponse = CommunityResponse().obs;
-  Rx<
-      NewCommunityPostResponse> createCommunityResponse = NewCommunityPostResponse()
-      .obs;
+  Rx<NewCommunityPostResponse> createCommunityResponse =
+      NewCommunityPostResponse().obs;
+  Rx<AddCommunityLike> addCommunityLike = AddCommunityLike().obs;
 
   @override
   void onInit() {
@@ -48,11 +47,9 @@ class CommunityController extends GetxController {
 
   Future<void> getCommunityResponse() async {
     isLoading.value = true;
-    communityResponse.value =
-    await CommunityRepositories().getCommunityPost();
+    communityResponse.value = await CommunityRepositories().getCommunityPost();
     isLoading.value = false;
   }
-
 
   final ImagePicker _picker = ImagePicker();
   File? imageFile;
@@ -60,40 +57,40 @@ class CommunityController extends GetxController {
 
   Future<void> pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if(pickedFile == null){
+    if (pickedFile == null) {
       AppHelperFunctions.showToast('No image selected');
       return;
     }
     imageFile = File(pickedFile.path);
-    imageName.value = pickedFile.path
-        .split("/")
-        .last;
+    imageName.value = pickedFile.path.split("/").last;
   }
 
-  Future<void> createCommunityPost() async{
-    if(communityFieldController.text == ''){
+  Future<void> createCommunityPost() async {
+    if (communityFieldController.text == '') {
       AppHelperFunctions.showToast('Please write something');
       return;
     }
-    try{
+    try {
       isLoading.value = true;
-      createCommunityResponse.value = await CommunityRepositories().getNewCommunityPostResponse(
-          imageFile: imageFile!,
-          filename: imageName.value,
-          description: communityFieldController.text);
+      createCommunityResponse.value = await CommunityRepositories()
+          .getNewCommunityPostResponse(
+              imageFile: imageFile!,
+              filename: imageName.value,
+              description: communityFieldController.text);
       AppHelperFunctions.showToast(createCommunityResponse.value.message!);
       await getCommunityResponse();
       isLoading.value = false;
       communityFieldController.clear();
       imageName.value = '';
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       isLoading.value = false;
     }
   }
 
-
-
+  Future<void> getAddCommunityLike(String postId)async{
+    addCommunityLike.value = await CommunityRepositories().getCommunityLikeCreateResponse(postId);
+  }
 
 
 }

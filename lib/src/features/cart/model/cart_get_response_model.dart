@@ -1,5 +1,6 @@
 class CartItem {
   int? id;
+  String? slug;
   int? ownerId;
   int? userId;
   int? productId;
@@ -17,6 +18,7 @@ class CartItem {
 
   CartItem({
     this.id,
+    this.slug,
     this.ownerId,
     this.userId,
     this.productId,
@@ -36,6 +38,7 @@ class CartItem {
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
       id: json['id'],
+      slug: json['slug'],
       ownerId: json['owner_id'],
       userId: json['user_id'],
       productId: json['product_id'],

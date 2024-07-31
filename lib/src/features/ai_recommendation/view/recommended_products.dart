@@ -28,7 +28,7 @@ class RecommendedProducts extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .titleLarge!
-              .apply(color: Colors.blueGrey),
+              .apply(color: AppColors.backLayoutAppBarTitle),
         ),
         centerTitle: true,
         leadingIconColor: AppColors.darkGrey,

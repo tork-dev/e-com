@@ -49,7 +49,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                                   cartController
                                       .requestStockResponse.value.message!));
 
-                          AwesomeNotificationController.showNotification();
+                          // AwesomeNotificationController.showNotification();
                           return;
                         }
 

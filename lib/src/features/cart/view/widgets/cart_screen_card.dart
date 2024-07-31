@@ -16,9 +16,9 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 
 class AppCartProductCard extends StatelessWidget {
-  const AppCartProductCard({required this.onTap, super.key});
+  const AppCartProductCard({super.key});
 
-  final VoidCallback? onTap;
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class AppCartProductCard extends StatelessWidget {
                       .allCartProducts.isEmpty
                   ? ShimmerHelper().buildBasicShimmer(height: 150)
                   : AppCardContainer(
-                      onTap: onTap,
+                      onTap: ()=> Get.toNamed('/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
                       backgroundColor: AppColors.white,
                       applyRadius: false,
                       padding: const EdgeInsets.all(AppSizes.sm),

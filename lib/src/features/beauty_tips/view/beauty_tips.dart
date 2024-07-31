@@ -22,7 +22,7 @@ class BeautyTipsScreen extends StatelessWidget {
       backToHome: true,
       isFromOtherPage: true,
         globalKey: controller.beautyKey,
-        title: const Text('Beauty Tips', style: TextStyle(color: Colors.blueGrey),),
+        title: const Text('Beauty Tips', style: TextStyle(color: AppColors.backLayoutAppBarTitle),),
         backgroundColor: AppColors.white,
         leadingIconColor: AppColors.darkGrey,
         centerTitle: true,

@@ -38,12 +38,12 @@ class CartScreen extends StatelessWidget {
                 children: [
                   AppLayoutWithRefresher(
                     onRefresh: controller.onRefresh,
-                    children: [
+                    children: const [
                       Column(
                         children: [
-                          const Gap(AppSizes.md),
-                          AppCartProductCard(onTap: () {}),
-                          const Gap(200)
+                          Gap(AppSizes.md),
+                          AppCartProductCard(),
+                          Gap(200)
                         ],
                       )
                     ],

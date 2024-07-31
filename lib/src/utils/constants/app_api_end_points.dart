@@ -92,6 +92,9 @@ class AppApiEndPoints {
   ///Community
   static String communityPost = "$baseUrl/community-posts";
   static String createCommunityPost = "$baseUrl/community-post-create";
+  static String createCommunityLike = "$baseUrl/community-like-update";
+  static String communityCommentList = "$baseUrl/community-comments";
+  static String communityCommentCreate = "$baseUrl/community-comment-create";
 
   ///Image Search
   static String imageSearch = "$baseUrl/gigalogy/items/search";

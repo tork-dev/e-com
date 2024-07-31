@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/features/community/controller/community_controller.dart';
+import 'package:kirei/src/features/community/view/community_comment_screen.dart';
 
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import 'community_like_button.dart';
 
 class CommunityPostContainer extends StatelessWidget {
   const CommunityPostContainer({
@@ -81,21 +83,11 @@ class CommunityPostContainer extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("${communityController.communityResponse.value.data![index].commentsCount} Comment"),
+                            InkWell(
+                              onTap: ()=> Get.to(()=> CommunityCommentScreen(postId: communityController.communityResponse.value.data![index].id!)),
+                            child: Text("${communityController.communityResponse.value.data![index].commentsCount} Comment")),
                             SizedBox(
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.favorite,
-                                    size: 30,
-                                    color: AppColors.darkGrey,
-                                  ),
-                                  const Gap(AppSizes.sm),
-                                  Text('love',
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall)
-                                ],
-                              ),
+                                child: CommunityLikeButton(cardIndex: index,)
                             )
                           ],
                         )

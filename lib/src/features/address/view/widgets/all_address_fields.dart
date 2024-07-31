@@ -11,7 +11,6 @@ import '../../../../utils/constants/colors.dart';
 class AppAllAddressFields extends StatelessWidget {
   const AppAllAddressFields({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final addressController = AddressController.instance;
@@ -83,7 +82,8 @@ class AppAllAddressFields extends StatelessWidget {
                 if (addressController.cityList.value.cities == null) {
                   await addressController.getCityList();
                 }
-                 return addressController.cityList.value.cities!.where((element) => element.name!
+                return addressController.cityList.value.cities!
+                    .where((element) => element.name!
                         .toLowerCase()
                         .contains(value.toLowerCase()))
                     .toList();
@@ -99,7 +99,7 @@ class AppAllAddressFields extends StatelessWidget {
                 return TextFormField(
                   controller: controller,
                   focusNode: focusNode,
-                  onTap: ()=> areaNode.unfocus(),
+                  onTap: () => {areaNode.unfocus(), controller.clear()},
                   cursorColor: AppColors.primary,
                   decoration: const InputDecoration(
                     suffixIcon: Icon(Icons.arrow_drop_down_rounded),
@@ -135,10 +135,8 @@ class AppAllAddressFields extends StatelessWidget {
             ),
             const Gap(AppSizes.xs),
             InkWell(
-              onTap: (){
-                print('zone suggession1');
+              onTap: () {
                 zoneSuggestion.refresh();
-                print('zone suggession2');
               },
               child: SizedBox(
                 child: TypeAheadField(
@@ -172,8 +170,9 @@ class AppAllAddressFields extends StatelessWidget {
                   controller: addressController.selectedZoneName,
                   suggestionsController: zoneSuggestion,
                   suggestionsCallback: (value) async {
-                    if(addressController.zoneList.value.data == null){
-                      await addressController.getZoneList(addressController.selectedCityId.value);
+                    if (addressController.zoneList.value.data == null) {
+                      await addressController
+                          .getZoneList(addressController.selectedCityId.value);
                     }
                     return addressController.zoneList.value.data!.zones!
                         .where((element) {
@@ -193,8 +192,9 @@ class AppAllAddressFields extends StatelessWidget {
                     return TextFormField(
                       controller: controller,
                       focusNode: focusNode,
-                      onTap: (){
+                      onTap: () {
                         zoneSuggestion.refresh();
+                        controller.clear();
                       },
                       cursorColor: AppColors.primary,
                       decoration: const InputDecoration(
@@ -233,7 +233,7 @@ class AppAllAddressFields extends StatelessWidget {
             ),
             const Gap(AppSizes.xs),
             InkWell(
-              onTap: ()=> areaSuggestion.refresh(),
+              onTap: () => areaSuggestion.refresh(),
               child: TypeAheadField(
                 focusNode: areaNode,
                 direction: VerticalDirection.up,
@@ -252,11 +252,13 @@ class AppAllAddressFields extends StatelessWidget {
                 },
                 controller: addressController.selectedAreaName,
                 suggestionsController: areaSuggestion,
-                suggestionsCallback: (value) async{
-                  if(addressController.areaList.value.areas == null){
-                    await addressController.getAreaList(addressController.selectedZoneId.value);
+                suggestionsCallback: (value) async {
+                  if (addressController.areaList.value.areas == null) {
+                    await addressController
+                        .getAreaList(addressController.selectedZoneId.value);
                   }
-                  return addressController.areaList.value.areas!.where((element) {
+                  return addressController.areaList.value.areas!
+                      .where((element) {
                     return element.name!
                         .toLowerCase()
                         .contains(value.toLowerCase());
@@ -273,8 +275,9 @@ class AppAllAddressFields extends StatelessWidget {
                   return TextFormField(
                     controller: controller,
                     focusNode: focusNode,
-                    onTap: (){
+                    onTap: () {
                       areaSuggestion.refresh();
+                      controller.clear();
                     },
                     cursorColor: AppColors.primary,
                     decoration: const InputDecoration(
