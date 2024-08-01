@@ -17,8 +17,10 @@ import 'package:kirei/src/features/personalization/view/profile.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:upgrader/upgrader.dart';
+import '../main.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
+import 'features/details/bindings/details_bindings.dart';
 import 'features/purchase_history/view/purchase_history_details.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: GetMaterialApp(
+        navigatorKey: navigatorKey,
         initialBinding: GeneralBindings(),
         title: AppTexts.appName,
         themeMode: ThemeMode.system,
@@ -71,7 +74,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/shop', page: () => const HelloConvexAppBar(pageIndex: 1,)),
           GetPage(name: '/cart', page: () => const HelloConvexAppBar(pageIndex: 2,)),
           GetPage(name: '/account', page: () => const HelloConvexAppBar(pageIndex: 3,)),
-          GetPage(name: '/product/:id', page: () => const DetailsPage()),
+          GetPage(name: '/product/:id', page: () => const DetailsPage(), binding: DetailsBinding(),),
           GetPage(name: '/beauty-tips', page: () => const BeautyTipsScreen()),
           GetPage(name: '/personal-recommendation', page: () => const SkinCareHistoryOne()),
           GetPage(name: '/community', page: () => const CommunityScreen()),
@@ -88,7 +91,6 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/return-refund', page: () => const WebViewScreen(url: 'https://kireibd.com/return-refund?type=app', title: 'Returns & Refunds')),
           GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
           GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
-
         ],
 
         //navigatorKey: navigatorKey,

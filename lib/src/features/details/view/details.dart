@@ -26,9 +26,8 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String id = Get.parameters['id'] ?? '';
-    final controller = Get.put(
-        DetailsPageController(productSlug: id));
+    // String id = Get.parameters['id'] ?? '';
+     final controller = Get.put(DetailsPageController());
     final categoryController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
     return AppLayoutWithBackButton(

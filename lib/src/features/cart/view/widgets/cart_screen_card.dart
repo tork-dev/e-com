@@ -182,7 +182,7 @@ class AppCartProductCard extends StatelessWidget {
                                   InkWell(
                                       onTap: () {
                                         if (cartController.allCartProducts[0]
-                                                .cartItems![index].quantity! <
+                                                .cartItems![index].quantity! >
                                             cartController
                                                 .allCartProducts[0]
                                                 .cartItems![index]

@@ -103,6 +103,15 @@ class CommunityHeader extends StatelessWidget {
                 ),
                 const Gap(AppSizes.md),
                 AppCardContainer(
+                  onTap: () {
+                    if (AppLocalStorage()
+                        .readData(LocalStorageKeys.isLoggedIn) ==
+                        true) {
+                      communityController.createCommunityPost();
+                    } else {
+                      Get.to(() => const LogIn());
+                    }
+                  },
                   height: 40,
                   borderRadius: AppSizes.xs,
                   padding: const EdgeInsets.symmetric(
@@ -113,22 +122,11 @@ class CommunityHeader extends StatelessWidget {
                     Colors.deepPurple
                   ]),
                   child: Center(
-                    child: InkWell(
-                      onTap: () {
-                        if (AppLocalStorage()
-                                .readData(LocalStorageKeys.isLoggedIn) ==
-                            true) {
-                          communityController.createCommunityPost();
-                        } else {
-                          Get.to(() => const LogIn());
-                        }
-                      },
-                      child: Text(
-                        "Add",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.ubuntu(
-                            color: Colors.white, fontSize: 16),
-                      ),
+                    child: Text(
+                      "Add",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.ubuntu(
+                          color: Colors.white, fontSize: 16),
                     ),
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
 
@@ -55,6 +56,8 @@ class NotificationController {
   static Future<void> onActionReceived(ReceivedAction receivedAction) async {
     if (receivedAction.payload!['route'] != null) {
       RoutingHelper.urlRouting(receivedAction.payload!['route']!);
+    }else{
+      Get.toNamed('/');
     }
 
 // // Handle when a notification action is received

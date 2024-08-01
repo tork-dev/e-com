@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
-import 'package:kirei/src/utils/firebase/awesome_notification.dart';
+import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
-import '../../../features/details/view/details.dart';
-import '../../../features/home/controller/home_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
@@ -35,6 +33,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     height: 150,
                     width: 150,
                     onTap: () {
+                      Get.reload<DetailsPageController>();
                       Get.toNamed('/product/${sectionName![index].slug}');
                     },
                     onCartTap: () {

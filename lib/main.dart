@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/app.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:kirei/src/utils/helpers/deep_link_helper.dart';
 import 'firebase_options.dart';
 import 'src/utils/firebase/awesome_notification.dart';
 
@@ -65,6 +66,8 @@ Future<void> main() async {
     name: 'Kirei',
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  DeepLinkHelper().deepLinkController();
 
   //await PushNotificationService().initNotifications();
 

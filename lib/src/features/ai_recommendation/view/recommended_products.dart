@@ -11,8 +11,11 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
 import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+
+import '../../../utils/helpers/helper_functions.dart';
 
 class RecommendedProducts extends StatelessWidget {
   const RecommendedProducts({super.key});
@@ -21,7 +24,9 @@ class RecommendedProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     RecommendationController recommendationController =
         Get.put(RecommendationController());
+    CartController cartController = Get.put(CartController());
     return AppLayoutWithBackButton(
+      backToHome: true,
         padding: AppSizes.sm,
         title: Text(
           'Ai Recommendation',
@@ -32,6 +37,9 @@ class RecommendedProducts extends StatelessWidget {
         ),
         centerTitle: true,
         leadingIconColor: AppColors.darkGrey,
+        showBackButton: false,
+        customLeadingIcon: Icons.arrow_back,
+        showCustomLeading: true,
         leadingOnPress: (){
           Get.offAll(()=> const HelloConvexAppBar());
         },
@@ -65,8 +73,34 @@ class RecommendedProducts extends StatelessWidget {
                                         height: 150,
                                         width: 150,
                                         imgUrl: product.pictures![0].url ?? '',
-                                        onTap: () {},
-                                        onCartTap: () {},
+                                        onTap: () {
+                                          Get.toNamed('/product/${product.slug}');
+                                        },
+                                        onCartTap: () {
+                                          if (product.requestAvailable != 0) {
+                                            cartController
+                                                .getRequestResponse(
+                                                productId: product.id!)
+                                                .then((value) => AppHelperFunctions.showToast(
+                                                cartController
+                                                    .requestStockResponse.value.message!));
+
+                                            // AwesomeNotificationController.showNotification();
+                                            return;
+                                          }
+
+                                          cartController
+                                              .getAddToCartResponse(product.id!, 1,
+                                              product.preorderAvailable)
+                                              .then((value) => {
+                                            cartController.cartCount.value =
+                                                cartController.addToCartResponse.value
+                                                    .cartQuantity ?? 0,
+                                            AppHelperFunctions.showToast(cartController
+                                                .addToCartResponse.value.message!)
+                                          });
+
+                                        },
                                         productName: product.name!,
                                         ratings:
                                             double.parse("${product.ratings}"),

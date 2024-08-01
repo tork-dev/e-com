@@ -21,7 +21,7 @@ class AppPurchaseHistoryCard extends StatelessWidget {
     return Obx(() {
       return AppListViewLayout(
           itemCount:
-              purchaseHistoryController.purchaseHistoryList.value.data == null
+              purchaseHistoryController.hittingApi.value
                   ? 5
                   : purchaseHistoryController
                       .purchaseHistoryList.value.data!.length,

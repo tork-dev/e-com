@@ -58,7 +58,7 @@ class CommunityController extends GetxController {
   Future<void> pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) {
-      AppHelperFunctions.showToast('No image selected');
+      AppHelperFunctions.showToast('No picture selected');
       return;
     }
     imageFile = File(pickedFile.path);
@@ -68,6 +68,10 @@ class CommunityController extends GetxController {
   Future<void> createCommunityPost() async {
     if (communityFieldController.text == '') {
       AppHelperFunctions.showToast('Please write something');
+      return;
+    }
+    if(imageFile == null){
+      AppHelperFunctions.showToast('Please select a picture');
       return;
     }
     try {

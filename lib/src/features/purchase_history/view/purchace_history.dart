@@ -33,6 +33,7 @@ class PurchaseHistory extends StatelessWidget {
         showBackButton: false,
         customLeadingIcon: Icons.arrow_back,
         leadingIconColor: AppColors.darkGrey,
+        showCustomLeading: true,
         leadingOnPress: () => backToHome
             ? Get.offAll(() => const HelloConvexAppBar(
                   pageIndex: 0,
@@ -43,9 +44,20 @@ class PurchaseHistory extends StatelessWidget {
           'Purchase History',
           style: TextStyle(color: AppColors.primary),
         ),
-        body: AppLayoutWithRefresher(
-            onRefresh: controller.onRefresh,
-            children: const [AppPurchaseHistoryCard()]),
+        body: Obx(() {
+            return AppLayoutWithRefresher(
+                onRefresh: controller.onRefresh,
+                children: [
+                  !controller.hittingApi.value && controller.purchaseHistoryList.value.data!.isEmpty?
+                   Center(
+                    child: Text(
+                      "You haven't any order yet",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ): const AppPurchaseHistoryCard()
+                ]);
+          }
+        ),
       ),
     );
   }

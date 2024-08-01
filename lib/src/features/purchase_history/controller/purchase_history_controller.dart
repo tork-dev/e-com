@@ -9,6 +9,7 @@ class PurchaseHistoryController extends GetxController{
 
   Rx<PurchaseHistoryResponse> purchaseHistoryList = PurchaseHistoryResponse().obs;
   Rx<ReOrderResponse> reOrderResponse = ReOrderResponse().obs;
+  RxBool hittingApi = false.obs;
 
 
   @override
@@ -21,8 +22,10 @@ class PurchaseHistoryController extends GetxController{
     print('refresh');
   }
 
-  Future<PurchaseHistoryResponse> getPurchaseHistoryList()async{
-    return purchaseHistoryList.value = await PurchaseHistoryRepositories().getPurchaseHistoryList();
+  Future<void> getPurchaseHistoryList()async{
+    hittingApi.value = true;
+    purchaseHistoryList.value = await PurchaseHistoryRepositories().getPurchaseHistoryList();
+    hittingApi.value = false;
   }
 
   Future<ReOrderResponse> getReorderResponse(int id) async{

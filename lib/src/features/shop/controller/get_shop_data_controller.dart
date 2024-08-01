@@ -76,10 +76,15 @@ class GetShopDataController extends GetxController {
     if (uri.queryParameters.containsKey('category')) {
       categories.value = uri.queryParameters['category'] ?? '';
     }
+    if (uri.queryParameters.containsKey('max_price')) {
+      maximumPriceController.text = uri.queryParameters['max_price'] ?? '';
+    }
+    if (uri.queryParameters.containsKey('min_price')) {
+      minimumPriceController.text = uri.queryParameters['min_price'] ?? '';
+    }
     if(uri.path == '/shop'){
       getShopData();
     }
-
     }
 
 

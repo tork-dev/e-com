@@ -17,12 +17,9 @@ class DetailsPageController extends GetxController {
   static DetailsPageController get instance => Get.find();
 
   final homeController = HomeController.instance;
+  
 
-  DetailsPageController({
-    required this.productSlug
-  });
-
-  final String productSlug;
+  RxString productSlug = ''.obs;
 
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
@@ -42,6 +39,7 @@ class DetailsPageController extends GetxController {
 
   @override
   void onInit() {
+    productSlug.value = Get.parameters['id']!;
     super.onInit();
     onRefresh();
   }
@@ -61,7 +59,7 @@ class DetailsPageController extends GetxController {
 
   Future<ProductDetailsResponse> getProductDetails() async {
     return productDetails.value =
-        await DetailsRepositories.getProductDetails(productSlug);
+        await DetailsRepositories.getProductDetails(productSlug.value);
   }
 
   void onAddButtonTap() {
@@ -103,7 +101,7 @@ class DetailsPageController extends GetxController {
   }
 
   Future<DetailsProductsResponse> getRelatedProducts() async{
-    return relatedProductsResponse.value = await DetailsRepositories.getRelatedProducts(productSlug);
+    return relatedProductsResponse.value = await DetailsRepositories.getRelatedProducts(productSlug.value);
   }
   Future<DetailsProductsResponse> getRecommendedProducts() async{
     return recommendedProductsResponse.value = await DetailsRepositories.getRecommendedProduct();
