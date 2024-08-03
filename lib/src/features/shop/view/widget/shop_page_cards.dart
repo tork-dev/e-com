@@ -27,8 +27,6 @@ class AppShopGridScrollCard extends StatelessWidget {
     final shopController = GetShopDataController.instance;
     final cartController = CartController.instance;
     return Obx(() {
-      print(
-          '//////////////////${shopController.allProducts}/${shopController.hittingApi}');
       return !shopController.hittingApi.value &&
               shopController.allProducts.isEmpty
           ? SizedBox(

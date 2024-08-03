@@ -69,7 +69,7 @@ class ShopRepositories{
     final response = await http.get(url);
     var responseBody = jsonDecode(response.body);
 
-    print('this is response ${responseBody["result"] == true}');
+    // print('this is response ${responseBody["result"] == true}');
 
     return ShopPageResponse.fromJson(responseBody);
   }

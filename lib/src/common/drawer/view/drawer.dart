@@ -8,7 +8,6 @@ import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
-import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
@@ -121,7 +120,7 @@ class AppDrawer extends StatelessWidget {
                               Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
                             }
                             shopController.updateCategory(category.slug);
-                            shopController.getShopData();
+                            //shopController.getShopData();
                             bottomController.jumpToTab(1);
                           },
                           child: Text(category.name)),
@@ -136,7 +135,7 @@ class AppDrawer extends StatelessWidget {
                                 Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
                               }
                               shopController.updateCategory(child.slug);
-                              shopController.getShopData();
+                              //shopController.getShopData();
                               bottomController.jumpToTab(1);
                             },
                           ),
@@ -149,8 +148,11 @@ class AppDrawer extends StatelessWidget {
                     child: AppDrawerCard(
                       title: category.name,
                       onPress: ()  {
+                        if(isFromOtherPage){
+                          Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                        }
                          shopController.updateCategory(category.slug);
-                         shopController.getShopData();
+                         //shopController.getShopData();
                       bottomController.jumpToTab(1);
                       },
                     ),

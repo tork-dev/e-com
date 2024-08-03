@@ -35,13 +35,14 @@ class CheckBoxQuestionImageWidget extends StatelessWidget {
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisExtent: 185
+              mainAxisExtent: 190
           ),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: option.length,
           itemBuilder: (BuildContext context, int index) {
             return AppCardContainer(
+              onTap: ()=>  recommendationController.toggleCheckboxValue(index),
               applyRadius: false,
               margin: const EdgeInsets.all(8),
               padding: const EdgeInsets.all(8),
@@ -67,7 +68,7 @@ class CheckBoxQuestionImageWidget extends StatelessWidget {
                               activeColor: AppColors.secondary,
                               value: recommendationController.checkboxSelectedValues.contains(index),
                               onChanged: (bool? value) {
-                                recommendationController.toggleCheckboxValue(index);
+
                               },
                             );
                           }),

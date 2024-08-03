@@ -8,6 +8,7 @@ import '../../controller/recommendation_controller.dart';
 class CheckboxQuestionWidget extends StatelessWidget {
   final String question;
   final List<String> options;
+
   const CheckboxQuestionWidget({
     super.key,
     required this.question,
@@ -35,36 +36,30 @@ class CheckboxQuestionWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                width: MediaQuery.of(context).size.width,
-                height: 70,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.grey[300]!),
-                ),
-                child: Row(
-                  children: [
-                    Obx(() {
-                      return Checkbox(
-                        activeColor: AppColors.secondary,
-                        value: recommendationController.checkboxSelectedValues.contains(index),
-                        onChanged: (bool? value) {
-                          recommendationController.toggleCheckboxValue(index);
-                        },
-                      );
-                    }),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SizedBox(
-                      width: 250,
-                      child: Text(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  width: MediaQuery.of(context).size.width,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.grey[300]!),
+                  ),
+                  alignment: Alignment.center,
+                  child: Obx(() {
+                    return CheckboxListTile(
+                      value: recommendationController.checkboxSelectedValues
+                          .contains(index),
+                      onChanged: (bool? value) {
+                        recommendationController.toggleCheckboxValue(index);
+                      },
+                      title: Text(
                         options[index],
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                        controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                      activeColor: AppColors.secondary,
+                    );
+                  })
+                  ),
             );
           },
         ),

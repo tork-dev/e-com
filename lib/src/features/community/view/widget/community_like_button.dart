@@ -45,8 +45,8 @@ class CommunityLikeButton extends StatelessWidget {
           likeCountPadding: const EdgeInsets.all(0),
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          countBuilder: (int? count, bool? isLiked, String text) {
-            var color = controller.communityResponse.value.data![cardIndex].isLike! ? Colors.deepPurpleAccent : Colors.grey;
+          countBuilder: (int? count, bool isLiked, String text) {
+            var color = isLiked ? Colors.deepPurpleAccent : Colors.grey;
             Widget result;
             if (count == 0) {
               result = Text(

@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/community/model/create_community_post_response.dart';
 import 'package:kirei/src/features/community/repositries/community_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 
+import '../../../utils/local_storage/storage_utility.dart';
 import '../model/community_comment_response.dart';
 
 class CommunityCommentController extends GetxController {
@@ -35,6 +37,9 @@ class CommunityCommentController extends GetxController {
   }
 
   Future<void> addCommunityComment() async {
+    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true){
+      Get.to('/login/community');
+    }
     communityCommentAddResponse.value = await CommunityRepositories()
         .getCommunityCommentCreateResponse(commentController.text, postId);
    commentController.clear();

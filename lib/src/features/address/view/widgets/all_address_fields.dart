@@ -163,8 +163,6 @@ class AppAllAddressFields extends StatelessWidget {
                     addressController.selectedAreaId.value = 0;
                     await addressController.getAreaList(zone.id!);
                     // addressController.se.text = zone.name!;
-                    print(
-                        '////////////////////////////////////////////////////////');
                     print(zone.id);
                   },
                   controller: addressController.selectedZoneName,

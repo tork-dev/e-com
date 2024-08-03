@@ -35,13 +35,17 @@ class RadioQuestionImageWidget extends StatelessWidget {
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisExtent: 185
+            mainAxisExtent: 190
           ),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: option.length,
           itemBuilder: (BuildContext context, int index) {
             return AppCardContainer(
+              onTap: (){
+                recommendationController
+                    .setRadioButtonValue(index);
+              },
               applyRadius: false,
               margin: const EdgeInsets.all(8),
               padding: const EdgeInsets.all(8),
@@ -60,28 +64,44 @@ class RadioQuestionImageWidget extends StatelessWidget {
                         imgUrl: images[index]),
                     SizedBox(
                       width: 150,
-                      child: Row(
-                        children: [
-                          Obx(() {
-                            return Radio<int>(
-                                activeColor: AppColors.secondary,
-                                value: index,
-                                groupValue: recommendationController
-                                    .radioButtonSelectedValue.value,
-                                onChanged: (value) {
-                                  recommendationController
-                                      .setRadioButtonValue(value!);
-                                });
-                          }),
-                          SizedBox(
-                            width: 100,
-                            child: Text(
+                      child: Obx(() {
+                          return RadioListTile(
+                            activeColor: AppColors.secondary,
+                            value: index,
+                            groupValue: recommendationController.radioButtonSelectedValue.value,
+                            onChanged: (value){},
+                            title: Text(
                               option[index],
                               style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          )
-                        ],
-                      ),
+                            contentPadding: EdgeInsets.zero,
+                            visualDensity: const VisualDensity(horizontal: -4.0, vertical: -2.0),
+                          );
+                        }
+                      )
+
+                      // Row(
+                      //   children: [
+                      //     Obx(() {
+                      //       return Radio<int>(
+                      //           activeColor: AppColors.secondary,
+                      //           value: index,
+                      //           groupValue: recommendationController
+                      //               .radioButtonSelectedValue.value,
+                      //           onChanged: (value) {
+                      //             recommendationController
+                      //                 .setRadioButtonValue(value!);
+                      //           });
+                      //     }),
+                      //     SizedBox(
+                      //       width: 100,
+                      //       child: Text(
+                      //         option[index],
+                      //         style: const TextStyle(fontWeight: FontWeight.bold),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
                     ),
                   ],
                 ),

@@ -126,7 +126,7 @@ class GetShopDataController extends GetxController {
     sortKey.value = value;
   }
 
-  Future<ShopPageResponse> getShopData() async {
+  Future<void> getShopData() async {
     hittingApi.value = true;
     // Fetch products for the current page
     shopPageProduct.value = await ShopRepositories().getFilteredProducts(
@@ -146,14 +146,16 @@ class GetShopDataController extends GetxController {
       type: type.value,
     );
 
+    // print(shopPageProduct.value.meta!.lastPage);
+    print('this is response: ${shopPageProduct.value.data!.length}');
+    print('this is last page: ${shopPageProduct.value.meta!.lastPage}');
+
+
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);
-      debugPrint('//////////////////////////');
-      debugPrint(allProducts.length.toString());
+      print('all products : ${allProducts.length}');
     }
-
     hittingApi.value = false;
-    return shopPageProduct.value;
   }
 
   Future getSubCategory() async {
@@ -197,13 +199,13 @@ class GetShopDataController extends GetxController {
 
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        if (!hittingApi.value) {
+        if (!hittingApi.value && pageNumber.value < shopPageProduct.value.meta!.lastPage!) {
           AppHelperFunctions.showToast('Loading more...');
-          print('Reached end of list, loading more...');
           pageNumber.value++;
           getShopData();
           update();
-          return;
+        }else{
+          AppHelperFunctions.showToast('No more product in this category');
         }
       }
     });

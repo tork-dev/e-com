@@ -33,7 +33,6 @@ class ShopController extends GetxController{
   }
 
   Future onRefresh()async{
-    print('refresh');
    // getShopDataController.getShopData();
     getShopDataController.getSkinTypesData();
     print('refresh2');
