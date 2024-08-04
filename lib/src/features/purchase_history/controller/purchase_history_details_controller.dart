@@ -61,7 +61,7 @@ class PurchaseHistoryDetailsController extends GetxController {
   void setAddress(){
     nameController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.name!;
     phoneController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.phone!;
-    emailController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.email!;
+    emailController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.email ?? '';
     addressController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.address!;
     selectedCityName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.city!;
     selectedCityId.value = purchaseHistoryDetails.value.data![0].shippingAddress!.cityId!;

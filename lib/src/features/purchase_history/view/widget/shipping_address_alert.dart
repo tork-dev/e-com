@@ -275,7 +275,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
                    width: 100,
                     child: AppButtons.largeFlatFilledButton(
                         onPressed: (){
-                          addressController.setAddress();
+                          //addressController.setAddress();
                           Get.back();
                         },
                         buttonText: 'Cancel',
