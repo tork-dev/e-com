@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/address/model/address_city_model.dart';
 import 'package:kirei/src/features/address/model/address_create_model.dart';
@@ -23,6 +25,8 @@ class AddressController extends GetxController {
   RxInt selectedZoneId = 0.obs;
   RxInt selectedAreaId = 0.obs;
   RxBool hittingApi = true.obs;
+  RxBool zoneFocus = false.obs;
+  RxBool focusArea = false.obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();

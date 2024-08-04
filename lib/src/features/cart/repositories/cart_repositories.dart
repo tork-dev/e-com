@@ -55,6 +55,7 @@ class CartRepositories {
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
+      print('cart response : $jsonResponse');
       return jsonResponse
           .map((data) => CartItemGetResponse.fromJson(data))
           .toList();
@@ -69,10 +70,13 @@ class CartRepositories {
     Uri url = Uri.parse(AppApiEndPoints.cartQuantityUpdate);
     print("cart Change Quantity");
 
+
     var postBody = jsonEncode({
       "id": productId,
       "quantity": productQuantity,
     });
+    print(postBody);
+
 
     final response = await http.post(
       url,

@@ -56,10 +56,11 @@ class AppCartProductCard extends StatelessWidget {
                                     height: 100,
                                     width: 70,
                                     applyImageRadius: false,
-                                    isNetworkImage: true,
+                                    isNetworkImage: cartController.allCartProducts[0]
+                                        .cartItems![index].productThumbnailImage != null,
                                     fit: BoxFit.fill,
                                     imgUrl: cartController.allCartProducts[0]
-                                        .cartItems![index].productThumbnailImage!),
+                                        .cartItems![index].productThumbnailImage ?? AppImages.placeholder),
                                 const Gap(AppSizes.spaceBtwRowItem),
                                 AppCardContainer(
                                    width: 200,

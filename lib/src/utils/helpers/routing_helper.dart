@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
@@ -5,7 +6,7 @@ import '../local_storage/storage_utility.dart';
 class RoutingHelper{
 
   static urlRouting(String url) {
-      const String baseUrl = 'https://beta.kireibd.com';
+    final String baseUrl = dotenv.env["BASE_URL_WEB"]!;
     if (url.contains(baseUrl)) {
       String route = url.replaceFirst(baseUrl, '');
 

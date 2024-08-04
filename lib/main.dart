@@ -39,8 +39,7 @@ Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
 
-  AwesomeNotificationController().getFirebaseMessagingToken();
-  AwesomeNotificationController().initializeRemoteNotifications(debug: true);
+
 
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   //
@@ -61,6 +60,8 @@ Future<void> main() async {
   // );
 
   await dotenv.load(fileName: ".env");
+  AwesomeNotificationController().getFirebaseMessagingToken();
+  AwesomeNotificationController().initializeRemoteNotifications(debug: true);
 
   await Firebase.initializeApp(
     name: 'Kirei',

@@ -44,6 +44,7 @@ class ConvexBottomNavController extends GetxController
       return;
     }
     if(categoryController.isFromSearch.value == false && categoryController.isFromCategory.value == false && pageIndex.value ==1 ){
+      categoryController.allProducts.clear();
       categoryController.getShopData();
       return;
     }

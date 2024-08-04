@@ -84,7 +84,7 @@ class AppEndDrawer extends StatelessWidget {
                           onChanged: (value) {
                             categoryPassingController.updateSelectedCategoryIndex(
                               value!,
-                              drawerController.allCategories[value].name,
+                              drawerController.allCategories[value].slug,
                             );
                             print(categoryPassingController.selectedCategoryIndex.value);
                           },
