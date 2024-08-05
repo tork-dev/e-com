@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
+import 'package:kirei/src/features/appoinment/view/widgets/appointment_forms.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+
+
+class AppointmentScreen extends StatelessWidget {
+  const AppointmentScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final appointmentController = Get.put(AppointmentController());
+    return AppLayoutWithDrawer(
+      isFromOtherPage: true,
+        backToHome: true,
+        backgroundColor: AppColors.white,
+        globalKey: appointmentController.appointmentKey,
+        title: const Text(
+          'Dr. Appointment',
+          style: TextStyle(color: AppColors.backLayoutAppBarTitle),
+        ),
+        centerTitle: true,
+        leadingIconColor: AppColors.darkGrey,
+        bodyBackgroundColor: Colors.grey[100],
+        body: const AppAppointmentForms());
+  }
+}

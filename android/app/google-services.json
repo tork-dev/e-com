@@ -1,26 +1,59 @@
 {
   "project_info": {
-    "project_number": "547850683072",
-    "project_id": "app-boilerplate-8f2ca",
-    "storage_bucket": "app-boilerplate-8f2ca.appspot.com"
+    "project_number": "379616346839",
+    "project_id": "push-notification-3fa23",
+    "storage_bucket": "push-notification-3fa23.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:547850683072:android:9cec3b56148073a574e325",
+        "mobilesdk_app_id": "1:379616346839:android:6ea35dcaa29a737ebd2692",
         "android_client_info": {
-          "package_name": "com.example.torganic"
+          "package_name": "com.thetork.kirei"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "379616346839-ni9ias2f3m1s688gtdbm9665a7fsk33p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thetork.kirei",
+            "certificate_hash": "582903322715bdbe74b65353312c13cefb29f3b7"
+          }
+        },
+        {
+          "client_id": "379616346839-qs7s88vj1soab77g5nje4fqqpd1ct9gm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thetork.kirei",
+            "certificate_hash": "641ad83d25f524d5b2c0a0aedb6abc07da75dcb6"
+          }
+        },
+        {
+          "client_id": "379616346839-1fn7gc8i7oa74ame77nh9ouiii54aa1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBbNVkYTBw1Oyx8jrEisTx6PHvb1Ccycd8"
+          "current_key": "AIzaSyAgl_5sN6czkcOxmFZ3dqhnoMfYZGNfEVM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379616346839-1fn7gc8i7oa74ame77nh9ouiii54aa1r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "379616346839-037pbok2ptdebm0gacemp917aji4m5jl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thetork.kirei"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/common/widgets/appbar/custom_app_bar.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
+import 'package:kirei/src/common/widgets/appbar/custom_app_bar.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../styles/spacing_style.dart';
 
@@ -29,6 +29,7 @@ class AppLayoutWithoutAppBar extends StatelessWidget {
         showLeadingIcon: false,
         centerTitle: centerTitle,
         actions: action,
+        backgroundColor: backgroundColor,
       ),
       body: Padding(padding: AppSpacingStyle.defaultSpacing, child: body),
     );

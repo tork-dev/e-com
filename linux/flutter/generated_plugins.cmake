@@ -4,6 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
+  awesome_notifications_core
+  file_selector_linux
+  flutter_secure_storage_linux
+  gtk
   printing
   url_launcher_linux
 )

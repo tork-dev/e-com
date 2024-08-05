@@ -2,10 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+	<!-- Custom URL scheme sample -->
+    	<key>CFBundleURLTypes</key>
+    	<array>
+    		<dict>
+    		<!-- Your scheme -->
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<string>app</string>
+    		</array>
+    		<!-- Optional URL to distinguish your app from others
+    		     in case of conflicting scheme name -->
+    		<key>CFBundleURLName</key>
+    		<string>open.my.app</string>
+    		</dict>
+    	</array>
+    	<!-- END Custom URL scheme sample -->
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Torganic</string>
+		<string>Kirei</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -13,7 +29,7 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>torganic</string>
+		<string>Kirei</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
@@ -52,5 +68,63 @@
         <key>NSCameraUsageDescription
         &lt;string&gt;To scan cards&lt;/string&gt;</key>
         <string>To scan cards</string>
+
+        <key>NSCameraUsageDescription</key>
+        <string>We need access to the camera for profile image upload</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>We need access to the photo library for profile image upload</string>
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>We need access to save photos to your photo library</string>
 	</dict>
+
+	<key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb7989294924414445</string>
+        </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>7989294924414445</string>
+    <key>FacebookDisplayName</key>
+    <string>kirei</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+
+
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    <key>UIUserNotificationSettings</key>
+    <dict/>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>audio</string>
+        <string>fetch</string>
+        <string>processing</string>
+    </array>
+    <key>NSCameraUsageDescription</key>
+    <string>App needs access to camera for scanning QR codes</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>App needs access to location for navigation</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>App needs access to photo library for uploading images</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>App needs access to microphone for video recording</string>
+
+
 </plist>

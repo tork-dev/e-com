@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
-import 'package:torganic/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
-import 'package:torganic/src/features/graph_chart/controller/graph_controller.dart';
+import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:kirei/src/features/graph_chart/controller/graph_controller.dart';
 
 class GraphScreen extends StatelessWidget {
   const GraphScreen({super.key});

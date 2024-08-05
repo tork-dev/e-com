@@ -1,53 +1,75 @@
-// import 'package:flutter/material.dart';
-// import 'package:gap/gap.dart';
-// import 'package:get/get.dart';
-// import '../../../../common/styles/spacing_style.dart';
-// import '../../../../utils/constants/sizes.dart';
-// import '../../controller/user_controller.dart';
-//
-//
-// class PicturePart extends StatelessWidget {
-//   const PicturePart({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = UserController.instance;
-//     return Container(
-//       padding: AppSpacingStyle.allSIdeSpacing,
-//       child: Center(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Obx(
-//               () => Container(
-//                 height: 85,
-//                 width: 85,
-//                 decoration: BoxDecoration(
-//                     shape: BoxShape.circle,
-//                     image: DecorationImage(
-//                         image:
-//                             NetworkImage(controller.user.value.profilePicture),
-//                         fit: BoxFit.fill)),
-//               ),
-//             ),
-//             const Gap(AppSizes.spaceBtwItems),
-//             Obx(
-//               () => Text(
-//                 controller.user.value.fullName,
-//                 style: Theme.of(context).textTheme.titleLarge,
-//               ),
-//             ),
-//             const Gap(AppSizes.xs),
-//             Obx(
-//               () => Text(
-//                 controller.user.value.email,
-//                 style: Theme.of(context).textTheme.bodyMedium,
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+
+import '../../controller/account_details_controller.dart';
+import 'custom_shape.dart';
+
+class PicturePart extends StatelessWidget {
+  const PicturePart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final loginController = Get.put(LogInPageController());
+    return Column(children: [
+      SizedBox(
+        height: 170,
+        child: Stack(
+          children: [
+            ClipPath(
+              clipper: CustomShape(),
+              child: Container(
+                height: 215, //150
+                color: AppColors.primary,
+              ),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  AppCardContainer(
+                      width: 140,
+                      height: 140,
+                      applyRadius: false,
+                      borderColor: AppColors.white,
+                      borderWidth: 2 * 0.8,
+                      hasBorder: true,
+                      isCircle: true,
+                      child: Obx(() {
+                        return AppBannerImage(
+                          imgBoarderRadius: 100,
+                          isNetworkImage: true,
+                          fit: BoxFit.fill,
+                          imgUrl: loginController
+                                      .userDataByToken.value.avatarOriginal ??
+                                  '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
+                        );
+                      })),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Obx(() {
+          return Text(
+            loginController.userDataByToken.value.name ??
+                "${AppLocalStorage().readData(LocalStorageKeys.userName)}",
+            style: const TextStyle(
+                fontSize: 14,
+                color: AppColors.secondary,
+                fontWeight: FontWeight.w600),
+          );
+        }),
+      )
+    ]);
+  }
+}

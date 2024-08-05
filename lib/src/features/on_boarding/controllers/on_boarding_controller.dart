@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 import '../../authentication/views/log_in/view/login.dart';
@@ -28,7 +29,7 @@ class OnBoardingController extends GetxController{
   void nextPage(){
     if(currentPageIndex.value == 2){
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isNotFirstTime, true);
-      Get.offAll(const LogIn());
+      Get.offAll(const HelloConvexAppBar());
     }else{
       int page = currentPageIndex.value +1;
       pageController.jumpToPage(page);

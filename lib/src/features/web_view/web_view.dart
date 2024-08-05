@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import '../../utils/constants/sizes.dart';
 
 class WebViewScreen extends StatefulWidget {
-  String url;
+  final String url, title;
 
-  WebViewScreen({super.key, required this.url});
+  const WebViewScreen({super.key, required this.url, required this.title});
 
   @override
   State<WebViewScreen> createState() => _WebViewScreenState();
@@ -21,7 +24,6 @@ class _WebViewScreenState extends State<WebViewScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-// Update loading bar.
           },
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
@@ -35,8 +37,11 @@ class _WebViewScreenState extends State<WebViewScreen> {
         ),
       )
       ..loadRequest(Uri.parse(widget.url));
-
     return AppLayoutWithBackButton(
+      title: Text(widget.title, style: const TextStyle(color: AppColors.primary),),
+        centerTitle: true,
+        leadingIconColor: AppColors.darkGrey,
+        padding: AppSizes.defaultSpace,
         body: SafeArea(
             child: WebViewWidget(
       controller: controllers,

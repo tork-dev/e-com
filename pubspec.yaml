@@ -1,8 +1,8 @@
-name: torganic
+name: kirei
 description: "A new Flutter project."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 2.0.12+16
 
 
 environment:
@@ -43,12 +43,32 @@ dependencies:
   package_info_plus: ^6.0.0
   flutter_dynamic_icon: ^2.1.0
   flutter_app_badger: ^1.5.0
-  awesome_notifications: ^0.8.2
   upgrader: ^10.1.0
   pdf: ^3.10.8
   path_provider: ^2.1.3
   printing: ^5.12.0
   open_file: ^3.3.2
+  flutter_rating_bar: ^4.0.1
+  cached_network_image: ^3.3.1
+  convex_bottom_bar: ^3.2.0
+  flutter_typeahead: ^5.2.0
+  expandable: ^5.0.1
+  flutter_widget_from_html_core: ^0.14.12
+  badges: ^3.1.2
+  font_awesome_flutter: ^10.7.0
+  percent_indicator: ^4.2.3
+  mime: ^1.0.5
+  http_parser: ^4.0.2
+  image_picker: ^1.1.1
+  permission_handler: ^11.3.1
+  share_plus: ^9.0.0
+  insta_image_viewer: ^1.0.4
+  flutter_facebook_auth: ^7.0.1
+  sign_in_with_apple: ^6.1.1
+  firebase_analytics: ^10.10.7
+  firebase_dynamic_links: ^5.5.7
+  go_router: ^13.2.5
+  app_links: ^6.1.4
 
   # Icons
   cupertino_icons: ^1.0.6
@@ -69,10 +89,20 @@ dependencies:
   firebase_messaging: ^14.7.20
   cloud_firestore: ^4.15.10
 
+  # Awesome plugins
+  awesome_notifications_core: ^0.8.0
+  awesome_notifications: ^0.8.0
+  awesome_notifications_fcm: ^0.8.0
+
   # Payment Gateway
   flutter_bkash: ^0.2.0
   flutter_stripe: ^10.1.1
   flutter_sslcommerz: ^2.2.2-nullsafety.0
+  like_button: ^2.0.5
+  comment_box: ^0.0.18
+
+
+
 
 
 
@@ -99,13 +129,14 @@ flutter:
 
   # Local Assets
   assets:
+    - assets/images/placeholder.png
     - assets/images/logos/
     - assets/images/icons/
-    - assets/images/animations/
     - assets/images/banners/
-    - assets/images/products/
+    - assets/images/animations/
     - assets/images/on_boarding_images/
     - assets/images/pdf_a/
+    - assets/images/recommendation/
     - .env
 
 

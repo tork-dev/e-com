@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
+import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../../utils/validators/validation.dart';
@@ -23,6 +24,16 @@ class NewPasswordFormsAndButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Password",
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           Obx(
             () => AuthInputField(
               isDark: isDark,
@@ -42,12 +53,22 @@ class NewPasswordFormsAndButton extends StatelessWidget {
             ),
           ),
           const Gap(AppSizes.spaceBtwInputFields),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Retype Password",
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: AppSizes.fontSizeSm,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           Obx(
             () => AuthInputField(
               isDark: isDark,
               controller: newPasswordController.newConfirmPassword,
               validator: (value) => AppValidator.validateConfirmPassword(
-                  value, newPasswordController),
+                  newPasswordController.newConfirmPassword.text, newPasswordController.newPassword.text),
               hingText: AppLocalizations.of(context)!.confirmPasswordHintText,
               obscured: newPasswordController.confirmPasswordObscured.value,
               suffixIcon: InkWell(
@@ -66,7 +87,9 @@ class NewPasswordFormsAndButton extends StatelessWidget {
               onPressed: () {
                newPasswordController.submit();
               },
-              buttonText: AppLocalizations.of(context)!.submit),
+              buttonText: AppLocalizations.of(context)!.submit,
+          backgroundColor: AppColors.secondary,
+          ),
         ],
       ),
     );

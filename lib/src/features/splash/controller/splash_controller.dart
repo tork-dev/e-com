@@ -1,13 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/utils/helpers/business_setting/business_setting_helper.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:torganic/src/features/bottom_navigation/bottom_navigation.dart';
-import 'package:torganic/src/utils/device/device_utility.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
-import '../../authentication/views/log_in/view/login.dart';
 import '../../on_boarding/views/on_boarding.dart';
 
 class SplashController extends GetxController {
@@ -17,8 +18,22 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     //appStatus();
+    appInfo();
     changeScreen();
+    BusinessSettingHelper.setBusinessSettingData();
+    //Future.delayed(const Duration(seconds: 3)).then((value) => Get.offAll(()=> const HelloConvexAppBar()));
+
   }
+
+  Future<void> appInfo() async{
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.appVersion, version);
+    AppLocalStorage().saveData(LocalStorageKeys.appVersion, version);
+
+    print(AppLocalStorage().readData(LocalStorageKeys.accessToken).runtimeType);
+  }
+
 
   Future<void> appStatus()async{
     //AppStatusModel appStatusModel = await _appStatus.getAppStatus(context);
@@ -61,17 +76,19 @@ class SplashController extends GetxController {
   }
 
   changeScreen() {
-    final isGoogleLogin =
-        AppLocalStorage().readData(LocalStorageKeys.isGoogleLogIn) ?? false;
-    final isRememberMe =
-        AppLocalStorage().readData(LocalStorageKeys.isRememberMe) ?? false;
+    //print(AppLocalStorage().readData(LocalStorageKeys.isRememberMe).toString());
+    // final isGoogleLogin =
+    //     AppLocalStorage().readData(LocalStorageKeys.isGoogleLogIn) ?? false;
+    // final isRememberMe =
+    //     AppLocalStorage().readData(LocalStorageKeys.isRememberMe) ?? false;
     final isNotFirst =
         AppLocalStorage().readData(LocalStorageKeys.isNotFirstTime) ?? false;
     Future.delayed(const Duration(seconds: 3), () {
-      isNotFirst == true
-          ? (isRememberMe || isGoogleLogin
-              ? Get.offAll(() => const BottomNavigation())
-              : Get.offAll(() => const LogIn()))
+      isNotFirst == true ?
+      // (isRememberMe || isGoogleLogin
+      //         ?
+      Get.offAll(() =>  const HelloConvexAppBar())
+              // : Get.offAll(() => const LogIn()))
           : Get.offAll(() => const OnBoarding());
     });
   }

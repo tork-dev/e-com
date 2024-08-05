@@ -1,5 +1,6 @@
 plugins {
     id "com.android.application"
+    id 'com.google.gms.google-services'
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -23,7 +24,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.torganic"
+    namespace "com.thetork.kirei"
     compileSdk flutter.compileSdkVersion
     ndkVersion "25.1.8937393"
 
@@ -33,20 +34,16 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.torganic"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        applicationId "com.thetork.kirei"
+        minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
             shrinkResources false
             minifyEnabled false
@@ -60,4 +57,16 @@ flutter {
 
 dependencies {
     implementation 'com.stripe:stripe-android:17.1.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    implementation 'com.google.android.gms:play-services-tagmanager:18.1.0'
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
+
+    // Add the dependencies for the Dynamic Links and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-dynamic-links'
+    implementation 'com.google.firebase:firebase-analytics'
 }
+
+apply plugin: 'com.google.gms.google-services'

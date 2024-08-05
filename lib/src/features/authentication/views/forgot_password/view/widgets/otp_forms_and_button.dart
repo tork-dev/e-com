@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
@@ -17,6 +20,8 @@ class OtpFormsAndButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
     final otpController = OtpController.instance;
+    //final forgetPasswordController = Get.put(ForgotPasswordController());
+
     return Form(
       key: otpController.otpKey,
       child: Column(
@@ -30,12 +35,27 @@ class OtpFormsAndButton extends StatelessWidget {
             hingText: AppLocalizations.of(context)!.otp,
             obscured: false,
           ),
-          const Gap(AppSizes.spaceBtwSections),
+          const Gap(AppSizes.md),
+
+          Align(
+            alignment: Alignment.centerLeft,
+            child: AppButtons.textUnderlineButton(
+                onPressed: (){
+                  otpController.reSendCode();
+                },
+                buttonText: "Resend Code",
+              backgroundColor: AppColors.primary,
+            ),
+          ),
+
+          const Gap(AppSizes.md),
           AppButtons.largeFlatFilledButton(
               onPressed: () {
                 otpController.verify();
               },
-              buttonText: AppLocalizations.of(context)!.verify),
+              buttonText: AppLocalizations.of(context)!.verify,
+          backgroundColor: AppColors.secondary,
+          ),
         ],
       ),
     );

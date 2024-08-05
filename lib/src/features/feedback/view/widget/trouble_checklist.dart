@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
 
 class TroubleChecklist extends StatelessWidget {

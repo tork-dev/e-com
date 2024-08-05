@@ -7,7 +7,7 @@ class AppTexts {
   static const String skip = "Skip";
   static const String done = "Done";
   static const String submit = "Submit";
-  static const String appName = "Torganic";
+  static const String appName = "Kirei";
   static const String tContinue = "Continue";
 
 

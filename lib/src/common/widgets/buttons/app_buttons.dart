@@ -1,12 +1,13 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
-
-import '../../../utils/constants/image_strings.dart';
+import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/helper_functions.dart';
 
 class AppButtons {
   static ElevatedButton smallRoundButton(
@@ -16,27 +17,61 @@ class AppButtons {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(), backgroundColor: buttonColor),
+            shape: const CircleBorder(),
+            backgroundColor: buttonColor,
+            padding: const EdgeInsets.all(AppSizes.md)),
         child: buttonChild);
   }
 
   static ElevatedButton largeFlatFilledButton(
       {required VoidCallback onPressed,
-      required String buttonText}) {
+      required String buttonText,
+      Color? backgroundColor,
+      double buttonRadius = 0,
+      double verticallyPadding = 16}) {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            shape: const BeveledRectangleBorder(),
-            minimumSize:
-                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(buttonRadius),
+          ),
+          minimumSize: Size(AppHelperFunctions.screenWidth(), 0),
+          padding: EdgeInsets.symmetric(vertical: verticallyPadding),
+          backgroundColor: backgroundColor,
+        ),
         child: Text(
           buttonText,
         ));
   }
 
-  static OutlinedButton largeFlatOutlineButton(
+  static ElevatedButton largeFlatFilledIconButton(
       {required VoidCallback onPressed,
-      required String buttonText}) {
+      Color? backgroundColor,
+      double buttonRadius = 0,
+      double verticallyPadding = 16,
+      required String imgUrl,
+      required String buttonName,
+      required double gapBetweenIconAndText}) {
+    return ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(buttonRadius),
+          ),
+          minimumSize: Size(AppHelperFunctions.screenWidth(), 0),
+          padding: EdgeInsets.symmetric(
+              vertical: verticallyPadding, horizontal: AppSizes.md),
+          backgroundColor: backgroundColor,
+        ),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          AppBannerImage(height: 25, width: 25, imgUrl: imgUrl),
+           const Gap(AppSizes.sm),
+          Align(alignment: Alignment.center, child: Text(buttonName)),
+        ]));
+  }
+
+  static OutlinedButton largeFlatOutlineButton(
+      {required VoidCallback onPressed, required String buttonText}) {
     return OutlinedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -63,5 +98,23 @@ class AppButtons {
         ),
       ),
     );
+  }
+
+  static TextButton textUnderlineButton({
+    required VoidCallback onPressed,
+    required String buttonText,
+    Color? backgroundColor,
+  }) {
+    return TextButton(
+        onPressed: onPressed,
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            fontSize: AppSizes.md,
+            decoration: TextDecoration.underline,
+            color: backgroundColor,
+            decorationColor: backgroundColor,
+          ),
+        ));
   }
 }

@@ -5,12 +5,22 @@
 class AppImages {
 
   // -- App Logos
-  static const String darkAppLogo = "assets/images/logos/app_logo.png";
-  static const String lightAppLogo = "assets/images/logos/app_logo.png";
+  static const String darkAppLogo = "assets/images/logos/app_logo_new.png";
+  static const String lightAppLogo = "assets/images/logos/app_logo_new.png";
+
+  // -- Splash Screen Logo Latest App
+  static const String darkAppLogo1 = "assets/images/logos/splash_screen_logo_new.png";
+  static const String lightAppLogo2 = "assets/images/logos/splash_screen_logo_new.png";
 
   // -- Social Logos
-  static const String google = "assets/images/logos/google-icon.png";
-  static const String facebook = "assets/images/logos/facebook-icon.png";
+  static const String google = "assets/images/logos/google_logo.png";
+  static const String facebook = "assets/images/logos/facebook.png";
+  static const String appleLogo = "assets/images/logos/apple_logo.png";
+  static const String instagram = "assets/images/logos/instagram.png";
+  static const String youtube = "assets/images/logos/youtube.png";
+
+  /// placeholder
+  static const String placeholder = "assets/images/placeholder.png";
 
   // -- Lottie File
   static const String loaderAnimation = "assets/images/animations/loader-animation.json";
@@ -41,11 +51,11 @@ class AppImages {
   static const String furnitureIcon = "assets/icons/categories/icons8-dining-chair-64.png";
   static const String jeweleryIcon = "assets/icons/categories/icons8-sparkling-diamond-64.png";
   static const String electronicsIcon = "assets/icons/categories/icons8-smartphone-64.png";
+  static const String forwardArrow = "assets/images/icons/forward_arrow.png";
 
   // -- Brand Icons
   static const String nikeLogo = "assets/icons/brands/nike.png";
   static const String adidasLogo = "assets/icons/brands/adidas-logo.png";
-  static const String appleLogo = "assets/icons/brands/apple-logo.png";
   static const String jordanLogo = "assets/icons/brands/jordan-logo.png";
   static const String pumaLogo = "assets/icons/brands/puma-logo.png";
   static const String zaraLogo = "assets/icons/brands/zara-logo.png";
@@ -166,11 +176,15 @@ class AppImages {
   static const String banner6 = "assets/images/banners/banner_6.jpg";
   static const String banner7 = "assets/images/banners/banner_7.jpg";
   static const String banner8 = "assets/images/banners/banner_8.jpg";
+  static const String kireiYoutube = "assets/images/banners/kireibd-youtube.png";
+  static const String beautyTipsOne = "assets/images/banners/beauty_tips_one.png";
 
 
   //Profile
   static const String user = "assets/images/content/user.png";
   static const String profileIcon = "assets/images/icons/profile.png";
+  static const String avatarIcon = "assets/images/icons/avatar.jpg";
+  static const String emptyShoppingBag = "assets/images/icons/cart_empty_bag.png";
   static const String homeIcon = "assets/images/icons/home_icon.png";
   static const String addressIcon = "assets/images/icons/address.png";
   static const String translateIcon = "assets/images/icons/translate.png";

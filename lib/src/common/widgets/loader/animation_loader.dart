@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/constants/sizes.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppAnimationLoader extends StatelessWidget {
   const AppAnimationLoader({super.key,

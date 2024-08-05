@@ -1,8 +1,14 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 import '../constants/colors.dart';
 
@@ -43,29 +49,30 @@ class AppHelperFunctions {
     }
   }
 
-  static void showToast(String message){
+  static void showToast(String message) {
     Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
   }
 
-  static showFlashBar({String? message, Icon? icon, FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM }){
+  static showFlashBar(
+      {String? message,
+      Icon? icon,
+      FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM}) {
     Flushbar(
       message: message,
       backgroundColor: Colors.red,
       duration: const Duration(seconds: 3),
       icon: icon,
       flushbarPosition: flushbarPosition,
-
     ).show(Get.context!);
   }
-
 
   static void showSimpleSnackBar(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
@@ -73,10 +80,9 @@ class AppHelperFunctions {
     ));
   }
 
-  static void showSnackBarWithDesign({required title, message = '', duration = 3, backgroundColor, icon}){
-    Get.snackbar(
-        title,
-        message,
+  static void showSnackBarWithDesign(
+      {required title, message = '', duration = 3, backgroundColor, icon}) {
+    Get.snackbar(title, message,
         isDismissible: true,
         shouldIconPulse: true,
         colorText: AppColors.white,
@@ -84,8 +90,10 @@ class AppHelperFunctions {
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: duration),
         margin: const EdgeInsets.all(10),
-        icon: Icon(icon, color: AppColors.white,)
-    );
+        icon: Icon(
+          icon,
+          color: AppColors.white,
+        ));
   }
 
   static void showSnackBarWithAction(
@@ -100,19 +108,61 @@ class AppHelperFunctions {
     );
   }
 
-  static void showAlert(String title, String message) {
+  static void showAlert({required String message, required String leftButtonName,
+      required String rightButtonName, required VoidCallback onRightPress, required VoidCallback onLeftPress, required Color rightButtonColor,  Color leftButtonColor = Colors.transparent,  Color rightButtonTextColor = AppColors.white, Color leftButtonTextColor = AppColors.black }) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          contentPadding: const EdgeInsets.all(16),
+          backgroundColor: AppColors.white,
+          content: SizedBox(
+            height: 100.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(message),
+                const Gap(AppSizes.xs),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: onLeftPress,
+                      child: Container(
+                        height: 40,
+                        width: 100,
+                        alignment: Alignment.center,
+                        decoration:
+                        BoxDecoration(color: leftButtonColor),
+                        child: Text(
+                          leftButtonName,
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: leftButtonTextColor),
+                        ),
+                      ),
+                    ),
+                    const Gap(AppSizes.spaceBtwRowItem),
+                    InkWell(
+                      onTap: onRightPress,
+                      child: Container(
+                        height: 40,
+                        width: 100,
+                        alignment: Alignment.center,
+                        decoration:
+                             BoxDecoration(color: rightButtonColor),
+                        child: Text(
+                          rightButtonName,
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: rightButtonTextColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         );
       },
     );

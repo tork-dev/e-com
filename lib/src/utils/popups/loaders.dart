@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:torganic/src/utils/constants/colors.dart';
-import 'package:torganic/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppLoaders {
   static hideSnackBar() =>

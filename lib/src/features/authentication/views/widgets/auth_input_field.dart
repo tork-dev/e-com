@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/colors.dart';
 
 class AuthInputField extends StatelessWidget {
   const AuthInputField({
     super.key,
-    required this.isDark,
+    this.isDark = false,
     required this.hingText,
     required this.controller,
     required this.obscured,
-    required this.validator,
+    this.validator,
     this.suffixIcon,
   });
 
@@ -24,19 +25,37 @@ class AuthInputField extends StatelessWidget {
       validator: validator,
       controller: controller,
       obscureText: obscured,
+      cursorColor: AppColors.primary,
       decoration: InputDecoration(
         hintText: hingText,
-        suffixIcon: suffixIcon,
-        focusedBorder: OutlineInputBorder(
+        suffix: suffixIcon,
+        //suffixIcon: suffixIcon,
+        contentPadding: const EdgeInsets.only(left: AppSizes.sm),
+        focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
-                color: isDark ? AppColors.white : AppColors.darkGrey)),
-        enabledBorder: OutlineInputBorder(
+              width: 1,
+              color: AppColors.primary,
+            )
+        ),
+        enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
-                color: isDark ? AppColors.lightGrey : AppColors.grey)),
-        errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.error)),
-        focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.error)),
+              width: 1,
+              color: AppColors.darkGrey,
+            )
+        ),
+        hintStyle: const TextStyle(
+          color: AppColors.lightGrey,
+        )
+        // focusedBorder: OutlineInputBorder(
+        //     borderSide: BorderSide(
+        //         color: isDark ? AppColors.white : AppColors.darkGrey)),
+        // enabledBorder: OutlineInputBorder(
+        //     borderSide: BorderSide(
+        //         color: isDark ? AppColors.lightGrey : AppColors.grey)),
+        // errorBorder: const OutlineInputBorder(
+        //     borderSide: BorderSide(color: AppColors.error)),
+        // focusedErrorBorder: const OutlineInputBorder(
+        //     borderSide: BorderSide(color: AppColors.error)),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:torganic/src/utils/popups/full_screen_loader.dart';
+import 'package:kirei/src/utils/popups/full_screen_loader.dart';
 
 class StripeRepository extends GetxController {
 
