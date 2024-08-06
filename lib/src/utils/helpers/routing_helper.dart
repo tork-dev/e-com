@@ -3,31 +3,36 @@ import 'package:get/get.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
 
-class RoutingHelper{
+class RoutingHelper {
 
-  static urlRouting(String url) {
-    final String baseUrl = dotenv.env["BASE_URL_WEB"]!;
-    if (url.contains(baseUrl)) {
-      String route = url.replaceFirst(baseUrl, '');
+  static urlRouting(String? url) {
+    const String baseUrl = "https://beta.kireibd.com";
+    if (url != null) {
+      if (url.contains(baseUrl)) {
+        String route = url.replaceFirst(baseUrl, '');
 
-      // if (route == '/personal-recommendation/skincare-recommendation' &&
-      //     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true) {
-      //   Get.toNamed('/login');
-      //   return;
-      // }
-      if(route.startsWith('/shop') || route.startsWith('/home') || route.startsWith('/account') || route.startsWith('/cart')){
-      Get.offAllNamed(route);
-      }else if(route.endsWith('/skincare-recommendation')) {
-        final aiRoute = route.replaceAll('/skincare-recommendation', '');
-        if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-        Get.toNamed(aiRoute);
-        }else{
-          Get.toNamed('/login/personal-recommendation');
+        // if (route == '/personal-recommendation/skincare-recommendation' &&
+        //     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true) {
+        //   Get.toNamed('/login');
+        //   return;
+        // }
+        if (route.startsWith('/shop') || route.startsWith('/home') ||
+            route.startsWith('/account') || route.startsWith('/cart')) {
+          Get.offAllNamed(route);
+        } else if (route.endsWith('/skincare-recommendation')) {
+          final aiRoute = route.replaceAll('/skincare-recommendation', '');
+          if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+            Get.toNamed(aiRoute);
+          } else {
+            Get.toNamed('/login/personal-recommendation');
+          }
+        } else {
+          Get.toNamed(route);
         }
-      }else{
-        Get.toNamed(route);
+      } else {
+        Get.offAllNamed('/home');
       }
-    }else{
+    } else {
       Get.offAllNamed('/home');
     }
   }

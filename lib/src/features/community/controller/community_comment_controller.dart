@@ -39,6 +39,7 @@ class CommunityCommentController extends GetxController {
   Future<void> addCommunityComment() async {
     if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true){
       Get.to('/login/community');
+      return;
     }
     communityCommentAddResponse.value = await CommunityRepositories()
         .getCommunityCommentCreateResponse(commentController.text, postId);

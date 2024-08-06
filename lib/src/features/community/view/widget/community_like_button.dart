@@ -19,7 +19,7 @@ class CommunityLikeButton extends StatelessWidget {
             if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
               controller.getAddCommunityLike(controller.communityResponse.value.data![cardIndex].id.toString());
             } else {
-              AppHelperFunctions.showToast('Login first!');
+              AppHelperFunctions.showToast('Please login first!');
               Get.toNamed('/login/community');
             }
             return !isLiked;
