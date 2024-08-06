@@ -61,7 +61,7 @@ Future<void> main() async {
 
   await dotenv.load(fileName: ".env");
   AwesomeNotificationController().getFirebaseMessagingToken();
-  AwesomeNotificationController().initializeRemoteNotifications(debug: true);
+  AwesomeNotificationController().initializeRemoteNotifications(debug: false);
 
   await Firebase.initializeApp(
     name: 'Kirei',
