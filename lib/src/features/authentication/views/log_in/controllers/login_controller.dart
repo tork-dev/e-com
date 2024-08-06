@@ -134,7 +134,7 @@ class LogInPageController extends GetxController {
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
         AuthHelper().setUserData(loginResponse.value);
-        Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
+        Get.offAllNamed(previousRoute!);
       }
       GoogleSignIn().disconnect();
     } on Exception catch (e) {
@@ -166,7 +166,7 @@ class LogInPageController extends GetxController {
         debugPrint('this is login response $loginResponse');
 
         if (loginResponse.value.result == true) {
-          Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
+          Get.offAllNamed(previousRoute!);
           AuthHelper().setUserData(loginResponse.value);
         }
         AppHelperFunctions.showToast(loginResponse.value.message!);
