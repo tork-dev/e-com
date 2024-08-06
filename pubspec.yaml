@@ -90,9 +90,9 @@ dependencies:
   cloud_firestore: ^4.15.10
 
   # Awesome plugins
-  awesome_notifications_core: ^0.8.0
-  awesome_notifications: ^0.8.0
-  awesome_notifications_fcm: ^0.8.0
+#  awesome_notifications_core: ^0.8.0
+#  awesome_notifications: ^0.8.0
+#  awesome_notifications_fcm: ^0.8.0
 
   # Payment Gateway
   flutter_bkash: ^0.2.0
@@ -100,6 +100,7 @@ dependencies:
   flutter_sslcommerz: ^2.2.2-nullsafety.0
   like_button: ^2.0.5
   comment_box: ^0.0.18
+  flutter_local_notifications: ^17.2.1+2
 
 
 
