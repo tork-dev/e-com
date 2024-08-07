@@ -17,6 +17,12 @@ class PushNotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  void notificationController(){
+    initNotifications();
+    firebaseMessage();
+    handelBackAndTerminateState();
+  }
+
 
   Future<void> initNotifications() async{
 
@@ -115,7 +121,7 @@ class PushNotificationService {
     RoutingHelper.urlRouting(message!.data['route']);
   }
 
-  Future initPushNotifications() async{
+  Future handelBackAndTerminateState() async{
     RemoteMessage? initialMessage = await  _firebaseMessaging.getInitialMessage();
     if(initialMessage!= null){
       handelMessage(initialMessage);

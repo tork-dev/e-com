@@ -10,7 +10,7 @@
   "createAccount" : "Create Account",
   "loginWithOtp" : "LOGIN WITH OTP",
   "loginWithPassword" : "LOGIN WITH PASSWORD",
-  "orLogInWith" : "Or,",
+  "orLogInWith" : "OR,",
   "orSignUpWith" : "Or sign up with",
   "rememberMe" : "Remember me",
   "forgotPassword" : "Forget Password?",

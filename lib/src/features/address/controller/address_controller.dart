@@ -35,6 +35,7 @@ class AddressController extends GetxController {
   TextEditingController selectedCityName = TextEditingController();
   TextEditingController selectedZoneName = TextEditingController();
   TextEditingController selectedAreaName = TextEditingController();
+  GlobalKey<FormState> addressFormKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
@@ -87,7 +88,7 @@ class AddressController extends GetxController {
 
   Future<void> onPressSave() async {
     if (nameController.text == "") {
-      AppHelperFunctions.showToast('Name  is required');
+      AppHelperFunctions.showToast('Name is required');
       return;
     }
 
@@ -144,8 +145,9 @@ class AddressController extends GetxController {
       return;
     }
     AppHelperFunctions.showToast(createOrUpdateAddress.value.message!);
-
-    onRefresh();
+    if(createOrUpdateAddress.value.result == true){
+      Get.back();
+    }
   }
 
 // List getFilteredData(String query, filterFunction) {

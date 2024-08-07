@@ -46,24 +46,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
 
-
-  //
-  // AwesomeNotifications().initialize(
-  //     'resource://drawable/notification_icon',
-  //     [            // notification icon
-  //       NotificationChannel(
-  //         channelGroupKey: 'basic_test',
-  //         channelKey: 'basic',
-  //         channelName: 'Basic notifications',
-  //         channelDescription: 'Notification channel for basic tests',
-  //         channelShowBadge: true,
-  //         importance: NotificationImportance.High,
-  //       ),
-  //       //add more notification type with different configuration
-  //
-  //     ]
-  // );
-
   await dotenv.load(fileName: ".env");
   // AwesomeNotificationController().getFirebaseMessagingToken();
   // AwesomeNotificationController().initializeRemoteNotifications(debug: false);
@@ -74,11 +56,7 @@ Future<void> main() async {
   );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  await PushNotificationService().initNotifications();
-  PushNotificationService().firebaseMessage();
-  PushNotificationService().initPushNotifications();
-
+  PushNotificationService().notificationController();
   DeepLinkHelper().deepLinkController();
 
 

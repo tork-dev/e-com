@@ -315,7 +315,7 @@ class AppDrawer extends StatelessWidget {
                     Get.to(() =>
                     const WebViewScreen(
                         url: 'https://kireibd.com/contact-us?type=app',
-                        title: 'c'));
+                        title: 'Contact us'));
                   },
                 ),
                 AppDrawerCard(

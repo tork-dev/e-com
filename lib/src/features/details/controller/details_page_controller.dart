@@ -16,7 +16,7 @@ import '../model/products_model.dart';
 class DetailsPageController extends GetxController {
   static DetailsPageController get instance => Get.find();
 
-  final homeController = HomeController.instance;
+  final homeController = Get.put(HomeController(callApis: false));
   
 
   RxString productSlug = ''.obs;
