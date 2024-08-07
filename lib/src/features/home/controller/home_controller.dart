@@ -17,7 +17,8 @@ import '../repositories/home_repositories.dart';
 class HomeController extends GetxController{
   static HomeController get instance => Get.find();
 
-  RxBool callApis = true.obs;
+  final bool callApis;
+  HomeController({this.callApis = true});
 
   ///Controller
   final categoryController = Get.put(GetShopDataController());
@@ -42,7 +43,7 @@ class HomeController extends GetxController{
 
   @override
   void onInit(){
-    if(callApis.value == true) {
+    if(callApis == true) {
       fetchFeaturedCategories();
       getProductData();
       getRecommendedProducts();

@@ -49,7 +49,7 @@ class AppSearchController extends GetxController{
 
     if (_file != null) {
      // isLoading(true);
-      shopDataController.isFromSearch.value = true;
+      shopDataController.hittingApi.value = true;
       bottomController.jumpToTab(1);
       File imageFile = File(_file!.path);
       Uint8List imageBytes = await imageFile.readAsBytes();
@@ -62,6 +62,7 @@ class AppSearchController extends GetxController{
         );
         shopDataController.allProducts.addAll(shopDataController.shopPageProduct.value.data!);
         print('Image search successful');
+        shopDataController.hittingApi.value = false;
 
       } catch (e) {
         print('Image search failed: $e');

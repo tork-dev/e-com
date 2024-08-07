@@ -70,10 +70,9 @@ class AppBottomButton extends StatelessWidget {
                 detailsController.isAddedToCart.value == false
                     ? detailsController.onAddToCart().then((value) =>
                 {
-                  bottomNavController.jumpToTab(2),
-                  Get.back()
+                  Get.offAllNamed('/cart')
                 })
-                    : {bottomNavController.jumpToTab(2), Get.back()};
+                    : Get.offAllNamed('/cart');
               },
               height: 50,
               width: AppHelperFunctions.screenWidth() / 2,

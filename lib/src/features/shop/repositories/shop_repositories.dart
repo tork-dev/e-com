@@ -24,12 +24,14 @@ class ShopRepositories{
   }) async {
     Map<dynamic, dynamic> parameters = {
       'page': pageNumber,
-      'order_by': sortKey,
     };
 
     if (searchName != "") parameters['search'] = searchName;
     if (categories != "") {
       parameters['category'] = categories.toLowerCase().replaceAll(' ', '-');
+    }
+    if (sortKey != "") {
+      parameters['order_by'] = sortKey.toLowerCase().replaceAll(' ', '-');
     }
     if (skinType != "") {
       parameters['skin_type'] = skinType.toLowerCase().replaceAll(' ', '-');

@@ -37,13 +37,19 @@ class AccountDetailsController extends GetxController {
 
   Future<void> profileUpdate() async {
     try {
+      if(AppLocalStorage().readData(LocalStorageKeys.userHavePassword) && currentPasswordController.text == ''){
+        return AppHelperFunctions.showToast('Must be provide current password');
+      }
+
       if (newPasswordController.text.isNotEmpty || confirmNewPasswordController.text.isNotEmpty) {
         if (!updatePasswordFormKey.currentState!.validate()) return;
       }
       await getProfileUpdateResponse().then((value) {
         //convexBottomNavController.getUserDataByToken();
         AppHelperFunctions.showToast(profileUpdateResponse.value.message!);
-        Get.back();
+        if(profileUpdateResponse.value.result == true){
+          Get.back();
+        }
       });
     } catch (e) {
       AppHelperFunctions.showToast('Failed To Update');

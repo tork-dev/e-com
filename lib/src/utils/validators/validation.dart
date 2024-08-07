@@ -19,7 +19,7 @@ class AppValidator {
 
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email or phone is required.';
+      return 'Email required.';
     }
 
     // Regular expression for email validation
