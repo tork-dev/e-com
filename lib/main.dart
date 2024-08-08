@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/app.dart';
@@ -21,7 +24,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
   print("Handling a background message: ${message.data}");
-  //PushNotificationService().initLocalNotification(message);
+  print("Handling a background message: ${message.notification!.title}");
+  print("Handling a background message: ${message.notification!.body}");
+  print("Handling a background message: ${message.notification!.android!.channelId}");
+  //PushNotificationService().initLocalNotification(message);\
   //PushNotificationService().showNotification(message);
 }
 

@@ -81,7 +81,7 @@ class PushNotificationService {
   Future<void> showNotification(RemoteMessage message)async{
 
     AndroidNotificationChannel channel = AndroidNotificationChannel(
-        Random.secure().nextInt(10000).toString(),
+        message.notification!.android!.channelId!,
         'Kirei',
         importance: Importance.max
     );
@@ -92,7 +92,8 @@ class PushNotificationService {
       channelDescription: 'Your channel description',
       importance: Importance.high,
       priority: Priority.high,
-      ticker: 'ticker'
+      ticker: 'ticker',
+      playSound: true
     );
 
     const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
