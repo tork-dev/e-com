@@ -82,9 +82,6 @@ class GetShopDataController extends GetxController {
     if (uri.queryParameters.containsKey('min_price')) {
       minimumPriceController.text = uri.queryParameters['min_price'] ?? '';
     }
-    if(uri.path == '/shop'){
-      getShopData();
-    }
     }
 
 
