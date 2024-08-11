@@ -20,7 +20,7 @@ class PushNotificationService {
   void notificationController(){
     initNotifications();
     firebaseMessage();
-    handelBackAndTerminateState();
+    //handelBackAndTerminateState();
   }
 
 

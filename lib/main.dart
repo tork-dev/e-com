@@ -16,7 +16,7 @@ import 'src/utils/firebase/awesome_notification.dart';
 import 'src/utils/firebase/push_notification.dart';
 
 
-final navigatorKey = GlobalKey<NavigatorState>();
+// final navigatorKey = GlobalKey<NavigatorState>();
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -63,6 +63,7 @@ Future<void> main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   PushNotificationService().notificationController();
+  await PushNotificationService().handelBackAndTerminateState();
   DeepLinkHelper().deepLinkController();
 
 
@@ -70,9 +71,9 @@ Future<void> main() async {
  // final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
 
 
-
-  Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
-  await Stripe.instance.applySettings();
+  //
+  // Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
+  // await Stripe.instance.applySettings();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

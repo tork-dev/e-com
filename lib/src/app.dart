@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: GetMaterialApp(
-        navigatorKey: navigatorKey,
+        // navigatorKey: navigatorKey,
         initialBinding: GeneralBindings(),
         title: AppTexts.appName,
         themeMode: ThemeMode.system,

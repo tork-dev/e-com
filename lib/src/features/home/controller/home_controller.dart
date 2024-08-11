@@ -26,7 +26,7 @@ class HomeController extends GetxController{
 
   /// Key
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<ScaffoldState> homeTwoKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> homeTwoKey = GlobalKey<ScaffoldState>();
 
   RxInt carousalCurrentIndex = 0.obs;
 
