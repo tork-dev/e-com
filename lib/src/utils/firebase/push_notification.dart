@@ -11,6 +11,36 @@ import '../../../main.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
 
+@pragma('vm:entry-point')
+void notificationResponse(NotificationResponse notificationResponse) {
+  print('This is action id: ${notificationResponse.actionId}');
+  print('This is payload: ${notificationResponse.payload}');
+
+  // Handle the action based on the actionId
+  switch (notificationResponse.actionId) {
+    case 'action_1':
+    // Perform specific logic for action 1
+      print('Action 1 triggered');
+      // Navigate to a specific screen or perform an action
+      break;
+    case 'action_2':
+    // Perform specific logic for action 2
+      print('Action 2 triggered');
+      // Navigate to a different screen or perform another action
+      break;
+    default:
+      print('Unknown action triggered');
+      break;
+  }
+
+  // If there is payload data, you can parse and use it here
+  if (notificationResponse.payload != null) {
+    final payloadData = notificationResponse.payload;
+    // Handle the payload data
+  }
+}
+
+
 
 class PushNotificationService {
 
@@ -70,9 +100,10 @@ class PushNotificationService {
 
    await _flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (payload){
-       handelMessage(message);
-      }
+      // onDidReceiveNotificationResponse: (payload){
+      //  handelMessage(message);
+      // }
+     onDidReceiveNotificationResponse: notificationResponse
     );
 
 
@@ -92,8 +123,16 @@ class PushNotificationService {
       channelDescription: 'Your channel description',
       importance: Importance.high,
       priority: Priority.high,
+      ongoing: true,
+      styleInformation: const BigTextStyleInformation(''),
       ticker: 'ticker',
-      playSound: true
+      playSound: true,
+      icon: '@drawable/ic_notification',
+
+      actions: <AndroidNotificationAction>[
+        AndroidNotificationAction(message.data['action_id'], 'Action 1', showsUserInterface: true),
+        AndroidNotificationAction('action_2', 'Action 2', showsUserInterface: true),
+      ],
     );
 
     const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
@@ -112,7 +151,9 @@ class PushNotificationService {
           0,
           message.notification!.title,
           message.notification!.body,
-          notificationDetails);
+          notificationDetails,
+        payload: '{"route": "${message.data['route']}"}',
+      );
     });
 
 

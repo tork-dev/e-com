@@ -82,12 +82,11 @@ class GetShopDataController extends GetxController {
     if (uri.queryParameters.containsKey('min_price')) {
       minimumPriceController.text = uri.queryParameters['min_price'] ?? '';
     }
-    }
-
-
+  }
 
   Rx<int?> selectedCategoryIndex = Rx<int?>(null);
   RxList<String> selectedSkinTypes = <String>[].obs;
+
   // RxInt selectedSortIndex = 0.obs;
 
   void resetAll() {
@@ -147,7 +146,6 @@ class GetShopDataController extends GetxController {
     print('this is response: ${shopPageProduct.value.data!.length}');
     print('this is last page: ${shopPageProduct.value.meta!.lastPage}');
 
-
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);
       print('all products : ${allProducts.length}');
@@ -196,12 +194,13 @@ class GetShopDataController extends GetxController {
 
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        if (!hittingApi.value && pageNumber.value < shopPageProduct.value.meta!.lastPage!) {
+        if (!hittingApi.value &&
+            pageNumber.value < shopPageProduct.value.meta!.lastPage!) {
           AppHelperFunctions.showToast('Loading more...');
           pageNumber.value++;
           getShopData();
           update();
-        }else{
+        } else {
           AppHelperFunctions.showToast('No more product in this category');
         }
       }
