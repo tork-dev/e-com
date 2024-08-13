@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../utils/firebase/awesome_notification.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../../details/model/products_model.dart';
@@ -40,9 +42,24 @@ class HomeController extends GetxController{
   Rx<DetailsProductsResponse> trendingProductsResponse = DetailsProductsResponse().obs;
   //Rx<DeviceTokenUpdateResponse> trendingProductsResponse = DetailsProductsResponse().obs;
 
+  NotificationServices notificationServices = NotificationServices();
+
 
   @override
   void onInit(){
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(Get.context!);
+    notificationServices.setupInteractMessage(Get.context!);
+    notificationServices.isTokenRefresh();
+
+    notificationServices.getDeviceToken().then((value){
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+    });
+
     if(callApis == true) {
       fetchFeaturedCategories();
       getProductData();

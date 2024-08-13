@@ -17,35 +17,26 @@ import 'src/utils/firebase/push_notification.dart';
 
 
 // final navigatorKey = GlobalKey<NavigatorState>();
+//
+// @pragma('vm:entry-point')
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   await Firebase.initializeApp();
+//   print("Handling a background message: ${message.data}");
+//   print("Handling a background message: ${message.notification!.title}");
+//   print("Handling a background message: ${message.notification!.body}");
+//   print("Handling a background message: ${message.notification!.android!.channelId}");
+//   //PushNotificationService().initLocalNotification(message);\
+//   //PushNotificationService().showNotification(message);
+// }
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async {
   await Firebase.initializeApp();
-  print("Handling a background message: ${message.data}");
-  print("Handling a background message: ${message.notification!.title}");
-  print("Handling a background message: ${message.notification!.body}");
-  print("Handling a background message: ${message.notification!.android!.channelId}");
-  //PushNotificationService().initLocalNotification(message);\
-  //PushNotificationService().showNotification(message);
 }
 
-// Future<void> firebaseBackgroundMessage(RemoteMessage message) async {
-//   print("Message from remote ${message.data}");
-//
-//   // AwesomeNotifications().createNotification(
-//   //     content: NotificationContent( //with image from URL
-//   //         id: 1,
-//   //         channelKey: 'basic', //channel configuration key
-//   //         title: message.data["title"],
-//   //         body: message.data["body"],
-//   //         bigPicture: message.data["image"],
-//   //         notificationLayout: NotificationLayout.BigPicture,
-//   //         payload: {"name":"flutter"}
-//   //     )
-//   // );
-// }
+
 
 Future<void> main() async {
   await GetStorage.init();
@@ -62,8 +53,8 @@ Future<void> main() async {
   );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  PushNotificationService().notificationController();
-  await PushNotificationService().handelBackAndTerminateState();
+  // PushNotificationService().notificationController();
+  // await PushNotificationService().handelBackAndTerminateState();
   DeepLinkHelper().deepLinkController();
 
 
