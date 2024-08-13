@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/repository/forgot_password_repository.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
-import 'package:kirei/src/features/bottom_navigation/bottom_navigation.dart';
 import 'package:kirei/src/features/home/views/home.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';

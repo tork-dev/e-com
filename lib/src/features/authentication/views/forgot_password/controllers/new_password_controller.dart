@@ -8,7 +8,6 @@ import 'package:kirei/src/features/authentication/views/forgot_password/reposito
 import 'package:kirei/src/features/authentication/views/forgot_password/view/new_password.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
-import 'package:kirei/src/features/bottom_navigation/bottom_navigation.dart';
 import 'package:kirei/src/features/home/views/home.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';

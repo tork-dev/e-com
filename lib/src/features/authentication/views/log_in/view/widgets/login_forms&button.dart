@@ -15,7 +15,6 @@ import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../../utils/validators/validation.dart';
-import '../../../../../bottom_navigation/bottom_navigation.dart';
 import '../../../sign_up/view/signup.dart';
 import '../../../widgets/auth_input_field.dart';
 import 'remember_and_forgot_button.dart';

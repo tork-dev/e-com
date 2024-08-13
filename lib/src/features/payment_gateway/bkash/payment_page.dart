@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bkash/flutter_bkash.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/bottom_navigation/bottom_navigation.dart';
 import 'package:kirei/src/features/payment_gateway/controllers/payment_controllers.dart';
 import 'package:kirei/src/features/payment_gateway/stripe/repository/stripe_repository.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
