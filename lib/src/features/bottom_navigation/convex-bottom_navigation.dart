@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badge;
-import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/cart/view/cart.dart';
 import 'package:kirei/src/features/home/views/home_three.dart';

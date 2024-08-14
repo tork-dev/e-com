@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
-import 'package:kirei/src/features/cart/view/widgets/cart_screen_card.dart';
 import 'package:kirei/src/features/community/controller/community_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -125,8 +121,7 @@ class CommunityHeader extends StatelessWidget {
                     child: Text(
                       "Add",
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.ubuntu(
-                          color: Colors.white, fontSize: 16),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                 ),

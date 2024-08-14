@@ -1,12 +1,8 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
-
-import '../../../../../utils/constants/app_config.dart';
 import '../../../model/resend_code_model.dart';
 import '../model/signup_response.dart';
 

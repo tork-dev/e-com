@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connection_notifier/connection_notifier.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +13,6 @@ import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/personalization/view/profile.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 import '../main.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
@@ -38,8 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlobalLoaderOverlay(
-      child: GetMaterialApp(
+    return GetMaterialApp(
         // navigatorKey: navigatorKey,
         initialBinding: GeneralBindings(),
         title: AppTexts.appName,
@@ -94,7 +90,6 @@ class MyApp extends StatelessWidget {
         ],
 
         //navigatorKey: navigatorKey,
-      ),
     );
   }
 }

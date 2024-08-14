@@ -1,8 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:mime/mime.dart';
 import 'package:kirei/src/features/personalization/model/profile_update_image_model.dart';
 import 'package:kirei/src/features/personalization/model/profile_update_model.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
