@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/model/coupon_remove_model.dart';
 import 'package:kirei/src/features/checkout/model/order_create_model.dart';

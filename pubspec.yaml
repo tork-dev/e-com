@@ -94,7 +94,6 @@ dependencies:
 
   # Payment Gateway
   flutter_bkash: ^0.2.0
-  flutter_stripe: ^10.1.1
   flutter_sslcommerz: ^2.2.2-nullsafety.0
   like_button: ^2.0.5
   comment_box: ^0.0.18

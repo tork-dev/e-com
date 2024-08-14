@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyA4iUBdrqe7hRTszKOZPyBrPcfbQQ-OUO4</string>
+	<string>AIzaSyDrb9Ty1EjdJiRBFdwgydnImMwP2siysX0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>547850683072</string>
+	<string>592764154777</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.thetork.kirei</string>
 	<key>PROJECT_ID</key>
-	<string>app-boilerplate-8f2ca</string>
+	<string>push-notification-for-an-2f235</string>
 	<key>STORAGE_BUCKET</key>
-	<string>app-boilerplate-8f2ca.appspot.com</string>
+	<string>push-notification-for-an-2f235.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:547850683072:ios:e69646f8e83a228a74e325</string>
+	<string>1:592764154777:ios:ae407166588b7803b29908</string>
 </dict>
 </plist>
