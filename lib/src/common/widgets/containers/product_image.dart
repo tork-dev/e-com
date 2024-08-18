@@ -114,7 +114,7 @@ class AppProductImage extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

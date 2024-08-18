@@ -26,7 +26,7 @@ class AppDetailsFullDescription extends StatelessWidget {
                       .productDetails.value.detailedProducts!.description
                       .toString()),
                 ),
-                const Gap(AppSizes.spaceBtwItems)
+                const Gap(AppSizes.spaceBtwDefaultItems)
               ],
             );
     });

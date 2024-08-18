@@ -93,7 +93,7 @@ class AppEndDrawer extends StatelessWidget {
                         );
                       }),
                     ),
-                    const Gap(AppSizes.spaceBtwItems),
+                    const Gap(AppSizes.spaceBtwDefaultItems),
                     const AppSectionTitleText(
                       sectionTitle: 'Skin Types',
                       haveTxtButton: false,

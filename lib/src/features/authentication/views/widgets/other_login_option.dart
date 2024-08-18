@@ -42,13 +42,13 @@ class OtherLogInOrSignUpOption extends StatelessWidget {
             )),
           ],
         ),
-        const Gap(AppSizes.spaceBtwItems),
+        const Gap(AppSizes.spaceBtwDefaultItems),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppButtons.smallIconButton(
                 onIconPress: ()=> googleTap(), iconPath: AppImages.google),
-            const Gap(AppSizes.spaceBtwItems),
+            const Gap(AppSizes.spaceBtwDefaultItems),
             AppButtons.smallIconButton(
                 onIconPress: ()=> facebookTap(), iconPath: AppImages.facebook)
           ],

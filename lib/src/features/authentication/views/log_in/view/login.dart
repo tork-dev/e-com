@@ -44,7 +44,7 @@ class LogIn extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   const HeaderLogoPart(),
-                  const Gap(AppSizes.spaceBtwItems),
+                  const Gap(AppSizes.spaceBtwDefaultItems),
                   const Text(
                     "Login",
                     textAlign: TextAlign.center,

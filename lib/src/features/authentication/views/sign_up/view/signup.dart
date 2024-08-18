@@ -29,7 +29,7 @@ class SignUp extends StatelessWidget {
               image: AssetImage(AppImages.darkAppLogo),
               width: 150,
             ),
-            Gap(AppSizes.spaceBtwRowItem),
+            Gap(AppSizes.spaceBtwSmallItem),
             Text("Register",
               textAlign: TextAlign.center,
               style: TextStyle(

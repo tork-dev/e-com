@@ -29,7 +29,7 @@ class OnBoardingPage extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           Text(
             subtitleText,
             style: Theme.of(context).textTheme.bodyMedium,

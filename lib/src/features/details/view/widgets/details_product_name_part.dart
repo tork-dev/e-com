@@ -37,7 +37,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                         detailsController
                             .productDetails.value.detailedProducts!.name!,
                         style: Theme.of(context).textTheme.titleMedium),
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Row(
@@ -91,7 +91,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                     await Share.share(link);
                                   },
                                     child: const Icon(Icons.share)),
-                                const Gap(AppSizes.spaceBtwItems),
+                                const Gap(AppSizes.spaceBtwDefaultItems),
                                 InkWell(
                                   onTap: (){
                                     if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
@@ -117,7 +117,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                           )
                         ],
                       ),
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     :  detailsController.productDetails.value
@@ -149,9 +149,9 @@ class AppDetailsProductNamePart extends StatelessWidget {
               ],
             ),
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           AppDividersStyle.fullFlatAppDivider,
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -186,7 +186,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                           decoration:
                                               TextDecoration.lineThrough),
                                 ),
-                                const Gap(AppSizes.spaceBtwRowItem)
+                                const Gap(AppSizes.spaceBtwSmallItem)
                               ],
                             ),
                           ),
@@ -198,7 +198,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                   .apply(color: AppColors.dark)),
                         ],
                       ),
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Row(
@@ -279,7 +279,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
               ],
             ),
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           AppDividersStyle.fullFlatAppDivider
         ],
       );

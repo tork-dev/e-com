@@ -138,7 +138,7 @@ class AppHelperFunctions {
                         ),
                       ),
                     ),
-                    const Gap(AppSizes.spaceBtwRowItem),
+                    const Gap(AppSizes.spaceBtwSmallItem),
                     InkWell(
                       onTap: onRightPress,
                       child: Container(

@@ -112,6 +112,11 @@ class AppApiEndPoints {
   /// Business-settings
   static String businessSettings = "$baseUrl/business-settings";
 
+  /// Reward point
+  static String rewardPoint = "$baseUrl/user-memberships";
+  static String pointRedeemProducts = "$baseUrl/user-memberships-products";
+
+
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";

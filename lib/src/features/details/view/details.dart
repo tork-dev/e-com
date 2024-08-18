@@ -73,12 +73,12 @@ class DetailsPage extends StatelessWidget {
               onRefresh: controller.onRefresh,
               children: [
                 const AppDetailsPicturePart(),
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 const AppDetailsProductNamePart(),
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 const AppDetailsDescriptionPart(),
                 AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 const AppDetailsCategoriesPart(),
                 const AppDetailsFullDescription(),
                 AppDividersStyle.fullFlatAppDivider,
@@ -96,8 +96,8 @@ class DetailsPage extends StatelessWidget {
                   title: 'questions about this products',
                 ),
                 AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwItems),
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 const AppRecommendedAndRelatedProducts()
               ]),
         ));

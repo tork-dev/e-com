@@ -25,7 +25,7 @@ class AppHorizontalProductCard extends StatelessWidget {
             applyImageRadius: false,
             isNetworkImage: true,
               imgUrl: 'https://appbeta.kireibd.com/storage/all/Mentham-Medicated-Moisturizing-Lipstick-Sakura-10.png'),
-          const Gap(AppSizes.spaceBtwRowItem),
+          const Gap(AppSizes.spaceBtwSmallItem),
           AppCardContainer(
             width: 200,
               height: 100,
@@ -40,7 +40,7 @@ class AppHorizontalProductCard extends StatelessWidget {
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis, ),
-                  const Gap(AppSizes.spaceBtwRowItem),
+                  const Gap(AppSizes.spaceBtwSmallItem),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

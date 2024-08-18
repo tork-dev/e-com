@@ -30,7 +30,7 @@ class AccountDetailsScreen extends StatelessWidget {
             children: [
               const Gap(AppSizes.defaultSpace),
               const AppEditProfilePicturePart(),
-              const Gap(AppSizes.spaceBtwItems),
+              const Gap(AppSizes.spaceBtwDefaultItems),
               AppDividersStyle.fullFlatAppDivider,
               const Gap(AppSizes.spaceBtwSections),
               const AppEditProfileTextFields()

@@ -62,7 +62,7 @@ class AppQuestionDescriptionPart extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Gap(AppSizes.spaceBtwItems),
+                      const Gap(AppSizes.spaceBtwDefaultItems),
                     ],
                   ),
                 ),

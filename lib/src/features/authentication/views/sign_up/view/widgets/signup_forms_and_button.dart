@@ -49,7 +49,7 @@ class SignUpFormsAndButton extends StatelessWidget {
               ],
             ),),),
 
-          const Gap(AppSizes.spaceBtwRowItem),
+          const Gap(AppSizes.spaceBtwSmallItem),
 
           const Align(
             alignment: Alignment.centerLeft,

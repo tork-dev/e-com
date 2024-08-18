@@ -37,7 +37,7 @@ class AppHomeAppBarTitle extends StatelessWidget {
               child: Row(
                   children: [
                     Text('Hi, ${AppLocalStorage().readData(LocalStorageKeys.userName ) ?? 'User'} ', style: Theme.of(context).textTheme.bodyLarge,),
-                    const Gap(AppSizes.spaceBtwRowItem),
+                    const Gap(AppSizes.spaceBtwSmallItem),
                     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true?
                      AppCardContainer(
                        padding: const EdgeInsets.all(5),

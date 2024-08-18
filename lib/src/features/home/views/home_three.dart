@@ -38,7 +38,7 @@ class HomeThree extends StatelessWidget {
         body: AppLayoutWithRefresher(
             onRefresh: controller.onRefresh,
             children: [
-              const Gap(AppSizes.spaceBtwItems),
+              const Gap(AppSizes.spaceBtwDefaultItems),
               AppSearchWidget(
                   builder: (context, controller, focusNode) =>
                       HomeSearchDecoration(
@@ -46,11 +46,11 @@ class HomeThree extends StatelessWidget {
                           bottomController: convexBottomNavController,
                           controller: controller,
                           focusNode: focusNode)),
-              const Gap(AppSizes.spaceBtwItems),
+              const Gap(AppSizes.spaceBtwDefaultItems),
               const CustomSlider(),
-              const Gap(AppSizes.spaceBtwItems),
+              const Gap(AppSizes.spaceBtwDefaultItems),
               const AppFeatureCategories(),
-              const Gap(AppSizes.spaceBtwItems),
+              const Gap(AppSizes.spaceBtwDefaultItems),
               const AppSectionTitleText(
                 sectionTitle: 'Best Selling Products',
                 haveTxtButton: false,

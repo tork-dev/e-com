@@ -45,7 +45,7 @@ class AppEditProfileTextFields extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 Text(
                   'Current Password',
                   style: Theme.of(context)
@@ -63,7 +63,7 @@ class AppEditProfileTextFields extends StatelessWidget {
               ],
             ),
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           Text(
             'New Password',
             style: Theme.of(context)
@@ -77,7 +77,7 @@ class AppEditProfileTextFields extends StatelessWidget {
             obscured: true,
             validator: (value) => AppValidator.validatePassword(value),
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           Text(
             'Confirm New Password',
             style: Theme.of(context)
@@ -92,7 +92,7 @@ class AppEditProfileTextFields extends StatelessWidget {
             validator: (value) => AppValidator.validateConfirmPassword(
                 value, accountDetailsController.newPasswordController.text),
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

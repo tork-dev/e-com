@@ -79,7 +79,7 @@ class CommunityPostContainer extends StatelessWidget {
                               isNetworkImage: true,
                               imgUrl: communityController.communityResponse.value.data![index].banner ?? ''),
                         ),
-                        const Gap(AppSizes.spaceBtwItems),
+                        const Gap(AppSizes.spaceBtwDefaultItems),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

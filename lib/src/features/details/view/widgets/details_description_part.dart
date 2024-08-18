@@ -67,7 +67,7 @@ class AppDetailsDescriptionPart extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Gap(AppSizes.spaceBtwItems),
+                      const Gap(AppSizes.spaceBtwDefaultItems),
                     ],
                   ),
                 ),

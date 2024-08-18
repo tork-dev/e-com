@@ -61,7 +61,7 @@ class AppPaymentMethodType extends StatelessWidget {
                 },
               );
             }),
-            const Gap(AppSizes.spaceBtwItems),
+            const Gap(AppSizes.spaceBtwDefaultItems),
             Row(
               children: [
                 Obx(() {

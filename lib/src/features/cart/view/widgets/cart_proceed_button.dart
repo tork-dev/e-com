@@ -41,7 +41,7 @@ class AppCartProceedButton extends StatelessWidget {
                 ],
                            ),
              ),
-            const Gap(AppSizes.spaceBtwItems),
+            const Gap(AppSizes.spaceBtwDefaultItems),
             AppButtons.largeFlatFilledButton(
                 onPressed: (){
                   cartController.proceedToCheckout();

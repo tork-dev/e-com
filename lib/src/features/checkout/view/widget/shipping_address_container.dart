@@ -41,7 +41,7 @@ class AppShippingAddressContainer extends StatelessWidget {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Gap(AppSizes.spaceBtwItems),
+                          const Gap(AppSizes.spaceBtwDefaultItems),
                           Text(
                             '${checkoutController.addressController.nameController.value.text}  |  ${checkoutController.addressController.phoneController.text}',
                             style: const TextStyle(fontWeight: FontWeight.bold),

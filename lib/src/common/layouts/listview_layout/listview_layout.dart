@@ -32,8 +32,8 @@ class AppListViewLayout extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
               padding: isScrollVertically
-                  ?applyPadding? const EdgeInsets.only(bottom: AppSizes.spaceBtwItems) : EdgeInsets.zero
-                  :applyPadding? const EdgeInsets.only(right: AppSizes.spaceBtwItems) : EdgeInsets.zero,
+                  ?applyPadding? const EdgeInsets.only(bottom: AppSizes.spaceBtwDefaultItems) : EdgeInsets.zero
+                  :applyPadding? const EdgeInsets.only(right: AppSizes.spaceBtwDefaultItems) : EdgeInsets.zero,
               child: builderFunction(context, index));
         });
   }
