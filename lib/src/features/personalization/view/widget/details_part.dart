@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/address/view/adress_screen.dart';
 import 'package:kirei/src/features/de_active_account/view/de_active_account.dart';
+import 'package:kirei/src/features/kirei_tube/view/kirei_tube_screen.dart';
 import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/reward_point/view/reward_screen.dart';
@@ -51,6 +52,10 @@ class DetailsCardPart extends StatelessWidget {
             //     onRightPress: (){},
             //     onLeftPress: (){},
             //     rightButtonColor: AppColors.primary)),
+        const Gap(AppSizes.spaceBtwDefaultItems),
+        DetailsCard(
+            cardText: 'Kirei Youtube',
+            onTap: ()=> Get.to(()=> const KireiTubeScreen())),
         const Gap(AppSizes.spaceBtwDefaultItems),
 
       ],

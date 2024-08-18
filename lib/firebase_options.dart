@@ -41,53 +41,58 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAUTn2cddVXbVVvpjajAqz6CyDmHHPC6mE',
-    appId: '1:547850683072:web:ef2233d641e0e5f974e325',
-    messagingSenderId: '547850683072',
-    projectId: 'app-boilerplate-8f2ca',
-    authDomain: 'app-boilerplate-8f2ca.firebaseapp.com',
-    storageBucket: 'app-boilerplate-8f2ca.appspot.com',
-    measurementId: 'G-9LV18CH651',
+    apiKey: 'AIzaSyCSHrYJ-UEpGThmSf4GtbVQr6DjvhsCIm4',
+    appId: '1:379616346839:web:413e4863a2689880bd2692',
+    messagingSenderId: '379616346839',
+    projectId: 'push-notification-3fa23',
+    authDomain: 'push-notification-3fa23.firebaseapp.com',
+    databaseURL: 'https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'push-notification-3fa23.appspot.com',
+    measurementId: 'G-RS77DPHP0K',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBbNVkYTBw1Oyx8jrEisTx6PHvb1Ccycd8',
-    appId: '1:547850683072:android:c466642af1f3a41c74e325',
-    messagingSenderId: '547850683072',
-    projectId: 'app-boilerplate-8f2ca',
-    storageBucket: 'app-boilerplate-8f2ca.appspot.com',
+    apiKey: 'AIzaSyAgl_5sN6czkcOxmFZ3dqhnoMfYZGNfEVM',
+    appId: '1:379616346839:android:6ea35dcaa29a737ebd2692',
+    messagingSenderId: '379616346839',
+    projectId: 'push-notification-3fa23',
+    databaseURL: 'https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'push-notification-3fa23.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA4iUBdrqe7hRTszKOZPyBrPcfbQQ-OUO4',
-    appId: '1:547850683072:ios:897898b48a9505f774e325',
-    messagingSenderId: '547850683072',
-    projectId: 'app-boilerplate-8f2ca',
-    storageBucket: 'app-boilerplate-8f2ca.appspot.com',
-    androidClientId: '547850683072-ghibuud3arbjkr27o5uhp4g1ev4s1quf.apps.googleusercontent.com',
-    iosClientId: '547850683072-qeq9v7uitbsie821ccfis7idkjpierpi.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD1W4y5y3vLwAPTSAB_DyQwY1KOcXrAwMg',
+    appId: '1:379616346839:ios:211e9e19c388e2edbd2692',
+    messagingSenderId: '379616346839',
+    projectId: 'push-notification-3fa23',
+    databaseURL: 'https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'push-notification-3fa23.appspot.com',
+    androidClientId: '379616346839-dr1rmohcbspisrh65igr175j64bop6uc.apps.googleusercontent.com',
+    iosClientId: '379616346839-037pbok2ptdebm0gacemp917aji4m5jl.apps.googleusercontent.com',
     iosBundleId: 'com.thetork.kirei',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA4iUBdrqe7hRTszKOZPyBrPcfbQQ-OUO4',
-    appId: '1:547850683072:ios:897898b48a9505f774e325',
-    messagingSenderId: '547850683072',
-    projectId: 'app-boilerplate-8f2ca',
-    storageBucket: 'app-boilerplate-8f2ca.appspot.com',
-    androidClientId: '547850683072-ghibuud3arbjkr27o5uhp4g1ev4s1quf.apps.googleusercontent.com',
-    iosClientId: '547850683072-qeq9v7uitbsie821ccfis7idkjpierpi.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD1W4y5y3vLwAPTSAB_DyQwY1KOcXrAwMg',
+    appId: '1:379616346839:ios:211e9e19c388e2edbd2692',
+    messagingSenderId: '379616346839',
+    projectId: 'push-notification-3fa23',
+    databaseURL: 'https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'push-notification-3fa23.appspot.com',
+    androidClientId: '379616346839-dr1rmohcbspisrh65igr175j64bop6uc.apps.googleusercontent.com',
+    iosClientId: '379616346839-037pbok2ptdebm0gacemp917aji4m5jl.apps.googleusercontent.com',
     iosBundleId: 'com.thetork.kirei',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAUTn2cddVXbVVvpjajAqz6CyDmHHPC6mE',
-    appId: '1:547850683072:web:b22900426b5542a374e325',
-    messagingSenderId: '547850683072',
-    projectId: 'app-boilerplate-8f2ca',
-    authDomain: 'app-boilerplate-8f2ca.firebaseapp.com',
-    storageBucket: 'app-boilerplate-8f2ca.appspot.com',
-    measurementId: 'G-RJNWBVC0HZ',
+    apiKey: 'AIzaSyCSHrYJ-UEpGThmSf4GtbVQr6DjvhsCIm4',
+    appId: '1:379616346839:web:d04911798cb375a7bd2692',
+    messagingSenderId: '379616346839',
+    projectId: 'push-notification-3fa23',
+    authDomain: 'push-notification-3fa23.firebaseapp.com',
+    databaseURL: 'https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'push-notification-3fa23.appspot.com',
+    measurementId: 'G-VZGD4JD610',
   );
 
 }
