@@ -60,7 +60,7 @@ class CommunityHeader extends StatelessWidget {
               },
             ),
             const Gap(
-              AppSizes.spaceBtwItems,
+              AppSizes.spaceBtwDefaultItems,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../constants/colors.dart';
 
@@ -119,6 +120,71 @@ class AppHelperFunctions {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Text(message, style: Theme.of(context).textTheme.bodyLarge,),
+                const Gap(AppSizes.xs),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: onLeftPress,
+                      child: Container(
+                        height: 40,
+                        width: 100,
+                        alignment: Alignment.center,
+                        decoration:
+                        BoxDecoration(color: leftButtonColor),
+                        child: Text(
+                          leftButtonName,
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: leftButtonTextColor),
+                        ),
+                      ),
+                    ),
+                    const Gap(AppSizes.spaceBtwSmallItem),
+                    InkWell(
+                      onTap: onRightPress,
+                      child: Container(
+                        height: 40,
+                        width: 100,
+                        alignment: Alignment.center,
+                        decoration:
+                             BoxDecoration(color: rightButtonColor),
+                        child: Text(
+                          rightButtonName,
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: rightButtonTextColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
+  static void showPopUpAlert({required String message, required String leftButtonName,
+    required String rightButtonName, required VoidCallback onRightPress, required VoidCallback onLeftPress, required Color rightButtonColor,  Color leftButtonColor = Colors.transparent,  Color rightButtonTextColor = AppColors.white, Color leftButtonTextColor = AppColors.black }) {
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md, vertical: AppSizes.defaultSpace),
+          backgroundColor: AppColors.popUpBackground,
+          content: SizedBox(
+            height: 280.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const AppBannerImage(
+                  height: 80,
+                    width: 70,
+                    imgUrl: 'assets/images/icons/silver_icon.png'),
                 Text(message),
                 const Gap(AppSizes.xs),
                 Row(
@@ -138,7 +204,7 @@ class AppHelperFunctions {
                         ),
                       ),
                     ),
-                    const Gap(AppSizes.spaceBtwRowItem),
+                    const Gap(AppSizes.spaceBtwSmallItem),
                     InkWell(
                       onTap: onRightPress,
                       child: Container(
@@ -146,7 +212,7 @@ class AppHelperFunctions {
                         width: 100,
                         alignment: Alignment.center,
                         decoration:
-                             BoxDecoration(color: rightButtonColor),
+                        BoxDecoration(color: rightButtonColor),
                         child: Text(
                           rightButtonName,
                           style: Theme.of(context).textTheme.bodyLarge!.apply(color: rightButtonTextColor),

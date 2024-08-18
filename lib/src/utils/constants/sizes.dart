@@ -32,7 +32,8 @@ class AppSizes {
 
   // Default spacing between sections
   static const double defaultSpace = 24.0;
-  static const double spaceBtwRowItem = 10.0;
+  static const double spaceBtwSmallItem = 8.0;
+  static const double spaceBtwDefaultItems = 12.0;
   static const double spaceBtwItems = 16.0;
   static const double spaceBtwSections = 32.0;
 

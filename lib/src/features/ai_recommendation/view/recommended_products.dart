@@ -129,7 +129,7 @@ class RecommendedProducts extends StatelessWidget {
                                         isStockAvailable: true);
                                   },
                                 )),
-                            const Gap(AppSizes.spaceBtwItems)
+                            const Gap(AppSizes.spaceBtwDefaultItems)
                           ],
                         );
                       }).toList())

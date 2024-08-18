@@ -25,7 +25,7 @@ class AppRecommendedAndRelatedProducts extends StatelessWidget {
             return AppHorizontalScrollProductCard(
                 sectionName: controller.recommendedProductsResponse.value.data);
           }),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           const AppSectionTitleText(
             sectionTitle: 'RELATED PRODUCTS',
             haveTxtButton: false,

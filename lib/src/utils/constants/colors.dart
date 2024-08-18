@@ -58,6 +58,14 @@ class AppColors {
   //static const Color lightGrey = Color(0xFFF9F9F9);
   //static const Color white = Color(0xFFFFFFFF);
 
+
+  static const Color silver = Color(0xFF808080);
+  static const Color gold = Color(0xFFE6CB3F);
+  static const Color platinum = Color(0xFFFFB763);
+
+
+  static const Color popUpBackground = Color(0xFFDFDFF5);
+
 }
 
 

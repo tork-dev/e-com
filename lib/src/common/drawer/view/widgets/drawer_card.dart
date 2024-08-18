@@ -44,7 +44,7 @@ class DrawerCard extends StatelessWidget {
             child: Row(
               children: [
                 Icon(icon),
-                const Gap(AppSizes.spaceBtwItems),
+                const Gap(AppSizes.spaceBtwDefaultItems),
                 Text(
                   title
                 ),

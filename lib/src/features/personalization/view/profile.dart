@@ -40,11 +40,11 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     AppDividersStyle.fullFlatAppDivider,
-                    const Gap(AppSizes.spaceBtwItems),
+                    const Gap(AppSizes.spaceBtwDefaultItems),
                     const AppCardContainer(
                         width: 200,
                         child: DetailsCardPart()),
-                    const Gap(AppSizes.spaceBtwItems),
+                    const Gap(AppSizes.spaceBtwDefaultItems),
                     AppDividersStyle.fullFlatAppDivider,
                     const Gap(AppSizes.spaceBtwSections),
                     const ProfileLogOutButton()

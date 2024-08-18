@@ -36,7 +36,7 @@ class AppCheckoutOrderProductsCard extends StatelessWidget {
                           productsList[index].productThumbnailImage != null,
                       imgUrl: productsList[index].productThumbnailImage ??
                           AppImages.placeholder),
-                  const Gap(AppSizes.spaceBtwItems),
+                  const Gap(AppSizes.spaceBtwDefaultItems),
                   SizedBox(
                     width: AppHelperFunctions.screenWidth() * .5,
                     child: Column(

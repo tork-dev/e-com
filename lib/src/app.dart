@@ -19,6 +19,10 @@ import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_on
 import 'features/appoinment/view/appointment_screen.dart';
 import 'features/details/bindings/details_bindings.dart';
 import 'features/purchase_history/view/purchase_history_details.dart';
+import 'features/reward_point/view/point_history_screen.dart';
+import 'features/reward_point/view/point_level_screen.dart';
+import 'features/reward_point/view/point_redemption_screen.dart';
+import 'features/reward_point/view/reward_screen.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
 import './utils/constants/text_strings.dart';
@@ -87,6 +91,10 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/return-refund', page: () => const WebViewScreen(url: 'https://kireibd.com/return-refund?type=app', title: 'Returns & Refunds')),
           GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
           GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
+          GetPage(name: '/reward', page: ()=> const RewardScreen()),
+          GetPage(name: '/point-redemption', page: ()=> const PointRedemption()),
+          GetPage(name: '/reward-levels', page: ()=> const RewardPointLevelScreen()),
+          GetPage(name: '/point-history', page: ()=> const RewardPointHistoryScreen())
         ],
 
         //navigatorKey: navigatorKey,

@@ -41,9 +41,9 @@ class AppProductBottomContainer extends StatelessWidget {
               )
             ],
           ),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           Text('The Ultimate Guide to Learning Full Stack', style: Theme.of(context).textTheme.titleMedium,),
-          const Gap(AppSizes.spaceBtwItems),
+          const Gap(AppSizes.spaceBtwDefaultItems),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -58,7 +58,7 @@ class AppProductBottomContainer extends StatelessWidget {
                           image: DecorationImage(image: AssetImage('assets/images/user/user_pic.png')),
                         )
                     ),
-                    const Gap(AppSizes.spaceBtwRowItem),
+                    const Gap(AppSizes.spaceBtwSmallItem),
                     Text('John Doe', style: Theme.of(context).textTheme.labelLarge,),
 
                   ],

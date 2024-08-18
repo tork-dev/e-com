@@ -28,7 +28,7 @@ class AddressScreen extends StatelessWidget {
           onRefresh: controller.onRefresh,
           children:  [
             const AppAllAddressFields(),
-            const Gap(AppSizes.spaceBtwItems),
+            const Gap(AppSizes.spaceBtwDefaultItems),
             AppButtons.largeFlatFilledButton(
                 backgroundColor: AppColors.secondary,
                 onPressed: (){

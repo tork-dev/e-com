@@ -196,7 +196,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Gap(AppSizes.spaceBtwItems),
+                  const Gap(AppSizes.spaceBtwDefaultItems),
 
                   AppButtons.largeFlatFilledButton(
                       backgroundColor: AppColors.secondary,

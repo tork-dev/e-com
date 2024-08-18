@@ -61,7 +61,7 @@ class AppCartProductCard extends StatelessWidget {
                                     fit: BoxFit.fill,
                                     imgUrl: cartController.allCartProducts[0]
                                         .cartItems![index].productThumbnailImage ?? AppImages.placeholder),
-                                const Gap(AppSizes.spaceBtwRowItem),
+                                const Gap(AppSizes.spaceBtwSmallItem),
                                 AppCardContainer(
                                    width: 200,
                                     height: 100,
@@ -78,7 +78,7 @@ class AppCartProductCard extends StatelessWidget {
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        const Gap(AppSizes.spaceBtwRowItem),
+                                        const Gap(AppSizes.spaceBtwSmallItem),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -124,7 +124,7 @@ class AppCartProductCard extends StatelessWidget {
                                                       message:
                                                           'Are you sure to remove this item?',
                                                       leftButtonName: 'Cancel',
-                                                      rightButtonName: 'Confirm',
+                                                      rightButtonName: 'Delete',
                                                       rightButtonColor: AppColors.primary);
                                                 },
                                                 child: const Icon(

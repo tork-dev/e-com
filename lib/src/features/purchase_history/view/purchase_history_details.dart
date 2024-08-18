@@ -31,7 +31,7 @@ class PurchaseHistoryDetails extends StatelessWidget {
               const AppOrderShippingDetailsCard(),
               const Gap(AppSizes.spaceBtwSections),
               Center(child: Text('Order Products', style: Theme.of(context).textTheme.titleLarge,)),
-              const Gap(AppSizes.spaceBtwItems),
+              const Gap(AppSizes.spaceBtwDefaultItems),
               const AppPurchaseHistoryDetailsItem(),
               const Gap(AppSizes.spaceBtwSections),
               const AppPurchaseHistoryDetailsSummary()

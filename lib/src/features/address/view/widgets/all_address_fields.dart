@@ -33,27 +33,27 @@ class AppAllAddressFields extends StatelessWidget {
             fieldTitle: 'Name*',
             hintText: 'Enter name',
           ),
-          const Gap(AppSizes.spaceBtwRowItem),
+          const Gap(AppSizes.spaceBtwSmallItem),
           AppAddressTextField(
             controller: addressController.phoneController,
             fieldTitle: 'Phone*',
             hintText: 'Enter phone',
           ),
-          const Gap(AppSizes.spaceBtwRowItem),
+          const Gap(AppSizes.spaceBtwSmallItem),
           AppAddressTextField(
             validator: (value) => AppValidator.validateEmail(value),
             controller: addressController.emailController,
             fieldTitle: 'Email',
             hintText: 'Enter email',
           ),
-          const Gap(AppSizes.spaceBtwRowItem),
+          const Gap(AppSizes.spaceBtwSmallItem),
           AppAddressTextField(
             controller: addressController.addressController,
             verticalPadding: 20,
             fieldTitle: 'Address*',
             hintText: 'Enter address',
           ),
-          const Gap(AppSizes.spaceBtwRowItem),
+          const Gap(AppSizes.spaceBtwSmallItem),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -64,7 +64,7 @@ class AppAppointmentForms extends StatelessWidget {
             return null;
           },
         ),
-        const Gap(AppSizes.spaceBtwItems),
+        const Gap(AppSizes.spaceBtwDefaultItems),
         const Text('Appointment Fee: 499 BDT', style: TextStyle(color: AppColors.warning),),
         Obx(() {
             return Column(
