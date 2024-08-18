@@ -117,6 +117,9 @@ class AppApiEndPoints {
   static String pointRedeemProducts = "$baseUrl/user-memberships-products";
 
 
+  ///Kirei-tube
+  static String kireiTubeList = "$baseUrl/youtube-videos";
+
 
 // static String AddOns = "$baseUrl/addon-list";
 // static String AddrList = "$baseUrl/user/shipping/address";

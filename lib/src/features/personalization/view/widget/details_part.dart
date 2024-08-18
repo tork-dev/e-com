@@ -7,7 +7,9 @@ import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/reward_point/view/reward_screen.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import 'details_card.dart';
 
@@ -42,6 +44,13 @@ class DetailsCardPart extends StatelessWidget {
         DetailsCard(
             cardText: 'My Rewards',
             onTap: ()=> Get.to(()=> const RewardScreen())),
+            // onTap: ()=> AppHelperFunctions.showPopUpAlert(
+            //     message: 'pop up',
+            //     leftButtonName: 'yes',
+            //     rightButtonName: 'no',
+            //     onRightPress: (){},
+            //     onLeftPress: (){},
+            //     rightButtonColor: AppColors.primary)),
         const Gap(AppSizes.spaceBtwDefaultItems),
 
       ],

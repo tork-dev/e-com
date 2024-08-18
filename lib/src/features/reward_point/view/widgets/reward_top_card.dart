@@ -35,17 +35,22 @@ class RewardTopCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Membership',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          shadows: [
-                            const Shadow(
-                                color: Colors.black, offset: Offset(0, -5))
-                          ],
-                          color: Colors.transparent,
-                          decoration: TextDecoration.underline,
-                          decorationThickness: 3,
-                          decorationColor: Colors.black,
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed('/reward-levels');
+                        },
+                        child: Text(
+                          'Membership',
+                          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            shadows: [
+                              const Shadow(
+                                  color: Colors.black, offset: Offset(0, -5))
+                            ],
+                            color: Colors.transparent,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 3,
+                            decorationColor: Colors.black,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -162,17 +167,22 @@ class RewardTopCard extends StatelessWidget {
                                   .copyWith(fontWeight: FontWeight.w700)),
                         ],
                       ),
-                      Text(
-                        'Points History',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          shadows: [
-                            const Shadow(
-                                color: Colors.black, offset: Offset(0, -5))
-                          ],
-                          color: Colors.transparent,
-                          decoration: TextDecoration.underline,
-                          decorationThickness: 2,
-                          decorationColor: Colors.black,
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed('/point-history');
+                        },
+                        child: Text(
+                          'Points History',
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            shadows: [
+                              const Shadow(
+                                  color: Colors.black, offset: Offset(0, -5))
+                            ],
+                            color: Colors.transparent,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 2,
+                            decorationColor: Colors.black,
+                          ),
                         ),
                       ),
                     ],

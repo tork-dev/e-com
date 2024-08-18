@@ -124,7 +124,7 @@ class AppCartProductCard extends StatelessWidget {
                                                       message:
                                                           'Are you sure to remove this item?',
                                                       leftButtonName: 'Cancel',
-                                                      rightButtonName: 'Confirm',
+                                                      rightButtonName: 'Delete',
                                                       rightButtonColor: AppColors.primary);
                                                 },
                                                 child: const Icon(

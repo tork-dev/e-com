@@ -63,6 +63,9 @@ class AppColors {
   static const Color gold = Color(0xFFE6CB3F);
   static const Color platinum = Color(0xFFFFB763);
 
+
+  static const Color popUpBackground = Color(0xFFDFDFF5);
+
 }
 
 
