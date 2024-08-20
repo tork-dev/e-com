@@ -38,6 +38,7 @@ class OnBoardingController extends GetxController{
 
   /// Skip on-boarding pages
   void skipPage(){
-    pageController.jumpToPage(2);
+    AppLocalStorage().saveDataIfNull(LocalStorageKeys.isNotFirstTime, true);
+    Get.offAll(const HelloConvexAppBar());
   }
 }

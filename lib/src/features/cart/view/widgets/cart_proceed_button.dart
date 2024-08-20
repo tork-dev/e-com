@@ -45,6 +45,7 @@ class AppCartProceedButton extends StatelessWidget {
             AppButtons.largeFlatFilledButton(
                 onPressed: (){
                   cartController.proceedToCheckout();
+
                   // Get.to(()=> const CheckoutScreen());
                 },
                 buttonText: 'PROCEED TO CHECKOUT', backgroundColor: AppColors.secondary)

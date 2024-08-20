@@ -17,5 +17,6 @@ class LocalStorageKeys{
   static const String googleLogin = "googleLogin";
   static const String appleLogin = "appleLogin";
   static const String activeDoctorAppointment = "activeDoctorAppointment";
+  static const String gaipUserId = "gaip_user_id";
 
  }

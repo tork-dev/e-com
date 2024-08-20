@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
@@ -9,6 +11,7 @@ import 'package:kirei/src/features/checkout/model/payment_types_model.dart';
 import 'package:kirei/src/features/checkout/repositories/checkout_repositories.dart';
 import 'package:kirei/src/features/checkout/view/widget/bkash_screen.dart';
 import 'package:kirei/src/features/checkout/view/order_status_page.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/features/address/controller/address_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -126,10 +129,8 @@ class CheckoutController extends GetxController {
 
     Map<String, dynamic> requestBody = prepareRequestBody();
 
-    try {
-      print('_selected_payment_method $selectedPaymentMethodName');
-      print('this is my Order request' + requestBody.toString());
 
+    try {
       orderCreateResponse.value = await CheckoutRepositories()
           .getOrderCreateResponseFromCod(requestBody: requestBody);
 
@@ -159,6 +160,18 @@ class CheckoutController extends GetxController {
             status: orderCreateResponse.value.result ?? false,
             orderId: orderCreateResponse.value.data!.order!.id!,
           ));
+
+      if(orderCreateResponse.value.result == true){
+        final List<Map<String, dynamic>> items = allCartProducts[0].cartItems!.map((item) {
+          return {
+            'item_id': item.productId,
+            'price': item.price,
+            'quantity': item.quantity,
+          };
+        }).toList();
+
+        EventLogger().logPurchaseEvent(jsonEncode(items), checkoutSummary.value.grandTotalValue);
+      }
 
       // Additional logic for payment handling can be added here
     } catch (e) {

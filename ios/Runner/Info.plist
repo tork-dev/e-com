@@ -31,6 +31,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAppID</key>
 	<string>7989294924414445</string>
+	<key>FacebookClientToken</key>
+    <string>a80730de25ce0a033cd49f0396ef5aa3</string>
 	<key>FacebookDisplayName</key>
 	<string>Kirei</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -149,4 +151,20 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>
+
+
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>https</string>
+    </array>
+    <key>CFBundleURLName</key>
+    <string>beta.kireibd.com</string>
+  </dict>
+</array>
+<key>FlutterDeepLinkingEnabled</key>
+<true/>
+
 </plist>

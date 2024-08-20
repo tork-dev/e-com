@@ -5,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/app.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:kirei/src/utils/helpers/deep_link_helper.dart';
 import 'firebase_options.dart';
 
 
@@ -32,9 +31,14 @@ Future<void> main() async {
   );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+
+
   // PushNotificationService().notificationController();
   // await PushNotificationService().handelBackAndTerminateState();
-  DeepLinkHelper().deepLinkController();
+  // DeepLinkHelper().deepLinkController();
+
+  // AppLinksDeepLink().initDeepLinks();
 
 
   // Get any initial links

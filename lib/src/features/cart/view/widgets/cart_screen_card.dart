@@ -41,7 +41,6 @@ class AppCartProductCard extends StatelessWidget {
                       .allCartProducts.isEmpty
                   ? ShimmerHelper().buildBasicShimmer(height: 150)
                   : AppCardContainer(
-                      onTap: ()=> Get.toNamed('/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
                       backgroundColor: AppColors.white,
                       applyRadius: false,
                       padding: const EdgeInsets.all(AppSizes.sm),
@@ -53,6 +52,7 @@ class AppCartProductCard extends StatelessWidget {
                             child: Row(
                               children: [
                                 AppBannerImage(
+                                  onPress: ()=> Get.toNamed('/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
                                     height: 100,
                                     width: 70,
                                     applyImageRadius: false,
@@ -71,12 +71,15 @@ class AppCartProductCard extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          cartController.allCartProducts[0]
-                                              .cartItems![index].productName!,
-                                          style: const TextStyle(fontSize: 16),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
+                                        InkWell(
+                                          onTap: ()=> Get.toNamed('/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
+                                          child: Text(
+                                            cartController.allCartProducts[0]
+                                                .cartItems![index].productName!,
+                                            style: const TextStyle(fontSize: 16),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                         const Gap(AppSizes.spaceBtwSmallItem),
                                         Row(

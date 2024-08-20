@@ -9,6 +9,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
+import '../../../utils/firebase/gtm_events.dart';
 import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
 import '../model/products_model.dart';
@@ -17,7 +18,6 @@ class DetailsPageController extends GetxController {
   static DetailsPageController get instance => Get.find();
 
   final homeController = Get.put(HomeController(callApis: false));
-  
 
   RxString productSlug = ''.obs;
 
@@ -33,9 +33,10 @@ class DetailsPageController extends GetxController {
   Rx<WishListAddResponse> addToWishlist = WishListAddResponse().obs;
   Rx<WishListAddResponse> checkWishList = WishListAddResponse().obs;
   Rx<WishListAddResponse> removeFromWishList = WishListAddResponse().obs;
-  Rx<DetailsProductsResponse> relatedProductsResponse = DetailsProductsResponse().obs;
-  Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
-
+  Rx<DetailsProductsResponse> relatedProductsResponse =
+      DetailsProductsResponse().obs;
+  Rx<DetailsProductsResponse> recommendedProductsResponse =
+      DetailsProductsResponse().obs;
 
   @override
   void onInit() {
@@ -44,11 +45,11 @@ class DetailsPageController extends GetxController {
     onRefresh();
   }
 
-  Future<void> onRefresh() async{
-     await getProductDetails();
-     await getRelatedProducts();
-     await getRecommendedProducts();
-    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+  Future<void> onRefresh() async {
+    await getProductDetails();
+    await getRelatedProducts();
+    await getRecommendedProducts();
+    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
       await checkWishListAdd();
     }
   }
@@ -63,17 +64,18 @@ class DetailsPageController extends GetxController {
   }
 
   void onAddButtonTap() {
-    if(productCount.value < productDetails.value.detailedProducts!.stock!) {
+    if (productCount.value < productDetails.value.detailedProducts!.stock!) {
       productCount.value++;
-    }else{
-      AppHelperFunctions.showToast("Can't order more than ${productDetails.value.detailedProducts!.stock!}");
+    } else {
+      AppHelperFunctions.showToast(
+          "Can't order more than ${productDetails.value.detailedProducts!.stock!}");
     }
   }
 
   void onRemoveButtonTap() {
-    if(productCount.value > 1) {
+    if (productCount.value > 1) {
       productCount.value--;
-    }else{
+    } else {
       AppHelperFunctions.showToast("Minimum order value is 1");
     }
   }
@@ -85,26 +87,38 @@ class DetailsPageController extends GetxController {
             productCount.value,
             productDetails.value.detailedProducts!.preorderAvailable!)
         .then((value) => {
-          isAddedToCart.value = true,
-          AppHelperFunctions.showToast(homeController.addToCartResponse.value.message!),
+              isAddedToCart.value = true,
+              AppHelperFunctions.showToast(
+                  homeController.addToCartResponse.value.message!),
+              EventLogger().logAddToCartEvent(
+                  productDetails.value.detailedProducts!.slug!,
+                  productDetails.value.detailedProducts!.salePrice)
             });
   }
 
-  Future<WishListAddResponse> getWishListAdd()async{
-    return addToWishlist.value = await WishlistRepositories().addToWishList(productId: productDetails.value.detailedProducts!.id!);
-  }
-  Future<WishListAddResponse> checkWishListAdd()async{
-    return checkWishList.value = await WishlistRepositories().isProductInUserWishList(productId: productDetails.value.detailedProducts!.id!);
-  }
-  Future<WishListAddResponse> wishListRemove()async{
-    return removeFromWishList.value = await WishlistRepositories().removeResponse(productDetails.value.detailedProducts!.id!);
+  Future<WishListAddResponse> getWishListAdd() async {
+    return addToWishlist.value = await WishlistRepositories()
+        .addToWishList(productId: productDetails.value.detailedProducts!.id!);
   }
 
-  Future<DetailsProductsResponse> getRelatedProducts() async{
-    return relatedProductsResponse.value = await DetailsRepositories.getRelatedProducts(productSlug.value);
-  }
-  Future<DetailsProductsResponse> getRecommendedProducts() async{
-    return recommendedProductsResponse.value = await DetailsRepositories.getRecommendedProduct();
+  Future<WishListAddResponse> checkWishListAdd() async {
+    return checkWishList.value = await WishlistRepositories()
+        .isProductInUserWishList(
+            productId: productDetails.value.detailedProducts!.id!);
   }
 
+  Future<WishListAddResponse> wishListRemove() async {
+    return removeFromWishList.value = await WishlistRepositories()
+        .removeResponse(productDetails.value.detailedProducts!.id!);
+  }
+
+  Future<DetailsProductsResponse> getRelatedProducts() async {
+    return relatedProductsResponse.value =
+        await DetailsRepositories.getRelatedProducts(productSlug.value);
+  }
+
+  Future<DetailsProductsResponse> getRecommendedProducts() async {
+    return recommendedProductsResponse.value =
+        await DetailsRepositories.getRecommendedProduct();
+  }
 }

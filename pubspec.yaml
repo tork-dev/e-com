@@ -1,6 +1,6 @@
 name: kirei
 
-description: "A new Flutter project."
+description: "Japanese Beauty Products Store in Bangladesh – Authentic Products..."
 
 publish_to: 'none'
 
@@ -54,12 +54,14 @@ dependencies:
   insta_image_viewer: ^1.0.4
   flutter_facebook_auth: ^7.0.1
   sign_in_with_apple: ^6.1.1
-  firebase_analytics: ^10.10.7
-  firebase_dynamic_links: ^5.5.7
-  app_links: ^6.1.4
+
+#  firebase_dynamic_links: ^5.5.7
+#  app_links: ^6.1.4
   like_button: ^2.0.5
   comment_box: ^0.0.18
   flutter_local_notifications: ^17.2.1+2
+  gtm: ^0.1.6
+  facebook_app_events: ^0.19.2
 
   # Icons
   cupertino_icons: ^1.0.6
@@ -78,7 +80,9 @@ dependencies:
   google_sign_in: ^6.2.1
   firebase_auth: ^4.18.0
   firebase_messaging: ^14.7.20
-  cloud_firestore: ^4.15.10
+  firebase_analytics: ^10.10.7
+#  cloud_firestore: ^4.15.10
+
 
   # Awesome plugins
 #  awesome_notifications_core: ^0.8.0
@@ -121,9 +125,7 @@ flutter:
     - assets/images/logos/
     - assets/images/icons/
     - assets/images/banners/
-    - assets/images/animations/
     - assets/images/on_boarding_images/
-    - assets/images/pdf_a/
     - assets/images/recommendation/
     - .env
 

@@ -12,6 +12,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../model/resend_code_model.dart';
@@ -84,6 +85,8 @@ class LogInPageController extends GetxController {
         passwordController.text.toString(),
         rememberMe.value,
       );
+
+      AppLoggerHelper.info(loginResponse.value.toString());
 
       ///Save
       AppLocalStorage()

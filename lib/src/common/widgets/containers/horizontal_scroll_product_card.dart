@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gtm/gtm.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -22,6 +24,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
+    final gtm = Gtm.instance;
     return SizedBox(
         height: sectionName == null ? 170 : 270,
         child: AppListViewLayout(
@@ -33,6 +36,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     height: 150,
                     width: 150,
                     onTap: () {
+                      EventLogger().logProductDetailsViewEvent('${sectionName![index].slug}');
                       Get.reload<DetailsPageController>();
                       Get.toNamed('/product/${sectionName![index].slug}');
                     },
@@ -40,6 +44,9 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                       if (AppLocalStorage()
                               .readData(LocalStorageKeys.isLoggedIn) !=
                           null) {
+
+                        EventLogger().logAddToCartEvent('${sectionName![index].slug}', sectionName![index].salePrice!);
+
                         if (sectionName![index].requestAvailable != 0) {
                           cartController
                               .getRequestResponse(

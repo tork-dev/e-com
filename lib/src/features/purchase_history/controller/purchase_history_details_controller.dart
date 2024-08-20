@@ -51,6 +51,7 @@ class PurchaseHistoryDetailsController extends GetxController {
     onRefresh();
   }
 
+
   Future onRefresh() async {
     print('refresh');
      await getPurchaseHistoryDetails();
@@ -63,9 +64,9 @@ class PurchaseHistoryDetailsController extends GetxController {
     phoneController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.phone!;
     emailController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.email ?? '';
     addressController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.address!;
-    selectedCityName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.city!;
+    selectedCityName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.state!;
     selectedCityId.value = purchaseHistoryDetails.value.data![0].shippingAddress!.cityId!;
-    selectedZoneName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.state!;
+    selectedZoneName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.city!;
     selectedZoneId.value = purchaseHistoryDetails.value.data![0].shippingAddress!.zoneId!;
     selectedAreaName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.area!;
     selectedAreaId.value = purchaseHistoryDetails.value.data![0].shippingAddress!.areaId!;

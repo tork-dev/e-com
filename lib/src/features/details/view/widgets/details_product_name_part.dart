@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
@@ -82,36 +83,67 @@ class AppDetailsProductNamePart extends StatelessWidget {
                               ],
                             ),
                           ),
-                           SizedBox(
+                          SizedBox(
                             child: Row(
                               children: [
                                 InkWell(
-                                  onTap: ()async{
-                                    final String link = detailsController.productDetails.value.detailedProducts!.productLink!;
-                                    await Share.share(link);
-                                  },
+                                    onTap: () async {
+                                      final String link = detailsController
+                                          .productDetails
+                                          .value
+                                          .detailedProducts!
+                                          .productLink!;
+                                      await Share.share(link);
+                                    },
                                     child: const Icon(Icons.share)),
                                 const Gap(AppSizes.spaceBtwDefaultItems),
-                                InkWell(
-                                  onTap: (){
-                                    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
-
-                                      detailsController.checkWishList.value.isInWishlist == false ?
-                                      detailsController.getWishListAdd().then((value)=>{
-                                        detailsController.checkWishListAdd(),
-                                        AppHelperFunctions.showToast(detailsController.addToWishlist.value.message!),
-                                      }) : detailsController.wishListRemove().then((value) => {
-                                        detailsController.checkWishListAdd(),
-                                        AppHelperFunctions.showToast(detailsController.removeFromWishList.value.message!),
-                                      });
-                                    }else{
-                                      Get.to(()=> const LogIn());
-                                    }
-                                  },
-                                    child: Obx(() {
-                                        return Icon(detailsController.checkWishList.value.isInWishlist == true? Icons.favorite : Icons.favorite_border);
-                                      }
-                                    ))
+                                InkWell(onTap: () {
+                                  if (AppLocalStorage().readData(
+                                          LocalStorageKeys.isLoggedIn) ==
+                                      true) {
+                                    detailsController.checkWishList.value
+                                                .isInWishlist ==
+                                            false
+                                        ? detailsController
+                                            .getWishListAdd()
+                                            .then((value) => {
+                                                  EventLogger()
+                                                      .logAddToWishlistEvent(
+                                                          '${detailsController.productDetails.value.detailedProducts!.slug}',
+                                                          detailsController
+                                                              .productDetails
+                                                              .value
+                                                              .detailedProducts!
+                                                              .salePrice),
+                                                  detailsController
+                                                      .checkWishListAdd(),
+                                                  AppHelperFunctions.showToast(
+                                                      detailsController
+                                                          .addToWishlist
+                                                          .value
+                                                          .message!),
+                                                })
+                                        : detailsController
+                                            .wishListRemove()
+                                            .then((value) => {
+                                                  detailsController
+                                                      .checkWishListAdd(),
+                                                  AppHelperFunctions.showToast(
+                                                      detailsController
+                                                          .removeFromWishList
+                                                          .value
+                                                          .message!),
+                                                });
+                                  } else {
+                                    Get.to(() => const LogIn());
+                                  }
+                                }, child: Obx(() {
+                                  return Icon(detailsController.checkWishList
+                                              .value.isInWishlist ==
+                                          true
+                                      ? Icons.favorite
+                                      : Icons.favorite_border);
+                                }))
                               ],
                             ),
                           )
@@ -120,19 +152,19 @@ class AppDetailsProductNamePart extends StatelessWidget {
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
-                    :  detailsController.productDetails.value
-                    .detailedProducts!.productBrands!.isNotEmpty ?
-                Row(
-                        children: [
-                          Text(
-                            'Brand: ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .apply(color: AppColors.darkGrey),
-                          ),
-                          const Gap(AppSizes.spaceBtwSections),
-                          Text(
+                    : detailsController.productDetails.value.detailedProducts!
+                            .productBrands!.isNotEmpty
+                        ? Row(
+                            children: [
+                              Text(
+                                'Brand: ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .apply(color: AppColors.darkGrey),
+                              ),
+                              const Gap(AppSizes.spaceBtwSections),
+                              Text(
                                   detailsController
                                           .productDetails
                                           .value
@@ -144,8 +176,9 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                       .textTheme
                                       .bodyLarge!
                                       .apply(color: AppColors.darkGrey))
-                        ],
-                      ) : const SizedBox()
+                            ],
+                          )
+                        : const SizedBox()
               ],
             ),
           ),
@@ -218,22 +251,25 @@ class AppDetailsProductNamePart extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
-                                    onTap: ()=> detailsController.onRemoveButtonTap(),
+                                    onTap: () =>
+                                        detailsController.onRemoveButtonTap(),
                                     child: const Icon(
                                       Icons.remove,
                                       size: 30,
                                     )),
-                                 AppCardContainer(
+                                AppCardContainer(
                                     height: 30,
                                     width: 30,
                                     hasBorder: true,
                                     borderWidth: 1,
                                     applyRadius: false,
                                     child: Center(
-                                      child: Text('${detailsController.productCount.value}'),
+                                      child: Text(
+                                          '${detailsController.productCount.value}'),
                                     )),
                                 InkWell(
-                                  onTap: ()=> detailsController.onAddButtonTap(),
+                                  onTap: () =>
+                                      detailsController.onAddButtonTap(),
                                   child: const Icon(
                                     Icons.add,
                                     size: 30,

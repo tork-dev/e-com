@@ -10,7 +10,7 @@ class SliderController extends GetxController{
   static SliderController get instance => Get.find();
 
   final carouselCurrentIndex = 0.obs;
-  final pageController = CarouselController();
+  //final pageController = CarouselController();
   RxList homeSliders = [].obs;
   RxList homeSlidersLink = [].obs;
 

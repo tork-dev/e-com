@@ -17,38 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.30"
-  app_links:
-    dependency: "direct main"
-    description:
-      name: app_links
-      sha256: "4acba851087b25136e8f6e32a53bd4536eb3bec69947ddb66e7b9a5792ceb0c7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.2.0"
-  app_links_linux:
-    dependency: transitive
-    description:
-      name: app_links_linux
-      sha256: f5f7173a78609f3dfd4c2ff2c95bd559ab43c80a87dc6a095921d96c05688c81
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.3"
-  app_links_platform_interface:
-    dependency: transitive
-    description:
-      name: app_links_platform_interface
-      sha256: "05f5379577c513b534a29ddea68176a4d4802c46180ee8e2e966257158772a3f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
-  app_links_web:
-    dependency: transitive
-    description:
-      name: app_links_web
-      sha256: af060ed76183f9e2b87510a9480e56a5352b6c249778d07bd2c95fc35632a555
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4"
   archive:
     dependency: transitive
     description:
@@ -161,30 +129,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  cloud_firestore:
-    dependency: "direct main"
-    description:
-      name: cloud_firestore
-      sha256: a0f161b92610e078b4962d7e6ebeb66dc9cce0ada3514aeee442f68165d78185
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.17.5"
-  cloud_firestore_platform_interface:
-    dependency: transitive
-    description:
-      name: cloud_firestore_platform_interface
-      sha256: "6a55b319f8d33c307396b9104512e8130a61904528ab7bd8b5402678fca54b81"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.2.5"
-  cloud_firestore_web:
-    dependency: transitive
-    description:
-      name: cloud_firestore_web
-      sha256: "89dfa1304d3da48b3039abbb2865e3d30896ef858e569a16804a99f4362283a9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.12.5"
   collection:
     dependency: transitive
     description:
@@ -305,6 +249,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.1"
+  facebook_app_events:
+    dependency: "direct main"
+    description:
+      name: facebook_app_events
+      sha256: "01c4f3ea5ec3e4bf492c8d782e569ca2251f2b67d34504efba24887e63dd42da"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.2"
   facebook_auth_desktop:
     dependency: transitive
     description:
@@ -441,22 +393,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.17.4"
-  firebase_dynamic_links:
-    dependency: "direct main"
-    description:
-      name: firebase_dynamic_links
-      sha256: "47b8c8a8546d8a7f9000edb90848549f20b137d814ee7e0407b3d43b8445e282"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.5.7"
-  firebase_dynamic_links_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_dynamic_links_platform_interface
-      sha256: "72e7810635f908ce060c5803c7acb29116c5b6befc73e90446c52722bc9506a2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.6+35"
   firebase_messaging:
     dependency: "direct main"
     description:
@@ -797,14 +733,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.4+2"
-  gtk:
-    dependency: transitive
+  gtm:
+    dependency: "direct main"
     description:
-      name: gtk
-      sha256: e8ce9ca4b1df106e4d72dad201d345ea1a036cc12c360f1a7d5a758f78ffa42c
+      name: gtm
+      sha256: d625eebbf5e1c614d44576df90b40225bb8eeef53824b3d0a45bc44bb2f0e824
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "0.1.6"
+  gtm_android:
+    dependency: transitive
+    description:
+      name: gtm_android
+      sha256: "9d6b8827a0cdd8beae4f31a5e61d8e7e12045430075893752d6d48a2ceff7e18"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
+  gtm_ios:
+    dependency: transitive
+    description:
+      name: gtm_ios
+      sha256: f054b2a08814e75eb57496349c06a5a7ff0f26e7686b1105b694ca8ef9f877fe
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
+  gtm_platform_interface:
+    dependency: transitive
+    description:
+      name: gtm_platform_interface
+      sha256: "65b7f3a2b1ba61f4ffbfa3282ce2095daa7cd8c430b635d532c19ffa509630bb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   html:
     dependency: transitive
     description:

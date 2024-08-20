@@ -9,6 +9,7 @@ import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 
 import '../../../../common/layouts/gridview_layout/gridview_layout.dart';
 import '../../../../common/styles/app_dividers.dart';
@@ -63,13 +64,17 @@ class AppShopGridScrollCard extends StatelessWidget {
                               )
                             : AppVerticalProductCard(
                                 onTap: () {
-                                  Get.toNamed('/product/${shopController
-                                      .allProducts[index].slug!}');
+                                  Get.toNamed(
+                                      '/product/${shopController.allProducts[index].slug!}');
                                 },
                                 onCartTap: () {
                                   if (AppLocalStorage().readData(
                                           LocalStorageKeys.isLoggedIn) !=
                                       null) {
+                                    EventLogger().logAddToCartEvent(
+                                        shopController.allProducts[index].slug!,
+                                        shopController
+                                            .allProducts[index].salePrice);
                                     if (shopController.allProducts[index]
                                             .requestAvailable !=
                                         0) {
