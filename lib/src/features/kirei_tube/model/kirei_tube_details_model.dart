@@ -92,7 +92,7 @@ class Product {
   int? id;
   String? name;
   String? slug;
-  int? price;
+  dynamic price;
   int? salePrice;
   int? discount;
   String? sku;

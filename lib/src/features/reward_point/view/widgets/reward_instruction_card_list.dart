@@ -17,7 +17,7 @@ class RewardInstructionCardList extends StatelessWidget {
         ),
         Gap(AppSizes.spaceBtwItems),
         RewardInstructionCard(
-          imgUrl: 'assets/images/icons/redeem_eward.png',
+          imgUrl: 'assets/images/icons/redeem_reward.png',
           title: 'How to redeem points',
           subTitle: 'There are many variations of passages of Lorem Ipsum.',
         )

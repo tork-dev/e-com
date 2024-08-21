@@ -18,6 +18,8 @@ import '../main.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
 import 'features/details/bindings/details_bindings.dart';
+import 'features/kirei_tube/view/kirei_tube_details.dart';
+import 'features/kirei_tube/view/kirei_tube_screen.dart';
 import 'features/purchase_history/view/purchase_history_details.dart';
 import 'features/reward_point/view/point_history_screen.dart';
 import 'features/reward_point/view/point_level_screen.dart';
@@ -94,7 +96,9 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/reward', page: ()=> const RewardScreen()),
           GetPage(name: '/point-redemption', page: ()=> const PointRedemption()),
           GetPage(name: '/reward-levels', page: ()=> const RewardPointLevelScreen()),
-          GetPage(name: '/point-history', page: ()=> const RewardPointHistoryScreen())
+          GetPage(name: '/point-history', page: ()=> const RewardPointHistoryScreen()),
+          GetPage(name: '/kirei-tube', page: ()=> const KireiTubeScreen()),
+          GetPage(name: '/kirei-tube/:id', page: ()=> const KireiTubeDetailsScreen())
         ],
 
         //navigatorKey: navigatorKey,

@@ -48,7 +48,7 @@ class RecommendationGoalFour extends StatelessWidget {
                     isDone: true,
                   ),
                   Image.asset(
-                    AppImages.forwardArrow,
+                    AppImages.forwardArrowIcon,
                     width: 25,
                   ),
                   const CircularProgressSection(

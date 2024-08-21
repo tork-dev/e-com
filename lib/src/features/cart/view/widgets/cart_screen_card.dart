@@ -30,7 +30,7 @@ class AppCartProductCard extends StatelessWidget {
               onTap: () {
                 bottomNavController.jumpToTab(1);
               },
-              imgUrl: AppImages.emptyShoppingBag,
+              imgUrl: AppImages.emptyShoppingBagIcon,
               titleText: 'No Products added to the cart',
               buttonName: 'GO SHOP')
           : AppListViewLayout(

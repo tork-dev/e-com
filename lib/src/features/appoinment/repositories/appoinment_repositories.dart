@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
-
 import '../model/appointment_model.dart';
 class AppointmentRepository {
   Future<AppointmentResponse> submitAppointment({
