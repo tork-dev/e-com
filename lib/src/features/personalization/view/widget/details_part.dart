@@ -44,14 +44,14 @@ class DetailsCardPart extends StatelessWidget {
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'My Rewards',
-            onTap: ()=> Get.to(()=> const RewardScreen())),
-            // onTap: ()=> AppHelperFunctions.showPopUpAlert(
-            //     message: 'pop up',
-            //     leftButtonName: 'yes',
-            //     rightButtonName: 'no',
-            //     onRightPress: (){},
-            //     onLeftPress: (){},
-            //     rightButtonColor: AppColors.primary)),
+            // onTap: ()=> Get.to(()=> const RewardScreen())),
+            onTap: ()=> AppHelperFunctions.showPopUpAlert(
+                message: 'pop up',
+                leftButtonName: 'Cancel',
+                rightButtonName: 'Ok',
+                onRightPress: (){},
+                onLeftPress: (){},
+                )),
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'Kirei Youtube',

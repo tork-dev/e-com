@@ -1,10 +1,13 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../constants/colors.dart';
 
@@ -104,8 +107,16 @@ class AppHelperFunctions {
     );
   }
 
-  static void showAlert({required String message, required String leftButtonName,
-      required String rightButtonName, required VoidCallback onRightPress, required VoidCallback onLeftPress, required Color rightButtonColor,  Color leftButtonColor = Colors.transparent,  Color rightButtonTextColor = AppColors.white, Color leftButtonTextColor = AppColors.black }) {
+  static void showAlert(
+      {required String message,
+      required String leftButtonName,
+      required String rightButtonName,
+      required VoidCallback onRightPress,
+      required VoidCallback onLeftPress,
+      required Color rightButtonColor,
+      Color leftButtonColor = Colors.transparent,
+      Color rightButtonTextColor = AppColors.white,
+      Color leftButtonTextColor = AppColors.black}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -120,7 +131,10 @@ class AppHelperFunctions {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(message, style: Theme.of(context).textTheme.bodyLarge,),
+                Text(
+                  message,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
                 const Gap(AppSizes.xs),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -131,11 +145,13 @@ class AppHelperFunctions {
                         height: 40,
                         width: 100,
                         alignment: Alignment.center,
-                        decoration:
-                        BoxDecoration(color: leftButtonColor),
+                        decoration: BoxDecoration(color: leftButtonColor),
                         child: Text(
                           leftButtonName,
-                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: leftButtonTextColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .apply(color: leftButtonTextColor),
                         ),
                       ),
                     ),
@@ -146,11 +162,13 @@ class AppHelperFunctions {
                         height: 40,
                         width: 100,
                         alignment: Alignment.center,
-                        decoration:
-                             BoxDecoration(color: rightButtonColor),
+                        decoration: BoxDecoration(color: rightButtonColor),
                         child: Text(
                           rightButtonName,
-                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: rightButtonTextColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .apply(color: rightButtonTextColor),
                         ),
                       ),
                     ),
@@ -164,9 +182,13 @@ class AppHelperFunctions {
     );
   }
 
-
-  static void showPopUpAlert({required String message, required String leftButtonName,
-    required String rightButtonName, required VoidCallback onRightPress, required VoidCallback onLeftPress, required Color rightButtonColor,  Color leftButtonColor = Colors.transparent,  Color rightButtonTextColor = AppColors.white, Color leftButtonTextColor = AppColors.black }) {
+  static void showPopUpAlert(
+      {required String message,
+      required String leftButtonName,
+      required String rightButtonName,
+      required VoidCallback onRightPress,
+      required VoidCallback onLeftPress,
+        String? imgUrl}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -174,53 +196,82 @@ class AppHelperFunctions {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md, vertical: AppSizes.defaultSpace),
+          contentPadding: EdgeInsets.zero,
           backgroundColor: AppColors.popUpBackground,
           content: SizedBox(
-            height: 280.0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            height: false? 370.0 : 190,
+            child: Stack(
               children: [
-                const AppBannerImage(
-                  height: 80,
-                    width: 70,
-                    imgUrl: 'assets/images/icons/silver_icon.png'),
-                Text(message),
-                const Gap(AppSizes.xs),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: onLeftPress,
-                      child: Container(
-                        height: 40,
-                        width: 100,
-                        alignment: Alignment.center,
-                        decoration:
-                        BoxDecoration(color: leftButtonColor),
-                        child: Text(
-                          leftButtonName,
-                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: leftButtonTextColor),
-                        ),
-                      ),
-                    ),
-                    const Gap(AppSizes.spaceBtwSmallItem),
-                    InkWell(
-                      onTap: onRightPress,
-                      child: Container(
-                        height: 40,
-                        width: 100,
-                        alignment: Alignment.center,
-                        decoration:
-                        BoxDecoration(color: rightButtonColor),
-                        child: Text(
-                          rightButtonName,
-                          style: Theme.of(context).textTheme.bodyLarge!.apply(color: rightButtonTextColor),
-                        ),
+                      Visibility(
+                       visible: imgUrl != null || imgUrl != '',
+                       child: AppBannerImage(
+                           applyImageRadius: false,
+                           height: 180,
+                           width: double.infinity,
+                           fit: BoxFit.cover,
+                           isNetworkImage: true,
+                           imgUrl: imgUrl),
+                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(false? AppSizes.defaultSpace : AppSizes.xl),
+                      child: Column(
+                        children: [
+                          Text(
+                            message,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                          Text(
+                            message,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          const Gap(AppSizes.xl),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppCardContainer(
+                                onTap: onLeftPress,
+                                applyRadius: false,
+                                height: 40,
+                                width: 100,
+                                hasBorder: true,
+                                  child: Center(
+                                    child: Text(
+                                      leftButtonName ,
+                                      style: Theme.of(context).textTheme.bodyLarge,),
+                                  )),
+                              AppCardContainer(
+                                onTap: onRightPress,
+                                  applyRadius: false,
+                                  height: 40,
+                                  width: 100,
+                                  backgroundColor: AppColors.primary,
+                                  child: Center(
+                                    child: Text(
+                                      rightButtonName ,
+                                      style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.white),),
+                                  )),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
+                Positioned(
+                  right: AppSizes.md,
+                  top: AppSizes.md,
+                  child: AppCardContainer(
+                      applyRadius: false,
+                      backgroundColor: AppColors.grey,
+                      height: 40,
+                      width: 40,
+                      child: InkWell(
+                          onTap: () => Get.back(),
+                          child: const Icon(Icons.clear))),
+                )
               ],
             ),
           ),

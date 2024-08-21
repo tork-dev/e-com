@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
-import 'package:kirei/src/utils/helpers/gaip_user_id/repository/gaip_user_id_repositories.dart';
+
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../model/gaip_user_id_model.dart';
+import '../repository/gigalogy_repositories.dart';
 
 class GaipUserIdController extends GetxController{
 
@@ -17,7 +18,7 @@ class GaipUserIdController extends GetxController{
   }
 
   Future<void> getGaipUserId() async{
-    gaipResponse.value = await GaipUserIdRepository().getGaipUserId();
+    gaipResponse.value = await GigalogyRepository().getGaipUserId();
     AppLocalStorage().saveDataIfNull(LocalStorageKeys.gaipUserId, gaipResponse.value.detail!.response);
   }
 }

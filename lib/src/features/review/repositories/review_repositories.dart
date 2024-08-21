@@ -13,7 +13,7 @@ class ReviewRepositories{
   final userId = AppLocalStorage().readData(LocalStorageKeys.userId);
   final accessToke = AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
-  Future<ReviewResponse> getReviewResponse({required int productId, required int pageNumber}) async {
+  Future<ReviewResponse> getReviewResponse({required String productId, required int pageNumber}) async {
     Uri url = Uri.parse("${AppApiEndPoints.productReview}/$productId?page=$pageNumber");
     final response = await http.get(
       url,
@@ -25,7 +25,7 @@ class ReviewRepositories{
     return ReviewResponse.fromJson(jsonDecode(response.body));
   }
 
-  Future<ReviewSubmitResponse> getReviewSubmitResponse({required int productId,
+  Future<ReviewSubmitResponse> getReviewSubmitResponse({required String productId,
     required int rating,
     required String comment,
     required guestUserName,}) async {

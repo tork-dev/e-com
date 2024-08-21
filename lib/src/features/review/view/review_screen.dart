@@ -11,7 +11,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
 class ReviewScreen extends StatelessWidget {
-  final int productId;
+  final String productId;
   const ReviewScreen({super.key, required this.productId});
 
   @override

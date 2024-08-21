@@ -17,7 +17,6 @@ class AppSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SearchController searchController = Get.put(SearchController());
     return TypeAheadField(
         direction: VerticalDirection.down,
         itemBuilder: (context, dataItem) {
@@ -29,8 +28,8 @@ class AppSearchWidget extends StatelessWidget {
                   ))
               : ListTile(
                   onTap: () {
-                    EventLogger().logSearchEvent(dataItem.slug!);
                     Get.toNamed('/product/${dataItem.slug ?? ''}');
+                    EventLogger().logProductDetailsViewEvent('${dataItem.slug}');
                   },
                   contentPadding: const EdgeInsets.all(AppSizes.sm),
                   dense: true,

@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/review/model/review_response_model.dart';
 import 'package:kirei/src/features/review/model/review_submit_response.dart';
 import 'package:kirei/src/features/review/repositories/review_repositories.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class ReviewController extends GetxController {
   static ReviewController get instance => Get.find();
 
-  final int productId;
+  final String productId;
 
   ReviewController({required this.productId});
 
@@ -71,6 +72,10 @@ class ReviewController extends GetxController {
       nameController.text = '';
       commentController.text = '';
       AppHelperFunctions.showToast(reviewSubmitResponse.value.message!);
+
+      if(reviewSubmitResponse.value.result ==true){
+        //EventLogger().logReviewEvent(itemId: r, rating: rating, feedback: feedback)
+      }
     } catch (e) {
       print(e.toString());
     }

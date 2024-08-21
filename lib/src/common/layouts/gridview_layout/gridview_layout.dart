@@ -8,10 +8,17 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppGridViewLayout extends StatelessWidget {
   const AppGridViewLayout(
-      {required this.builderFunction, required this.itemCount, this.scrollController, super.key});
+      {required this.builderFunction,
+      required this.itemCount,
+      this.scrollController,
+      this.mobileAspect = 0.65,
+      this.tabletAspect = 0.5,
+      this.desktopAspect = .65,
+      super.key});
 
   final int itemCount;
   final ScrollController? scrollController;
+  final double mobileAspect, tabletAspect, desktopAspect;
 
   //final Widget child;
   final Widget Function(BuildContext context, int index) builderFunction;
@@ -24,13 +31,13 @@ class AppGridViewLayout extends StatelessWidget {
       double childAspectRatio;
       if (constraints.maxWidth < 600) {
         crossAxisCount = 2;
-        childAspectRatio = 0.65;
+        childAspectRatio = mobileAspect;
       } else if (constraints.maxWidth < 1200) {
         crossAxisCount = 4;
-        childAspectRatio = 0.5;
+        childAspectRatio = tabletAspect;
       } else {
         crossAxisCount = 6;
-        childAspectRatio = .65;
+        childAspectRatio = desktopAspect;
       }
       return GridView.builder(
           itemCount: itemCount,

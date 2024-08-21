@@ -21,6 +21,7 @@ class AppTextTheme {
 
     labelLarge: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.dark),
     labelMedium: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.dark.withOpacity(0.5)),
+    labelSmall: const TextStyle().copyWith(fontSize: 8.0, fontWeight: FontWeight.w400, color: AppColors.dark.withOpacity(0.5)),
   );
 
   /// Customizable Dark Text Theme
@@ -39,5 +40,6 @@ class AppTextTheme {
 
     labelLarge: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.light),
     labelMedium: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.light.withOpacity(0.5)),
+    labelSmall: const TextStyle().copyWith(fontSize: 8.0, fontWeight: FontWeight.w400, color: AppColors.dark.withOpacity(0.5)),
   );
 }

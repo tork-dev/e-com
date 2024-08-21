@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:gtm/gtm.dart';
+import 'package:kirei/src/utils/helpers/gigalogy/repository/gigalogy_repositories.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
@@ -42,10 +45,10 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
+    GigalogyRepository().sendDetailsEvent(itemId);
   }
 
-  void logPurchaseEvent(String items,
-      dynamic itemPrice) async {
+  void logPurchaseEvent(String items, dynamic itemPrice) async {
     logEvent('purchase', {
       'user_id': gaipUserId,
       'member_id': memberId,
@@ -68,6 +71,8 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
+
+    GigalogyRepository().sendPurchaseDataEvent(items: jsonDecode(items));
   }
 
   void logAddToWishlistEvent(String itemId, dynamic itemPrice) async {
@@ -92,6 +97,7 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
+    GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
   }
 
   void logAddToCartEvent(String itemId, dynamic itemPrice) async {
@@ -118,6 +124,7 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
+    GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
   }
 
   // void logUserDataEvent(String gender, String phoneNumber) async {
@@ -129,12 +136,15 @@ class EventLogger {
   //   });
   // }
 
-  void logSearchEvent(String itemId) {
-    logEvent('Search',
-        {'item_id': itemId, 'user_id': gaipUserId, 'member_id': memberId});
+  void logSearchEvent(String searchValue) {
+    logEvent('Search', {
+      'SearchValue': searchValue,
+      'user_id': gaipUserId,
+      'member_id': memberId
+    });
 
     gtm.push('Search', parameters: {
-      'item_id': itemId,
+      'item_id': searchValue,
       'user_id': gaipUserId,
       'member_id': memberId
     });
@@ -142,7 +152,7 @@ class EventLogger {
     facebookAppEvents.logEvent(
       name: 'Search',
       parameters: {
-        'Content_ID': itemId,
+        'SearchValue': searchValue,
         'Content_Type': 'product',
         'Member_ID': memberId
       },
@@ -174,6 +184,13 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
+  }
 
+  void logReviewEvent(
+      {required String itemId,
+      required String rating,
+      required String feedback}) {
+    GigalogyRepository().sendChoosingDataEvent(
+        itemSlug: itemId, rating: rating, feedback: feedback);
   }
 }

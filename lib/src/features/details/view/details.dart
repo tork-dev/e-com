@@ -18,6 +18,7 @@ import 'package:kirei/src/features/questions/view/question_screen.dart';
 import 'package:kirei/src/features/review/view/review_screen.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import '../../../utils/constants/sizes.dart';
 import 'widgets/details_picture_part.dart';
 
@@ -43,6 +44,7 @@ class DetailsPage extends StatelessWidget {
               categoryController.getShopData();
               Get.back();
               bottomController.jumpToTab(1);
+              EventLogger().logSearchEvent(txt);
             },
           );
         }),
@@ -84,7 +86,7 @@ class DetailsPage extends StatelessWidget {
                 AppDividersStyle.fullFlatAppDivider,
                 ReviewAndQuestion(
                   onTap: () {
-                    Get.to(() => ReviewScreen(productId: controller.productDetails.value.detailedProducts!.id!));
+                    Get.to(() => ReviewScreen(productId: controller.productDetails.value.detailedProducts!.slug!));
                   },
                   title: 'Review',
                 ),

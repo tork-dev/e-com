@@ -65,7 +65,7 @@
 
             <!--     AppLink Sample -->
             <meta-data
-                android:name="flutter_deeplinking_enabled"
+                android:name="flutter_deeplink_enabled"
                 android:value="true" />
 
             <intent-filter android:autoVerify="true">
@@ -74,8 +74,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="http" android:host="beta.kireibd.com" android:pathPattern="/..."/>
-                <data android:scheme="https" />
+               <data android:scheme="http"/>
+               <data android:scheme="https"/>
+               <data android:host="beta.kireibd.com"/>
             </intent-filter>
 
             <!-- Notification Click Intent -->
