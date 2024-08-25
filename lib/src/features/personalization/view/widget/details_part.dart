@@ -9,6 +9,7 @@ import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/reward_point/view/reward_screen.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
@@ -44,8 +45,9 @@ class DetailsCardPart extends StatelessWidget {
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'My Rewards',
-            // onTap: ()=> Get.to(()=> const RewardScreen())),
-            onTap: ()=> AppHelperFunctions.showPopUpAlert(
+             //onTap: ()=> Get.to(()=> const RewardScreen())),
+             onTap: ()=> AppHelperFunctions.showPopUpAlert(
+              imgUrl: 'assets/images/banners/beauty_tips_one.png',
                 message: 'pop up',
                 leftButtonName: 'Cancel',
                 rightButtonName: 'Ok',

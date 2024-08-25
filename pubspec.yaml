@@ -54,6 +54,9 @@ dependencies:
   insta_image_viewer: ^1.0.4
   flutter_facebook_auth: ^7.0.1
   sign_in_with_apple: ^6.1.1
+  flick_video_player: ^0.9.0
+  video_player: ^2.9.1
+  youtube_player_flutter: ^9.0.3
 
 #  firebase_dynamic_links: ^5.5.7
 #  app_links: ^6.1.4
@@ -81,6 +84,7 @@ dependencies:
   firebase_auth: ^4.18.0
   firebase_messaging: ^14.7.20
   firebase_analytics: ^10.10.7
+
 #  cloud_firestore: ^4.15.10
 
 
@@ -127,6 +131,7 @@ flutter:
     - assets/images/banners/
     - assets/images/on_boarding_images/
     - assets/images/recommendation/
+    - assets/images/demo/
     - .env
 
 

@@ -107,7 +107,7 @@ class AppFeatureCategories extends StatelessWidget {
                             Text(
                               homeController
                                   .homeFeaturedCategoryResponse[index].name!,
-                              style: Theme.of(context).textTheme.labelSmall,
+                              style: Theme.of(context).textTheme.labelLarge,
                             )
                           ],
                         ));

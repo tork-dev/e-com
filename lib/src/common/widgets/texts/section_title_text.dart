@@ -24,7 +24,7 @@ class AppSectionTitleText extends StatelessWidget {
           children: [
             Text(
               sectionTitle,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             Visibility(
               visible: haveTxtButton,

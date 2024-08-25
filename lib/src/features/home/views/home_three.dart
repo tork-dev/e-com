@@ -10,11 +10,14 @@ import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/home/views/widgets/home_featured_category.dart';
 import 'package:kirei/src/common/widgets/search_bar/search_widget.dart';
+import 'package:kirei/src/features/home/views/widgets/home_new_sections.dart';
 import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dart';
+import 'package:kirei/src/features/home/views/widgets/surprise_section.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'widgets/home_appbar_title.dart';
+import 'widgets/home_shop_by_concern.dart';
 
 
 class HomeThree extends StatelessWidget {
@@ -35,71 +38,117 @@ class HomeThree extends StatelessWidget {
         title: const AppHomeAppBarTitle(),
         leadingIconColor: AppColors.darkerGrey,
         backgroundColor: AppColors.white,
+        padding: 0,
         body: AppLayoutWithRefresher(
             onRefresh: controller.onRefresh,
             children: [
               const Gap(AppSizes.spaceBtwDefaultItems),
-              AppSearchWidget(
-                  builder: (context, controller, focusNode) =>
-                      HomeSearchDecoration(
-                          categoryController: getShopDataController,
-                          bottomController: convexBottomNavController,
-                          controller: controller,
-                          focusNode: focusNode)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSearchWidget(
+                    builder: (context, controller, focusNode) =>
+                        HomeSearchDecoration(
+                            categoryController: getShopDataController,
+                            bottomController: convexBottomNavController,
+                            controller: controller,
+                            focusNode: focusNode)),
+              ),
               const Gap(AppSizes.spaceBtwDefaultItems),
-              const CustomSlider(),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: CustomSlider(),
+              ),
               const Gap(AppSizes.spaceBtwDefaultItems),
-              const AppFeatureCategories(),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppFeatureCategories(),
+              ),
               const Gap(AppSizes.spaceBtwDefaultItems),
-              const AppSectionTitleText(
-                sectionTitle: 'Best Selling Products',
-                haveTxtButton: false,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'Best Selling Products',
+                  haveTxtButton: false,
+                ),
               ),
               Obx(() {
-                return AppHorizontalScrollProductCard(
-                    sectionName: controller
-                        .homeProductResponse.value.bestsellingProducts);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName: controller
+                          .homeProductResponse.value.bestsellingProducts),
+                );
               }),
               const Gap(AppSizes.spaceBtwSections),
-              const AppSectionTitleText(
-                sectionTitle: 'Popular Search Products',
-                haveTxtButton: false,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'Popular Search Products',
+                  haveTxtButton: false,
+                ),
               ),
               Obx(() {
-                return AppHorizontalScrollProductCard(
-                    sectionName: controller
-                        .recommendedProductsResponse.value.data);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName: controller
+                          .recommendedProductsResponse.value.data),
+                );
               }),
               const Gap(AppSizes.spaceBtwSections),
-              const AppSectionTitleText(
-                sectionTitle: 'Trending Products',
-                haveTxtButton: false,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'Trending Products',
+                  haveTxtButton: false,
+                ),
               ),
               Obx(() {
-                return AppHorizontalScrollProductCard(
-                    sectionName: controller
-                        .trendingProductsResponse.value.data);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName: controller
+                          .trendingProductsResponse.value.data),
+                );
               }),
               const Gap(AppSizes.spaceBtwSections),
-              const AppSectionTitleText(
-                sectionTitle: 'Hot Deals',
-                haveTxtButton: false,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'Hot Deals',
+                  haveTxtButton: false,
+                ),
               ),
               Obx(() {
-                return AppHorizontalScrollProductCard(
-                    sectionName:
-                        controller.homeProductResponse.value.featuredProducts);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName:
+                          controller.homeProductResponse.value.featuredProducts),
+                );
               }),
               const Gap(AppSizes.spaceBtwSections),
-              const AppSectionTitleText(
-                sectionTitle: 'New Arrivals',
-                haveTxtButton: false,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'New Arrivals',
+                  haveTxtButton: false,
+                ),
               ),
               Obx(() {
-                return AppHorizontalScrollProductCard(
-                    sectionName:
-                        controller.homeProductResponse.value.newProducts);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName:
+                          controller.homeProductResponse.value.newProducts),
+                );
               }),
+              const Gap(AppSizes.defaultSpace),
+              HomeNewSections(),
+              const Gap(AppSizes.spaceBtwSections),
+              HomeShopByConcern(),
+              const Gap(AppSizes.spaceBtwSections),
+              HomeSurpriseSection(),
               const Gap(70),
             ]));
   }

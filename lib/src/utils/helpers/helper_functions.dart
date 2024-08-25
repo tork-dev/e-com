@@ -199,20 +199,20 @@ class AppHelperFunctions {
           contentPadding: EdgeInsets.zero,
           backgroundColor: AppColors.popUpBackground,
           content: SizedBox(
-            height: false? 370.0 : 190,
+            height: imgUrl != ''? 370.0 : 190,
             child: Stack(
               children: [
                 Column(
                   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                       Visibility(
-                       visible: imgUrl != null || imgUrl != '',
+                       visible: imgUrl != '',
                        child: AppBannerImage(
                            applyImageRadius: false,
                            height: 180,
                            width: double.infinity,
                            fit: BoxFit.cover,
-                           isNetworkImage: true,
+                           isNetworkImage: false,
                            imgUrl: imgUrl),
                      ),
                     Padding(
