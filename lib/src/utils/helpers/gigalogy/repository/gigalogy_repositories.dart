@@ -27,62 +27,57 @@ class GigalogyRepository {
     return GaipUserIdResponse.fromJson(jsonDecode(response.body));
   }
 
-  Future<http.Response> sendDetailsEvent(String itemSlug) async {
+  Future<void> sendDetailsEvent(String itemSlug) async {
     final response = await http
         .post(Uri.parse(AppApiEndPoints.detailsPageEvent), headers: {
       'project-key': projectKey,
       'api-key': apiKey
-    }, body: {
+    }, body: jsonEncode({
       "user_id": gaipUserId,
       "member_id": memberId,
       "item_id": itemSlug
-    });
-    return response;
+    }));
   }
 
-  Future<http.Response> sendChoosingDataEvent(
-      {required String itemSlug, String rating = "1", String? feedback}) async {
+  Future<void> sendChoosingDataEvent(
+      {required String itemSlug, String rating = "1"}) async {
+    var reqBody = jsonEncode({
+      "user_id": gaipUserId,
+      "member_id": memberId,
+      "item_id": itemSlug,
+      "rating": rating,
+      // "feedback": feedBack
+    });
     final response =
         await http.post(Uri.parse(AppApiEndPoints.userChoosingEvent), headers: {
       'project-key': projectKey,
       'api-key': apiKey
-    }, body: {
-      "user_id": gaipUserId,
-      "member_id": memberId,
-      "item_id": itemSlug,
-      "rating": "1",
-      "feedback": feedback
-    });
-    return response;
+    }, body: reqBody);
   }
 
 
-  Future<http.Response> sendPurchaseDataEvent(
+  Future<void> sendPurchaseDataEvent(
       {required List<Map<String, dynamic>> items}) async {
     final response =
     await http.post(Uri.parse(AppApiEndPoints.userChoosingEvent), headers: {
       'project-key': projectKey,
       'api-key': apiKey
-    }, body: {
+    }, body: jsonEncode({
       "user_id": gaipUserId,
       "member_id": memberId,
       "item_list" : items
-    });
-    return response;
+    }));
   }
 
-  Future<http.Response> sendUserDataEvent(
-      {required Map<String, dynamic> userData}) async {
+  Future<void> sendUserDataEvent() async {
     final response =
     await http.post(Uri.parse(AppApiEndPoints.userChoosingEvent), headers: {
       'project-key': projectKey,
       'api-key': apiKey
-    }, body: {
+    }, body: jsonEncode({
       "user_id": gaipUserId,
       "member_id": memberId,
-      "user_info" : userData
-    });
-    return response;
+    }));
   }
 
 }

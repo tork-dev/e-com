@@ -7,6 +7,7 @@ import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/cart/view/widgets/log_out_view.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -18,14 +19,13 @@ import '../../../../utils/constants/sizes.dart';
 class AppCartProductCard extends StatelessWidget {
   const AppCartProductCard({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
-      return cartController.allCartProducts.isEmpty && !cartController.hittingApi.value
+      return cartController.allCartProducts.isEmpty &&
+              !cartController.hittingApi.value
           ? CartLogOutView(
               onTap: () {
                 bottomNavController.jumpToTab(1);
@@ -44,7 +44,8 @@ class AppCartProductCard extends StatelessWidget {
                       backgroundColor: AppColors.white,
                       applyRadius: false,
                       padding: const EdgeInsets.all(AppSizes.sm),
-                      margin: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
+                      margin:
+                          const EdgeInsets.symmetric(horizontal: AppSizes.sm),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -52,31 +53,41 @@ class AppCartProductCard extends StatelessWidget {
                             child: Row(
                               children: [
                                 AppBannerImage(
-                                  onPress: ()=> Get.toNamed('/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
+                                    onPress: () => Get.toNamed(
+                                        '/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
                                     height: 100,
                                     width: 70,
                                     applyImageRadius: false,
-                                    isNetworkImage: cartController.allCartProducts[0]
-                                        .cartItems![index].productThumbnailImage != null,
+                                    isNetworkImage: cartController
+                                            .allCartProducts[0]
+                                            .cartItems![index]
+                                            .productThumbnailImage !=
+                                        null,
                                     fit: BoxFit.fill,
-                                    imgUrl: cartController.allCartProducts[0]
-                                        .cartItems![index].productThumbnailImage ?? AppImages.placeholder),
+                                    imgUrl: cartController
+                                            .allCartProducts[0]
+                                            .cartItems![index]
+                                            .productThumbnailImage ??
+                                        AppImages.placeholder),
                                 const Gap(AppSizes.spaceBtwSmallItem),
                                 AppCardContainer(
-                                   width: 200,
+                                    width: 200,
                                     height: 100,
                                     //backgroundColor: AppColors.secondary,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                          onTap: ()=> Get.toNamed('/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
+                                          onTap: () => Get.toNamed(
+                                              '/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
                                           child: Text(
                                             cartController.allCartProducts[0]
                                                 .cartItems![index].productName!,
-                                            style: const TextStyle(fontSize: 16),
+                                            style:
+                                                const TextStyle(fontSize: 16),
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -101,9 +112,23 @@ class AppCartProductCard extends StatelessWidget {
                                                                 cartController
                                                                     .allCartProducts[
                                                                         0]
-                                                                    .cartItems![index]
+                                                                    .cartItems![
+                                                                        index]
                                                                     .id!)
                                                             .then((value) {
+                                                          EventLogger().logRemoveFromCartEvent(
+                                                              cartController
+                                                                  .allCartProducts[
+                                                                      0]
+                                                                  .cartItems![
+                                                                      index]
+                                                                  .slug!,
+                                                              cartController
+                                                                  .allCartProducts[
+                                                                      0]
+                                                                  .cartItems![
+                                                                      index]
+                                                                  .price);
                                                           cartController
                                                               .onRefresh()
                                                               .then((value) => {
@@ -115,23 +140,24 @@ class AppCartProductCard extends StatelessWidget {
                                                                             .value
                                                                             .cartQuantity!,
                                                                     Get.back(),
-                                                                    AppHelperFunctions.showToast(
-                                                                        cartController
-                                                                            .cartProductDeleteResponse
-                                                                            .value
-                                                                            .message!),
+                                                                    AppHelperFunctions.showToast(cartController
+                                                                        .cartProductDeleteResponse
+                                                                        .value
+                                                                        .message!),
                                                                   });
                                                         });
                                                       },
-                                                      onLeftPress: ()=> Get.back(),
+                                                      onLeftPress: () =>
+                                                          Get.back(),
                                                       message:
                                                           'Are you sure to remove this item?',
                                                       leftButtonName: 'Cancel',
                                                       rightButtonName: 'Delete',
-                                                      rightButtonColor: AppColors.primary);
+                                                      rightButtonColor:
+                                                          AppColors.primary);
                                                 },
-                                                child: const Icon(
-                                                    Icons.delete_forever_outlined))
+                                                child: const Icon(Icons
+                                                    .delete_forever_outlined))
                                           ],
                                         )
                                       ],
@@ -148,26 +174,26 @@ class AppCartProductCard extends StatelessWidget {
                                 children: [
                                   InkWell(
                                       onTap: () {
-                                          cartController
-                                              .getCartUpdateQuantity(
-                                                  cartController
-                                                      .allCartProducts[0]
-                                                      .cartItems![index]
-                                                      .id!,
-                                                  cartController
-                                                          .allCartProducts[0]
-                                                          .cartItems![index]
-                                                          .quantity! +
-                                                      1)
-                                              .then((value) =>
-                                                  cartController.onRefresh())
-                                              .then((value) => {
-                                                    AppHelperFunctions.showToast(
-                                                        cartController
-                                                            .cartUpdateResponse
-                                                            .value
-                                                            .message!),
-                                                  });
+                                        cartController
+                                            .getCartUpdateQuantity(
+                                                cartController
+                                                    .allCartProducts[0]
+                                                    .cartItems![index]
+                                                    .id!,
+                                                cartController
+                                                        .allCartProducts[0]
+                                                        .cartItems![index]
+                                                        .quantity! +
+                                                    1)
+                                            .then((value) =>
+                                                cartController.onRefresh())
+                                            .then((value) => {
+                                                  AppHelperFunctions.showToast(
+                                                      cartController
+                                                          .cartUpdateResponse
+                                                          .value
+                                                          .message!),
+                                                });
                                       },
                                       child: const Icon(Icons.add)),
                                   AppCardContainer(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kirei/src/features/authentication/model/login_model.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 
 import '../../features/authentication/views/log_in/controllers/login_controller.dart';
 import '../../features/authentication/views/log_in/repository/login_repository.dart';
@@ -18,6 +19,8 @@ class AuthHelper{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user?.phone );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user?.passwordSaved);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avatar);
+
+      EventLogger().logUserDataEvent();
   }
 
 
@@ -30,7 +33,6 @@ class AuthHelper{
     AppLocalStorage().removeData(LocalStorageKeys.userPhone);
     AppLocalStorage().removeData(LocalStorageKeys.userHavePassword);
     AppLocalStorage().removeData(LocalStorageKeys.avatarOriginal);
-
   }
 
 
@@ -50,6 +52,8 @@ class AuthHelper{
       AppLocalStorage().saveData(LocalStorageKeys.userPhone, userData.phone );
       AppLocalStorage().saveData(LocalStorageKeys.userHavePassword, userData.passwordSaved);
       AppLocalStorage().saveData(LocalStorageKeys.avatarOriginal, userData.avatar);
+
+      EventLogger().logUserDataEvent();
   }
 
 

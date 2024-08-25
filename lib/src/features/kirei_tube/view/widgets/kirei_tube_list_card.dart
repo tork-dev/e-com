@@ -70,15 +70,15 @@ class KireiTubeListCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics!.viewCount!))} Views",
+                "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics?.viewCount ?? '0'))} Views" '',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
-                "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics!.likeCount!))} Likes",
+                "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics?.likeCount ?? '0'))} Likes",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
-                "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics!.commentCount!))} Comments",
+                "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics?.commentCount ?? '0'))} Comments",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],

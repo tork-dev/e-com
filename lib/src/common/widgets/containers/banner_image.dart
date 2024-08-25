@@ -42,6 +42,7 @@ class AppBannerImage extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: AppCardContainer(
+        applyRadius: applyImageRadius,
         padding: applyPadding ? padding : const EdgeInsets.all(0),
         height: height,
         width: width,

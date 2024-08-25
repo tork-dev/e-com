@@ -124,17 +124,16 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
-    GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
+   GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
   }
 
-  // void logUserDataEvent(String gender, String phoneNumber) async {
-  //   logEvent('user_data_update', {
-  //     'user_id': gaipUserId,
-  //     'member': memberId,
-  //     'gender': gender,
-  //     'phone_number': phoneNumber,
-  //   });
-  // }
+  void logUserDataEvent() async {
+    logEvent('user_data_update', {
+      'user_id': gaipUserId,
+      'member': memberId,
+    });
+    GigalogyRepository().sendUserDataEvent();
+  }
 
   void logSearchEvent(String searchValue) {
     logEvent('Search', {
@@ -190,7 +189,116 @@ class EventLogger {
       {required String itemId,
       required String rating,
       required String feedback}) {
-    GigalogyRepository().sendChoosingDataEvent(
-        itemSlug: itemId, rating: rating, feedback: feedback);
+    // GigalogyRepository().sendChoosingDataEvent(
+    //     itemSlug: itemId, rating: rating, feedback: feedback);
   }
+
+  void logLoginEvent(String loginMethod) {
+    logEvent('login', {
+      "method": loginMethod
+    });
+
+    gtm.push('login', parameters: {
+      "method": loginMethod
+    });
+
+    facebookAppEvents.logEvent(
+      name: 'login',
+      parameters: {
+        "method": loginMethod
+      },
+    );
+  }
+
+  void logSignUpEvent(String loginMethod) {
+    logEvent('login', {
+      "method": loginMethod
+    });
+
+    gtm.push('login', parameters: {
+      "method": loginMethod
+    });
+
+    facebookAppEvents.logEvent(
+      name: 'login',
+      parameters: {
+        "method": loginMethod
+      },
+    );
+  }
+
+  void shareEvent(String itemId) {
+    logEvent('share', {
+      "content_type": "product",
+      "item_id": itemId,
+    });
+
+    gtm.push('share', parameters: {
+      "content_type": "product",
+      "item_id": itemId,
+    });
+
+    facebookAppEvents.logEvent(
+      name: 'share',
+      parameters: {
+        "content_type": "product",
+        "item_id": itemId,
+      },
+    );
+  }
+
+
+  void logRemoveFromCartEvent(String itemId, dynamic itemPrice) async {
+    AppLoggerHelper.info(memberId.toString());
+    logEvent('remove_from_cart', {
+      'user_id': gaipUserId,
+      'member': memberId,
+      'item_id': itemId,
+    });
+
+    gtm.push('remove_from_cart', parameters: {
+      'user_id': gaipUserId,
+      'member_id': memberId,
+      'item_id': itemId,
+    });
+
+    facebookAppEvents.logEvent(
+      name: 'remove_from_cart',
+      parameters: {
+        'Content_ID': itemId,
+        'Content_Type': 'product',
+        'Currency': 'BDT',
+        'ValueToSum': itemPrice,
+        'Member_ID': memberId
+      },
+    );
+  }
+
+
+  void logViewCartEvent(String items) async {
+    logEvent('view_cart', {
+      'user_id': gaipUserId,
+      'member_id': memberId,
+      'items': items,
+    });
+
+    gtm.push('view_cart', parameters: {
+      'user_id': gaipUserId,
+      'member_id': memberId,
+      'items': items,
+    });
+
+    facebookAppEvents.logEvent(
+      name: 'view_cart',
+      parameters: {
+        'Content_ID': items,
+        'Content_Type': 'product',
+        'Currency': 'BDT',
+        'Member_ID': memberId
+      },
+    );
+  }
+
+
+
 }

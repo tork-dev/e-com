@@ -93,7 +93,11 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                           .value
                                           .detailedProducts!
                                           .productLink!;
-                                      await Share.share(link);
+                                      final result = await Share.share(link);
+                                      if(result.status == ShareResultStatus.success){
+                                        EventLogger().shareEvent(detailsController.productDetails.value.detailedProducts!.slug!);
+                                      }
+
                                     },
                                     child: const Icon(Icons.share)),
                                 const Gap(AppSizes.spaceBtwDefaultItems),

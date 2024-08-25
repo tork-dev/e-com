@@ -3,12 +3,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_details_controller.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_video_player.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import 'widgets/kirei_tube_details_description_part.dart';
 import 'widgets/kirei_tube_product_card.dart';
 
 class KireiTubeDetailsScreen extends StatelessWidget {
@@ -26,10 +28,14 @@ class KireiTubeDetailsScreen extends StatelessWidget {
         padding: AppSizes.md,
         body: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
-          children: const [
-            KireiDetailsVideoPlayer(),
-            Gap(AppSizes.md),
-            KireiTubeProductCard()
+          children:  [
+            const KireiDetailsVideoPlayer(),
+            const Gap(AppSizes.md),
+            const KireiTubeProductCard(),
+            const Gap(AppSizes.md),
+            AppDividersStyle.fullFlatAppDivider,
+            const Gap(AppSizes.defaultSpace),
+            const KireiTubeDetailsDescription()
           ],
         ));
   }

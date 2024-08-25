@@ -6,8 +6,6 @@ import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-
 import '../../home/model/request_stock_model.dart';
 import '../model/cart_update_response_model.dart';
 import '../model/checkout_cart_update_model.dart';
@@ -40,7 +38,7 @@ class CartRepositories {
           "Authorization": "Bearer $accessToken",
         },
         body: postBody);
-    return AddToCartResponse.fromJson(jsonDecode(response.body));
+    return AddToCartResponse.fromJson(response.body);
   }
 
   /// Get The Cart Products

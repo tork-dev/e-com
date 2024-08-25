@@ -4,7 +4,7 @@ class KireiTubeDetailsResponse {
   Data? data;
   bool? success;
   bool? result;
-  int? status;
+  dynamic status;
 
   KireiTubeDetailsResponse({
     this.data,
@@ -15,7 +15,7 @@ class KireiTubeDetailsResponse {
 
   factory KireiTubeDetailsResponse.fromJson(String str) => KireiTubeDetailsResponse.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
   factory KireiTubeDetailsResponse.fromMap(Map<String, dynamic> json) => KireiTubeDetailsResponse(
     data: json["data"] == null ? null : Data.fromMap(json["data"]),
@@ -24,8 +24,8 @@ class KireiTubeDetailsResponse {
     status: json["status"],
   );
 
-  Map<String, dynamic> toMap() => {
-    "data": data?.toMap(),
+  Map<String, dynamic> toJson() => {
+    "data": data?.toJson(),
     "success": success,
     "result": result,
     "status": status,
@@ -33,7 +33,7 @@ class KireiTubeDetailsResponse {
 }
 
 class Data {
-  int? id;
+  dynamic id;
   String? title;
   String? slug;
   String? categoryName;
@@ -59,7 +59,7 @@ class Data {
 
   factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
   factory Data.fromMap(Map<String, dynamic> json) => Data(
     id: json["id"],
@@ -70,11 +70,13 @@ class Data {
     shortDescription: json["short_description"],
     description: json["description"],
     video: json["video"],
-    statistics: json["statistics"] == null ? null : Statistics.fromMap(json["statistics"]),
+    statistics: json['statistics'] is Map<String, dynamic>
+        ? Statistics.fromJson(json['statistics'] as Map<String, dynamic>)
+        : null,
     products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
   );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
     "id": id,
     "title": title,
     "slug": slug,
@@ -83,38 +85,38 @@ class Data {
     "short_description": shortDescription,
     "description": description,
     "video": video,
-    "statistics": statistics?.toMap(),
+    'statistics': statistics?.toJson(),
     "products": products == null ? [] : List<dynamic>.from(products!.map((x) => x.toMap())),
   };
 }
 
 class Product {
-  int? id;
+  dynamic id;
   String? name;
   String? slug;
   dynamic price;
-  int? salePrice;
-  int? discount;
+  dynamic salePrice;
+  dynamic discount;
   String? sku;
-  int? stock;
+  dynamic stock;
   String? shortDescription;
   String? description;
   String? guide;
-  List<dynamic>? skinTypes;
+  List<dynamic>? skdynamicypes;
   List<dynamic>? keyIngredients;
   List<dynamic>? goodFor;
-  int? preorderAvailable;
-  int? requestAvailable;
+  dynamic preorderAvailable;
+  dynamic requestAvailable;
   String? preorderDeliveryDate;
-  int? preorderAmount;
+  dynamic preorderAmount;
   String? preorderStartDate;
   String? preorderEndDate;
-  int? saleCount;
-  int? ratings;
-  int? reviews;
-  int? isHot;
+  dynamic saleCount;
+  dynamic ratings;
+  dynamic reviews;
+  dynamic isHot;
   bool? isSale;
-  int? isNew;
+  dynamic isNew;
   dynamic isOutOfStock;
   dynamic releaseDate;
   dynamic developer;
@@ -130,7 +132,7 @@ class Product {
   List<Picture>? largePictures;
   List<Picture>? smallPictures;
   List<dynamic>? variants;
-  int? isCouponApplicable;
+  dynamic isCouponApplicable;
   String? metaImage;
   String? metaTitle;
   String? metaDescription;
@@ -149,7 +151,7 @@ class Product {
     this.shortDescription,
     this.description,
     this.guide,
-    this.skinTypes,
+    this.skdynamicypes,
     this.keyIngredients,
     this.goodFor,
     this.preorderAvailable,
@@ -203,7 +205,7 @@ class Product {
     shortDescription: json["short_description"],
     description: json["description"],
     guide: json["guide"],
-    skinTypes: json["skin_types"] == null ? [] : List<dynamic>.from(json["skin_types"]!.map((x) => x)),
+    skdynamicypes: json["skin_types"] == null ? [] : List<dynamic>.from(json["skin_types"]!.map((x) => x)),
     keyIngredients: json["key_ingredients"] == null ? [] : List<dynamic>.from(json["key_ingredients"]!.map((x) => x)),
     goodFor: json["good_for"] == null ? [] : List<dynamic>.from(json["good_for"]!.map((x) => x)),
     preorderAvailable: json["preorder_available"],
@@ -253,7 +255,7 @@ class Product {
     "short_description": shortDescription,
     "description": description,
     "guide": guide,
-    "skin_types": skinTypes == null ? [] : List<dynamic>.from(skinTypes!.map((x) => x)),
+    "skin_types": skdynamicypes == null ? [] : List<dynamic>.from(skdynamicypes!.map((x) => x)),
     "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x)),
     "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x)),
     "preorder_available": preorderAvailable,
@@ -294,8 +296,8 @@ class Product {
 
 class Picture {
   String? url;
-  int? width;
-  int? height;
+  dynamic width;
+  dynamic height;
   LargePicturePivot? pivot;
 
   Picture({
@@ -325,7 +327,7 @@ class Picture {
 }
 
 class LargePicturePivot {
-  int? relatedId;
+  dynamic relatedId;
   String? uploadFileId;
 
   LargePicturePivot({
@@ -377,8 +379,8 @@ class ProductBrand {
 }
 
 class ProductBrandPivot {
-  int? productId;
-  int? productBrandId;
+  dynamic productId;
+  dynamic productBrandId;
 
   ProductBrandPivot({
     this.productId,
@@ -403,7 +405,7 @@ class ProductBrandPivot {
 class ProductCategory {
   String? name;
   String? slug;
-  int? parentName;
+  dynamic parentName;
   ProductCategoryPivot? pivot;
 
   ProductCategory({
@@ -433,8 +435,8 @@ class ProductCategory {
 }
 
 class ProductCategoryPivot {
-  int? productId;
-  int? productCategoryId;
+  dynamic productId;
+  dynamic productCategoryId;
 
   ProductCategoryPivot({
     this.productId,
@@ -485,8 +487,8 @@ class ProductTag {
 }
 
 class ProductTagPivot {
-  int? productId;
-  int? productTagId;
+  dynamic productId;
+  dynamic productTagId;
 
   ProductTagPivot({
     this.productId,
@@ -509,10 +511,10 @@ class ProductTagPivot {
 }
 
 class Statistics {
-  String? viewCount;
-  String? likeCount;
-  String? favoriteCount;
-  String? commentCount;
+  final String? viewCount;
+  final String? likeCount;
+  final String? favoriteCount;
+  final String? commentCount;
 
   Statistics({
     this.viewCount,
@@ -521,21 +523,21 @@ class Statistics {
     this.commentCount,
   });
 
-  factory Statistics.fromJson(String str) => Statistics.fromMap(json.decode(str));
+  factory Statistics.fromJson(Map<String, dynamic> json) {
+    return Statistics(
+      viewCount: json['viewCount'] as String?,
+      likeCount: json['likeCount'] as String?,
+      favoriteCount: json['favoriteCount'] as String?,
+      commentCount: json['commentCount'] as String?,
+    );
+  }
 
-  String toJson() => json.encode(toMap());
-
-  factory Statistics.fromMap(Map<String, dynamic> json) => Statistics(
-    viewCount: json["viewCount"],
-    likeCount: json["likeCount"],
-    favoriteCount: json["favoriteCount"],
-    commentCount: json["commentCount"],
-  );
-
-  Map<String, dynamic> toMap() => {
-    "viewCount": viewCount,
-    "likeCount": likeCount,
-    "favoriteCount": favoriteCount,
-    "commentCount": commentCount,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'viewCount': viewCount,
+      'likeCount': likeCount,
+      'favoriteCount': favoriteCount,
+      'commentCount': commentCount,
+    };
+  }
 }

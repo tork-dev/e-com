@@ -7,6 +7,7 @@ import 'package:kirei/src/features/authentication/views/log_in/model/login_respo
 import 'package:kirei/src/features/authentication/views/log_in/model/user_by_token_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/repository/login_repository.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';
@@ -91,6 +92,7 @@ class LogInPageController extends GetxController {
       ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
+      EventLogger().logLoginEvent('email and Password');
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
@@ -113,18 +115,10 @@ class LogInPageController extends GetxController {
   /// Google SignIn with Api
   Future<UserCredential?> onPressedGoogleLogin() async {
     try {
-      // FullScreenLoader.openLoadingDialog("Processing", AppImages.loading);
-
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
-
-      // final credential = GoogleAuthProvider.credential(
-      //   accessToken: googleAuth?.accessToken,
-      //   idToken: googleAuth?.idToken,
-      // );
-
       loginResponse.value = await AuthRepository().getSocialLoginResponse(
           "google", googleUser?.displayName, googleUser?.email, googleUser?.id,
           accessToken: googleAuth?.accessToken);
@@ -132,17 +126,16 @@ class LogInPageController extends GetxController {
       if (loginResponse.value.result == false) {
         AppHelperFunctions.showToast('${loginResponse.value.message}');
       } else {
-        print(loginResponse.value);
         AppHelperFunctions.showToast('${loginResponse.value.message}');
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
         AuthHelper().setUserData(loginResponse.value);
         Get.offAllNamed(previousRoute!);
+        EventLogger().logLoginEvent('Google');
       }
       GoogleSignIn().disconnect();
     } on Exception catch (e) {
       AppHelperFunctions.showSimpleSnackBar(e.toString());
-      print("error is ....... $e");
       // TODO
     }
     return null;
@@ -156,19 +149,14 @@ class LogInPageController extends GetxController {
       if (result.status == LoginStatus.success) {
         final AccessToken? accessToken = result.accessToken;
         final userData = await FacebookAuth.instance.getUserData();
-
-        print('this is our facebook response ${userData}');
-
         loginResponse.value = await AuthRepository().getSocialLoginResponse(
             "facebook",
             userData["name"].toString(),
             userData["email"].toString(),
             userData["id"].toString(),
             accessToken: accessToken?.tokenString);
-
-        debugPrint('this is login response $loginResponse');
-
         if (loginResponse.value.result == true) {
+          EventLogger().logLoginEvent('Facebook');
           Get.offAllNamed(previousRoute!);
           AuthHelper().setUserData(loginResponse.value);
         }
@@ -178,7 +166,6 @@ class LogInPageController extends GetxController {
       }
     } on Exception catch (e) {
       AppHelperFunctions.showSimpleSnackBar(e.toString());
-      print("error is ....... $e");
       // TODO
     }
     return null;
@@ -201,7 +188,6 @@ class LogInPageController extends GetxController {
       sendOtpResponse.value = await LoginRepository().getLoginOTPResponse(
         emailController.text.toString(),
       );
-      print("data: ${sendOtpResponse.value.toString()}");
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());

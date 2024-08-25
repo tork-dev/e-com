@@ -17,10 +17,8 @@ class ReviewController extends GetxController {
   TextEditingController commentController = TextEditingController();
   ScrollController scrollController = ScrollController();
 
-
   Rx<ReviewResponse> reviewResponse = ReviewResponse().obs;
   Rx<ReviewSubmitResponse> reviewSubmitResponse = ReviewSubmitResponse().obs;
-
 
   RxDouble givenRating = 1.0.obs;
   RxBool apiHitting = false.obs;
@@ -38,44 +36,43 @@ class ReviewController extends GetxController {
     apiHitting.value = false;
   }
 
-
   Future<ReviewResponse> getReviewData() async {
-    return reviewResponse.value =
-    await ReviewRepositories().getReviewResponse(
-        productId: productId, pageNumber: pageNumber.value);
+    return reviewResponse.value = await ReviewRepositories()
+        .getReviewResponse(productId: productId, pageNumber: pageNumber.value);
   }
 
   Future<void> submitReview() async {
-
-    if(nameController.text == ''){
+    if (nameController.text == '') {
       AppHelperFunctions.showToast('Please enter your name');
       return;
     }
-    if(commentController.text == ''){
+    if (commentController.text == '') {
       AppHelperFunctions.showToast('Please enter a comment');
       return;
     }
-    if(givenRating.value < 1){
+    if (givenRating.value < 1) {
       AppHelperFunctions.showToast('Please enter us a star');
       return;
     }
     try {
       apiHitting.value = true;
-      reviewSubmitResponse.value =
-      await ReviewRepositories().getReviewSubmitResponse(
-          productId: productId,
-          rating: givenRating.value.toInt(),
-          comment: commentController.text.toString(),
-          guestUserName: nameController.text.toString());
+      reviewSubmitResponse.value = await ReviewRepositories()
+          .getReviewSubmitResponse(
+              productId: productId,
+              rating: givenRating.value.toInt(),
+              comment: commentController.text.toString(),
+              guestUserName: nameController.text.toString());
+      if (reviewSubmitResponse.value.result == true) {
+        EventLogger().logReviewEvent(
+            itemId: productId,
+            rating: givenRating.value.toString(),
+            feedback: commentController.text.toString());
+      }
       apiHitting.value = false;
       givenRating.value = 1;
       nameController.text = '';
       commentController.text = '';
       AppHelperFunctions.showToast(reviewSubmitResponse.value.message!);
-
-      if(reviewSubmitResponse.value.result ==true){
-        //EventLogger().logReviewEvent(itemId: r, rating: rating, feedback: feedback)
-      }
     } catch (e) {
       print(e.toString());
     }

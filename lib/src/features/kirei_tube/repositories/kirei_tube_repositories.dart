@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_details_model.dart';
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_response_model.dart';
@@ -11,7 +13,7 @@ class KireiTubeRepositories {
     AppLoggerHelper.debug(response.body.toString());
 
     if (response.statusCode == 200) {
-      return KireiTubeResponse.fromJson(response.body);
+      return KireiTubeResponse.fromJson(jsonDecode(response.body));
     } else {
       throw 'error';
     }

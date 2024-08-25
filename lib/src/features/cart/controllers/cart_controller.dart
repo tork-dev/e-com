@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -31,26 +33,20 @@ class CartController extends GetxController {
       CheckoutCartUpdateResponse().obs;
   RxBool hittingApi = false.obs;
 
-  //Rx<dynamic> cartCount = 0.obs;
   var cartCount = Rx<dynamic>(0);
   final RxInt cartItemTotalPrice = 0.obs;
 
-  // RxList cartIds = [].obs;
-  // RxList productIds = [].obs;
-  // RxList cartQuantities = [].obs;
   RxInt isPreOrderAvailable = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    // getAllCartProducts();
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
       getAllCartProducts().then((value) => updateQuantity());
     }
   }
 
   Future<void> onRefresh() async {
-    print('refresh');
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
       getAllCartProducts()
           .then((value) => {updateTotalPrice(), updateQuantity()});
@@ -93,6 +89,15 @@ class CartController extends GetxController {
     hittingApi.value = true;
     allCartProducts.value = await CartRepositories().getCartProducts();
     hittingApi.value = false;
+    final List<Map<String, dynamic>> items = allCartProducts[0].cartItems!.map((item) {
+      return {
+        'item_id': item.productId,
+        'price': item.price,
+        'quantity': item.quantity,
+      };
+    }).toList();
+
+    EventLogger().logViewCartEvent(jsonEncode(items));
   }
 
   Future<CartDeleteResponse> getCartDelete(int cartId) async {
@@ -144,37 +149,8 @@ class CartController extends GetxController {
               allProductResponse: allCartProducts,
               productIdsString: productIdsString,
               productQuantitiesString: cartQuantitiesString,
-            ));
-
-        // if (mode == "update") {
-        //   reset();
-        //   fetchData();
-        // } else if (mode == "proceed_to_shipping") {
-        //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //     return Checkout(
-        //       title: "Checkout",
-        //       product_ids: prod_ids_string,
-        //       product_quantities: cart_quantities_string,
-        //       allCartProductList: _shopList[0].cart_items,
-        //       isPreorder: _isPreorder,
-        //     );
-        //   })).then((value) {
-        //     onPopped(value);
-        //   });
-        // }
+        ));
       }
-
-      // for (var item in allCartProducts) {
-      //   if (item.cartItems!.isNotEmpty) {
-      //     item.cart_items.forEach((cart_item) {
-      //       _isPreorder = cart_item.preorderAvailable;
-      //       cart_ids.add(cart_item.id);
-      //       prod_ids.add(cart_item.product_id);
-      //
-      //       cart_quantities.add(cart_item.quantity);
-      //     });
-      //   }
-      // }
     }
   }
 }

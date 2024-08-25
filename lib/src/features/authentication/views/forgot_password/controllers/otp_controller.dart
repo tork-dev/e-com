@@ -17,6 +17,7 @@ import 'package:kirei/src/features/authentication/views/sign_up/repository/signu
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
+import '../../../../../utils/firebase/gtm_events.dart';
 import '../../../../../utils/helpers/auth_helper.dart';
 import '../../../../bottom_navigation/convex-bottom_navigation.dart';
 import '../../../model/resend_code_model.dart';
@@ -33,7 +34,6 @@ class OtpController extends GetxController {
   GlobalKey<FormState> otpKey = GlobalKey<FormState>();
   Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
   Rx<AppLoginResponse> otpSignUpResponse = AppLoginResponse().obs;
-  //Rx<SignupResendOtpResponse> resendOtpSignUpResponse = SignupResendOtpResponse().obs;
   Rx<ForgetPasswordConfirmResponse> otpForgetPasswordResponse = ForgetPasswordConfirmResponse().obs;
   Rx<SendOtpCodeResponse> sendOtpResponse = SendOtpCodeResponse().obs;
 
@@ -43,12 +43,9 @@ class OtpController extends GetxController {
     super.dispose();
   }
 
-  Future<void> verify({bool? isOtpLogin}) async {
+  Future<void> verify() async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
-      /// Start Loading
-      // FullScreenLoader.openLoadingDialog('Processing', AppImages.loaderAnimation);
-
       ///Check Internet
       if (!isConnected) return;
 
@@ -56,7 +53,6 @@ class OtpController extends GetxController {
       if (!otpKey.currentState!.validate()) return;
 
       ///Api Calling
-
       forgetPasswordController.isForgotPassword.value == true
           ? otpForgetPasswordResponse.value = await ForgotPasswordRepository().getPasswordConfirmResponse(
               otpCodeController.text,
@@ -69,22 +65,13 @@ class OtpController extends GetxController {
                   loginController.emailController.text,
                   otpCodeController.text,
                 );
-      // forgetPasswordController.isForgotPassword.value == true
-      //     ? otpForgetPasswordResponse
-      //         .add(response as ForgetPasswordConfirmResponse)
-      //     : signUpController.isSignupOtp.value == true
-      //         ? otpSignUpResponse.add(response as AppLoginResponse)
-      //         : otpLoginResponse.add(response as AppLoginResponse);
       forgetPasswordController.isForgotPassword.value == true
           ? Container()
           : AuthHelper().setUserData(loginResponse.value);
-      // forgetPasswordController.isForgotPassword.value == true? Container() : AuthHelper().fetch_and_set();
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
-      //print("problem: ${e.toString()}");
     } finally {
-      //FullScreenLoader.stopLoading();
       if (otpKey.currentState!.validate()) {
         if (forgetPasswordController.isForgotPassword.value == true
             ? otpForgetPasswordResponse.value.result == true
@@ -103,9 +90,9 @@ class OtpController extends GetxController {
             Get.to(() => const NewPassword());
           } else {
             Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
+            EventLogger().logLoginEvent('Otp');
           }
         } else {
-          //AppHelperFunctions.showToast(otpLoginResponse[0].message.toString());
           signUpController.isSignupOtp.value == true
               ? AppHelperFunctions.showToast(
                   otpSignUpResponse.value.message.toString())
@@ -119,17 +106,10 @@ class OtpController extends GetxController {
   Future<void> reSendCode() async {
     final isConnected = await NetworkManager.instance.isConnected();
     try {
-      /// Start Loading
-      // FullScreenLoader.openLoadingDialog('Processing', AppImages.loaderAnimation);
-
       ///Check Internet
       if (!isConnected) return;
 
-      /// Validate Form
-      //if(!otpKey.currentState!.validate()) return;
-
       ///Api Calling
-
       forgetPasswordController.isForgotPassword.value == true
           ? sendOtpResponse.value = await ForgotPasswordRepository().getResendForgetPasswordResponse(
               forgetPasswordController.forgotPasswordEmail.text)
@@ -143,30 +123,8 @@ class OtpController extends GetxController {
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
-      //print("Problem is: "+ e.toString());
     } finally {
       AppHelperFunctions.showToast(sendOtpResponse.value.message!);
     }
-      //FullScreenLoader.stopLoading();
-    //   if (forgetPasswordController.isForgotPassword.value == true
-    //       ? resendOtpForgetPasswordResponse.value.result == true
-    //       : signUpController.isSignupOtp.value == true
-    //           ? resendOtpSignUpResponse.value.result == true
-    //           : loginResponse.value.result == true) {
-    //     AppHelperFunctions.showToast(
-    //         forgetPasswordController.isForgotPassword.value == true
-    //             ? resendOtpForgetPasswordResponse.value.message.toString()
-    //             : signUpController.isSignupOtp.value == true
-    //                 ? resendOtpSignUpResponse.value.message.toString()
-    //                 : loginResponse.value.message.toString());
-    //   } else {
-    //     AppHelperFunctions.showToast(
-    //         forgetPasswordController.isForgotPassword.value == true
-    //             ? resendOtpForgetPasswordResponse.value.message.toString()
-    //             : signUpController.isSignupOtp.value == true
-    //                 ? resendOtpSignUpResponse.value.message.toString()
-    //                 : loginResponse.value.message.toString());
-    //   }
-    // }
   }
 }
