@@ -46,5 +46,5 @@ class AppImages {
   static const String avatarIcon = "assets/images/icons/avatar.jpg";
 
   // -- Background images
-  static const String surprisingSectionBg = "assets/images/backgraound/surprising_section_bg.png";
+  static const String surprisingSectionBg = "assets/images/demo/surprising_section_bg.png";
 }

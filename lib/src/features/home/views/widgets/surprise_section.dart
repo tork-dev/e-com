@@ -8,7 +8,10 @@ class HomeSurpriseSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset('assets/images/demo/surprising_section_bg.png');
+    return const Stack(children: [
+      AppBannerImage(imgUrl: AppImages.surprisingSectionBg),
+
+    ],);
   }
 }
 
