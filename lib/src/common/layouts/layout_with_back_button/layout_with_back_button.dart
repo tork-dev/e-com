@@ -4,12 +4,13 @@ import 'package:kirei/src/common/drawer/view/drawer.dart';
 import 'package:kirei/src/common/widgets/appbar/custom_app_bar.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../styles/spacing_style.dart';
 
 class AppLayoutWithBackButton extends StatelessWidget {
   const AppLayoutWithBackButton({
-  required this.padding,
+   this.padding = AppSizes.md,
     this.title,
     required this.body,
     this.centerTitle = false,

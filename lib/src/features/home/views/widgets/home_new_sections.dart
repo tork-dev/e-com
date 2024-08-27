@@ -5,8 +5,8 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
-class HomeNewSections extends StatelessWidget {
-  const HomeNewSections({super.key});
+class HomeImageTitleAndButtonSection extends StatelessWidget {
+  const HomeImageTitleAndButtonSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,94 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kirei/src/features/authentication/views/widgets/auth_input_field.dart';
+import 'package:kirei/src/features/home/controller/home_controller.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import '../../../../common/widgets/containers/card_container.dart';
+import '../../../../utils/validators/validation.dart';
 
 class HomeSurpriseSection extends StatelessWidget {
   const HomeSurpriseSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(children: [
-      AppBannerImage(imgUrl: AppImages.surprisingSectionBg),
-
-    ],);
+    final homeController = HomeController.instance;
+    return SizedBox(
+      height: 400,
+      child: Stack(
+        children: [
+          const AppBannerImage(
+            width: double.infinity,
+            applyImageRadius: false,
+            height: double.infinity,
+            fit: BoxFit.cover,
+            isNetworkImage: false,
+            imgUrl: AppImages.surprisingSectionBg,
+          ),
+          Center(
+            child: AppCardContainer(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                applyRadius: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Get Surprise gift',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .apply(color: AppColors.white),
+                    ),
+                    const Gap(AppSizes.sm),
+                    Text(
+                      textAlign: TextAlign.center,
+                      'Subscribe with your email address to ge new gifts and updates about our new products and offers',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .apply(color: AppColors.white),
+                    ),
+                    const Gap(AppSizes.spaceBtwSections),
+                    TextFormField(
+                      controller: homeController.emailController,
+                      cursorColor: AppColors.primary,
+                      validator: (value) =>
+                          AppValidator.validatePhoneNumber(value),
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.md,
+                            vertical: AppSizes.spaceBtwDefaultItems),
+                        hintText: '01*********',
+                        fillColor: AppColors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(width: 0)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(width: 0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(width: 0)),
+                      ),
+                    ),
+                    const Gap(AppSizes.spaceBtwDefaultItems),
+                    AppButtons.largeFlatFilledButton(
+                        onPressed: () {},
+                        backgroundColor: AppColors.secondary,
+                        buttonText: 'Submit')
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
   }
 }
-

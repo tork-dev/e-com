@@ -11,6 +11,7 @@ import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/home/views/widgets/home_featured_category.dart';
 import 'package:kirei/src/common/widgets/search_bar/search_widget.dart';
 import 'package:kirei/src/features/home/views/widgets/home_new_sections.dart';
+import 'package:kirei/src/features/home/views/widgets/home_review_section.dart';
 import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dart';
 import 'package:kirei/src/features/home/views/widgets/surprise_section.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
@@ -144,11 +145,16 @@ class HomeThree extends StatelessWidget {
                 );
               }),
               const Gap(AppSizes.defaultSpace),
-              HomeNewSections(),
+              const HomeImageTitleAndButtonSection(),
               const Gap(AppSizes.spaceBtwSections),
-              HomeShopByConcern(),
+              const HomeShopByConcern(),
               const Gap(AppSizes.spaceBtwSections),
-              HomeSurpriseSection(),
+              const HomeSurpriseSection(),
+              const HomeImageTitleAndButtonSection(),
+              const Gap(AppSizes.defaultSpace),
+              const HomeReviewSection(),
+              const Gap(AppSizes.spaceBtwSections),
+              const HomeImageTitleAndButtonSection(),
               const Gap(70),
             ]));
   }

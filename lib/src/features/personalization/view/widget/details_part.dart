@@ -46,14 +46,16 @@ class DetailsCardPart extends StatelessWidget {
         DetailsCard(
             cardText: 'My Rewards',
              //onTap: ()=> Get.to(()=> const RewardScreen())),
-             onTap: ()=> AppHelperFunctions.showPopUpAlert(
-              imgUrl: 'assets/images/banners/beauty_tips_one.png',
-                message: 'pop up',
-                leftButtonName: 'Cancel',
-                rightButtonName: 'Ok',
-                onRightPress: (){},
-                onLeftPress: (){},
-                )),
+             // onTap: ()=> AppHelperFunctions.showPopUpAlert(
+             //  imgUrl: 'assets/images/banners/beauty_tips_one.png',
+             //    message: 'pop up',
+             //    leftButtonName: 'Cancel',
+             //    rightButtonName: 'Ok',
+             //    onRightPress: (){},
+             //    onLeftPress: (){},
+             //    )
+          onTap: ()=> AppHelperFunctions().showAlertForFirstTime(),
+        ),
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'Kirei Youtube',

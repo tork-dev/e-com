@@ -40,6 +40,7 @@ class AppHomeAppBarTitle extends StatelessWidget {
                     const Gap(AppSizes.spaceBtwSmallItem),
                     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true?
                      AppCardContainer(
+                       applyRadius: true,
                        padding: const EdgeInsets.all(5),
                         height: 40,
                         width: 40,

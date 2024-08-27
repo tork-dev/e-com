@@ -27,7 +27,7 @@ class RecommendedProducts extends StatelessWidget {
     CartController cartController = Get.put(CartController());
     return AppLayoutWithBackButton(
       backToHome: true,
-        padding: AppSizes.sm,
+        padding: AppSizes.md,
         title: Text(
           'Ai Recommendation',
           style: Theme.of(context)
@@ -57,7 +57,7 @@ class RecommendedProducts extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              productData.type!,
+                             "Recommendation For ${productData.type!}",
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                             const Gap(AppSizes.sm),

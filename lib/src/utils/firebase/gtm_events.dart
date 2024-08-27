@@ -189,8 +189,8 @@ class EventLogger {
       {required String itemId,
       required String rating,
       required String feedback}) {
-    // GigalogyRepository().sendChoosingDataEvent(
-    //     itemSlug: itemId, rating: rating, feedback: feedback);
+    GigalogyRepository().sendChoosingDataEvent(
+        itemSlug: itemId, rating: rating, feedBack: feedback);
   }
 
   void logLoginEvent(String loginMethod) {

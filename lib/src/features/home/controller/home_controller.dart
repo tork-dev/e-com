@@ -25,6 +25,8 @@ class HomeController extends GetxController{
   ///Controller
   final categoryController = Get.put(GetShopDataController());
 
+  ///TextEditingController
+  final emailController = TextEditingController();
 
   /// Key
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();

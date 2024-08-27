@@ -30,7 +30,7 @@ class WishlistScreen extends StatelessWidget {
                 Obx(() {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: AppSizes.defaultSpace),
+                        horizontal: AppSizes.md),
                     child: !controller.apiHitting.value &&
                             controller.wishlistProducts.value.data!.isEmpty
                         ? Center(

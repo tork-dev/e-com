@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../constants/colors.dart';
 
@@ -188,35 +189,36 @@ class AppHelperFunctions {
       required String rightButtonName,
       required VoidCallback onRightPress,
       required VoidCallback onLeftPress,
-        String? imgUrl}) {
+      required String imgUrl}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return Dialog(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
           ),
-          contentPadding: EdgeInsets.zero,
+          insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
           backgroundColor: AppColors.popUpBackground,
-          content: SizedBox(
-            height: imgUrl != ''? 370.0 : 190,
+          child: SizedBox(
+            height: imgUrl != '' ? 370.0 : 190,
             child: Stack(
               children: [
                 Column(
                   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                      Visibility(
-                       visible: imgUrl != '',
-                       child: AppBannerImage(
-                           applyImageRadius: false,
-                           height: 180,
-                           width: double.infinity,
-                           fit: BoxFit.cover,
-                           isNetworkImage: false,
-                           imgUrl: imgUrl),
-                     ),
+                    Visibility(
+                      visible: imgUrl != '',
+                      child: AppBannerImage(
+                          applyImageRadius: false,
+                          height: 180,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          isNetworkImage: false,
+                          imgUrl: imgUrl ?? ''),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.all(false? AppSizes.defaultSpace : AppSizes.xl),
+                      padding: const EdgeInsets.all(
+                          false ? AppSizes.defaultSpace : AppSizes.xl),
                       child: Column(
                         children: [
                           Text(
@@ -232,26 +234,32 @@ class AppHelperFunctions {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               AppCardContainer(
-                                onTap: onLeftPress,
-                                applyRadius: false,
-                                height: 40,
-                                width: 100,
-                                hasBorder: true,
+                                  onTap: onLeftPress,
+                                  applyRadius: false,
+                                  height: 40,
+                                  width: 100,
+                                  hasBorder: true,
                                   child: Center(
                                     child: Text(
-                                      leftButtonName ,
-                                      style: Theme.of(context).textTheme.bodyLarge,),
+                                      leftButtonName,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
                                   )),
                               AppCardContainer(
-                                onTap: onRightPress,
+                                  onTap: onRightPress,
                                   applyRadius: false,
                                   height: 40,
                                   width: 100,
                                   backgroundColor: AppColors.primary,
                                   child: Center(
                                     child: Text(
-                                      rightButtonName ,
-                                      style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.white),),
+                                      rightButtonName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .apply(color: AppColors.white),
+                                    ),
                                   )),
                             ],
                           ),
@@ -278,6 +286,13 @@ class AppHelperFunctions {
         );
       },
     );
+  }
+
+  void showAlertForFirstTime() {
+    showDialog(
+        context: Get.context!,
+        useSafeArea: true,
+        builder: (BuildContext context) => const AppSpinnerWheelAlert());
   }
 
   static void navigateToScreen(BuildContext context, Widget screen) {

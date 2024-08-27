@@ -39,7 +39,6 @@ class PurchaseHistory extends StatelessWidget {
                   pageIndex: 0,
                 ))
             : Get.back(),
-        padding: AppSizes.sm,
         title: const Text(
           'Purchase History',
           style: TextStyle(color: AppColors.primary),
