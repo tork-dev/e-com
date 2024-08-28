@@ -133,6 +133,7 @@ flutter:
     - assets/images/on_boarding_images/
     - assets/images/recommendation/
     - assets/images/demo/
+    - assets/images/background/
     - .env
 
 

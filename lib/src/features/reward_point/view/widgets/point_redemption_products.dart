@@ -28,6 +28,9 @@ class PointRedemptionProducts extends StatelessWidget {
     // final cartController = CartController.instance;
     return Obx(() {
       return AppGridViewLayout(
+          mobileAspect: .60,
+          tabletAspect: .60,
+          desktopAspect: .60,
           itemCount: redeemProductController.hittingApi.value
               ? 10
               : redeemProductController

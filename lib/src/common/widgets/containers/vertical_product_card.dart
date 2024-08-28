@@ -23,6 +23,8 @@ class AppVerticalProductCard extends StatelessWidget {
     required this.discount,
      this.height,
      this.width,
+    this.imgHeight,
+    this.imgWidth,
     required this.buttonColor,
     required this.isStockAvailable
   });
@@ -36,7 +38,7 @@ class AppVerticalProductCard extends StatelessWidget {
   final Color? backgroundColor, buttonColor;
   final bool isNetworkImage, isDiscountAvailable, isStockAvailable;
   final int discount;
-  final double? height, width;
+  final double? height, width, imgHeight, imgWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,8 @@ class AppVerticalProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppProductImage(
+              imgHeight: imgHeight,
+              imgWidth: imgWidth,
               onPress: onTap,
               onCartPress: onCartTap,
               isNetworkImage: isNetworkImage,

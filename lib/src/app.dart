@@ -11,6 +11,7 @@ import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.da
 import 'package:kirei/src/features/checkout/model/order_create_model.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
+import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
 import 'package:kirei/src/features/personalization/view/profile.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:upgrader/upgrader.dart';
@@ -98,7 +99,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/reward-levels', page: ()=> const RewardPointLevelScreen()),
           GetPage(name: '/point-history', page: ()=> const RewardPointHistoryScreen()),
           GetPage(name: '/kirei-tube', page: ()=> const KireiTubeScreen()),
-          GetPage(name: '/kirei-tube/:id', page: ()=> const KireiTubeDetailsScreen())
+          GetPage(name: '/kirei-tube/:id', page: ()=> const KireiTubeDetailsScreen()),
+          GetPage(name: '/group-shopping', page: ()=> const GroupShoppingScreen())
         ],
 
         //navigatorKey: navigatorKey,

@@ -35,6 +35,8 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                 : AppVerticalProductCard(
                     height: 150,
                     width: 150,
+                    imgHeight: 150,
+                    imgWidth: 150,
                     onTap: () {
                       EventLogger().logProductDetailsViewEvent('${sectionName![index].slug}');
                       Get.reload<DetailsPageController>();

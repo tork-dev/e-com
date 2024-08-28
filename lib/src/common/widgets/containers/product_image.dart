@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:kirei/src/common/styles/spacing_style.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -12,6 +13,8 @@ class AppProductImage extends StatelessWidget {
     this.height,
     this.width,
     this.border,
+    required this.imgHeight,
+    required this.imgWidth,
     required this.buttonColor,
     required this.onPress,
     required this.onCartPress,
@@ -27,7 +30,7 @@ class AppProductImage extends StatelessWidget {
     required this.isStockAvailable,
   });
 
-  final double? height, width;
+  final double? height, width, imgHeight, imgWidth;
   final String imgUrl, buttonName;
   final BoxBorder? border;
   final Color? backgroundColor;
@@ -52,18 +55,12 @@ class AppProductImage extends StatelessWidget {
             onTap: onPress,
             child: Stack(
               children: [
-                AppCardContainer(
-                  width: 150,
-                  height: 145,
-                  applyRadius: false,
-                  //backgroundColor: Colors.red,
-                  child: ClipRRect(
-                      child: Image(
-                    image: isNetworkImage
-                        ? NetworkImage(imgUrl)
-                        : AssetImage(imgUrl) as ImageProvider,
-                    fit: BoxFit.fill,
-                  )),
+                AppBannerImage(
+                    width: imgWidth,
+                    height: imgHeight,
+                  applyImageRadius: false,
+                  isNetworkImage: true,
+                    imgUrl: imgUrl
                 ),
                 Visibility(
                   visible: isDiscountAvailable,
@@ -87,7 +84,7 @@ class AppProductImage extends StatelessWidget {
               ],
             ),
           ),
-          const Gap(AppSizes.sm),
+          // const Gap(AppSizes.sm),
           InkWell(
             onTap: onCartPress,
             child: AppCardContainer(

@@ -124,6 +124,12 @@ class AppApiEndPoints {
 
 
 
+  ///Group Shopping
+  static String shoppingGroups = "$baseUrl/groups";
+  static String groupShoppingProducts = "$baseUrl/groups/products";
+
+
+
 
   ///Gigalogy
   static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";

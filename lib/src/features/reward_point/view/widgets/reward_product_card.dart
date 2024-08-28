@@ -44,7 +44,8 @@ class RewardProductCard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Shop now'.toUpperCase(),
-                          style: Theme.of(context)
+                          style: Theme
+                              .of(context)
                               .textTheme
                               .bodyMedium!
                               .apply(color: AppColors.white),
@@ -56,20 +57,40 @@ class RewardProductCard extends StatelessWidget {
               ),
             ),
             const Gap(AppSizes.md),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start, // Aligns text to the start
+              children: List.generate(
+                products.pointRedemptionResponse.value.data![index].product!.productCategories!.length,
+                    (categoryIndex) {
+                  // Fetching the parent name
+                  final name = products.pointRedemptionResponse.value.data![index]
+                      .product!.productCategories![categoryIndex].name;
+                  // Returning a Text widget
+                  return Text(
+                    "$name, " , // Displays the category name or empty if null
+                    style: Theme.of(context).textTheme.labelSmall, // Custom styling
+                  );
+                },
+              ),
+            ),
             Text(
               products
                   .pointRedemptionResponse.value.data![index].product!.name!,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyLarge,
             ),
             const Gap(AppSizes.md),
             Text(
-                '${products.pointRedemptionResponse.value.data![index].purchasePoint!} points required'),
+                '${products.pointRedemptionResponse.value.data![index]
+                    .purchasePoint!} points required'),
           ],
         ),
         Visibility(
           visible:
-              products.pointRedemptionResponse.value.data![index].isUnlocked !=
-                  1,
+          products.pointRedemptionResponse.value.data![index].isUnlocked !=
+              1,
           child: AppCardContainer(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
               applyRadius: false,
@@ -79,7 +100,9 @@ class RewardProductCard extends StatelessWidget {
               child: Center(
                   child: Text(
                       textAlign: TextAlign.center,
-                      'It is allowed to shop only for ${products.pointRedemptionResponse.value.data![index].membershipTitle} Members'))),
+                      'It is allowed to shop only for ${products
+                          .pointRedemptionResponse.value.data![index]
+                          .membershipTitle} Members'))),
         ),
         Positioned(
           top: 10,
@@ -89,14 +112,14 @@ class RewardProductCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 horizontal: AppSizes.sm, vertical: AppSizes.xs),
             backgroundColor: products.pointRedemptionResponse.value.data![index]
-                        .membershipId ==
-                    1
+                .membershipId ==
+                1
                 ? AppColors.grey
                 : products.pointRedemptionResponse.value.data![index]
-                            .membershipId ==
-                        2
-                    ? AppColors.gold
-                    : AppColors.platinum,
+                .membershipId ==
+                2
+                ? AppColors.gold
+                : AppColors.platinum,
             child: Text(products
                 .pointRedemptionResponse.value.data![index].membershipTitle!),
           ),

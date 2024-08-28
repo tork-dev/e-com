@@ -6,39 +6,46 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
 class HomeImageTitleAndButtonSection extends StatelessWidget {
-  const HomeImageTitleAndButtonSection({super.key});
+  const HomeImageTitleAndButtonSection(
+      {super.key,
+      required this.imgUrl,
+      required this.title,
+      required this.subTitle,
+      required this.buttonName,
+      required this.buttonWork});
+  final String imgUrl, title, subTitle;
+  final Widget buttonName;
+  final VoidCallback buttonWork;
 
   @override
   Widget build(BuildContext context) {
     return AppCardContainer(
         child: Column(
       children: [
-        const AppBannerImage(imgUrl: 'assets/images/demo/new_section_img.png'),
+        AppBannerImage(imgUrl: imgUrl),
         Padding(
             padding: const EdgeInsets.all(AppSizes.md),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'AI-Powered Skin Care Recommendations',
+                  title,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 Text(
-                  'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
+                  subTitle,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Gap(AppSizes.defaultSpace),
                 AppCardContainer(
-                  backgroundColor: AppColors.secondary,
+                  onTap: buttonWork,
+                    backgroundColor: AppColors.secondary,
                     applyRadius: false,
                     padding: const EdgeInsets.symmetric(
                         horizontal: AppSizes.defaultSpace,
                         vertical: AppSizes.spaceBtwDefaultItems),
-                    child: Text(
-                      'Start Personalized Test',
-                      style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.white),
-                    ))
+                    child: buttonName)
               ],
             )),
       ],

@@ -16,6 +16,7 @@ import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dar
 import 'package:kirei/src/features/home/views/widgets/surprise_section.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'widgets/home_appbar_title.dart';
 import 'widgets/home_shop_by_concern.dart';
@@ -29,12 +30,12 @@ class HomeThree extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
     final GetShopDataController getShopDataController =
-        Get.put(GetShopDataController());
+    Get.put(GetShopDataController());
     final ConvexBottomNavController convexBottomNavController =
         ConvexBottomNavController.instance;
     return AppLayoutWithDrawer(
-      backToHome: true,
-         inHome: true,
+        backToHome: true,
+        inHome: true,
         globalKey: controller.homeKey,
         title: const AppHomeAppBarTitle(),
         leadingIconColor: AppColors.darkerGrey,
@@ -125,7 +126,7 @@ class HomeThree extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
                   child: AppHorizontalScrollProductCard(
                       sectionName:
-                          controller.homeProductResponse.value.featuredProducts),
+                      controller.homeProductResponse.value.featuredProducts),
                 );
               }),
               const Gap(AppSizes.spaceBtwSections),
@@ -141,20 +142,67 @@ class HomeThree extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
                   child: AppHorizontalScrollProductCard(
                       sectionName:
-                          controller.homeProductResponse.value.newProducts),
+                      controller.homeProductResponse.value.newProducts),
                 );
               }),
               const Gap(AppSizes.defaultSpace),
-              const HomeImageTitleAndButtonSection(),
+              HomeImageTitleAndButtonSection(
+                buttonWork: ()=> Get.toNamed('/personal-recommendation'),
+                imgUrl: 'assets/images/demo/new_section_img.png',
+                title: 'AI-Powered Skin Care Recommendations',
+                subTitle: 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
+                buttonName: Text(
+                  'Start Personalized Test',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .apply(color: AppColors.white),
+                ),
+              ),
               const Gap(AppSizes.spaceBtwSections),
               const HomeShopByConcern(),
               const Gap(AppSizes.spaceBtwSections),
               const HomeSurpriseSection(),
-              const HomeImageTitleAndButtonSection(),
+              HomeImageTitleAndButtonSection(
+                buttonWork: ()=> Get.toNamed('/group-shopping'),
+                imgUrl: 'assets/images/demo/new_section_img.png',
+                title: 'AI-Powered Skin Care Recommendations',
+                subTitle: 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
+                buttonName: Text(
+                  'Start Group Shopping',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .apply(color: AppColors.white),
+                ),
+              ),
               const Gap(AppSizes.defaultSpace),
               const HomeReviewSection(),
               const Gap(AppSizes.spaceBtwSections),
-              const HomeImageTitleAndButtonSection(),
+              HomeImageTitleAndButtonSection(
+                  buttonWork: () => Get.toNamed('/kirei-tube'),
+                  imgUrl: 'assets/images/demo/new_section_img.png',
+                  title: 'AI-Powered Skin Care Recommendations',
+                  subTitle: 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
+                  buttonName: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.play_circle_outline, size: 24,
+                        color: AppColors.white,),
+                      const Gap(AppSizes.spaceBtwDefaultItems),
+                      Text(
+                        'Watch Now',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .apply(color: AppColors.white),
+                      ),
+                    ],
+                  )
+              ),
               const Gap(70),
             ]));
   }
