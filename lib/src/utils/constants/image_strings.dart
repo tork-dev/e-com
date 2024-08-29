@@ -30,6 +30,11 @@ class AppImages {
   static const String playButtonIcon = "assets/images/icons/play_button.png";
   static const String redeemRewardIcon = "assets/images/icons/redeem_reward.png";
   static const String rewardIcon = "assets/images/icons/reward_icon.png";
+  static const String bKashIcon = "assets/images/icons/bkash_icon.png";
+  static const String sslIcon = "assets/images/icons/ssl_icon.png";
+  static const String facebookInIcon = "assets/images/icons/facebook_in_icon.png";
+  static const String instagramInIcon = "assets/images/icons/instagram_in_icon.png";
+  static const String twitterInIcon = "assets/images/icons/twitter_in_icon.png";
 
   // -- OnBoarding images
   static const String onBoardingImage1 = "assets/images/on_boarding_images/sammy-line-searching.gif";

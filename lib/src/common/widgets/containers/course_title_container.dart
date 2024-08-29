@@ -29,6 +29,7 @@ class AppCourseTitleContainer extends StatelessWidget {
         height: height,
           width: width,
           onTap: onTap,
+          applyRadius: false,
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
           //backgroundColor: Colors.red,
           child: Column(

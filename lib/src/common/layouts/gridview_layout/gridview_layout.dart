@@ -25,7 +25,6 @@ class AppGridViewLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryPassignController = GetShopDataController.instance;
     return LayoutBuilder(builder: (context, constraints) {
       int crossAxisCount;
       double childAspectRatio;

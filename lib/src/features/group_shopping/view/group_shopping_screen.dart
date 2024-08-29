@@ -34,9 +34,9 @@ class GroupShoppingScreen extends StatelessWidget {
           children: const [
             GroupShoppingHeaderPart(),
             Gap(AppSizes.spaceBtwSections),
-            GroupShoppingPopularNowGroups(),
-            GroupShoppingCreateNowGroups(),
-
+             GroupShoppingPopularNowGroups(),
+             GroupShoppingCreateNowGroups(),
+            Gap(AppSizes.md)
           ],
         ));
   }

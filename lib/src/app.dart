@@ -12,6 +12,7 @@ import 'package:kirei/src/features/checkout/model/order_create_model.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
+import 'package:kirei/src/features/influencer_store/view/influencer_screen.dart';
 import 'package:kirei/src/features/personalization/view/profile.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:upgrader/upgrader.dart';
@@ -19,6 +20,7 @@ import '../main.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
 import 'features/details/bindings/details_bindings.dart';
+import 'features/group_shopping/view/group_shopping_payment_screen.dart';
 import 'features/kirei_tube/view/kirei_tube_details.dart';
 import 'features/kirei_tube/view/kirei_tube_screen.dart';
 import 'features/purchase_history/view/purchase_history_details.dart';
@@ -100,7 +102,9 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/point-history', page: ()=> const RewardPointHistoryScreen()),
           GetPage(name: '/kirei-tube', page: ()=> const KireiTubeScreen()),
           GetPage(name: '/kirei-tube/:id', page: ()=> const KireiTubeDetailsScreen()),
-          GetPage(name: '/group-shopping', page: ()=> const GroupShoppingScreen())
+          GetPage(name: '/group-shopping', page: ()=> const GroupShoppingScreen()),
+          GetPage(name: '/group-shopping/:id', page: ()=> const GroupShoppingPaymentScreen()),
+          GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
         ],
 
         //navigatorKey: navigatorKey,

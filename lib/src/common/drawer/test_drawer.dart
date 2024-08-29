@@ -1,714 +1,403 @@
-//
-// import 'package:flutter/material.dart';
-// import 'package:url_launcher/url_launcher.dart';
-//
-// class MainDrawer extends StatefulWidget {
-//   const MainDrawer({
-//     required Key key,
-//   }) : super(key: key);
-//
-//   @override
-//   _MainDrawerState createState() => _MainDrawerState();
-// }
-//
-// class _MainDrawerState extends State<MainDrawer> {
-//   List<Category> categories = [];
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     fetchData();
-//   }
-//
-//   Future<void> fetchData() async {
-//     try {
-//       CategoryRepository categoryRepository = CategoryRepository();
-//       var categoryResponse = await categoryRepository.getCategories();
-//       setState(() {
-//         categories = categoryResponse.categories ?? [];
-//       });
-//     } catch (error) {
-//       print('Error fetching data: $error');
-//       // Handle error as needed
-//     }
-//   }
-//
-//   onTapLogout(context) async {
-//     AuthHelper().clearUserData();
-//
-//     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
-//       return Main();
-//     }), (route) => false);
-//   }
-//
-//   Future<void> _launchUrl(Uri url) async {
-//     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-//       throw Exception('Could not launch $url');
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Drawer(
-//       child: Directionality(
-//         textDirection:
-//         app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
-//         child: Container(
-//           padding: EdgeInsets.only(top: 50, left: 5),
-//           child: SingleChildScrollView(
-//             //scrollDirection: Axis.vertical,
-//             physics: ClampingScrollPhysics(),
-//             child: Column(
-//               children: <Widget>[
-//                 is_logged_in.$ == true
-//                     ? ListTile(
-//                     leading: CircleAvatar(
-//                         backgroundImage:
-//                         avatar_original.$ != null ? NetworkImage("${avatar_original.$}") : AssetImage('assets/placeholder.png') //TODO:change the avatar
-//                     ),
-//                     title: Text("${user_name.$}"),
-//                     subtitle: Text(
-//                       //if user email is not available then check user phone if user phone is not available use empty string
-//                       "${user_email.$ != "" && user_email.$ != null ? user_email.$ : user_phone.$ != "" && user_phone.$ != null ? user_phone.$ : ''}",
-//                     ))
-//                     : Text(
-//                     AppLocalizations.of(context).main_drawer_not_logged_in,
-//                     style: TextStyle(fontSize: 13)),
-//                 Divider(),
-//                 ListTile(
-//                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Text(
-//                         AppLocalizations.of(context)
-//                             .main_drawer_home
-//                             .toUpperCase(),
-//                         style: TextStyle(fontSize: 13)),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return Main();
-//                           }));
-//                     }
-//                 ),
-//                 ListTile(
-//                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Text('New Arrivals'.toUpperCase(),
-//                         style: TextStyle(
-//                           fontSize: 13,
-//                         )),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return Main(pageIndex: 1,);
-//                           }));
-//                     }),
-//                 Consumer<CategoryPassingController>(
-//                     builder: (widget, value, child) {
-//                       return ExpansionTile(
-//                         title: Row(
-//                           children: [
-//                             Text(
-//                               "Categories".toUpperCase(),
-//                               style: TextStyle(
-//                                 fontSize: 13,
-//                               ),
-//                             ),
-//
-//                             SizedBox(
-//                               width: MediaQuery.of(context).size.width * 0.05,
-//                             ),
-//
-//                             Stack(
-//                               children: [
-//                                 Transform.rotate(
-//                                   angle: pi/5,
-//                                   child: Container(
-//                                     margin: EdgeInsets.only(
-//                                         top: 3
-//                                     ),
-//                                     height: 15,
-//                                     width: 15,
-//                                     decoration: BoxDecoration(
-//                                       shape: BoxShape.rectangle,
-//                                       color: Colors.pinkAccent,
-//                                     ),
-//                                   ),
-//                                 ),
-//                                 Container(
-//                                   height: 22,
-//                                   width: 45,
-//                                   alignment: Alignment.center,
-//                                   decoration: BoxDecoration(
-//                                       color: Colors.pinkAccent,
-//                                       borderRadius: BorderRadius.circular(2)
-//                                   ),
-//                                   child: Text("New!",
-//                                     style: TextStyle(
-//                                         color: MyTheme.white,
-//                                         fontSize: 12,
-//                                         fontWeight: FontWeight.w500
-//                                     ),
-//                                   ),
-//                                 )
-//                               ],
-//                             ),
-//                           ],
-//                         ),
-//                         children: categories.map((category) {
-//                           return category.children != null &&
-//                               category.children.isNotEmpty
-//                               ? Padding(
-//                             padding:  EdgeInsets.only(left: 8.0),
-//                             child: ExpansionTile(
-//                               title: GestureDetector(
-//                                   onTap: (){
-//                                     value.setCategoryKey(category.slug);
-//                                     Navigator.push(context,
-//                                         MaterialPageRoute(builder: (context) {
-//                                           return Main(pageIndex: 1,);
-//                                         }));
-//                                   },
-//                                   child: Text(category.name)
-//                               ),
-//                               children: category.children.map((child) {
-//                                 return Padding(
-//                                   padding:  EdgeInsets.only(left: 8.0),
-//                                   child: ListTile(
-//                                     onTap: () {
-//                                       value.setCategoryKey(child.slug);
-//                                       Navigator.push(context,
-//                                           MaterialPageRoute(builder: (context) {
-//                                             return Main(pageIndex: 1,);
-//                                           }));
-//                                     },
-//                                     visualDensity:
-//                                     VisualDensity(horizontal: -4, vertical: -4),
-//                                     title: Text(child.name),
-//                                   ),
-//                                 );
-//                               }).toList(),
-//                             ),
-//                           )
-//                               : Padding(
-//                             padding:  EdgeInsets.only( left: 8.0),
-//                             child: ListTile(
-//                               onTap: () {
-//                                 value.setCategoryKey(category.slug);
-//                                 Navigator.push(context,
-//                                     MaterialPageRoute(builder: (context) {
-//                                       return Main(pageIndex: 1,);
-//                                     }));
-//                               },
-//                               visualDensity:
-//                               VisualDensity(horizontal: -4, vertical: -4),
-//                               title: Text(category.name),
-//                             ),
-//                           );
-//                         }).toList(),
-//                       );
-//                     }
-//                 ),
-//
-//                 ListTile(
-//                     visualDensity:
-//                     VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Row(
-//                       children: [
-//                         Text('BRANDS',
-//                             style: TextStyle(fontSize: 13)),
-//                         SizedBox(
-//                           width: MediaQuery.of(context).size.width * 0.05,
-//                         ),
-//
-//                         Stack(
-//                           children: [
-//                             Transform.rotate(
-//                               angle: pi/5,
-//                               child: Container(
-//                                 margin: EdgeInsets.only(
-//                                     top: 3
-//                                 ),
-//                                 height: 15,
-//                                 width: 15,
-//                                 decoration: BoxDecoration(
-//                                   shape: BoxShape.rectangle,
-//                                   color: Colors.pinkAccent,
-//                                 ),
-//                               ),
-//                             ),
-//                             Container(
-//                               height: 22,
-//                               width: 45,
-//                               alignment: Alignment.center,
-//                               decoration: BoxDecoration(
-//                                   color: Colors.pinkAccent,
-//                                   borderRadius: BorderRadius.circular(2)
-//                               ),
-//                               child: Text("Top!",
-//                                 style: TextStyle(
-//                                     color: MyTheme.white,
-//                                     fontSize: 12,
-//                                     fontWeight: FontWeight.w500
-//                                 ),
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                       ],
-//                     ),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return CommonWebviewScreen(
-//                               url: "https://kireibd.com/brands?type=app",
-//                               page_name: "Brands",
-//                             );
-//                           }));
-//                     }),
-//
-//                 ListTile(
-//                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Text('beauty tips'.toUpperCase(),
-//                         style: TextStyle(
-//                           fontSize: 13,
-//                         )),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return BeautyTips();
-//                           }));
-//                     }),
-//
-//                 ListTile(
-//                     visualDensity:
-//                     VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Text('PERSONAL RECOMMENDATION',
-//                         style: TextStyle(fontSize: 13)),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return CommonWebviewScreen(
-//                               url: "https://kireibd.com/personal-recommendation/skincare-recommendation?type=app",
-//                               page_name: "Personal Recommendation",
-//                             );
-//                           }));
-//                     }),
-//
-//                 ListTile(
-//                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Text('Community'.toUpperCase(),
-//                         style: TextStyle(fontSize: 13)),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return FeedList();
-//                           }));
-//                     }),
-//                 ListTile(
-//                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Text('Appointment'.toUpperCase(),
-//                         style: TextStyle(
-//                           fontSize: 13,
-//                         )),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return Appointment();
-//                           }));
-//                     }),
-//
-//                 ListTile(
-//                     visualDensity:
-//                     VisualDensity(horizontal: -4, vertical: -4),
-//                     title: Text('BLOG',
-//                         style: TextStyle(fontSize: 13)),
-//                     onTap: () {
-//                       Navigator.push(context,
-//                           MaterialPageRoute(builder: (context) {
-//                             return CommonWebviewScreen(
-//                               url: "https://kireibd.com/blogs?type=app",
-//                               page_name: "Blogs",
-//                             );
-//                           }));
-//                     }),
-//
-//                 ExpansionTile(
-//                     title: Row(
-//                       children: [
-//                         Text(
-//                           "kirei".toUpperCase(),
-//                           style: TextStyle(
-//                             fontSize: 13,
-//                           ),
-//                         ),
-//
-//                         SizedBox(
-//                           width: MediaQuery.of(context).size.width * 0.05,
-//                         ),
-//
-//                         Container(
-//                           height: 22,
-//                           width: 45,
-//                           alignment: Alignment.center,
-//                           decoration: BoxDecoration(
-//                               color: Color(0xff05ABE0),
-//                               borderRadius: BorderRadius.circular(5)
-//                           ),
-//                           child: Text("INFO",
-//                             style: TextStyle(
-//                                 color: MyTheme.white,
-//                                 fontSize: 12,
-//                                 fontWeight: FontWeight.w500
-//                             ),
-//                           ),
-//                         )
-//                       ],
-//                     ),
-//                     children: [
-//                       Padding(
-//                         padding:  EdgeInsets.only( left: 8.0),
-//                         child: Column(
-//                           children: [
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('Who We Are?',
-//                                     style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url: "https://kireibd.com/about-us?type=app",
-//                                           page_name: 'Who We Are?',
-//                                         );
-//                                       }));
-//                                 }),
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('FAQs', style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url: "https://kireibd.com/faq?type=app",
-//                                           page_name: "FAQs",
-//                                         );
-//                                       }));
-//                                 }),
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('Contact us',
-//                                     style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url: "https://kireibd.com/contact-us?type=app",
-//                                           page_name: "Contact Us",
-//                                         );
-//                                       }));
-//                                 }),
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('Testimonials',
-//                                     style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url: "https://kireibd.com/testimonial?type=app",
-//                                           page_name: 'Testimonials',
-//                                         );
-//                                       }));
-//                                 }),
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('Privacy & Policy',
-//                                     style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url:
-//                                           "https://kireibd.com/privacy-policy?type=app",
-//                                           page_name: "Privacy & Policy ",
-//                                         );
-//                                       }));
-//                                 }),
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('Terms & Conditions',
-//                                     style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url:
-//                                           "https://kireibd.com/term-condition?type=app",
-//                                           page_name: "Terms & Conditions",
-//                                         );
-//                                       }));
-//                                 }),
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('Returns & Refunds',
-//                                     style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url:
-//                                           "https://kireibd.com/return-refund?type=app",
-//                                           page_name: 'Returns & Refunds',
-//                                         );
-//                                       }));
-//                                 }),
-//                             ListTile(
-//                                 visualDensity:
-//                                 VisualDensity(horizontal: -4, vertical: -4),
-//                                 title: Text('Responsible Disclosure',
-//                                     style: TextStyle(fontSize: 13)),
-//                                 onTap: () {
-//                                   Navigator.push(context,
-//                                       MaterialPageRoute(builder: (context) {
-//                                         return CommonWebviewScreen(
-//                                           url:
-//                                           "https://kireibd.com/responsible-disclosure?type=app",
-//                                           page_name: 'Responsible Disclosure',
-//                                         );
-//                                       }));
-//                                 })
-//                           ],
-//                         ),
-//                       )
-//                     ]),
-//                 is_logged_in.$ == true
-//                     ? Column(
-//                   children: [
-//                     ListTile(
-//                         visualDensity:
-//                         VisualDensity(horizontal: -4, vertical: -4),
-//                         title: Text(
-//                           AppLocalizations.of(context)
-//                               .main_drawer_profile
-//                               .toUpperCase(),
-//                         ),
-//                         onTap: () {
-//                           Navigator.push(context,
-//                               MaterialPageRoute(builder: (context) {
-//                                 return Main(pageIndex: 3,);
-//                               }));
-//                         }),
-//                     ListTile(
-//                         visualDensity:
-//                         VisualDensity(horizontal: -4, vertical: -4),
-//                         title: Text(
-//                           AppLocalizations.of(context)
-//                               .main_drawer_orders
-//                               .toUpperCase(),
-//                         ),
-//                         onTap: () {
-//                           Navigator.push(context,
-//                               MaterialPageRoute(builder: (context) {
-//                                 return OrderList(from_checkout: false);
-//                               }));
-//                         }),
-//                     wallet_system_status.$
-//                         ? ListTile(
-//                         visualDensity: VisualDensity(
-//                             horizontal: -4,
-//                             vertical: -4
-//                         ),
-//                         leading: Image.asset("assets/wallet.png",
-//                             height: 16,
-//                             color: Theme.of(context)
-//                                 .buttonTheme
-//                                 .colorScheme
-//                                 .primary),
-//                         title: Text(
-//                             AppLocalizations.of(context)
-//                                 .main_drawer_wallet,
-//                             style: TextStyle(fontSize: 13)),
-//                         onTap: () {
-//                           Navigator.push(context,
-//                               MaterialPageRoute(builder: (context) {
-//                                 return Wallet();
-//                               }));
-//                         })
-//                         : Container(),
-//                   ],
-//                 )
-//                     : Container(),
-//
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.0005,
-//                 ),
-//
-//                 is_logged_in.$ == false
-//                     ? Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//
-//                     GestureDetector(
-//                       onTap:(){
-//                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login()));
-//                       },
-//                       child: Container(
-//                         height: 42,
-//                         width: 80,
-//                         decoration: BoxDecoration(
-//                           color: MyTheme.secondary,
-//                           borderRadius: BorderRadius.circular(2.5),
-//                         ),
-//                         child:Center(
-//                           child: Text(
-//                               AppLocalizations.of(context).main_drawer_login,
-//                               style: TextStyle(
-//                                   fontSize: 13,
-//                                   color: MyTheme.white,
-//                                   fontWeight: FontWeight.w600
-//
-//                               )
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//
-//                     SizedBox(
-//                       width: MediaQuery.of(context).size.width * 0.04,
-//                     ),
-//
-//                     GestureDetector(
-//                       onTap: (){
-//                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => Registration()));
-//                       },
-//                       child: Container(
-//                         height: 42,
-//                         width: 100,
-//                         decoration: BoxDecoration(
-//                           color: MyTheme.secondary,
-//                           borderRadius: BorderRadius.circular(2.5),
-//                         ),
-//                         child:Center(
-//                           child: Text(
-//                               "Register",
-//                               style: TextStyle(
-//                                   fontSize: 13,
-//                                   color: MyTheme.white,
-//                                   fontWeight: FontWeight.w600
-//                               )
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//
-//                   ],
-//                 )
-//                     : Container(),
-//                 is_logged_in.$ == true
-//                     ? Consumer<CartCountUpdate>(
-//                     builder: (widget, value, child) {
-//                       return ListTile(
-//                           visualDensity:
-//                           VisualDensity(
-//                               horizontal: -4,
-//                               vertical: -4
-//                           ),
-//                           title: Text(
-//                             AppLocalizations.of(context)
-//                                 .main_drawer_logout
-//                                 .toUpperCase(),
-//                           ),
-//                           onTap: () {
-//                             onTapLogout(context);
-//                             value.getReset();
-//                           });
-//                     }
-//                 )
-//                     : Container(),
-//
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.006,
-//                 ),
-//
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//
-//                     GestureDetector(
-//                       onTap: (){
-//                         _launchUrl(Uri.parse('https://www.facebook.com/jbeautybyKirei'));
-//                       },
-//                       child: Container(
-//                         height: MediaQuery.of(context).size.height * 0.05,
-//                         width: MediaQuery.of(context).size.width * 0.1,
-//                         decoration: BoxDecoration(
-//                         ),
-//                         child: Image.asset("assets/facebook.png", fit: BoxFit.cover,),
-//                       ),
-//                     ),
-//
-//                     SizedBox(
-//                       width: MediaQuery.of(context).size.width * 0.02,
-//                     ),
-//
-//                     GestureDetector(
-//                       onTap: (){
-//                         _launchUrl(Uri.parse('https://www.youtube.com/channel/UCfcO3vgVRLyqcIoAl8AX8Ew'));
-//                       },
-//                       child: Container(
-//                         height: MediaQuery.of(context).size.height * 0.05,
-//                         width: MediaQuery.of(context).size.width * 0.1,
-//                         decoration: BoxDecoration(
-//                         ),
-//                         child: Image.asset("assets/youtube.png", fit: BoxFit.cover,),
-//                       ),),
-//
-//                     SizedBox(
-//                       width: MediaQuery.of(context).size.width * 0.02,
-//                     ),
-//
-//                     GestureDetector(
-//                       onTap: (){
-//                         _launchUrl(Uri.parse('https://www.instagram.com/accounts/login/?next=%2Fjbeauty_kirei%2F'));
-//                       },
-//                       child: Container(
-//                         height: MediaQuery.of(context).size.height * 0.05,
-//                         width: MediaQuery.of(context).size.width * 0.1,
-//                         decoration: BoxDecoration(
-//                         ),
-//                         child: Image.asset("assets/instagram.png", fit: BoxFit.cover,),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.015,
-//                 ),
-//
-//                 Consumer<VersionChange>(
-//                     builder: (context, value, child){
-//                       return Text("version: ${value.latestVersion}",
-//                         style: TextStyle(
-//                             fontWeight: FontWeight.w500
-//                         ),
-//                       );
-//                     }),
-//
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.1,
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
+import 'package:kirei/src/common/drawer/view/widgets/drawer_bottom_button.dart';
+import 'package:kirei/src/common/styles/app_dividers.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
+import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
+import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
+import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/community/view/community_screen.dart';
+import 'package:kirei/src/features/influencer_store/view/influencer_screen.dart';
+import 'package:kirei/src/features/personalization/view/account_details.dart';
+import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
+import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/web_view/web_view.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../utils/constants/colors.dart';
+import '../../utils/helpers/auth_helper.dart';
+import 'view/widgets/common_drawer_card.dart';
+import 'view/widgets/header_part.dart';
+
+
+class AppDrawerNew extends StatelessWidget {
+  final bool isFromOtherPage;
+  const AppDrawerNew({super.key, required this.isFromOtherPage});
+
+  @override
+  Widget build(BuildContext context) {
+    final drawerController = Get.put(AppDrawerController());
+    final shopController = Get.put(GetShopDataController());
+    final bottomController = Get.put(ConvexBottomNavController());
+    return AppCardContainer(
+      margin: const EdgeInsets.only(bottom: 50),
+      width: 300,
+      backgroundColor: AppColors.white,
+      applyRadius: false,
+      child: ListView(
+        children: [
+          InkWell(
+              onTap:()=> Get.to(()=> const AccountDetailsScreen()),
+              child: const AppDrawerHeaderPart()),
+          AppDrawerCard(
+            title: 'HOME',
+            onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+          ),
+          AppDrawerCard(
+            title: 'new arrivals',
+            onPress: () {
+              if(isFromOtherPage){
+                Get.to(const HelloConvexAppBar(pageIndex: 1,));
+              }
+              shopController.updateCategory('new');
+              shopController.getShopData();
+              bottomController.jumpToTab(1);
+            },
+          ),
+          Obx(() {
+            return ExpansionTile(
+              title: Row(
+                children: [
+                  Text(
+                    "Categories".toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 13,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.05,
+                  ),
+                  Stack(
+                    children: [
+                      Transform.rotate(
+                        angle: pi / 5,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 3),
+                          height: 15,
+                          width: 15,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.pinkAccent,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 22,
+                        width: 45,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.pinkAccent,
+                            borderRadius: BorderRadius.circular(2)),
+                        child: const Text(
+                          "New!",
+                          style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              children: drawerController.allCategories.map((category) {
+                return category.children != null && category.children!.isNotEmpty
+                    ? Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: ExpansionTile(
+                    title: GestureDetector(
+                        onTap: () {
+                          shopController.resetAll();
+                          if(isFromOtherPage){
+                            Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                          }
+                          shopController.updateCategory(category.slug);
+                          //shopController.getShopData();
+                          bottomController.jumpToTab(1);
+                        },
+                        child: Text(category.name)),
+                    children: category.children!.map((child) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: AppDrawerCard(
+                          title: child.name,
+                          onPress: () {
+                            shopController.resetAll();
+                            if(isFromOtherPage){
+                              Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                            }
+                            shopController.updateCategory(child.slug);
+                            //shopController.getShopData();
+                            bottomController.jumpToTab(1);
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                )
+                    : Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: AppDrawerCard(
+                    title: category.name,
+                    onPress: ()  {
+                      if(isFromOtherPage){
+                        Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                      }
+                      shopController.updateCategory(category.slug);
+                      //shopController.getShopData();
+                      bottomController.jumpToTab(1);
+                    },
+                  ),
+                );
+              }).toList(),
+            );
+          }
+          ),
+          ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+              title: Row(
+                children: [
+                  const Text('BRANDS', style: TextStyle(fontSize: 13)),
+                  SizedBox(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.05,
+                  ),
+                  Stack(
+                    children: [
+                      Transform.rotate(
+                        angle: pi / 5,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 3),
+                          height: 15,
+                          width: 15,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.pinkAccent,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 22,
+                        width: 45,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.pinkAccent,
+                            borderRadius: BorderRadius.circular(2)),
+                        child: const Text(
+                          "Top!",
+                          style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              onTap: () {
+                Get.to(() =>
+                const WebViewScreen(
+                    title: 'Brands',
+                    url: "https://kireibd.com/brands?type=app"));
+              }),
+          AppDrawerCard(
+            title: 'beauty tips',
+            onPress: () => Get.offAll(() => const BeautyTipsScreen()),
+          ),
+          AppDrawerCard(
+              title: 'AI Suggestion',
+              onPress: () {
+                if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+                  Get.to(()=> const SkinCareHistoryOne());
+                }else{
+                  AppHelperFunctions.showToast('Please login first');
+                  Get.toNamed('/login/personal-recommendation');
+                }
+              }
+
+          ),
+          AppDrawerCard(
+            title: 'kirei community',
+            onPress: () => Get.offAll(() => const CommunityScreen()),
+          ),
+          AppDrawerCard(
+            title: 'dr. appointment',
+            onPress: () => Get.offAll(() => const AppointmentScreen()),
+          ),
+          AppDrawerCard(
+            title: 'blog',
+            onPress: () {
+              Get.to(() =>
+              const WebViewScreen(
+                  url: "https://kireibd.com/blogs?type=app", title: 'Blogs'));
+            },
+          ),
+          ExpansionTile(
+              title: Row(
+                children: [
+                  Text(
+                    "kirei".toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 13,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.05,
+                  ),
+                  Stack(
+                    children: [
+                      Transform.rotate(
+                        angle: pi / 5,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 3),
+                          height: 15,
+                          width: 15,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: AppColors.preorder,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 22,
+                        width: 45,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: AppColors.preorder,
+                            borderRadius: BorderRadius.circular(2)),
+                        child: const Text(
+                          "INFO",
+                          style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              children: [
+                AppDrawerCard(
+                  title: 'who we are?',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(
+                        url: 'https://kireibd.com/about-us?type=app',
+                        title: 'Who We Are?'));
+                  },
+                ),
+                AppDrawerCard(
+                  title: 'faqs',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(url: 'https://kireibd.com/faq?type=app',
+                        title: 'FAQs'));
+                  },
+                ),
+                AppDrawerCard(
+                  title: 'contact us',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(
+                        url: 'https://kireibd.com/contact-us?type=app',
+                        title: 'Contact us'));
+                  },
+                ),
+                AppDrawerCard(
+                  title: 'testimonials',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(
+                        url: 'https://kireibd.com/testimonial?type=app',
+                        title: 'Testimonials'));
+                  },
+                ),
+                AppDrawerCard(
+                  title: 'privacy & policy',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(
+                        url: 'https://kireibd.com/privacy-policy?type=app',
+                        title: 'Privacy & Policy'));
+                  },
+                ),
+                AppDrawerCard(
+                  title: 'terms & condition',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(
+                        url: 'https://kireibd.com/term-condition?type=app',
+                        title: 'Terms & Conditions'));
+                  },
+                ),
+                AppDrawerCard(
+                  title: 'returns & refunds',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(
+                        url: 'https://kireibd.com/return-refund?type=app',
+                        title: 'Returns & Refunds'));
+                  },
+                ),
+                AppDrawerCard(
+                  title: 'responsibility disclosure',
+                  onPress: () {
+                    Get.to(() =>
+                    const WebViewScreen(
+                        url: 'https://kireibd.com/responsible-disclosure?type=app',
+                        title: 'Responsible Disclosure'));
+                  },
+                ),
+              ]),
+          Visibility(
+              visible:
+              AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                  true,
+              child: Column(
+                children: [
+                  AppDrawerCard(
+                    title: 'profile',
+                    onPress: () => bottomController.jumpToTab(3),
+                  ),
+                  AppDrawerCard(
+                    title: 'orders',
+                    onPress: () => Get.to(() => const PurchaseHistory()),
+                  ),
+                  AppDrawerCard(
+                      title: 'logout',
+                      onPress: () {
+                        AuthHelper().clearUserData();
+                        Get.offAll(()=> const HelloConvexAppBar());
+                      }),
+                  AppDrawerCard(
+                    title: 'influencer store',
+                    onPress: () => Get.offAll(() => const InfluencerStore()),
+                  ),
+                ],
+              )),
+          const Gap(AppSizes.xs),
+          AppDividersStyle.fullFlatAppDivider,
+          const Gap(AppSizes.xs),
+          const AppDrawerBottomButton()
+        ],
+      ),
+    );
+  }
+}

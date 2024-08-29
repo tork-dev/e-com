@@ -54,7 +54,7 @@ class AppNewProductCard extends StatelessWidget {
     return AppCardContainer(
       height: height,
       width: width,
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.addToCartButton,
       applyRadius: false,
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(AppSizes.sm),
@@ -125,7 +125,7 @@ class AppNewProductCard extends StatelessWidget {
             children: List.generate(
               categoryLength!,
               (categoryIndex) {
-                final name = categoryName[categoryIndex].name;
+                final name = categoryName[categoryIndex];
                 return Text(
                   "$name, ",
                   style: Theme.of(context).textTheme.labelSmall,

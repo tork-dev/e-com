@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
-import 'package:kirei/src/common/widgets/containers/new_product_card.dart';
-import 'package:kirei/src/features/group_shopping/controller/group_shopping_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
+
+import '../../../../common/widgets/containers/vertical_product_card.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../controller/group_shopping_controller.dart';
 
 class GroupShoppingHeaderPart extends StatelessWidget {
   const GroupShoppingHeaderPart({
@@ -20,7 +21,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final groupShoppingController = GroupShoppingController.instance;
-    final ScrollController pageController = ScrollController();
+    final PageController pageController = PageController(viewportFraction: 1);
 
     return Stack(
       children: [
@@ -49,7 +50,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                       .labelLarge!
                       .apply(color: AppColors.darkGrey),
                 ),
-                const Gap(AppSizes.spaceBtwSections),
+                const Gap(AppSizes.md),
                 SizedBox(
                   width: 125,
                   child: AppButtons.largeFlatFilledButton(
@@ -60,89 +61,96 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                 ),
                 const Gap(AppSizes.md),
                 Obx(
-                  () => SizedBox(
-                    height: 300,
-                    child: ListView.builder(
-                      controller: pageController,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: groupShoppingController.hittingApi.value
-                          ? 2
-                          : groupShoppingController
-                              .groupShoppingProduct.value.data!.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: AppSizes.md),
-                          child: groupShoppingController.hittingApi.value
-                              ? ShimmerHelper().buildBasicShimmer()
-                              : AppNewProductCard(
-                                  height: 300,
-                                  width: 164,
-                                  productName: groupShoppingController
-                                      .groupShoppingProduct
-                                      .value
-                                      .data![index]
-                                      .name!,
-                                  categoryLength: groupShoppingController
-                                      .groupShoppingProduct
-                                      .value
-                                      .data![index]
-                                      .productCategories!
-                                      .length,
-                                  categoryName: groupShoppingController
-                                      .groupShoppingProduct
-                                      .value
-                                      .data![index]
-                                      .productCategories!,
-                                  buttonColor: AppColors.white,
-                                  onPress: () {},
-                                  onCartPress: () {},
-                                  imgUrl: groupShoppingController
-                                      .groupShoppingProduct
-                                      .value
-                                      .data![index]
-                                      .pictures![0]
-                                      .url!,
-                                  buttonName: 'Create Group',
-                                  backgroundColor: AppColors.addToCartButton,
-                                  isDiscountAvailable: false,
-                                  discount: 0,
-                                  ratings: groupShoppingController
-                                      .groupShoppingProduct
-                                      .value
-                                      .data![index]
-                                      .ratings!
-                                      .toDouble(),
-                                  reviews: groupShoppingController
-                                      .groupShoppingProduct
-                                      .value
-                                      .data![index]
-                                      .reviews,
-                                  price: groupShoppingController.groupShoppingProduct.value.data![index].price.toString(),
-                                  salePrice: groupShoppingController.groupShoppingProduct.value.data![index].salePrice.toString(),
-                                  isStockAvailable: true),
-                        );
-                      },
-                    ),
-                  ),
+                  () {
+                    final products = groupShoppingController
+                            .groupShoppingProduct.value.data ??
+                        [];
+                    final pageCount = (products.length / 2).ceil();
+
+                    return groupShoppingController.hittingApi.value
+                        ? ShimmerHelper().buildBasicShimmer(
+                            height: 300,
+                          )
+                        : SizedBox(
+                            height: 300,
+                            width: AppHelperFunctions.screenWidth(),
+                            child: PageView.builder(
+                              controller: pageController,
+                              itemCount: pageCount,
+                              itemBuilder: (context, pageIndex) {
+                                final startIndex = pageIndex * 2;
+                                final endIndex = startIndex + 2;
+
+                                // Take the products for the current page, max 2
+                                final pageProducts = products.sublist(
+                                  startIndex,
+                                  endIndex > products.length
+                                      ? products.length
+                                      : endIndex,
+                                );
+
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: List.generate(pageProducts.length,
+                                      (index) {
+                                    final product = pageProducts[index];
+                                    return SizedBox(
+                                      width: 170,
+                                      child: AppVerticalProductCard(
+                                        height: 290,
+                                        width: 170,
+                                        imgWidth: 170,
+                                        imgHeight: 150,
+                                        padding:
+                                            const EdgeInsets.all(AppSizes.sm),
+                                        onTap: () {},
+                                        onCartTap: () {},
+                                        buttonColor: AppColors.white,
+                                        imgUrl: product.pictures![0].url!,
+                                        buttonName: 'Create Group',
+                                        backgroundColor:
+                                            AppColors.addToCartButton,
+                                        isDiscountAvailable: false,
+                                        discount: 0,
+                                        isStockAvailable: false,
+                                        productName: product.name!,
+                                        price: product.price!,
+                                        salePrice: product.salePrice!,
+                                        ratings: product.ratings!.toDouble(),
+                                        reviews: product.reviews!,
+                                      ),
+                                    );
+                                  }),
+                                );
+                              },
+                            ),
+                          );
+                  },
                 ),
                 const Gap(AppSizes.md),
-                // Obx(
-                //       () =>
-                //       SmoothPageIndicator(
-                //         controller: pageController,
-                //         count: (groupShoppingController
-                //             .groupShoppingProduct.value.data?.length ??
-                //             0 + 1) ~/
-                //             2, // Adjust the count based on two items per page
-                //         effect: WormEffect(
-                //           dotHeight: 8.0,
-                //           dotWidth: 8.0,
-                //           spacing: 8.0,
-                //           activeDotColor: AppColors.primary,
-                //           dotColor: AppColors.grey,
-                //         ),
-                //       ),
-                // ),
+                Obx(
+                  () {
+                    final products = groupShoppingController
+                            .groupShoppingProduct.value.data ??
+                        [];
+                    final pageCount = (products.length / 2).ceil();
+
+                    return groupShoppingController.hittingApi.value
+                        ? ShimmerHelper().buildBasicShimmer(height: 10)
+                        : SmoothPageIndicator(
+                            controller: pageController,
+                            count: pageCount, // Correct page count
+                            effect: const WormEffect(
+                              dotHeight: 8.0,
+                              dotWidth: 8.0,
+                              spacing: 8.0,
+                              activeDotColor: AppColors.primary,
+                              dotColor: AppColors.dark,
+                            ),
+                          );
+                  },
+                ),
               ],
             ),
           ),

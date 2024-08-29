@@ -100,7 +100,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
 
                                     },
                                     child: const Icon(Icons.share)),
-                                const Gap(AppSizes.spaceBtwDefaultItems),
+                                const Gap(AppSizes.defaultSpace),
                                 InkWell(onTap: () {
                                   if (AppLocalStorage().readData(
                                           LocalStorageKeys.isLoggedIn) ==
