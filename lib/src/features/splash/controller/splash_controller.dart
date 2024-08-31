@@ -21,10 +21,7 @@ class SplashController extends GetxController {
     //appStatus();
     appInfo();
     changeScreen();
-    BusinessSettingHelper.setBusinessSettingData();
-    if(AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null){
-      Get.put(GaipUserIdController());
-    }
+
     //Future.delayed(const Duration(seconds: 3)).then((value) => Get.offAll(()=> const HelloConvexAppBar()));
 
   }

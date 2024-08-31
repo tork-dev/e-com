@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -61,18 +60,18 @@ class AppHelperFunctions {
     );
   }
 
-  static showFlashBar(
-      {String? message,
-      Icon? icon,
-      FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM}) {
-    Flushbar(
-      message: message,
-      backgroundColor: Colors.red,
-      duration: const Duration(seconds: 3),
-      icon: icon,
-      flushbarPosition: flushbarPosition,
-    ).show(Get.context!);
-  }
+  // static showFlashBar(
+  //     {String? message,
+  //     Icon? icon,
+  //     FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM}) {
+  //   Flushbar(
+  //     message: message,
+  //     backgroundColor: Colors.red,
+  //     duration: const Duration(seconds: 3),
+  //     icon: icon,
+  //     flushbarPosition: flushbarPosition,
+  //   ).show(Get.context!);
+  // }
 
   static void showSimpleSnackBar(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(

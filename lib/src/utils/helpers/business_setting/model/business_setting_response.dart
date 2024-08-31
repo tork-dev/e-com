@@ -51,3 +51,51 @@ class Datum {
     "value": value,
   };
 }
+
+
+class PopUp {
+  int? id;
+  String? title;
+  String? description;
+  String? image;
+  String? buttonName;
+  String? route;
+  String? source;
+
+  PopUp({
+    this.id,
+    this.title,
+    this.description,
+    this.image,
+    this.buttonName,
+    this.route,
+    this.source
+  });
+
+  factory PopUp.fromRawJson(String str) => PopUp.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory PopUp.fromJson(Map<String, dynamic> json) =>
+      PopUp(
+          id: json["id"],
+          title: json["title"],
+          description: json["description"],
+          image: json["image"],
+          buttonName: json["button_name"],
+          route: json["route"],
+          source: json["source"]
+      );
+
+  Map<String, dynamic> toJson() =>
+      {
+        "id": id,
+        "title": title,
+        "description": description,
+        "image": image,
+        "button_name": buttonName,
+        "route": route,
+        "source": source,
+      };
+}
+

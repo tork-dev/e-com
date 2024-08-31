@@ -1,9 +1,7 @@
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_details_model.dart';
 import 'package:kirei/src/features/kirei_tube/repositories/kirei_tube_repositories.dart';
-import 'package:video_player/video_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 
 class KireiTubeDetailsController extends GetxController{
   static KireiTubeDetailsController get instance => Get.find();
@@ -12,15 +10,14 @@ class KireiTubeDetailsController extends GetxController{
   RxBool hittingApi = false.obs;
   Rx<KireiTubeDetailsResponse> kireiTubeDetailsResponse = KireiTubeDetailsResponse().obs;
   RxString videoSlug = ''.obs;
-  final flickManager = Rxn<FlickManager>();
-  final youtubeVideo = Rxn<YoutubePlayerController>();
+
 
 
   @override
   void onInit() {
     super.onInit();
     videoSlug.value = Get.parameters['id']!;
-  getKireiTubeData(videoSlug.value);
+ // getKireiTubeData(videoSlug.value);
 
   }
 
@@ -28,7 +25,7 @@ class KireiTubeDetailsController extends GetxController{
   @override
   void dispose() {
     super.dispose();
-    flickManager.value?.dispose();
+   // flickManager.value?.dispose();
   }
 
   Future<void> onRefresh() async{
@@ -36,27 +33,27 @@ class KireiTubeDetailsController extends GetxController{
   }
 
 
-  Future<void> getKireiTubeData(String videoSlug) async{
-    hittingApi.value = true;
-    kireiTubeDetailsResponse.value = await KireiTubeRepositories().getKireiDetailsData(videoSlug);
-    flickManager.value = FlickManager(
-      videoPlayerController:
-      VideoPlayerController.networkUrl(Uri.parse(kireiTubeDetailsResponse.value.data!.video!),
-      ),
-      autoPlay: false,
-    );
-
-    String videoId;
-    videoId = YoutubePlayer.convertUrlToId(kireiTubeDetailsResponse.value.data!.video!)!;
-    youtubeVideo.value = YoutubePlayerController(
-      initialVideoId: "aiEMFokemo",
-      flags: const YoutubePlayerFlags(
-        autoPlay: true,
-        mute: true,
-      ),
-    );
-
-    hittingApi.value = false;
-  }
+  // Future<void> getKireiTubeData(String videoSlug) async{
+  //   hittingApi.value = true;
+  //   kireiTubeDetailsResponse.value = await KireiTubeRepositories().getKireiDetailsData(videoSlug);
+  //   flickManager.value = FlickManager(
+  //     videoPlayerController:
+  //     VideoPlayerController.networkUrl(Uri.parse(kireiTubeDetailsResponse.value.data!.video!),
+  //     ),
+  //     autoPlay: false,
+  //   );
+  //
+  //   String videoId;
+  //   videoId = YoutubePlayer.convertUrlToId(kireiTubeDetailsResponse.value.data!.video!)!;
+  //   youtubeVideo.value = YoutubePlayerController(
+  //     initialVideoId: "aiEMFokemo",
+  //     flags: const YoutubePlayerFlags(
+  //       autoPlay: true,
+  //       mute: true,
+  //     ),
+  //   );
+  //
+  //   hittingApi.value = false;
+  // }
 
 }

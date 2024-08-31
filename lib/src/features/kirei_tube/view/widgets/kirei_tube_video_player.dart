@@ -51,16 +51,15 @@
 //   }
 // }
 
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_details_controller.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
-import 'package:video_player/video_player.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 
 // class KireiDetailsVideoPlayer extends StatelessWidget {
 //   const KireiDetailsVideoPlayer({super.key});
