@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
-import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../constants/colors.dart';
 
@@ -314,6 +312,7 @@ class AppHelperFunctions {
               applyRadius: false,
               padding: const EdgeInsets.all(AppSizes.defaultSpace),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
@@ -326,9 +325,100 @@ class AppHelperFunctions {
                         height: 44,
                           width: 44,
                           backgroundColor: AppColors.grey,
-                          child: Icon(Icons.clear))
+                          child: const Icon(Icons.clear))
                     ],
                   ),
+                  const Gap(AppSizes.defaultSpace),
+                  RadioListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
+                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
+                    dense: true,  // Makes the tile more compact
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '100 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: true,
+                    groupValue: true,
+                    onChanged: (value) {
+                      // Your onChanged logic here
+                    },
+                  ),
+
+                  RadioListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
+                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
+                    dense: true,  // Makes the tile more compact
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '200 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: true,
+                    groupValue: true,
+                    onChanged: (value) {
+                      // Your onChanged logic here
+                    },
+                  ),
+                  RadioListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
+                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
+                    dense: true,  // Makes the tile more compact
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '300 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: true,
+                    groupValue: true,
+                    onChanged: (value) {
+                      // Your onChanged logic here
+                    },
+                  ),
+                  RadioListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
+                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
+                    dense: true,  // Makes the tile more compact
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '400 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: true,
+                    groupValue: true,
+                    onChanged: (value) {
+                      // Your onChanged logic here
+                    },
+                  ),
+                  RadioListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
+                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
+                    dense: true,  // Makes the tile more compact
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '500 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: true,
+                    groupValue: true,
+                    onChanged: (value) {
+                      // Your onChanged logic here
+                    },
+                  ),
+
+                  const Gap(AppSizes.md),
+                  SizedBox(
+                    width: 150,
+                    child: AppButtons.largeFlatFilledButton(
+                        onPressed: (){},
+                        backgroundColor: AppColors.addToCartButton,
+                        buttonText: 'Redeem Points'.toUpperCase()),
+                  )
                 ],
               ),
             )
