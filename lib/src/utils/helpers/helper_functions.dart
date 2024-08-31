@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../constants/colors.dart';
 
@@ -183,7 +185,8 @@ class AppHelperFunctions {
   }
 
   static void showPopUpAlert(
-      {required String message,
+      {required String title,
+      required String subTitle,
       required String leftButtonName,
       required String rightButtonName,
       required VoidCallback onRightPress,
@@ -199,44 +202,46 @@ class AppHelperFunctions {
           insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
           backgroundColor: AppColors.popUpBackground,
           child: SizedBox(
-            height: imgUrl != '' ? 370.0 : 190,
+            height: imgUrl != 'https://appbeta.kireibd.com/null'?  370.0 : 200,
             child: Stack(
               children: [
                 Column(
                   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Visibility(
-                      visible: imgUrl != '',
+                      visible: imgUrl != 'https://appbeta.kireibd.com/null',
                       child: AppBannerImage(
                           applyImageRadius: false,
                           height: 180,
                           width: double.infinity,
                           fit: BoxFit.cover,
-                          isNetworkImage: false,
-                          imgUrl: imgUrl ?? ''),
+                          isNetworkImage: true,
+                          imgUrl: imgUrl),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(
-                          false ? AppSizes.defaultSpace : AppSizes.xl),
+                      padding: const EdgeInsets.all(AppSizes.defaultSpace),
                       child: Column(
                         children: [
                           Text(
-                            message,
+                            title,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
-                          Text(
-                            message,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
+                          const Gap(AppSizes.sm),
+
+                          HtmlWidget(subTitle),
+                          // Text(
+                          //   message,
+                          //   style: Theme.of(context).textTheme.bodyLarge,
+                          // ),
                           const Gap(AppSizes.xl),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               AppCardContainer(
                                   onTap: onLeftPress,
                                   applyRadius: false,
                                   height: 40,
-                                  width: 100,
+                                  width: 150,
                                   hasBorder: true,
                                   child: Center(
                                     child: Text(
@@ -245,11 +250,12 @@ class AppHelperFunctions {
                                           Theme.of(context).textTheme.bodyLarge,
                                     ),
                                   )),
+                              const Gap(AppSizes.sm),
                               AppCardContainer(
                                   onTap: onRightPress,
                                   applyRadius: false,
                                   height: 40,
-                                  width: 100,
+                                  width: 150,
                                   backgroundColor: AppColors.primary,
                                   child: Center(
                                     child: Text(
@@ -271,13 +277,12 @@ class AppHelperFunctions {
                   right: AppSizes.md,
                   top: AppSizes.md,
                   child: AppCardContainer(
+                    onTap: onLeftPress,
                       applyRadius: false,
                       backgroundColor: AppColors.grey,
                       height: 40,
                       width: 40,
-                      child: InkWell(
-                          onTap: () => Get.back(),
-                          child: const Icon(Icons.clear))),
+                      child: const Icon(Icons.clear)),
                 )
               ],
             ),
@@ -293,6 +298,44 @@ class AppHelperFunctions {
         useSafeArea: true,
         builder: (BuildContext context) => const AppSpinnerWheelAlert());
   }
+
+  void pointRedeemAlert() {
+    showDialog(
+        context: Get.context!,
+        useSafeArea: true,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: AppColors.white,
+            insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+            shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+            child: AppCardContainer(
+              applyRadius: false,
+              padding: const EdgeInsets.all(AppSizes.defaultSpace),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Redeem Your Points', style: Theme.of(context).textTheme.headlineSmall,),
+                       AppCardContainer(
+                         applyRadius: false,
+                        onTap: ()=> Get.back(),
+                        height: 44,
+                          width: 44,
+                          backgroundColor: AppColors.grey,
+                          child: Icon(Icons.clear))
+                    ],
+                  ),
+                ],
+              ),
+            )
+          );
+        });
+  }
+
 
   static void navigateToScreen(BuildContext context, Widget screen) {
     Navigator.push(

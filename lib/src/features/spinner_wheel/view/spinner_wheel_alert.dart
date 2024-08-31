@@ -80,7 +80,8 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                               Get.back();
                               AppHelperFunctions.showPopUpAlert(
                                 imgUrl: '',
-                                  message: 'Done',
+                                  title: 'Done',
+                                  subTitle: 'Done',
                                   leftButtonName: 'Cancel',
                                   rightButtonName: 'OK',
                                   onRightPress: (){},

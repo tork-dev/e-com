@@ -4,6 +4,7 @@ class AppApiEndPoints {
   AppApiEndPoints._();
 
   static final String baseUrl = dotenv.env["BASE_URL"]!;
+  static final String baseUrlData = dotenv.env["BASE_URL_DATA"]!;
   static final String gialogyBaseUrl = dotenv.env["GIGALOGY_BASE_URL"]!;
 
   ///Authentication

@@ -45,7 +45,7 @@ class AppCartProductCard extends StatelessWidget {
                       applyRadius: false,
                       padding: const EdgeInsets.all(AppSizes.sm),
                       margin:
-                          const EdgeInsets.symmetric(horizontal: AppSizes.sm),
+                          const EdgeInsets.symmetric(horizontal: AppSizes.md),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

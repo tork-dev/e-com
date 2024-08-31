@@ -14,7 +14,7 @@ class MyAppTheme {
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Poppins',
+    fontFamily: 'OpenSans',
     disabledColor: AppColors.grey,
     brightness: Brightness.light,
     primaryColor: AppColors.primary,

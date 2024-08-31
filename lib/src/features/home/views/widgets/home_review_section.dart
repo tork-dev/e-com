@@ -23,7 +23,7 @@ class HomeReviewSection extends StatelessWidget {
           ),
           const Gap(AppSizes.spaceBtwDefaultItems),
           SizedBox(
-            height: 191,
+            height: 220,
             child: AppListViewLayout(
                 itemCount: 5,
                 isScrollVertically: false,
@@ -60,6 +60,8 @@ class HomeReviewSection extends StatelessWidget {
                           Text(
                             'At our digital agency, we understand the importance of a well-designed and functional website. Website as the digital storefront for business understand the importance.',
                             style: Theme.of(context).textTheme.bodySmall,
+                            maxLines: 6,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           const Gap(AppSizes.spaceBtwDefaultItems),
                           Text(

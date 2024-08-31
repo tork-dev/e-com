@@ -2,11 +2,13 @@ import 'dart:convert';
 
 class BusinessSettingResponse {
   List<Datum>? data;
+  List<PopUp>? popUp;
   bool? success;
   int? status;
 
   BusinessSettingResponse({
     this.data,
+    this.popUp,
     this.success,
     this.status,
   });
@@ -17,6 +19,7 @@ class BusinessSettingResponse {
 
   factory BusinessSettingResponse.fromJson(Map<String, dynamic> json) => BusinessSettingResponse(
     data: json["data"] == null ? [] : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    popUp: json["popup"] == null ? [] : List<PopUp>.from(json["popup"].map((x) => PopUp.fromJson(x))),
     success: json["success"],
     status: json["status"],
   );

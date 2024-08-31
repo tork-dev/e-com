@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
@@ -52,7 +53,7 @@ class AppPaymentMethodType extends StatelessWidget {
                       ),
                       AppBannerImage(
                           isNetworkImage: true,
-                          width: 70,
+                          width: 60,
                           imgUrl:
                               checkoutController.paymentMethods[index].image),
                       const Gap(2),
@@ -62,23 +63,21 @@ class AppPaymentMethodType extends StatelessWidget {
               );
             }),
             const Gap(AppSizes.spaceBtwDefaultItems),
-            Row(
-              children: [
-                Obx(() {
-                  return Checkbox(
-                      value: checkoutController.isTermsChecked.value,
-                      onChanged: (value) {
-                        checkoutController.isTermsChecked.value = value!;
-                      });
-                }),
-                const SizedBox(
-                    width: 300,
-                    child: Text(
-                      "I HAVE READ AND AGREE TO THE KIREI'S TERMS AND CONDITIONS, PRIVACY POLICY, AND REFUND POLICY.",
-                      style: TextStyle(fontSize: 14),
-                    ))
-              ],
-            ),
+
+            Obx( () {
+                return CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: checkoutController.isTermsChecked.value,
+                    onChanged: (value) {
+                      checkoutController.isTermsChecked.value = value!;
+                    },
+                  title: const Text(
+                    "I HAVE READ AND AGREE TO THE KIREI'S TERMS AND CONDITIONS, PRIVACY POLICY, AND REFUND POLICY."
+                  ),
+                );
+              }
+            )
           ],
         ));
   }

@@ -11,6 +11,7 @@ import 'package:kirei/src/features/checkout/controller/checkout_controller.dart'
 import 'package:kirei/src/features/checkout/view/widget/checkout_summary.dart';
 import 'package:kirei/src/features/checkout/view/widget/coupon_field.dart';
 import 'package:kirei/src/features/checkout/view/widget/payment_method_type.dart';
+import 'package:kirei/src/features/checkout/view/widget/redeem_point_part.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../utils/constants/colors.dart';
 import 'widget/checkout_order_product_card.dart';
@@ -51,13 +52,16 @@ class CheckoutScreen extends StatelessWidget {
       ),
       body: Obx(() {
         return controller.isLoading.value
-            ? const Center(child: CircularProgressIndicator(color: AppColors.primary,))
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: AppColors.primary,
+              ))
             : AppLayoutWithRefresher(
                 onRefresh: controller.onRefresh,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: AppSizes.sm),
+                        const EdgeInsets.symmetric(horizontal: AppSizes.md),
                     child: Column(
                       children: [
                         const Gap(AppSizes.sm),
@@ -77,6 +81,8 @@ class CheckoutScreen extends StatelessWidget {
                         const AppCheckoutSummary(),
                         const Gap(AppSizes.spaceBtwDefaultItems),
                         const AppCouponField(),
+                        const Gap(AppSizes.spaceBtwDefaultItems),
+                        const RedeemPointPart(),
                         const Gap(AppSizes.spaceBtwDefaultItems),
                         const AppSectionTitleText(
                           sectionTitle: 'Notes about your order',
