@@ -52,19 +52,19 @@ class HomeSearchDecoration extends StatelessWidget {
                   child: const Icon(Icons.camera_alt)),
               focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: AppColors.grey),
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(0)),
               border: OutlineInputBorder(
                   borderSide: const BorderSide(
                     color: AppColors.grey,
                     width: 0,
                   ),
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(0)),
               enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                     color: AppColors.grey,
                     width: 0,
                   ),
-                  borderRadius: BorderRadius.circular(10)))),
+                  borderRadius: BorderRadius.circular(0)))),
     );
   }
 }

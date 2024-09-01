@@ -14,7 +14,11 @@ import '../../../../utils/constants/colors.dart';
 
 
 class GroupCheckoutAlert extends StatelessWidget {
-  const GroupCheckoutAlert({super.key});
+  const GroupCheckoutAlert({super.key, required this.buttonName, required this.buttonWork});
+
+  final String buttonName;
+  final VoidCallback buttonWork;
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class GroupCheckoutAlert extends StatelessWidget {
     FocusNode cityNode = FocusNode();
     return SingleChildScrollView(
       child: AppCardContainer(
-        backgroundColor: AppColors.white,
+        applyRadius: false,
         width: AppHelperFunctions.screenWidth(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -337,50 +341,57 @@ class GroupCheckoutAlert extends StatelessWidget {
               ],
             ),
             AppAddressTextField(
-              controller: groupShoppingController.addressController,
+              controller: groupShoppingController.noteController,
               verticalPadding: 20,
               fieldTitle: 'Note',
               hintText: 'Enter note',
             ),
             const Gap(AppSizes.md),
             Text('Payment Method *', style: Theme.of(context).textTheme.bodySmall!),
-            Gap(AppSizes.sm),
+            const Gap(AppSizes.sm),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
                   width: 150,
-                  child: RadioListTile(
-                    title: AppBannerImage(
-                      applyImageRadius: false,
-                      imgUrl: AppImages.bKashIcon,
-                    ),
-                      value: true,
-                      groupValue: 1,
-                      onChanged: (value){
-
-                      }),
+                  child: Obx(() {
+                      return RadioListTile(
+                        activeColor: AppColors.primary,
+                        title: const AppBannerImage(
+                          applyImageRadius: false,
+                          imgUrl: AppImages.bKashIcon,
+                        ),
+                          value: 'bkash',
+                          groupValue: groupShoppingController.selectedPaymentMethod.value,
+                          onChanged: (value){
+                            groupShoppingController.selectedPaymentMethod.value = value as String;
+                          });
+                    }
+                  ),
                 ),
                 SizedBox(
                   width: 150,
-                  child: RadioListTile(
-                      title: AppBannerImage(
-                        applyImageRadius: false,
-                        imgUrl: AppImages.sslIcon,
-                      ),
-                      value: true,
-                      groupValue: 1,
-                      onChanged: (value){
-
-                      }),
+                  child: Obx(() {
+                      return RadioListTile(
+                          activeColor: AppColors.primary,
+                          title: const AppBannerImage(
+                            applyImageRadius: false,
+                            imgUrl: AppImages.sslIcon,
+                          ),
+                          value: 'ssl',
+                          groupValue: groupShoppingController.selectedPaymentMethod.value,
+                          onChanged: (value){
+                            groupShoppingController.selectedPaymentMethod.value = value as String;
+                          });
+                    }
+                  ),
                 ),
               ],
             ),
-            Gap(AppSizes.md),
+            const Gap(AppSizes.md),
             AppButtons.largeFlatFilledButton(
-                onPressed: (){
-                },
-                buttonText: 'Update',
+                onPressed: buttonWork,
+                buttonText: buttonName,
                 backgroundColor: AppColors.secondary
             )
           ],

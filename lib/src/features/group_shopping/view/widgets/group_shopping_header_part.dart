@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
+import 'package:kirei/src/features/group_shopping/view/widgets/group_checkout_alert.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
@@ -104,8 +108,77 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                         imgHeight: 150,
                                         padding:
                                             const EdgeInsets.all(AppSizes.sm),
-                                        onTap: () {},
-                                        onCartTap: () {},
+                                        onTap: () {
+                                          Get.toNamed(
+                                              '/product/${product.slug}');
+                                        },
+                                        onCartTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => Dialog(
+                                                    backgroundColor:
+                                                        AppColors.white,
+                                                    shape:
+                                                        const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.zero,
+                                                    ),
+                                                    insetPadding:
+                                                        const EdgeInsets.all(
+                                                            AppSizes.md),
+                                                    child: Stack(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(
+                                                                  AppSizes.md),
+                                                          child: ListView(
+                                                            children: [
+                                                              const AppSectionTitleText(
+                                                                sectionTitle:
+                                                                    'Create Group',
+                                                                haveTxtButton:
+                                                                    false,
+                                                              ),
+                                                              const Gap(AppSizes
+                                                                  .spaceBtwDefaultItems),
+                                                              GroupCheckoutAlert(
+                                                                buttonName:
+                                                                    'Create group',
+                                                                buttonWork: () {
+                                                                  groupShoppingController.createGroup(
+                                                                      groupShoppingController
+                                                                          .groupShoppingProduct
+                                                                          .value
+                                                                          .data![
+                                                                              index]
+                                                                          .id);
+                                                                },
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                            right: 10,
+                                                            top: 10,
+                                                            child: AppCardContainer(
+                                                                onTap: () =>
+                                                                    Get.back(),
+                                                                height: 44,
+                                                                width: 44,
+                                                                backgroundColor:
+                                                                    AppColors
+                                                                        .white,
+                                                                applyRadius:
+                                                                    false,
+                                                                child: const Icon(
+                                                                    Icons
+                                                                        .clear)))
+                                                      ],
+                                                    ),
+                                                  ));
+                                        },
                                         buttonColor: AppColors.white,
                                         imgUrl: product.pictures![0].url!,
                                         buttonName: 'Create Group',

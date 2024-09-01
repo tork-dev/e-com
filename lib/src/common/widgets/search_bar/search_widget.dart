@@ -91,6 +91,7 @@ class AppSearchWidget extends StatelessWidget {
         loadingBuilder: (context) {
           return const AppCardContainer(
               height: 50,
+              applyRadius: false,
               child: Center(
                 child: Text('Loading...'),
               ));

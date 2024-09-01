@@ -128,6 +128,8 @@ class AppApiEndPoints {
   ///Group Shopping
   static String shoppingGroups = "$baseUrl/groups";
   static String groupShoppingProducts = "$baseUrl/groups/products";
+  static String createGroup = "$baseUrl/groups/store";
+  static String joinGroup = "$baseUrl/groups/join";
 
 
 

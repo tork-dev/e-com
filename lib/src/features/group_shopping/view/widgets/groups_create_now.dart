@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
@@ -35,7 +37,7 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
           Obx(() {
             return !groupShoppingController.hittingApi.value && groupShoppingController.groupShoppingGroup.value.justCreated!.isNotEmpty?
             SizedBox(
-              height: 360,
+              height:370,
               child: AppListViewLayout(
                   itemCount: groupShoppingController.hittingApi.value
                       ? 5
@@ -66,7 +68,7 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                         .justCreated![index]
                                         .product
                                         ?.thumbnailImage ?? ''),
-                                const Gap(AppSizes.sm),
+                                const Gap(AppSizes.spaceBtwDefaultItems),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -102,52 +104,47 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const Gap(AppSizes.spaceBtwDefaultItems),
                                 Text(
                                   groupShoppingController.groupShoppingGroup
                                       .value.justCreated![index].product?.name ?? '',
                                   style: Theme.of(context).textTheme.bodyLarge,
-                                  maxLines: 1,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const Gap(AppSizes.sm),
-                                Row(
-                                  children: [
-                                    AppBannerImage(
-                                      height: 30,
-                                      width: 30,
-                                      applyImageRadius: true,
-                                      isNetworkImage: groupShoppingController.groupShoppingGroup.value.justCreated![index].groupAdmin?.avatar != null,
-                                      imgUrl: groupShoppingController
-                                              .groupShoppingGroup
-                                              .value
-                                              .justCreated![index]
-                                              .groupAdmin?.avatar ??
-                                          AppImages.avatarIcon,
-                                    ),
-                                    const Gap(AppSizes.sm),
-                                    RichText(
-                                      text: TextSpan(
-                                          text: 'Created by ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium!
-                                              .apply(
-                                                  color: AppColors.secondary),
-                                          children: [
-                                            TextSpan(
-                                                text: groupShoppingController
-                                                    .groupShoppingGroup
-                                                    .value
-                                                    .justCreated![index]
-                                                    .groupAdmin?.name ?? '',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium)
-                                          ]),
-                                    ),
-                                  ],
+                                SizedBox(
+                                  width: 205,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AppBannerImage(
+                                        height: 30,
+                                        width: 30,
+                                        applyImageRadius: true,
+                                        isNetworkImage: groupShoppingController.groupShoppingGroup.value.justCreated![index].groupAdmin?.avatar != null,
+                                        imgUrl: groupShoppingController.groupShoppingGroup.value.justCreated![index].groupAdmin?.avatar ?? AppImages.avatarIcon,
+                                      ),
+                                      const Gap(AppSizes.sm),
+                                      Expanded( // Use Expanded to allow RichText to use remaining space
+                                        child: RichText(
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis, // Adds ellipsis if the text is too long
+                                          text: TextSpan(
+                                            text: 'Created by ',
+                                            style: Theme.of(context).textTheme.labelMedium!.apply(color: AppColors.secondary),
+                                            children: [
+                                              TextSpan(
+                                                text: groupShoppingController.groupShoppingGroup.value.justCreated![index].groupAdmin?.name ?? '',
+                                                style: Theme.of(context).textTheme.bodyMedium,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -181,7 +178,9 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                     backgroundColor: AppColors.secondary,
                                       verticallyPadding: AppSizes.sm,
                                       onPressed: () {
-                                      Get.toNamed('/group-shopping/${groupShoppingController.groupShoppingGroup.value.justCreated![index].token}');
+                                      Get.toNamed('/group-shopping/${groupShoppingController.groupShoppingGroup.value.justCreated![index].token}', parameters: {
+                                        'productId' : "${groupShoppingController.groupShoppingGroup.value.justCreated![index].product!.id}"
+                                      });
                                       },
                                       buttonText: 'JOIN GROUP'),
                                 ),
