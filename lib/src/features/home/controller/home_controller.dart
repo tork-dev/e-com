@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../utils/firebase/awesome_notification.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
@@ -32,12 +33,13 @@ class HomeController extends GetxController{
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
   // final GlobalKey<ScaffoldState> homeTwoKey = GlobalKey<ScaffoldState>();
 
-  RxInt carousalCurrentIndex = 0.obs;
+  final carouselCurrentIndex = 0.obs;
+  RxList homeSliders = [].obs;
+  RxList homeSlidersLink = [].obs;
 
   /// Model Class Instance
   Rx<HomeProductResponse> homeProductResponse = HomeProductResponse().obs;
   RxList<FeaturedCategory>homeFeaturedCategoryResponse = <FeaturedCategory>[].obs;
-  Rx<HomeSlidersResponse> homeSliders = HomeSlidersResponse().obs;
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
   Rx<ProductRequestResponse> requestStockResponse = ProductRequestResponse().obs;
   Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
@@ -84,8 +86,11 @@ class HomeController extends GetxController{
   }
 
 
-  Future<HomeProductResponse> getProductData() async {
-   return homeProductResponse.value = await HomeRepositories.getHomeProducts();
+  Future<void> getProductData() async {
+    homeProductResponse.value = await HomeRepositories.getHomeProducts();
+    fetchCarouselImages();
+    // homeProductResponse.value.bestsellingProducts[0].id
+    AppLoggerHelper.debug(homeProductResponse.value.sliders![0].link.toString());
   }
 
   void fetchFeaturedCategories() async {
@@ -108,6 +113,22 @@ class HomeController extends GetxController{
 
   Future<DetailsProductsResponse> getTrendingProducts() async{
     return trendingProductsResponse.value = await HomeRepositories.getTrendingProduct();
+  }
+
+
+  void updateCurrentIndex (index){
+    carouselCurrentIndex.value = index;
+  }
+
+  fetchCarouselImages() {
+    var carouselResponse = homeProductResponse.value.sliders;
+    debugPrint('sliders $carouselResponse');
+    carouselResponse?.forEach((slider) {
+      if(slider.photo != null) {
+        homeSliders.add(slider.photo);
+        homeSlidersLink.add(slider.link);
+      }
+    });
   }
 
 

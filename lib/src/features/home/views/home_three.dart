@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/widgets/containers/horizontal_scroll_product_card.dart';
@@ -18,6 +20,7 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'widgets/home_appbar_title.dart';
 import 'widgets/home_shop_by_concern.dart';
 
@@ -146,46 +149,61 @@ class HomeThree extends StatelessWidget {
                 );
               }),
               const Gap(AppSizes.defaultSpace),
-              HomeImageTitleAndButtonSection(
-                buttonWork: ()=> Get.toNamed('/personal-recommendation'),
-                imgUrl: 'assets/images/demo/new_section_img.png',
-                title: 'AI-Powered Skin Care Recommendations',
-                subTitle: 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
-                buttonName: Text(
-                  'Start Personalized Test',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .apply(color: AppColors.white),
-                ),
+              Obx(() {
+                  return Visibility(
+                    visible: controller.homeProductResponse.value.homepageSettings?.recommendation?.isActive == "1",
+                    child: HomeImageTitleAndButtonSection(
+                      isActive: controller.homeProductResponse.value.homepageSettings?.recommendation?.isActive == "1",
+                      isNetworkImage: controller.homeProductResponse.value.homepageSettings?.recommendation?.banner != null,
+                      buttonWork: ()=> RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.recommendation?.route ?? 'https://beta.kireibd.com/personal-recommendation/skincare-recommendation'),
+                      imgUrl: controller.homeProductResponse.value.homepageSettings?.recommendation?.banner ?? 'assets/images/demo/new_section_img.png',
+                      title: controller.homeProductResponse.value.homepageSettings?.recommendation?.title ?? 'AI-Powered Skin Care Recommendations',
+                      subTitle: controller.homeProductResponse.value.homepageSettings?.recommendation?.description ?? 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
+                      buttonName: Text(
+                        controller.homeProductResponse.value.homepageSettings?.recommendation?.btnName ?? 'Start Personalized Test',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .apply(color: AppColors.white),
+                      ),
+                    ),
+                  );
+                }
               ),
               const Gap(AppSizes.spaceBtwSections),
               const HomeShopByConcern(),
               const Gap(AppSizes.spaceBtwSections),
               const HomeSurpriseSection(),
-              HomeImageTitleAndButtonSection(
-                buttonWork: ()=> Get.toNamed('/group-shopping'),
-                imgUrl: 'assets/images/demo/new_section_img.png',
-                title: 'AI-Powered Skin Care Recommendations',
-                subTitle: 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
-                buttonName: Text(
-                  'Start Group Shopping',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .apply(color: AppColors.white),
-                ),
+              Obx(() {
+                  return HomeImageTitleAndButtonSection(
+                    isActive: controller.homeProductResponse.value.homepageSettings?.groupShopping?.isActive == "1",
+                    isNetworkImage: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner != null,
+                    buttonWork: ()=> RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.groupShopping?.route ?? "https://beta.kireibd.com/group-shopping"),
+                    imgUrl: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner ?? '',
+                    title: controller.homeProductResponse.value.homepageSettings?.recommendation?.title ?? "Group Shopping",
+                    subTitle: controller.homeProductResponse.value.homepageSettings?.groupShopping?.description ?? 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
+                    buttonName: Text(
+                      controller.homeProductResponse.value.homepageSettings?.recommendation?.btnName ?? 'Start Group Shopping',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .apply(color: AppColors.white),
+                    ),
+                  );
+                }
               ),
               const Gap(AppSizes.defaultSpace),
               const HomeReviewSection(),
               const Gap(AppSizes.spaceBtwSections),
               HomeImageTitleAndButtonSection(
-                  buttonWork: () => Get.toNamed('/kirei-tube'),
-                  imgUrl: 'assets/images/demo/new_section_img.png',
-                  title: 'AI-Powered Skin Care Recommendations',
-                  subTitle: 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
+                isActive: controller.homeProductResponse.value.homepageSettings?.kireitube?.isActive == "1",
+                  isNetworkImage: controller.homeProductResponse.value.homepageSettings?.kireitube?.banner != null,
+                  buttonWork: () => RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.recommendation?.route ?? "https://beta.kireibd.com/kirei-tube"),
+                  imgUrl: controller.homeProductResponse.value.homepageSettings?.kireitube?.banner ?? 'assets/images/demo/new_section_img.png',
+                  title: controller.homeProductResponse.value.homepageSettings?.kireitube?.title ?? 'AI-Powered Skin Care Recommendations',
+                  subTitle: controller.homeProductResponse.value.homepageSettings?.kireitube?.description ?? 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
                   buttonName: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -193,7 +211,7 @@ class HomeThree extends StatelessWidget {
                         color: AppColors.white,),
                       const Gap(AppSizes.spaceBtwDefaultItems),
                       Text(
-                        'Watch Now',
+                        controller.homeProductResponse.value.homepageSettings?.kireitube?.btnName ?? 'Watch Now',
                         style: Theme
                             .of(context)
                             .textTheme

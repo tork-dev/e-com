@@ -67,6 +67,10 @@ class AppColors {
 
 
   static const Color popUpBackground = Color(0xFFDFDFF5);
+  static const Color drawerBackground = Color(0xFF1E1F22);
+  static const Color drawerPrimary = Color(0xFF232529);
+  Color drawerExpanded = Colors.white.withOpacity(.3);
+
 
   /// for fixed three color
   List<Color> colorList = [

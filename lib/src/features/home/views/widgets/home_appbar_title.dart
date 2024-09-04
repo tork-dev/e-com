@@ -24,7 +24,7 @@ class AppHomeAppBarTitle extends StatelessWidget {
       children: [
         SizedBox(
             width: 70,
-            child: Image.asset(AppImages.darkAppLogo)),
+            child: Image.asset(AppImages.lightAppLogo)),
          SizedBox(
             child: InkWell(
               onTap: (){

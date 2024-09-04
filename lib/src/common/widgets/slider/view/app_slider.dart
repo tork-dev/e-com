@@ -1,13 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/common/widgets/slider/controller/slider_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -21,7 +19,7 @@ class CustomSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SliderController());
+    final controller = HomeController.instance;
     return AppCardContainer(
       height: 150,
       child: Obx(() {

@@ -35,6 +35,7 @@ class JustCreated {
   int? currentUserQuantity;
   GroupAdmin? groupAdmin;
   DateTime? createdAt;
+  DateTime? expiredAt;
 
   JustCreated({
     this.id,
@@ -47,6 +48,7 @@ class JustCreated {
     this.currentUserQuantity,
     this.groupAdmin,
     this.createdAt,
+    this.expiredAt,
   });
 
   factory JustCreated.fromJson(String str) => JustCreated.fromMap(json.decode(str));
@@ -64,6 +66,7 @@ class JustCreated {
     currentUserQuantity: json["current_user_quantity"],
     groupAdmin: json["group_admin"] == null ? null : GroupAdmin.fromMap(json["group_admin"]),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    expiredAt: json["expired_at"] == null ? null : DateTime.parse(json["expired_at"]),
   );
 
   Map<String, dynamic> toMap() => {
@@ -77,6 +80,7 @@ class JustCreated {
     "current_user_quantity": currentUserQuantity,
     "group_admin": groupAdmin?.toMap(),
     "created_at": createdAt?.toIso8601String(),
+    "expired_at": expiredAt?.toIso8601String(),
   };
 }
 

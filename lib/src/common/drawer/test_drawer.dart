@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/drawer/view/widgets/drawer_bottom_button.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
@@ -17,6 +18,7 @@ import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -26,9 +28,9 @@ import '../../utils/helpers/auth_helper.dart';
 import 'view/widgets/common_drawer_card.dart';
 import 'view/widgets/header_part.dart';
 
-
 class AppDrawerNew extends StatelessWidget {
   final bool isFromOtherPage;
+
   const AppDrawerNew({super.key, required this.isFromOtherPage});
 
   @override
@@ -38,14 +40,25 @@ class AppDrawerNew extends StatelessWidget {
     final bottomController = Get.put(ConvexBottomNavController());
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
-      width: 300,
-      backgroundColor: AppColors.white,
+      padding: const EdgeInsets.symmetric(horizontal: AppSizes.lg, vertical: AppSizes.md),
+      width: 280,
+      backgroundColor: AppColors.drawerBackground,
       applyRadius: false,
       child: ListView(
         children: [
-          InkWell(
-              onTap:()=> Get.to(()=> const AccountDetailsScreen()),
-              child: const AppDrawerHeaderPart()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const AppBannerImage(imgUrl: AppImages.darkAppLogo),
+              InkWell(
+                  onTap: () => Get.back(),
+                  child: const Icon(
+                    Icons.clear,
+                    size: AppSizes.xl,
+                    color: AppColors.white,
+                  ))
+            ],
+          ),
           AppDrawerCard(
             title: 'HOME',
             onPress: () => Get.offAll(() => const HelloConvexAppBar()),
@@ -53,8 +66,10 @@ class AppDrawerNew extends StatelessWidget {
           AppDrawerCard(
             title: 'new arrivals',
             onPress: () {
-              if(isFromOtherPage){
-                Get.to(const HelloConvexAppBar(pageIndex: 1,));
+              if (isFromOtherPage) {
+                Get.to(const HelloConvexAppBar(
+                  pageIndex: 1,
+                ));
               }
               shopController.updateCategory('new');
               shopController.getShopData();
@@ -72,10 +87,7 @@ class AppDrawerNew extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Stack(
                     children: [
@@ -111,68 +123,71 @@ class AppDrawerNew extends StatelessWidget {
                 ],
               ),
               children: drawerController.allCategories.map((category) {
-                return category.children != null && category.children!.isNotEmpty
+                return category.children != null &&
+                        category.children!.isNotEmpty
                     ? Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: ExpansionTile(
-                    title: GestureDetector(
-                        onTap: () {
-                          shopController.resetAll();
-                          if(isFromOtherPage){
-                            Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
-                          }
-                          shopController.updateCategory(category.slug);
-                          //shopController.getShopData();
-                          bottomController.jumpToTab(1);
-                        },
-                        child: Text(category.name)),
-                    children: category.children!.map((child) {
-                      return Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: ExpansionTile(
+                          title: GestureDetector(
+                              onTap: () {
+                                shopController.resetAll();
+                                if (isFromOtherPage) {
+                                  Get.to(() => const HelloConvexAppBar(
+                                        pageIndex: 1,
+                                      ));
+                                }
+                                shopController.updateCategory(category.slug);
+                                //shopController.getShopData();
+                                bottomController.jumpToTab(1);
+                              },
+                              child: Text(category.name)),
+                          children: category.children!.map((child) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: AppDrawerCard(
+                                title: child.name,
+                                onPress: () {
+                                  shopController.resetAll();
+                                  if (isFromOtherPage) {
+                                    Get.to(() => const HelloConvexAppBar(
+                                          pageIndex: 1,
+                                        ));
+                                  }
+                                  shopController.updateCategory(child.slug);
+                                  //shopController.getShopData();
+                                  bottomController.jumpToTab(1);
+                                },
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      )
+                    : Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: AppDrawerCard(
-                          title: child.name,
+                          title: category.name,
                           onPress: () {
-                            shopController.resetAll();
-                            if(isFromOtherPage){
-                              Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                            if (isFromOtherPage) {
+                              Get.to(() => const HelloConvexAppBar(
+                                    pageIndex: 1,
+                                  ));
                             }
-                            shopController.updateCategory(child.slug);
+                            shopController.updateCategory(category.slug);
                             //shopController.getShopData();
                             bottomController.jumpToTab(1);
                           },
                         ),
                       );
-                    }).toList(),
-                  ),
-                )
-                    : Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: AppDrawerCard(
-                    title: category.name,
-                    onPress: ()  {
-                      if(isFromOtherPage){
-                        Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
-                      }
-                      shopController.updateCategory(category.slug);
-                      //shopController.getShopData();
-                      bottomController.jumpToTab(1);
-                    },
-                  ),
-                );
               }).toList(),
             );
-          }
-          ),
+          }),
           ListTile(
               visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
               title: Row(
                 children: [
                   const Text('BRANDS', style: TextStyle(fontSize: 13)),
                   SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Stack(
                     children: [
@@ -208,8 +223,7 @@ class AppDrawerNew extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                Get.to(() =>
-                const WebViewScreen(
+                Get.to(() => const WebViewScreen(
                     title: 'Brands',
                     url: "https://kireibd.com/brands?type=app"));
               }),
@@ -220,15 +234,14 @@ class AppDrawerNew extends StatelessWidget {
           AppDrawerCard(
               title: 'AI Suggestion',
               onPress: () {
-                if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-                  Get.to(()=> const SkinCareHistoryOne());
-                }else{
+                if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                    true) {
+                  Get.to(() => const SkinCareHistoryOne());
+                } else {
                   AppHelperFunctions.showToast('Please login first');
                   Get.toNamed('/login/personal-recommendation');
                 }
-              }
-
-          ),
+              }),
           AppDrawerCard(
             title: 'kirei community',
             onPress: () => Get.offAll(() => const CommunityScreen()),
@@ -240,8 +253,7 @@ class AppDrawerNew extends StatelessWidget {
           AppDrawerCard(
             title: 'blog',
             onPress: () {
-              Get.to(() =>
-              const WebViewScreen(
+              Get.to(() => const WebViewScreen(
                   url: "https://kireibd.com/blogs?type=app", title: 'Blogs'));
             },
           ),
@@ -255,10 +267,7 @@ class AppDrawerNew extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Stack(
                     children: [
@@ -297,8 +306,7 @@ class AppDrawerNew extends StatelessWidget {
                 AppDrawerCard(
                   title: 'who we are?',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/about-us?type=app',
                         title: 'Who We Are?'));
                   },
@@ -306,16 +314,15 @@ class AppDrawerNew extends StatelessWidget {
                 AppDrawerCard(
                   title: 'faqs',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(url: 'https://kireibd.com/faq?type=app',
+                    Get.to(() => const WebViewScreen(
+                        url: 'https://kireibd.com/faq?type=app',
                         title: 'FAQs'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'contact us',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/contact-us?type=app',
                         title: 'Contact us'));
                   },
@@ -323,8 +330,7 @@ class AppDrawerNew extends StatelessWidget {
                 AppDrawerCard(
                   title: 'testimonials',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/testimonial?type=app',
                         title: 'Testimonials'));
                   },
@@ -332,8 +338,7 @@ class AppDrawerNew extends StatelessWidget {
                 AppDrawerCard(
                   title: 'privacy & policy',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/privacy-policy?type=app',
                         title: 'Privacy & Policy'));
                   },
@@ -341,8 +346,7 @@ class AppDrawerNew extends StatelessWidget {
                 AppDrawerCard(
                   title: 'terms & condition',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/term-condition?type=app',
                         title: 'Terms & Conditions'));
                   },
@@ -350,8 +354,7 @@ class AppDrawerNew extends StatelessWidget {
                 AppDrawerCard(
                   title: 'returns & refunds',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/return-refund?type=app',
                         title: 'Returns & Refunds'));
                   },
@@ -359,17 +362,17 @@ class AppDrawerNew extends StatelessWidget {
                 AppDrawerCard(
                   title: 'responsibility disclosure',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
-                        url: 'https://kireibd.com/responsible-disclosure?type=app',
+                    Get.to(() => const WebViewScreen(
+                        url:
+                            'https://kireibd.com/responsible-disclosure?type=app',
                         title: 'Responsible Disclosure'));
                   },
                 ),
               ]),
           Visibility(
               visible:
-              AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
-                  true,
+                  AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                      true,
               child: Column(
                 children: [
                   AppDrawerCard(
@@ -384,7 +387,7 @@ class AppDrawerNew extends StatelessWidget {
                       title: 'logout',
                       onPress: () {
                         AuthHelper().clearUserData();
-                        Get.offAll(()=> const HelloConvexAppBar());
+                        Get.offAll(() => const HelloConvexAppBar());
                       }),
                   AppDrawerCard(
                     title: 'influencer store',

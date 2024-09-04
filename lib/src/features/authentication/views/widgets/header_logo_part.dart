@@ -11,7 +11,7 @@ class HeaderLogoPart extends StatelessWidget {
       height: 70,
       width: 70,
       child: Image(
-        image: AssetImage(AppImages.darkAppLogo),
+        image: AssetImage(AppImages.lightAppLogo),
         width: AppSizes.imageThumbSize,
       ),
     );

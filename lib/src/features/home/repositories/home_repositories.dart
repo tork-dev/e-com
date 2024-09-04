@@ -18,7 +18,7 @@ class HomeRepositories {
     final response = await http.get(Uri.parse(AppApiEndPoints.homeProducts));
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body.toString());
-      return HomeProductResponse.fromJson(responseBody);
+      return HomeProductResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to load data: ${response.statusCode}');
     }
@@ -32,15 +32,15 @@ class HomeRepositories {
     return featuredCategoryListFromJson(response.body);
   }
 
-  static Future<HomeSlidersResponse> getHomeSliders() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.homeSlider));
-    if (response.statusCode == 200) {
-      var responseBody = jsonDecode(response.body.toString());
-      return HomeSlidersResponse.fromJson(responseBody);
-    } else {
-      throw Exception('Failed to load data: ${response.statusCode}');
-    }
-  }
+  // static Future<HomeSlidersResponse> getHomeSliders() async {
+  //   final response = await http.get(Uri.parse(AppApiEndPoints.homeSlider));
+  //   if (response.statusCode == 200) {
+  //     var responseBody = jsonDecode(response.body.toString());
+  //     return HomeSlidersResponse.fromJson(responseBody);
+  //   } else {
+  //     throw Exception('Failed to load data: ${response.statusCode}');
+  //   }
+  // }
 
 
 

@@ -26,7 +26,7 @@ class SignUp extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-              image: AssetImage(AppImages.darkAppLogo),
+              image: AssetImage(AppImages.lightAppLogo),
               width: 150,
             ),
             Gap(AppSizes.spaceBtwSmallItem),

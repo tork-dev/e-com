@@ -33,10 +33,11 @@ class AppFeatureCategories extends StatelessWidget {
     final categoryPassingController = Get.put(GetShopDataController());
     final bottomController = ConvexBottomNavController.instance;
 
-    return SizedBox(
-        height: 100,
-        child: Obx(() {
-          return AppListViewLayout(
+    return Obx(() {
+      return SizedBox(
+          height:
+              homeController.homeFeaturedCategoryResponse.isEmpty ? 70 : 100,
+          child: AppListViewLayout(
               isScrollVertically: false,
               itemCount: homeController.homeFeaturedCategoryResponse.isEmpty
                   ? 5
@@ -44,7 +45,7 @@ class AppFeatureCategories extends StatelessWidget {
               builderFunction: (BuildContext context, int index) =>
                   homeController.homeFeaturedCategoryResponse.isEmpty
                       ? ShimmerHelper().buildBasicShimmer(
-                          height: 60, width: 100, radius: 100)
+                          height: 60, width: 70, radius: 100)
                       : Column(
                           children: [
                             AppBannerImage(
@@ -59,7 +60,7 @@ class AppFeatureCategories extends StatelessWidget {
                                     Get.offAll(
                                         () => const SkinCareHistoryOne());
                                   } else {
-                                    Get.to(()=>const LogIn());
+                                    Get.to(() => const LogIn());
                                   }
                                 }
                                 if (homeController
@@ -93,6 +94,7 @@ class AppFeatureCategories extends StatelessWidget {
                               },
                               height: 60,
                               width: 60,
+                              imgBoarderRadius: 100,
                               fit: BoxFit.cover,
                               isNetworkImage: homeController
                                       .homeFeaturedCategoryResponse[index]
@@ -110,7 +112,7 @@ class AppFeatureCategories extends StatelessWidget {
                               style: Theme.of(context).textTheme.labelLarge,
                             )
                           ],
-                        ));
-        }));
+                        )));
+    });
   }
 }

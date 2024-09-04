@@ -7,6 +7,7 @@ import 'package:kirei/src/features/kirei_tube/view/kirei_tube_screen.dart';
 import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/reward_point/view/reward_screen.dart';
+import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
@@ -45,7 +46,7 @@ class DetailsCardPart extends StatelessWidget {
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'My Rewards',
-             onTap: ()=> Get.to(()=> const RewardScreen())),
+             // onTap: ()=> Get.to(()=> const RewardScreen())),
              // onTap: ()=> AppHelperFunctions.showPopUpAlert(
              //  imgUrl: 'assets/images/banners/beauty_tips_one.png',
              //    message: 'pop up',
@@ -54,8 +55,10 @@ class DetailsCardPart extends StatelessWidget {
              //    onRightPress: (){},
              //    onLeftPress: (){},
              //    )
-          // onTap: ()=> AppHelperFunctions().showAlertForFirstTime(),
-        // ),
+          onTap: (){
+             AppHelperFunctions().showAlertForFirstTime();
+          },
+        ),
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'Kirei Youtube',
