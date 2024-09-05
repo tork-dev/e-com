@@ -17,7 +17,7 @@ class KireiTubeDetailsController extends GetxController{
   void onInit() {
     super.onInit();
     videoSlug.value = Get.parameters['id']!;
- // getKireiTubeData(videoSlug.value);
+    onRefresh();
 
   }
 
@@ -30,6 +30,14 @@ class KireiTubeDetailsController extends GetxController{
 
   Future<void> onRefresh() async{
     print('refresh');
+    getKireiTubeDetails();
+  }
+
+  Future<void> getKireiTubeDetails()async{
+    hittingApi.value = true;
+    kireiTubeDetailsResponse.value = await KireiTubeRepositories().getKireiDetailsData(videoSlug.value);
+    hittingApi.value = false;
+
   }
 
 

@@ -46,24 +46,6 @@ class LogInPageController extends GetxController {
   Rx<SendOtpCodeResponse> sendOtpResponse = SendOtpCodeResponse().obs;
   Rx<SocialOptionsResponse> socialOptionResponse = SocialOptionsResponse().obs;
 
-  @override
-  void onInit() {
-    //getSocialOption();
-    super.onInit();
-  }
-
-  // @override
-  // void dispose() {
-  //   emailController.dispose();
-  //   passwordController.dispose();
-  //   super.dispose();
-  // }
-
-  Future<void> getSocialOption() async {
-     hittingApi.value = true;
-     socialOptionResponse.value = await LoginRepository().fetchLoginOptions();
-     hittingApi.value = false;
-  }
 
   /// Log in with email and password
   Future<void> emailPasswordLogIn() async {

@@ -199,91 +199,88 @@ class AppHelperFunctions {
           ),
           insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
           backgroundColor: AppColors.popUpBackground,
-          child: SizedBox(
-            height: imgUrl != 'https://appbeta.kireibd.com/null'?  370.0 : 200,
-            child: Stack(
-              children: [
-                Column(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Visibility(
-                      visible: imgUrl != 'https://appbeta.kireibd.com/null',
-                      child: AppBannerImage(
-                          applyImageRadius: false,
-                          height: 180,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          isNetworkImage: true,
-                          imgUrl: imgUrl),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(AppSizes.defaultSpace),
-                      child: Column(
-                        children: [
-                          Text(
-                            title,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                          const Gap(AppSizes.sm),
+          child: Stack(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Visibility(
+                    visible: imgUrl != 'https://appbeta.kireibd.com/null',
+                    child: AppBannerImage(
+                        applyImageRadius: false,
+                        height: 180,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        isNetworkImage: true,
+                        imgUrl: imgUrl),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(AppSizes.defaultSpace),
+                    child: Column(
+                      children: [
+                        Text(
+                          title,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        const Gap(AppSizes.sm),
 
-                          HtmlWidget(subTitle),
-                          // Text(
-                          //   message,
-                          //   style: Theme.of(context).textTheme.bodyLarge,
-                          // ),
-                          const Gap(AppSizes.xl),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              AppCardContainer(
-                                  onTap: onLeftPress,
-                                  applyRadius: false,
-                                  height: 40,
-                                  width: 150,
-                                  hasBorder: true,
-                                  child: Center(
-                                    child: Text(
-                                      leftButtonName,
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                  )),
-                              const Gap(AppSizes.sm),
-                              AppCardContainer(
-                                  onTap: onRightPress,
-                                  applyRadius: false,
-                                  height: 40,
-                                  width: 150,
-                                  backgroundColor: AppColors.primary,
-                                  child: Center(
-                                    child: Text(
-                                      rightButtonName,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .apply(color: AppColors.white),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ],
-                      ),
+                        HtmlWidget(subTitle),
+                        // Text(
+                        //   message,
+                        //   style: Theme.of(context).textTheme.bodyLarge,
+                        // ),
+                        const Gap(AppSizes.xl),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            AppCardContainer(
+                                onTap: onLeftPress,
+                                applyRadius: false,
+                                height: 40,
+                                width: 150,
+                                hasBorder: true,
+                                child: Center(
+                                  child: Text(
+                                    leftButtonName,
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                )),
+                            const Gap(AppSizes.sm),
+                            AppCardContainer(
+                                onTap: onRightPress,
+                                applyRadius: false,
+                                height: 40,
+                                width: 150,
+                                backgroundColor: AppColors.primary,
+                                child: Center(
+                                  child: Text(
+                                    rightButtonName,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .apply(color: AppColors.white),
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Positioned(
-                  right: AppSizes.md,
-                  top: AppSizes.md,
-                  child: AppCardContainer(
-                    onTap: onLeftPress,
-                      applyRadius: false,
-                      backgroundColor: AppColors.grey,
-                      height: 40,
-                      width: 40,
-                      child: const Icon(Icons.clear)),
-                )
-              ],
-            ),
+                  ),
+                ],
+              ),
+              Positioned(
+                right: AppSizes.md,
+                top: AppSizes.md,
+                child: AppCardContainer(
+                  onTap: onLeftPress,
+                    applyRadius: false,
+                    backgroundColor: AppColors.grey,
+                    height: 40,
+                    width: 40,
+                    child: const Icon(Icons.clear)),
+              )
+            ],
           ),
         );
       },

@@ -28,6 +28,7 @@ import 'widgets/header_part.dart';
 
 class AppDrawer extends StatelessWidget {
   final bool isFromOtherPage;
+
   const AppDrawer({super.key, required this.isFromOtherPage});
 
   @override
@@ -43,7 +44,7 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         children: [
           InkWell(
-              onTap:()=> Get.to(()=> const AccountDetailsScreen()),
+              onTap: () => Get.to(() => const AccountDetailsScreen()),
               child: const AppDrawerHeaderPart()),
           AppDrawerCard(
             title: 'HOME',
@@ -52,8 +53,10 @@ class AppDrawer extends StatelessWidget {
           AppDrawerCard(
             title: 'new arrivals',
             onPress: () {
-              if(isFromOtherPage){
-                Get.to(const HelloConvexAppBar(pageIndex: 1,));
+              if (isFromOtherPage) {
+                Get.to(const HelloConvexAppBar(
+                  pageIndex: 1,
+                ));
               }
               shopController.updateCategory('new');
               shopController.getShopData();
@@ -61,117 +64,117 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           Obx(() {
-              return ExpansionTile(
-                title: Row(
-                  children: [
-                    Text(
-                      "Categories".toUpperCase(),
-                      style: const TextStyle(
-                        fontSize: 13,
-                      ),
+            return ExpansionTile(
+              title: Row(
+                children: [
+                  Text(
+                    "Categories".toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 13,
                     ),
-                    SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.05,
-                    ),
-                    Stack(
-                      children: [
-                        Transform.rotate(
-                          angle: pi / 5,
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 3),
-                            height: 15,
-                            width: 15,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Colors.pinkAccent,
-                            ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  Stack(
+                    children: [
+                      Transform.rotate(
+                        angle: pi / 5,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 3),
+                          height: 15,
+                          width: 15,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.pinkAccent,
                           ),
                         ),
-                        Container(
-                          height: 22,
-                          width: 45,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: Colors.pinkAccent,
-                              borderRadius: BorderRadius.circular(2)),
-                          child: const Text(
-                            "New!",
-                            style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                children: drawerController.allCategories.map((category) {
-                  return category.children != null && category.children!.isNotEmpty
-                      ? Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: ExpansionTile(
-                      title: GestureDetector(
-                          onTap: () {
-                            shopController.resetAll();
-                            if(isFromOtherPage){
-                              Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
+                      ),
+                      Container(
+                        height: 22,
+                        width: 45,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.pinkAccent,
+                            borderRadius: BorderRadius.circular(2)),
+                        child: const Text(
+                          "New!",
+                          style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              children: drawerController.allCategories.map((category) {
+                return category.children != null &&
+                        category.children!.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: ExpansionTile(
+                          title: GestureDetector(
+                              onTap: () {
+                                shopController.resetAll();
+                                if (isFromOtherPage) {
+                                  Get.to(() => const HelloConvexAppBar(
+                                        pageIndex: 1,
+                                      ));
+                                }
+                                // shopController.updateCategory(category.slug);
+                                //shopController.getShopData();
+                                bottomController.jumpToTab(1);
+                              },
+                              child: Text(category.name!)),
+                          children: category.children!.map((child) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: child.children!.isNotEmpty ? ExpansionTile(
+                                title: Text(child.name!),
+                                children: child.children!.map((children) {
+                                  return Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: AppDrawerCard(
+                                        onPress: () {},
+                                        title: children.title ?? '',
+                                      ));
+                                }).toList(),
+                              ) : AppDrawerCard(
+                                onPress: () {},
+                                title: child.name ?? '',
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: AppDrawerCard(
+                          title: category.name!,
+                          onPress: () {
+                            if (isFromOtherPage) {
+                              Get.to(() => const HelloConvexAppBar(
+                                    pageIndex: 1,
+                                  ));
                             }
-                            shopController.updateCategory(category.slug);
+                            // shopController.updateCategory(category.slug!);
                             //shopController.getShopData();
                             bottomController.jumpToTab(1);
                           },
-                          child: Text(category.name)),
-                      children: category.children!.map((child) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: AppDrawerCard(
-                            title: child.name,
-                            onPress: () {
-                              shopController.resetAll();
-                              if(isFromOtherPage){
-                                Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
-                              }
-                              shopController.updateCategory(child.slug);
-                              //shopController.getShopData();
-                              bottomController.jumpToTab(1);
-                            },
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: AppDrawerCard(
-                      title: category.name,
-                      onPress: ()  {
-                        if(isFromOtherPage){
-                          Get.to(()=> const HelloConvexAppBar(pageIndex: 1,));
-                        }
-                         shopController.updateCategory(category.slug);
-                         //shopController.getShopData();
-                      bottomController.jumpToTab(1);
-                      },
-                    ),
-                  );
-                }).toList(),
-              );
-            }
-          ),
+                        ),
+                      );
+              }).toList(),
+            );
+          }),
           ListTile(
               visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
               title: Row(
                 children: [
                   const Text('BRANDS', style: TextStyle(fontSize: 13)),
                   SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Stack(
                     children: [
@@ -207,8 +210,7 @@ class AppDrawer extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                Get.to(() =>
-                const WebViewScreen(
+                Get.to(() => const WebViewScreen(
                     title: 'Brands',
                     url: "https://kireibd.com/brands?type=app"));
               }),
@@ -217,17 +219,16 @@ class AppDrawer extends StatelessWidget {
             onPress: () => Get.offAll(() => const BeautyTipsScreen()),
           ),
           AppDrawerCard(
-            title: 'AI Suggestion',
-            onPress: () {
-              if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-                  Get.to(()=> const SkinCareHistoryOne());
-              }else{
-                AppHelperFunctions.showToast('Please login first');
-                Get.toNamed('/login/personal-recommendation');
-              }
-            }
-
-          ),
+              title: 'AI Suggestion',
+              onPress: () {
+                if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                    true) {
+                  Get.to(() => const SkinCareHistoryOne());
+                } else {
+                  AppHelperFunctions.showToast('Please login first');
+                  Get.toNamed('/login/personal-recommendation');
+                }
+              }),
           AppDrawerCard(
             title: 'kirei community',
             onPress: () => Get.offAll(() => const CommunityScreen()),
@@ -239,8 +240,7 @@ class AppDrawer extends StatelessWidget {
           AppDrawerCard(
             title: 'blog',
             onPress: () {
-              Get.to(() =>
-              const WebViewScreen(
+              Get.to(() => const WebViewScreen(
                   url: "https://kireibd.com/blogs?type=app", title: 'Blogs'));
             },
           ),
@@ -254,10 +254,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Stack(
                     children: [
@@ -296,8 +293,7 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'who we are?',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/about-us?type=app',
                         title: 'Who We Are?'));
                   },
@@ -305,16 +301,15 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'faqs',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(url: 'https://kireibd.com/faq?type=app',
+                    Get.to(() => const WebViewScreen(
+                        url: 'https://kireibd.com/faq?type=app',
                         title: 'FAQs'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'contact us',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/contact-us?type=app',
                         title: 'Contact us'));
                   },
@@ -322,8 +317,7 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'testimonials',
                   onPress: () {
-                    Get.to(() =>
-                    const WebViewScreen(
+                    Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/testimonial?type=app',
                         title: 'Testimonials'));
                   },
@@ -331,44 +325,41 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'privacy & policy',
                   onPress: () {
-                    Get.to(() =>
-                        const WebViewScreen(
-                            url: 'https://kireibd.com/privacy-policy?type=app',
-                            title: 'Privacy & Policy'));
+                    Get.to(() => const WebViewScreen(
+                        url: 'https://kireibd.com/privacy-policy?type=app',
+                        title: 'Privacy & Policy'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'terms & condition',
                   onPress: () {
-                    Get.to(() =>
-                        const WebViewScreen(
-                            url: 'https://kireibd.com/term-condition?type=app',
-                            title: 'Terms & Conditions'));
+                    Get.to(() => const WebViewScreen(
+                        url: 'https://kireibd.com/term-condition?type=app',
+                        title: 'Terms & Conditions'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'returns & refunds',
                   onPress: () {
-                    Get.to(() =>
-                        const WebViewScreen(
-                            url: 'https://kireibd.com/return-refund?type=app',
-                            title: 'Returns & Refunds'));
+                    Get.to(() => const WebViewScreen(
+                        url: 'https://kireibd.com/return-refund?type=app',
+                        title: 'Returns & Refunds'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'responsibility disclosure',
                   onPress: () {
-                    Get.to(() =>
-                        const WebViewScreen(
-                            url: 'https://kireibd.com/responsible-disclosure?type=app',
-                            title: 'Responsible Disclosure'));
+                    Get.to(() => const WebViewScreen(
+                        url:
+                            'https://kireibd.com/responsible-disclosure?type=app',
+                        title: 'Responsible Disclosure'));
                   },
                 ),
               ]),
           Visibility(
               visible:
-              AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
-                  true,
+                  AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                      true,
               child: Column(
                 children: [
                   AppDrawerCard(
@@ -380,11 +371,11 @@ class AppDrawer extends StatelessWidget {
                     onPress: () => Get.to(() => const PurchaseHistory()),
                   ),
                   AppDrawerCard(
-                    title: 'logout',
-                    onPress: () {
-                      AuthHelper().clearUserData();
-                      Get.offAll(()=> const HelloConvexAppBar());
-                    }),
+                      title: 'logout',
+                      onPress: () {
+                        AuthHelper().clearUserData();
+                        Get.offAll(() => const HelloConvexAppBar());
+                      }),
                   AppDrawerCard(
                     title: 'influencer store',
                     onPress: () => Get.offAll(() => const InfluencerStore()),

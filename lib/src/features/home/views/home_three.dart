@@ -150,24 +150,8 @@ class HomeThree extends StatelessWidget {
               }),
               const Gap(AppSizes.defaultSpace),
               Obx(() {
-                  return Visibility(
-                    visible: controller.homeProductResponse.value.homepageSettings?.recommendation?.isActive == "1",
-                    child: HomeImageTitleAndButtonSection(
-                      isActive: controller.homeProductResponse.value.homepageSettings?.recommendation?.isActive == "1",
-                      isNetworkImage: controller.homeProductResponse.value.homepageSettings?.recommendation?.banner != null,
-                      buttonWork: ()=> RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.recommendation?.route ?? 'https://beta.kireibd.com/personal-recommendation/skincare-recommendation'),
-                      imgUrl: controller.homeProductResponse.value.homepageSettings?.recommendation?.banner ?? 'assets/images/demo/new_section_img.png',
-                      title: controller.homeProductResponse.value.homepageSettings?.recommendation?.title ?? 'AI-Powered Skin Care Recommendations',
-                      subTitle: controller.homeProductResponse.value.homepageSettings?.recommendation?.description ?? 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
-                      buttonName: Text(
-                        controller.homeProductResponse.value.homepageSettings?.recommendation?.btnName ?? 'Start Personalized Test',
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .apply(color: AppColors.white),
-                      ),
-                    ),
+                  return HomeImageTitleAndButtonSection(
+                    sectionName: controller.homeProductResponse.value.homepageSettings?.recommendation,
                   );
                 }
               ),
@@ -176,50 +160,19 @@ class HomeThree extends StatelessWidget {
               const Gap(AppSizes.spaceBtwSections),
               const HomeSurpriseSection(),
               Obx(() {
-                  return HomeImageTitleAndButtonSection(
-                    isActive: controller.homeProductResponse.value.homepageSettings?.groupShopping?.isActive == "1",
-                    isNetworkImage: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner != null,
-                    buttonWork: ()=> RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.groupShopping?.route ?? "https://beta.kireibd.com/group-shopping"),
-                    imgUrl: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner ?? '',
-                    title: controller.homeProductResponse.value.homepageSettings?.recommendation?.title ?? "Group Shopping",
-                    subTitle: controller.homeProductResponse.value.homepageSettings?.groupShopping?.description ?? 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
-                    buttonName: Text(
-                      controller.homeProductResponse.value.homepageSettings?.recommendation?.btnName ?? 'Start Group Shopping',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .apply(color: AppColors.white),
-                    ),
-                  );
-                }
+                return HomeImageTitleAndButtonSection(
+                  sectionName: controller.homeProductResponse.value.homepageSettings?.groupShopping,
+                );
+              }
               ),
               const Gap(AppSizes.defaultSpace),
               const HomeReviewSection(),
               const Gap(AppSizes.spaceBtwSections),
-              HomeImageTitleAndButtonSection(
-                isActive: controller.homeProductResponse.value.homepageSettings?.kireitube?.isActive == "1",
-                  isNetworkImage: controller.homeProductResponse.value.homepageSettings?.kireitube?.banner != null,
-                  buttonWork: () => RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.recommendation?.route ?? "https://beta.kireibd.com/kirei-tube"),
-                  imgUrl: controller.homeProductResponse.value.homepageSettings?.kireitube?.banner ?? 'assets/images/demo/new_section_img.png',
-                  title: controller.homeProductResponse.value.homepageSettings?.kireitube?.title ?? 'AI-Powered Skin Care Recommendations',
-                  subTitle: controller.homeProductResponse.value.homepageSettings?.kireitube?.description ?? 'Discover the perfect skin care products tailored just for you with our innovative AI Skin Recommendation feature Our advanced',
-                  buttonName: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.play_circle_outline, size: 24,
-                        color: AppColors.white,),
-                      const Gap(AppSizes.spaceBtwDefaultItems),
-                      Text(
-                        controller.homeProductResponse.value.homepageSettings?.kireitube?.btnName ?? 'Watch Now',
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .apply(color: AppColors.white),
-                      ),
-                    ],
-                  )
+              Obx(() {
+                return HomeImageTitleAndButtonSection(
+                  sectionName: controller.homeProductResponse.value.homepageSettings?.kireitube,
+                );
+              }
               ),
               const Gap(70),
             ]));

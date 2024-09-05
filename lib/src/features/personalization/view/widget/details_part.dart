@@ -56,7 +56,8 @@ class DetailsCardPart extends StatelessWidget {
              //    onLeftPress: (){},
              //    )
           onTap: (){
-             AppHelperFunctions().showAlertForFirstTime();
+              Get.toNamed('/kirei-tube');
+             //AppHelperFunctions().showAlertForFirstTime();
           },
         ),
         const Gap(AppSizes.spaceBtwDefaultItems),

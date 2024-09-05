@@ -34,6 +34,8 @@ class KireiTubeProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppBannerImage(
+                            onPress: () => Get.toNamed(
+                                '/product/${kireiTubeDetailsController.kireiTubeDetailsResponse.value.data!.products![index].slug}'),
                             height: 112,
                             width: 112,
                             applyImageRadius: false,
@@ -50,20 +52,26 @@ class KireiTubeProductCard extends StatelessWidget {
                             width: 200,
                             child: Column(
                               children: [
-                                Text(
-                                  kireiTubeDetailsController
-                                      .kireiTubeDetailsResponse
-                                      .value
-                                      .data!
-                                      .products![index]
-                                      .name!,
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
+                                InkWell(
+                                  onTap: () => Get.toNamed(
+                                      '/product/${kireiTubeDetailsController.kireiTubeDetailsResponse.value.data!.products![index].slug}'),
+                                  child: Text(
+                                    kireiTubeDetailsController
+                                        .kireiTubeDetailsResponse
+                                        .value
+                                        .data!
+                                        .products![index]
+                                        .name!,
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
                                 ),
                                 const Gap(AppSizes.spaceBtwDefaultItems),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
@@ -88,8 +96,9 @@ class KireiTubeProductCard extends StatelessWidget {
                                                       .textTheme
                                                       .bodySmall!
                                                       .copyWith(
-                                                        decoration: TextDecoration
-                                                            .lineThrough,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
                                                       )),
                                               const Gap(AppSizes.sm),
                                             ],
@@ -97,17 +106,74 @@ class KireiTubeProductCard extends StatelessWidget {
                                         ),
                                         Text(
                                           "৳${kireiTubeDetailsController.kireiTubeDetailsResponse.value.data!.products![index].salePrice!}",
-                                          style:
-                                              Theme.of(context).textTheme.bodyLarge,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
                                         ),
                                       ],
                                     ),
-                                    const AppCardContainer(
-                                      height: 40,
-                                        width: 40,
-                                        backgroundColor: AppColors.white,
+                                    AppCardContainer(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal:
+                                                AppSizes.spaceBtwDefaultItems,
+                                            vertical: AppSizes.sm),
+                                        backgroundColor:
+                                        kireiTubeDetailsController
+                                            .kireiTubeDetailsResponse
+                                            .value
+                                            .data
+                                            ?.products![index]
+                                            .stock >
+                                            0
+                                            ?AppColors.addToCartButton : kireiTubeDetailsController
+                                            .kireiTubeDetailsResponse
+                                            .value
+                                            .data
+                                            ?.products![index]
+                                            .preorderAvailable ==
+                                            1
+                                            ? AppColors.preorder : kireiTubeDetailsController
+                                            .kireiTubeDetailsResponse
+                                            .value
+                                            .data
+                                            ?.products![index]
+                                            .requestAvailable ==
+                                            1
+                                            ? AppColors.request : AppColors.primary,
                                         applyRadius: false,
-                                        child: Icon(Icons.shopping_bag_outlined))
+                                        child:
+                                            // Icon(Icons.shopping_bag_outlined)
+                                            Text(
+                                          kireiTubeDetailsController
+                                                      .kireiTubeDetailsResponse
+                                                      .value
+                                                      .data
+                                                      ?.products![index]
+                                                      .stock >
+                                                  0
+                                              ? 'Add to cart'
+                                              : kireiTubeDetailsController
+                                                          .kireiTubeDetailsResponse
+                                                          .value
+                                                          .data
+                                                          ?.products![index]
+                                                          .preorderAvailable ==
+                                                      1
+                                                  ? 'Preorder'
+                                                  : kireiTubeDetailsController
+                                                              .kireiTubeDetailsResponse
+                                                              .value
+                                                              .data
+                                                              ?.products![index]
+                                                              .requestAvailable ==
+                                                          1
+                                                      ? 'Request for stock'
+                                                      : 'Out of stock',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium!
+                                              .apply(color: AppColors.white),
+                                        ))
                                   ],
                                 )
                               ],

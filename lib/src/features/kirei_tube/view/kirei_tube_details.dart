@@ -37,7 +37,7 @@ class KireiTubeDetailsScreen extends StatelessWidget {
                   ? ShimmerHelper().buildBasicShimmer(height: 250)
                   : KireiDetailsVideoPlayer(
                       url: controller
-                          .kireiTubeDetailsResponse.value.data!.video!,
+                          .kireiTubeDetailsResponse.value.data?.video ?? 'https://beta.kireibd.com',
                     );
             }),
             const Gap(AppSizes.md),

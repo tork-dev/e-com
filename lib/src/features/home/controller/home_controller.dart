@@ -36,6 +36,7 @@ class HomeController extends GetxController{
   final carouselCurrentIndex = 0.obs;
   RxList homeSliders = [].obs;
   RxList homeSlidersLink = [].obs;
+  RxBool hittingApi = false.obs;
 
   /// Model Class Instance
   Rx<HomeProductResponse> homeProductResponse = HomeProductResponse().obs;
@@ -87,10 +88,12 @@ class HomeController extends GetxController{
 
 
   Future<void> getProductData() async {
+    hittingApi.value = true;
     homeProductResponse.value = await HomeRepositories.getHomeProducts();
     fetchCarouselImages();
     // homeProductResponse.value.bestsellingProducts[0].id
     AppLoggerHelper.debug(homeProductResponse.value.sliders![0].link.toString());
+    hittingApi.value = false;
   }
 
   void fetchFeaturedCategories() async {
