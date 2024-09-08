@@ -31,6 +31,8 @@ class AppApiEndPoints {
   static String sideBarData = "$baseUrl/sidebar-data";
   static String allCategories = "$baseUrl/all-categories";
   static String deviceToken = "$baseUrl/profile/update-device-token";
+  static String surpriseGift = "$baseUrl'/surprize-store";
+
 
   ///Shop
   static String shopProducts = "$baseUrl/gigalogy/items/search?";

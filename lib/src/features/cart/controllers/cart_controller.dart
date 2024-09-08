@@ -21,6 +21,10 @@ import '../repositories/cart_repositories.dart';
 class CartController extends GetxController {
   static CartController get instance => Get.find();
 
+  CartController({this.callingApis = true});
+
+  final bool callingApis;
+
   /// Key
   final GlobalKey<ScaffoldState> cartKey = GlobalKey<ScaffoldState>();
   RxList<CartItemGetResponse> allCartProducts = <CartItemGetResponse>[].obs;
@@ -33,6 +37,8 @@ class CartController extends GetxController {
       CheckoutCartUpdateResponse().obs;
   RxBool hittingApi = false.obs;
 
+
+
   var cartCount = Rx<dynamic>(0);
   final RxInt cartItemTotalPrice = 0.obs;
 
@@ -41,8 +47,10 @@ class CartController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      getAllCartProducts().then((value) => updateQuantity());
+    if(callingApis) {
+      if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
+        getAllCartProducts().then((value) => updateQuantity());
+      }
     }
   }
 

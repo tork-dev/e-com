@@ -20,82 +20,90 @@ class HomeSurpriseSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
-    return SizedBox(
-      height: 400,
-      child: Stack(
-        children: [
-          const AppBannerImage(
-            width: double.infinity,
-            applyImageRadius: false,
-            height: double.infinity,
-            fit: BoxFit.cover,
-            isNetworkImage: false,
-            imgUrl: AppImages.surprisingSectionBg,
+    return Obx(() {
+      return Visibility(
+        visible: homeController.hittingApi.value
+            ? true
+            : homeController.homeProductResponse.value.homepageSettings
+                    ?.surprizeGift?.isActive ==
+                "1",
+        child: SizedBox(
+          height: 400,
+          child: Stack(
+            children: [
+              const AppBannerImage(
+                width: double.infinity,
+                applyImageRadius: false,
+                height: double.infinity,
+                fit: BoxFit.cover,
+                isNetworkImage: false,
+                imgUrl: AppImages.surprisingSectionBg,
+              ),
+              Center(
+                  child: AppCardContainer(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      applyRadius: false,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            homeController.homeProductResponse.value
+                                    .homepageSettings?.surprizeGift?.title ??
+                                'Get surprise gift',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .apply(color: AppColors.white),
+                          ),
+                          const Gap(AppSizes.sm),
+                          HtmlWidget(
+                            ''' <div style="text-align: center;"> 
+               ${homeController.homeProductResponse.value.homepageSettings?.surprizeGift?.description}
+              </div>''',
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .apply(color: AppColors.white),
+                          ),
+                          const Gap(AppSizes.spaceBtwSections),
+                          TextFormField(
+                            controller: homeController.surprisePhoneController,
+                            cursorColor: AppColors.primary,
+                            validator: (value) =>
+                                AppValidator.validatePhoneNumber(value),
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: AppSizes.md,
+                                  vertical: AppSizes.spaceBtwDefaultItems),
+                              hintText: '01*********',
+                              fillColor: AppColors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide(width: 0)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide(width: 0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide(width: 0)),
+                            ),
+                          ),
+                          const Gap(AppSizes.spaceBtwDefaultItems),
+                          AppButtons.largeFlatFilledButton(
+                              onPressed: () {
+                                homeController.getSurpriseTap();
+                              },
+                              backgroundColor: AppColors.secondary,
+                              buttonText: 'Submit')
+                        ],
+                      ))),
+            ],
           ),
-          Center(
-            child: Obx(() {
-              return AppCardContainer(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  applyRadius: false,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        homeController.homeProductResponse.value
-                                .homepageSettings?.surprizeGift?.title ??
-                            'Get surprise gift',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .apply(color: AppColors.white),
-                      ),
-                      const Gap(AppSizes.sm),
-                      HtmlWidget(
-                        ''' <div style="text-align: center;"> 
-         ${homeController.homeProductResponse.value.homepageSettings?.surprizeGift?.description}
-        </div>''',
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .apply(color: AppColors.white),
-                      ),
-                      const Gap(AppSizes.spaceBtwSections),
-                      TextFormField(
-                        controller: homeController.emailController,
-                        cursorColor: AppColors.primary,
-                        validator: (value) =>
-                            AppValidator.validatePhoneNumber(value),
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: AppSizes.md,
-                              vertical: AppSizes.spaceBtwDefaultItems),
-                          hintText: '01*********',
-                          fillColor: AppColors.white,
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(width: 0)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(width: 0)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(width: 0)),
-                        ),
-                      ),
-                      const Gap(AppSizes.spaceBtwDefaultItems),
-                      AppButtons.largeFlatFilledButton(
-                          onPressed: () {},
-                          backgroundColor: AppColors.secondary,
-                          buttonText: 'Submit')
-                    ],
-                  ));
-            }),
-          ),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }

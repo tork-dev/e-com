@@ -6,14 +6,15 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 class AppAppointmentFormWidget extends StatelessWidget {
   final String labelText;
   final TextEditingController controller;
-  const AppAppointmentFormWidget({super.key, required this.labelText, required this.controller});
+  final TextInputType inputType;
+  const AppAppointmentFormWidget({super.key, required this.labelText, required this.controller, required this.inputType });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       cursorColor: AppColors.primary,
-      keyboardType: TextInputType.multiline,
+      keyboardType: inputType,
       decoration:  InputDecoration(
         enabled: AppLocalStorage().readData(LocalStorageKeys.activeDoctorAppointment),
         labelText: labelText,

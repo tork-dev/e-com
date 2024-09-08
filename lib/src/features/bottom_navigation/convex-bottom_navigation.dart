@@ -41,7 +41,7 @@ class HelloConvexAppBar extends StatelessWidget {
             }
             if (controller.pageIndex.value == 0) {
               AppHelperFunctions.showAlert(
-                  message: 'Do You want to close the app?',
+                  message: 'Do you want to close the app?',
                   leftButtonName: 'Yes',
                   rightButtonName: 'No',
                   onRightPress: () {

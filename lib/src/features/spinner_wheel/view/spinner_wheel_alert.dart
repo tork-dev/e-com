@@ -10,6 +10,8 @@ import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.d
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
+import '../../../utils/local_storage/local_storage_keys.dart';
+import '../../../utils/local_storage/storage_utility.dart';
 import '../../../utils/validators/validation.dart';
 
 class AppSpinnerWheelAlert extends StatelessWidget {
@@ -29,7 +31,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
           borderRadius: BorderRadius.zero,
         ),
         //contentPadding: EdgeInsets.zero,
-        insetPadding: EdgeInsets.all(AppSizes.md),
+        insetPadding: const EdgeInsets.all(AppSizes.md),
         backgroundColor: AppColors.popUpBackground,
         child: AppCardContainer(
           padding: const EdgeInsets.only(bottom: AppSizes.xl),
@@ -84,8 +86,12 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                   subTitle: 'Done',
                                   leftButtonName: 'Cancel',
                                   rightButtonName: 'OK',
-                                  onRightPress: (){},
-                                  onLeftPress: (){});
+                                  onRightPress: (){
+                                    AppLocalStorage().saveData(LocalStorageKeys.isActiveSpinner, true);
+                                  },
+                                  onLeftPress: (){
+                                    AppLocalStorage().saveData(LocalStorageKeys.isActiveSpinner, true);
+                                  });
                             },
                           ),
                         ),

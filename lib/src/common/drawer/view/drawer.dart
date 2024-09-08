@@ -123,8 +123,8 @@ class AppDrawer extends StatelessWidget {
                                         pageIndex: 1,
                                       ));
                                 }
-                                // shopController.updateCategory(category.slug);
-                                //shopController.getShopData();
+                                shopController.updateCategory(category.slug!);
+                                shopController.getShopData();
                                 bottomController.jumpToTab(1);
                               },
                               child: Text(category.name!)),
@@ -137,12 +137,31 @@ class AppDrawer extends StatelessWidget {
                                   return Padding(
                                       padding: const EdgeInsets.only(left: 16),
                                       child: AppDrawerCard(
-                                        onPress: () {},
-                                        title: children.title ?? '',
+                                        onPress: () {
+                                          if(child.name == 'By Category'){
+                                            shopController.updateCategory(children.slug ?? '');
+                                          }else if(child.name == 'By Skin Concern'){
+                                            shopController.goodFor.value = children.slug ?? '';
+                                          }else{
+                                            shopController.skinType.value = children.slug ?? '';
+                                          }
+                                          shopController.getShopData();
+                                          bottomController.jumpToTab(1);
+                                        },
+                                        title: children.name ?? '',
                                       ));
                                 }).toList(),
                               ) : AppDrawerCard(
-                                onPress: () {},
+                                onPress: () {
+                                  if (isFromOtherPage) {
+                                    Get.to(() => const HelloConvexAppBar(
+                                      pageIndex: 1,
+                                    ));
+                                  }
+                                  shopController.updateCategory(category.slug!);
+                                  shopController.getShopData();
+                                  bottomController.jumpToTab(1);
+                                },
                                 title: child.name ?? '',
                               ),
                             );
@@ -159,8 +178,8 @@ class AppDrawer extends StatelessWidget {
                                     pageIndex: 1,
                                   ));
                             }
-                            // shopController.updateCategory(category.slug!);
-                            //shopController.getShopData();
+                            shopController.updateCategory(category.slug!);
+                            shopController.getShopData();
                             bottomController.jumpToTab(1);
                           },
                         ),

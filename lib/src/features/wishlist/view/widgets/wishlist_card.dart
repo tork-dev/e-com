@@ -5,7 +5,6 @@ import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/wishlist/controller/wishlist_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
@@ -18,7 +17,7 @@ class AppWishListProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wishlistController = WishlistController.instance;
-    final cartController = HomeController.instance;
+    final cartController = Get.put(HomeController(callApis: false));
     return Obx(() {
       return  AppListViewLayout(
               itemCount: wishlistController.apiHitting.value

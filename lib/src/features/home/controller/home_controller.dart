@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/home/model/surprize_gift_model.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
@@ -29,6 +31,9 @@ class HomeController extends GetxController{
   ///TextEditingController
   final emailController = TextEditingController();
 
+  /// surprise number controller
+  final surprisePhoneController = TextEditingController();
+
   /// Key
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
   // final GlobalKey<ScaffoldState> homeTwoKey = GlobalKey<ScaffoldState>();
@@ -45,6 +50,7 @@ class HomeController extends GetxController{
   Rx<ProductRequestResponse> requestStockResponse = ProductRequestResponse().obs;
   Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
   Rx<DetailsProductsResponse> trendingProductsResponse = DetailsProductsResponse().obs;
+  Rx<SurprizeGiftResponse> surpriseGiftResponse = SurprizeGiftResponse().obs;
   //Rx<DeviceTokenUpdateResponse> trendingProductsResponse = DetailsProductsResponse().obs;
 
   NotificationServices notificationServices = NotificationServices();
@@ -132,6 +138,11 @@ class HomeController extends GetxController{
         homeSlidersLink.add(slider.link);
       }
     });
+  }
+
+  Future<void> getSurpriseTap()async{
+    surpriseGiftResponse.value = await HomeRepositories().getSurprizResponse(surprisePhoneController.text.toString());
+    AppHelperFunctions.showToast(surpriseGiftResponse.value.message!);
   }
 
 

@@ -31,16 +31,18 @@ class AppAppointmentForms extends StatelessWidget {
         ),
          AppAppointmentFormWidget(
           controller: appointmentController.fullNameController,
-            labelText: 'Full Name*'),
+            labelText: 'Full Name*',
+         inputType: TextInputType.text,),
          AppAppointmentFormWidget(
            controller: appointmentController.ageController,
-             labelText: 'Age*'),
+             labelText: 'Age*',
+         inputType: TextInputType.number,),
          AppAppointmentFormWidget(
            controller: appointmentController.contactNumberController,
-             labelText: 'Contact Number*'),
+             labelText: 'Contact Number*', inputType: TextInputType.number),
          AppAppointmentFormWidget(
            controller: appointmentController.whatsAppNumberController,
-             labelText: 'WhatsApp Number*'),
+             labelText: 'WhatsApp Number*', inputType: TextInputType.number),
         TextFormField(
           keyboardType: TextInputType.multiline,
           minLines: 4,

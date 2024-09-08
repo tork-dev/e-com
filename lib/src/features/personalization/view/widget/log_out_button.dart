@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import '../../../../utils/constants/colors.dart';
-
+import '../../../../utils/helpers/helper_functions.dart';
 
 class ProfileLogOutButton extends StatelessWidget {
   const ProfileLogOutButton({super.key});
@@ -17,8 +17,19 @@ class ProfileLogOutButton extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            AuthHelper().clearUserData();
-            Get.offAll(()=> const HelloConvexAppBar());
+            AppHelperFunctions.showAlert(
+                message: 'Are you sure you want to logout?',
+                leftButtonName: 'Yes',
+                rightButtonName: 'No',
+                onRightPress: () {
+                  Get.back();
+                },
+                onLeftPress: () {
+                  AuthHelper().clearUserData();
+                  Get.offAll(() => const HelloConvexAppBar());
+                },
+                rightButtonTextColor: AppColors.secondary,
+                rightButtonColor: Colors.transparent);
           },
           child: Row(
             children: [
@@ -52,4 +63,3 @@ class ProfileLogOutButton extends StatelessWidget {
     );
   }
 }
-

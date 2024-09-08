@@ -4,6 +4,7 @@ import 'package:kirei/src/common/drawer/model/all_category_model.dart';
 import 'package:kirei/src/features/home/model/home_featured_category_model.dart';
 import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/features/home/model/request_stock_model.dart';
+import 'package:kirei/src/features/home/model/surprize_gift_model.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -72,6 +73,14 @@ class HomeRepositories {
     print('sending fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
 
     return deviceTokenUpdateResponseFromJson(response.body);
+  }
+
+  Future<SurprizeGiftResponse> getSurprizResponse(String phone) async {
+    Uri url = Uri.parse(AppApiEndPoints.surpriseGift);
+    final response = await http.post(url, body: jsonEncode({
+      'phone' : phone
+    }));
+    return SurprizeGiftResponse.fromJson(response.body);
   }
 
 }

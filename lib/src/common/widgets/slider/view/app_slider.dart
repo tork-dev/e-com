@@ -21,7 +21,7 @@ class CustomSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = HomeController.instance;
     return AppCardContainer(
-      height: 150,
+      height: 185,
       child: Obx(() {
         return controller.homeSliders.isEmpty
             ? ShimmerHelper().buildBasicShimmer()

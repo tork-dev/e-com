@@ -291,6 +291,7 @@ class AppHelperFunctions {
     showDialog(
         context: Get.context!,
         useSafeArea: true,
+        barrierDismissible: false,
         builder: (BuildContext context) => const AppSpinnerWheelAlert());
   }
 
