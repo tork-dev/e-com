@@ -8,6 +8,9 @@ class AppDrawerController extends GetxController{
 
 
   RxList<AllCategory> allCategories = <AllCategory>[].obs;
+  RxList<bool> isExpandedListCategoryList = [false].obs;
+  RxList isExpandedListSubCategoryList = [].obs;
+  RxBool mainCategoryExpanded = false.obs;
 
   @override
   void onInit() {
@@ -18,5 +21,11 @@ class AppDrawerController extends GetxController{
 
   void fetchAllCategories() async {
     allCategories.value = await DrawerRepositories().getAllCategories();
+    // Initialize the list based on the number of categories
+    isExpandedListCategoryList.value = List.generate(allCategories.length, (index) => false);
+    isExpandedListSubCategoryList.value = allCategories.map((category) {
+      return List.generate(category.children?.length ?? 0, (index) => false);
+    }).toList();
+
   }
 }

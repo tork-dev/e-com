@@ -77,7 +77,11 @@ class HomeRepositories {
 
   Future<SurprizeGiftResponse> getSurprizResponse(String phone) async {
     Uri url = Uri.parse(AppApiEndPoints.surpriseGift);
-    final response = await http.post(url, body: jsonEncode({
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
       'phone' : phone
     }));
     return SurprizeGiftResponse.fromJson(response.body);

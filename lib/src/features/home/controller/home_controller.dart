@@ -36,6 +36,7 @@ class HomeController extends GetxController{
 
   /// Key
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> surprisePhoneKey = GlobalKey<FormState>();
   // final GlobalKey<ScaffoldState> homeTwoKey = GlobalKey<ScaffoldState>();
 
   final carouselCurrentIndex = 0.obs;
@@ -141,6 +142,7 @@ class HomeController extends GetxController{
   }
 
   Future<void> getSurpriseTap()async{
+    if (!surprisePhoneKey.currentState!.validate()) return;
     surpriseGiftResponse.value = await HomeRepositories().getSurprizResponse(surprisePhoneController.text.toString());
     AppHelperFunctions.showToast(surpriseGiftResponse.value.message!);
   }

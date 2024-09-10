@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
       width: 300,
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.dark,
       applyRadius: false,
       child: ListView(
         children: [
@@ -65,14 +65,16 @@ class AppDrawer extends StatelessWidget {
           ),
           Obx(() {
             return ExpansionTile(
+              iconColor: AppColors.white,
+              collapsedIconColor: AppColors.white,
+              backgroundColor: AppColors.white.withOpacity(.05),
               title: Row(
                 children: [
-                  Text(
-                    "Categories".toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text("Categories".toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .apply(color: AppColors.light)),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.05,
                   ),
@@ -109,12 +111,18 @@ class AppDrawer extends StatelessWidget {
                   ),
                 ],
               ),
-              children: drawerController.allCategories.map((category) {
+              children:
+                  drawerController.allCategories.asMap().entries.map((entry) {
+                final category = entry.value;
+                final index = entry.key;
                 return category.children != null &&
                         category.children!.isNotEmpty
                     ? Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: ExpansionTile(
+                          backgroundColor: AppColors.white.withOpacity(.09),
+                          iconColor: AppColors.white,
+                          collapsedIconColor: AppColors.white,
                           title: GestureDetector(
                               onTap: () {
                                 shopController.resetAll();
@@ -127,43 +135,71 @@ class AppDrawer extends StatelessWidget {
                                 shopController.getShopData();
                                 bottomController.jumpToTab(1);
                               },
-                              child: Text(category.name!)),
-                          children: category.children!.map((child) {
+                              child: Text(
+                                category.name!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .apply(color: AppColors.light),
+                              )),
+                          children: category.children!
+                              .asMap()
+                              .entries
+                              .map((childEntry) {
+                            final child = childEntry.value;
+                            final childIndex = childEntry.key;
                             return Padding(
                               padding: const EdgeInsets.only(left: 16),
-                              child: child.children!.isNotEmpty ? ExpansionTile(
-                                title: Text(child.name!),
-                                children: child.children!.map((children) {
-                                  return Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: AppDrawerCard(
-                                        onPress: () {
-                                          if(child.name == 'By Category'){
-                                            shopController.updateCategory(children.slug ?? '');
-                                          }else if(child.name == 'By Skin Concern'){
-                                            shopController.goodFor.value = children.slug ?? '';
-                                          }else{
-                                            shopController.skinType.value = children.slug ?? '';
-                                          }
-                                          shopController.getShopData();
-                                          bottomController.jumpToTab(1);
-                                        },
-                                        title: children.name ?? '',
-                                      ));
-                                }).toList(),
-                              ) : AppDrawerCard(
-                                onPress: () {
-                                  if (isFromOtherPage) {
-                                    Get.to(() => const HelloConvexAppBar(
-                                      pageIndex: 1,
-                                    ));
-                                  }
-                                  shopController.updateCategory(category.slug!);
-                                  shopController.getShopData();
-                                  bottomController.jumpToTab(1);
-                                },
-                                title: child.name ?? '',
-                              ),
+                              child: child.children!.isNotEmpty
+                                  ? ExpansionTile(
+                                backgroundColor: AppColors.white.withOpacity(.1),
+                                      iconColor: AppColors.white,
+                                      collapsedIconColor: AppColors.white,
+                                      title: Text(child.name!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge!
+                                              .apply(color: AppColors.light)),
+                                      children: child.children!.map((children) {
+                                        return Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 16),
+                                            child: AppDrawerCard(
+                                              onPress: () {
+                                                if (child.name ==
+                                                    'By Category') {
+                                                  shopController.updateCategory(
+                                                      children.slug ?? '');
+                                                } else if (child.name ==
+                                                    'By Skin Concern') {
+                                                  shopController.goodFor.value =
+                                                      children.slug ?? '';
+                                                } else {
+                                                  shopController
+                                                          .skinType.value =
+                                                      children.slug ?? '';
+                                                }
+                                                shopController.getShopData();
+                                                bottomController.jumpToTab(1);
+                                              },
+                                              title: children.name ?? '',
+                                            ));
+                                      }).toList(),
+                                    )
+                                  : AppDrawerCard(
+                                      onPress: () {
+                                        if (isFromOtherPage) {
+                                          Get.to(() => const HelloConvexAppBar(
+                                                pageIndex: 1,
+                                              ));
+                                        }
+                                        shopController
+                                            .updateCategory(category.slug!);
+                                        shopController.getShopData();
+                                        bottomController.jumpToTab(1);
+                                      },
+                                      title: child.name ?? '',
+                                    ),
                             );
                           }).toList(),
                         ),
@@ -191,7 +227,11 @@ class AppDrawer extends StatelessWidget {
               visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
               title: Row(
                 children: [
-                  const Text('BRANDS', style: TextStyle(fontSize: 13)),
+                  Text('BRANDS',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .apply(color: AppColors.light)),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.05,
                   ),
@@ -266,12 +306,11 @@ class AppDrawer extends StatelessWidget {
           ExpansionTile(
               title: Row(
                 children: [
-                  Text(
-                    "kirei".toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text("kirei".toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .apply(color: AppColors.light)),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.05,
                   ),

@@ -53,6 +53,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                           child: FortuneWheel(
                             selected: spinController.selected.stream,
                             animateFirst: false,
+                            physics: NoPanPhysics(),
                             indicators: const <FortuneIndicator>[
                               FortuneIndicator(
                                 alignment: Alignment.topCenter,

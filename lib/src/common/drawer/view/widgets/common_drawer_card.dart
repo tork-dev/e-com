@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 
 import '../../../../features/bottom_navigation/convex-bottom_navigation.dart';
 
@@ -15,7 +16,7 @@ class AppDrawerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-        title: Text(title.toUpperCase(), style: const TextStyle(fontSize: 13)),
+        title: Text(title.toUpperCase(), style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.light)),
         onTap: ()=> onPress());
   }
 }

@@ -12,7 +12,7 @@ class SpinnerController extends GetxController {
  final phoneNumberController = TextEditingController();
 
  /// StreamController with broadcast
- StreamController<int> selected = StreamController<int>.broadcast();
+ StreamController<int> selected = StreamController<int>();
 
  /// formKey
  GlobalKey<FormState> phoneKey = GlobalKey<FormState>();
@@ -48,7 +48,7 @@ class SpinnerController extends GetxController {
    return;
   }
 
-  selectedIndex.value = Fortune.randomInt(0, items.length);
+  selectedIndex.value = Fortune.randomInt(0, 2);
   selected.add(selectedIndex.value);
  }
 }

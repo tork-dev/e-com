@@ -46,7 +46,7 @@ class DetailsCardPart extends StatelessWidget {
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'My Rewards',
-              onTap: ()=> Get.to(()=> const RewardScreen())),
+              //onTap: ()=> Get.to(()=> const RewardScreen())),
         //      // onTap: ()=> AppHelperFunctions.showPopUpAlert(
         //      //  imgUrl: 'assets/images/banners/beauty_tips_one.png',
         //      //    message: 'pop up',
@@ -55,11 +55,11 @@ class DetailsCardPart extends StatelessWidget {
         //      //    onRightPress: (){},
         //      //    onLeftPress: (){},
         //      //    )
-        //   onTap: (){
-        //     //  Get.toNamed('/kirei-tube');
-        //      AppHelperFunctions().showAlertForFirstTime();
-        //   },
-        // ),
+          onTap: (){
+            //  Get.toNamed('/kirei-tube');
+             AppHelperFunctions().showAlertForFirstTime();
+          },
+        ),
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'Kirei Youtube',
