@@ -66,6 +66,11 @@ class HomeController extends GetxController{
     notificationServices.isTokenRefresh();
 
     notificationServices.getDeviceToken().then((value){
+      AppLocalStorage().saveData(LocalStorageKeys.fcmToken, value);
+      if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+        HomeRepositories().getDeviceTokenUpdateResponse();
+      }
+
       if (kDebugMode) {
         print('device token');
         print(value);
@@ -80,9 +85,6 @@ class HomeController extends GetxController{
     }
 
 
-    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-      HomeRepositories().getDeviceTokenUpdateResponse();
-    }
     super.onInit();
   }
 

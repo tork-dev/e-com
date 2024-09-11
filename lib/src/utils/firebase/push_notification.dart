@@ -69,7 +69,7 @@ class PushNotificationService {
     final fCMToken = await _firebaseMessaging.getToken();
 
     print("FCM TOKEN is : ${fCMToken}");
-    await AppLocalStorage().saveDataIfNull(LocalStorageKeys.fcmToken, fCMToken);
+    await AppLocalStorage().saveData(LocalStorageKeys.fcmToken, fCMToken);
     print("local fcm : ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}");
     // initPushNotifications();
   }

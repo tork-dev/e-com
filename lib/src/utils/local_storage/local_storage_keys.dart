@@ -18,6 +18,6 @@ class LocalStorageKeys{
   static const String appleLogin = "appleLogin";
   static const String activeDoctorAppointment = "activeDoctorAppointment";
   static const String gaipUserId = "gaip_user_id";
-  static const String isActiveSpinner = "isActiveSpinner";
+  static const String sowedSpinner = "sowedSpinner";
 
  }

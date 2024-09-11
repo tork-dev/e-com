@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../constants/colors.dart';
@@ -294,6 +295,25 @@ class AppHelperFunctions {
         barrierDismissible: false,
         builder: (BuildContext context) => const AppSpinnerWheelAlert());
   }
+
+
+  void  verifyPhone(){
+    showDialog(
+        context: Get.context!,
+        builder: (BuildContext context){
+          return Dialog(
+            backgroundColor: AppColors.white,
+            insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.zero,
+            ),
+            child: Otp(),
+          );
+        }
+    );
+  }
+
+
 
   void pointRedeemAlert() {
     showDialog(

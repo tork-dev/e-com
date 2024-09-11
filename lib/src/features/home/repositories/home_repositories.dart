@@ -58,7 +58,7 @@ class HomeRepositories {
   }
 
   Future<DeviceTokenUpdateResponse> getDeviceTokenUpdateResponse() async {
-
+    print('sending fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
     var postBody = jsonEncode({
       "device_token": AppLocalStorage().readData(LocalStorageKeys.fcmToken)
     });
@@ -70,7 +70,7 @@ class HomeRepositories {
               "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}",
         },
         body: postBody);
-    print('sending fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
+    print('sended fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
 
     return deviceTokenUpdateResponseFromJson(response.body);
   }

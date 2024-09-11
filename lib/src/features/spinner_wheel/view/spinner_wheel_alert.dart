@@ -19,7 +19,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final spinController = Get.put(SpinnerController());
+    final spinController = SpinnerController.instance;
     final screenWidth = MediaQuery
         .of(context)
         .size
@@ -66,18 +66,18 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                               ),
                             ],
                             items: [
-                              for (var it in spinController.items)
+                              for (var it in spinController.couponList)
                                 FortuneItem(
                                     child: Text(it),
                                     style: FortuneItemStyle(
                                       color: AppColors().colorList[
-                                      spinController.items.indexOf(it)],
+                                      spinController.couponList.indexOf(it)],
                                       borderWidth: 0,
                                     )),
                             ],
                             onAnimationEnd: () {
                               spinController.selectedCoupon.value =
-                              spinController.items[spinController.selectedIndex
+                              spinController.couponList[spinController.selectedIndex
                                   .value];
                               print(spinController.selectedCoupon.value);
                               Get.back();
@@ -88,10 +88,10 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                   leftButtonName: 'Cancel',
                                   rightButtonName: 'OK',
                                   onRightPress: (){
-                                    AppLocalStorage().saveData(LocalStorageKeys.isActiveSpinner, true);
+                                    // AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
                                   },
                                   onLeftPress: (){
-                                    AppLocalStorage().saveData(LocalStorageKeys.isActiveSpinner, true);
+                                    // AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
                                   });
                             },
                           ),

@@ -12,7 +12,7 @@ import 'repository/business_setting_repositories.dart';
 class BusinessSettingHelper {
   static Future<void> setBusinessSettingData() async {
     BusinessSettingResponse businessLists =
-    await BusinessSettingRepository().getBusinessSettingList();
+        await BusinessSettingRepository().getBusinessSettingList();
 
     // Perform local storage operations based on business settings
     for (var element in businessLists.data!) {
@@ -20,7 +20,8 @@ class BusinessSettingHelper {
         case 'facebook_login':
           {
             bool isEnabled = element.value.toString() == "1";
-            AppLocalStorage().saveData(LocalStorageKeys.facebookLogin, isEnabled);
+            AppLocalStorage()
+                .saveData(LocalStorageKeys.facebookLogin, isEnabled);
           }
           break;
         case 'google_login':
@@ -38,7 +39,8 @@ class BusinessSettingHelper {
         case 'doctor_appointment':
           {
             bool isEnabled = element.value.toString() == "1";
-            AppLocalStorage().saveData(LocalStorageKeys.activeDoctorAppointment, isEnabled);
+            AppLocalStorage()
+                .saveData(LocalStorageKeys.activeDoctorAppointment, isEnabled);
           }
           break;
         default:
@@ -48,8 +50,10 @@ class BusinessSettingHelper {
     }
 
     // Check if there are popups to display
-    if (businessLists.popUp != null && businessLists.popUp!.isNotEmpty) {
-      await showPopupsSequentially(businessLists.popUp!);
+    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true) {
+      if (businessLists.popUp != null && businessLists.popUp!.isNotEmpty) {
+        await showPopupsSequentially(businessLists.popUp!);
+      }
     }
   }
 

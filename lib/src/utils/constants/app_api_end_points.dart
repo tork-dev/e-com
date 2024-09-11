@@ -116,6 +116,9 @@ class AppApiEndPoints {
   /// Business-settings
   static String businessSettings = "$baseUrl/business-settings";
 
+  ///spinner module
+  static String spinnerCouponList = "$baseUrl/spinner/coupons";
+
   /// Reward point
   static String rewardPoint = "$baseUrl/user-memberships";
   static String pointRedeemProducts = "$baseUrl/user-memberships-products";
