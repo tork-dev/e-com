@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:gap/gap.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/authentication/data/repositories/auth_repositories.dart';
 import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -13,6 +15,7 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 import '../../../utils/validators/validation.dart';
+import '../../authentication/views/log_in/repository/login_repository.dart';
 
 class AppSpinnerWheelAlert extends StatelessWidget {
   const AppSpinnerWheelAlert({super.key});
@@ -20,10 +23,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spinController = SpinnerController.instance;
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return SingleChildScrollView(
       child: Dialog(
@@ -46,8 +46,8 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                     children: [
                       Center(
                         child: AppCardContainer(
-                          margin: const EdgeInsets.only(top: AppSizes
-                              .appBarHeight),
+                          margin:
+                              const EdgeInsets.only(top: AppSizes.appBarHeight),
                           height: 300,
                           width: 300,
                           child: FortuneWheel(
@@ -71,28 +71,53 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                     child: Text(it),
                                     style: FortuneItemStyle(
                                       color: AppColors().colorList[
-                                      spinController.couponList.indexOf(it)],
+                                          spinController.couponList
+                                              .indexOf(it)],
                                       borderWidth: 0,
                                     )),
                             ],
                             onAnimationEnd: () {
                               spinController.selectedCoupon.value =
-                              spinController.couponList[spinController.selectedIndex
-                                  .value];
+                                  spinController.couponList[
+                                      spinController.selectedIndex.value];
                               print(spinController.selectedCoupon.value);
                               Get.back();
-                              AppHelperFunctions.showPopUpAlert(
-                                imgUrl: '',
-                                  title: 'Done',
-                                  subTitle: 'Done',
-                                  leftButtonName: 'Cancel',
-                                  rightButtonName: 'OK',
-                                  onRightPress: (){
-                                    // AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
-                                  },
-                                  onLeftPress: (){
-                                    // AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
-                                  });
+                              if (spinController
+                                      .selectedCouponResponse.value.result ==
+                                  true) {
+                                AppHelperFunctions.showSpinnerCoupon(
+                                    title: spinController.selectedCouponResponse
+                                            .value.data?.title ??
+                                        '',
+                                    couponCode: spinController
+                                        .selectedCouponResponse
+                                        .value
+                                        .data
+                                        ?.couponCode,
+                                    onCouponPress: () {
+                                      FlutterClipboard.copy(spinController
+                                                  .selectedCouponResponse
+                                                  .value
+                                                  .data
+                                                  ?.couponCode ??
+                                              '')
+                                          .then((value) =>
+                                              AppHelperFunctions.showToast(
+                                                  'Coupon copied'));
+                                    },
+                                    subTitle: spinController
+                                            .selectedCouponResponse
+                                            .value
+                                            .data
+                                            ?.description ??
+                                        '',
+                                    imgUrl: spinController
+                                            .selectedCouponResponse
+                                            .value
+                                            .data
+                                            ?.image ??
+                                        '');
+                              }
                             },
                           ),
                         ),
@@ -100,16 +125,12 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                       const Gap(AppSizes.defaultSpace),
                       Text(
                         'Spin to win!',
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .headlineMedium,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const Gap(AppSizes.sm),
                       Text(
                         'Enter your phone number for the chance to win!',
-                        style: Theme
-                            .of(context)
+                        style: Theme.of(context)
                             .textTheme
                             .bodySmall!
                             .apply(color: AppColors.secondary),
@@ -147,17 +168,26 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                           contentPadding: EdgeInsets.zero,
                           onChanged: (value) {
                             spinController.isChecked.value =
-                            !spinController.isChecked.value;
+                                !spinController.isChecked.value;
                           },
                           title: const Text(
                               'I’ve read and agree to the Terms and the Privacy Policy.'),
                         );
-                      }
-                      ),
+                      }),
                       const Gap(AppSizes.spaceBtwSections),
                       AppButtons.largeFlatFilledButton(
                           onPressed: () {
-                            spinController.tryLuck();
+                            if (!spinController.phoneKey.currentState!
+                                .validate()) return;
+                            if (!spinController.isChecked.value) {
+                              AppHelperFunctions.showToast(
+                                  'Please agree to the terms and condition');
+                              return;
+                            }
+                            LoginRepository().getLoginOTPResponse(spinController
+                                .phoneNumberController.text
+                                .toString());
+                            AppHelperFunctions().verifyPhone();
                           },
                           buttonText: "Try My Luck!"),
                     ],

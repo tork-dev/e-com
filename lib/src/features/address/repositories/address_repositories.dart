@@ -107,7 +107,7 @@ class AddressRepositories{
       },
     );
     print("response.body.toString()${response.body.toString()}");
-    return AddressResponse.fromJson(jsonDecode(response.body));
+    return AddressResponse.fromJson(response.body);
 
   }
 

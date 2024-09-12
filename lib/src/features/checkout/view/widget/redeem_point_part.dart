@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/buttons/bottom_button.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/checkout/controller/checkout_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -12,6 +14,7 @@ class RedeemPointPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final checkoutController = CheckoutController.instance;
     return AppCardContainer(
         backgroundColor: AppColors.white,
         applyRadius: false,
@@ -28,32 +31,41 @@ class RedeemPointPart extends StatelessWidget {
                 ),
                 const Gap(AppSizes.sm),
                 Text(
-                  "3000 Points",
+                  "${checkoutController.rewardBalance} Points",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
             ),
-            InkWell(
-              onTap: (){
-                AppHelperFunctions().pointRedeemAlert();
-              },
-              child: Text(
-                "redeem point".toUpperCase(),
-                style: const TextStyle(
-                  shadows: [
-                    Shadow(
-                        color: Colors.red,
-                        offset: Offset(0, -4))
-                  ],
-                  fontSize: 16,
-                  color: Colors.transparent,
-                  decoration:
-                  TextDecoration.underline,
-                  decorationColor: AppColors.primary,
-                  decorationThickness: AppSizes.xs,
+            Obx(() {
+              return InkWell(
+                onTap: () {
+                  checkoutController.rewardBalance.value > 99
+                      ? checkoutController.pointRedeemAlert()
+                      : AppHelperFunctions.showToast(
+                          'You have not enough points');
+                },
+                child: Text(
+                  "redeem point".toUpperCase(),
+                  style: TextStyle(
+                    shadows: [
+                      Shadow(
+                          color: checkoutController.rewardBalance.value > 99
+                              ? AppColors.primary
+                              : AppColors.grey,
+                          offset: Offset(0, -4))
+                    ],
+                    fontSize: 16,
+                    color: Colors.transparent,
+                    decoration: TextDecoration.underline,
+                    decorationColor:
+                        checkoutController.rewardBalance.value > 99
+                            ? AppColors.primary
+                            : AppColors.grey,
+                    decorationThickness: AppSizes.xs,
+                  ),
                 ),
-              ),
-            )
+              );
+            })
           ],
         ));
   }

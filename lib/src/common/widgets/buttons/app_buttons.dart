@@ -65,19 +65,25 @@ class AppButtons {
         ),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           AppBannerImage(height: 25, width: 25, imgUrl: imgUrl),
-           const Gap(AppSizes.sm),
+          const Gap(AppSizes.sm),
           Align(alignment: Alignment.center, child: Text(buttonName)),
         ]));
   }
 
-  static OutlinedButton largeFlatOutlineButton(
-      {required VoidCallback onPressed, required String buttonText}) {
+  static OutlinedButton largeFlatOutlineButton({
+    required VoidCallback onPressed,
+    required String buttonText,
+    double verticallyPadding = AppSizes.md,
+  }) {
     return OutlinedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+            side: const BorderSide(color: AppColors.secondary),
             shape: const BeveledRectangleBorder(),
             minimumSize:
-                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight)),
+                Size(AppHelperFunctions.screenWidth(), AppSizes.buttonHeight),
+            padding: EdgeInsets.symmetric(
+                vertical: verticallyPadding, horizontal: AppSizes.md)),
         child: Text(
           buttonText,
         ));

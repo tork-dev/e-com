@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/spinner_wheel/model/spinner_coupon_list_response.dart';
+import 'package:kirei/src/features/spinner_wheel/model/spinner_coupon_response.dart';
 import 'package:kirei/src/features/spinner_wheel/repositories/spinner_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 class SpinnerController extends GetxController {
  static SpinnerController get instance => Get.find<SpinnerController>();
@@ -26,7 +29,9 @@ class SpinnerController extends GetxController {
  RxInt selectedIndex = 0.obs;
  RxString selectedCoupon = ''.obs;
  Rx<SpinnerCouponList> spinnerCouponList = SpinnerCouponList().obs;
+ Rx<SpinnerCouponResponse> selectedCouponResponse = SpinnerCouponResponse().obs;
  RxList<String> couponList = <String>[].obs;
+ RxList<String> couponCodeList = <String>[].obs;
 
  @override
   void onInit() {
@@ -50,9 +55,36 @@ class SpinnerController extends GetxController {
   spinnerCouponList.value = await SpinnerRepositories().getCouponList();
   for (var item in spinnerCouponList.value.data!) {
    couponList.add('${item.discount}% Off');
+   couponCodeList.add(item.couponCode.toString());
   }
+  AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
 
   print(couponList);
+}
+
+Future<void> getSelectedCouponResponse(accessToken) async{
+  selectedCouponResponse.value = await SpinnerRepositories().getSelectedCoupon(accessToken);
+
+  if(selectedCouponResponse.value.result == true) {
+   selectedIndex.value =
+       couponCodeList.indexOf(selectedCouponResponse.value.data?.couponCode);
+  }else {
+   Get.back();
+   AppHelperFunctions.showSpinnerCoupon(
+       title: selectedCouponResponse
+           .value.data?.title ??
+           '',
+       subTitle:selectedCouponResponse
+           .value
+           .data
+           ?.description ??
+           '',
+       imgUrl: selectedCouponResponse
+           .value
+           .data
+           ?.image ??
+           '');
+  }
 }
 
  @override
@@ -63,14 +95,4 @@ class SpinnerController extends GetxController {
   super.onClose();
  }
 
- Future<void> tryLuck() async {
-  if (!phoneKey.currentState!.validate()) return;
-  if (!isChecked.value) {
-   AppHelperFunctions.showToast('Please agree to the terms and condition');
-   return;
-  }
-
-  selectedIndex.value = Fortune.randomInt(0, 2);
-  selected.add(selectedIndex.value);
- }
 }

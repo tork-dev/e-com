@@ -1,5 +1,8 @@
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
@@ -11,12 +14,17 @@ import 'package:kirei/src/features/checkout/model/payment_types_model.dart';
 import 'package:kirei/src/features/checkout/repositories/checkout_repositories.dart';
 import 'package:kirei/src/features/checkout/view/widget/bkash_screen.dart';
 import 'package:kirei/src/features/checkout/view/order_status_page.dart';
+import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/features/address/controller/address_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
+import '../../../common/widgets/buttons/app_buttons.dart';
+import '../../../common/widgets/containers/card_container.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
 import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
@@ -47,6 +55,8 @@ class CheckoutController extends GetxController {
   RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
   RxBool isLoading = false.obs;
+  RxInt rewardBalance = 100.obs;
+  RxInt redeemPoint = 100.obs;
 
   @override
   void onInit() {
@@ -61,7 +71,17 @@ class CheckoutController extends GetxController {
     await getPaymentMethods();
     AppHelperFunctions.showToast('Cart Updated');
       addressAvailabilityCheck();
+    //getUserRewardBalance();
   }
+  
+  
+  // Future<void> getUserRewardBalance () async{
+  //   final response = await http.get(Uri.parse(AppApiEndPoints.rewardPointBalance), headers: {
+  //     'Authorization' : "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}"
+  //   });
+  //   rewardBalance.value = int.parse(response.body);
+  //   print('this is balance : ${response.body}');
+  // }
 
   void addressAvailabilityCheck() {
     if (addressController.nameController.text == "Guest" ||
@@ -99,6 +119,8 @@ class CheckoutController extends GetxController {
     if (couponResponse.value.result == true) {
       getCheckoutSummary();
       isCouponApplied.value = true;
+    }else{
+      couponController.clear();
     }
     AppHelperFunctions.showToast(couponResponse.value.message!);
   }
@@ -282,5 +304,142 @@ class CheckoutController extends GetxController {
     };
 
     return requestBody;
+  }
+
+
+  void pointRedeemAlert() {
+    showDialog(
+        context: Get.context!,
+        useSafeArea: true,
+        builder: (BuildContext context) {
+          return Dialog(
+              backgroundColor: AppColors.white,
+              insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+              child: AppCardContainer(
+                applyRadius: false,
+                padding: const EdgeInsets.all(AppSizes.defaultSpace),
+                child: Obx(() {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Redeem Your Points', style: Theme.of(context).textTheme.headlineSmall,),
+                            AppCardContainer(
+                                applyRadius: false,
+                                onTap: ()=> Get.back(),
+                                height: 44,
+                                width: 44,
+                                backgroundColor: AppColors.grey,
+                                child: const Icon(Icons.clear))
+                          ],
+                        ),
+                        const Gap(AppSizes.defaultSpace),
+                        RadioListTile<int>(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          activeColor: AppColors.primary,
+                          title: Text(
+                            '100 points',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          value: 100,
+                          groupValue: redeemPoint.value,
+                          onChanged: (value) {
+                            redeemPoint.value = value!;  // Update selected value
+                          },
+                        ),
+
+                        RadioListTile<int>(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          activeColor: AppColors.primary,
+                          title: Text(
+                            '200 points',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          value: 200,
+                          groupValue: redeemPoint.value,
+                          onChanged: (value) {
+                            redeemPoint.value = value!;  // Update selected value
+                          },
+                        ),
+                        RadioListTile<int>(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          activeColor: AppColors.primary,
+                          title: Text(
+                            '300 points',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          value: 300,
+                          groupValue: redeemPoint.value,
+                          onChanged: (value) {
+                            redeemPoint.value = value!;  // Update selected value
+                          },
+                        ),
+                        RadioListTile<int>(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          activeColor: AppColors.primary,
+                          title: Text(
+                            '400 points',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          value: 400,
+                          groupValue: redeemPoint.value,
+                          onChanged: (value) {
+                            redeemPoint.value = value!;  // Update selected value
+                          },
+                        ),
+                        RadioListTile<int>(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          activeColor: AppColors.primary,
+                          title: Text(
+                            '500 points',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          value: 500,
+                          groupValue: redeemPoint.value,
+                          onChanged: (value) {
+                            redeemPoint.value = value!;  // Update selected value
+                          },
+                        ),
+
+                        const Gap(AppSizes.md),
+                        SizedBox(
+                          width: 150,
+                          child: AppButtons.largeFlatFilledButton(
+                              onPressed: (){},
+                              backgroundColor: AppColors.addToCartButton,
+                              buttonText: 'Redeem Points'.toUpperCase()),
+                        )
+                      ],
+                    );
+                  }
+                ),
+              )
+          );
+        });
+  }
+
+  void onRedeemPoint() {
+
   }
 }

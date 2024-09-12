@@ -118,9 +118,11 @@ class AppApiEndPoints {
 
   ///spinner module
   static String spinnerCouponList = "$baseUrl/spinner/coupons";
+  static String spinnerSelectedCoupon = "$baseUrl/spinner/spin-coupon";
 
   /// Reward point
   static String rewardPoint = "$baseUrl/user-memberships";
+  static String rewardPointBalance = "$baseUrl/user-reward-balance";
   static String pointRedeemProducts = "$baseUrl/user-memberships-products";
 
 

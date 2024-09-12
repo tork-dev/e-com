@@ -61,7 +61,7 @@ class AppOrderStatusScreen extends StatelessWidget {
                           Text(
                             statusString,
                             style: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

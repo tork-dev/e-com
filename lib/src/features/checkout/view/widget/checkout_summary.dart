@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -37,6 +38,13 @@ class AppCheckoutSummary extends StatelessWidget {
                       title: 'Discount',
                       amount:
                           '${checkoutController.checkoutSummary.value.discount}'),
+                  const Gap(AppSizes.sm),
+                  Visibility(
+                    visible: checkoutController.redeemPoint > 99,
+                    child: AppSummaryTextWidget(
+                        title: 'Redeem Point',
+                        amount: '৳${checkoutController.redeemPoint}'),
+                  ),
                   const Gap(AppSizes.sm),
                   AppSummaryTextWidget(
                       title: 'Total',

@@ -11,7 +11,8 @@ import 'widgets/otp_forms_and_button.dart';
 
 
 class Otp extends StatelessWidget {
-  const Otp({super.key});
+  const Otp({super.key, this.isForSpinner = false});
+  final bool isForSpinner;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class Otp extends StatelessWidget {
             ),
 
             const Gap(AppSizes.lg),
-            const OtpFormsAndButton()
+            OtpFormsAndButton(isForSpinner: isForSpinner,)
           ],
         ),
     );

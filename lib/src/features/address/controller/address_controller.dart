@@ -61,7 +61,7 @@ class AddressController extends GetxController {
   void setAddress(){
     nameController.text = shippingAddress.value.data![0].name!;
     phoneController.text = shippingAddress.value.data![0].phone!;
-    emailController.text = shippingAddress.value.data![0].email!;
+    emailController.text = shippingAddress.value.data![0].email ?? '';
     addressController.text = shippingAddress.value.data![0].address!;
     selectedCityName.text = shippingAddress.value.data![0].cityName!;
     selectedCityId.value = shippingAddress.value.data![0].cityId!;

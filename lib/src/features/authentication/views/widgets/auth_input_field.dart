@@ -11,6 +11,7 @@ class AuthInputField extends StatelessWidget {
     required this.obscured,
     this.validator,
     this.suffixIcon,
+    this.textInputType = TextInputType.text
   });
 
   final bool isDark, obscured;
@@ -18,6 +19,7 @@ class AuthInputField extends StatelessWidget {
   final TextEditingController controller;
   final Widget? suffixIcon;
   final dynamic validator;
+  final TextInputType textInputType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class AuthInputField extends StatelessWidget {
       controller: controller,
       obscureText: obscured,
       cursorColor: AppColors.primary,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         hintText: hingText,
         suffix: suffixIcon,

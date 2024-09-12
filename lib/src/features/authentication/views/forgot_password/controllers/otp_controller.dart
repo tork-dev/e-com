@@ -14,6 +14,7 @@ import 'package:kirei/src/features/authentication/views/log_in/repository/login_
 import 'package:kirei/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/model/signup_response.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/repository/signup_repository.dart';
+import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
@@ -26,7 +27,7 @@ class OtpController extends GetxController {
   static OtpController get instance => Get.find();
   final forgetPasswordController = Get.put(ForgotPasswordController());
   final signUpController = Get.put(SignUpPageController());
-  final loginController = LogInPageController.instance;
+  final loginController = Get.put(LogInPageController());
 
   ///Controllers
   final otpCodeController = TextEditingController();
@@ -34,7 +35,8 @@ class OtpController extends GetxController {
   GlobalKey<FormState> otpKey = GlobalKey<FormState>();
   Rx<AppLoginResponse> loginResponse = AppLoginResponse().obs;
   Rx<AppLoginResponse> otpSignUpResponse = AppLoginResponse().obs;
-  Rx<ForgetPasswordConfirmResponse> otpForgetPasswordResponse = ForgetPasswordConfirmResponse().obs;
+  Rx<ForgetPasswordConfirmResponse> otpForgetPasswordResponse =
+      ForgetPasswordConfirmResponse().obs;
   Rx<SendOtpCodeResponse> sendOtpResponse = SendOtpCodeResponse().obs;
 
   @override
@@ -54,14 +56,18 @@ class OtpController extends GetxController {
 
       ///Api Calling
       forgetPasswordController.isForgotPassword.value == true
-          ? otpForgetPasswordResponse.value = await ForgotPasswordRepository().getPasswordConfirmResponse(
+          ? otpForgetPasswordResponse.value =
+              await ForgotPasswordRepository().getPasswordConfirmResponse(
               otpCodeController.text,
               forgetPasswordController.forgotPasswordEmail.text,
             )
           : signUpController.isSignupOtp.value == true
-              ? loginResponse.value = await SignupRepository().getSignUpOtpConfirmCodeResponse(
-                  signUpController.emailController.text, otpCodeController.text)
-              : loginResponse.value = await LoginRepository().getLogInOtpConfirmCodeResponse(
+              ? loginResponse.value = await SignupRepository()
+                  .getSignUpOtpConfirmCodeResponse(
+                      signUpController.emailController.text,
+                      otpCodeController.text)
+              : loginResponse.value =
+                  await LoginRepository().getLogInOtpConfirmCodeResponse(
                   loginController.emailController.text,
                   otpCodeController.text,
                 );
@@ -84,12 +90,15 @@ class OtpController extends GetxController {
               : signUpController.isSignupOtp.value == true
                   ? AppHelperFunctions.showToast(
                       otpSignUpResponse.value.message.toString())
-                  : AppHelperFunctions.showToast(loginResponse.value.message.toString());
+                  : AppHelperFunctions.showToast(
+                      loginResponse.value.message.toString());
           if (forgetPasswordController.isForgotPassword.value != false &&
               signUpController.isSignupOtp.value != true) {
             Get.to(() => const NewPassword());
           } else {
-            Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
+            Get.offAll(() => const HelloConvexAppBar(
+                  pageIndex: 0,
+                ));
             EventLogger().logLoginEvent('Otp');
           }
         } else {
@@ -97,7 +106,7 @@ class OtpController extends GetxController {
               ? AppHelperFunctions.showToast(
                   otpSignUpResponse.value.message.toString())
               : AppHelperFunctions.showToast(
-              loginResponse.value.message.toString());
+                  loginResponse.value.message.toString());
         }
       }
     }
@@ -111,20 +120,42 @@ class OtpController extends GetxController {
 
       ///Api Calling
       forgetPasswordController.isForgotPassword.value == true
-          ? sendOtpResponse.value = await ForgotPasswordRepository().getResendForgetPasswordResponse(
-              forgetPasswordController.forgotPasswordEmail.text)
+          ? sendOtpResponse.value = await ForgotPasswordRepository()
+              .getResendForgetPasswordResponse(
+                  forgetPasswordController.forgotPasswordEmail.text)
           : signUpController.isSignupOtp.value == true
-              ? sendOtpResponse.value = await SignupRepository().getResendSignupOtpResponse(
+              ? sendOtpResponse.value =
+                  await SignupRepository().getResendSignupOtpResponse(
                   signUpController.emailController.text,
                 )
-              : sendOtpResponse.value = await LoginRepository().getLoginResendOTPResponse(
-                  loginController.emailController.text);
-
+              : sendOtpResponse.value = await LoginRepository()
+                  .getLoginResendOTPResponse(
+                      loginController.emailController.text);
     } catch (e) {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
     } finally {
       AppHelperFunctions.showToast(sendOtpResponse.value.message!);
     }
+  }
+
+  Future<void> verifyForSpinner() async {
+    final spinnerController = SpinnerController.instance;
+    if (!otpKey.currentState!.validate()) return;
+
+    loginResponse.value = await LoginRepository()
+        .getLogInOtpConfirmCodeResponse(
+            spinnerController.phoneNumberController.text.toString(), otpCodeController.text);
+    if (loginResponse.value.result == true) {
+      EventLogger().logLoginEvent('Otp');
+      spinnerController.getSelectedCouponResponse(loginResponse.value.accessToken);
+      AuthHelper().setUserData(loginResponse.value);
+      AppHelperFunctions.showToast('Phone verified');
+      Get.back();
+      spinnerController.selected.add(spinnerController.selectedIndex.value);
+      print('coupon code is here');
+      return;
+    }
+    AppHelperFunctions.showToast(loginResponse.value.message!);
   }
 }

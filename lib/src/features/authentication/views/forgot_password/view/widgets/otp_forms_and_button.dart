@@ -11,10 +11,10 @@ import '../../../../../../utils/validators/validation.dart';
 import '../../../widgets/auth_input_field.dart';
 import '../../controllers/otp_controller.dart';
 
-
-
 class OtpFormsAndButton extends StatelessWidget {
-  const OtpFormsAndButton({super.key});
+  const OtpFormsAndButton({super.key, required this.isForSpinner});
+
+  final bool isForSpinner;
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +34,28 @@ class OtpFormsAndButton extends StatelessWidget {
             validator: (value) => AppValidator.validateOtp(value),
             hingText: AppLocalizations.of(context)!.otp,
             obscured: false,
+            textInputType: TextInputType.number,
           ),
           const Gap(AppSizes.md),
-
           Align(
             alignment: Alignment.centerLeft,
             child: AppButtons.textUnderlineButton(
-                onPressed: (){
-                  otpController.reSendCode();
-                },
-                buttonText: "Resend Code",
+              onPressed: () {
+                otpController.reSendCode();
+              },
+              buttonText: "Resend Code",
               backgroundColor: AppColors.primary,
             ),
           ),
-
           const Gap(AppSizes.md),
           AppButtons.largeFlatFilledButton(
-              onPressed: () {
-                otpController.verify();
-              },
-              buttonText: AppLocalizations.of(context)!.verify,
-          backgroundColor: AppColors.secondary,
+            onPressed: () {
+              !isForSpinner
+                  ? otpController.verify()
+                  : otpController.verifyForSpinner();
+            },
+            buttonText: AppLocalizations.of(context)!.verify,
+            backgroundColor: AppColors.secondary,
           ),
         ],
       ),

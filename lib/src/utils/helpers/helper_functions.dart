@@ -300,14 +300,15 @@ class AppHelperFunctions {
   void  verifyPhone(){
     showDialog(
         context: Get.context!,
+        barrierDismissible: false,
         builder: (BuildContext context){
-          return Dialog(
+          return const Dialog(
             backgroundColor: AppColors.white,
-            insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-            shape: const RoundedRectangleBorder(
+            insetPadding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
-            child: Otp(),
+            child: Otp(isForSpinner: true,),
           );
         }
     );
@@ -315,134 +316,89 @@ class AppHelperFunctions {
 
 
 
-  void pointRedeemAlert() {
+
+
+  static void showSpinnerCoupon(
+      {required String title,
+        required String subTitle,
+        String? couponCode,
+        VoidCallback? onCouponPress,
+        required String imgUrl}) {
     showDialog(
-        context: Get.context!,
-        useSafeArea: true,
-        builder: (BuildContext context) {
-          return Dialog(
-            backgroundColor: AppColors.white,
-            insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-            shape: const RoundedRectangleBorder(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
           ),
-            child: AppCardContainer(
-              applyRadius: false,
-              padding: const EdgeInsets.all(AppSizes.defaultSpace),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          insetPadding: const EdgeInsets.all(AppSizes.md),
+          backgroundColor: AppColors.popUpBackground,
+          child: Stack(
+            children: [
+              Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Redeem Your Points', style: Theme.of(context).textTheme.headlineSmall,),
-                       AppCardContainer(
-                         applyRadius: false,
-                        onTap: ()=> Get.back(),
-                        height: 44,
-                          width: 44,
-                          backgroundColor: AppColors.grey,
-                          child: const Icon(Icons.clear))
-                    ],
-                  ),
-                  const Gap(AppSizes.defaultSpace),
-                  RadioListTile(
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
-                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
-                    dense: true,  // Makes the tile more compact
-                    activeColor: AppColors.primary,
-                    title: Text(
-                      '100 points',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    value: true,
-                    groupValue: true,
-                    onChanged: (value) {
-                      // Your onChanged logic here
-                    },
-                  ),
-
-                  RadioListTile(
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
-                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
-                    dense: true,  // Makes the tile more compact
-                    activeColor: AppColors.primary,
-                    title: Text(
-                      '200 points',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    value: true,
-                    groupValue: true,
-                    onChanged: (value) {
-                      // Your onChanged logic here
-                    },
-                  ),
-                  RadioListTile(
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
-                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
-                    dense: true,  // Makes the tile more compact
-                    activeColor: AppColors.primary,
-                    title: Text(
-                      '300 points',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    value: true,
-                    groupValue: true,
-                    onChanged: (value) {
-                      // Your onChanged logic here
-                    },
-                  ),
-                  RadioListTile(
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
-                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
-                    dense: true,  // Makes the tile more compact
-                    activeColor: AppColors.primary,
-                    title: Text(
-                      '400 points',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    value: true,
-                    groupValue: true,
-                    onChanged: (value) {
-                      // Your onChanged logic here
-                    },
-                  ),
-                  RadioListTile(
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,  // Set to zero to remove default padding
-                    visualDensity: VisualDensity.compact,  // Adjusts density to reduce padding
-                    dense: true,  // Makes the tile more compact
-                    activeColor: AppColors.primary,
-                    title: Text(
-                      '500 points',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    value: true,
-                    groupValue: true,
-                    onChanged: (value) {
-                      // Your onChanged logic here
-                    },
-                  ),
-
                   const Gap(AppSizes.md),
-                  SizedBox(
-                    width: 150,
-                    child: AppButtons.largeFlatFilledButton(
-                        onPressed: (){},
-                        backgroundColor: AppColors.addToCartButton,
-                        buttonText: 'Redeem Points'.toUpperCase()),
-                  )
+                  AppBannerImage(
+                      applyImageRadius: false,
+                      height: 180,
+                      isNetworkImage: true,
+                      imgUrl: imgUrl),
+                  Padding(
+                    padding: const EdgeInsets.all(AppSizes.defaultSpace),
+                    child: Column(
+                      children: [
+                        Text(
+                          title,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        const Gap(AppSizes.sm),
+
+                        Text(
+                          subTitle,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+
+                        const Gap(AppSizes.xl),
+                        Visibility(
+                          visible: couponCode != null,
+                            child: AppButtons.largeFlatOutlineButton(
+                                onPressed: onCouponPress ?? (){},
+                                buttonText: couponCode.toString()
+                            )
+                        ),
+                        const Gap(AppSizes.defaultSpace),
+
+                        AppButtons.largeFlatFilledButton(
+                            onPressed: (){
+                              Get.offAllNamed('/shop');
+                            },
+                            buttonText: 'Continue shopping'
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            )
-          );
-        });
+              Positioned(
+                right: AppSizes.md,
+                top: AppSizes.md,
+                child: AppCardContainer(
+                    onTap: ()=> Get.back(),
+                    applyRadius: false,
+                    backgroundColor: AppColors.grey,
+                    height: 40,
+                    width: 40,
+                    child: const Icon(Icons.clear)),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
+
+
 
 
   static void navigateToScreen(BuildContext context, Widget screen) {
