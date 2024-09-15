@@ -41,7 +41,8 @@ class OtpFormsAndButton extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: AppButtons.textUnderlineButton(
               onPressed: () {
-                otpController.reSendCode();
+                !isForSpinner?
+                otpController.reSendCode() : otpController.reSendCodeForSpinner();
               },
               buttonText: "Resend Code",
               backgroundColor: AppColors.primary,

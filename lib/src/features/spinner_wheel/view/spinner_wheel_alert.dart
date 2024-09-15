@@ -1,19 +1,14 @@
-import 'dart:async';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/authentication/data/repositories/auth_repositories.dart';
 import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
-import '../../../utils/local_storage/local_storage_keys.dart';
-import '../../../utils/local_storage/storage_utility.dart';
 import '../../../utils/validators/validation.dart';
 import '../../authentication/views/log_in/repository/login_repository.dart';
 
@@ -187,6 +182,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                             LoginRepository().getLoginOTPResponse(spinController
                                 .phoneNumberController.text
                                 .toString());
+                            AppHelperFunctions.showToast('We have sent OTP to your phone.');
                             AppHelperFunctions().verifyPhone();
                           },
                           buttonText: "Try My Luck!"),

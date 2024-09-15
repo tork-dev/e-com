@@ -139,6 +139,22 @@ class OtpController extends GetxController {
     }
   }
 
+
+  Future<void> reSendCodeForSpinner() async {
+    final spinnerController = SpinnerController.instance;
+    try {
+      ///Api Calling
+      sendOtpResponse.value = await LoginRepository().getLoginOTPResponse(spinnerController.phoneNumberController.text);
+    } catch (e) {
+      /// Error
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+    } finally {
+      AppHelperFunctions.showToast(sendOtpResponse.value.message!);
+    }
+  }
+
+
+
   Future<void> verifyForSpinner() async {
     final spinnerController = SpinnerController.instance;
     if (!otpKey.currentState!.validate()) return;

@@ -11,7 +11,7 @@ class BusinessSettingRepository{
     if(response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       print('business datas $responseBody');
-      return BusinessSettingResponse.fromJson(responseBody);
+      return BusinessSettingResponse.fromJson(response.body);
     }else{
       throw 'not responded';
     }

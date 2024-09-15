@@ -55,8 +55,10 @@ class CheckoutController extends GetxController {
   RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
   RxBool isLoading = false.obs;
-  RxInt rewardBalance = 100.obs;
-  RxInt redeemPoint = 100.obs;
+  RxInt rewardBalance = 0.obs;
+  RxInt redeemPoint = 0.obs;
+  RxInt redeemedPoint = 0.obs;
+  RxDouble grandTotal = 0.0.obs;
 
   @override
   void onInit() {
@@ -70,18 +72,18 @@ class CheckoutController extends GetxController {
     await getCheckoutSummary();
     await getPaymentMethods();
     AppHelperFunctions.showToast('Cart Updated');
-      addressAvailabilityCheck();
-    //getUserRewardBalance();
+    addressAvailabilityCheck();
+    getUserRewardBalance();
   }
   
   
-  // Future<void> getUserRewardBalance () async{
-  //   final response = await http.get(Uri.parse(AppApiEndPoints.rewardPointBalance), headers: {
-  //     'Authorization' : "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}"
-  //   });
-  //   rewardBalance.value = int.parse(response.body);
-  //   print('this is balance : ${response.body}');
-  // }
+  Future<void> getUserRewardBalance () async{
+    final response = await http.get(Uri.parse(AppApiEndPoints.rewardPointBalance), headers: {
+      'Authorization' : "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}"
+    });
+    rewardBalance.value = int.parse(response.body);
+    print('this is balance : ${response.body}');
+  }
 
   void addressAvailabilityCheck() {
     if (addressController.nameController.text == "Guest" ||
@@ -97,6 +99,7 @@ class CheckoutController extends GetxController {
         await CheckoutRepositories().getCartSummaryResponse();
     couponController.text = checkoutSummary.value.couponCode ?? '';
     isCouponApplied.value = checkoutSummary.value.couponApplied!;
+    grandTotal.value = checkoutSummary.value.grandTotalValue;
   }
 
   Future<List<PaymentMethodResponse>> getPaymentMethods() async {
@@ -301,6 +304,7 @@ class CheckoutController extends GetxController {
       "type": 'app',
       "version": "${AppLocalStorage().readData(LocalStorageKeys.appVersion)}",
       "coupon_code": couponCode,
+      "redeem_point" : redeemedPoint.value
     };
 
     return requestBody;
@@ -369,9 +373,9 @@ class CheckoutController extends GetxController {
                           ),
                           value: 200,
                           groupValue: redeemPoint.value,
-                          onChanged: (value) {
+                          onChanged: rewardBalance > 199 ? (value) {
                             redeemPoint.value = value!;  // Update selected value
-                          },
+                          } : null,
                         ),
                         RadioListTile<int>(
                           controlAffinity: ListTileControlAffinity.leading,
@@ -385,9 +389,9 @@ class CheckoutController extends GetxController {
                           ),
                           value: 300,
                           groupValue: redeemPoint.value,
-                          onChanged: (value) {
+                          onChanged: rewardBalance > 299 ?(value) {
                             redeemPoint.value = value!;  // Update selected value
-                          },
+                          } : null,
                         ),
                         RadioListTile<int>(
                           controlAffinity: ListTileControlAffinity.leading,
@@ -401,9 +405,9 @@ class CheckoutController extends GetxController {
                           ),
                           value: 400,
                           groupValue: redeemPoint.value,
-                          onChanged: (value) {
+                          onChanged: rewardBalance > 399 ? (value) {
                             redeemPoint.value = value!;  // Update selected value
-                          },
+                          } : null,
                         ),
                         RadioListTile<int>(
                           controlAffinity: ListTileControlAffinity.leading,
@@ -417,16 +421,18 @@ class CheckoutController extends GetxController {
                           ),
                           value: 500,
                           groupValue: redeemPoint.value,
-                          onChanged: (value) {
+                          onChanged: rewardBalance > 499 ?(value) {
                             redeemPoint.value = value!;  // Update selected value
-                          },
+                          } : null,
                         ),
 
                         const Gap(AppSizes.md),
                         SizedBox(
                           width: 150,
                           child: AppButtons.largeFlatFilledButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                onRedeemPoint();
+                              },
                               backgroundColor: AppColors.addToCartButton,
                               buttonText: 'Redeem Points'.toUpperCase()),
                         )
@@ -440,6 +446,8 @@ class CheckoutController extends GetxController {
   }
 
   void onRedeemPoint() {
-
+    redeemedPoint.value = redeemPoint.value;
+    grandTotal.value = grandTotal.value - redeemedPoint.value;
+    Get.back();
   }
 }

@@ -40,16 +40,16 @@ class AppCheckoutSummary extends StatelessWidget {
                           '${checkoutController.checkoutSummary.value.discount}'),
                   const Gap(AppSizes.sm),
                   Visibility(
-                    visible: checkoutController.redeemPoint > 99,
+                    visible: checkoutController.redeemedPoint > 99,
                     child: AppSummaryTextWidget(
                         title: 'Redeem Point',
-                        amount: '৳${checkoutController.redeemPoint}'),
+                        amount: '৳${checkoutController.redeemedPoint}'),
                   ),
                   const Gap(AppSizes.sm),
                   AppSummaryTextWidget(
                       title: 'Total',
                       amount:
-                          '${checkoutController.checkoutSummary.value.grandTotal}'),
+                          '৳${checkoutController.grandTotal.value}'),
                 ],
               ));
     });

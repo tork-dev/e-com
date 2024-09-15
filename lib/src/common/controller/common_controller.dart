@@ -29,6 +29,6 @@ class CommonController extends GetxController {
 
   // Method to handle popup display
   Future<void> showPopUp() async {
-    await BusinessSettingHelper.setBusinessSettingData();
+    await BusinessSettingHelper().setBusinessSettingData();
   }
 }

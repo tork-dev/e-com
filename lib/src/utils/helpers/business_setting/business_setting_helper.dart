@@ -9,8 +9,9 @@ import '../routing_helper.dart';
 import 'model/business_setting_response.dart';
 import 'repository/business_setting_repositories.dart';
 
-class BusinessSettingHelper {
-  static Future<void> setBusinessSettingData() async {
+class BusinessSettingHelper extends GetxController{
+  RxInt intervalTime = 0.obs;
+   Future<void> setBusinessSettingData() async {
     BusinessSettingResponse businessLists =
         await BusinessSettingRepository().getBusinessSettingList();
 
@@ -51,28 +52,29 @@ class BusinessSettingHelper {
 
     // Check if there are popups to display
     if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true) {
-      if (businessLists.popUp != null && businessLists.popUp!.isNotEmpty) {
-        await showPopupsSequentially(businessLists.popUp!);
+      if (businessLists.popup?.data != null && businessLists.popup!.data!.isNotEmpty) {
+        intervalTime.value = businessLists.popup?.interval ?? 0;
+        await showPopupsSequentially(businessLists.popup!.data!);
       }
     }
   }
 
   // Function to display popups sequentially with a delay
-  static Future<void> showPopupsSequentially(List<PopUp> popups) async {
+   Future<void> showPopupsSequentially(List<PopupDatum> popups) async {
     // Filter popups for 'all' or 'app' sources
-    List<PopUp> filteredPopups = popups.where((element) {
+    List<PopupDatum> filteredPopups = popups.where((element) {
       return element.source == 'all' || element.source == 'app';
     }).toList();
 
     // Iterate over each filtered popup
     for (var popup in filteredPopups) {
-      await Future.delayed(const Duration(seconds: 10));
+      await Future.delayed( Duration(seconds: intervalTime.value));
       await showPopupAndWait(popup);
     }
   }
 
   // Function to show a single popup and wait for it to be dismissed
-  static Future<void> showPopupAndWait(PopUp popup) async {
+  static Future<void> showPopupAndWait(PopupDatum popup) async {
     // Completer to wait for popup to be dismissed
     Completer<void> completer = Completer<void>();
 
@@ -90,7 +92,7 @@ class BusinessSettingHelper {
         AppLoggerHelper.info('${AppApiEndPoints.baseUrlData}${popup.image}');
         completer.complete(); // Complete when "Cancel" is pressed
       },
-      imgUrl: '${AppApiEndPoints.baseUrlData}${popup.image}',
+      imgUrl: popup.image,
     );
 
     // Wait until the completer is completed

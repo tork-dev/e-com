@@ -19,54 +19,56 @@ class RedeemPointPart extends StatelessWidget {
         backgroundColor: AppColors.white,
         applyRadius: false,
         padding: const EdgeInsets.all(AppSizes.md),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: Obx( () {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Your Balance',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Your Balance',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const Gap(AppSizes.sm),
+                    Text(
+                      "${checkoutController.rewardBalance} Points",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ],
                 ),
-                const Gap(AppSizes.sm),
-                Text(
-                  "${checkoutController.rewardBalance} Points",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                 InkWell(
+                    onTap: () {
+                      checkoutController.rewardBalance.value > 99
+                          ? checkoutController.pointRedeemAlert()
+                          : AppHelperFunctions.showToast(
+                              'You have not enough points');
+                    },
+                    child: Text(
+                      "redeem point".toUpperCase(),
+                      style: TextStyle(
+                        shadows: [
+                          Shadow(
+                              color: checkoutController.rewardBalance.value > 99
+                                  ? AppColors.primary
+                                  : AppColors.grey,
+                              offset: Offset(0, -4))
+                        ],
+                        fontSize: 16,
+                        color: Colors.transparent,
+                        decoration: TextDecoration.underline,
+                        decorationColor:
+                            checkoutController.rewardBalance.value > 99
+                                ? AppColors.primary
+                                : AppColors.grey,
+                        decorationThickness: AppSizes.xs,
+                      ),
+                    ),
+                  )
+
               ],
-            ),
-            Obx(() {
-              return InkWell(
-                onTap: () {
-                  checkoutController.rewardBalance.value > 99
-                      ? checkoutController.pointRedeemAlert()
-                      : AppHelperFunctions.showToast(
-                          'You have not enough points');
-                },
-                child: Text(
-                  "redeem point".toUpperCase(),
-                  style: TextStyle(
-                    shadows: [
-                      Shadow(
-                          color: checkoutController.rewardBalance.value > 99
-                              ? AppColors.primary
-                              : AppColors.grey,
-                          offset: Offset(0, -4))
-                    ],
-                    fontSize: 16,
-                    color: Colors.transparent,
-                    decoration: TextDecoration.underline,
-                    decorationColor:
-                        checkoutController.rewardBalance.value > 99
-                            ? AppColors.primary
-                            : AppColors.grey,
-                    decorationThickness: AppSizes.xs,
-                  ),
-                ),
-              );
-            })
-          ],
+            );
+          }
         ));
   }
 }

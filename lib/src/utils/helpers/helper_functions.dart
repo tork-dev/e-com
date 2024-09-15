@@ -190,7 +190,7 @@ class AppHelperFunctions {
       required String rightButtonName,
       required VoidCallback onRightPress,
       required VoidCallback onLeftPress,
-      required String imgUrl}) {
+        String? imgUrl}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -206,7 +206,7 @@ class AppHelperFunctions {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Visibility(
-                    visible: imgUrl != 'https://appbeta.kireibd.com/null',
+                    visible: imgUrl != null,
                     child: AppBannerImage(
                         applyImageRadius: false,
                         height: 180,
