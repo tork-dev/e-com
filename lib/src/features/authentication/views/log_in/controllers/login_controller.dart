@@ -25,7 +25,7 @@ import '../model/social_option_model.dart';
 class LogInPageController extends GetxController {
   static LogInPageController get instance => Get.find();
   final String? previousRoute;
-  LogInPageController({this.previousRoute});
+  LogInPageController({this.previousRoute = '/home'});
 
   //final userController = Get.put(UserController());
 

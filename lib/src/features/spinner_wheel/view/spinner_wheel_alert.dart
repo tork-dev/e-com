@@ -9,6 +9,8 @@ import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.d
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
+import '../../../utils/local_storage/local_storage_keys.dart';
+import '../../../utils/local_storage/storage_utility.dart';
 import '../../../utils/validators/validation.dart';
 import '../../authentication/views/log_in/repository/login_repository.dart';
 
@@ -184,6 +186,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                 .toString());
                             AppHelperFunctions.showToast('We have sent OTP to your phone.');
                             AppHelperFunctions().verifyPhone();
+                            AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
                           },
                           buttonText: "Try My Luck!"),
                     ],

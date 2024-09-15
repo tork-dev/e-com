@@ -86,7 +86,7 @@ class LogInFormsAndButton extends StatelessWidget {
               buttonText: loginController.loginWithPassword.value
                   ? AppLocalizations.of(context)!.login
                   : AppLocalizations.of(context)!.sendOtp,
-              backgroundColor: AppColors.darkGrey,
+              backgroundColor: AppColors.dark,
             ),
           ),
           const Gap(AppSizes.sm),

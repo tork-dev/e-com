@@ -31,17 +31,17 @@ class RewardScreen extends StatelessWidget {
         centerTitle: true,
         body: AppLayoutWithRefresher(
             onRefresh: rewardController.onRefresh,
-            children: [
-              const RewardTopCard(),
-              const Gap(AppSizes.spaceBtwItems),
-              const RewardInstructionCardList(),
-              const Gap(AppSizes.spaceBtwSections),
-              AppButtons.largeFlatFilledButton(
-                backgroundColor: AppColors.secondary,
-                  onPressed: (){
-                  Get.toNamed('/point-redemption');
-                  },
-                  buttonText: 'REDEEM POINTS')
+            children: const [
+              RewardTopCard(),
+              Gap(AppSizes.spaceBtwItems),
+              RewardInstructionCardList(),
+              Gap(AppSizes.spaceBtwSections),
+              // AppButtons.largeFlatFilledButton(
+              //   backgroundColor: AppColors.secondary,
+              //     onPressed: (){
+              //     Get.toNamed('/point-redemption');
+              //     },
+              //     buttonText: 'REDEEM POINTS')
             ]));
   }
 }

@@ -57,22 +57,15 @@ class RewardProductCard extends StatelessWidget {
               ),
             ),
             const Gap(AppSizes.md),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start, // Aligns text to the start
-              children: List.generate(
-                products.pointRedemptionResponse.value.data![index].product!.productCategories!.length,
-                    (categoryIndex) {
-                  // Fetching the parent name
-                  final name = products.pointRedemptionResponse.value.data![index]
-                      .product!.productCategories![categoryIndex].name;
-                  // Returning a Text widget
-                  return Text(
-                    "$name, " , // Displays the category name or empty if null
-                    style: Theme.of(context).textTheme.labelSmall, // Custom styling
-                  );
-                },
-              ),
-            ),
+                Text(
+                  products.pointRedemptionResponse.value.data![index]
+                      .product!.productCategories!
+                      .map((category) => category.name)
+                      .where((name) => name != null && name!.isNotEmpty)
+                      .join(', '),
+                  style: Theme.of(context).textTheme.labelSmall,
+                  overflow: TextOverflow.ellipsis, // No ellipsis, text will wrap naturally
+                ),
             Text(
               products
                   .pointRedemptionResponse.value.data![index].product!.name!,

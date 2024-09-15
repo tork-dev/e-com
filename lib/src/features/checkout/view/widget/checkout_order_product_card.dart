@@ -32,6 +32,7 @@ class AppCheckoutOrderProductsCard extends StatelessWidget {
                 children: [
                   AppBannerImage(
                       width: 70,
+                      applyImageRadius: false,
                       isNetworkImage:
                           productsList[index].productThumbnailImage != null,
                       imgUrl: productsList[index].productThumbnailImage ??

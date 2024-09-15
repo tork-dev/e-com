@@ -124,6 +124,8 @@ class AppApiEndPoints {
   static String rewardPoint = "$baseUrl/user-memberships";
   static String rewardPointBalance = "$baseUrl/user-reward-balance";
   static String pointRedeemProducts = "$baseUrl/user-memberships-products";
+  static String pointLevel = "$baseUrl/memberships";
+  static String rewardHistory = "$baseUrl/user-rewards";
 
 
   ///Kirei-tube

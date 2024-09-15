@@ -123,7 +123,7 @@ class AppHelperFunctions {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(4),
           ),
           contentPadding: const EdgeInsets.all(16),
           backgroundColor: AppColors.white,

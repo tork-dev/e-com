@@ -57,7 +57,7 @@ class SpinnerController extends GetxController {
    couponList.add('${item.discount}% Off');
    couponCodeList.add(item.couponCode.toString());
   }
-  AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
+
 
   print(couponList);
 }

@@ -368,12 +368,44 @@ class CheckoutController extends GetxController {
                           dense: true,
                           activeColor: AppColors.primary,
                           title: Text(
+                            '150 points',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          value: 150,
+                          groupValue: redeemPoint.value,
+                          onChanged: rewardBalance > 149 ? (value) {
+                            redeemPoint.value = value!;  // Update selected value
+                          } : null,
+                        ),
+                        RadioListTile<int>(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          activeColor: AppColors.primary,
+                          title: Text(
                             '200 points',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           value: 200,
                           groupValue: redeemPoint.value,
-                          onChanged: rewardBalance > 199 ? (value) {
+                          onChanged: rewardBalance > 199 ?(value) {
+                            redeemPoint.value = value!;  // Update selected value
+                          } : null,
+                        ),
+                        RadioListTile<int>(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          activeColor: AppColors.primary,
+                          title: Text(
+                            '250 points',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          value: 250,
+                          groupValue: redeemPoint.value,
+                          onChanged: rewardBalance > 249 ? (value) {
                             redeemPoint.value = value!;  // Update selected value
                           } : null,
                         ),
@@ -390,38 +422,6 @@ class CheckoutController extends GetxController {
                           value: 300,
                           groupValue: redeemPoint.value,
                           onChanged: rewardBalance > 299 ?(value) {
-                            redeemPoint.value = value!;  // Update selected value
-                          } : null,
-                        ),
-                        RadioListTile<int>(
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity.compact,
-                          dense: true,
-                          activeColor: AppColors.primary,
-                          title: Text(
-                            '400 points',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                          value: 400,
-                          groupValue: redeemPoint.value,
-                          onChanged: rewardBalance > 399 ? (value) {
-                            redeemPoint.value = value!;  // Update selected value
-                          } : null,
-                        ),
-                        RadioListTile<int>(
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity.compact,
-                          dense: true,
-                          activeColor: AppColors.primary,
-                          title: Text(
-                            '500 points',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                          value: 500,
-                          groupValue: redeemPoint.value,
-                          onChanged: rewardBalance > 499 ?(value) {
                             redeemPoint.value = value!;  // Update selected value
                           } : null,
                         ),
