@@ -25,6 +25,11 @@ class AccountDetailsController extends GetxController {
   TextEditingController confirmNewPasswordController = TextEditingController();
   GlobalKey<FormState> updatePasswordFormKey = GlobalKey<FormState>();
 
+  /// password obsecure values
+  RxBool visibleCurrentPassword = true.obs;
+  RxBool visibleNewPassword = true.obs;
+  RxBool visibleConfirmPassword = true.obs;
+
   Rx<ProfileUpdateResponse> profileUpdateResponse = ProfileUpdateResponse().obs;
   Rx<ProfileUpdateImageResponse> profileUpdateImageResponse = ProfileUpdateImageResponse().obs;
 

@@ -24,92 +24,122 @@ class AppEditProfileTextFields extends StatelessWidget {
     final loginController = LogInPageController.instance;
     return Form(
       key: accountDetailsController.updatePasswordFormKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Name',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium!
-                .apply(color: AppColors.primary),
-          ),
-          AuthInputField(
-            hingText: 'Name',
-            controller: accountDetailsController.nameController,
-            obscured: false,
-            validator: null,
-          ),
-          Visibility(
-            visible: AppLocalStorage().readData(LocalStorageKeys.userHavePassword),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                Text(
-                  'Current Password',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .apply(color: AppColors.primary),
-                ),
-                AuthInputField(
-                  hingText: '******',
-                  controller:
-                      accountDetailsController.currentPasswordController,
-                  obscured: true,
-                  validator: null,
-                ),
-              ],
-            ),
-          ),
-          const Gap(AppSizes.spaceBtwDefaultItems),
-          Text(
-            'New Password',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium!
-                .apply(color: AppColors.primary),
-          ),
-          AuthInputField(
-            hingText: '******',
-            controller: accountDetailsController.newPasswordController,
-            obscured: true,
-            validator: (value) => AppValidator.validatePassword(value),
-          ),
-          const Gap(AppSizes.spaceBtwDefaultItems),
-          Text(
-            'Confirm New Password',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium!
-                .apply(color: AppColors.primary),
-          ),
-          AuthInputField(
-            hingText: '******',
-            controller: accountDetailsController.confirmNewPasswordController,
-            obscured: true,
-            validator: (value) => AppValidator.validateConfirmPassword(
-                value, accountDetailsController.newPasswordController.text),
-          ),
-          const Gap(AppSizes.spaceBtwDefaultItems),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+      child: Obx( () {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 150,
-                child: AppButtons.largeFlatFilledButton(
-                    onPressed: () {
-                      accountDetailsController.profileUpdate().then((value) =>
-                          loginController.getUserDataByToken().then((value) =>
-                              AuthHelper().saveUserDataByToken(
-                                  loginController.userDataByToken.value)));
-                    },
-                    buttonText: 'Update'),
+              Text(
+                'Name',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .apply(color: AppColors.primary),
               ),
+              AuthInputField(
+                hingText: 'Name',
+                controller: accountDetailsController.nameController,
+                obscured: false,
+                validator: null,
+              ),
+              Visibility(
+                visible: AppLocalStorage().readData(LocalStorageKeys.userHavePassword),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Gap(AppSizes.spaceBtwDefaultItems),
+                    Text(
+                      'Current Password',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .apply(color: AppColors.primary),
+                    ),
+                    AuthInputField(
+                      hingText: '******',
+                      controller:
+                          accountDetailsController.currentPasswordController,
+                      obscured: accountDetailsController.visibleCurrentPassword.value,
+                      validator: null,
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          accountDetailsController.visibleCurrentPassword.value =
+                          !accountDetailsController.visibleCurrentPassword.value;
+                        },
+                        child: Icon(accountDetailsController.visibleCurrentPassword.value
+                            ? Icons.remove_red_eye
+                            : Icons.remove_red_eye_outlined),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Gap(AppSizes.spaceBtwDefaultItems),
+              Text(
+                'New Password',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .apply(color: AppColors.primary),
+              ),
+              AuthInputField(
+                hingText: '******',
+                controller: accountDetailsController.newPasswordController,
+                obscured: accountDetailsController.visibleNewPassword.value,
+                validator: (value) => AppValidator.validatePassword(value),
+                suffixIcon: InkWell(
+                  onTap: () {
+                    accountDetailsController.visibleNewPassword.value =
+                    !accountDetailsController.visibleNewPassword.value;
+                  },
+                  child: Icon(accountDetailsController.visibleNewPassword.value
+                      ? Icons.remove_red_eye
+                      : Icons.remove_red_eye_outlined),
+                ),
+              ),
+              const Gap(AppSizes.spaceBtwDefaultItems),
+              Text(
+                'Confirm New Password',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .apply(color: AppColors.primary),
+              ),
+              AuthInputField(
+                hingText: '******',
+                controller: accountDetailsController.confirmNewPasswordController,
+                obscured: accountDetailsController.visibleConfirmPassword.value,
+                validator: (value) => AppValidator.validateConfirmPassword(
+                    value, accountDetailsController.newPasswordController.text),
+                suffixIcon: InkWell(
+                  onTap: () {
+                    accountDetailsController.visibleConfirmPassword.value =
+                    !accountDetailsController.visibleConfirmPassword.value;
+                  },
+                  child: Icon(accountDetailsController.visibleConfirmPassword.value
+                      ? Icons.remove_red_eye
+                      : Icons.remove_red_eye_outlined),
+                ),
+              ),
+              const Gap(AppSizes.spaceBtwDefaultItems),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: 150,
+                    child: AppButtons.largeFlatFilledButton(
+                        onPressed: () {
+                          accountDetailsController.profileUpdate().then((value) =>
+                              loginController.getUserDataByToken().then((value) =>
+                                  AuthHelper().saveUserDataByToken(
+                                      loginController.userDataByToken.value)));
+                        },
+                        buttonText: 'Update'),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
+          );
+        }
       ),
     );
   }
