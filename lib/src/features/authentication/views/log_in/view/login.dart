@@ -110,7 +110,9 @@ class LogIn extends StatelessWidget {
                               visible: !Platform.isAndroid &&
                                   AppLocalStorage().readData(LocalStorageKeys.appleLogin),
                               child: AppButtons.largeFlatFilledIconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    logInController.onPressAppleLogin();
+                                  },
                                   verticallyPadding: 14,
                                   backgroundColor: AppColors.secondary,
                                   imgUrl: AppImages.appleLogo,
