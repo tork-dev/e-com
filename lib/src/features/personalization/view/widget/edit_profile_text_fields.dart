@@ -8,6 +8,7 @@ import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/personalization/controller/account_details_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/validators/validation.dart';
@@ -40,6 +41,21 @@ class AppEditProfileTextFields extends StatelessWidget {
                 controller: accountDetailsController.nameController,
                 obscured: false,
                 validator: null,
+              ),
+              const Gap(AppSizes.spaceBtwDefaultItems),
+              Text(
+                'Phone',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .apply(color: AppColors.primary),
+              ),
+              AuthInputField(
+                hingText: '01*********',
+                controller: accountDetailsController.phoneNumberController,
+                obscured: false,
+                validator: null,
+                enableTextField: false,
               ),
               Visibility(
                 visible: AppLocalStorage().readData(LocalStorageKeys.userHavePassword),

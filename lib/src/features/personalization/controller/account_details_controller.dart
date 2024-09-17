@@ -20,6 +20,7 @@ class AccountDetailsController extends GetxController {
 
   TextEditingController nameController = TextEditingController(
       text: AppLocalStorage().readData(LocalStorageKeys.userName));
+  TextEditingController phoneNumberController = TextEditingController(text: AppLocalStorage().readData(LocalStorageKeys.userEmail));
   TextEditingController currentPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController confirmNewPasswordController = TextEditingController();

@@ -11,10 +11,11 @@ class AuthInputField extends StatelessWidget {
     required this.obscured,
     this.validator,
     this.suffixIcon,
-    this.textInputType = TextInputType.text
+    this.textInputType = TextInputType.text,
+    this.enableTextField = true
   });
 
-  final bool isDark, obscured;
+  final bool isDark, obscured, enableTextField;
   final String hingText;
   final TextEditingController controller;
   final Widget? suffixIcon;
@@ -48,7 +49,8 @@ class AuthInputField extends StatelessWidget {
         ),
         hintStyle: const TextStyle(
           color: AppColors.lightGrey,
-        )
+        ),
+        enabled: enableTextField
         // focusedBorder: OutlineInputBorder(
         //     borderSide: BorderSide(
         //         color: isDark ? AppColors.white : AppColors.darkGrey)),
