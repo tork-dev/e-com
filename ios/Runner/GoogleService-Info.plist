@@ -2,18 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>379616346839-diqg4rqlo9g376sc788un3oot4frhoec.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.379616346839-diqg4rqlo9g376sc788un3oot4frhoec</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>379616346839-dr1rmohcbspisrh65igr175j64bop6uc.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDrb9Ty1EjdJiRBFdwgydnImMwP2siysX0</string>
+	<string>AIzaSyD1W4y5y3vLwAPTSAB_DyQwY1KOcXrAwMg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>592764154777</string>
+	<string>379616346839</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.thetork.kirei</string>
+	<string>com.thetork.kireibd</string>
 	<key>PROJECT_ID</key>
-	<string>push-notification-for-an-2f235</string>
+	<string>push-notification-3fa23</string>
 	<key>STORAGE_BUCKET</key>
-	<string>push-notification-for-an-2f235.appspot.com</string>
+	<string>push-notification-3fa23.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:592764154777:ios:ae407166588b7803b29908</string>
+	<string>1:379616346839:ios:95f34b5d315a1a41bd2692</string>
+	<key>DATABASE_URL</key>
+	<string>https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

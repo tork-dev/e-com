@@ -1,6 +1,6 @@
 # kirei
 
-"Japanese Beauty Products Store in Bangladesh – Authentic Products..."
+A new Flutter project.
 
 ## Getting Started
 

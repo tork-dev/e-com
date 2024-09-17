@@ -10,7 +10,7 @@
 	</array>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:www.beta.kireibd.com.</string>
+		<string>applinks:www.kireibd.com.</string>
 	</array>
 </dict>
 </plist>

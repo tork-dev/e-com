@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "torganic" "\0"
+            VALUE "FileDescription", "kirei" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "torganic" "\0"
+            VALUE "InternalName", "kirei" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "torganic.exe" "\0"
-            VALUE "ProductName", "torganic" "\0"
+            VALUE "OriginalFilename", "kirei.exe" "\0"
+            VALUE "ProductName", "kirei" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
