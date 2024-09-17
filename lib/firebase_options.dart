@@ -62,26 +62,26 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyD1W4y5y3vLwAPTSAB_DyQwY1KOcXrAwMg',
-    appId: '1:379616346839:ios:211e9e19c388e2edbd2692',
+    appId: '1:379616346839:ios:95f34b5d315a1a41bd2692',
     messagingSenderId: '379616346839',
     projectId: 'push-notification-3fa23',
     databaseURL: 'https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'push-notification-3fa23.appspot.com',
     androidClientId: '379616346839-dr1rmohcbspisrh65igr175j64bop6uc.apps.googleusercontent.com',
-    iosClientId: '379616346839-037pbok2ptdebm0gacemp917aji4m5jl.apps.googleusercontent.com',
-    iosBundleId: 'com.thetork.kirei',
+    iosClientId: '379616346839-diqg4rqlo9g376sc788un3oot4frhoec.apps.googleusercontent.com',
+    iosBundleId: 'com.thetork.kireibd',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyD1W4y5y3vLwAPTSAB_DyQwY1KOcXrAwMg',
-    appId: '1:379616346839:ios:211e9e19c388e2edbd2692',
+    appId: '1:379616346839:ios:95f34b5d315a1a41bd2692',
     messagingSenderId: '379616346839',
     projectId: 'push-notification-3fa23',
     databaseURL: 'https://push-notification-3fa23-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'push-notification-3fa23.appspot.com',
     androidClientId: '379616346839-dr1rmohcbspisrh65igr175j64bop6uc.apps.googleusercontent.com',
-    iosClientId: '379616346839-037pbok2ptdebm0gacemp917aji4m5jl.apps.googleusercontent.com',
-    iosBundleId: 'com.thetork.kirei',
+    iosClientId: '379616346839-diqg4rqlo9g376sc788un3oot4frhoec.apps.googleusercontent.com',
+    iosBundleId: 'com.thetork.kireibd',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

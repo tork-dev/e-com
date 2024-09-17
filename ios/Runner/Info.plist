@@ -20,6 +20,8 @@
     <string>????</string>
     <key>CFBundleVersion</key>
     <string>$(FLUTTER_BUILD_NUMBER)</string>
+
+    <!-- Facebook Configuration -->
     <key>FacebookAppID</key>
     <string>7989294924414445</string>
     <key>FacebookClientToken</key>
@@ -27,19 +29,28 @@
     <key>FacebookDisplayName</key>
     <string>Kirei</string>
 
+    <!-- URL Schemes -->
     <key>CFBundleURLTypes</key>
     <array>
+        <!-- Google Sign-In -->
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.379616346839-diqg4rqlo9g376sc788un3oot4frhoec</string>
+            </array>
+        </dict>
+        <!-- Facebook URL Schemes -->
         <dict>
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>fb950110338385665</string>
-                <string>https</string>
             </array>
             <key>CFBundleURLName</key>
             <string>beta.kireibd.com</string>
         </dict>
     </array>
 
+    <!-- Facebook LSApplicationQueriesSchemes -->
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>fbapi</string>
@@ -53,6 +64,7 @@
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
 
+    <!-- Permissions Descriptions -->
     <key>NSCalendarsUsageDescription</key>
     <string>calendar</string>
     <key>NSCameraUsageDescription</key>
@@ -74,6 +86,7 @@
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>This app does not use Bluetooth functionality</string>
 
+    <!-- Background Modes -->
     <key>UIBackgroundModes</key>
     <array>
         <string>remote-notification</string>
@@ -84,6 +97,7 @@
     <key>UIMainStoryboardFile</key>
     <string>Main</string>
 
+    <!-- Supported Orientations -->
     <key>UISupportedInterfaceOrientations</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>
@@ -100,12 +114,12 @@
 
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
-
     <key>CADisableMinimumFrameDurationOnPhone</key>
     <true/>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
 
+    <!-- Flutter Deep Linking -->
     <key>FlutterDeepLinkingEnabled</key>
     <true/>
 </dict>
