@@ -212,6 +212,13 @@ class LogInPageController extends GetxController {
           credential.email,
           credential.authorizationCode,
           accessToken: credential.identityToken);
+
+      if (loginResponse.value.result == true) {
+        EventLogger().logLoginEvent('Apple');
+        Get.offAllNamed(previousRoute!);
+        AuthHelper().setUserData(loginResponse.value);
+      }
+      AppHelperFunctions.showToast(loginResponse.value.message!);
     } on Exception catch (e) {
       AppHelperFunctions.showSimpleSnackBar(e.toString());
       print("error is ....... $e");
