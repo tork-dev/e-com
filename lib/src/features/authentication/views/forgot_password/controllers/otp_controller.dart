@@ -158,18 +158,15 @@ class OtpController extends GetxController {
   Future<void> verifyForSpinner() async {
     final spinnerController = SpinnerController.instance;
     if (!otpKey.currentState!.validate()) return;
-
     loginResponse.value = await LoginRepository()
         .getLogInOtpConfirmCodeResponse(
             spinnerController.phoneNumberController.text.toString(), otpCodeController.text);
     if (loginResponse.value.result == true) {
       EventLogger().logLoginEvent('Otp');
-      spinnerController.getSelectedCouponResponse(loginResponse.value.accessToken);
+      await spinnerController.getSelectedCouponResponse(loginResponse.value.accessToken);
       AuthHelper().setUserData(loginResponse.value);
       AppHelperFunctions.showToast('Phone verified');
       Get.back();
-      spinnerController.selected.add(spinnerController.selectedIndex.value);
-      print('coupon code is here');
       return;
     }
     AppHelperFunctions.showToast(loginResponse.value.message!);

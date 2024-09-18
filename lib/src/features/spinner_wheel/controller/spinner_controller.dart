@@ -66,8 +66,14 @@ Future<void> getSelectedCouponResponse(accessToken) async{
   selectedCouponResponse.value = await SpinnerRepositories().getSelectedCoupon(accessToken);
 
   if(selectedCouponResponse.value.result == true) {
+   print('got coupon from backend ${selectedCouponResponse.value.data?.couponCode}');
+
+   print(couponCodeList.indexOf(selectedCouponResponse.value.data?.couponCode));
+
    selectedIndex.value =
        couponCodeList.indexOf(selectedCouponResponse.value.data?.couponCode);
+
+   selected.add(selectedIndex.value);
   }else {
    Get.back();
    AppHelperFunctions.showSpinnerCoupon(

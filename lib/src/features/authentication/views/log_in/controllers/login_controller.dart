@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -9,7 +6,6 @@ import 'package:kirei/src/features/authentication/data/repositories/auth_reposit
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/user_by_token_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/repository/login_repository.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -22,7 +18,6 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../model/resend_code_model.dart';
 import '../../forgot_password/view/otp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import '../model/social_option_model.dart';
 
 class LogInPageController extends GetxController {
@@ -71,9 +66,7 @@ class LogInPageController extends GetxController {
         passwordController.text.toString(),
         rememberMe.value,
       );
-
       AppLoggerHelper.info(loginResponse.value.toString());
-
       ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
