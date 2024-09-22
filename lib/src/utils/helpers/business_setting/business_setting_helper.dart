@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -13,6 +14,8 @@ class BusinessSettingHelper extends GetxController{
   RxInt intervalTime = 0.obs;
   RxBool isSpinnerActive = false.obs;
    Future<void> setBusinessSettingData() async {
+
+
     BusinessSettingResponse businessLists =
         await BusinessSettingRepository().getBusinessSettingList();
 
@@ -49,6 +52,7 @@ class BusinessSettingHelper extends GetxController{
           {
             bool isEnabled = element.value.toString() == "1";
             isSpinnerActive.value = isEnabled;
+            print('value: $isEnabled');
           }
           break;
         default:
@@ -57,8 +61,15 @@ class BusinessSettingHelper extends GetxController{
       }
     }
 
+    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == null && isSpinnerActive.value){
+      Future.delayed(const Duration(seconds: 10),
+              () => AppHelperFunctions().showAlertForFirstTime());
+      return;
+    }
+
+
     // Check if there are popups to display
-    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true && isSpinnerActive.value) {
+    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true) {
       if (businessLists.popup?.data != null && businessLists.popup!.data!.isNotEmpty) {
         intervalTime.value = businessLists.popup?.interval ?? 0;
         await showPopupsSequentially(businessLists.popup!.data!);

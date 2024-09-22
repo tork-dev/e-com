@@ -22,195 +22,245 @@ class AppSpinnerWheelAlert extends StatelessWidget {
     final spinController = SpinnerController.instance;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return SingleChildScrollView(
-      child: Dialog(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
-        //contentPadding: EdgeInsets.zero,
-        insetPadding: const EdgeInsets.all(AppSizes.md),
-        backgroundColor: AppColors.popUpBackground,
-        child: AppCardContainer(
-          padding: const EdgeInsets.only(bottom: AppSizes.xl),
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: Form(
-                  key: spinController.phoneKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return Obx(() {
+      return spinController.couponList.length > 1
+          ? SingleChildScrollView(
+              child: Dialog(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
+                //contentPadding: EdgeInsets.zero,
+                insetPadding: const EdgeInsets.all(AppSizes.md),
+                backgroundColor: AppColors.popUpBackground,
+                child: AppCardContainer(
+                  padding: const EdgeInsets.only(bottom: AppSizes.xl),
+                  child: Stack(
                     children: [
-                      Center(
-                        child: AppCardContainer(
-                          margin:
-                              const EdgeInsets.only(top: AppSizes.appBarHeight),
-                          height: 300,
-                          width: 300,
-                          child: FortuneWheel(
-                            selected: spinController.selected.stream,
-                            animateFirst: false,
-                            physics: NoPanPhysics(),
-                            indicators: const <FortuneIndicator>[
-                              FortuneIndicator(
-                                alignment: Alignment.topCenter,
-                                child: TriangleIndicator(
-                                  color: Colors.white,
-                                  width: 20,
-                                  height: 24.0,
-                                  elevation: 0,
+                      Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                        child: Form(
+                          key: spinController.phoneKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: AppCardContainer(
+                                  margin: const EdgeInsets.only(
+                                      top: AppSizes.appBarHeight),
+                                  height: 300,
+                                  width: 300,
+                                  child: FortuneWheel(
+                                    selected: spinController.selected.stream,
+                                    animateFirst: false,
+                                    physics: NoPanPhysics(),
+                                    indicators: const <FortuneIndicator>[
+                                      FortuneIndicator(
+                                        alignment: Alignment.topCenter,
+                                        child: TriangleIndicator(
+                                          color: Colors.white,
+                                          width: 20,
+                                          height: 24.0,
+                                          elevation: 0,
+                                        ),
+                                      ),
+                                    ],
+                                    items: [
+                                      for (var it in spinController.couponList)
+                                        FortuneItem(
+                                            child: Text(it),
+                                            style: FortuneItemStyle(
+                                              color: AppColors().colorList[
+                                                  spinController.couponList
+                                                      .indexOf(it)],
+                                              borderWidth: 0,
+                                            )),
+                                    ],
+                                    onAnimationEnd: () {
+                                      spinController.selectedCoupon.value =
+                                          spinController.couponList[
+                                              spinController
+                                                  .selectedIndex.value];
+                                      print(
+                                          spinController.selectedCoupon.value);
+                                      Get.back();
+                                      if (spinController.selectedCouponResponse
+                                              .value.result ==
+                                          true) {
+                                        AppHelperFunctions.showSpinnerCoupon(
+                                            title: spinController
+                                                    .selectedCouponResponse
+                                                    .value
+                                                    .data
+                                                    ?.title ??
+                                                '',
+                                            couponCode: spinController
+                                                .selectedCouponResponse
+                                                .value
+                                                .data
+                                                ?.couponCode,
+                                            onCouponPress: () {
+                                              FlutterClipboard.copy(spinController
+                                                          .selectedCouponResponse
+                                                          .value
+                                                          .data
+                                                          ?.couponCode ??
+                                                      '')
+                                                  .then((value) =>
+                                                      AppHelperFunctions
+                                                          .showToast(
+                                                              'Coupon copied'));
+                                            },
+                                            subTitle: spinController
+                                                    .selectedCouponResponse
+                                                    .value
+                                                    .data
+                                                    ?.description ??
+                                                '',
+                                            imgUrl: spinController
+                                                    .selectedCouponResponse
+                                                    .value
+                                                    .data
+                                                    ?.image ??
+                                                '');
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
+                              const Gap(AppSizes.defaultSpace),
+                              Text(
+                                'Spin to win!',
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
+                              ),
+                              const Gap(AppSizes.sm),
+                              Text(
+                                'Enter your phone number for the chance to win!',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .apply(color: AppColors.secondary),
+                              ),
+                              const Gap(AppSizes.defaultSpace),
+                              TextFormField(
+                                controller:
+                                    spinController.phoneNumberController,
+                                cursorColor: AppColors.primary,
+                                validator: (value) =>
+                                    AppValidator.validatePhoneNumber(value),
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: AppSizes.md,
+                                      vertical: AppSizes.spaceBtwDefaultItems),
+                                  hintText: '01*********',
+                                  fillColor: AppColors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.zero,
+                                      borderSide: BorderSide(width: 0)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.zero,
+                                      borderSide: BorderSide(width: 0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.zero,
+                                      borderSide: BorderSide(width: 0)),
+                                ),
+                              ),
+                              const Gap(AppSizes.defaultSpace),
+                              Obx(() {
+                                return CheckboxListTile(
+                                  value: spinController.isChecked.value,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  contentPadding: EdgeInsets.zero,
+                                  onChanged: (value) {
+                                    spinController.isChecked.value =
+                                        !spinController.isChecked.value;
+                                  },
+                                  title: const Text(
+                                      'I’ve read and agree to the Terms and the Privacy Policy.'),
+                                );
+                              }),
+                              const Gap(AppSizes.spaceBtwSections),
+                              AppButtons.largeFlatFilledButton(
+                                  onPressed: () {
+                                    if (!spinController.phoneKey.currentState!
+                                        .validate()) return;
+                                    if (!spinController.isChecked.value) {
+                                      AppHelperFunctions.showToast(
+                                          'Please agree to the terms and condition');
+                                      return;
+                                    }
+                                    LoginRepository().getLoginOTPResponse(
+                                        spinController
+                                            .phoneNumberController.text
+                                            .toString());
+                                    AppHelperFunctions.showToast(
+                                        'We have sent OTP to your phone.');
+                                    AppHelperFunctions().verifyPhone();
+                                    AppLocalStorage().saveData(
+                                        LocalStorageKeys.sowedSpinner, true);
+                                  },
+                                  buttonText: "Try My Luck!"),
                             ],
-                            items: [
-                              for (var it in spinController.couponList)
-                                FortuneItem(
-                                    child: Text(it),
-                                    style: FortuneItemStyle(
-                                      color: AppColors().colorList[
-                                          spinController.couponList
-                                              .indexOf(it)],
-                                      borderWidth: 0,
-                                    )),
-                            ],
-                            onAnimationEnd: () {
-                              spinController.selectedCoupon.value =
-                                  spinController.couponList[
-                                      spinController.selectedIndex.value];
-                              print(spinController.selectedCoupon.value);
-                              Get.back();
-                              if (spinController
-                                      .selectedCouponResponse.value.result ==
-                                  true) {
-                                AppHelperFunctions.showSpinnerCoupon(
-                                    title: spinController.selectedCouponResponse
-                                            .value.data?.title ??
-                                        '',
-                                    couponCode: spinController
-                                        .selectedCouponResponse
-                                        .value
-                                        .data
-                                        ?.couponCode,
-                                    onCouponPress: () {
-                                      FlutterClipboard.copy(spinController
-                                                  .selectedCouponResponse
-                                                  .value
-                                                  .data
-                                                  ?.couponCode ??
-                                              '')
-                                          .then((value) =>
-                                              AppHelperFunctions.showToast(
-                                                  'Coupon copied'));
-                                    },
-                                    subTitle: spinController
-                                            .selectedCouponResponse
-                                            .value
-                                            .data
-                                            ?.description ??
-                                        '',
-                                    imgUrl: spinController
-                                            .selectedCouponResponse
-                                            .value
-                                            .data
-                                            ?.image ??
-                                        '');
-                              }
-                            },
                           ),
                         ),
                       ),
-                      const Gap(AppSizes.defaultSpace),
-                      Text(
-                        'Spin to win!',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      const Gap(AppSizes.sm),
-                      Text(
-                        'Enter your phone number for the chance to win!',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .apply(color: AppColors.secondary),
-                      ),
-                      const Gap(AppSizes.defaultSpace),
-                      TextFormField(
-                        controller: spinController.phoneNumberController,
-                        cursorColor: AppColors.primary,
-                        validator: (value) =>
-                            AppValidator.validatePhoneNumber(value),
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: AppSizes.md,
-                              vertical: AppSizes.spaceBtwDefaultItems),
-                          hintText: '01*********',
-                          fillColor: AppColors.white,
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(width: 0)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(width: 0)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(width: 0)),
-                        ),
-                      ),
-                      const Gap(AppSizes.defaultSpace),
-                      Obx(() {
-                        return CheckboxListTile(
-                          value: spinController.isChecked.value,
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.zero,
-                          onChanged: (value) {
-                            spinController.isChecked.value =
-                                !spinController.isChecked.value;
-                          },
-                          title: const Text(
-                              'I’ve read and agree to the Terms and the Privacy Policy.'),
-                        );
-                      }),
-                      const Gap(AppSizes.spaceBtwSections),
-                      AppButtons.largeFlatFilledButton(
-                          onPressed: () {
-                            if (!spinController.phoneKey.currentState!
-                                .validate()) return;
-                            if (!spinController.isChecked.value) {
-                              AppHelperFunctions.showToast(
-                                  'Please agree to the terms and condition');
-                              return;
-                            }
-                            LoginRepository().getLoginOTPResponse(spinController
-                                .phoneNumberController.text
-                                .toString());
-                            AppHelperFunctions.showToast('We have sent OTP to your phone.');
-                            AppHelperFunctions().verifyPhone();
-                            AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
-                          },
-                          buttonText: "Try My Luck!"),
+                      Positioned(
+                        right: AppSizes.sm,
+                        top: AppSizes.sm,
+                        child: AppCardContainer(
+                            applyRadius: false,
+                            backgroundColor: AppColors.grey,
+                            height: 40,
+                            width: 40,
+                            child: InkWell(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: const Icon(Icons.clear))),
+                      )
                     ],
                   ),
                 ),
               ),
-              Positioned(
-                right: AppSizes.sm,
-                top: AppSizes.sm,
-                child: AppCardContainer(
-                    applyRadius: false,
-                    backgroundColor: AppColors.grey,
-                    height: 40,
-                    width: 40,
-                    child: InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: const Icon(Icons.clear))),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+            )
+          : Dialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+              insetPadding: const EdgeInsets.all(AppSizes.md),
+              backgroundColor: AppColors.popUpBackground,
+              child: AppCardContainer(
+                padding: const EdgeInsets.all(AppSizes.md),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                    children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      AppCardContainer(
+                          applyRadius: false,
+                          backgroundColor: AppColors.grey,
+                          height: 40,
+                          width: 40,
+                          child: InkWell(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: const Icon(Icons.clear))),
+                    ],
+                  ),
+                  Gap(AppSizes.md),
+                  Text(
+                    'Welcome to kirei',
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                ]),
+              ),
+            );
+    });
   }
 }

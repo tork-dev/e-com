@@ -16,7 +16,7 @@ class AppDrawerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-        title: Text(title.toUpperCase(), style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.light)),
+        title: Text(title, style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.light)),
         onTap: ()=> onPress());
   }
 }

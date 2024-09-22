@@ -41,7 +41,7 @@ class PurchaseHistory extends StatelessWidget {
             : Get.back(),
         title: const Text(
           'Purchase History',
-          style: TextStyle(color: AppColors.primary),
+          style: TextStyle(color: AppColors.secondary),
         ),
         body: Obx(() {
             return AppLayoutWithRefresher(

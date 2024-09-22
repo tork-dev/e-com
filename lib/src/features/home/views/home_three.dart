@@ -85,6 +85,21 @@ class HomeThree extends StatelessWidget {
                 );
               }),
               const Gap(AppSizes.spaceBtwSections),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+              //   child: AppSectionTitleText(
+              //     sectionTitle: 'Recommended For You',
+              //     haveTxtButton: false,
+              //   ),
+              // ),
+              // Obx(() {
+              //   return Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              //     child: AppHorizontalScrollProductCard(
+              //         sectionName: controller.recommendedProductsForYouResponse.value.data),
+              //   );
+              // }),
+              // const Gap(AppSizes.spaceBtwSections),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSectionTitleText(
@@ -148,26 +163,21 @@ class HomeThree extends StatelessWidget {
                       controller.homeProductResponse.value.newProducts),
                 );
               }),
-              const Gap(AppSizes.defaultSpace),
               Obx(() {
                   return HomeImageTitleAndButtonSection(
                     sectionName: controller.homeProductResponse.value.homepageSettings?.recommendation,
                   );
                 }
               ),
-              const Gap(AppSizes.spaceBtwSections),
               const HomeShopByConcern(),
-              const Gap(AppSizes.spaceBtwSections),
-              const HomeSurpriseSection(),
+             const HomeSurpriseSection(),
               Obx(() {
                 return HomeImageTitleAndButtonSection(
                   sectionName: controller.homeProductResponse.value.homepageSettings?.groupShopping,
                 );
               }
               ),
-              const Gap(AppSizes.defaultSpace),
-              const HomeReviewSection(),
-              const Gap(AppSizes.spaceBtwSections),
+               const HomeReviewSection(),
               Obx(() {
                 return HomeImageTitleAndButtonSection(
                   sectionName: controller.homeProductResponse.value.homepageSettings?.kireitube,

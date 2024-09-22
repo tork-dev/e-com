@@ -47,7 +47,7 @@ class HomeRepositories {
 
   static Future<DetailsProductsResponse> getTrendingProduct() async {
     final response = await http.get(
-        Uri.parse("${AppApiEndPoints.trendingProduct}${null}"),
+        Uri.parse("${AppApiEndPoints.trendingProduct}${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}"),
         headers: {});
     var responseBody = jsonDecode(response.body.toString());
     if (responseBody["result"] == true) {
@@ -87,4 +87,15 @@ class HomeRepositories {
     return SurprizeGiftResponse.fromJson(response.body);
   }
 
+  static Future<DetailsProductsResponse> getRecommendedProductForYou() async {
+    final response = await http.get(
+        Uri.parse("${AppApiEndPoints.recommendedProductForUser}${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}"),
+        headers: {});
+    var responseBody = jsonDecode(response.body.toString());
+    if (responseBody["result"] == true) {
+      return DetailsProductsResponse.fromJson(responseBody);
+    } else {
+      throw Exception('Failed to load data: ${response.statusCode}');
+    }
+  }
 }

@@ -19,11 +19,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async {
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-
-
   await dotenv.load(fileName: ".env");
-  // AwesomeNotificationController().getFirebaseMessagingToken();
-  // AwesomeNotificationController().initializeRemoteNotifications(debug: false);
 
   await Firebase.initializeApp(
     name: 'Kirei',
@@ -31,23 +27,6 @@ Future<void> main() async {
   );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-
-
-  // PushNotificationService().notificationController();
-  // await PushNotificationService().handelBackAndTerminateState();
-  // DeepLinkHelper().deepLinkController();
-
-  // AppLinksDeepLink().initDeepLinks();
-
-
-  // Get any initial links
- // final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
-
-
-  //
-  // Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
-  // await Stripe.instance.applySettings();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
@@ -15,52 +16,67 @@ class HomeShopByConcern extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AppSectionTitleText(
-                sectionTitle: 'Shop By Concern',
-                haveTxtButton: false,
-              ),
-              const Gap(AppSizes.md),
-              SizedBox(
-                height: 225,
-                child: Obx(() {
-                    return AppListViewLayout(
-                        itemCount: homeController.homeProductResponse.value.skinConcern!.length,
-                        isScrollVertically: false,
-                        builderFunction: (context, index) {
-                          return  Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Gap(AppSizes.spaceBtwSections),
+          const AppSectionTitleText(
+            sectionTitle: 'Shop By Concern',
+            haveTxtButton: false,
+          ),
+          const Gap(AppSizes.md),
+          SizedBox(
+            height: 225,
+            child: Obx(() {
+              return AppListViewLayout(
+                  itemCount: !homeController.hittingApi.value
+                      ? homeController
+                          .homeProductResponse.value.skinConcern!.length
+                      : 5,
+                  isScrollVertically: false,
+                  builderFunction: (context, index) {
+                    return homeController.hittingApi.value
+                        ? ShimmerHelper()
+                            .buildBasicShimmer(height: 150, width: 150)
+                        : Column(
                             children: [
-                               AppBannerImage(
+                              AppBannerImage(
                                   width: 128,
                                   applyImageRadius: false,
-                                  isNetworkImage: homeController.homeProductResponse.value.skinConcern![index].banner != null,
-                                  imgUrl: homeController.homeProductResponse.value.skinConcern![index].banner ?? 'assets/images/demo/Acne.png'),
+                                  isNetworkImage: homeController
+                                          .homeProductResponse
+                                          .value
+                                          .skinConcern![index]
+                                          .banner !=
+                                      null,
+                                  imgUrl: homeController.homeProductResponse
+                                          .value.skinConcern![index].banner ??
+                                      'assets/images/demo/Acne.png'),
                               AppCardContainer(
                                   width: 128,
                                   backgroundColor: AppColors.lightGrey,
                                   applyRadius: false,
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: AppSizes.sm,
+                                      horizontal: AppSizes.sm,
                                       vertical: AppSizes.spaceBtwDefaultItems),
                                   child: Center(
                                       child: Text(
-                                    homeController.homeProductResponse.value.skinConcern![index].title ?? 'Acne',
-                                    style: Theme.of(context).textTheme.bodyLarge,
-                                        overflow: TextOverflow.ellipsis,
+                                    homeController.homeProductResponse.value
+                                            .skinConcern![index].title ??
+                                        'Acne',
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                    overflow: TextOverflow.ellipsis,
                                   )))
                             ],
                           );
-                        });
-                  }
-                ),
-              )
-            ],
-          ),
-        );
-
+                  });
+            }),
+          )
+        ],
+      ),
+    );
   }
 }

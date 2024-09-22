@@ -27,7 +27,7 @@ class PurchaseHistoryRepositories {
 
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
-      return PurchaseHistoryResponse.fromJson(responseBody);
+      return PurchaseHistoryResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to load cart Products data');
     }

@@ -19,5 +19,6 @@ class LocalStorageKeys{
   static const String activeDoctorAppointment = "activeDoctorAppointment";
   static const String gaipUserId = "gaip_user_id";
   static const String sowedSpinner = "sowedSpinner";
+  static const String spinnerActive = "spinnerActive";
 
  }

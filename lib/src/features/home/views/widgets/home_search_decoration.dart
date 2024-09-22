@@ -35,7 +35,7 @@ class HomeSearchDecoration extends StatelessWidget {
             bottomController.jumpToTab(1);
           },
           decoration: InputDecoration(
-              fillColor: AppColors.grey,
+              fillColor: AppColors.lightGrey,
               filled: true,
               focusColor: AppColors.grey,
               prefixIcon: const Icon(

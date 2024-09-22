@@ -12,6 +12,7 @@ import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
 import 'package:kirei/src/features/influencer_store/view/influencer_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
+import 'package:kirei/src/update_controller.dart';
 import 'package:upgrader/upgrader.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
@@ -44,9 +45,9 @@ class MyApp extends StatelessWidget {
         // navigatorKey: navigatorKey,
         initialBinding: GeneralBindings(),
         title: AppTexts.appName,
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
         theme: MyAppTheme.lightTheme,
-        //darkTheme: MyAppTheme.darkTheme,
+        darkTheme: MyAppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
         locale: const Locale('en'),
         localizationsDelegates: const [
@@ -65,6 +66,11 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/',
             page: () => UpgradeAlert(
+              upgrader: Upgrader(
+                storeController: CustomUpgraderStoreController(),
+                debugDisplayAlways: true, // Always show upgrade dialog for testing
+                debugLogging: true, // Enable logging to see more details
+              ),
               showReleaseNotes: false,
               child: const SplashScreen(),
             ),

@@ -17,12 +17,7 @@ class CommonController extends GetxController {
     if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
       Get.put(GaipUserIdController());
     }
-
-    if(AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == null){
-      Get.put(SpinnerController());
-      Future.delayed(const Duration(seconds: 10), () => AppHelperFunctions().showAlertForFirstTime());
-    }
-
+    final spinnerController = Get.put(SpinnerController());
     // Start the process to show popups
     showPopUp();
   }

@@ -188,6 +188,7 @@ class AppDrawer extends StatelessWidget {
                                     )
                                   : AppDrawerCard(
                                       onPress: () {
+                                        shopController.resetAll();
                                         if (isFromOtherPage) {
                                           Get.to(() => const HelloConvexAppBar(
                                                 pageIndex: 1,
@@ -209,6 +210,7 @@ class AppDrawer extends StatelessWidget {
                         child: AppDrawerCard(
                           title: category.name!,
                           onPress: () {
+                            shopController.resetAll();
                             if (isFromOtherPage) {
                               Get.to(() => const HelloConvexAppBar(
                                     pageIndex: 1,

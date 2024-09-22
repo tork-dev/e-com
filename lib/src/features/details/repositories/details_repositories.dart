@@ -11,6 +11,7 @@ import '../model/product_details_model.dart';
 class DetailsRepositories{
 
   static final userId = AppLocalStorage().readData(LocalStorageKeys.userId);
+  static final gaipUserId = AppLocalStorage().readData(LocalStorageKeys.gaipUserId);
 
 
   static Future<ProductDetailsResponse> getProductDetails(String slug) async {
@@ -26,7 +27,7 @@ class DetailsRepositories{
   }
 
   static Future<DetailsProductsResponse> getRelatedProducts(String slug) async {
-    final response = await http.get(Uri.parse("${AppApiEndPoints.relatedProduct}$slug?gaip_user_id=${null}"), headers: {
+    final response = await http.get(Uri.parse("${AppApiEndPoints.relatedProduct}$slug?gaip_user_id=$gaipUserId"), headers: {
 
     });
     var responseBody = jsonDecode(response.body.toString());
@@ -38,7 +39,7 @@ class DetailsRepositories{
   }
 
   static Future<DetailsProductsResponse> getRecommendedProduct() async {
-    final response = await http.get(Uri.parse("${AppApiEndPoints.recommendedProduct}${null}"), headers: {
+    final response = await http.get(Uri.parse("${AppApiEndPoints.recommendedProduct}$gaipUserId"), headers: {
 
     });
     var responseBody = jsonDecode(response.body.toString());

@@ -1,14 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/spinner_wheel/model/spinner_coupon_list_response.dart';
 import 'package:kirei/src/features/spinner_wheel/model/spinner_coupon_response.dart';
 import 'package:kirei/src/features/spinner_wheel/repositories/spinner_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 class SpinnerController extends GetxController {
  static SpinnerController get instance => Get.find<SpinnerController>();
@@ -40,16 +36,6 @@ class SpinnerController extends GetxController {
   }
 
 
-  // final items = <String>[
- //  '20%',
- //  '30%',
- //  '10%',
- //  '5%',
- //  '50%',
- //  '3%',
- // ];
-
-
 
  Future<void>getSpinnerCouponList() async{
   spinnerCouponList.value = await SpinnerRepositories().getCouponList();
@@ -57,9 +43,6 @@ class SpinnerController extends GetxController {
    couponList.add('${item.discount}% Off');
    couponCodeList.add(item.couponCode.toString());
   }
-
-
-  print(couponList);
 }
 
 Future<void> getSelectedCouponResponse(accessToken) async{

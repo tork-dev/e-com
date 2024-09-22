@@ -19,7 +19,7 @@ class AuthHelper{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user?.phone );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user?.passwordSaved);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avatar);
-
+      AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
       EventLogger().logUserDataEvent();
   }
 

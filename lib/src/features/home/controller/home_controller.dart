@@ -51,6 +51,7 @@ class HomeController extends GetxController{
   Rx<ProductRequestResponse> requestStockResponse = ProductRequestResponse().obs;
   Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
   Rx<DetailsProductsResponse> trendingProductsResponse = DetailsProductsResponse().obs;
+  Rx<DetailsProductsResponse> recommendedProductsForYouResponse = DetailsProductsResponse().obs;
   Rx<SurprizeGiftResponse> surpriseGiftResponse = SurprizeGiftResponse().obs;
   //Rx<DeviceTokenUpdateResponse> trendingProductsResponse = DetailsProductsResponse().obs;
 
@@ -92,6 +93,7 @@ class HomeController extends GetxController{
     getProductData();
     fetchFeaturedCategories();
     getRecommendedProducts();
+    getRecommendedProductsForYou();
     getTrendingProducts();
   }
 
@@ -122,6 +124,11 @@ class HomeController extends GetxController{
   Future<DetailsProductsResponse> getRecommendedProducts() async{
     return recommendedProductsResponse.value = await DetailsRepositories.getRecommendedProduct();
   }
+
+  Future<void> getRecommendedProductsForYou() async {
+      recommendedProductsForYouResponse.value = await HomeRepositories.getRecommendedProductForYou();
+  }
+
 
   Future<DetailsProductsResponse> getTrendingProducts() async{
     return trendingProductsResponse.value = await HomeRepositories.getTrendingProduct();

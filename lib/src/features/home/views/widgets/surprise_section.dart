@@ -27,90 +27,95 @@ class HomeSurpriseSection extends StatelessWidget {
             : homeController.homeProductResponse.value.homepageSettings
                     ?.surprizeGift?.isActive ==
                 "1",
-        child: Form(
-          key: homeController.surprisePhoneKey,
-          child: SizedBox(
-            height: 400,
-            child: Stack(
-              children: [
-                const AppBannerImage(
-                  width: double.infinity,
-                  applyImageRadius: false,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                  isNetworkImage: false,
-                  imgUrl: AppImages.surprisingSectionBg,
-                ),
-                Center(
-                    child: AppCardContainer(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        applyRadius: false,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              homeController.homeProductResponse.value
-                                      .homepageSettings?.surprizeGift?.title ??
-                                  'Get surprise gift',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .apply(color: AppColors.white),
-                            ),
-                            const Gap(AppSizes.sm),
-                            HtmlWidget(
-                              homeController
-                                      .homeProductResponse
-                                      .value
-                                      .homepageSettings
-                                      ?.surprizeGift!
-                                      .description ??
-                                  '',
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .apply(color: AppColors.white),
-                            ),
-                            const Gap(AppSizes.spaceBtwSections),
-                            TextFormField(
-                              controller: homeController.surprisePhoneController,
-                              cursorColor: AppColors.primary,
-                              validator: (value) =>
-                                  AppValidator.validatePhoneNumber(value),
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                errorStyle: TextStyle(color: AppColors.white, ),
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: AppSizes.md,
-                                    vertical: AppSizes.spaceBtwDefaultItems),
-                                hintText: '01*********',
-                                fillColor: AppColors.white,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.zero,
-                                    borderSide: BorderSide(width: 0)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.zero,
-                                    borderSide: BorderSide(width: 0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.zero,
-                                    borderSide: BorderSide(width: 0)),
-                              ),
-                            ),
-                            const Gap(AppSizes.spaceBtwDefaultItems),
-                            AppButtons.largeFlatFilledButton(
-                                onPressed: () {
+        child: Column(
+          children: [
+            const Gap(AppSizes.spaceBtwSections),
+            Form(
+              key: homeController.surprisePhoneKey,
+              child: SizedBox(
+                height: 400,
+                child: Stack(
+                  children: [
+                    const AppBannerImage(
+                      width: double.infinity,
+                      applyImageRadius: false,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                      isNetworkImage: false,
+                      imgUrl: AppImages.surprisingSectionBg,
+                    ),
+                    Center(
+                        child: AppCardContainer(
+                            padding: const EdgeInsets.symmetric(horizontal: 40),
+                            applyRadius: false,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  homeController.homeProductResponse.value
+                                          .homepageSettings?.surprizeGift?.title ??
+                                      'Get surprise gift',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium!
+                                      .apply(color: AppColors.white),
+                                ),
+                                const Gap(AppSizes.sm),
+                                HtmlWidget(
+                                  homeController
+                                          .homeProductResponse
+                                          .value
+                                          .homepageSettings
+                                          ?.surprizeGift!
+                                          .description ??
+                                      '',
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .apply(color: AppColors.white),
+                                ),
+                                const Gap(AppSizes.spaceBtwSections),
+                                TextFormField(
+                                  controller: homeController.surprisePhoneController,
+                                  cursorColor: AppColors.primary,
+                                  validator: (value) =>
+                                      AppValidator.validatePhoneNumber(value),
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration(
+                                    errorStyle: TextStyle(color: AppColors.white, ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: AppSizes.md,
+                                        vertical: AppSizes.spaceBtwDefaultItems),
+                                    hintText: '01*********',
+                                    fillColor: AppColors.white,
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        borderSide: BorderSide(width: 0)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        borderSide: BorderSide(width: 0)),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        borderSide: BorderSide(width: 0)),
+                                  ),
+                                ),
+                                const Gap(AppSizes.spaceBtwDefaultItems),
+                                AppButtons.largeFlatFilledButton(
+                                    onPressed: () {
 
-                                  homeController.getSurpriseTap();
-                                },
-                                backgroundColor: AppColors.secondary,
-                                buttonText: 'Submit')
-                          ],
-                        ))),
-              ],
+                                      homeController.getSurpriseTap();
+                                    },
+                                    backgroundColor: AppColors.secondary,
+                                    buttonText: 'Submit')
+                              ],
+                            ))),
+                  ],
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       );
     });

@@ -24,10 +24,11 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
     final homeController = HomeController.instance;
     return Obx(() {
       return Visibility(
-        visible: sectionName?.isActive == "1",
+        visible: sectionName?.isActive == "1" && sectionName?.isActive != null,
         child: AppCardContainer(
             child: Column(
           children: [
+            const Gap(AppSizes.spaceBtwSections),
             homeController.hittingApi.value
                 ? ShimmerHelper().buildBasicShimmer(height: 250)
                 :
@@ -47,7 +48,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 20, width: 300)
                         : Text(
-                            sectionName?.title,
+                            sectionName?.title ?? '',
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                     const Gap(AppSizes.spaceBtwDefaultItems),
@@ -55,7 +56,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 20, width: 200)
                         : HtmlWidget(
-                            sectionName?.description,
+                            sectionName?.description ?? '',
                           ),
                     const Gap(AppSizes.defaultSpace),
                     homeController.hittingApi.value
@@ -64,14 +65,14 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                         : AppCardContainer(
                             onTap: () => RoutingHelper.urlRouting(sectionName
                                     ?.route ??
-                                'https://beta.kireibd.com/kirei-tube'),
+                                'https://kireibd.com/kirei-tube'),
                             backgroundColor: AppColors.secondary,
                             applyRadius: false,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: AppSizes.defaultSpace,
                                 vertical: AppSizes.spaceBtwDefaultItems),
                             child: Text(
-                              sectionName?.btnName,
+                              sectionName?.btnName ?? '',
                               style: const TextStyle(color: AppColors.white),
                             ))
                   ],

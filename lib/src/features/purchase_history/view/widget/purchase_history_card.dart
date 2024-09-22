@@ -55,13 +55,9 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 const Gap(AppSizes.sm),
-                                PaymentStatusIndicator(
-                                  paymentStatus: purchaseHistoryController
-                                      .purchaseHistoryList
-                                      .value
-                                      .data![index]
-                                      .paymentStatus!,
-                                )
+                                // PaymentStatusIndicator(
+                                //   paymentStatus:
+                                // )
                               ],
                             ),
                             const Gap(AppSizes.xs),

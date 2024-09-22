@@ -22,6 +22,7 @@ class HomeReviewSection extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
         child: Column(
           children: [
+            const Gap(AppSizes.defaultSpace),
             const AppSectionTitleText(
               sectionTitle: 'Customer’s Review',
               haveTxtButton: false,
