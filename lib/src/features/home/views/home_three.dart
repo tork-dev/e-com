@@ -18,7 +18,6 @@ import 'package:kirei/src/common/widgets/search_bar/search_widget.dart';
 import 'package:kirei/src/features/home/views/widgets/home_new_sections.dart';
 import 'package:kirei/src/features/home/views/widgets/home_review_section.dart';
 import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dart';
-import 'package:kirei/src/features/home/views/widgets/surprise_section.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
@@ -26,6 +25,7 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'widgets/home_appbar_title.dart';
 import 'widgets/home_shop_by_concern.dart';
+import 'widgets/surprise_section.dart';
 
 
 class HomeThree extends StatelessWidget {
