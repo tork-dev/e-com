@@ -90,6 +90,8 @@ class HomeController extends GetxController{
   }
 
   Future<void> onRefresh()async{
+    homeSlidersLink.clear();
+    homeSliders.clear();
     getProductData();
     fetchFeaturedCategories();
     getRecommendedProducts();

@@ -44,10 +44,9 @@ class AppCartProductCard extends StatelessWidget {
                       backgroundColor: AppColors.white,
                       applyRadius: false,
                       padding: const EdgeInsets.all(AppSizes.sm),
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                      margin: const EdgeInsets.symmetric(horizontal: AppSizes.md),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
                             child: Row(

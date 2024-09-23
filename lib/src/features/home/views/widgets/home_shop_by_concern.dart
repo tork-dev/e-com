@@ -25,12 +25,11 @@ class HomeShopByConcern extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Gap(AppSizes.spaceBtwSections),
+          const Gap(AppSizes.defaultSpace),
           const AppSectionTitleText(
             sectionTitle: 'Shop By Concern',
             haveTxtButton: false,
           ),
-          const Gap(AppSizes.md),
           SizedBox(
             height: 225,
             child: Obx(() {
