@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
@@ -71,10 +74,16 @@ class HomeThree extends StatelessWidget {
               Obx(() {
                 return HomeImageTitleAndButtonSection(
                   sectionName: controller.homeProductResponse.value.homepageSettings?.recommendation,
+                  showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.recommendation ?? false,
                 );
               }
               ),
-              const HomeShopByConcern(),
+              Obx(() {
+                  return Visibility(
+                    visible: controller.homeProductResponse.value.homepageSettings?.features?.skinConcern ?? false,
+                      child: const HomeShopByConcern());
+                }
+              ),
               const Gap(AppSizes.spaceBtwSections),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
@@ -174,13 +183,20 @@ class HomeThree extends StatelessWidget {
               Obx(() {
                 return HomeImageTitleAndButtonSection(
                   sectionName: controller.homeProductResponse.value.homepageSettings?.groupShopping,
+                  showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false,
                 );
               }
               ),
-               const HomeReviewSection(),
+               Obx(() {
+                   return Visibility(
+                     visible: controller.homeProductResponse.value.homepageSettings?.features?.reviews ?? false,
+                       child: const HomeReviewSection());
+                 }
+               ),
               Obx(() {
                 return HomeImageTitleAndButtonSection(
                   sectionName: controller.homeProductResponse.value.homepageSettings?.kireitube,
+                  showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.kireitube ?? false,
                 );
               }
               ),

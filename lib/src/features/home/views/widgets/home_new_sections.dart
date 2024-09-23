@@ -15,16 +15,17 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/helpers/routing_helper.dart';
 
 class HomeImageTitleAndButtonSection extends StatelessWidget {
-  const HomeImageTitleAndButtonSection({super.key, required this.sectionName});
+  const HomeImageTitleAndButtonSection({super.key, required this.sectionName, required this.showTheSection});
 
   final sectionName;
+  final bool showTheSection;
 
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
     return Obx(() {
       return Visibility(
-        visible: sectionName?.isActive == "1" && sectionName?.isActive != null,
+        visible: showTheSection,
         child: AppCardContainer(
             child: Column(
           children: [

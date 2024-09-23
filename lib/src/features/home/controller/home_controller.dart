@@ -79,10 +79,7 @@ class HomeController extends GetxController{
     });
 
     if(callApis == true) {
-      fetchFeaturedCategories();
-      getProductData();
-      getRecommendedProducts();
-      getTrendingProducts();
+    onRefresh();
     }
 
 

@@ -59,10 +59,22 @@ class Product {
   int? price;
   int? salePrice;
   int? discount;
+  String? sku;
   int? stock;
+  String? shortDescription;
+  String? description;
+  String? guide;
+  List<GoodFor>? skinTypes;
+  List<GoodFor>? keyIngredients;
+  List<GoodFor>? goodFor;
   int? preorderAvailable;
   int? requestAvailable;
+  String? preorderDeliveryDate;
   int? preorderAmount;
+  String? preorderStartDate;
+  String? preorderEndDate;
+  int? saleCount;
+  int? last30DaySaleCount;
   int? groupMemberQuantity;
   double? ratings;
   int? reviews;
@@ -70,10 +82,25 @@ class Product {
   bool? isSale;
   int? isNew;
   dynamic isOutOfStock;
+  dynamic releaseDate;
+  dynamic developer;
+  dynamic publisher;
+  dynamic gameMode;
+  dynamic rated;
+  dynamic until;
+  List<ProductCategory>? productCategories;
+  List<ProductBrand>? productBrands;
+  List<GoodFor>? productTags;
+  String? onlyTags;
   List<Picture>? pictures;
   List<Picture>? largePictures;
   List<Picture>? smallPictures;
+  List<dynamic>? variants;
   int? isCouponApplicable;
+  String? metaImage;
+  String? metaTitle;
+  String? metaDescription;
+  String? metaTags;
   String? productLink;
 
   Product({
@@ -83,10 +110,22 @@ class Product {
     this.price,
     this.salePrice,
     this.discount,
+    this.sku,
     this.stock,
+    this.shortDescription,
+    this.description,
+    this.guide,
+    this.skinTypes,
+    this.keyIngredients,
+    this.goodFor,
     this.preorderAvailable,
     this.requestAvailable,
+    this.preorderDeliveryDate,
     this.preorderAmount,
+    this.preorderStartDate,
+    this.preorderEndDate,
+    this.saleCount,
+    this.last30DaySaleCount,
     this.groupMemberQuantity,
     this.ratings,
     this.reviews,
@@ -94,10 +133,25 @@ class Product {
     this.isSale,
     this.isNew,
     this.isOutOfStock,
+    this.releaseDate,
+    this.developer,
+    this.publisher,
+    this.gameMode,
+    this.rated,
+    this.until,
+    this.productCategories,
+    this.productBrands,
+    this.productTags,
+    this.onlyTags,
     this.pictures,
     this.largePictures,
     this.smallPictures,
+    this.variants,
     this.isCouponApplicable,
+    this.metaImage,
+    this.metaTitle,
+    this.metaDescription,
+    this.metaTags,
     this.productLink,
   });
 
@@ -112,10 +166,22 @@ class Product {
     price: json["price"],
     salePrice: json["sale_price"],
     discount: json["discount"],
+    sku: json["sku"],
     stock: json["stock"],
+    shortDescription: json["short_description"],
+    description: json["description"],
+    guide: json["guide"],
+    skinTypes: json["skin_types"] == null ? [] : List<GoodFor>.from(json["skin_types"]!.map((x) => GoodFor.fromMap(x))),
+    keyIngredients: json["key_ingredients"] == null ? [] : List<GoodFor>.from(json["key_ingredients"]!.map((x) => GoodFor.fromMap(x))),
+    goodFor: json["good_for"] == null ? [] : List<GoodFor>.from(json["good_for"]!.map((x) => GoodFor.fromMap(x))),
     preorderAvailable: json["preorder_available"],
     requestAvailable: json["request_available"],
+    preorderDeliveryDate: json["preorder_delivery_date"],
     preorderAmount: json["preorder_amount"],
+    preorderStartDate: json["preorder_start_date"],
+    preorderEndDate: json["preorder_end_date"],
+    saleCount: json["sale_count"],
+    last30DaySaleCount: json["last_30_day_sale_count"],
     groupMemberQuantity: json["group_member_quantity"],
     ratings: json["ratings"]?.toDouble(),
     reviews: json["reviews"],
@@ -123,10 +189,25 @@ class Product {
     isSale: json["is_sale"],
     isNew: json["is_new"],
     isOutOfStock: json["is_out_of_stock"],
+    releaseDate: json["release_date"],
+    developer: json["developer"],
+    publisher: json["publisher"],
+    gameMode: json["game_mode"],
+    rated: json["rated"],
+    until: json["until"],
+    productCategories: json["product_categories"] == null ? [] : List<ProductCategory>.from(json["product_categories"]!.map((x) => ProductCategory.fromMap(x))),
+    productBrands: json["product_brands"] == null ? [] : List<ProductBrand>.from(json["product_brands"]!.map((x) => ProductBrand.fromMap(x))),
+    productTags: json["product_tags"] == null ? [] : List<GoodFor>.from(json["product_tags"]!.map((x) => GoodFor.fromMap(x))),
+    onlyTags: json["only_tags"],
     pictures: json["pictures"] == null ? [] : List<Picture>.from(json["pictures"]!.map((x) => Picture.fromMap(x))),
     largePictures: json["large_pictures"] == null ? [] : List<Picture>.from(json["large_pictures"]!.map((x) => Picture.fromMap(x))),
     smallPictures: json["small_pictures"] == null ? [] : List<Picture>.from(json["small_pictures"]!.map((x) => Picture.fromMap(x))),
+    variants: json["variants"] == null ? [] : List<dynamic>.from(json["variants"]!.map((x) => x)),
     isCouponApplicable: json["is_coupon_applicable"],
+    metaImage: json["meta_image"],
+    metaTitle: json["meta_title"],
+    metaDescription: json["meta_description"],
+    metaTags: json["meta_tags"],
     productLink: json["product_link"],
   );
 
@@ -137,10 +218,22 @@ class Product {
     "price": price,
     "sale_price": salePrice,
     "discount": discount,
+    "sku": sku,
     "stock": stock,
+    "short_description": shortDescription,
+    "description": description,
+    "guide": guide,
+    "skin_types": skinTypes == null ? [] : List<dynamic>.from(skinTypes!.map((x) => x.toMap())),
+    "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x.toMap())),
+    "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x.toMap())),
     "preorder_available": preorderAvailable,
     "request_available": requestAvailable,
+    "preorder_delivery_date": preorderDeliveryDate,
     "preorder_amount": preorderAmount,
+    "preorder_start_date": preorderStartDate,
+    "preorder_end_date": preorderEndDate,
+    "sale_count": saleCount,
+    "last_30_day_sale_count": last30DaySaleCount,
     "group_member_quantity": groupMemberQuantity,
     "ratings": ratings,
     "reviews": reviews,
@@ -148,14 +241,80 @@ class Product {
     "is_sale": isSale,
     "is_new": isNew,
     "is_out_of_stock": isOutOfStock,
+    "release_date": releaseDate,
+    "developer": developer,
+    "publisher": publisher,
+    "game_mode": gameMode,
+    "rated": rated,
+    "until": until,
+    "product_categories": productCategories == null ? [] : List<dynamic>.from(productCategories!.map((x) => x.toMap())),
+    "product_brands": productBrands == null ? [] : List<dynamic>.from(productBrands!.map((x) => x.toMap())),
+    "product_tags": productTags == null ? [] : List<dynamic>.from(productTags!.map((x) => x.toMap())),
+    "only_tags": onlyTags,
     "pictures": pictures == null ? [] : List<dynamic>.from(pictures!.map((x) => x.toMap())),
     "large_pictures": largePictures == null ? [] : List<dynamic>.from(largePictures!.map((x) => x.toMap())),
     "small_pictures": smallPictures == null ? [] : List<dynamic>.from(smallPictures!.map((x) => x.toMap())),
+    "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
     "is_coupon_applicable": isCouponApplicable,
+    "meta_image": metaImage,
+    "meta_title": metaTitle,
+    "meta_description": metaDescription,
+    "meta_tags": metaTags,
     "product_link": productLink,
   };
 }
 
+class GoodFor {
+  String? name;
+  String? slug;
+  GoodForPivot? pivot;
+
+  GoodFor({
+    this.name,
+    this.slug,
+    this.pivot,
+  });
+
+  factory GoodFor.fromJson(String str) => GoodFor.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory GoodFor.fromMap(Map<String, dynamic> json) => GoodFor(
+    name: json["name"],
+    slug: json["slug"],
+    pivot: json["pivot"] == null ? null : GoodForPivot.fromMap(json["pivot"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "name": name,
+    "slug": slug,
+    "pivot": pivot?.toMap(),
+  };
+}
+
+class GoodForPivot {
+  int? productId;
+  int? productTagId;
+
+  GoodForPivot({
+    this.productId,
+    this.productTagId,
+  });
+
+  factory GoodForPivot.fromJson(String str) => GoodForPivot.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory GoodForPivot.fromMap(Map<String, dynamic> json) => GoodForPivot(
+    productId: json["product_id"],
+    productTagId: json["product_tag_id"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "product_id": productId,
+    "product_tag_id": productTagId,
+  };
+}
 
 class Picture {
   String? url;
@@ -213,13 +372,123 @@ class LargePicturePivot {
   };
 }
 
+class ProductBrand {
+  String? name;
+  String? slug;
+  ProductBrandPivot? pivot;
+
+  ProductBrand({
+    this.name,
+    this.slug,
+    this.pivot,
+  });
+
+  factory ProductBrand.fromJson(String str) => ProductBrand.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory ProductBrand.fromMap(Map<String, dynamic> json) => ProductBrand(
+    name: json["name"],
+    slug: json["slug"],
+    pivot: json["pivot"] == null ? null : ProductBrandPivot.fromMap(json["pivot"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "name": name,
+    "slug": slug,
+    "pivot": pivot?.toMap(),
+  };
+}
+
+class ProductBrandPivot {
+  int? productId;
+  int? productBrandId;
+
+  ProductBrandPivot({
+    this.productId,
+    this.productBrandId,
+  });
+
+  factory ProductBrandPivot.fromJson(String str) => ProductBrandPivot.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory ProductBrandPivot.fromMap(Map<String, dynamic> json) => ProductBrandPivot(
+    productId: json["product_id"],
+    productBrandId: json["product_brand_id"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "product_id": productId,
+    "product_brand_id": productBrandId,
+  };
+}
+
+class ProductCategory {
+  String? name;
+  String? slug;
+  int? parentName;
+  ProductCategoryPivot? pivot;
+
+  ProductCategory({
+    this.name,
+    this.slug,
+    this.parentName,
+    this.pivot,
+  });
+
+  factory ProductCategory.fromJson(String str) => ProductCategory.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory ProductCategory.fromMap(Map<String, dynamic> json) => ProductCategory(
+    name: json["name"],
+    slug: json["slug"],
+    parentName: json["parent_name"],
+    pivot: json["pivot"] == null ? null : ProductCategoryPivot.fromMap(json["pivot"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "name": name,
+    "slug": slug,
+    "parent_name": parentName,
+    "pivot": pivot?.toMap(),
+  };
+}
+
+class ProductCategoryPivot {
+  int? productId;
+  int? productCategoryId;
+
+  ProductCategoryPivot({
+    this.productId,
+    this.productCategoryId,
+  });
+
+  factory ProductCategoryPivot.fromJson(String str) => ProductCategoryPivot.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory ProductCategoryPivot.fromMap(Map<String, dynamic> json) => ProductCategoryPivot(
+    productId: json["product_id"],
+    productCategoryId: json["product_category_id"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "product_id": productId,
+    "product_category_id": productCategoryId,
+  };
+}
+
 class HomepageSettings {
+  Features? features;
   GroupShopping? recommendation;
   GroupShopping? groupShopping;
   GroupShopping? kireitube;
-  GroupShopping? surprizeGift;
+  SurprizeGift? surprizeGift;
 
   HomepageSettings({
+    this.features,
     this.recommendation,
     this.groupShopping,
     this.kireitube,
@@ -231,13 +500,15 @@ class HomepageSettings {
   String toJson() => json.encode(toMap());
 
   factory HomepageSettings.fromMap(Map<String, dynamic> json) => HomepageSettings(
+    features: json["features"] == null ? null : Features.fromMap(json["features"]),
     recommendation: json["recommendation"] == null ? null : GroupShopping.fromMap(json["recommendation"]),
     groupShopping: json["group_shopping"] == null ? null : GroupShopping.fromMap(json["group_shopping"]),
     kireitube: json["kireitube"] == null ? null : GroupShopping.fromMap(json["kireitube"]),
-    surprizeGift: json["surprize_gift"] == null ? null : GroupShopping.fromMap(json["surprize_gift"]),
+    surprizeGift: json["surprize_gift"] == null ? null : SurprizeGift.fromMap(json["surprize_gift"]),
   );
 
   Map<String, dynamic> toMap() => {
+    "features": features?.toMap(),
     "recommendation": recommendation?.toMap(),
     "group_shopping": groupShopping?.toMap(),
     "kireitube": kireitube?.toMap(),
@@ -245,20 +516,60 @@ class HomepageSettings {
   };
 }
 
+class Features {
+  bool? recommendation;
+  bool? groupShopping;
+  bool? surprizeGift;
+  bool? kireitube;
+  bool? skinConcern;
+  bool? reviews;
+
+  Features({
+    this.recommendation,
+    this.groupShopping,
+    this.surprizeGift,
+    this.kireitube,
+    this.skinConcern,
+    this.reviews,
+  });
+
+  factory Features.fromJson(String str) => Features.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Features.fromMap(Map<String, dynamic> json) => Features(
+    recommendation: json["recommendation"],
+    groupShopping: json["group_shopping"],
+    surprizeGift: json["surprize_gift"],
+    kireitube: json["kireitube"],
+    skinConcern: json["skin_concern"],
+    reviews: json["reviews"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "recommendation": recommendation,
+    "group_shopping": groupShopping,
+    "surprize_gift": surprizeGift,
+    "kireitube": kireitube,
+    "skin_concern": skinConcern,
+    "reviews": reviews,
+  };
+}
+
 class GroupShopping {
   String? title;
   String? description;
   String? banner;
+  String? bannerWeb;
   String? btnName;
-  String? isActive;
   String? route;
 
   GroupShopping({
     this.title,
     this.description,
     this.banner,
+    this.bannerWeb,
     this.btnName,
-    this.isActive,
     this.route,
   });
 
@@ -270,9 +581,43 @@ class GroupShopping {
     title: json["title"],
     description: json["description"],
     banner: json["banner"],
+    bannerWeb: json["banner_web"],
     btnName: json["btn_name"],
-    isActive: json["is_active"],
-    route: json["route"]
+    route: json["route"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "title": title,
+    "description": description,
+    "banner": banner,
+    "banner_web": bannerWeb,
+    "btn_name": btnName,
+    "route": route,
+  };
+}
+
+class SurprizeGift {
+  String? title;
+  String? description;
+  dynamic banner;
+  String? btnName;
+
+  SurprizeGift({
+    this.title,
+    this.description,
+    this.banner,
+    this.btnName,
+  });
+
+  factory SurprizeGift.fromJson(String str) => SurprizeGift.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory SurprizeGift.fromMap(Map<String, dynamic> json) => SurprizeGift(
+    title: json["title"],
+    description: json["description"],
+    banner: json["banner"],
+    btnName: json["btn_name"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -280,19 +625,17 @@ class GroupShopping {
     "description": description,
     "banner": banner,
     "btn_name": btnName,
-    "is_active": isActive,
-    "route" : route
   };
 }
 
 class Review {
   int? id;
-  int? userId;
+  dynamic userId;
   String? userName;
-  String? avatar;
-  dynamic rating;
+  dynamic avatar;
+  int? rating;
   String? comment;
-  List<dynamic>? images;
+  List<String>? images;
   List<dynamic>? replies;
   String? time;
 
@@ -319,7 +662,7 @@ class Review {
     avatar: json["avatar"],
     rating: json["rating"],
     comment: json["comment"],
-    images: json["images"] == null ? [] : List<dynamic>.from(json["images"]!.map((x) => x)),
+    images: json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
     replies: json["replies"] == null ? [] : List<dynamic>.from(json["replies"]!.map((x) => x)),
     time: json["time"],
   );
@@ -338,14 +681,16 @@ class Review {
 }
 
 class SkinConcern {
+  int? id;
   String? title;
   String? slug;
-  String? banner;
+  dynamic banner;
 
   SkinConcern({
+    this.id,
     this.title,
     this.slug,
-    this.banner
+    this.banner,
   });
 
   factory SkinConcern.fromJson(String str) => SkinConcern.fromMap(json.decode(str));
@@ -353,15 +698,17 @@ class SkinConcern {
   String toJson() => json.encode(toMap());
 
   factory SkinConcern.fromMap(Map<String, dynamic> json) => SkinConcern(
+    id: json["id"],
     title: json["title"],
     slug: json["slug"],
-    banner: json["banner"]
+    banner: json["banner"],
   );
 
   Map<String, dynamic> toMap() => {
+    "id": id,
     "title": title,
     "slug": slug,
-    "banner" : banner,
+    "banner": banner,
   };
 }
 
@@ -387,16 +734,4 @@ class Slider {
     "photo": photo,
     "link": link,
   };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

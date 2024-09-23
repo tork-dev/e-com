@@ -25,8 +25,7 @@ class HomeSurpriseSection extends StatelessWidget {
         visible: homeController.hittingApi.value
             ? true
             : homeController.homeProductResponse.value.homepageSettings
-                    ?.surprizeGift?.isActive ==
-                "1",
+                    ?.features?.surprizeGift == true,
         child: Column(
           children: [
             const Gap(AppSizes.spaceBtwSections),

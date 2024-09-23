@@ -52,7 +52,6 @@ class BusinessSettingHelper extends GetxController{
           {
             bool isEnabled = element.value.toString() == "1";
             isSpinnerActive.value = isEnabled;
-            print('value: $isEnabled');
           }
           break;
         default:
@@ -70,6 +69,7 @@ class BusinessSettingHelper extends GetxController{
 
     // Check if there are popups to display
     if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true) {
+      print('interval time $intervalTime');
       if (businessLists.popup?.data != null && businessLists.popup!.data!.isNotEmpty) {
         intervalTime.value = businessLists.popup?.interval ?? 0;
         await showPopupsSequentially(businessLists.popup!.data!);

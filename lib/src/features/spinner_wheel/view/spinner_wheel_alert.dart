@@ -20,7 +20,6 @@ class AppSpinnerWheelAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spinController = SpinnerController.instance;
-    final screenWidth = MediaQuery.of(context).size.width;
 
     return Obx(() {
       return spinController.couponList.length > 1
