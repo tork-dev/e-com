@@ -26,20 +26,13 @@ class KireiTubeDetailsScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           'Kirei tube',
-          style: TextStyle(color: AppColors.primary),
+          style: TextStyle(color: AppColors.secondary),
         ),
         padding: AppSizes.md,
         body: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
           children: [
-            Obx(() {
-              return controller.hittingApi.value
-                  ? ShimmerHelper().buildBasicShimmer(height: 250)
-                  : KireiDetailsVideoPlayer(
-                      url: controller
-                          .kireiTubeDetailsResponse.value.data?.video ?? 'https://kireibd.com',
-                    );
-            }),
+         const KireiDetailsVideoPlayer(),
             const Gap(AppSizes.md),
             const KireiTubeProductCard(),
             const Gap(AppSizes.md),

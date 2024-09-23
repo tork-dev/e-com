@@ -28,12 +28,12 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
         child: AppCardContainer(
             child: Column(
           children: [
-            const Gap(AppSizes.spaceBtwSections),
+            const Gap(AppSizes.defaultSpace),
             homeController.hittingApi.value
                 ? ShimmerHelper().buildBasicShimmer(height: 250)
                 :
                   AppBannerImage(
-                    height: 300,
+                    height: 216,
                       width: AppHelperFunctions.screenWidth(),
                       fit: BoxFit.cover,
                       applyImageRadius: false,
@@ -63,9 +63,13 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 40, width: 150)
                         : AppCardContainer(
-                            onTap: () => RoutingHelper.urlRouting(sectionName
-                                    ?.route ??
-                                'https://kireibd.com/kirei-tube'),
+                            onTap: () {
+                              print(sectionName?.route);
+                              RoutingHelper.urlRouting(sectionName
+                                  ?.route ??
+                                  'https://kireibd.com/kirei-tube');
+
+                            },
                             backgroundColor: AppColors.secondary,
                             applyRadius: false,
                             padding: const EdgeInsets.symmetric(

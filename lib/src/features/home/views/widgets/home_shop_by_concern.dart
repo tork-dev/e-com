@@ -5,10 +5,12 @@ import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../common/widgets/texts/section_title_text.dart';
+import '../../../shop/controller/get_shop_data_controller.dart';
 
 class HomeShopByConcern extends StatelessWidget {
   const HomeShopByConcern({super.key});
@@ -16,6 +18,8 @@ class HomeShopByConcern extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
+    final shopController = Get.put(GetShopDataController());
+    final bottomController = ConvexBottomNavController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
       child: Column(
@@ -55,6 +59,11 @@ class HomeShopByConcern extends StatelessWidget {
                                           .value.skinConcern![index].banner ??
                                       'assets/images/demo/Acne.png'),
                               AppCardContainer(
+                                onTap: (){
+                                  shopController.resetAll();
+                                  shopController.goodFor.value = homeController.homeProductResponse.value.skinConcern![index].slug ?? '';
+                                  bottomController.jumpToTab(1);
+                                },
                                   width: 128,
                                   backgroundColor: AppColors.lightGrey,
                                   applyRadius: false,

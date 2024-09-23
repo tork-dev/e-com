@@ -19,7 +19,7 @@ class AddressScreen extends StatelessWidget {
     return AppLayoutWithBackButton(
       title: const Text(
         'Address of user',
-        style: TextStyle(color: AppColors.primary),
+        style: TextStyle(color: AppColors.secondary),
       ),
         centerTitle: true,
         leadingIconColor: AppColors.darkGrey,

@@ -20,10 +20,11 @@ class RewardPointHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(RewardPointHistoryController());
     return AppLayoutWithBackButton(
+        leadingIconColor: AppColors.darkGrey,
         padding: AppSizes.md,
         title: const Text(
           'Point History',
-          style: TextStyle(color: AppColors.primary),
+          style: TextStyle(color: AppColors.secondary),
         ),
         centerTitle: true,
         body:

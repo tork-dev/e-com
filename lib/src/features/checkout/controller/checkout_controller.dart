@@ -268,12 +268,6 @@ class CheckoutController extends GetxController {
       return false;
     }
 
-    if (addressController.selectedAreaName.text == "" ||
-        addressController.selectedAreaName.text.isEmpty) {
-      AppHelperFunctions.showToast('Area is required');
-      return false;
-    }
-
     return true;
   }
 

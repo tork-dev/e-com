@@ -38,7 +38,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
       )
       ..loadRequest(Uri.parse(widget.url));
     return AppLayoutWithBackButton(
-      title: Text(widget.title, style: const TextStyle(color: AppColors.primary),),
+      title: Text(widget.title, style: const TextStyle(color: AppColors.secondary),),
         centerTitle: true,
         leadingIconColor: AppColors.darkGrey,
         padding: AppSizes.defaultSpace,

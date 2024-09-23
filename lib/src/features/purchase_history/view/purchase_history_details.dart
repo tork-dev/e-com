@@ -22,7 +22,7 @@ class PurchaseHistoryDetails extends StatelessWidget {
     final controller = Get.put(PurchaseHistoryDetailsController(orderId: int.parse(orderId)));
     //Get.put(PurchaseHistoryController);
     return  AppLayoutWithBackButton(
-      title: const Text('Order Details', style: TextStyle(color: AppColors.primary),),
+      title: const Text('Order Details', style: TextStyle(color: AppColors.secondary),),
         centerTitle: true,
         padding: AppSizes.defaultSpace,
         body: AppLayoutWithRefresher(

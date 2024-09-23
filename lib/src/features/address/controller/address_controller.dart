@@ -124,11 +124,6 @@ class AddressController extends GetxController {
       return;
     }
 
-    if (selectedAreaName.text == "") {
-      AppHelperFunctions.showToast('Area is required');
-      return;
-    }
-
     createOrUpdateAddress.value = await AddressRepositories()
         .getAddressAddResponse(
       name: nameController.value.text,

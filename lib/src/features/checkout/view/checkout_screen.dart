@@ -41,7 +41,7 @@ class CheckoutScreen extends StatelessWidget {
       leadingIconColor: AppColors.darkGrey,
       title: const Text(
         'Checkout',
-        style: TextStyle(color: AppColors.primary),
+        style: TextStyle(color: AppColors.secondary),
       ),
       centerTitle: true,
       bottomNav: AppButtons.largeFlatFilledButton(

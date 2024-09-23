@@ -51,8 +51,9 @@ class AppDrawer extends StatelessWidget {
             onPress: () => Get.offAll(() => const HelloConvexAppBar()),
           ),
           AppDrawerCard(
-            title: 'new arrivals',
+            title: 'new arrivals'.toUpperCase(),
             onPress: () {
+              shopController.resetAll();
               if (isFromOtherPage) {
                 Get.to(const HelloConvexAppBar(
                   pageIndex: 1,
@@ -61,6 +62,10 @@ class AppDrawer extends StatelessWidget {
               shopController.updateCategory('new');
               shopController.getShopData();
               bottomController.jumpToTab(1);
+
+              if(bottomController.pageIndex.value == 1){
+                Get.back();
+              }
             },
           ),
           Obx(() {
@@ -134,6 +139,9 @@ class AppDrawer extends StatelessWidget {
                                 shopController.updateCategory(category.slug!);
                                 shopController.getShopData();
                                 bottomController.jumpToTab(1);
+                                if(bottomController.pageIndex.value == 1){
+                                  Get.back();
+                                }
                               },
                               child: Text(
                                 category.name!,
@@ -147,7 +155,6 @@ class AppDrawer extends StatelessWidget {
                               .entries
                               .map((childEntry) {
                             final child = childEntry.value;
-                            final childIndex = childEntry.key;
                             return Padding(
                               padding: const EdgeInsets.only(left: 16),
                               child: child.children!.isNotEmpty
@@ -166,6 +173,7 @@ class AppDrawer extends StatelessWidget {
                                                 const EdgeInsets.only(left: 16),
                                             child: AppDrawerCard(
                                               onPress: () {
+                                                shopController.resetAll();
                                                 if (child.name ==
                                                     'By Category') {
                                                   shopController.updateCategory(
@@ -181,6 +189,9 @@ class AppDrawer extends StatelessWidget {
                                                 }
                                                 shopController.getShopData();
                                                 bottomController.jumpToTab(1);
+                                                if(bottomController.pageIndex.value == 1){
+                                                  Get.back();
+                                                }
                                               },
                                               title: children.name ?? '',
                                             ));
@@ -188,6 +199,7 @@ class AppDrawer extends StatelessWidget {
                                     )
                                   : AppDrawerCard(
                                       onPress: () {
+                                        print('print value');
                                         shopController.resetAll();
                                         if (isFromOtherPage) {
                                           Get.to(() => const HelloConvexAppBar(
@@ -195,9 +207,12 @@ class AppDrawer extends StatelessWidget {
                                               ));
                                         }
                                         shopController
-                                            .updateCategory(category.slug!);
+                                            .updateCategory(child.slug!);
                                         shopController.getShopData();
                                         bottomController.jumpToTab(1);
+                                        if(bottomController.pageIndex.value == 1){
+                                          Get.back();
+                                        }
                                       },
                                       title: child.name ?? '',
                                     ),
@@ -219,68 +234,21 @@ class AppDrawer extends StatelessWidget {
                             shopController.updateCategory(category.slug!);
                             shopController.getShopData();
                             bottomController.jumpToTab(1);
+                            if(bottomController.pageIndex.value == 1){
+                              Get.back();
+                            }
                           },
                         ),
                       );
               }).toList(),
             );
           }),
-          ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-              title: Row(
-                children: [
-                  Text('BRANDS',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .apply(color: AppColors.light)),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  Stack(
-                    children: [
-                      Transform.rotate(
-                        angle: pi / 5,
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          height: 15,
-                          width: 15,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: Colors.pinkAccent,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 22,
-                        width: 45,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.pinkAccent,
-                            borderRadius: BorderRadius.circular(2)),
-                        child: const Text(
-                          "Top!",
-                          style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              onTap: () {
-                Get.to(() => const WebViewScreen(
-                    title: 'Brands',
-                    url: "https://kireibd.com/brands?type=app"));
-              }),
           AppDrawerCard(
-            title: 'beauty tips',
+            title: 'beauty tips'.toUpperCase(),
             onPress: () => Get.offAll(() => const BeautyTipsScreen()),
           ),
           AppDrawerCard(
-              title: 'AI Suggestion',
+              title: 'AI Suggestion'.toUpperCase(),
               onPress: () {
                 if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
                     true) {
@@ -291,21 +259,24 @@ class AppDrawer extends StatelessWidget {
                 }
               }),
           AppDrawerCard(
-            title: 'kirei community',
+            title: 'kirei community'.toUpperCase(),
             onPress: () => Get.offAll(() => const CommunityScreen()),
           ),
           AppDrawerCard(
-            title: 'dr. appointment',
+            title: 'dr. appointment'.toUpperCase(),
             onPress: () => Get.offAll(() => const AppointmentScreen()),
           ),
           AppDrawerCard(
-            title: 'blog',
+            title: 'blog'.toUpperCase(),
             onPress: () {
               Get.to(() => const WebViewScreen(
                   url: "https://kireibd.com/blogs?type=app", title: 'Blogs'));
             },
           ),
           ExpansionTile(
+              iconColor: AppColors.white,
+              collapsedIconColor: AppColors.white,
+              backgroundColor: AppColors.white.withOpacity(.05),
               title: Row(
                 children: [
                   Text("kirei".toUpperCase(),
@@ -351,7 +322,7 @@ class AppDrawer extends StatelessWidget {
               ),
               children: [
                 AppDrawerCard(
-                  title: 'who we are?',
+                  title: 'who we are?'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/about-us?type=app',
@@ -359,7 +330,7 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 AppDrawerCard(
-                  title: 'faqs',
+                  title: 'faqs'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/faq?type=app',
@@ -367,7 +338,7 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 AppDrawerCard(
-                  title: 'contact us',
+                  title: 'contact us'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/contact-us?type=app',
@@ -375,7 +346,7 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 AppDrawerCard(
-                  title: 'testimonials',
+                  title: 'testimonials'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/testimonial?type=app',
@@ -383,7 +354,7 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 AppDrawerCard(
-                  title: 'privacy & policy',
+                  title: 'privacy & policy'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/privacy-policy?type=app',
@@ -391,7 +362,7 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 AppDrawerCard(
-                  title: 'terms & condition',
+                  title: 'terms & condition'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/term-condition?type=app',
@@ -399,7 +370,7 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 AppDrawerCard(
-                  title: 'returns & refunds',
+                  title: 'returns & refunds'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url: 'https://kireibd.com/return-refund?type=app',
@@ -407,7 +378,7 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 AppDrawerCard(
-                  title: 'responsibility disclosure',
+                  title: 'responsibility disclosure'.capitalize!,
                   onPress: () {
                     Get.to(() => const WebViewScreen(
                         url:
@@ -423,21 +394,21 @@ class AppDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   AppDrawerCard(
-                    title: 'profile',
+                    title: 'profile'.toUpperCase(),
                     onPress: () => bottomController.jumpToTab(3),
                   ),
                   AppDrawerCard(
-                    title: 'orders',
+                    title: 'orders'.toUpperCase(),
                     onPress: () => Get.to(() => const PurchaseHistory()),
                   ),
                   AppDrawerCard(
-                      title: 'logout',
+                      title: 'logout'.toUpperCase(),
                       onPress: () {
                         AuthHelper().clearUserData();
                         Get.offAll(() => const HelloConvexAppBar());
                       }),
                   AppDrawerCard(
-                    title: 'influencer store',
+                    title: 'influencer store'.toUpperCase(),
                     onPress: () => Get.offAll(() => const InfluencerStore()),
                   ),
                 ],

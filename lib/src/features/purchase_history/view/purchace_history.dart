@@ -34,6 +34,7 @@ class PurchaseHistory extends StatelessWidget {
         customLeadingIcon: Icons.arrow_back,
         leadingIconColor: AppColors.darkGrey,
         showCustomLeading: true,
+        centerTitle: true,
         leadingOnPress: () => backToHome
             ? Get.offAll(() => const HelloConvexAppBar(
                   pageIndex: 0,

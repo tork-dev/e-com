@@ -16,7 +16,7 @@ class AppEditProfilePicturePart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detailsController = AccountDetailsController.instance;
+    final detailsController = Get.put(AccountDetailsController());
     return Center(
       child: Stack(
         children: [

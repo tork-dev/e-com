@@ -68,7 +68,14 @@ class HomeThree extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppFeatureCategories(),
               ),
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              Obx(() {
+                return HomeImageTitleAndButtonSection(
+                  sectionName: controller.homeProductResponse.value.homepageSettings?.recommendation,
+                );
+              }
+              ),
+              const HomeShopByConcern(),
+              const Gap(AppSizes.spaceBtwSections),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSectionTitleText(
@@ -85,21 +92,21 @@ class HomeThree extends StatelessWidget {
                 );
               }),
               const Gap(AppSizes.spaceBtwSections),
-              // const Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-              //   child: AppSectionTitleText(
-              //     sectionTitle: 'Recommended For You',
-              //     haveTxtButton: false,
-              //   ),
-              // ),
-              // Obx(() {
-              //   return Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              //     child: AppHorizontalScrollProductCard(
-              //         sectionName: controller.recommendedProductsForYouResponse.value.data),
-              //   );
-              // }),
-              // const Gap(AppSizes.spaceBtwSections),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'Recommended For You',
+                  haveTxtButton: false,
+                ),
+              ),
+              Obx(() {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName: controller.recommendedProductsForYouResponse.value.data),
+                );
+              }),
+              const Gap(AppSizes.spaceBtwSections),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSectionTitleText(
@@ -115,6 +122,7 @@ class HomeThree extends StatelessWidget {
                           .recommendedProductsResponse.value.data),
                 );
               }),
+              const HomeSurpriseSection(),
               const Gap(AppSizes.spaceBtwSections),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
@@ -163,14 +171,6 @@ class HomeThree extends StatelessWidget {
                       controller.homeProductResponse.value.newProducts),
                 );
               }),
-              Obx(() {
-                  return HomeImageTitleAndButtonSection(
-                    sectionName: controller.homeProductResponse.value.homepageSettings?.recommendation,
-                  );
-                }
-              ),
-              const HomeShopByConcern(),
-             const HomeSurpriseSection(),
               Obx(() {
                 return HomeImageTitleAndButtonSection(
                   sectionName: controller.homeProductResponse.value.homepageSettings?.groupShopping,

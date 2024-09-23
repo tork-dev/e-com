@@ -1,5 +1,6 @@
 class LocalStorageKeys{
   static const String appVersion = "appVersion";
+  static const String appUrl = "appUrl";
   static const String isNotFirstTime = "isNotFirstTime";
   static const String isRememberMe = "isRememberMe";
   static const String isSocialLogIn = "isSocialLogIn";

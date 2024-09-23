@@ -21,7 +21,7 @@ class KireiTubeScreen extends StatelessWidget {
         padding: AppSizes.md,
         title: const Text(
           'Kirei tube',
-          style: TextStyle(color: AppColors.primary),
+          style: TextStyle(color: AppColors.secondary),
         ),
         centerTitle: true,
         body: Padding(

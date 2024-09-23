@@ -15,9 +15,10 @@ class WishlistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(WishlistController());
     return AppLayoutWithBackButton(
+      centerTitle: true,
         title: const Text(
           'My WishList',
-          style: TextStyle(color: AppColors.primary),
+          style: TextStyle(color: AppColors.secondary),
         ),
         leadingIconColor: AppColors.darkGrey,
         padding: 0,

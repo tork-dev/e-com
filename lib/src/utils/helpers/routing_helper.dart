@@ -6,7 +6,7 @@ import '../local_storage/storage_utility.dart';
 class RoutingHelper {
 
   static urlRouting(String? url) {
-    const String baseUrl = "https://kireibd.com";
+    String baseUrl = AppLocalStorage().readData(LocalStorageKeys.appUrl);
     if (url != null) {
       if (url.contains(baseUrl)) {
         String route = url.replaceFirst(baseUrl, '');

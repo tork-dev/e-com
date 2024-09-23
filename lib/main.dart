@@ -5,6 +5,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/app.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'firebase_options.dart';
 
 
@@ -20,6 +22,7 @@ Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+  AppLocalStorage().saveData(LocalStorageKeys.appUrl, dotenv.env["BASE_URL_WEB"]!);
 
   await Firebase.initializeApp(
     name: 'Kirei',

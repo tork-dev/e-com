@@ -10,6 +10,7 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../controller/account_details_controller.dart';
 import 'custom_shape.dart';
+import 'edit_profile_picture_part.dart';
 
 class PicturePart extends StatelessWidget {
   const PicturePart({super.key});
@@ -33,24 +34,7 @@ class PicturePart extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  AppCardContainer(
-                      width: 140,
-                      height: 140,
-                      applyRadius: false,
-                      borderColor: AppColors.white,
-                      borderWidth: 2 * 0.8,
-                      hasBorder: true,
-                      isCircle: true,
-                      child: Obx(() {
-                        return AppBannerImage(
-                          imgBoarderRadius: 100,
-                          isNetworkImage: true,
-                          fit: BoxFit.fill,
-                          imgUrl: loginController
-                                      .userDataByToken.value.avatarOriginal ??
-                                  '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'
-                        );
-                      })),
+                  AppEditProfilePicturePart()
                 ],
               ),
             )

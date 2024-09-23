@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/shop/model/sub_category_model.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../model/shop_data_model.dart';
 import '../model/skin_type_model.dart';
@@ -62,7 +64,7 @@ class ShopRepositories{
         .join('&');
 
     // Append gaip_user_id=null at the end
-    queryString += '&gaip_user_id=null';
+    queryString += '&gaip_user_id=${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}';
 
     // Construct the final URL
     Uri url = Uri.parse("${AppApiEndPoints.shopProducts}$queryString");
