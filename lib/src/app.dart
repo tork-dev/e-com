@@ -68,8 +68,8 @@ class MyApp extends StatelessWidget {
             page: () => UpgradeAlert(
               upgrader: Upgrader(
                 storeController: CustomUpgraderStoreController(),
-                debugDisplayAlways: true, // Always show upgrade dialog for testing
-                debugLogging: true, // Enable logging to see more details
+                // debugDisplayAlways: true, // Always show upgrade dialog for testing
+                // debugLogging: true, // Enable logging to see more details
               ),
               showReleaseNotes: false,
               child: const SplashScreen(),
