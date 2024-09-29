@@ -21,7 +21,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async {
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env");  
   AppLocalStorage().saveData(LocalStorageKeys.appUrl, dotenv.env["BASE_URL_WEB"]!);
 
   await Firebase.initializeApp(

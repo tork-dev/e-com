@@ -65,11 +65,13 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                             .getAddToCartResponse(sectionName![index].id, 1,
                                 sectionName![index].preorderAvailable)
                             .then((value) => {
-                                  cartController.cartCount.value =
-                                      cartController.addToCartResponse.value
-                                          .cartQuantity ?? 0,
-                                  AppHelperFunctions.showToast(cartController
-                                      .addToCartResponse.value.message!)
+                              if(cartController.addToCartResponse.value.result == true){
+                                cartController.cartCount.value =
+                                    cartController.addToCartResponse.value
+                                        .cartQuantity ?? 0,
+                              },
+                                AppHelperFunctions.showToast(cartController
+                                    .addToCartResponse.value.message!)
                                 });
                       } else {
                         Get.to(() => const LogIn());

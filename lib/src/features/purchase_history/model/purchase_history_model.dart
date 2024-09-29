@@ -128,11 +128,11 @@ class ShippingAddress {
   String? name;
   String? email;
   String? address;
-  int? cityId;
+  dynamic cityId;
   String? state;
-  int? zoneId;
+  dynamic zoneId;
   String? city;
-  int? areaId;
+  dynamic areaId;
   String? area;
   String? phone;
 

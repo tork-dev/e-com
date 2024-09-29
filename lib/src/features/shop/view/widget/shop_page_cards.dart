@@ -100,12 +100,11 @@ class AppShopGridScrollCard extends StatelessWidget {
                                             shopController.allProducts[index]
                                                 .preorderAvailable)
                                         .then((value) => {
-                                              cartController.cartCount.value =
-                                                  cartController
-                                                          .addToCartResponse
-                                                          .value
-                                                          .cartQuantity ??
-                                                      0,
+                                      if(cartController.addToCartResponse.value.result == true){
+                                        cartController.cartCount.value =
+                                            cartController.addToCartResponse.value
+                                                .cartQuantity ?? 0,
+                                      },
                                               AppHelperFunctions.showToast(
                                                   cartController
                                                       .addToCartResponse

@@ -31,7 +31,7 @@ class HomeShopByConcern extends StatelessWidget {
             haveTxtButton: false,
           ),
           SizedBox(
-            height: 225,
+            height: 210,
             child: Obx(() {
               return AppListViewLayout(
                   itemCount: !homeController.hittingApi.value
@@ -47,6 +47,8 @@ class HomeShopByConcern extends StatelessWidget {
                             children: [
                               AppBannerImage(
                                   width: 128,
+                                  height: 160,
+                                  fit: BoxFit.cover,
                                   applyImageRadius: false,
                                   isNetworkImage: homeController
                                           .homeProductResponse
