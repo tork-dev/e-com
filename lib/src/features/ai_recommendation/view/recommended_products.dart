@@ -29,7 +29,7 @@ class RecommendedProducts extends StatelessWidget {
       backToHome: true,
         padding: AppSizes.md,
         title: Text(
-          'Ai Recommendation',
+          'AI Recommendation',
           style: Theme.of(context)
               .textTheme
               .titleLarge!

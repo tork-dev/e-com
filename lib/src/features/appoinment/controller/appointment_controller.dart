@@ -68,10 +68,9 @@ class AppointmentController extends GetxController {
         problem: problemController.text,
         whatsappNumber: whatsAppNumberController.text);
 
+
     if (appointmentResponse.value.result == true) {
       String? url = appointmentResponse.value.data!.paymentUrl;
-      AppHelperFunctions.showToast(appointmentResponse.value.message!);
-
       if (url!.isNotEmpty) {
         if (paymentMethod.value == 'bkash') {
           Get.offAll(() => AppointmentPaymentScreen(
@@ -84,9 +83,8 @@ class AppointmentController extends GetxController {
                 screenName: 'sslcommerz',
               ));
         }
-      } else {
-        AppHelperFunctions.showToast(appointmentResponse.value.message!);
       }
     }
+    AppHelperFunctions.showToast(appointmentResponse.value.message!);
   }
 }

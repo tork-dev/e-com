@@ -22,20 +22,21 @@ class OnBoarding extends StatelessWidget {
             onPageChanged: onBoardingController.updatePageIndicator,
             children: const [
               OnBoardingPage(
-                imagePath: AppImages.onBoardingImage1,
+                imagePath: AppImages.onBoardingImage2,
                 titleText: AppTexts.onBoardingTitle1,
-                subtitleText: AppTexts.onBoardingSubTitle1,
+                subtitleText: AppTexts.onBoardingSubTitle2,
               ),
               OnBoardingPage(
-                imagePath: AppImages.onBoardingImage2,
+                imagePath: AppImages.onBoardingImage1,
                 titleText: AppTexts.onBoardingTitle2,
-                subtitleText: AppTexts.onBoardingSubTitle2,
+                subtitleText: AppTexts.onBoardingSubTitle1,
               ),
               OnBoardingPage(
                 imagePath: AppImages.onBoardingImage3,
                 titleText: AppTexts.onBoardingTitle3,
                 subtitleText: AppTexts.onBoardingSubTitle3,
               ),
+
             ],
           ),
           const OnBoardingSkip(),

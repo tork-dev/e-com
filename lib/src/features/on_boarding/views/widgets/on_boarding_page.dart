@@ -23,7 +23,7 @@ class OnBoardingPage extends StatelessWidget {
           Image(
               width: AppHelperFunctions.screenWidth() * 0.8,
               height: AppHelperFunctions.screenHeight() * 0.6,
-              image: AssetImage(imagePath)),
+              image: AssetImage(imagePath), ),
           Text(
             titleText,
             style: Theme.of(context).textTheme.headlineMedium,
