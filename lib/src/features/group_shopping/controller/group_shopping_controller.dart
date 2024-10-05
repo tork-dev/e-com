@@ -38,6 +38,9 @@ class GroupShoppingController extends GetxController{
   Rx<GroupShoppingCheckoutResponse> checkoutResponse =
       GroupShoppingCheckoutResponse().obs;
 
+  final ScrollController scrollController = ScrollController();
+
+
 
   @override
   void onInit() {
@@ -48,6 +51,14 @@ class GroupShoppingController extends GetxController{
   Future<void> onRefresh()async{
     print('refresh');
     getProducts();
+  }
+
+  void scrollToBottom() {
+    scrollController.animateTo(
+      400,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
+    );
   }
 
   Future<void> getProducts() async{

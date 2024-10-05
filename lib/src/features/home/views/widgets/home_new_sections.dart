@@ -9,13 +9,15 @@ import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import '../../../../utils/helpers/routing_helper.dart';
 
 class HomeImageTitleAndButtonSection extends StatelessWidget {
-  const HomeImageTitleAndButtonSection({super.key, required this.sectionName, required this.showTheSection});
+  const HomeImageTitleAndButtonSection(
+      {super.key, required this.sectionName, required this.showTheSection});
 
   final sectionName;
   final bool showTheSection;
@@ -32,14 +34,13 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
             const Gap(AppSizes.defaultSpace),
             homeController.hittingApi.value
                 ? ShimmerHelper().buildBasicShimmer(height: 250)
-                :
-                  AppBannerImage(
+                : AppBannerImage(
                     height: 216,
-                      width: AppHelperFunctions.screenWidth(),
-                      fit: BoxFit.cover,
-                      applyImageRadius: false,
-                      isNetworkImage: sectionName?.banner != null,
-                      imgUrl: sectionName?.banner),
+                    width: AppHelperFunctions.screenWidth(),
+                    fit: BoxFit.cover,
+                    applyImageRadius: false,
+                    isNetworkImage: sectionName?.banner != null,
+                    imgUrl: sectionName?.banner),
             Padding(
                 padding: const EdgeInsets.all(AppSizes.md),
                 child: Column(
@@ -66,19 +67,29 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                         : AppCardContainer(
                             onTap: () {
                               print(sectionName?.route);
-                              RoutingHelper.urlRouting(sectionName
-                                  ?.route ??
-                                  'https://kireibd.com/kirei-tube');
-
+                              RoutingHelper.urlRouting(sectionName?.route ?? 'https://kireibd.com/kirei-tube');
                             },
                             backgroundColor: AppColors.secondary,
                             applyRadius: false,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: AppSizes.defaultSpace,
-                                vertical: AppSizes.spaceBtwDefaultItems),
-                            child: Text(
-                              sectionName?.btnName ?? '',
-                              style: const TextStyle(color: AppColors.white),
+                            padding: const EdgeInsets.only(
+                                left: AppSizes.defaultSpace,
+                                right: AppSizes.defaultSpace,
+                                top: AppSizes.spaceBtwDefaultItems,
+                                bottom: AppSizes.spaceBtwDefaultItems),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // const AppBannerImage(
+                                //     height: 40,
+                                //     width: 40,
+                                //     imgUrl: AppImages.aiIcon),
+                                // const Gap(AppSizes.sm),
+                                Text(
+                                  sectionName?.btnName ?? '',
+                                  style:
+                                      const TextStyle(color: AppColors.white),
+                                ),
+                              ],
                             ))
                   ],
                 )),

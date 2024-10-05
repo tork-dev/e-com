@@ -33,7 +33,11 @@ class SkinCareHistoryOne extends StatelessWidget {
         customLeadingIcon: Icons.arrow_back,
         showBackButton: false,
         showCustomLeading: true,
-        leadingOnPress: ()=> Get.offAllNamed('/home'),
+        leadingOnPress: (){
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Get.offAllNamed('/home');
+          });
+        },
 
         padding: 0,
         body: ListView(

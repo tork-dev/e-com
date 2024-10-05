@@ -1,19 +1,12 @@
-import 'dart:ffi';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/community/model/community_like_create_response.dart';
 import 'package:kirei/src/features/community/model/create_community_post_response.dart';
-import 'package:kirei/src/features/community/repositries/community_repositories.dart';
-import 'package:kirei/src/features/home/controller/home_controller.dart';
-import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-
 import '../model/community_response.dart';
+import '../repositries/community_repositories.dart';
 
 class CommunityController extends GetxController {
   static CommunityController get instance => Get.find();

@@ -24,10 +24,7 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");  
   AppLocalStorage().saveData(LocalStorageKeys.appUrl, dotenv.env["BASE_URL_WEB"]!);
 
-  await Firebase.initializeApp(
-    name: 'Kirei',
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

@@ -40,38 +40,53 @@ class HomeReviewSection extends StatelessWidget {
                     return AppCardContainer(
                         width: 280,
                         applyRadius: false,
-                        backgroundColor: AppColors.lightGrey,
+                        backgroundColor: AppColors.whitePink,
                         padding: const EdgeInsets.all(AppSizes.md),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Row(
+                              children: [
+                                const CircleAvatar(
+                                  foregroundImage: NetworkImage(''),
+                                ),
+                                const Gap(AppSizes.spaceBtwDefaultItems),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Name', style: Theme.of(context).textTheme.titleLarge,),
+                                    const Gap(AppSizes.xs),
+                                    Text('Designation', style: Theme.of(context).textTheme.labelMedium,)
+                                  ],
+                                )
+                              ],
+                            ),
+                            const Gap(AppSizes.spaceBtwDefaultItems),
                             homeController.hittingApi.value
                                 ? ShimmerHelper()
                                     .buildBasicShimmer(height: 20, width: 250)
-                                : RatingBar(
-                                    itemSize: 24,
-                                    ignoreGestures: true,
+                                : RatingBar.builder(
                                     initialRating: double.parse(homeController
                                         .homeProductResponse
                                         .value
                                         .reviews![index]
                                         .rating
                                         .toString()),
+                                    minRating: 0,
                                     direction: Axis.horizontal,
-                                    allowHalfRating: false,
+                                    allowHalfRating: true,
+                                    ignoreGestures: true,
                                     itemCount: 5,
-                                    ratingWidget: RatingWidget(
-                                      full: const Icon(Icons.star,
-                                          color: AppColors.primary),
-                                      empty: const Icon(Icons.star,
-                                          color: AppColors.darkGrey),
-                                      half: const Icon(Icons.star,
-                                          color: AppColors.primary),
+                                    itemSize: AppSizes.iconMd,
+                                    glowColor: AppColors.light,
+                                    unratedColor: AppColors.accent,
+                                    itemPadding: EdgeInsets.zero,
+                                    itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: AppColors.primary,
                                     ),
-                                    itemPadding:
-                                        const EdgeInsets.only(right: 4.0),
                                     onRatingUpdate: (rating) {
-                                      //print(rating);
+                                      print(rating);
                                     },
                                   ),
                             const Gap(AppSizes.sm),
@@ -85,24 +100,10 @@ class HomeReviewSection extends StatelessWidget {
                                           '',
                                       style:
                                           Theme.of(context).textTheme.bodySmall,
-                                      maxLines: 6,
+                                      maxLines: 4,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                             ),
-                            const Gap(AppSizes.spaceBtwDefaultItems),
-                            Align(
-                                alignment: Alignment.bottomLeft,
-                                child: homeController.hittingApi.value
-                                    ? ShimmerHelper().buildBasicShimmer(
-                                        height: 20, width: 100)
-                                    : Text(
-                                        homeController.homeProductResponse.value
-                                                .reviews![index].userName ??
-                                            '',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge,
-                                      ))
                           ],
                         ));
                   }),

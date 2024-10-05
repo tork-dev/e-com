@@ -1,4 +1,4 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:get/get.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
@@ -7,15 +7,11 @@ class RoutingHelper {
 
   static urlRouting(String? url) {
     String baseUrl = AppLocalStorage().readData(LocalStorageKeys.appUrl);
+    print(baseUrl);
     if (url != null) {
       if (url.contains(baseUrl)) {
         String route = url.replaceFirst(baseUrl, '');
-
-        // if (route == '/personal-recommendation/skincare-recommendation' &&
-        //     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true) {
-        //   Get.toNamed('/login');
-        //   return;
-        // }
+        // String route = '/product/skin-aqua-super-moisture-gel-spf50-pa-110g1';
         if (route.startsWith('/shop') || route.startsWith('/home') ||
             route.startsWith('/account') || route.startsWith('/cart')) {
           Get.offAllNamed(route);

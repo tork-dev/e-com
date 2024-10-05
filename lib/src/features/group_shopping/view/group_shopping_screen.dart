@@ -31,6 +31,7 @@ class GroupShoppingScreen extends StatelessWidget {
         centerTitle: true,
         body: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
+          scrollController: controller.scrollController,
           children: const [
             GroupShoppingHeaderPart(),
             Gap(AppSizes.spaceBtwSections),

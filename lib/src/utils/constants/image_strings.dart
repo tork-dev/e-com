@@ -35,6 +35,7 @@ class AppImages {
   static const String facebookInIcon = "assets/images/icons/facebook_in_icon.png";
   static const String instagramInIcon = "assets/images/icons/instagram_in_icon.png";
   static const String twitterInIcon = "assets/images/icons/twitter_in_icon.png";
+  static const String aiIcon = "assets/images/icons/ai_icon.png";
 
   // -- OnBoarding images
   static const String onBoardingImage1 = "assets/images/on_boarding_images/sammy-line-searching.gif";

@@ -40,7 +40,8 @@ class DetailsPageController extends GetxController {
 
   @override
   void onInit() {
-    productSlug.value = Get.parameters['id']!;
+    print('productSlug');
+    productSlug.value = Get.parameters['id']??'';
     super.onInit();
     onRefresh();
   }

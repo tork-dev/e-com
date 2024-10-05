@@ -59,7 +59,9 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                   width: 125,
                   child: AppButtons.largeFlatFilledButton(
                       verticallyPadding: AppSizes.sm,
-                      onPressed: () {},
+                      onPressed: () {
+                        groupShoppingController.scrollToBottom();
+                      },
                       backgroundColor: AppColors.secondary,
                       buttonText: 'JOIN TODAY'),
                 ),
