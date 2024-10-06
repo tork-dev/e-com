@@ -47,16 +47,32 @@ class HomeReviewSection extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                const CircleAvatar(
-                                  foregroundImage: NetworkImage(''),
+                                CircleAvatar(
+                                  foregroundImage: NetworkImage(homeController
+                                      .homeProductResponse
+                                      .value
+                                      .reviews![index]
+                                      .avatar ?? ''),
                                 ),
                                 const Gap(AppSizes.spaceBtwDefaultItems),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Name', style: Theme.of(context).textTheme.titleLarge,),
+                                    Text(
+                                      homeController.homeProductResponse.value
+                                              .reviews![index].userName ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
                                     const Gap(AppSizes.xs),
-                                    Text('Designation', style: Theme.of(context).textTheme.labelMedium,)
+                                    Text(
+                                      'Product Review',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    )
                                   ],
                                 )
                               ],

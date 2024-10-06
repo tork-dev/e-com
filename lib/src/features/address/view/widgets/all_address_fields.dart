@@ -38,6 +38,7 @@ class AppAllAddressFields extends StatelessWidget {
             controller: addressController.phoneController,
             fieldTitle: 'Phone*',
             hintText: 'Enter phone',
+            textInputType: TextInputType.number,
           ),
           const Gap(AppSizes.spaceBtwSmallItem),
           AppAddressTextField(
@@ -45,6 +46,7 @@ class AppAllAddressFields extends StatelessWidget {
             controller: addressController.emailController,
             fieldTitle: 'Email',
             hintText: 'Enter email',
+            textInputType: TextInputType.emailAddress,
           ),
           const Gap(AppSizes.spaceBtwSmallItem),
           AppAddressTextField(

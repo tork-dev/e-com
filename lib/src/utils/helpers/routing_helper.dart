@@ -22,14 +22,16 @@ class RoutingHelper {
           } else {
             Get.toNamed('/login/personal-recommendation');
           }
-        } else {
+        } else if(route.startsWith('/products/')){
+          Get.offNamed(route);
+        }else {
           Get.toNamed(route);
         }
       } else {
-        Get.offAllNamed('/home');
+        Get.offAllNamed('/');
       }
     } else {
-      Get.offAllNamed('/home');
+      Get.offAllNamed('/');
     }
   }
 }

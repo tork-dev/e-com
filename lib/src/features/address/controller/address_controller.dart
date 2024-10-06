@@ -45,20 +45,20 @@ class AddressController extends GetxController {
 
   Future<void> onRefresh() async {
     await getShippingAddress();
-    if(shippingAddress.value.data != null){
-    setAddress();
+    if (shippingAddress.value.data != null) {
+      setAddress();
     }
     getCityList();
     print('refresh');
   }
 
-  Future<void> getShippingAddress()async{
+  Future<void> getShippingAddress() async {
     hittingApi.value = true;
-     shippingAddress.value = await AddressRepositories().getAddressList();
-     hittingApi.value = false;
+    shippingAddress.value = await AddressRepositories().getAddressList();
+    hittingApi.value = false;
   }
 
-  void setAddress(){
+  void setAddress() {
     nameController.text = shippingAddress.value.data![0].name!;
     phoneController.text = shippingAddress.value.data![0].phone!;
     emailController.text = shippingAddress.value.data![0].email ?? '';
@@ -85,7 +85,6 @@ class AddressController extends GetxController {
         await AddressRepositories().getAreas(selectedZoneId);
   }
 
-
   Future<void> onPressSave() async {
     if (nameController.text == "") {
       AppHelperFunctions.showToast('Name is required');
@@ -95,13 +94,13 @@ class AddressController extends GetxController {
     if (phoneController.text == "") {
       AppHelperFunctions.showToast('Phone is required');
       return;
-    } else if(phoneController.text.length > 11){
+    } else if (phoneController.text.length > 11) {
       AppHelperFunctions.showToast('Invalid Phone');
       return;
-    } else if(phoneController.text.length < 11){
+    } else if (phoneController.text.length < 11) {
       AppHelperFunctions.showToast('Invalid Phone');
       return;
-    }else if(!phoneController.text.startsWith("0")){
+    } else if (!phoneController.text.startsWith("0")) {
       AppHelperFunctions.showToast('Invalid Phone');
       return;
     }
@@ -109,12 +108,12 @@ class AddressController extends GetxController {
     if (addressController.text == "") {
       AppHelperFunctions.showToast('Address is required');
       return;
-    } else if(addressController.value.text.length < 10) {
+    } else if (addressController.value.text.length < 10) {
       AppHelperFunctions.showToast('Address have to be minimum 10 character');
       return;
     }
 
-    if ( selectedCityName.text == "") {
+    if (selectedCityName.text == "") {
       AppHelperFunctions.showToast('City is required');
       return;
     }
@@ -124,8 +123,14 @@ class AddressController extends GetxController {
       return;
     }
 
-    createOrUpdateAddress.value = await AddressRepositories()
-        .getAddressAddResponse(
+    if (emailController.text.toString().isNotEmpty) {
+      if (!addressFormKey.currentState!.validate()) {
+        return;
+      }
+    }
+
+    createOrUpdateAddress.value =
+        await AddressRepositories().getAddressAddResponse(
       name: nameController.value.text,
       phone: phoneController.text,
       email: emailController.text,
@@ -140,7 +145,7 @@ class AddressController extends GetxController {
       return;
     }
     AppHelperFunctions.showToast(createOrUpdateAddress.value.message!);
-    if(createOrUpdateAddress.value.result == true){
+    if (createOrUpdateAddress.value.result == true) {
       Get.back();
     }
   }

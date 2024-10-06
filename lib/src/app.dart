@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/shop', page: () => const HelloConvexAppBar(pageIndex: 1,)),
           GetPage(name: '/cart', page: () => const HelloConvexAppBar(pageIndex: 2,)),
           GetPage(name: '/account', page: () => const HelloConvexAppBar(pageIndex: 3,)),
-          GetPage(name: '/product/:id', page: () => const DetailsPage(), binding: DetailsBinding(),),
+          GetPage(name: '/product/:id', page: () => const DetailsPage() ),
           GetPage(name: '/beauty-tips', page: () => const BeautyTipsScreen()),
           GetPage(name: '/personal-recommendation', page: () => const SkinCareHistoryOne()),
           GetPage(name: '/community', page: () => const CommunityScreen()),

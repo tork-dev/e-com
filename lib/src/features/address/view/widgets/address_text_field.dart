@@ -13,6 +13,7 @@ class AppAddressTextField extends StatelessWidget {
     this.borderWidth = 2,
     this.hasTitle = true,
     this.validator,
+    this.textInputType = TextInputType.text,
     super.key});
 
   final String fieldTitle, hintText;
@@ -21,6 +22,7 @@ class AppAddressTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool hasTitle;
   final dynamic validator;
+  final TextInputType textInputType;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class AppAddressTextField extends StatelessWidget {
             controller: controller,
             cursorColor: AppColors.primary,
             validator: validator,
+            keyboardType: textInputType,
             decoration: InputDecoration(
               contentPadding:  EdgeInsets.symmetric(horizontal: 8, vertical: verticalPadding),
               hintText: hintText,

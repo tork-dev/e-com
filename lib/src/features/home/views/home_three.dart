@@ -115,39 +115,8 @@ class HomeThree extends StatelessWidget {
                       sectionName: controller.recommendedProductsForYouResponse.value.data),
                 );
               }),
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'Popular Search Products',
-                  haveTxtButton: false,
-                ),
-              ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName: controller
-                          .recommendedProductsResponse.value.data),
-                );
-              }),
               const HomeSurpriseSection(),
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'Trending Products',
-                  haveTxtButton: false,
-                ),
-              ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName: controller
-                          .trendingProductsResponse.value.data),
-                );
-              }),
+
               const Gap(AppSizes.spaceBtwSections),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
@@ -187,6 +156,39 @@ class HomeThree extends StatelessWidget {
                 );
               }
               ),
+
+              const Gap(AppSizes.spaceBtwSections),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'Popular Search Products',
+                  haveTxtButton: false,
+                ),
+              ),
+              Obx(() {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName: controller
+                          .recommendedProductsResponse.value.data),
+                );
+              }),
+              const Gap(AppSizes.spaceBtwSections),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
+                  sectionTitle: 'Trending Products',
+                  haveTxtButton: false,
+                ),
+              ),
+              Obx(() {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName: controller
+                          .trendingProductsResponse.value.data),
+                );
+              }),
                Obx(() {
                    return Visibility(
                      visible: controller.homeProductResponse.value.homepageSettings?.features?.reviews ?? false,

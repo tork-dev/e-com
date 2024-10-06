@@ -55,29 +55,10 @@ class HomeController extends GetxController{
   Rx<SurprizeGiftResponse> surpriseGiftResponse = SurprizeGiftResponse().obs;
   //Rx<DeviceTokenUpdateResponse> trendingProductsResponse = DetailsProductsResponse().obs;
 
-  NotificationServices notificationServices = NotificationServices();
 
 
   @override
   void onInit(){
-    notificationServices.requestNotificationPermission();
-    notificationServices.forgroundMessage();
-    notificationServices.firebaseInit(Get.context!);
-    notificationServices.setupInteractMessage(Get.context!);
-    notificationServices.isTokenRefresh();
-
-    notificationServices.getDeviceToken().then((value){
-      AppLocalStorage().saveData(LocalStorageKeys.fcmToken, value);
-      if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-        HomeRepositories().getDeviceTokenUpdateResponse();
-      }
-
-      if (kDebugMode) {
-        print('device token');
-        print(value);
-      }
-    });
-
     if(callApis == true) {
     onRefresh();
     }
