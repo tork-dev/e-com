@@ -48,8 +48,8 @@ class AppVerticalProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCardContainer(
-        height: height,
-        width: width,
+        height: height ?? 270,
+        width: width ?? 150,
         applyRadius: false,
         padding: padding,
         margin: margin,
@@ -58,15 +58,15 @@ class AppVerticalProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppProductImage(
-              imgHeight: imgHeight,
-              imgWidth: imgWidth,
+              imgHeight:  imgHeight ?? height! * 0.6,
+              imgWidth: imgWidth ?? width,
               onPress: onTap,
               onCartPress: onCartTap,
               isNetworkImage: isNetworkImage,
               imgUrl: imgUrl,
               buttonName: buttonName,
               backgroundColor: backgroundColor,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               isDiscountAvailable: isDiscountAvailable,
               isStockAvailable: isStockAvailable,
               discount: discount,
