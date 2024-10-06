@@ -29,9 +29,7 @@ class SplashController extends GetxController {
   Future<void> appInfo() async{
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
-    AppLocalStorage().saveDataIfNull(LocalStorageKeys.appVersion, version);
     AppLocalStorage().saveData(LocalStorageKeys.appVersion, version);
-
     print(AppLocalStorage().readData(LocalStorageKeys.accessToken).runtimeType);
   }
 

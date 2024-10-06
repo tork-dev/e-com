@@ -41,15 +41,18 @@ class AppCartProductCard extends StatelessWidget {
                       .allCartProducts.isEmpty
                   ? ShimmerHelper().buildBasicShimmer(height: 150)
                   : AppCardContainer(
+                      width: AppHelperFunctions.screenWidth(),
                       backgroundColor: AppColors.white,
                       applyRadius: false,
                       padding: const EdgeInsets.all(AppSizes.sm),
-                      margin: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                      margin:
+                          const EdgeInsets.symmetric(horizontal: AppSizes.md),
                       child: Row(
-                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 AppBannerImage(
                                     onPress: () => Get.toNamed(
@@ -70,7 +73,7 @@ class AppCartProductCard extends StatelessWidget {
                                         AppImages.placeholder),
                                 const Gap(AppSizes.spaceBtwSmallItem),
                                 AppCardContainer(
-                                    width: 200,
+                                    width: AppHelperFunctions.screenWidth() * 0.49,
                                     height: 100,
                                     //backgroundColor: AppColors.secondary,
                                     child: Column(

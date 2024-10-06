@@ -177,32 +177,56 @@ class GetShopDataController extends GetxController {
     }
   }
 
+  bool isLoadingMore = false; // Prevents continuous loading
+
   void addItems() {
     scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-              scrollController.position.minScrollExtent &&
-          pageNumber.value < 1) {
-        if (!hittingApi.value) {
-          AppHelperFunctions.showToast('Loading more...');
-          print('Reached end of list, loading more...');
-          pageNumber.value--;
-          getShopData();
-          update();
-          return;
-        }
-      }
+      if (scrollController.position.pixels <=
+              scrollController.position.minScrollExtent + 50 &&
+          pageNumber.value > 1 &&
+          !isLoadingMore &&
+          !hittingApi.value) {
+        isLoadingMore = true; // Set loading flag to true
 
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        if (!hittingApi.value &&
-            pageNumber.value < shopPageProduct.value.meta!.lastPage!) {
-          AppHelperFunctions.showToast('Loading more...');
-          pageNumber.value++;
-          getShopData();
-          update();
-        } else {
-          AppHelperFunctions.showToast('No more product in this category');
-        }
+        AppHelperFunctions.showToast('Loading more...');
+        print('Reached the top of the list, loading previous page...');
+        pageNumber.value--;
+        getShopData().then((_) {
+          isLoadingMore = false; // Reset loading flag
+          update(); // Trigger UI update
+        });
+      }
+      if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent - 50 &&
+          pageNumber.value < shopPageProduct.value.meta!.lastPage! &&
+          !isLoadingMore &&
+          !hittingApi.value) {
+        isLoadingMore = true; // Set loading flag to true
+
+        AppHelperFunctions.showToast('Loading more...');
+        print('Loading more data for page number: ${pageNumber.value}');
+
+        // Save current scroll position and content height before loading more data
+        double currentScrollPosition = scrollController.position.pixels;
+        double maxScrollExtentBeforeLoad =
+            scrollController.position.maxScrollExtent;
+
+        pageNumber.value++;
+        hittingApi.value = true;
+
+        getShopData();
+        hittingApi.value = false;
+        isLoadingMore = false; // Reset loading flag
+
+        double newMaxScrollExtent = scrollController.position.maxScrollExtent;
+        double scrollOffsetDifference =
+            newMaxScrollExtent - maxScrollExtentBeforeLoad;
+        scrollController.jumpTo(currentScrollPosition +
+            scrollOffsetDifference); // Maintain position after loading
+
+        update(); // Refresh UI after loading more data
+      } else if (pageNumber.value >= shopPageProduct.value.meta!.lastPage!) {
+        AppHelperFunctions.showToast('No more products in this category');
       }
     });
   }

@@ -11,7 +11,7 @@ class AppGridViewLayout extends StatelessWidget {
       {required this.builderFunction,
       required this.itemCount,
       this.scrollController,
-      this.mobileAspect = 0.65,
+      this.mobileAspect = 0.631,
       this.tabletAspect = 0.5,
       this.desktopAspect = .65,
       super.key});
@@ -30,7 +30,7 @@ class AppGridViewLayout extends StatelessWidget {
       double childAspectRatio;
       if (constraints.maxWidth < 600) {
         crossAxisCount = 2;
-        childAspectRatio = mobileAspect;
+        childAspectRatio = mobileAspect ;
       } else if (constraints.maxWidth < 1200) {
         crossAxisCount = 4;
         childAspectRatio = tabletAspect;

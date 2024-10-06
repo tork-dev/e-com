@@ -35,7 +35,8 @@ class RadioQuestionImageWidget extends StatelessWidget {
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisExtent: 190
+            mainAxisExtent: 195,
+            // childAspectRatio: .60
           ),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -72,7 +73,9 @@ class RadioQuestionImageWidget extends StatelessWidget {
                             onChanged: (value){},
                             title: Text(
                               option[index],
+                              maxLines: 2,
                               style: const TextStyle(fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
                             ),
                             contentPadding: EdgeInsets.zero,
                             visualDensity: const VisualDensity(horizontal: -4.0, vertical: -2.0),

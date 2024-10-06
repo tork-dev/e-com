@@ -86,7 +86,7 @@ class AppDrawerBottomButton extends StatelessWidget {
         const Gap(AppSizes.md),
         Text(
           "version: ${AppLocalStorage().readData(LocalStorageKeys.appVersion)}",
-          style: const TextStyle(fontWeight: FontWeight.w500),
+          style: const TextStyle(fontWeight: FontWeight.w500, color: AppColors.white),
         )
       ],
     );
