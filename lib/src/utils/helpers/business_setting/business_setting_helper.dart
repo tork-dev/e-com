@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
-import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../helper_functions.dart';
 import '../routing_helper.dart';
 import 'model/business_setting_response.dart';
@@ -107,7 +104,6 @@ class BusinessSettingHelper extends GetxController{
       },
       onLeftPress: () {
         Get.back();
-        AppLoggerHelper.info('${AppApiEndPoints.baseUrlData}${popup.image}');
         completer.complete(); // Complete when "Cancel" is pressed
       },
       imgUrl: popup.image,

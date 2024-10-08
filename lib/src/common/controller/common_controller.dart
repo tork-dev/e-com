@@ -18,7 +18,6 @@ class CommonController extends GetxController {
       Get.put(GaipUserIdController());
     }
     final spinnerController = Get.put(SpinnerController());
-    // Start the process to show popups
     showPopUp();
   }
 

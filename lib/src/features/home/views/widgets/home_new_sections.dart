@@ -37,7 +37,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                 : AppBannerImage(
                     height: 216,
                     width: AppHelperFunctions.screenWidth(),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     applyImageRadius: false,
                     isNetworkImage: sectionName?.banner != null,
                     imgUrl: sectionName?.banner),
