@@ -51,12 +51,7 @@ class CheckoutScreen extends StatelessWidget {
         buttonText: 'PLACE MY ORDER',
       ),
       body: Obx(() {
-        return controller.isLoading.value
-            ? const Center(
-                child: CircularProgressIndicator(
-                color: AppColors.primary,
-              ))
-            : AppLayoutWithRefresher(
+        return AppLayoutWithRefresher(
                 onRefresh: controller.onRefresh,
                 children: [
                   Padding(

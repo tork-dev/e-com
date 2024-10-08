@@ -40,30 +40,33 @@ class AppLayoutWithBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     //final isDark = AppHelperFunctions.isDarkMode(context);
     return
-      PopScope(
-        canPop: !backToHome,
-        onPopInvoked: (pop) {
-          backToHome
-              ? Get.offAllNamed('/home')
-              : null;
-        },
-        child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          backgroundColor: bodyBackgroundColor,
-          bottomNavigationBar: bottomNav,
-          appBar: CustomAppBar(
-            title: title,
-            leadingIcon: customLeadingIcon,
-            showBackArrow: showBackButton,
-            leadingIconColor: leadingIconColor,
-            centerTitle: centerTitle,
-            backgroundColor: backgroundColor,
-            actions: action,
-            leadingOnPress: leadingOnPress,
-            showLeadingIcon: showCustomLeading,
-          ),
-          body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
+      GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: PopScope(
+          canPop: !backToHome,
+          onPopInvoked: (pop) {
+            backToHome
+                ? Get.offAllNamed('/home')
+                : null;
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: bodyBackgroundColor,
+            bottomNavigationBar: bottomNav,
+            appBar: CustomAppBar(
+              title: title,
+              leadingIcon: customLeadingIcon,
+              showBackArrow: showBackButton,
+              leadingIconColor: leadingIconColor,
+              centerTitle: centerTitle,
+              backgroundColor: backgroundColor,
+              actions: action,
+              leadingOnPress: leadingOnPress,
+              showLeadingIcon: showCustomLeading,
             ),
+            body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
+              ),
+        ),
       );
   }
 }

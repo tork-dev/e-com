@@ -147,46 +147,56 @@ class CheckoutController extends GetxController {
   /// Crete Order Method
   Future<void> onPressProceedToCheckout() async {
 
-    if(!await validateCheckoutDetails()) return;
+    if (!await validateCheckoutDetails()) return;
 
-
-    isLoading.value = true;
+    AppHelperFunctions.showLoaderDialog(Get.overlayContext!); // Make sure overlayContext is not null
 
     Map<String, dynamic> requestBody = prepareRequestBody();
-
 
     try {
       orderCreateResponse.value = await CheckoutRepositories()
           .getOrderCreateResponseFromCod(requestBody: requestBody);
 
-      isLoading.value = false;
+      Get.back(); // Hide loader
 
+      // Handle different payment methods
       if (selectedPaymentMethod.value == 1) {
-        Get.offAll(() => BkashScreen(
+        if (orderCreateResponse.value.data?.paymentUrl != null) {
+          Get.offAll(() => BkashScreen(
             bkashInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
-            orderId: orderCreateResponse.value.data!.order!.id!));
-        return;
-      }
-      if (selectedPaymentMethod.value == 2) {
-        Get.offAll(() => SslCommerzScreen(
-              orderId: orderCreateResponse.value.data!.order!.id!,
-              sslInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
-              amount: orderCreateResponse.value.data!.order!.grandTotal!,
-              paymentMethodKey: 'ssl',
-              paymentType: orderCreateResponse.value.data!.order!.paymentType!,
-            ));
-        return;
-      }
-      // Check if the widget is mounted before updating the UI
-
-      AppHelperFunctions.showToast(orderCreateResponse.value.message!);
-      Get.offAll(() => AppOrderStatusScreen(
-            statusString: orderCreateResponse.value.message!,
-            status: orderCreateResponse.value.result ?? false,
             orderId: orderCreateResponse.value.data!.order!.id!,
           ));
+        } else {
+          throw Exception('Bkash payment URL is missing');
+        }
+        return;
+      }
 
-      if(orderCreateResponse.value.result == true){
+      if (selectedPaymentMethod.value == 2) {
+        if (orderCreateResponse.value.data?.paymentUrl != null) {
+          Get.offAll(() => SslCommerzScreen(
+            orderId: orderCreateResponse.value.data!.order!.id!,
+            sslInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
+            amount: orderCreateResponse.value.data!.order!.grandTotal!,
+            paymentMethodKey: 'ssl',
+            paymentType: orderCreateResponse.value.data!.order!.paymentType!,
+          ));
+        } else {
+          throw Exception('SslCommerz payment URL is missing');
+        }
+        return;
+      }
+
+      // If no specific payment method, show toast and navigate to Order Status Screen
+      AppHelperFunctions.showToast(orderCreateResponse.value.message!);
+      Get.offAll(() => AppOrderStatusScreen(
+        statusString: orderCreateResponse.value.message!,
+        status: orderCreateResponse.value.result ?? false,
+        orderId: orderCreateResponse.value.data!.order!.id!,
+      ));
+
+      // Log purchase event if order is successful
+      if (orderCreateResponse.value.result == true) {
         final List<Map<String, dynamic>> items = allCartProducts[0].cartItems!.map((item) {
           return {
             'item_id': item.productId,
@@ -198,12 +208,13 @@ class CheckoutController extends GetxController {
         EventLogger().logPurchaseEvent(jsonEncode(items), checkoutSummary.value.grandTotalValue);
       }
 
-      // Additional logic for payment handling can be added here
     } catch (e) {
+      Get.back(); // Ensure the loader is closed in case of an error
       print('Error in onPressProceed: $e');
-      // Handle the error appropriately, e.g., show a dialog or log it.
+      AppHelperFunctions.showToast('An error occurred. Please try again.');
     }
   }
+
 
   Future<bool> validateCheckoutDetails() async {
     // if (checkoutSummary.value.grandTotalValue == 0.00) {

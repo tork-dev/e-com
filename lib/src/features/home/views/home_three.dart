@@ -2,10 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/state_manager.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/widgets/containers/horizontal_scroll_product_card.dart';
@@ -20,9 +16,7 @@ import 'package:kirei/src/features/home/views/widgets/home_review_section.dart';
 import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'widgets/home_appbar_title.dart';
 import 'widgets/home_shop_by_concern.dart';
 import 'widgets/surprise_section.dart';
@@ -202,7 +196,7 @@ class HomeThree extends StatelessWidget {
                 );
               }
               ),
-              const Gap(70),
+              const Gap(100),
             ]));
   }
 }

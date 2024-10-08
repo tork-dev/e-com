@@ -398,6 +398,34 @@ class AppHelperFunctions {
     );
   }
 
+  static Future<void> showLoaderDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // Prevents closing the dialog by tapping outside
+      builder: (BuildContext context) {
+        return const Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Ensures the dialog won't take full screen
+              children: [
+                CircularProgressIndicator(color: AppColors.primary,), // Loader
+                SizedBox(height: 20), // Space between loader and text
+                Text(
+                  "Please wait...",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 
 
 

@@ -39,34 +39,37 @@ class AppLayoutWithDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: !backToHome,
-      onPopInvoked: (pop) {
-        !inHome
-            ? Get.offAll(() => const HelloConvexAppBar(
-                  pageIndex: 0,
-                ))
-            : null;
-      },
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: PopScope(
+        canPop: !backToHome,
+        onPopInvoked: (pop) {
+          !inHome
+              ? Get.offAll(() => const HelloConvexAppBar(
+                    pageIndex: 0,
+                  ))
+              : null;
+        },
 
-      child: Scaffold(
-        backgroundColor: bodyBackgroundColor,
-        resizeToAvoidBottomInset: true,
-        key: globalKey,
-        drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
-        endDrawer: hasEndDrawer ? const AppEndDrawer() : null,
-        appBar: CustomAppBar(
-          title: title,
-          showBackArrow: false,
-          leadingIcon: Icons.menu,
-          leadingOnPress: () => globalKey.currentState!.openDrawer(),
-          centerTitle: centerTitle,
-          backgroundColor: backgroundColor,
-          leadingIconColor: leadingIconColor,
-          actions: action,
+        child: Scaffold(
+          backgroundColor: bodyBackgroundColor,
+          resizeToAvoidBottomInset: true,
+          key: globalKey,
+          drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
+          endDrawer: hasEndDrawer ? const AppEndDrawer() : null,
+          appBar: CustomAppBar(
+            title: title,
+            showBackArrow: false,
+            leadingIcon: Icons.menu,
+            leadingOnPress: () => globalKey.currentState!.openDrawer(),
+            centerTitle: centerTitle,
+            backgroundColor: backgroundColor,
+            leadingIconColor: leadingIconColor,
+            actions: action,
+          ),
+          body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: padding), child: body),
         ),
-        body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: padding), child: body),
       ),
     );
   }
