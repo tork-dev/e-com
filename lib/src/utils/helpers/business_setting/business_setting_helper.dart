@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/on_boarding/controllers/on_boarding_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../helper_functions.dart';
@@ -11,7 +12,7 @@ class BusinessSettingHelper extends GetxController{
   RxInt intervalTime = 0.obs;
   RxBool isSpinnerActive = false.obs;
    Future<void> setBusinessSettingData() async {
-
+     OnBoardingController onBoardingController = OnBoardingController.instance;
 
     BusinessSettingResponse businessLists =
         await BusinessSettingRepository().getBusinessSettingList();
@@ -57,7 +58,7 @@ class BusinessSettingHelper extends GetxController{
       }
     }
 
-    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == null && isSpinnerActive.value){
+    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == null && isSpinnerActive.value && onBoardingController.spinnerActive.value){
       Future.delayed(const Duration(seconds: 10),
               () => AppHelperFunctions().showAlertForFirstTime());
       return;

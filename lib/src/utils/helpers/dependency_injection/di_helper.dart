@@ -14,6 +14,7 @@ import 'package:kirei/src/features/group_shopping/controller/group_shopping_cont
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/influencer_store/controller/influencer_store_controller.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_controller.dart';
+import 'package:kirei/src/features/on_boarding/controllers/on_boarding_controller.dart';
 import 'package:kirei/src/features/personalization/controller/account_details_controller.dart';
 import 'package:kirei/src/features/personalization/controller/user_controller.dart';
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
@@ -24,6 +25,7 @@ import 'package:kirei/src/utils/helpers/network_manager.dart';
 
 class DependencyInjection {
   static Future init() async{
+    Get.lazyPut(()=>OnBoardingController());
     Get.lazyPut(()=>NetworkManager());
     Get.lazyPut(()=>CommonController());
     Get.lazyPut(()=>SplashController());

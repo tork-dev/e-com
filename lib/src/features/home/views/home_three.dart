@@ -16,6 +16,7 @@ import 'package:kirei/src/features/home/views/widgets/home_review_section.dart';
 import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'widgets/home_appbar_title.dart';
 import 'widgets/home_shop_by_concern.dart';
@@ -145,6 +146,8 @@ class HomeThree extends StatelessWidget {
               }),
               Obx(() {
                 return HomeImageTitleAndButtonSection(
+                  showBg: false,
+                  fit: BoxFit.cover,
                   sectionName: controller.homeProductResponse.value.homepageSettings?.groupShopping,
                   showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false,
                 );
@@ -191,6 +194,7 @@ class HomeThree extends StatelessWidget {
                ),
               Obx(() {
                 return HomeImageTitleAndButtonSection(
+                  bgUrl: AppImages.kireiTubeBg,
                   sectionName: controller.homeProductResponse.value.homepageSettings?.kireitube,
                   showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.kireitube ?? false,
                 );

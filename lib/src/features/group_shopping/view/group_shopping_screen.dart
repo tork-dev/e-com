@@ -26,7 +26,7 @@ class GroupShoppingScreen extends StatelessWidget {
         padding: 0,
         title: const Text(
           'Group Shopping',
-          style: TextStyle(color: AppColors.primary),
+          style: TextStyle(color: AppColors.secondary),
         ),
         centerTitle: true,
         body: AppLayoutWithRefresher(

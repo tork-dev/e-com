@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/group_shopping/model/group_shopping_products_model.dart';
@@ -40,6 +42,8 @@ class GroupShoppingController extends GetxController{
 
   final ScrollController scrollController = ScrollController();
 
+  Rx<DateTime> endTime = DateTime.now().obs;
+
 
 
   @override
@@ -66,6 +70,8 @@ class GroupShoppingController extends GetxController{
     groupShoppingProduct.value = await GroupShoppingRepo().getGroupShoppingProducts();
     groupShoppingGroup.value = await GroupShoppingRepo().getGroupShoppingGroups();
     hittingApi.value = false;
+    hittingApi.value = false;
+    startCountdown(endTime.value);
   }
 
   Future<CityResponse> getCityList() async {
@@ -116,6 +122,47 @@ class GroupShoppingController extends GetxController{
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
   }
 
+
+  RxString remainingTime = ''.obs;
+  Timer? _timer;
+
+  // Method to start the countdown
+  void startCountdown(DateTime endTime) {
+    _updateRemainingTime(endTime); // Update initially
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _updateRemainingTime(endTime);
+    });
+  }
+
+  // Method to stop the countdown
+  void stopCountdown() {
+    _timer?.cancel();
+  }
+
+  // Helper function to calculate remaining time and update the string
+  void _updateRemainingTime(DateTime endTime) {
+    Duration difference = endTime.difference(DateTime.now());
+
+    if (difference.isNegative) {
+      remainingTime.value = "Time's up!";
+      stopCountdown(); // Stop the timer when the countdown ends
+    } else {
+      int hours = difference.inHours;
+      int minutes = difference.inMinutes.remainder(60);
+      int seconds = difference.inSeconds.remainder(60);
+
+      remainingTime.value = '${hours.toString().padLeft(2, '0')}:'
+          '${minutes.toString().padLeft(2, '0')}:'
+          '${seconds.toString().padLeft(2, '0')}';
+    }
+  }
+
+  @override
+  void onClose() {
+    stopCountdown(); // Clean up the timer when the controller is destroyed
+    super.onClose();
+  }
 
 
 

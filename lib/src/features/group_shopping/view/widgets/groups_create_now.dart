@@ -39,7 +39,7 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                     groupShoppingController
                         .groupShoppingGroup.value.justCreated!.isNotEmpty
                 ? SizedBox(
-                    height: 400,
+                    height: 410,
                     child: AppListViewLayout(
                         itemCount: groupShoppingController.hittingApi.value
                             ? 5
@@ -59,19 +59,59 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      AppBannerImage(
-                                          width: 205,
-                                          height: 115,
-                                          fit: BoxFit.cover,
-                                          applyImageRadius: false,
-                                          isNetworkImage: true,
-                                          imgUrl: groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![index]
-                                                  .product
-                                                  ?.thumbnailImage ??
-                                              ''),
+                                      Stack(
+                                        children: [
+                                          AppBannerImage(
+                                            height: 120,
+                                            width: 215,
+                                            fit: BoxFit.contain,
+                                            imgUrl: groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![index]
+                                                    .product
+                                                    ?.thumbnailImage ??
+                                                '',
+                                            isNetworkImage: true,
+                                            applyImageRadius: false,
+                                          ),
+                                          AppCardContainer(
+                                              applyRadius: false,
+                                              backgroundColor:
+                                                  const Color(0xffE4F7E8),
+                                              padding: const EdgeInsets.all(
+                                                  AppSizes.xs),
+                                              child: Obx(() {
+                                                groupShoppingController
+                                                        .endTime.value =
+                                                    groupShoppingController
+                                                        .groupShoppingGroup
+                                                        .value
+                                                        .justCreated![index]
+                                                        .expiredAt!;
+                                                return RichText(
+                                                  text: TextSpan(
+                                                      text: 'Duration: ',
+                                                      style: const TextStyle(
+                                                          fontSize: 8,
+                                                          color: AppColors
+                                                              .secondary),
+                                                      children: [
+                                                        TextSpan(
+                                                            text: groupShoppingController
+                                                                .remainingTime
+                                                                .value,
+                                                            style: const TextStyle(
+                                                                color: AppColors
+                                                                    .primary,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold))
+                                                      ]),
+                                                );
+                                              }))
+                                        ],
+                                      ),
                                       const Gap(AppSizes.sm),
                                       Row(
                                         mainAxisAlignment:

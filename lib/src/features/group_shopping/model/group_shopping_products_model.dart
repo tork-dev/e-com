@@ -46,11 +46,14 @@ class Datum {
   int? preorderAvailable;
   int? requestAvailable;
   String? preorderDeliveryDate;
-  dynamic preorderAmount;
+  int? preorderAmount;
   String? preorderStartDate;
   String? preorderEndDate;
   int? saleCount;
   int? last30DaySaleCount;
+  int? groupMemberQuantity;
+  int? groupDuration;
+  String? groupToken;
   int? ratings;
   int? reviews;
   int? isHot;
@@ -101,6 +104,9 @@ class Datum {
     this.preorderEndDate,
     this.saleCount,
     this.last30DaySaleCount,
+    this.groupMemberQuantity,
+    this.groupDuration,
+    this.groupToken,
     this.ratings,
     this.reviews,
     this.isHot,
@@ -156,6 +162,9 @@ class Datum {
     preorderEndDate: json["preorder_end_date"],
     saleCount: json["sale_count"],
     last30DaySaleCount: json["last_30_day_sale_count"],
+    groupMemberQuantity: json["group_member_quantity"],
+    groupDuration: json["group_duration"],
+    groupToken: json["group_token"],
     ratings: json["ratings"],
     reviews: json["reviews"],
     isHot: json["is_hot"],
@@ -207,6 +216,9 @@ class Datum {
     "preorder_end_date": preorderEndDate,
     "sale_count": saleCount,
     "last_30_day_sale_count": last30DaySaleCount,
+    "group_member_quantity": groupMemberQuantity,
+    "group_duration": groupDuration,
+    "group_token": groupToken,
     "ratings": ratings,
     "reviews": reviews,
     "is_hot": isHot,

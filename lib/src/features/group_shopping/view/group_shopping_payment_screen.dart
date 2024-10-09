@@ -17,7 +17,7 @@ class GroupShoppingPaymentScreen extends StatelessWidget {
     final productId = Get.parameters["productId"];
 
     return  AppLayoutWithBackButton(
-      title: const Text('Group Shopping', style: TextStyle(color: AppColors.primary),),
+      title: const Text('Group Shopping', style: TextStyle(color: AppColors.secondary),),
         centerTitle: true,
         body: Padding(
           padding: const EdgeInsets.only(bottom: AppSizes.defaultSpace),
