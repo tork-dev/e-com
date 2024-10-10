@@ -38,9 +38,9 @@ class AppImages {
   static const String aiIcon = "assets/images/icons/ai_icon.png";
 
   // -- OnBoarding images
-  static const String onBoardingImage1 = "assets/images/on_boarding_images/sammy-line-searching.gif";
-  static const String onBoardingImage2 = "assets/images/on_boarding_images/sammy-line-shopping.gif";
-  static const String onBoardingImage3 = "assets/images/on_boarding_images/sammy-line-delivery.gif";
+  static const String onBoardingImage1 = "assets/images/on_boarding_images/ask_expert.gif";
+  static const String onBoardingImage2 = "assets/images/on_boarding_images/chose_product.gif";
+  static const String onBoardingImage3 = "assets/images/on_boarding_images/delivery.gif";
 
   //Banners
   static const String kireiYoutube = "assets/images/banners/kireibd-youtube.png";
