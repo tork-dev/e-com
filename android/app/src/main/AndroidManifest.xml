@@ -76,7 +76,7 @@
 
                <data android:scheme="http"/>
                <data android:scheme="https"/>
-               <data android:host="beta.kireibd.com"/>
+               <data android:host="kireibd.com"/>
             </intent-filter>
 
             <!-- Notification Click Intent -->

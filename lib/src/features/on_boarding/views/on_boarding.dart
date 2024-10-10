@@ -24,12 +24,12 @@ class OnBoarding extends StatelessWidget {
               OnBoardingPage(
                 imagePath: AppImages.onBoardingImage1,
                 titleText: AppTexts.onBoardingTitle1,
-                subtitleText: AppTexts.onBoardingSubTitle2,
+                subtitleText: AppTexts.onBoardingSubTitle1,
               ),
               OnBoardingPage(
                 imagePath: AppImages.onBoardingImage2,
                 titleText: AppTexts.onBoardingTitle2,
-                subtitleText: AppTexts.onBoardingSubTitle1,
+                subtitleText: AppTexts.onBoardingSubTitle2,
               ),
               OnBoardingPage(
                 imagePath: AppImages.onBoardingImage3,

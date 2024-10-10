@@ -406,10 +406,10 @@ class AppDrawer extends StatelessWidget {
                         AuthHelper().clearUserData();
                         Get.offAll(() => const HelloConvexAppBar());
                       }),
-                  AppDrawerCard(
-                    title: 'influencer store'.toUpperCase(),
-                    onPress: () => Get.offAll(() => const InfluencerStore()),
-                  ),
+                  // AppDrawerCard(
+                  //   title: 'influencer store'.toUpperCase(),
+                  //   onPress: () => Get.offAll(() => const InfluencerStore()),
+                  // ),
                 ],
               )),
           const Gap(AppSizes.xs),

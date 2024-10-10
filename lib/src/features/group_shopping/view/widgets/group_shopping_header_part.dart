@@ -234,6 +234,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                                                 const SizedBox(height: 20),
                                                                 AppButtons.largeFlatFilledButton(
                                                                     onPressed: (){
+                                                                      Get.back();
                                                                       Get.toNamed(
                                                                           '/group-shopping/${product.groupToken}',
                                                                           parameters: {

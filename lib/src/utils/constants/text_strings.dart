@@ -16,9 +16,9 @@ class AppTexts {
   static const String onBoardingTitle2 = "Choose your product";
   static const String onBoardingTitle3 = "Get door-step delivery";
 
-  static const String onBoardingSubTitle1 = "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";
-  static const String onBoardingSubTitle2 = "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!";
-  static const String onBoardingSubTitle3 = "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery!";
+  static const String onBoardingSubTitle1 = "Get expert advice and personalized beauty care solutions, designed for your unique needs!";
+  static const String onBoardingSubTitle2 = "Explore curated beauty products designed to fit your personal care needs!";
+  static const String onBoardingSubTitle3 = "Enjoy fast, reliable delivery of your favorite beauty products, straight to your doorstep!";
 
 
   // -- Authentication Forms

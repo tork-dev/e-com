@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/kirei-tube/:id', page: ()=> const KireiTubeDetailsScreen()),
           GetPage(name: '/group-shopping', page: ()=> const GroupShoppingScreen()),
           GetPage(name: '/group-shopping/:id', page: ()=> const GroupShoppingPaymentScreen()),
-          GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
+          // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
         ],
 
         //navigatorKey: navigatorKey,
