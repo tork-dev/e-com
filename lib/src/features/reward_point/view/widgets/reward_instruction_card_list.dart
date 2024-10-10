@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/reward_point/view/widgets/reward_instruction_card.dart';
@@ -11,13 +12,14 @@ class RewardInstructionCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return  Column(
       children: [
         InkWell(
           onTap: (){
-            Get.to(() => const WebViewScreen(
+            Get.to(() => WebViewScreen(
                 title: 'Earn points',
-                url: "https://kireibd.com/earn-points?type=app"));
+                url: "$baseUrlWeb/earn-points?type=app"));
           },
           child: const RewardInstructionCard(
             imgUrl: 'assets/images/icons/earn_reward.png',
@@ -28,9 +30,9 @@ class RewardInstructionCardList extends StatelessWidget {
         const Gap(AppSizes.spaceBtwItems),
         InkWell(
           onTap: (){
-            Get.to(() => const WebViewScreen(
+            Get.to(() => WebViewScreen(
                 title: 'Redeem points',
-                url: "https://kireibd.com/redeem-points?type=app"));
+                url: "$baseUrlWeb/redeem-points?type=app"));
           },
           child: const RewardInstructionCard(
             imgUrl: 'assets/images/icons/redeem_reward.png',

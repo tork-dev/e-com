@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -34,6 +35,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
+    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return Obx(() {
       return Visibility(
         visible: showTheSection,
@@ -92,7 +94,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                             onTap: () {
                               print(sectionName?.route);
                               RoutingHelper.urlRouting(sectionName?.route ??
-                                  'https://kireibd.com/kirei-tube');
+                                  '$baseUrlWeb/kirei-tube');
                             },
                             backgroundColor: AppColors.secondary,
                             applyRadius: false,
@@ -104,11 +106,6 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                // const AppBannerImage(
-                                //     height: 40,
-                                //     width: 40,
-                                //     imgUrl: AppImages.aiIcon),
-                                // const Gap(AppSizes.sm),
                                 Text(
                                   sectionName?.btnName ?? '',
                                   style:

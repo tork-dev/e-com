@@ -1,5 +1,7 @@
 import 'dart:math';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
@@ -36,6 +38,7 @@ class AppDrawer extends StatelessWidget {
     final drawerController = Get.put(AppDrawerController());
     final shopController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
+    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
       width: 300,
@@ -268,8 +271,8 @@ class AppDrawer extends StatelessWidget {
           AppDrawerCard(
             title: 'blog'.toUpperCase(),
             onPress: () {
-              Get.to(() => const WebViewScreen(
-                  url: "https://kireibd.com/blogs?type=app", title: 'Blogs'));
+              Get.to(() =>  WebViewScreen(
+                  url: "$baseUrlWeb/blogs?type=app", title: 'Blogs'));
             },
           ),
           ExpansionTile(
@@ -323,65 +326,65 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'who we are?'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
-                        url: 'https://kireibd.com/about-us?type=app',
+                    Get.to(() =>  WebViewScreen(
+                        url: '$baseUrlWeb/about-us?type=app',
                         title: 'Who We Are?'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'faqs'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
-                        url: 'https://kireibd.com/faq?type=app',
+                    Get.to(() =>  WebViewScreen(
+                        url: '$baseUrlWeb/faq?type=app',
                         title: 'FAQs'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'contact us'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
-                        url: 'https://kireibd.com/contact-us?type=app',
+                    Get.to(() =>  WebViewScreen(
+                        url: '$baseUrlWeb/contact-us?type=app',
                         title: 'Contact us'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'testimonials'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
-                        url: 'https://kireibd.com/testimonial?type=app',
+                    Get.to(() =>  WebViewScreen(
+                        url: '$baseUrlWeb/testimonial?type=app',
                         title: 'Testimonials'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'privacy & policy'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
-                        url: 'https://kireibd.com/privacy-policy?type=app',
+                    Get.to(() =>  WebViewScreen(
+                        url: '$baseUrlWeb/privacy-policy?type=app',
                         title: 'Privacy & Policy'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'terms & condition'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
-                        url: 'https://kireibd.com/term-condition?type=app',
+                    Get.to(() =>  WebViewScreen(
+                        url: '$baseUrlWeb/term-condition?type=app',
                         title: 'Terms & Conditions'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'returns & refunds'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
-                        url: 'https://kireibd.com/return-refund?type=app',
+                    Get.to(() =>  WebViewScreen(
+                        url: '$baseUrlWeb/return-refund?type=app',
                         title: 'Returns & Refunds'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'responsibility disclosure'.capitalize!,
                   onPress: () {
-                    Get.to(() => const WebViewScreen(
+                    Get.to(() =>  WebViewScreen(
                         url:
-                            'https://kireibd.com/responsible-disclosure?type=app',
+                            '$baseUrlWeb/responsible-disclosure?type=app',
                         title: 'Responsible Disclosure'));
                   },
                 ),

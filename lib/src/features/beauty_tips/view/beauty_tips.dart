@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
@@ -18,6 +19,7 @@ class BeautyTipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(BeautyTipsController());
+    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppLayoutWithDrawer(
       backToHome: true,
       isFromOtherPage: true,
@@ -32,8 +34,8 @@ class BeautyTipsScreen extends StatelessWidget {
               children: [
                  AppBannerImage(
                   onPress: (){
-                    Get.to(()=> const WebViewScreen(
-                        url: 'https://kireibd.com/blogs?type=app',
+                    Get.to(()=> WebViewScreen(
+                        url: '$baseUrlWeb/blogs?type=app',
                         title: 'Blogs'));
                   },
                     imgUrl: AppImages.beautyTipsOne),

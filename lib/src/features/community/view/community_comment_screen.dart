@@ -78,7 +78,7 @@ class CommunityCommentScreen extends StatelessWidget {
                                       width: 50,
                                       isNetworkImage: true,
                                       imgUrl:
-                                          "https://appbeta.kireibd.com/${controller.communityCommentResponse.value.data![index].customerAvatar}",
+                                          controller.communityCommentResponse.value.data![index].customerAvatar,
                                     ),
                                     title: Text(controller
                                         .communityCommentResponse

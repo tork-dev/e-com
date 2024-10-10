@@ -16,8 +16,8 @@ class AppTexts {
   static const String onBoardingTitle2 = "Choose your product";
   static const String onBoardingTitle3 = "Get door-step delivery";
 
-  static const String onBoardingSubTitle1 = "Get expert advice and personalized beauty care solutions, designed for your unique needs!";
-  static const String onBoardingSubTitle2 = "Explore curated beauty products designed to fit your personal care needs!";
+  static const String onBoardingSubTitle1 = "Get personalised advice from our expert consultants. Start it by saying 'hi' in our chat box!";
+  static const String onBoardingSubTitle2 = "Choose the best according to your needs- your perfect product awaits!";
   static const String onBoardingSubTitle3 = "Enjoy fast, reliable delivery of your favorite beauty products, straight to your doorstep!";
 
 

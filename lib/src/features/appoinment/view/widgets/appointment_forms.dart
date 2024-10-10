@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
@@ -75,7 +76,7 @@ class AppAppointmentForms extends StatelessWidget {
                   title: Align(
                     alignment: Alignment.centerLeft,
                     child: Image.network(
-                      'https://app.kireibd.com/assets/img/cards/bkash.png',
+                      AppImages.bKashIcon,
                       height: 30,
                     ),
                   ),
@@ -93,8 +94,8 @@ class AppAppointmentForms extends StatelessWidget {
                 RadioListTile(
                   title: Align(
                     alignment: Alignment.centerLeft,
-                    child: Image.network(
-                      'https://app.kireibd.com/assets/img/cards/sslcommerz.png',
+                    child: Image.asset(
+                      AppImages.sslIcon,
                       height: 30,
                     ),
                   ),

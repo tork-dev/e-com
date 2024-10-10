@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
@@ -21,6 +22,7 @@ class ShopSubCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     GetShopDataController shopController = GetShopDataController.instance;
     ConvexBottomNavController bottomNavController = ConvexBottomNavController.instance;
+    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.sm,
@@ -55,7 +57,7 @@ class ShopSubCategory extends StatelessWidget {
                                 isNetworkImage: true,
                                 imgUrl: shopController
                                         .subCategoryResponse[index].icon ??
-                                    'https://kireibd.com/images/home/categories/New-Arrivals.png',
+                                    '$baseUrlWeb/images/home/categories/New-Arrivals.png',
                               ),
                               const Gap(AppSizes.xs),
                               Text(

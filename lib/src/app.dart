@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,6 +14,8 @@ import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dar
 import 'package:kirei/src/features/influencer_store/view/influencer_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/update_controller.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:upgrader/upgrader.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
@@ -41,6 +44,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return GetMaterialApp(
         // navigatorKey: navigatorKey,
         initialBinding: GeneralBindings(),
@@ -87,17 +91,17 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/community', page: () => const CommunityScreen()),
           GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
           GetPage(name: '/order/:id', page: () => const PurchaseHistoryDetails()),
-          GetPage(name: '/blogs', page: () => const WebViewScreen(url: 'https://kireibd.com/blogs?type=app', title: 'Bogs')),
-          GetPage(name: '/about-us', page: () => const WebViewScreen(url: 'https://kireibd.com/about-us?type=app', title: 'Who We Are?')),
-          GetPage(name: '/faq', page: () => const WebViewScreen(url: 'https://kireibd.com/faq?type=app', title: 'FAQs')),
-          GetPage(name: '/contact-us', page: () => const WebViewScreen(url: 'https://kireibd.com/contact-us?type=app', title: 'Contact Us')),
-          GetPage(name: '/testimonials', page: () => const WebViewScreen(url: 'https://kireibd.com/testimonials?type=app', title: 'Testimonials')),
-          GetPage(name: '/testimonials', page: () => const WebViewScreen(url: 'https://kireibd.com/testimonials?type=app', title: 'Testimonials')),
-          GetPage(name: '/privacy-policy', page: () => const WebViewScreen(url: 'https://kireibd.com/privacy-policy?type=app', title: 'Privacy & Policy')),
-          GetPage(name: '/term-condition', page: () => const WebViewScreen(url: 'https://kireibd.com/term-condition?type=app', title: 'Terms & Conditions')),
-          GetPage(name: '/return-refund', page: () => const WebViewScreen(url: 'https://kireibd.com/return-refund?type=app', title: 'Returns & Refunds')),
-          GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
-          GetPage(name: '/responsible-disclosure', page: () => const WebViewScreen(url: 'https://kireibd.com/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
+          GetPage(name: '/blogs', page: () => WebViewScreen(url: '$baseUrlWeb/blogs?type=app', title: 'Bogs')),
+          GetPage(name: '/about-us', page: () =>  WebViewScreen(url: '$baseUrlWeb/about-us?type=app', title: 'Who We Are?')),
+          GetPage(name: '/faq', page: () =>  WebViewScreen(url: '$baseUrlWeb/faq?type=app', title: 'FAQs')),
+          GetPage(name: '/contact-us', page: () =>  WebViewScreen(url: '$baseUrlWeb/contact-us?type=app', title: 'Contact Us')),
+          GetPage(name: '/testimonials', page: () =>  WebViewScreen(url: '$baseUrlWeb/testimonials?type=app', title: 'Testimonials')),
+          GetPage(name: '/testimonials', page: () =>  WebViewScreen(url: '$baseUrlWeb/testimonials?type=app', title: 'Testimonials')),
+          GetPage(name: '/privacy-policy', page: () =>  WebViewScreen(url: '$baseUrlWeb/privacy-policy?type=app', title: 'Privacy & Policy')),
+          GetPage(name: '/term-condition', page: () =>  WebViewScreen(url: '$baseUrlWeb/term-condition?type=app', title: 'Terms & Conditions')),
+          GetPage(name: '/return-refund', page: () =>  WebViewScreen(url: '$baseUrlWeb/return-refund?type=app', title: 'Returns & Refunds')),
+          GetPage(name: '/responsible-disclosure', page: () =>  WebViewScreen(url: '$baseUrlWeb/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
+          GetPage(name: '/responsible-disclosure', page: () =>  WebViewScreen(url: '$baseUrlWeb/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
           GetPage(name: '/reward', page: ()=> const RewardScreen()),
           GetPage(name: '/point-redemption', page: ()=> const PointRedemption()),
           GetPage(name: '/reward-levels', page: ()=> const RewardPointLevelScreen()),

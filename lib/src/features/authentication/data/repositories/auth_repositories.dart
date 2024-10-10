@@ -15,47 +15,6 @@ import '../../model/signup_model.dart';
 import '../../views/log_in/model/login_response.dart';
 
 class AuthRepository extends GetxController {
-  // Future<LoginResponse> loginWithEmail(String email, String password,
-  //     bool rememberMe, BuildContext context) async {
-  //   var postBody = jsonEncode({
-  //     "email": email,
-  //     "password": password,
-  //     "remember_me": rememberMe,
-  //     "version": "2.0.0",
-  //   });
-  //
-  //   Uri url = Uri.parse("${ENDP.LOGIN}");
-  //   final response = await http.post(url,
-  //       headers: {
-  //         "Accept": "*/*",
-  //         "Content-Type": "application/json",
-  //        // "App-Language": app_language.$,
-  //       },
-  //       body: postBody);
-  //   print(response.body.toString());
-  //   return loginResponseFromJson(response.body);
-  // }
-  //
-  // Future<LoginResponse> loginWithOtp(
-  //     String phone, BuildContext context) async {
-  //   var postBody = jsonEncode({
-  //     "email": phone,
-  //     "version": "2.0.0",
-  //   });
-  //
-  //   Uri url = Uri.parse("${AppConfig.BASE_URL}/send-login-otp");
-  //   final response = await http.post(url,
-  //       headers: {
-  //         "Accept": "*/*",
-  //         "Content-Type": "application/json",
-  //        // "App-Language": app_language.$,
-  //       },
-  //       body: postBody);
-  //   print(response.body);
-  //   return loginResponseFromJson(response.body);
-  // }
-
-  //static const String baseUrl = 'https://appbeta.kireibd.com/api/v2';
 
   Future<AppLoginResponse> getSocialLoginResponse(
     String? socialProvider,
