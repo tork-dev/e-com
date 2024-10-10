@@ -14,13 +14,15 @@ import '../../address/repositories/address_repositories.dart';
 import '../model/group_checkout_model.dart';
 import '../model/group_shopping_groups.dart';
 
-class GroupShoppingController extends GetxController{
+class GroupShoppingController extends GetxController {
   static GroupShoppingController get instance => Get.find();
 
   RxBool hittingApi = false.obs;
 
-  Rx<GroupShoppingProductsResponse> groupShoppingProduct = GroupShoppingProductsResponse().obs;
-  Rx<GroupShoppingGroupsResponse> groupShoppingGroup = GroupShoppingGroupsResponse().obs;
+  Rx<GroupShoppingProductsResponse> groupShoppingProduct =
+      GroupShoppingProductsResponse().obs;
+  Rx<GroupShoppingGroupsResponse> groupShoppingGroup =
+      GroupShoppingGroupsResponse().obs;
 
   Rx<CityResponse> cityList = CityResponse().obs;
   Rx<ZoneResponse> zoneList = ZoneResponse().obs;
@@ -42,9 +44,10 @@ class GroupShoppingController extends GetxController{
 
   final ScrollController scrollController = ScrollController();
 
-  Rx<DateTime> endTime = DateTime.now().obs;
+  Rxn<DateTime> endTime = Rxn<DateTime>();
 
-
+  RxString remainingTime = ''.obs;
+  Timer? _timer;
 
   @override
   void onInit() {
@@ -52,7 +55,7 @@ class GroupShoppingController extends GetxController{
     onRefresh();
   }
 
-  Future<void> onRefresh()async{
+  Future<void> onRefresh() async {
     print('refresh');
     getProducts();
   }
@@ -65,13 +68,22 @@ class GroupShoppingController extends GetxController{
     );
   }
 
-  Future<void> getProducts() async{
+  Future<void> getProducts() async {
     hittingApi.value = true;
-    groupShoppingProduct.value = await GroupShoppingRepo().getGroupShoppingProducts();
-    groupShoppingGroup.value = await GroupShoppingRepo().getGroupShoppingGroups();
+    groupShoppingProduct.value =
+    await GroupShoppingRepo().getGroupShoppingProducts();
+    groupShoppingGroup.value =
+    await GroupShoppingRepo().getGroupShoppingGroups();
     hittingApi.value = false;
-    hittingApi.value = false;
-    startCountdown(endTime.value);
+
+    // Set end time and start the countdown
+    if (groupShoppingGroup.value.popular != null &&
+        groupShoppingGroup.value.popular!.isNotEmpty) {
+      endTime.value = groupShoppingGroup.value.popular![0].expiredAt;
+      if (endTime.value != null) {
+        startCountdown(endTime.value!);
+      }
+    }
   }
 
   Future<CityResponse> getCityList() async {
@@ -87,8 +99,6 @@ class GroupShoppingController extends GetxController{
     return areaList.value =
     await AddressRepositories().getAreas(selectedZoneId);
   }
-
-
 
   Future<void> createGroup(productId) async {
     checkoutResponse.value = await GroupShoppingRepo().createAGroup(
@@ -106,7 +116,6 @@ class GroupShoppingController extends GetxController{
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
   }
 
-
   Future<void> joinGroup(token, productId) async {
     checkoutResponse.value = await GroupShoppingRepo().createAGroup(
         '${AppApiEndPoints.joinGroup}/$token',
@@ -121,10 +130,6 @@ class GroupShoppingController extends GetxController{
         noteController.text.toString());
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
   }
-
-
-  RxString remainingTime = ''.obs;
-  Timer? _timer;
 
   // Method to start the countdown
   void startCountdown(DateTime endTime) {
@@ -142,7 +147,11 @@ class GroupShoppingController extends GetxController{
 
   // Helper function to calculate remaining time and update the string
   void _updateRemainingTime(DateTime endTime) {
-    Duration difference = endTime.difference(DateTime.now());
+    DateTime now = DateTime.now();
+    print('Current time: $now');
+    print('End time: $endTime');
+
+    Duration difference = endTime.difference(now);
 
     if (difference.isNegative) {
       remainingTime.value = "Time's up!";
@@ -152,9 +161,9 @@ class GroupShoppingController extends GetxController{
       int minutes = difference.inMinutes.remainder(60);
       int seconds = difference.inSeconds.remainder(60);
 
-      remainingTime.value = '${hours.toString().padLeft(2, '0')}:'
-          '${minutes.toString().padLeft(2, '0')}:'
-          '${seconds.toString().padLeft(2, '0')}';
+      remainingTime.value = '${hours.toString().padLeft(2, '0')}h:'
+          '${minutes.toString().padLeft(2, '0')}m:'
+          '${seconds.toString().padLeft(2, '0')}s';
     }
   }
 
@@ -163,8 +172,4 @@ class GroupShoppingController extends GetxController{
     stopCountdown(); // Clean up the timer when the controller is destroyed
     super.onClose();
   }
-
-
-
-
 }

@@ -75,7 +75,7 @@ class AppAppointmentForms extends StatelessWidget {
                 RadioListTile(
                   title: Align(
                     alignment: Alignment.centerLeft,
-                    child: Image.network(
+                    child: Image.asset(
                       AppImages.bKashIcon,
                       height: 30,
                     ),
