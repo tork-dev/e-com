@@ -18,20 +18,20 @@ class SplashScreen extends StatelessWidget {
 
       backgroundColor: isDark ? AppColors.dark : AppColors.primaryBackground,
       body: Center(
-        child: Image(
+        child: baseUrl!.contains('beta') ?
+        Banner(
+          message: 'BETA',
+          location: BannerLocation.topStart,
+          child: Image(
+            width: AppHelperFunctions.screenWidth() * .3,
+            image: const AssetImage(AppImages.lightAppLogo),
+          ),
+        ) :
+        Image(
           width: AppHelperFunctions.screenWidth() * .3,
           image: const AssetImage(AppImages.lightAppLogo),
         ),
       ),
-      floatingActionButton: Visibility(
-        visible: baseUrl!.contains('beta'),
-        child: Image(
-          width: AppHelperFunctions.screenWidth() * .3,
-          fit: BoxFit.cover,
-          image: const AssetImage(AppImages.betaLogo),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
     );
   }
 }
