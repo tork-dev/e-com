@@ -230,8 +230,9 @@ class GetShopDataController extends GetxController {
         scrollController.jumpTo(currentScrollPosition +
             scrollOffsetDifference); // Maintain position after loading
 
-        update(); // Refresh UI after loading more data
-      } else if (pageNumber.value >= shopPageProduct.value.meta!.lastPage!) {
+      } else if (pageNumber.value >= shopPageProduct.value.meta!.lastPage! && scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent && !isLoadingMore) {
+        isLoadingMore = true;
         AppHelperFunctions.showToast('No more products in this category');
       }
     });

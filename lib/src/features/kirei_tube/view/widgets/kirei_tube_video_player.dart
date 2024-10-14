@@ -1,10 +1,8 @@
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../controller/kirei_tube_details_controller.dart';
 
@@ -17,12 +15,12 @@ class KireiDetailsVideoPlayer extends StatelessWidget {
     return AppCardContainer(
         height: 250,
         child: Obx(() {
-          return controller.flickManager.value == null
+          return controller.youtubeController.value == null
               ? ShimmerHelper().buildBasicShimmer()
               : SizedBox(
             height: 250,
-                child: FlickVideoPlayer(
-                    flickManager: controller.flickManager.value!,
+                child: YoutubePlayer(
+                    controller: controller.youtubeController.value!,
                   ),
               );
         }));

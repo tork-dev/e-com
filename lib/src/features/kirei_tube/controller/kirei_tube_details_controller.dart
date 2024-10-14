@@ -1,9 +1,7 @@
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_details_model.dart';
 import 'package:kirei/src/features/kirei_tube/repositories/kirei_tube_repositories.dart';
-import 'package:video_player/video_player.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 
 class KireiTubeDetailsController extends GetxController{
@@ -12,7 +10,7 @@ class KireiTubeDetailsController extends GetxController{
 
   RxBool hittingApi = false.obs;
   Rx<KireiTubeDetailsResponse> kireiTubeDetailsResponse = KireiTubeDetailsResponse().obs;
-  Rx<FlickManager?> flickManager = Rx<FlickManager?>(null);
+  Rx<YoutubePlayerController?> youtubeController = Rx<YoutubePlayerController?>(null);
   RxString videoSlug = ''.obs;
 
 
@@ -45,24 +43,23 @@ class KireiTubeDetailsController extends GetxController{
   }
 
   Future<void> initializeVideo(String url) async {
-    final yt = YoutubeExplode();
-
-    // Extract video ID from the URL
-    var videoId = VideoId.fromString(url);
-
-    var streamInfo = await yt.videos.streamsClient.getManifest(videoId);
-    var streamUrl = streamInfo.muxed.bestQuality;
-
-    flickManager.value = FlickManager(
-      videoPlayerController: VideoPlayerController.networkUrl(streamUrl.url),
+    try{
+    final videoId = YoutubePlayerController.convertUrlToId(url);
+    // Initialize the controller if not initialized
+    youtubeController.value = YoutubePlayerController.fromVideoId(
+      videoId: videoId!,
+      autoPlay: false,
+      params: const YoutubePlayerParams(showFullscreenButton: true, showControls: true),
     );
-    yt.close(); // Close the YoutubeExplode instance
-  }
+  }catch(e){
+      print("Exception is $e");
+    }
+    }
 
 
   @override
   void onClose() {
-    flickManager.value?.dispose();
+    youtubeController.value?.close();
     super.onClose();
   }
 }
