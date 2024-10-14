@@ -184,6 +184,11 @@ class AppDrawer extends StatelessWidget {
                                                     'By Skin Concern') {
                                                   shopController.goodFor.value =
                                                       children.slug ?? '';
+                                                } else if (child.name ==
+                                                    'By Brand') {
+                                                  shopController.brand.value =
+                                                      children.slug ?? '';
+                                                  print(children.slug);
                                                 } else {
                                                   shopController
                                                           .skinType.value =

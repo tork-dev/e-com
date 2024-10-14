@@ -63,6 +63,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'Purchase',
+      valueToSum: double.parse(itemPrice),
       parameters: {
         'Content_ID': items,
         'Content_Type': 'product',
@@ -89,6 +90,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'AddToWishlist',
+      valueToSum: double.parse(itemPrice),
       parameters: {
         'Content_ID': itemId,
         'Content_Type': 'product',
@@ -116,6 +118,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'AddToCart',
+      valueToSum: double.parse(itemPrice),
       parameters: {
         'Content_ID': itemId,
         'Content_Type': 'product',
@@ -175,6 +178,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'InitiateCheckout',
+      valueToSum: double.parse(subtotalPrice),
       parameters: {
         'Content_ID': cartId,
         'Content_Type': 'product',
@@ -264,6 +268,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'remove_from_cart',
+      valueToSum: double.parse(itemPrice),
       parameters: {
         'Content_ID': itemId,
         'Content_Type': 'product',

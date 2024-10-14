@@ -134,6 +134,7 @@ class HomeController extends GetxController{
     if (!surprisePhoneKey.currentState!.validate()) return;
     surpriseGiftResponse.value = await HomeRepositories().getSurprizResponse(surprisePhoneController.text.toString());
     AppHelperFunctions.showToast(surpriseGiftResponse.value.message!);
+    surprisePhoneController.clear();
   }
 
 

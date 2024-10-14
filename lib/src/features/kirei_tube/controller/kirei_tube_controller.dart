@@ -13,11 +13,12 @@ class KireiTubeController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getVideoList();
+    onRefresh();
   }
 
   Future<void> onRefresh() async{
-    AppLoggerHelper.debug('refresh');
+    getVideoList();
+
   }
 
 

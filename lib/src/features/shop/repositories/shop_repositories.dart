@@ -23,7 +23,9 @@ class ShopRepositories{
     required String search,
     required String keyIngredients,
     required String goodFor,
+    required String brand,
   }) async {
+    print("brand name $brand");
     Map<dynamic, dynamic> parameters = {
       'page': pageNumber,
     };
@@ -55,6 +57,9 @@ class ShopRepositories{
     }
     if (search != "") {
       parameters['search'] = search.toLowerCase().replaceAll(' ', '-');
+    }
+    if (brand != "") {
+      parameters['brand'] = brand.toLowerCase().replaceAll(' ', '-');
     }
 
     // Constructing the query string manually

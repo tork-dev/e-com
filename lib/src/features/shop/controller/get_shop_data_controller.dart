@@ -39,6 +39,7 @@ class GetShopDataController extends GetxController {
   RxString categories = ''.obs;
   RxInt pageNumber = 1.obs;
   RxString type = ''.obs;
+  RxString brand = ''.obs;
 
   @override
   void onInit() {
@@ -82,6 +83,9 @@ class GetShopDataController extends GetxController {
     if (uri.queryParameters.containsKey('min_price')) {
       minimumPriceController.text = uri.queryParameters['min_price'] ?? '';
     }
+    if (uri.queryParameters.containsKey('brand')) {
+      minimumPriceController.text = uri.queryParameters['brand'] ?? '';
+    }
   }
 
   Rx<int?> selectedCategoryIndex = Rx<int?>(null);
@@ -102,6 +106,7 @@ class GetShopDataController extends GetxController {
     categories.value = '';
     pageNumber.value = 1;
     type.value = '';
+    brand.value = '';
     selectedSkinTypes.clear();
     selectedCategoryIndex.value = null; // Correct this line
     isFromCategory.value = false;
@@ -140,6 +145,7 @@ class GetShopDataController extends GetxController {
       categories: categories.value,
       pageNumber: pageNumber.value,
       type: type.value,
+      brand: brand.value
     );
 
     // print(shopPageProduct.value.meta!.lastPage);
