@@ -64,9 +64,9 @@ class GigalogyRepository {
   }
 
   Future<void> sendPurchaseDataEvent(
-      {required List<Map<String, dynamic>> items}) async {
-    final response = await http.post(
-        Uri.parse(AppApiEndPoints.userChoosingEvent),
+      {required items}) async {
+    await http.post(
+        Uri.parse(AppApiEndPoints.purchaseEvent),
         headers: {
           'Content-Type': 'application/json',
           'project-key': projectKey,

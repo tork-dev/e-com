@@ -195,19 +195,6 @@ class CheckoutController extends GetxController {
         orderId: orderCreateResponse.value.data!.order!.id!,
       ));
 
-      // Log purchase event if order is successful
-      if (orderCreateResponse.value.result == true) {
-        final List<Map<String, dynamic>> items = allCartProducts[0].cartItems!.map((item) {
-          return {
-            'item_id': item.productId,
-            'price': item.price,
-            'quantity': item.quantity,
-          };
-        }).toList();
-
-        EventLogger().logPurchaseEvent(jsonEncode(items), checkoutSummary.value.grandTotalValue);
-      }
-
     } catch (e) {
       Get.back(); // Ensure the loader is closed in case of an error
       print('Error in onPressProceed: $e');

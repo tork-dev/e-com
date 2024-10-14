@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.da
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../common/widgets/containers/card_container.dart';
+import '../../../utils/firebase/gtm_events.dart';
 import '../../purchase_history/controller/purchase_history_details_controller.dart';
 import '../../purchase_history/view/purchace_history.dart';
 import 'widget/status_section_details.dart';
@@ -29,6 +32,7 @@ class AppOrderStatusScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller =
         Get.put(PurchaseHistoryDetailsController(orderId: orderId));
+
     return AppLayoutWithoutAppBar(
         title: const Text(
           'Order Status',
@@ -37,6 +41,18 @@ class AppOrderStatusScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
         centerTitle: true,
         body: Obx(() {
+          if (status == true && controller.purchaseHistoryItemDetails.value.data != null) {
+            final List<Map<String, dynamic>> items = controller.purchaseHistoryItemDetails.value.data!.map((item) {
+              return {
+                'item_id': item.productId,
+                'price': double.parse(item.price!.replaceAll('৳', '').replaceAll(',', '')),
+                'quantity': item.quantity,
+              };
+            }).toList();
+            print(items);
+
+            EventLogger().logPurchaseEvent(jsonEncode(items), double.parse(controller.purchaseHistoryDetails.value.data![0].grandTotal!.replaceAll('৳', '').replaceAll(',', '')));
+          }
           return controller.purchaseHistoryDetails.value.data == null
               ? AppListViewLayout(
                   itemCount: 5,

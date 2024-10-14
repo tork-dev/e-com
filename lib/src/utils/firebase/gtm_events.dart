@@ -48,7 +48,7 @@ class EventLogger {
     GigalogyRepository().sendDetailsEvent(itemId);
   }
 
-  void logPurchaseEvent(String items, dynamic itemPrice) async {
+  void logPurchaseEvent(items, dynamic itemPrice) async {
     logEvent('purchase', {
       'user_id': gaipUserId,
       'member_id': memberId,
@@ -63,7 +63,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'Purchase',
-      valueToSum: double.parse(itemPrice),
+      valueToSum: itemPrice.toDouble(),
       parameters: {
         'Content_ID': items,
         'Content_Type': 'product',
@@ -118,7 +118,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'AddToCart',
-      valueToSum: double.parse(itemPrice),
+      valueToSum: itemPrice.toDouble(),
       parameters: {
         'Content_ID': itemId,
         'Content_Type': 'product',
@@ -268,7 +268,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'remove_from_cart',
-      valueToSum: double.parse(itemPrice),
+      valueToSum: itemPrice.toDouble(),
       parameters: {
         'Content_ID': itemId,
         'Content_Type': 'product',
