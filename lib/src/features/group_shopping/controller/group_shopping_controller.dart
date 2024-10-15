@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/group_shopping/model/group_shopping_products_model.dart';
 import 'package:kirei/src/features/group_shopping/repositories/group_shopping_repositories.dart';
-
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../address/model/address_city_model.dart';
@@ -75,15 +73,6 @@ class GroupShoppingController extends GetxController {
     groupShoppingGroup.value =
     await GroupShoppingRepo().getGroupShoppingGroups();
     hittingApi.value = false;
-
-    // Set end time and start the countdown
-    if (groupShoppingGroup.value.popular != null &&
-        groupShoppingGroup.value.popular!.isNotEmpty) {
-      endTime.value = groupShoppingGroup.value.popular![0].expiredAt;
-      if (endTime.value != null) {
-        startCountdown(endTime.value!);
-      }
-    }
   }
 
   Future<CityResponse> getCityList() async {
@@ -114,6 +103,7 @@ class GroupShoppingController extends GetxController {
         noteController.text.toString());
     Get.back();
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
+    onRefresh();
   }
 
   Future<void> joinGroup(token, productId) async {
@@ -148,9 +138,6 @@ class GroupShoppingController extends GetxController {
   // Helper function to calculate remaining time and update the string
   void _updateRemainingTime(DateTime endTime) {
     DateTime now = DateTime.now();
-    print('Current time: $now');
-    print('End time: $endTime');
-
     Duration difference = endTime.difference(now);
 
     if (difference.isNegative) {
