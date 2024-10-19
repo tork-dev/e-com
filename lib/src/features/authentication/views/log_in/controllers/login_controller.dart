@@ -6,6 +6,7 @@ import 'package:kirei/src/features/authentication/data/repositories/auth_reposit
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/user_by_token_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/repository/login_repository.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -23,6 +24,7 @@ import '../model/social_option_model.dart';
 class LogInPageController extends GetxController {
   static LogInPageController get instance => Get.find();
   final String? previousRoute;
+
   LogInPageController({this.previousRoute = '/home'});
 
   //final userController = Get.put(UserController());
@@ -43,7 +45,6 @@ class LogInPageController extends GetxController {
   Rx<UserByTokenResponse> userDataByToken = UserByTokenResponse().obs;
   Rx<SendOtpCodeResponse> sendOtpResponse = SendOtpCodeResponse().obs;
   Rx<SocialOptionsResponse> socialOptionResponse = SocialOptionsResponse().obs;
-
 
   /// Log in with email and password
   Future<void> emailPasswordLogIn() async {
@@ -67,6 +68,7 @@ class LogInPageController extends GetxController {
         rememberMe.value,
       );
       AppLoggerHelper.info(loginResponse.value.toString());
+
       ///Save
       AppLocalStorage()
           .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
@@ -82,6 +84,39 @@ class LogInPageController extends GetxController {
           AuthHelper().setUserData(loginResponse.value);
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
           //await getUserDataByToken();
+
+          if (previousRoute == 'cart') {
+            final cartController = CartController.instance;
+            EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+                double.parse(Get.parameters['sale_price']!));
+
+            if (Get.parameters['request_available'] != '0') {
+              cartController
+                  .getRequestResponse(
+                      productId: int.parse(Get.parameters['product_id']!))
+                  .then((value) => AppHelperFunctions.showToast(
+                      cartController.requestStockResponse.value.message!));
+
+              // AwesomeNotificationController.showNotification();
+            } else {
+              cartController
+                  .getAddToCartResponse(
+                      int.parse(Get.parameters['product_id']!),
+                      1,
+                      int.parse(Get.parameters['preorder_available']!))
+                  .then((value) => {
+                        if (cartController.addToCartResponse.value.result ==
+                            true)
+                          {
+                            cartController.cartCount.value = cartController
+                                    .addToCartResponse.value.cartQuantity ??
+                                0,
+                          },
+                        AppHelperFunctions.showToast(
+                            cartController.addToCartResponse.value.message!)
+                      });
+            }
+          }
           Get.offAllNamed(previousRoute!);
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
@@ -108,6 +143,38 @@ class LogInPageController extends GetxController {
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
         AuthHelper().setUserData(loginResponse.value);
+        if (previousRoute == 'cart') {
+          final cartController = CartController.instance;
+          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+              double.parse(Get.parameters['sale_price']!));
+
+          if (Get.parameters['request_available'] != '0') {
+            cartController
+                .getRequestResponse(
+                productId: int.parse(Get.parameters['product_id']!))
+                .then((value) => AppHelperFunctions.showToast(
+                cartController.requestStockResponse.value.message!));
+
+            // AwesomeNotificationController.showNotification();
+          } else {
+            cartController
+                .getAddToCartResponse(
+                int.parse(Get.parameters['product_id']!),
+                1,
+                int.parse(Get.parameters['preorder_available']!))
+                .then((value) => {
+              if (cartController.addToCartResponse.value.result ==
+                  true)
+                {
+                  cartController.cartCount.value = cartController
+                      .addToCartResponse.value.cartQuantity ??
+                      0,
+                },
+              AppHelperFunctions.showToast(
+                  cartController.addToCartResponse.value.message!)
+            });
+          }
+        }
         Get.offAllNamed(previousRoute!);
         EventLogger().logLoginEvent('Google');
       }
@@ -135,8 +202,40 @@ class LogInPageController extends GetxController {
             accessToken: accessToken?.tokenString);
         if (loginResponse.value.result == true) {
           EventLogger().logLoginEvent('Facebook');
-          Get.offAllNamed(previousRoute!);
           AuthHelper().setUserData(loginResponse.value);
+          if (previousRoute == 'cart') {
+            final cartController = CartController.instance;
+            EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+                double.parse(Get.parameters['sale_price']!));
+
+            if (Get.parameters['request_available'] != '0') {
+              cartController
+                  .getRequestResponse(
+                  productId: int.parse(Get.parameters['product_id']!))
+                  .then((value) => AppHelperFunctions.showToast(
+                  cartController.requestStockResponse.value.message!));
+
+              // AwesomeNotificationController.showNotification();
+            } else {
+              cartController
+                  .getAddToCartResponse(
+                  int.parse(Get.parameters['product_id']!),
+                  1,
+                  int.parse(Get.parameters['preorder_available']!))
+                  .then((value) => {
+                if (cartController.addToCartResponse.value.result ==
+                    true)
+                  {
+                    cartController.cartCount.value = cartController
+                        .addToCartResponse.value.cartQuantity ??
+                        0,
+                  },
+                AppHelperFunctions.showToast(
+                    cartController.addToCartResponse.value.message!)
+              });
+            }
+          }
+          Get.offAllNamed(previousRoute!);
         }
         AppHelperFunctions.showToast(loginResponse.value.message!);
       } else {
@@ -208,8 +307,40 @@ class LogInPageController extends GetxController {
 
       if (loginResponse.value.result == true) {
         EventLogger().logLoginEvent('Apple');
-        Get.offAllNamed(previousRoute!);
         AuthHelper().setUserData(loginResponse.value);
+        if (previousRoute == 'cart') {
+          final cartController = CartController.instance;
+          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+              double.parse(Get.parameters['sale_price']!));
+
+          if (Get.parameters['request_available'] != '0') {
+            cartController
+                .getRequestResponse(
+                productId: int.parse(Get.parameters['product_id']!))
+                .then((value) => AppHelperFunctions.showToast(
+                cartController.requestStockResponse.value.message!));
+
+            // AwesomeNotificationController.showNotification();
+          } else {
+            cartController
+                .getAddToCartResponse(
+                int.parse(Get.parameters['product_id']!),
+                1,
+                int.parse(Get.parameters['preorder_available']!))
+                .then((value) => {
+              if (cartController.addToCartResponse.value.result ==
+                  true)
+                {
+                  cartController.cartCount.value = cartController
+                      .addToCartResponse.value.cartQuantity ??
+                      0,
+                },
+              AppHelperFunctions.showToast(
+                  cartController.addToCartResponse.value.message!)
+            });
+          }
+        }
+        Get.offAllNamed(previousRoute!);
       }
       AppHelperFunctions.showToast(loginResponse.value.message!);
     } on Exception catch (e) {

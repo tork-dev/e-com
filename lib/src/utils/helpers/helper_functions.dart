@@ -478,4 +478,9 @@ class AppHelperFunctions {
     }
     return wrappedList;
   }
+
+  String stripHtmlTags(String htmlString) {
+    final RegExp regExp = RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
+    return htmlString.replaceAll(regExp, '');
+  }
 }

@@ -25,7 +25,6 @@ class ShopRepositories{
     required String goodFor,
     required String brand,
   }) async {
-    print("brand name $brand");
     Map<dynamic, dynamic> parameters = {
       'page': pageNumber,
     };
