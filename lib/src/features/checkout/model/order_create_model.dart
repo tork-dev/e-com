@@ -4,7 +4,7 @@ class OrderCreateResponse {
   bool? result;
   String? message;
   Data? data;
-  int? code;
+  dynamic code;
 
   OrderCreateResponse({
     this.result,
@@ -64,16 +64,16 @@ class Order {
   String? paymentType;
   String? paymentStatus;
   int? deliveryStatus;
-  int? date;
+  dynamic date;
   dynamic note;
   int? isRecurring;
-  double? grandTotal;
-  int? shippingCost;
-  double? couponDiscount;
+  dynamic grandTotal;
+  dynamic shippingCost;
+  dynamic couponDiscount;
   DateTime? updatedAt;
   DateTime? createdAt;
   int? id;
-  double? rewardPointEarned;
+  dynamic rewardPointEarned;
   List<OrderDetail>? orderDetails;
   User? user;
 
@@ -155,14 +155,14 @@ class OrderDetail {
   int? productId;
   dynamic comboProductId;
   dynamic variation;
-  int? unitPrice;
-  int? price;
-  int? rewardPointUsed;
-  double? discount;
+  dynamic unitPrice;
+  dynamic price;
+  dynamic rewardPointUsed;
+  dynamic discount;
   dynamic couponCode;
-  int? tax;
-  int? shippingCost;
-  int? quantity;
+  dynamic tax;
+  dynamic shippingCost;
+  dynamic quantity;
   dynamic productStockId;
   int? isPreOrder;
   String? paymentStatus;
@@ -278,11 +278,11 @@ class Product {
   String? goodFor;
   String? skinTypes;
   String? keyIngredients;
-  int? unitPrice;
-  int? purchasePrice;
-  int? groupPurchasePrice;
+  dynamic unitPrice;
+  dynamic purchasePrice;
+  dynamic groupPurchasePrice;
   int? groupMemberQuantity;
-  int? costPrice;
+  dynamic costPrice;
   int? rewardPoint;
   int? variantProduct;
   String? attributes;

@@ -30,56 +30,65 @@ class RewardPointHistoryScreen extends StatelessWidget {
         body:
             AppLayoutWithRefresher(onRefresh: controller.onRefresh, children: [
           Obx(() {
-              return AppListViewLayout(
-                  itemCount: !controller.hittingAPi.value
-                      ? controller.rewardHistory.value.data!.length
-                      : 10,
-                  builderFunction: (context, index) {
-                    String formatedDate = '';
-                    if (controller.rewardHistory.value.data?[index].date != null) {
-                      formatedDate = DateFormat('d MMM yyyy').format(
-                          controller.rewardHistory.value.data![index].date!);
-                    }
-                    return controller.hittingAPi.value
-                        ? ShimmerHelper().buildBasicShimmer(height: 100)
-                        : AppCardContainer(
-                            applyRadius: false,
-                            padding: const EdgeInsets.all(AppSizes.md),
-                            backgroundColor: AppColors.lightGrey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      controller.rewardHistory.value.data![index]
-                                              .source ??
-                                          '',
-                                      style: Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                    Text(
-                                      '+${controller.rewardHistory.value.data![index]
-                                        .totalRewardPointEarned}',
+            return !controller.hittingAPi.value &&
+                    controller.rewardHistory.value.data!.isEmpty
+                ? const Center(
+                    child: Text('No history found'),
+                  )
+                : AppListViewLayout(
+                    itemCount: !controller.hittingAPi.value
+                        ? controller.rewardHistory.value.data!.length
+                        : 10,
+                    builderFunction: (context, index) {
+                      String formatedDate = '';
+                      if (controller.rewardHistory.value.data?[index].date !=
+                          null) {
+                        formatedDate = DateFormat('d MMM yyyy').format(
+                            controller.rewardHistory.value.data![index].date!);
+                      }
+                      return controller.hittingAPi.value
+                          ? ShimmerHelper().buildBasicShimmer(height: 100)
+                          : AppCardContainer(
+                              applyRadius: false,
+                              padding: const EdgeInsets.all(AppSizes.md),
+                              backgroundColor: AppColors.lightGrey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        controller.rewardHistory.value
+                                                .data![index].source ??
+                                            '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                      Text(
+                                        '+${controller.rewardHistory.value.data![index].totalRewardPointEarned}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .apply(color: AppColors.success),
+                                      ),
+                                    ],
+                                  ),
+                                  Visibility(
+                                    visible: formatedDate != '',
+                                    child: Text(
+                                      'Date: $formatedDate',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium!
-                                          .apply(color: AppColors.success),
+                                          .labelMedium,
                                     ),
-                                  ],
-                                ),
-                                Visibility(
-                                  visible: formatedDate != '',
-                                  child: Text(
-                                    'Date: $formatedDate',
-                                    style: Theme.of(context).textTheme.labelMedium,
                                   ),
-                                ),
-                              ],
-                            ));
-                  });
-            }
-          )
+                                ],
+                              ));
+                    });
+          })
         ]));
   }
 }

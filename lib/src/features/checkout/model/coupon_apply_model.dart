@@ -49,14 +49,14 @@ class Data {
   String? code;
   Details? details;
   String? description;
-  double? discount;
+  dynamic discount;
   String? discountType;
   int? isActive;
   int? isUnlimited;
   int? startDate;
   int? endDate;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   double? totalDiscount;
 
   Data({
@@ -119,8 +119,8 @@ class Data {
 }
 
 class Details {
-  int? minBuy;
-  int? maxDiscount;
+  dynamic minBuy;
+  dynamic maxDiscount;
 
   Details({
     this.minBuy,

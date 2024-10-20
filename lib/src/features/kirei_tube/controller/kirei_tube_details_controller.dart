@@ -27,7 +27,7 @@ class KireiTubeDetailsController extends GetxController{
   @override
   void dispose() {
     super.dispose();
-   // flickManager.value?.dispose();
+    youtubeController.close();
   }
 
   Future<void> onRefresh() async{
