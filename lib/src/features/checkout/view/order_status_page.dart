@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,6 @@ class AppOrderStatusScreen extends StatelessWidget {
       this.status = false,
       required this.orderId});
 
-
   @override
   Widget build(BuildContext context) {
     final controller =
@@ -41,17 +41,25 @@ class AppOrderStatusScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
         centerTitle: true,
         body: Obx(() {
-          if (status == true && controller.purchaseHistoryItemDetails.value.data != null) {
-            final List<Map<String, dynamic>> items = controller.purchaseHistoryItemDetails.value.data!.map((item) {
+          if (status == true &&
+              controller.purchaseHistoryItemDetails.value.data != null) {
+            final List<Map<String, dynamic>> items =
+                controller.purchaseHistoryItemDetails.value.data!.map((item) {
               return {
                 'item_id': item.productId,
-                'price': double.parse(item.price!.replaceAll('৳', '').replaceAll(',', '')),
+                'price': double.parse(
+                    item.price!.replaceAll('৳', '').replaceAll(',', '')),
                 'quantity': item.quantity,
               };
             }).toList();
             print(items);
 
-            EventLogger().logPurchaseEvent(jsonEncode(items), double.parse(controller.purchaseHistoryDetails.value.data![0].grandTotal!.replaceAll('৳', '').replaceAll(',', '')));
+            EventLogger().logPurchaseEvent(
+                jsonEncode(items),
+                double.parse(controller
+                    .purchaseHistoryDetails.value.data![0].grandTotal!
+                    .replaceAll('৳', '')
+                    .replaceAll(',', '')));
           }
           return controller.purchaseHistoryDetails.value.data == null
               ? AppListViewLayout(
@@ -82,11 +90,21 @@ class AppOrderStatusScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const Gap(AppSizes.xs),
+                    Text(
+                      textAlign: TextAlign.center,
+                      '🎉 Congrats!\n You’ll get ${controller.purchaseHistoryDetails.value
+                          .data![0].rewardPoint} points after delivery!',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .apply(color: AppColors.warning),
+                    ),
                     Visibility(
                       visible: status,
                       child: Column(
                         children: [
-                          const Gap(AppSizes.md),
+                          const Gap(AppSizes.defaultSpace),
                           Text('Order Summary',
                               style:
                                   Theme.of(context).textTheme.headlineMedium),
@@ -118,6 +136,17 @@ class AppOrderStatusScreen extends StatelessWidget {
                             title: 'Coupon Discount',
                             subTitle: controller.purchaseHistoryDetails.value
                                 .data![0].couponDiscount!,
+                          ),
+                          Visibility(
+                            visible: controller.purchaseHistoryDetails.value
+                                    .data![0].redeemPoint! >
+                                0,
+                            child: AppOrderStatusDetailsSection(
+                              title: 'Redeem Point',
+                              subTitle: controller.purchaseHistoryDetails.value
+                                  .data![0].redeemPoint!
+                                  .toString(),
+                            ),
                           ),
                           AppOrderStatusDetailsSection(
                             title: 'Delivery Charge',

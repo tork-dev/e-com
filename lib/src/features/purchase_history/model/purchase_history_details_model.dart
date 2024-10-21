@@ -45,6 +45,8 @@ class OrderData {
   String? date;
   bool? cancelRequest;
   bool? manuallyPayable;
+  int? redeemPoint;
+  int? rewardPoint;
   Links? links;
 
   OrderData({
@@ -68,6 +70,8 @@ class OrderData {
     this.date,
     this.cancelRequest,
     this.manuallyPayable,
+    this.redeemPoint,
+    this.rewardPoint,
     this.links,
   });
 
@@ -95,6 +99,8 @@ class OrderData {
       date: json['date'],
       cancelRequest: json['cancel_request'],
       manuallyPayable: json['manually_payable'],
+      redeemPoint: json['redeem_point'],
+      rewardPoint: json['reward_point'],
       links: json['links'] != null ? Links.fromJson(json['links']) : null,
     );
   }
@@ -121,6 +127,8 @@ class OrderData {
       'date': date,
       'cancel_request': cancelRequest,
       'manually_payable': manuallyPayable,
+      'redeem_point' : redeemPoint,
+      'reward_point' : rewardPoint,
       'links': links?.toJson(),
     };
   }
