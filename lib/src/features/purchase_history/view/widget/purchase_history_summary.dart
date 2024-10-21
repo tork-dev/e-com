@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -37,6 +38,13 @@ class AppPurchaseHistoryDetailsSummary extends StatelessWidget {
                 AppSummaryTextWidget(
                     title: 'DISCOUNT',
                     amount: detailsController.purchaseHistoryDetails.value.data![0].couponDiscount!),
+                const Gap(AppSizes.xs),
+                Visibility(
+                  visible: detailsController.purchaseHistoryDetails.value.data![0].redeemPoint! > 0,
+                  child: AppSummaryTextWidget(
+                      title: 'REDEEM POINT',
+                      amount: detailsController.purchaseHistoryDetails.value.data![0].redeemPoint.toString()),
+                ),
                 const Gap(AppSizes.xs),
                  SizedBox(
                   width: 270,
