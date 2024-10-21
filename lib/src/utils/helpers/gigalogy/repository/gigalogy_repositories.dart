@@ -81,7 +81,7 @@ class GigalogyRepository {
 
   Future<void> sendUserDataEvent() async {
     final response = await http.post(
-        Uri.parse(AppApiEndPoints.userChoosingEvent),
+        Uri.parse(AppApiEndPoints.userDataEvent),
         headers: {
           'Content-Type': 'application/json',
           'project-key': projectKey,

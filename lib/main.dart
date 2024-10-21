@@ -7,7 +7,9 @@ import 'package:kirei/src/app.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kirei/src/utils/firebase/awesome_notification.dart';
+import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
@@ -22,6 +24,11 @@ Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
+  if(AppLocalStorage().readData(LocalStorageKeys.appUrl) != dotenv.env["BASE_URL_WEB"]){
+    AuthHelper().clearUserData();
+  }
+
   AppLocalStorage().saveData(LocalStorageKeys.appUrl, dotenv.env["BASE_URL_WEB"]!);
 
   await Firebase.initializeApp();

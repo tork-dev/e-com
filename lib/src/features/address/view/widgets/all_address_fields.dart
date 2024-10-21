@@ -79,9 +79,10 @@ class AppAllAddressFields extends StatelessWidget {
                 },
                 onSelected: (value)  {
                   addressController.selectedCityId.value = value.id!;
-                  addressController.selectedCityName.text = value.name!;
-                  addressController.selectedZoneName.clear();
-                  addressController.selectedAreaName.clear();
+                  addressController.selectedCityName.value = value.name!;
+                  addressController.selectedCityController.text = value.name!;
+                  addressController.selectedZoneController.clear();
+                  addressController.selectedAreaController.clear();
                   addressController.selectedZoneId.value = 0;
                   addressController.selectedAreaId.value = 0;
                   addressController.zoneList.value.data?.zones?.clear();
@@ -93,7 +94,7 @@ class AppAllAddressFields extends StatelessWidget {
                   zoneSuggestion.refresh();
                   addressController.getZoneList(value.id!);
                 },
-                controller: addressController.selectedCityName,
+                controller: addressController.selectedCityController,
                 suggestionsCallback: (value) async {
                   if (addressController.cityList.value.cities == null) {
                     await addressController.getCityList();
@@ -146,6 +147,7 @@ class AppAllAddressFields extends StatelessWidget {
               )
             ],
           ),
+          const Gap(AppSizes.spaceBtwSmallItem),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -182,8 +184,9 @@ class AppAllAddressFields extends StatelessWidget {
                     emptyBuilder: (context) => const Text('No items found!'),
                     onSelected: (zone) {
                       addressController.selectedZoneId.value = zone.id!;
-                      addressController.selectedZoneName.text = zone.name!;
-                      addressController.selectedAreaName.clear();
+                      addressController.selectedZoneName.value = zone.name!;
+                       addressController.selectedZoneController.text = zone.name!;
+                       addressController.selectedAreaController.clear();
                       addressController.selectedAreaId.value = 0;
                       addressController.areaList.value.areas?.clear();
                       areaNode.unfocus();
@@ -191,8 +194,10 @@ class AppAllAddressFields extends StatelessWidget {
                       areaSuggestion.refresh();
                       addressController.getAreaList(zone.id!);
                       print(zone.id);
+                      print(addressController.selectedZoneName.value);
+                      print(addressController.selectedZoneController.text);
                     },
-                    controller: addressController.selectedZoneName,
+                    controller: addressController.selectedZoneController,
                     suggestionsController: zoneSuggestion,
                     suggestionsCallback: (value) async {
                       if(addressController.zoneList.value.data == null){
@@ -218,6 +223,11 @@ class AppAllAddressFields extends StatelessWidget {
                         focusNode: focusNode,
                         onTap: (){
                           print('zone');
+                          print('name : ${addressController.selectedCityName.value}');
+                          if(addressController.selectedCityController.text != addressController.selectedCityName.value){
+                            addressController.selectedCityController.clear();
+                            addressController.selectedCityName.value = '';
+                          }
                           zoneSuggestion.refresh();
                           areaNode.unfocus();
                           controller.clear();
@@ -250,11 +260,12 @@ class AppAllAddressFields extends StatelessWidget {
               )
             ],
           ),
+          const Gap(AppSizes.spaceBtwSmallItem),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Area*',
+                'Area',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const Gap(AppSizes.xs),
@@ -274,10 +285,11 @@ class AppAllAddressFields extends StatelessWidget {
                       )),
                   onSelected: (area) {
                     addressController.selectedAreaId.value = area.id!;
-                    addressController.selectedAreaName.text = area.name!;
+                    addressController.selectedAreaName.value = area.name!;
+                    addressController.selectedAreaController.text = area.name!;
                     areaNode.unfocus();
                   },
-                  controller: addressController.selectedAreaName,
+                  controller: addressController.selectedAreaController,
                   suggestionsController: areaSuggestion,
                   suggestionsCallback: (value) async{
                     if(addressController.areaList.value.areas == null){
@@ -304,6 +316,10 @@ class AppAllAddressFields extends StatelessWidget {
                         print('area');
                         areaSuggestion.refresh();
                         controller.clear();
+                        if(addressController.selectedZoneName.value != addressController.selectedZoneController.text){
+                          addressController.selectedZoneController.clear();
+                          addressController.selectedZoneName.value = '';
+                        }
                       },
                       cursorColor: AppColors.primary,
                       decoration: const InputDecoration(

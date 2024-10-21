@@ -254,14 +254,14 @@ class CheckoutController extends GetxController {
       return false;
     }
 
-    if (addressController.selectedCityName.text == "" ||
-        addressController.selectedCityName.text.isEmpty) {
+    if (addressController.selectedCityName.value == "" ||
+        addressController.selectedCityName.value.isEmpty) {
       AppHelperFunctions.showToast('City is required');
       return false;
     }
 
-    if (addressController.selectedZoneName.text == "" ||
-        addressController.selectedZoneName.text.isEmpty) {
+    if (addressController.selectedZoneName.value == "" ||
+        addressController.selectedZoneName.value.isEmpty) {
       AppHelperFunctions.showToast('Zone is required');
       return false;
     }

@@ -79,17 +79,15 @@ class OtpController extends GetxController {
       if (otpKey.currentState!.validate()) {
         if (forgetPasswordController.isForgotPassword.value == true
             ? otpForgetPasswordResponse.value.result == true
-            : signUpController.isSignupOtp.value == true
-                ? otpSignUpResponse.value.result == true
                 : loginResponse.value.result == true) {
           forgetPasswordController.isForgotPassword.value == true
               ? AppHelperFunctions.showToast(
                   otpForgetPasswordResponse.value.message.toString())
               : signUpController.isSignupOtp.value == true
                   ? AppHelperFunctions.showToast(
-                      otpSignUpResponse.value.message.toString())
+                      loginResponse.value.message.toString())
                   : AppHelperFunctions.showToast(
-                      loginResponse.value.message.toString());
+              loginResponse.value.message.toString());
           if (forgetPasswordController.isForgotPassword.value != false &&
               signUpController.isSignupOtp.value != true) {
             Get.to(() => const NewPassword());
@@ -102,9 +100,9 @@ class OtpController extends GetxController {
         } else {
           signUpController.isSignupOtp.value == true
               ? AppHelperFunctions.showToast(
-                  otpSignUpResponse.value.message.toString())
+              loginResponse.value.message.toString())
               : AppHelperFunctions.showToast(
-                  loginResponse.value.message.toString());
+              loginResponse.value.message.toString());
         }
       }
     }

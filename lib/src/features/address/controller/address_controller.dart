@@ -24,6 +24,9 @@ class AddressController extends GetxController {
   RxInt selectedCityId = 0.obs;
   RxInt selectedZoneId = 0.obs;
   RxInt selectedAreaId = 0.obs;
+  RxString selectedCityName = ''.obs;
+  RxString selectedZoneName = ''.obs;
+  RxString selectedAreaName = ''.obs;
   RxBool hittingApi = true.obs;
   RxBool zoneFocus = false.obs;
   RxBool focusArea = false.obs;
@@ -32,9 +35,9 @@ class AddressController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController selectedCityName = TextEditingController();
-  TextEditingController selectedZoneName = TextEditingController();
-  TextEditingController selectedAreaName = TextEditingController();
+  TextEditingController selectedCityController = TextEditingController();
+  TextEditingController selectedZoneController = TextEditingController();
+  TextEditingController selectedAreaController = TextEditingController();
   GlobalKey<FormState> addressFormKey = GlobalKey<FormState>();
 
   @override
@@ -63,11 +66,11 @@ class AddressController extends GetxController {
     phoneController.text = shippingAddress.value.data![0].phone!;
     emailController.text = shippingAddress.value.data![0].email ?? '';
     addressController.text = shippingAddress.value.data![0].address!;
-    selectedCityName.text = shippingAddress.value.data![0].cityName!;
+    selectedCityName.value = shippingAddress.value.data![0].cityName!;
     selectedCityId.value = shippingAddress.value.data![0].cityId!;
-    selectedZoneName.text = shippingAddress.value.data![0].zoneName!;
+    selectedZoneName.value = shippingAddress.value.data![0].zoneName!;
     selectedZoneId.value = shippingAddress.value.data![0].zoneId!;
-    selectedAreaName.text = shippingAddress.value.data![0].areaName!;
+    selectedAreaName.value = shippingAddress.value.data![0].areaName!;
     selectedAreaId.value = shippingAddress.value.data![0].areaId!;
   }
 
@@ -113,12 +116,12 @@ class AddressController extends GetxController {
       return;
     }
 
-    if (selectedCityName.text == "") {
+    if (selectedCityName.value == "") {
       AppHelperFunctions.showToast('City is required');
       return;
     }
 
-    if (selectedZoneName.text == "") {
+    if (selectedZoneName.value == "") {
       AppHelperFunctions.showToast('Zone is required');
       return;
     }
