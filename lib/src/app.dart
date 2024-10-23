@@ -70,12 +70,15 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/',
             page: () => UpgradeAlert(
+
               upgrader: Upgrader(
-                storeController: CustomUpgraderStoreController(),
-                // debugDisplayAlways: true, // Always show upgrade dialog for testing
-                // debugLogging: true, // Enable logging to see more details
+                // storeController: CustomUpgraderStoreController(),
+                debugDisplayAlways: true, // Always show upgrade dialog for testing
+                debugLogging: true, // Enable logging to see more details
               ),
               showReleaseNotes: false,
+              barrierDismissible: false,
+
               child: const SplashScreen(),
             ),
           ),
@@ -102,6 +105,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/return-refund', page: () =>  WebViewScreen(url: '$baseUrlWeb/return-refund?type=app', title: 'Returns & Refunds')),
           GetPage(name: '/responsible-disclosure', page: () =>  WebViewScreen(url: '$baseUrlWeb/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
           GetPage(name: '/responsible-disclosure', page: () =>  WebViewScreen(url: '$baseUrlWeb/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
+          GetPage(name: '/reward-details', page: ()=>  WebViewScreen(url: '$baseUrlWeb/reward-details?type=app', title: 'Reward System')),
           GetPage(name: '/reward', page: ()=> const RewardScreen()),
           GetPage(name: '/point-redemption', page: ()=> const PointRedemption()),
           GetPage(name: '/reward-levels', page: ()=> const RewardPointLevelScreen()),
