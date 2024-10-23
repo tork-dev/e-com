@@ -41,83 +41,155 @@ class MyApp extends StatelessWidget {
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
 
-
   @override
   Widget build(BuildContext context) {
-     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
+    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return GetMaterialApp(
-        // navigatorKey: navigatorKey,
-        initialBinding: GeneralBindings(),
-        title: AppTexts.appName,
-        themeMode: ThemeMode.light,
-        theme: MyAppTheme.lightTheme,
-        darkTheme: MyAppTheme.darkTheme,
-        debugShowCheckedModeBanner: false,
-        locale: const Locale('en'),
-        localizationsDelegates: const [
-          AppLocalizations.delegate, // Add this line
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en'), // English
-          Locale('es'), // Spanish
-        ],
-        initialRoute: '/',
-        navigatorObservers: [observer],
-        getPages: [
-          GetPage(
-            name: '/',
-            page: () => UpgradeAlert(
-
-              upgrader: Upgrader(
-                // storeController: CustomUpgraderStoreController(),
-                debugDisplayAlways: true, // Always show upgrade dialog for testing
-                debugLogging: true, // Enable logging to see more details
+      // navigatorKey: navigatorKey,
+      initialBinding: GeneralBindings(),
+      title: AppTexts.appName,
+      themeMode: ThemeMode.light,
+      theme: MyAppTheme.lightTheme,
+      darkTheme: MyAppTheme.darkTheme,
+      debugShowCheckedModeBanner: false,
+      locale: const Locale('en'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate, // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('es'), // Spanish
+      ],
+      initialRoute: '/',
+      navigatorObservers: [observer],
+      getPages: [
+        GetPage(
+          name: '/',
+          page: () => UpgradeAlert(
+            upgrader: Upgrader(
+              debugDisplayAlways: false,
+              debugLogging: false,
+              storeController: UpgraderStoreController(
+                onAndroid: () => UpgraderPlayStore(),
+                oniOS: () => UpgraderAppcastStore(
+                    appcastURL:
+                        'https://apps.apple.com/us/app/kirei/id6502335026'),
               ),
-              showReleaseNotes: false,
-              barrierDismissible: false,
-
-              child: const SplashScreen(),
             ),
+            showReleaseNotes: false,
+            barrierDismissible: false,
+            child: const SplashScreen(),
           ),
-          GetPage(name: '/login/:prevRoute', page: () => const LogIn()),
-          GetPage(name: '/register', page: () => const SignUp()),
-          GetPage(name: '/home', page: () => const HelloConvexAppBar(pageIndex: 0,)),
-          GetPage(name: '/shop', page: () => const HelloConvexAppBar(pageIndex: 1,)),
-          GetPage(name: '/cart', page: () => const HelloConvexAppBar(pageIndex: 2,)),
-          GetPage(name: '/account', page: () => const HelloConvexAppBar(pageIndex: 3,)),
-          GetPage(name: '/product/:id', page: () => const DetailsPage() ),
-          GetPage(name: '/beauty-tips', page: () => const BeautyTipsScreen()),
-          GetPage(name: '/personal-recommendation', page: () => const SkinCareHistoryOne()),
-          GetPage(name: '/community', page: () => const CommunityScreen()),
-          GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
-          GetPage(name: '/order/:id', page: () => const PurchaseHistoryDetails()),
-          GetPage(name: '/blogs', page: () => WebViewScreen(url: '$baseUrlWeb/blogs?type=app', title: 'Bogs')),
-          GetPage(name: '/about-us', page: () =>  WebViewScreen(url: '$baseUrlWeb/about-us?type=app', title: 'Who We Are?')),
-          GetPage(name: '/faq', page: () =>  WebViewScreen(url: '$baseUrlWeb/faq?type=app', title: 'FAQs')),
-          GetPage(name: '/contact-us', page: () =>  WebViewScreen(url: '$baseUrlWeb/contact-us?type=app', title: 'Contact Us')),
-          GetPage(name: '/testimonials', page: () =>  WebViewScreen(url: '$baseUrlWeb/testimonials?type=app', title: 'Testimonials')),
-          GetPage(name: '/testimonials', page: () =>  WebViewScreen(url: '$baseUrlWeb/testimonials?type=app', title: 'Testimonials')),
-          GetPage(name: '/privacy-policy', page: () =>  WebViewScreen(url: '$baseUrlWeb/privacy-policy?type=app', title: 'Privacy & Policy')),
-          GetPage(name: '/term-condition', page: () =>  WebViewScreen(url: '$baseUrlWeb/term-condition?type=app', title: 'Terms & Conditions')),
-          GetPage(name: '/return-refund', page: () =>  WebViewScreen(url: '$baseUrlWeb/return-refund?type=app', title: 'Returns & Refunds')),
-          GetPage(name: '/responsible-disclosure', page: () =>  WebViewScreen(url: '$baseUrlWeb/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
-          GetPage(name: '/responsible-disclosure', page: () =>  WebViewScreen(url: '$baseUrlWeb/responsible-disclosure?type=app', title: 'Responsible Disclosure')),
-          GetPage(name: '/reward-details', page: ()=>  WebViewScreen(url: '$baseUrlWeb/reward-details?type=app', title: 'Reward System')),
-          GetPage(name: '/reward', page: ()=> const RewardScreen()),
-          GetPage(name: '/point-redemption', page: ()=> const PointRedemption()),
-          GetPage(name: '/reward-levels', page: ()=> const RewardPointLevelScreen()),
-          GetPage(name: '/point-history', page: ()=> const RewardPointHistoryScreen()),
-          GetPage(name: '/kirei-tube', page: ()=> const KireiTubeScreen()),
-          GetPage(name: '/kirei-tube/:id', page: ()=> const KireiTubeDetailsScreen()),
-          GetPage(name: '/group-shopping', page: ()=> const GroupShoppingScreen()),
-          GetPage(name: '/group-shopping/:id', page: ()=> const GroupShoppingPaymentScreen()),
-          // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
-        ],
+        ),
+        GetPage(name: '/login/:prevRoute', page: () => const LogIn()),
+        GetPage(name: '/register', page: () => const SignUp()),
+        GetPage(
+            name: '/home',
+            page: () => const HelloConvexAppBar(
+                  pageIndex: 0,
+                )),
+        GetPage(
+            name: '/shop',
+            page: () => const HelloConvexAppBar(
+                  pageIndex: 1,
+                )),
+        GetPage(
+            name: '/cart',
+            page: () => const HelloConvexAppBar(
+                  pageIndex: 2,
+                )),
+        GetPage(
+            name: '/account',
+            page: () => const HelloConvexAppBar(
+                  pageIndex: 3,
+                )),
+        GetPage(name: '/product/:id', page: () => const DetailsPage()),
+        GetPage(name: '/beauty-tips', page: () => const BeautyTipsScreen()),
+        GetPage(
+            name: '/personal-recommendation',
+            page: () => const SkinCareHistoryOne()),
+        GetPage(name: '/community', page: () => const CommunityScreen()),
+        GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
+        GetPage(name: '/order/:id', page: () => const PurchaseHistoryDetails()),
+        GetPage(
+            name: '/blogs',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/blogs?type=app', title: 'Bogs')),
+        GetPage(
+            name: '/about-us',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/about-us?type=app', title: 'Who We Are?')),
+        GetPage(
+            name: '/faq',
+            page: () =>
+                WebViewScreen(url: '$baseUrlWeb/faq?type=app', title: 'FAQs')),
+        GetPage(
+            name: '/contact-us',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/contact-us?type=app', title: 'Contact Us')),
+        GetPage(
+            name: '/testimonials',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/testimonials?type=app',
+                title: 'Testimonials')),
+        GetPage(
+            name: '/testimonials',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/testimonials?type=app',
+                title: 'Testimonials')),
+        GetPage(
+            name: '/privacy-policy',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/privacy-policy?type=app',
+                title: 'Privacy & Policy')),
+        GetPage(
+            name: '/term-condition',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/term-condition?type=app',
+                title: 'Terms & Conditions')),
+        GetPage(
+            name: '/return-refund',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/return-refund?type=app',
+                title: 'Returns & Refunds')),
+        GetPage(
+            name: '/responsible-disclosure',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/responsible-disclosure?type=app',
+                title: 'Responsible Disclosure')),
+        GetPage(
+            name: '/responsible-disclosure',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/responsible-disclosure?type=app',
+                title: 'Responsible Disclosure')),
+        GetPage(
+            name: '/reward-details',
+            page: () => WebViewScreen(
+                url: '$baseUrlWeb/reward-details?type=app',
+                title: 'Reward System')),
+        GetPage(name: '/reward', page: () => const RewardScreen()),
+        GetPage(name: '/point-redemption', page: () => const PointRedemption()),
+        GetPage(
+            name: '/reward-levels', page: () => const RewardPointLevelScreen()),
+        GetPage(
+            name: '/point-history',
+            page: () => const RewardPointHistoryScreen()),
+        GetPage(name: '/kirei-tube', page: () => const KireiTubeScreen()),
+        GetPage(
+            name: '/kirei-tube/:id',
+            page: () => const KireiTubeDetailsScreen()),
+        GetPage(
+            name: '/group-shopping', page: () => const GroupShoppingScreen()),
+        GetPage(
+            name: '/group-shopping/:id',
+            page: () => const GroupShoppingPaymentScreen()),
+        // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
+      ],
 
-        //navigatorKey: navigatorKey,
+      //navigatorKey: navigatorKey,
     );
   }
 }
