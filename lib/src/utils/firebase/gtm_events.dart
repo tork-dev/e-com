@@ -40,6 +40,7 @@ class EventLogger {
     facebookAppEvents.logEvent(
       name: 'ViewContent',
       parameters: {
+        'advertiser_tracking_enabled': true,
         'Content_ID': itemId,
         'Content_Type': 'product',
         'Member_ID': memberId
@@ -65,6 +66,7 @@ class EventLogger {
       name: 'Purchase',
       valueToSum: itemPrice.toDouble(),
       parameters: {
+        'advertiser_tracking_enabled': true,
         'Content_ID': items,
         'Content_Type': 'product',
         'Currency': 'BDT',
@@ -92,6 +94,7 @@ class EventLogger {
       name: 'AddToWishlist',
       valueToSum: double.parse(itemPrice),
       parameters: {
+        'advertiser_tracking_enabled': true,
         'Content_ID': itemId,
         'Content_Type': 'product',
         'Currency': 'BDT',
@@ -120,6 +123,7 @@ class EventLogger {
       name: 'AddToCart',
       valueToSum: itemPrice.toDouble(),
       parameters: {
+        'advertiser_tracking_enabled': true,
         'Content_ID': itemId,
         'Content_Type': 'product',
         'Currency': 'BDT',
@@ -154,6 +158,7 @@ class EventLogger {
     facebookAppEvents.logEvent(
       name: 'Search',
       parameters: {
+        'advertiser_tracking_enabled': true,
         'SearchValue': searchValue,
         'Content_Type': 'product',
         'Member_ID': memberId
@@ -180,6 +185,7 @@ class EventLogger {
       name: 'InitiateCheckout',
       valueToSum: double.parse(subtotalPrice),
       parameters: {
+        'advertiser_tracking_enabled': true,
         'Content_ID': cartId,
         'Content_Type': 'product',
         'Currency': 'BDT',
@@ -209,6 +215,7 @@ class EventLogger {
     facebookAppEvents.logEvent(
       name: 'login',
       parameters: {
+        'advertiser_tracking_enabled': true,
         "method": loginMethod
       },
     );
@@ -226,6 +233,7 @@ class EventLogger {
     facebookAppEvents.logEvent(
       name: 'login',
       parameters: {
+        'advertiser_tracking_enabled': true,
         "method": loginMethod
       },
     );
@@ -245,6 +253,7 @@ class EventLogger {
     facebookAppEvents.logEvent(
       name: 'share',
       parameters: {
+        'advertiser_tracking_enabled': true,
         "content_type": "product",
         "item_id": itemId,
       },
@@ -270,6 +279,7 @@ class EventLogger {
       name: 'remove_from_cart',
       valueToSum: itemPrice.toDouble(),
       parameters: {
+        'advertiser_tracking_enabled': true,
         'Content_ID': itemId,
         'Content_Type': 'product',
         'Currency': 'BDT',
@@ -296,6 +306,7 @@ class EventLogger {
     facebookAppEvents.logEvent(
       name: 'view_cart',
       parameters: {
+        'advertiser_tracking_enabled': true,
         'Content_ID': items,
         'Content_Type': 'product',
         'Currency': 'BDT',

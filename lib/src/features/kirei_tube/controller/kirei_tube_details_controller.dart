@@ -73,8 +73,6 @@ class KireiTubeDetailsController extends GetxController {
   }
 
   Future<void> initializeWebView() async {
-    // Initialize the WebViewController
-    // CookieManager().setAcceptCookie(true);
     webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       // Example Facebook video embed URL

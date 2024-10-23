@@ -32,13 +32,14 @@ class KireiTubeDetailsScreen extends StatelessWidget {
         body: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
           children: [
-         const KireiDetailsVideoPlayer(),
+            const KireiDetailsVideoPlayer(),
+            const Gap(AppSizes.md),
+            const KireiTubeDetailsDescription(),
+            AppDividersStyle.fullFlatAppDivider,
             const Gap(AppSizes.md),
             const KireiTubeProductCard(),
             const Gap(AppSizes.md),
-            AppDividersStyle.fullFlatAppDivider,
             const Gap(AppSizes.defaultSpace),
-            const KireiTubeDetailsDescription()
           ],
         ));
   }

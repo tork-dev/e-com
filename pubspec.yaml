@@ -60,6 +60,7 @@ dependencies:
   youtube_player_iframe: ^5.1.2
 
 
+
   # Icons
   cupertino_icons: ^1.0.6
 
@@ -78,6 +79,7 @@ dependencies:
   firebase_auth: ^4.18.0
   firebase_messaging: ^14.7.20
   firebase_analytics: ^10.10.7
+  app_links: ^6.3.2
 
 
 
