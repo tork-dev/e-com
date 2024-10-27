@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/details/repositories/details_repositories.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
@@ -19,7 +20,10 @@ class DetailsPageController extends GetxController {
 
   final homeController = Get.put(HomeController(callApis: false));
 
-  RxString productSlug = ''.obs;
+  RxList<String> productSlugList = <String>[].obs;
+  RxInt productSlugIndex = 0.obs;
+
+  RxString prevRoute = ''.obs;
 
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
@@ -41,10 +45,27 @@ class DetailsPageController extends GetxController {
   @override
   void onInit() {
     print('productSlug');
-    productSlug.value = Get.parameters['id']??'';
     super.onInit();
+    productSlugList.add(Get.parameters['id']!);
+    prevRoute.value = Get.parameters['prevRoute']!;
+    // productSlugIndex.value = productSlugList.length;
+
+    // productSlug.value = Get.parameters['id']??'';
+
+    print('on init ${productSlugList[productSlugIndex.value]}');
     onRefresh();
   }
+
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  //   // Update product ID and fetch data each time the route is ready
+  //
+  //   productSlugList.add(Get.parameters['id']!);
+  //   productSlug.value = Get.parameters['id']??'';
+  //   print('on ready ${productSlug.value}');
+  //   onRefresh();
+  // }
 
   Future<void> onRefresh() async {
     await getProductDetails();
@@ -61,7 +82,7 @@ class DetailsPageController extends GetxController {
 
   Future<ProductDetailsResponse> getProductDetails() async {
     return productDetails.value =
-        await DetailsRepositories.getProductDetails(productSlug.value);
+        await DetailsRepositories.getProductDetails(productSlugList[productSlugIndex.value]);
   }
 
   void onAddButtonTap() {
@@ -115,7 +136,7 @@ class DetailsPageController extends GetxController {
 
   Future<DetailsProductsResponse> getRelatedProducts() async {
     return relatedProductsResponse.value =
-        await DetailsRepositories.getRelatedProducts(productSlug.value);
+        await DetailsRepositories.getRelatedProducts(productSlugList[productSlugIndex.value]);
   }
 
   Future<DetailsProductsResponse> getRecommendedProducts() async {

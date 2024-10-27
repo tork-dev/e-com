@@ -48,7 +48,7 @@ class AppCartProductCard extends StatelessWidget {
                       margin:
                           const EdgeInsets.symmetric(horizontal: AppSizes.md),
                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(
                             child: Row(
@@ -56,7 +56,8 @@ class AppCartProductCard extends StatelessWidget {
                               children: [
                                 AppBannerImage(
                                     onPress: () => Get.toNamed(
-                                        '/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
+                                            '/product/${cartController.allCartProducts[0].cartItems![index].slug}',
+                                        parameters: {'prevRoute' : '/cart'}),
                                     height: 100,
                                     width: 70,
                                     applyImageRadius: false,
@@ -73,7 +74,8 @@ class AppCartProductCard extends StatelessWidget {
                                         AppImages.placeholder),
                                 const Gap(AppSizes.spaceBtwSmallItem),
                                 AppCardContainer(
-                                    width: AppHelperFunctions.screenWidth() * 0.49,
+                                    width:
+                                        AppHelperFunctions.screenWidth() * 0.49,
                                     height: 100,
                                     //backgroundColor: AppColors.secondary,
                                     child: Column(
@@ -84,7 +86,7 @@ class AppCartProductCard extends StatelessWidget {
                                       children: [
                                         InkWell(
                                           onTap: () => Get.toNamed(
-                                              '/product/${cartController.allCartProducts[0].cartItems![index].slug}'),
+                                              '/product/${cartController.allCartProducts[0].cartItems![index].slug}', parameters: {'prevRoute' : '/cart'}),
                                           child: Text(
                                             cartController.allCartProducts[0]
                                                 .cartItems![index].productName!,

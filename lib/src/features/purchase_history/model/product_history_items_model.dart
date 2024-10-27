@@ -28,6 +28,7 @@ class ProductOrder {
   int? id;
   int? productId;
   String? productName;
+  String? productSlug;
   dynamic variation;
   String? price;
   String? tax;
@@ -47,6 +48,7 @@ class ProductOrder {
     this.id,
     this.productId,
     this.productName,
+    this.productSlug,
     this.variation,
     this.price,
     this.tax,
@@ -68,6 +70,7 @@ class ProductOrder {
       id: json['id'],
       productId: json['product_id'],
       productName: json['product_name'],
+      productSlug: json['product_slug'],
       variation: json['variation'],
       price: json['price'],
       tax: json['tax'],
@@ -90,6 +93,7 @@ class ProductOrder {
       'id': id,
       'product_id': productId,
       'product_name': productName,
+      'product_slug': productSlug,
       'variation': variation,
       'price': price,
       'tax': tax,

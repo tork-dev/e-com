@@ -10,7 +10,7 @@ import '../../styles/spacing_style.dart';
 
 class AppLayoutWithBackButton extends StatelessWidget {
   const AppLayoutWithBackButton({
-   this.padding = AppSizes.md,
+    this.padding = AppSizes.md,
     this.title,
     required this.body,
     this.centerTitle = false,
@@ -24,7 +24,8 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.leadingOnPress,
     this.backToHome = false,
     this.showCustomLeading = false,
-    super.key,  });
+    super.key,
+  });
 
   final Widget? title, body, bottomNav;
   final bool centerTitle;
@@ -35,39 +36,43 @@ class AppLayoutWithBackButton extends StatelessWidget {
   final VoidCallback? leadingOnPress;
   final IconData? customLeadingIcon;
 
-
   @override
   Widget build(BuildContext context) {
     //final isDark = AppHelperFunctions.isDarkMode(context);
-    return
-      GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: PopScope(
-          canPop: !backToHome,
-          onPopInvoked: (pop) {
-            backToHome
-                ? Get.offAllNamed('/home')
-                : null;
-          },
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: bodyBackgroundColor,
-            bottomNavigationBar: bottomNav,
-            appBar: CustomAppBar(
-              title: title,
-              leadingIcon: customLeadingIcon,
-              showBackArrow: showBackButton,
-              leadingIconColor: leadingIconColor,
-              centerTitle: centerTitle,
-              backgroundColor: backgroundColor,
-              actions: action,
-              leadingOnPress: leadingOnPress,
-              showLeadingIcon: showCustomLeading,
-            ),
-            body: Padding(padding: EdgeInsets.symmetric(horizontal: padding), child: body),
-              ),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: PopScope(
+        canPop: !backToHome,
+        onPopInvoked: (pop) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            backToHome ? Get.offAllNamed('/home') : showCustomLeading? leadingOnPress!() :  null;
+          });
+          // if (backToHome) {
+          //   Get.offAllNamed('/home');
+          // } else if (showCustomLeading && leadingOnPress != null) {
+          //   leadingOnPress!();
+          // }
+          // No else case needed; the default behavior will execute automatically
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: bodyBackgroundColor,
+          bottomNavigationBar: bottomNav,
+          appBar: CustomAppBar(
+            title: title,
+            leadingIcon: customLeadingIcon,
+            showBackArrow: showBackButton,
+            leadingIconColor: leadingIconColor,
+            centerTitle: centerTitle,
+            backgroundColor: backgroundColor,
+            actions: action,
+            leadingOnPress: leadingOnPress,
+            showLeadingIcon: showCustomLeading,
+          ),
+          body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: padding), child: body),
         ),
-      );
+      ),
+    );
   }
 }
-

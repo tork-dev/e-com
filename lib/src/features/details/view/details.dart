@@ -30,11 +30,33 @@ class DetailsPage extends StatelessWidget {
      final controller = Get.put(DetailsPageController());
     final categoryController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
+
+    if(controller.productSlugList[controller.productSlugIndex.value] != Get.parameters['id']) {
+      controller.productSlugList.add(Get.parameters['id']!);
+      controller.productSlugIndex = controller.productSlugIndex++;
+      controller.onRefresh();
+      print('calling from ui class');
+    }
     return AppLayoutWithBackButton(
         padding: 0,
+        showBackButton: false,
+        showCustomLeading: true,
+        customLeadingIcon: Icons.arrow_back,
+        leadingOnPress: (){
+          print(controller.productSlugIndex.value);
+          if(controller.productSlugIndex.value > 0){
+          controller.productSlugList.removeAt(controller.productSlugIndex.value);
+          controller.productSlugIndex = controller.productSlugIndex--;
+          controller.onRefresh();
+          print('on press back');
+          }else {
+            Get.offAllNamed(controller.prevRoute.value);
+          }
+        },
         backgroundColor: AppColors.primary,
         bottomNav: const AppBottomButton(),
         title: Obx(() {
+          print('print product id ${Get.parameters['id']}');
           return AppBarSearch(
             focusOn: categoryController.searchOn.value,
             onSubmit: (txt) {

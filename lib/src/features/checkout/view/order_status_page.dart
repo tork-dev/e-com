@@ -46,7 +46,7 @@ class AppOrderStatusScreen extends StatelessWidget {
             final List<Map<String, dynamic>> items =
                 controller.purchaseHistoryItemDetails.value.data!.map((item) {
               return {
-                'item_id': item.productId,
+                'item_id': item.productSlug,
                 'price': double.parse(
                     item.price!.replaceAll('৳', '').replaceAll(',', '')),
                 'quantity': item.quantity,
