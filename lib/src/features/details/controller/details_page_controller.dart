@@ -48,11 +48,11 @@ class DetailsPageController extends GetxController {
 
   Future<void> onRefresh() async {
     await getProductDetails();
-    await getRelatedProducts();
-    await getRecommendedProducts();
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
       await checkWishListAdd();
     }
+    await getRelatedProducts();
+    await getRecommendedProducts();
   }
 
   void getLargePicture(index) {
