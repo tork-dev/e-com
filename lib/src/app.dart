@@ -169,7 +169,7 @@ class MyApp extends StatelessWidget {
             name: '/reward-details',
             page: () => WebViewScreen(
                 url: '$baseUrlWeb/reward-details?type=app',
-                title: 'Reward System')),
+                title: 'Kip Members')),
         GetPage(name: '/reward', page: () => const RewardScreen()),
         GetPage(name: '/point-redemption', page: () => const PointRedemption()),
         GetPage(
