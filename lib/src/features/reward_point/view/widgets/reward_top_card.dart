@@ -124,7 +124,7 @@ class RewardTopCard extends StatelessWidget {
                   const Gap(AppSizes.spaceBtwDefaultItems),
                   LinearPercentIndicator(
                     lineHeight: AppSizes.sm,
-                    percent: rewardController.percentage.value,
+                    percent: rewardController.percentage.value > 0 ? rewardController.percentage.value : 0,
                     padding: EdgeInsets.zero,
                     backgroundColor: AppColors.lightGrey,
                     progressColor: AppColors.secondary,
@@ -142,8 +142,11 @@ class RewardTopCard extends StatelessWidget {
                         children: [
                           TextSpan(
                               text:
-                                  ' more points to become a ${rewardController.rewardResponse.value.nextMemberships!.title} member',
-                              style: Theme.of(context).textTheme.labelLarge)
+                                  ' more points to become a ${rewardController.rewardResponse.value.nextMemberships!.title} member within ',
+                              style: Theme.of(context).textTheme.labelLarge),
+                          TextSpan(
+                            text: rewardController.rewardResponse.value.nextMemberships?.lastDate ?? ''
+                          )
                         ]),
                   ),
                   const Gap(AppSizes.spaceBtwItems),

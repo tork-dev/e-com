@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/cart/model/card_add_response_model.dart';
 import 'package:kirei/src/features/cart/model/cart_delete_response_model.dart';
@@ -14,6 +16,7 @@ class CartRepositories {
   final int userId = AppLocalStorage().readData(LocalStorageKeys.userId);
   final String version =
       AppLocalStorage().readData(LocalStorageKeys.appVersion);
+  final deviceOs = Platform.operatingSystem;
   final dynamic accessToken =
       AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
@@ -30,7 +33,9 @@ class CartRepositories {
       "quantity": quantity,
       "is_preorder": "$preorderAvailable",
       "version": version,
+      "device_os" : deviceOs.toString()
     });
+    print('os platform $deviceOs');
     Uri url = Uri.parse(AppApiEndPoints.addToCart);
     final response = await http.post(url,
         headers: {
@@ -43,7 +48,7 @@ class CartRepositories {
 
   /// Get The Cart Products
   Future<List<CartItemGetResponse>> getCartProducts() async {
-    var postBody = jsonEncode({"version": version});
+    var postBody = jsonEncode({"version": version, "device_os" : deviceOs});
     final response = await http.post(Uri.parse(AppApiEndPoints.cartProducts),
         headers: {
           "Content-Type": "application/json",

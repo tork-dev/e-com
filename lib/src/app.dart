@@ -12,6 +12,7 @@ import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
 import 'package:kirei/src/features/influencer_store/view/influencer_screen.dart';
+import 'package:kirei/src/features/reward_point/view/reward_details_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/update_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -167,9 +168,7 @@ class MyApp extends StatelessWidget {
                 title: 'Responsible Disclosure')),
         GetPage(
             name: '/reward-details',
-            page: () => WebViewScreen(
-                url: '$baseUrlWeb/reward-details?type=app',
-                title: 'Kip Members')),
+            page: () => const RewardDetailsPage()),
         GetPage(name: '/reward', page: () => const RewardScreen()),
         GetPage(name: '/point-redemption', page: () => const PointRedemption()),
         GetPage(

@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/reward_point/controller/point_history_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
@@ -68,11 +65,28 @@ class RewardPointHistoryScreen extends StatelessWidget {
                                             .bodyLarge,
                                       ),
                                       Text(
-                                        '+${controller.rewardHistory.value.data![index].totalRewardPointEarned}',
+                                        controller
+                                                .rewardHistory
+                                                .value
+                                                .data![index]
+                                                .totalRewardPointEarned
+                                                .toString()
+                                                .contains("-")
+                                            ? '${controller.rewardHistory.value.data![index].totalRewardPointEarned}'
+                                            : '+${controller.rewardHistory.value.data![index].totalRewardPointEarned}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
-                                            .apply(color: AppColors.success),
+                                            .apply(
+                                                color: controller
+                                                        .rewardHistory
+                                                        .value
+                                                        .data![index]
+                                                        .totalRewardPointEarned
+                                                        .toString()
+                                                        .contains("-")
+                                                    ? AppColors.error
+                                                    : AppColors.success),
                                       ),
                                     ],
                                   ),

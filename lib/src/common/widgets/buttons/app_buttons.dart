@@ -27,6 +27,7 @@ class AppButtons {
       {required VoidCallback onPressed,
       required String buttonText,
       Color? backgroundColor,
+      Color? buttonTextColor = AppColors.white,
       double buttonRadius = 0,
       double verticallyPadding = 16}) {
     return ElevatedButton(
@@ -41,6 +42,7 @@ class AppButtons {
         ),
         child: Text(
           buttonText,
+          style: TextStyle(color: buttonTextColor),
         ));
   }
 

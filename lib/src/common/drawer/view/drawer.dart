@@ -251,6 +251,11 @@ class AppDrawer extends StatelessWidget {
             );
           }),
           AppDrawerCard(
+            title: 'Kip membership'.toUpperCase(),
+            titleColor: const Color(0xffFFAC00),
+            onPress: () => Get.toNamed('/reward-details'),
+          ),
+          AppDrawerCard(
             title: 'beauty tips'.toUpperCase(),
             onPress: () => Get.offAll(() => const BeautyTipsScreen()),
           ),

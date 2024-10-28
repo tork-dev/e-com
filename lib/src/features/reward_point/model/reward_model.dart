@@ -65,6 +65,7 @@ class NextMemberships {
   String? title;
   int? minRewardPoint;
   int? pointPercent;
+  String? lastDate;
   int? isActive;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -76,6 +77,7 @@ class NextMemberships {
     this.title,
     this.minRewardPoint,
     this.pointPercent,
+    this.lastDate,
     this.isActive,
     this.createdAt,
     this.updatedAt,
@@ -92,6 +94,7 @@ class NextMemberships {
     title: json["title"],
     minRewardPoint: json["min_reward_point"],
     pointPercent: json["point_percent"],
+    lastDate: json["last_date"],
     isActive: json["is_active"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
@@ -104,6 +107,7 @@ class NextMemberships {
     "title": title,
     "min_reward_point": minRewardPoint,
     "point_percent": pointPercent,
+    "last_date" : lastDate,
     "is_active": isActive,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),

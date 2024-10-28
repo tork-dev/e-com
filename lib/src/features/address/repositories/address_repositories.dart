@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:kirei/src/features/address/model/address_create_model.dart';
 import 'package:kirei/src/features/address/model/address_model.dart';
 import 'package:kirei/src/features/address/model/area_response.dart';
@@ -7,16 +7,15 @@ import 'package:kirei/src/features/address/model/zone_response.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../model/address_city_model.dart';
 import 'package:http/http.dart' as http;
-
 import '../model/order_address_change.dart';
 
 class AddressRepositories{
 
   final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
   final version = AppLocalStorage().readData(LocalStorageKeys.appVersion);
+  final deviceOs = Platform.operatingSystem;
 
   Future<CityResponse> getCities() async{
     final response = await http.get(Uri.parse(AppApiEndPoints.cityAddresses));
@@ -69,7 +68,8 @@ class AddressRepositories{
       "phone": phone,
       "name": name,
       "email": email,
-      "version" : version
+      "version" : version,
+      "device_os" : deviceOs
     });
 
     print("Request Body: $postBody");
