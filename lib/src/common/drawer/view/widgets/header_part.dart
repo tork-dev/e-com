@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 import '../../../../utils/local_storage/local_storage_keys.dart';
 import '../../../../utils/local_storage/storage_utility.dart';
 import '../../../styles/app_dividers.dart';
@@ -21,35 +23,47 @@ class AppDrawerHeaderPart extends StatelessWidget {
     return Column(
       children: [
         AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true
-            ? ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: userImage != null
-                      ? NetworkImage(userImage) as ImageProvider
-                      : const AssetImage(AppImages.profileIcon)
-                          as ImageProvider,
+            ? Column(
+              children: [
+                ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: userImage != null
+                          ? NetworkImage(userImage) as ImageProvider
+                          : const AssetImage(AppImages.profileIcon)
+                              as ImageProvider,
+                    ),
+                    title: Text(
+                      userName,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .apply(color: AppColors.white),
+                    ),
+                    subtitle: Text(
+                      userPhone,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .apply(color: AppColors.light.withOpacity(.9)),
+                    )),
+                const Gap(AppSizes.xs),
+                Container(
+                  width: AppHelperFunctions.screenWidth() * 1,
+                  color: AppColors.darkGrey,
+                  height: .5,
                 ),
-                title: Text(
-                  userName,
-                  style: Theme.of(context)
+              ],
+            )
+            :  Align(
+          alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: ()=> Get.back(),
+                  child: Text('x   ', style: Theme.of(context)
                       .textTheme
                       .titleLarge!
-                      .apply(color: AppColors.white),
+                      .apply(color: AppColors.primary)),
                 ),
-                subtitle: Text(
-                  userPhone,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .apply(color: AppColors.light.withOpacity(.9)),
-                ))
-            :  Center(
-                child: Text('Not Logged In', style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .apply(color: AppColors.white)),
               ),
-        const Gap(AppSizes.xs),
-        AppDividersStyle.fullFlatAppDivider,
       ],
     );
   }

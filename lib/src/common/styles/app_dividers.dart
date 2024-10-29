@@ -9,6 +9,7 @@ class AppDividersStyle{
     color: AppColors.grey,
     height: 1,
   );
+
   static Container smallFlatAppDivider = Container(
     width: AppSizes.sm,
     color: AppColors.grey,

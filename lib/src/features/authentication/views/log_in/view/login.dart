@@ -7,12 +7,9 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import '../../../../../common/layouts/layout_without_appbar/layout_without_appbar.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../forgot_password/view/forgot.dart';
@@ -27,7 +24,8 @@ class LogIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String previousRoute = Get.parameters['prevRoute'] ?? '/home';
-    final logInController = Get.put(LogInPageController(previousRoute: previousRoute));
+    final logInController =
+        Get.put(LogInPageController(previousRoute: previousRoute));
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: AppLayoutWithBackButton(
@@ -35,8 +33,8 @@ class LogIn extends StatelessWidget {
         customLeadingIcon: Icons.arrow_back,
         showCustomLeading: true,
         showBackButton: false,
-        leadingOnPress: (){
-        Get.offAllNamed('/home');
+        leadingOnPress: () {
+          Get.offAllNamed('/home');
         },
         body: Center(
           child: SizedBox(
@@ -80,21 +78,24 @@ class LogIn extends StatelessWidget {
                           children: [
                             // const Gap(AppSizes.sm),
                             Visibility(
-                              visible: AppLocalStorage().readData(LocalStorageKeys.facebookLogin),
+                              visible: AppLocalStorage()
+                                  .readData(LocalStorageKeys.facebookLogin),
                               child: AppButtons.largeFlatFilledIconButton(
                                   onPressed: () {
                                     logInController.onPressedFacebookLogin();
                                   },
                                   verticallyPadding: 14,
                                   backgroundColor: AppColors.facebookBg,
-                                  imgUrl: AppImages.facebook,
+                                  imgUrl:
+                                      'assets/images/logos/communication.png',
                                   buttonName:
                                       'Login with facebook'.toUpperCase(),
                                   gapBetweenIconAndText: 12),
                             ),
                             const Gap(AppSizes.sm),
                             Visibility(
-                              visible: AppLocalStorage().readData(LocalStorageKeys.googleLogin),
+                              visible: AppLocalStorage()
+                                  .readData(LocalStorageKeys.googleLogin),
                               child: AppButtons.largeFlatFilledIconButton(
                                   onPressed: () {
                                     logInController.onPressedGoogleLogin();
@@ -102,14 +103,14 @@ class LogIn extends StatelessWidget {
                                   verticallyPadding: 14,
                                   backgroundColor: AppColors.googleBg,
                                   imgUrl: AppImages.google,
-                                  buttonName:
-                                      'Login with google'.toUpperCase(),
+                                  buttonName: 'Login with google'.toUpperCase(),
                                   gapBetweenIconAndText: 5),
                             ),
                             const Gap(AppSizes.sm),
                             Visibility(
                               visible: !Platform.isAndroid &&
-                                  AppLocalStorage().readData(LocalStorageKeys.appleLogin),
+                                  AppLocalStorage()
+                                      .readData(LocalStorageKeys.appleLogin),
                               child: AppButtons.largeFlatFilledIconButton(
                                   onPressed: () {
                                     logInController.onPressAppleLogin();
@@ -117,8 +118,7 @@ class LogIn extends StatelessWidget {
                                   verticallyPadding: 14,
                                   backgroundColor: AppColors.secondary,
                                   imgUrl: AppImages.appleLogo,
-                                  buttonName:
-                                      'Login with apple'.toUpperCase(),
+                                  buttonName: 'Login with apple'.toUpperCase(),
                                   gapBetweenIconAndText: 12),
                             ),
                           ],
@@ -132,10 +132,9 @@ class LogIn extends StatelessWidget {
                         },
                         child: Text(
                           AppLocalizations.of(context)!.dontHaveAccount,
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.apply(
-                                    decoration: TextDecoration.underline,
-                                  ),
+                          style: Theme.of(context).textTheme.titleMedium!.apply(
+                                decoration: TextDecoration.underline,
+                              ),
                         ))),
                 TextButton(
                   onPressed: () {

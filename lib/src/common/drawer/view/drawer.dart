@@ -73,6 +73,14 @@ class AppDrawer extends StatelessWidget {
           ),
           Obx(() {
             return ExpansionTile(
+              collapsedShape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
               iconColor: AppColors.white,
               collapsedIconColor: AppColors.white,
               backgroundColor: AppColors.white.withOpacity(.05),
@@ -130,6 +138,14 @@ class AppDrawer extends StatelessWidget {
                           backgroundColor: AppColors.white.withOpacity(.09),
                           iconColor: AppColors.white,
                           collapsedIconColor: AppColors.white,
+                          collapsedShape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                            side: BorderSide.none,
+                          ),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                            side: BorderSide.none,
+                          ),
                           title: GestureDetector(
                               onTap: () {
                                 shopController.resetAll();
@@ -164,6 +180,14 @@ class AppDrawer extends StatelessWidget {
                                 backgroundColor: AppColors.white.withOpacity(.1),
                                       iconColor: AppColors.white,
                                       collapsedIconColor: AppColors.white,
+                                collapsedShape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  side: BorderSide.none,
+                                ),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  side: BorderSide.none,
+                                ),
                                       title: Text(child.name!,
                                           style: Theme.of(context)
                                               .textTheme
@@ -286,6 +310,14 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ExpansionTile(
+              collapsedShape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
               iconColor: AppColors.white,
               collapsedIconColor: AppColors.white,
               backgroundColor: AppColors.white.withOpacity(.05),
@@ -426,8 +458,12 @@ class AppDrawer extends StatelessWidget {
                 ],
               )),
           const Gap(AppSizes.xs),
-          AppDividersStyle.fullFlatAppDivider,
-          const Gap(AppSizes.xs),
+          Container(
+            width: AppHelperFunctions.screenWidth() * 1,
+            color: AppColors.darkGrey,
+            height: .5,
+          ),
+          const Gap(AppSizes.md),
           const AppDrawerBottomButton()
         ],
       ),
