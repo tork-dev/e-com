@@ -52,7 +52,7 @@ class CheckoutController extends GetxController {
   RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
   RxBool isLoading = false.obs;
-  RxInt rewardBalance = 0.obs;
+  RxDouble rewardBalance = 0.0.obs;
   RxInt redeemPoint = 0.obs;
   RxInt redeemedPoint = 0.obs;
   RxDouble grandTotal = 0.0.obs;
@@ -78,7 +78,7 @@ class CheckoutController extends GetxController {
     final response = await http.get(Uri.parse(AppApiEndPoints.rewardPointBalance), headers: {
       'Authorization' : "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}"
     });
-    rewardBalance.value = int.parse(response.body);
+    rewardBalance.value = double.parse(response.body);
     print('this is balance : ${response.body}');
   }
 
@@ -251,14 +251,12 @@ class CheckoutController extends GetxController {
       return false;
     }
 
-    if (addressController.selectedCityName.value == "" ||
-        addressController.selectedCityName.value.isEmpty) {
+    if (addressController.selectedCityId.value == 0) {
       AppHelperFunctions.showToast('City is required');
       return false;
     }
 
-    if (addressController.selectedZoneName.value == "" ||
-        addressController.selectedZoneName.value.isEmpty) {
+    if (addressController.selectedZoneId.value == 0) {
       AppHelperFunctions.showToast('Zone is required');
       return false;
     }

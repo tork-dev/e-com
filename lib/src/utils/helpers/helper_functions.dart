@@ -483,4 +483,15 @@ class AppHelperFunctions {
     final RegExp regExp = RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
     return htmlString.replaceAll(regExp, '');
   }
+
+  bool isVersionLessThan(String version1, String version2) {
+    List<int> v1 = version1.split('.').map(int.parse).toList();
+    List<int> v2 = version2.split('.').map(int.parse).toList();
+
+    for (int i = 0; i < 3; i++) {
+      if (v1[i] < v2[i]) return true;
+      if (v1[i] > v2[i]) return false;
+    }
+    return false; // They are equal
+  }
 }

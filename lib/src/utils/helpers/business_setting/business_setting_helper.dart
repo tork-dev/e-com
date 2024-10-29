@@ -52,6 +52,11 @@ class BusinessSettingHelper extends GetxController{
             isSpinnerActive.value = isEnabled;
           }
           break;
+        case 'required_app_version':
+          {
+            requiredVersion.value = element.value.toString();
+          }
+          break;
         default:
           {}
           break;

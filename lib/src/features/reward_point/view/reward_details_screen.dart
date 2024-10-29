@@ -88,7 +88,7 @@ class RewardDetailsPage extends StatelessWidget {
                     kipIcon: AppImages.goldIcon,
                     kipTitle: 'KIP-Gold',
                     kipSubtitle:
-                        'Spend 10,000 BDT successfully within the last 6 months to reach KIP-Gold status.',
+                        'Earn 100 points successfully within the last 6 months to reach KIP-Gold status.',
                     pointQuantity: '1.5',
                     kipMessage:
                         'Exclusive Benefits: Enjoy special discounts on selected products and early access to offers.',
@@ -100,7 +100,7 @@ class RewardDetailsPage extends StatelessWidget {
                     kipIcon: AppImages.platinumIcon,
                     kipTitle: 'KIP-Platinum',
                     kipSubtitle:
-                        'Achieve KIP-Platinum by spending 30,000 BDT successfully in the last 6 months.',
+                        'Achieve KIP-Platinum by earning 300 points successfully in the last 6 months.',
                     pointQuantity: '2',
                     kipMessage:
                         'Platinum Perks: Unlock exclusive discounts on selected products, special gifts, and first access to promotions and offers.',

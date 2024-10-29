@@ -4,7 +4,6 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-
 import '../../controller/kirei_tube_details_controller.dart';
 
 class KireiDetailsVideoPlayer extends StatelessWidget {
@@ -13,21 +12,24 @@ class KireiDetailsVideoPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = KireiTubeDetailsController.instance;
-    return AppCardContainer(
-        child: Obx(() {
-          return controller.hittingApi.value
-              ? ShimmerHelper().buildBasicShimmer(height: 250)
-              : controller.videoUrl.contains('facebook.com')?
-              AspectRatio(
-                aspectRatio: controller.videoUrl.contains('%2Freel') ? 9/16 : 16/9,
-                child: WebViewWidget(
-                  controller: controller.webViewController!,
-                ),
-              )
-              :YoutubePlayer(
-                aspectRatio: 16/9,
+    return AppCardContainer(child: Obx(() {
+      return controller.hittingApi.value
+          ? ShimmerHelper().buildBasicShimmer(height: 250)
+          : controller.videoUrl.contains('facebook.com')
+              ? AspectRatio(
+                  aspectRatio: controller.kireiTubeDetailsResponse.value.data
+                              ?.orientation ==
+                          "portrait"
+                      ? 9 / 16
+                      : 16 / 9,
+                  child: WebViewWidget(
+                    controller: controller.webViewController!,
+                  ),
+                )
+              : YoutubePlayer(
+                  aspectRatio: 16 / 9,
                   controller: controller.youtubeController.value!,
                 );
-        }));
+    }));
   }
 }

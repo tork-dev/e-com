@@ -25,7 +25,7 @@ class RewardInstructionCardList extends StatelessWidget {
             imgUrl: 'assets/images/icons/earn_reward.png',
             title: 'How to earn points',
             subTitle: [
-              'For every 100 BDT spent on product purchases, you’ll continue to earn even more points!',
+              'For every 100 BDT spent on product purchases, you’ll continue earn points!',
               'Product Reviews: Earn 5 points per review.',
               'Community Posts: Earn 3 points per post.'
             ],

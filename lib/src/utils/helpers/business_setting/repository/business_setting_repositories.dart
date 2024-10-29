@@ -10,7 +10,7 @@ class BusinessSettingRepository{
     final response = await http.get(url);
     if(response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
-      print('business datas $responseBody');
+      print('business data $responseBody');
       return BusinessSettingResponse.fromJson(response.body);
     }else{
       throw 'not responded';

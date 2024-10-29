@@ -45,8 +45,8 @@ class OrderData {
   String? date;
   bool? cancelRequest;
   bool? manuallyPayable;
-  int? redeemPoint;
-  int? rewardPoint;
+  dynamic redeemPoint;
+  dynamic rewardPoint;
   Links? links;
 
   OrderData({
