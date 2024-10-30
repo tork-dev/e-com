@@ -31,12 +31,14 @@ class RewardResponse {
 class Membership {
   int? id;
   String? title;
+  String? icon;
   int? minRewardPoint;
   int? isUnlocked;
 
   Membership({
     this.id,
     this.title,
+    this.icon,
     this.minRewardPoint,
     this.isUnlocked,
   });
@@ -48,6 +50,7 @@ class Membership {
   factory Membership.fromMap(Map<String, dynamic> json) => Membership(
     id: json["id"],
     title: json["title"],
+    icon: json["icon"],
     minRewardPoint: json["min_reward_point"],
     isUnlocked: json["is_unlocked"],
   );
@@ -55,6 +58,7 @@ class Membership {
   Map<String, dynamic> toMap() => {
     "id": id,
     "title": title,
+    "icon" : icon,
     "min_reward_point": minRewardPoint,
     "is_unlocked": isUnlocked,
   };
@@ -70,6 +74,7 @@ class NextMemberships {
   DateTime? updatedAt;
   dynamic balance;
   int? needPoint;
+  int? memberShipPoint;
 
   NextMemberships({
     this.id,
@@ -81,6 +86,7 @@ class NextMemberships {
     this.updatedAt,
     this.balance,
     this.needPoint,
+    this.memberShipPoint
   });
 
   factory NextMemberships.fromJson(String str) => NextMemberships.fromMap(json.decode(str));
@@ -97,6 +103,7 @@ class NextMemberships {
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     balance: json["balance"],
     needPoint: json["need_point"],
+    memberShipPoint: json["membership_point"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -109,5 +116,6 @@ class NextMemberships {
     "updated_at": updatedAt?.toIso8601String(),
     "balance": balance,
     "need_point": needPoint,
+    "membership_point": memberShipPoint,
   };
 }

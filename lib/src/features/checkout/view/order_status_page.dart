@@ -143,9 +143,7 @@ class AppOrderStatusScreen extends StatelessWidget {
                                 0,
                             child: AppOrderStatusDetailsSection(
                               title: 'Redeem Point',
-                              subTitle: controller.purchaseHistoryDetails.value
-                                  .data![0].redeemPoint!
-                                  .toString(),
+                              subTitle: "৳${controller.purchaseHistoryDetails.value.data![0].redeemPoint!}",
                             ),
                           ),
                           AppOrderStatusDetailsSection(

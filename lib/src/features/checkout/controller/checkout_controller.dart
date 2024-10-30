@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class CheckoutController extends GetxController {
   RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
   RxBool isLoading = false.obs;
-  RxDouble rewardBalance = 0.0.obs;
+  RxInt rewardBalance = 0.obs;
   RxInt redeemPoint = 0.obs;
   RxInt redeemedPoint = 0.obs;
   RxDouble grandTotal = 0.0.obs;
@@ -78,7 +79,7 @@ class CheckoutController extends GetxController {
     final response = await http.get(Uri.parse(AppApiEndPoints.rewardPointBalance), headers: {
       'Authorization' : "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}"
     });
-    rewardBalance.value = double.parse(response.body);
+    rewardBalance.value = int.parse(response.body);
     print('this is balance : ${response.body}');
   }
 

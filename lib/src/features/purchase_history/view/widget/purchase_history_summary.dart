@@ -43,7 +43,7 @@ class AppPurchaseHistoryDetailsSummary extends StatelessWidget {
                   visible: detailsController.purchaseHistoryDetails.value.data![0].redeemPoint! > 0,
                   child: AppSummaryTextWidget(
                       title: 'REDEEM POINT',
-                      amount: detailsController.purchaseHistoryDetails.value.data![0].redeemPoint.toString()),
+                      amount: "৳${detailsController.purchaseHistoryDetails.value.data![0].redeemPoint}"),
                 ),
                 const Gap(AppSizes.xs),
                  SizedBox(

@@ -162,7 +162,7 @@ class AppDrawer extends StatelessWidget {
                                 }
                               },
                               child: Text(
-                                category.name!,
+                                '${category.name!} (${category.counts})',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
@@ -224,7 +224,7 @@ class AppDrawer extends StatelessWidget {
                                                   Get.back();
                                                 }
                                               },
-                                              title: children.name ?? '',
+                                              title: "${children.name} (${children.counts})",
                                             ));
                                       }).toList(),
                                     )
@@ -245,7 +245,7 @@ class AppDrawer extends StatelessWidget {
                                           Get.back();
                                         }
                                       },
-                                      title: child.name ?? '',
+                                      title: "${child.name} (${child.counts})",
                                     ),
                             );
                           }).toList(),

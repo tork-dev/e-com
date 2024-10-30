@@ -9,6 +9,7 @@ class RewardController extends GetxController {
   RxBool hittingApi = false.obs;
   Rx<RewardResponse> rewardResponse = RewardResponse().obs;
   RxDouble percentage = 0.0.obs;
+  List<int> percentageList = [0,100,200,300];
 
   @override
   void onInit() {
@@ -42,7 +43,9 @@ class RewardController extends GetxController {
       int maxValue = allValues.reduce((a, b) => a > b ? a : b);
       print("Maximum Value: $maxValue");
 
-      double percent = rewardResponse.value.balance / maxValue;
+      double percent = rewardResponse.value.nextMemberships!.memberShipPoint! / maxValue;
+
+
       if (percent < 1) {
         percentage.value = percent;
       } else {
@@ -50,6 +53,4 @@ class RewardController extends GetxController {
       }
     }
   }
-
-
 }
