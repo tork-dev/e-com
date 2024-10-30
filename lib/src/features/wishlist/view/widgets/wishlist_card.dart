@@ -29,6 +29,7 @@ class AppWishListProductCard extends StatelessWidget {
                     : AppCardContainer(
                         hasBorder: true,
                         borderColor: AppColors.grey,
+                        applyRadius: false,
                         padding: const EdgeInsets.all(AppSizes.sm),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

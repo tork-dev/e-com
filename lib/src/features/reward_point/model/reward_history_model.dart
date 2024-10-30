@@ -31,7 +31,7 @@ class RewardHistoryResponse {
 class Datum {
   int? id;
   dynamic orderId;
-  int? totalRewardPointEarned;
+  dynamic totalRewardPointEarned;
   DateTime? date;
   String? event;
   String? source;

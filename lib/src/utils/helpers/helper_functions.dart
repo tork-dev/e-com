@@ -238,7 +238,7 @@ class AppHelperFunctions {
                                 onTap: onLeftPress,
                                 applyRadius: false,
                                 height: 40,
-                                width: 150,
+                                width: 120,
                                 hasBorder: true,
                                 child: Center(
                                   child: Text(
@@ -252,7 +252,7 @@ class AppHelperFunctions {
                                 onTap: onRightPress,
                                 applyRadius: false,
                                 height: 40,
-                                width: 150,
+                                width: 120,
                                 backgroundColor: AppColors.primary,
                                 child: Center(
                                   child: Text(
