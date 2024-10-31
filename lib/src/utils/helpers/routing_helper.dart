@@ -27,11 +27,7 @@ class RoutingHelper {
         }else {
           Get.toNamed(route);
         }
-      } else {
-        Get.offAllNamed('/');
       }
-    } else {
-      Get.offAllNamed('/');
     }
   }
 }
