@@ -110,14 +110,18 @@ class DetailsPage extends StatelessWidget {
                 AppDividersStyle.fullFlatAppDivider,
                 ReviewAndQuestion(
                   onTap: () {
-                    Get.to(() => ReviewScreen(productId: controller.productDetails.value.detailedProducts!.slug!));
+                    Get.to(() => ReviewScreen(
+                        productId: controller
+                            .productDetails.value.detailedProducts!.slug!));
                   },
                   title: 'Review',
                 ),
                 AppDividersStyle.fullFlatAppDivider,
                 ReviewAndQuestion(
                   onTap: () {
-                    Get.to(() => QuestionScreen(productId: controller.productDetails.value.detailedProducts!.id!));
+                    Get.to(() => QuestionScreen(
+                        productId: controller
+                            .productDetails.value.detailedProducts!.id!));
                   },
                   title: 'questions about this products',
                 ),
