@@ -54,7 +54,9 @@ class HomeThree extends StatelessWidget {
                             categoryController: getShopDataController,
                             bottomController: convexBottomNavController,
                             controller: controller,
-                            focusNode: focusNode)),
+                            focusNode: focusNode),
+                  prevRoute: '/home',
+                ),
               ),
               const Gap(AppSizes.spaceBtwDefaultItems),
               const Padding(

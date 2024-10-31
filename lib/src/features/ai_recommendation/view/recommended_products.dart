@@ -72,7 +72,7 @@ class RecommendedProducts extends StatelessWidget {
                             height: 270,
                             width: 150,
                             imgUrl: product.pictures?.isNotEmpty == true ? product.pictures![0].url ?? '' : '',
-                            onTap: () => Get.toNamed('/product/${product.slug}'),
+                            onTap: () => Get.toNamed('/product/${product.slug}', parameters: {'prevRoute' : '/recommended-products'}),
                             onCartTap: () {
                               if (product.requestAvailable != 0) {
                                 cartController.getRequestResponse(productId: product.id!).then((value) {

@@ -67,6 +67,7 @@ class DetailsPage extends StatelessWidget {
               bottomController.jumpToTab(1);
               EventLogger().logSearchEvent(txt);
             },
+            prevRoute: '/shop',
           );
         }),
         leadingIconColor: AppColors.white,

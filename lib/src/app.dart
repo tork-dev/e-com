@@ -18,6 +18,7 @@ import 'package:kirei/src/update_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:upgrader/upgrader.dart';
+import 'features/ai_recommendation/view/recommended_products.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
 import 'features/details/bindings/details_bindings.dart';
@@ -171,6 +172,9 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/group-shopping/:id',
             page: () => const GroupShoppingPaymentScreen()),
+        GetPage(
+            name: '/recommended-products',
+            page: () => const RecommendedProducts()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],
 

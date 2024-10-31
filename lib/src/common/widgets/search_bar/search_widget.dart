@@ -12,8 +12,9 @@ import '../../../utils/constants/colors.dart';
 class AppSearchWidget extends StatelessWidget {
   final Widget Function(BuildContext context, TextEditingController controller,
       FocusNode focusNode) builder;
+  final String prevRoute;
 
-  const AppSearchWidget({super.key, required this.builder});
+  const AppSearchWidget({super.key, required this.builder, required this.prevRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class AppSearchWidget extends StatelessWidget {
                   ))
               : ListTile(
                   onTap: () {
-                    Get.toNamed('/product/${dataItem.slug ?? ''}');
+                    Get.toNamed('/product/${dataItem.slug ?? ''}', parameters: {'prevRoute' : prevRoute});
                     EventLogger().logProductDetailsViewEvent('${dataItem.slug}');
                   },
                   contentPadding: const EdgeInsets.all(AppSizes.sm),
