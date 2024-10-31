@@ -70,7 +70,10 @@ class RadioQuestionImageWidget extends StatelessWidget {
                             activeColor: AppColors.secondary,
                             value: index,
                             groupValue: recommendationController.radioButtonSelectedValue.value,
-                            onChanged: (value){},
+                            onChanged: (value){
+                              recommendationController
+                                  .setRadioButtonValue(index);
+                            },
                             title: Text(
                               option[index],
                               maxLines: 2,
