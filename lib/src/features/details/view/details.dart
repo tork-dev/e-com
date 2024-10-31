@@ -27,11 +27,12 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final controller = Get.put(DetailsPageController());
+    final controller = Get.put(DetailsPageController());
     final categoryController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
 
-    if(controller.productSlugList[controller.productSlugIndex.value] != Get.parameters['id']) {
+    if (controller.productSlugList[controller.productSlugIndex.value] !=
+        Get.parameters['id']) {
       controller.productSlugList.add(Get.parameters['id']!);
       controller.productSlugIndex = controller.productSlugIndex++;
       controller.onRefresh();
@@ -42,14 +43,15 @@ class DetailsPage extends StatelessWidget {
         showBackButton: false,
         showCustomLeading: true,
         customLeadingIcon: Icons.arrow_back,
-        leadingOnPress: (){
+        leadingOnPress: () {
           print(controller.productSlugIndex.value);
-          if(controller.productSlugIndex.value > 0){
-          controller.productSlugList.removeAt(controller.productSlugIndex.value);
-          controller.productSlugIndex = controller.productSlugIndex--;
-          controller.onRefresh();
-          print('on press back');
-          }else {
+          if (controller.productSlugIndex.value > 0) {
+            controller.productSlugList
+                .removeAt(controller.productSlugIndex.value);
+            controller.productSlugIndex = controller.productSlugIndex--;
+            controller.onRefresh();
+            print('on press back');
+          } else {
             Get.offAllNamed(controller.prevRoute.value);
           }
         },
