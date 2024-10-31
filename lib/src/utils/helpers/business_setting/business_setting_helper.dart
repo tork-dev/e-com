@@ -8,6 +8,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import '../../../features/spinner_wheel/controller/spinner_controller.dart';
 import '../../device/device_utility.dart';
 import '../helper_functions.dart';
 import '../routing_helper.dart';
@@ -127,6 +128,7 @@ class BusinessSettingHelper extends GetxController {
     if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == null &&
         isSpinnerActive.value &&
         onBoardingController.spinnerActive.value) {
+      Get.put(SpinnerController());
       Future.delayed(const Duration(seconds: 10),
           () => AppHelperFunctions().showAlertForFirstTime());
       return;

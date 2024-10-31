@@ -69,21 +69,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/',
-          page: () => UpgradeAlert(
-            upgrader: Upgrader(
-              debugDisplayAlways: false,
-              debugLogging: false,
-              storeController: UpgraderStoreController(
-                onAndroid: () => UpgraderPlayStore(),
-                oniOS: () => UpgraderAppcastStore(
-                    appcastURL:
-                        'https://apps.apple.com/us/app/kirei/id6502335026'),
-              ),
-            ),
-            showReleaseNotes: false,
-            barrierDismissible: false,
-            child: const SplashScreen(),
-          ),
+          page: () => const SplashScreen(),
         ),
         GetPage(name: '/login/:prevRoute', page: () => const LogIn()),
         GetPage(name: '/register', page: () => const SignUp()),

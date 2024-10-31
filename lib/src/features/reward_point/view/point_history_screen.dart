@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
@@ -88,6 +89,7 @@ class RewardPointHistoryScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
+                                  const Gap(AppSizes.spaceBtwDefaultItems),
                                   Text(
                                     controller.rewardHistory.value.data![index]
                                                 .event ==
@@ -100,6 +102,8 @@ class RewardPointHistoryScreen extends StatelessWidget {
                                             : "Post Title : ${controller.rewardHistory.value.data![index].details?.postTitle}",
                                     style:
                                         Theme.of(context).textTheme.labelMedium,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ],
                               ));

@@ -17,13 +17,11 @@ class CommonController extends GetxController {
     if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
       Get.put(GaipUserIdController());
     }
-    final spinnerController = Get.put(SpinnerController());
     showPopUp();
   }
 
   // Method to handle popup display
   Future<void> showPopUp() async {
-    // print('executing pop up');
     await BusinessSettingHelper().setBusinessSettingData();
   }
 }
