@@ -80,7 +80,7 @@ class RecommendationAntiAgingTwo extends StatelessWidget {
                 print(recommendationController.acneTwoSelected);
                 recommendationController.sendData();
                 recommendationController.resetValues();
-                Get.to(()=> const RecommendedProducts());
+                Get.toNamed('/recommended-products');
               },
             )
           ],
