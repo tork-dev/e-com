@@ -71,7 +71,7 @@ class Datum {
 
 class Details{
   String? source;
-  String? orderId;
+  int? orderId;
   String? productName;
   String? productSlug;
   String? postTitle;
