@@ -21,7 +21,6 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../../../ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 
 class AppFeatureCategories extends StatelessWidget {

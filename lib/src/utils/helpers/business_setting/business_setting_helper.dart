@@ -133,8 +133,7 @@ class BusinessSettingHelper extends GetxController {
     }
 
     // Check if there are popups to display
-    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true ||
-        !onBoardingController.spinnerActive.value) {
+    if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true) {
       print('interval time $intervalTime');
       if (businessLists.popup?.data != null &&
           businessLists.popup!.data!.isNotEmpty) {

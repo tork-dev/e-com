@@ -57,12 +57,10 @@ class RewardPointHistoryScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        controller.rewardHistory.value
-                                                .data![index].source ??
-                                            '',
+                                        "${controller.rewardHistory.value.data![index].details?.source} on $formatedDate",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyLarge,
+                                            .titleLarge,
                                       ),
                                       Text(
                                         controller
@@ -90,14 +88,18 @@ class RewardPointHistoryScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Visibility(
-                                    visible: formatedDate != '',
-                                    child: Text(
-                                      'Date: $formatedDate',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium,
-                                    ),
+                                  Text(
+                                    controller.rewardHistory.value.data![index]
+                                                .event ==
+                                            "Order"
+                                        ? 'Order Id : ${controller.rewardHistory.value.data![index].details?.orderId}'
+                                        : controller.rewardHistory.value
+                                                    .data![index].event ==
+                                                'Review'
+                                            ? "Product Name: ${controller.rewardHistory.value.data![index].details?.productName}"
+                                            : "Post Title : ${controller.rewardHistory.value.data![index].details?.postTitle}",
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
                                   ),
                                 ],
                               ));

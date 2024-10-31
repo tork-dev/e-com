@@ -218,6 +218,8 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                             child: InkWell(
                                 onTap: () {
                                   Get.back();
+                                  AppLocalStorage().saveData(
+                                      LocalStorageKeys.sowedSpinner, true);
                                 },
                                 child: const Icon(Icons.clear))),
                       )
@@ -248,11 +250,13 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                           child: InkWell(
                               onTap: () {
                                 Get.back();
+                                AppLocalStorage().saveData(
+                                    LocalStorageKeys.sowedSpinner, true);
                               },
                               child: const Icon(Icons.clear))),
                     ],
                   ),
-                  Gap(AppSizes.md),
+                  const Gap(AppSizes.md),
                   Text(
                     'Welcome to kirei',
                     style: Theme.of(context).textTheme.headlineLarge,
