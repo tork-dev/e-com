@@ -43,7 +43,7 @@ android {
     defaultConfig {
         applicationId "com.thetork.kirei"
         minSdkVersion 23
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
