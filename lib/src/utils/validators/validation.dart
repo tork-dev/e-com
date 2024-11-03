@@ -12,7 +12,7 @@ class AppValidator {
     if ((phoneRegExp.hasMatch(value)) || emailRegExp.hasMatch(value)){
       return null;
     } else{
-      return 'Invalid email or phone';
+      return 'Invalid Phone';
     }
 
   }
