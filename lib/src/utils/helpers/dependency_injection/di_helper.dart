@@ -23,12 +23,15 @@ import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/features/splash/controller/splash_controller.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';
 
+import '../../../features/spinner_wheel/controller/spinner_controller.dart';
+
 class DependencyInjection {
   static Future init() async{
     Get.lazyPut(()=>OnBoardingController());
     Get.lazyPut(()=>NetworkManager());
     Get.lazyPut(()=>CommonController());
     Get.lazyPut(()=>SplashController());
+    Get.lazyPut(()=>SpinnerController());
     Get.lazyPut(()=>LogInPageController());
     Get.lazyPut(()=>SignUpPageController());
     Get.lazyPut(()=>ForgotPasswordController());
