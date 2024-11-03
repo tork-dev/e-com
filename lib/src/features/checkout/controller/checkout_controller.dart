@@ -149,7 +149,7 @@ class CheckoutController extends GetxController {
 
     AppHelperFunctions.showLoaderDialog(Get.overlayContext!); // Make sure overlayContext is not null
 
-    Map<String, dynamic> requestBody = prepareRequestBody();
+    Map<String, dynamic> requestBody = await prepareRequestBody();
 
     try {
       orderCreateResponse.value = await CheckoutRepositories()
@@ -265,7 +265,7 @@ class CheckoutController extends GetxController {
     return true;
   }
 
-  Map<String, dynamic> prepareRequestBody() {
+  Future<Map<String, dynamic>> prepareRequestBody() async {
     List<String> productIdsStringsArr = productIdsString.split(',');
     List<int> productIds = productIdsStringsArr.map(int.parse).toList();
 
@@ -293,7 +293,7 @@ class CheckoutController extends GetxController {
       "version": "${AppLocalStorage().readData(LocalStorageKeys.appVersion)}",
       "coupon_code": couponCode,
       "redeem_point" : redeemedPoint.value,
-      "device_os" : Platform.operatingSystem.toString()
+      'app_info': await AppHelperFunctions.appInfo(),
     };
 
     return requestBody;

@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
+import '../../../utils/helpers/helper_functions.dart';
 import '../model/coupon_apply_model.dart';
 
 class CheckoutRepositories {
@@ -45,7 +46,8 @@ class CheckoutRepositories {
       {required String couponCode}) async {
     var postBody =
     jsonEncode({
-      "coupon_code": couponCode
+      "coupon_code": couponCode,
+      'app_info': await AppHelperFunctions.appInfo(),
     });
     print(postBody);
 
@@ -63,7 +65,7 @@ class CheckoutRepositories {
   }
 
   Future<CouponRemoveResponse> getCouponRemoveResponse() async {
-    var postBody = jsonEncode({"user_id": userid});
+    var postBody = jsonEncode({"user_id": userid, 'app_info': await AppHelperFunctions.appInfo(),});
 
     Uri url = Uri.parse(AppApiEndPoints.couponRemove);
     final response = await http.post(url,

@@ -43,11 +43,11 @@ class AppFeatureCategories extends StatelessWidget {
                   : homeController.homeFeaturedCategoryResponse.length,
               builderFunction: (BuildContext context, int index) =>
                   homeController.homeFeaturedCategoryResponse.isEmpty
-                      ? ShimmerHelper().buildBasicShimmer(
-                          height: 60, width: 70, radius: 100)
+                      ? ShimmerHelper()
+                          .buildBasicShimmer(height: 60, width: 70, radius: 100)
                       : SizedBox(
-                    width: 80,
-                        child: Column(
+                          width: 80,
+                          child: Column(
                             children: [
                               AppBannerImage(
                                 onPress: () {
@@ -116,7 +116,7 @@ class AppFeatureCategories extends StatelessWidget {
                               )
                             ],
                           ),
-                      )));
+                        )));
     });
   }
 }

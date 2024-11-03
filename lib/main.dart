@@ -47,10 +47,6 @@ Future<void> main() async {
 
   notificationServices.getDeviceToken().then((value){
     AppLocalStorage().saveData(LocalStorageKeys.fcmToken, value);
-    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-      HomeRepositories().getDeviceTokenUpdateResponse();
-    }
-
     if (kDebugMode) {
       print('device token');
       print(value);

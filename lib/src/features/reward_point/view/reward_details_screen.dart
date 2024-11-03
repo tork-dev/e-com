@@ -162,7 +162,7 @@ class RewardDetailsPage extends StatelessWidget {
             ),
             const Gap(AppSizes.spaceBtwSections),
             AppCardContainer(
-              key: rewardController.targetWidgetToScroll,
+                key: rewardController.targetWidgetToScroll,
                 backgroundColor: const Color(0xffFFF5F9),
                 applyRadius: false,
                 width: AppHelperFunctions.screenWidth(),
@@ -206,7 +206,7 @@ class RewardDetailsPage extends StatelessWidget {
                 )),
             const Gap(AppSizes.spaceBtwSections),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
               child: AppCardContainer(
                 applyRadius: false,
                 width: AppHelperFunctions.screenWidth(),
@@ -216,21 +216,26 @@ class RewardDetailsPage extends StatelessWidget {
                   children: [
                     Text(
                       'Unlock Rewards with Ease',
-                      style: Theme.of(context).textTheme.headlineMedium!.apply(color: AppColors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .apply(color: AppColors.white),
                     ),
                     const Gap(AppSizes.sm),
                     Text(
                       "Whether you're buying your favorite skincare products or engaging with our community, points add up quickly. Join today and start collecting your rewards!",
-                      style: Theme.of(context).textTheme.bodySmall!.apply(color: AppColors.grey),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .apply(color: AppColors.grey),
                       textAlign: TextAlign.center,
                     ),
                     const Gap(AppSizes.defaultSpace),
                     SizedBox(
                       width: 280,
                       child: AppButtons.largeFlatFilledButton(
-                          onPressed: (){
-                           rewardController.scrollToTargetWidget();
-                            // Get.offAllNamed('/shop');
+                          onPressed: () {
+                            Get.offAllNamed('/shop');
                           },
                           backgroundColor: AppColors.white,
                           buttonTextColor: AppColors.addToCartButton,
