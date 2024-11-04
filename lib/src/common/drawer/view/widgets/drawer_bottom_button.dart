@@ -26,28 +26,6 @@ class AppDrawerBottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Visibility(
-          visible: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 100,
-                child: AppDrawerCard(
-                  title: 'Login'.toUpperCase(),
-                  onPress: () => Get.to(const LogIn()),
-                ),
-              ),
-              SizedBox(
-                width: 110,
-                child:  AppDrawerCard(
-                  title: 'Register'.toUpperCase(),
-                  onPress: () => Get.to(const SignUp()),
-                ),
-              ),
-            ],
-          ),
-        ),
         const Gap(AppSizes.defaultSpace),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

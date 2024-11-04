@@ -23,6 +23,8 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../features/authentication/views/log_in/view/login.dart';
+import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/auth_helper.dart';
 import 'widgets/common_drawer_card.dart';
@@ -466,6 +468,22 @@ class AppDrawer extends StatelessWidget {
                   // ),
                 ],
               )),
+          Visibility(
+            visible: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppDrawerCard(
+                  title: 'Login'.toUpperCase(),
+                  onPress: () => Get.to(const LogIn()),
+                ),
+                AppDrawerCard(
+                  title: 'Register'.toUpperCase(),
+                  onPress: () => Get.to(const SignUp()),
+                ),
+              ],
+            ),
+          ),
           const Gap(AppSizes.defaultSpace),
           const AppDrawerBottomButton()
         ],
