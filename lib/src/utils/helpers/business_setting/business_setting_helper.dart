@@ -121,63 +121,66 @@ class BusinessSettingHelper extends GetxController {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(AppSizes.defaultSpace),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.update),
-                                const Gap(AppSizes.md),
-                                Text(
-                                  'Update Available',
-                                  style:
-                                      Theme.of(context).textTheme.headlineMedium,
-                                ),
-                                const Gap(AppSizes.md),
-                                Text(
-                                  'New version is available. Please update your app.',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const Gap(AppSizes.md),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 120,
-                                      child: AppButtons.largeFlatFilledButton(
-                                          backgroundColor:
-                                              AppColors.addToCartButton,
-                                          onPressed: () {
-                                            AppDeviceUtils.browseUrl(Platform
-                                                    .isAndroid
-                                                ? 'https://play.google.com/store/apps/details?id=com.thetork.kirei&hl=en&gl=US'
-                                                : 'https://apps.apple.com/us/app/kirei/id6502335026?platform=iphone');
-                                          },
-                                          buttonText: 'Update'),
-                                    ),
-                                  ],
-                                )
-                              ],
+                      child: PopScope(
+                        canPop: !updateRequired,
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(AppSizes.defaultSpace),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.update),
+                                  const Gap(AppSizes.md),
+                                  Text(
+                                    'Update Available',
+                                    style:
+                                        Theme.of(context).textTheme.headlineMedium,
+                                  ),
+                                  const Gap(AppSizes.md),
+                                  Text(
+                                    'New version is available. Please update your app.',
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const Gap(AppSizes.md),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 120,
+                                        child: AppButtons.largeFlatFilledButton(
+                                            backgroundColor:
+                                                AppColors.addToCartButton,
+                                            onPressed: () {
+                                              AppDeviceUtils.browseUrl(Platform
+                                                      .isAndroid
+                                                  ? 'https://play.google.com/store/apps/details?id=com.thetork.kirei&hl=en&gl=US'
+                                                  : 'https://apps.apple.com/us/app/kirei/id6502335026?platform=iphone');
+                                            },
+                                            buttonText: 'Update'),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Visibility(
-                            visible: !updateRequired,
-                            child: Positioned(
-                              right: AppSizes.md,
-                              top: AppSizes.md,
-                              child: AppCardContainer(
-                                  onTap: ()=> Get.back(),
-                                  applyRadius: false,
-                                  backgroundColor: AppColors.grey,
-                                  height: 40,
-                                  width: 40,
-                                  child: const Icon(Icons.clear)),
-                            ),
-                          )
-                        ],
+                            Visibility(
+                              visible: !updateRequired,
+                              child: Positioned(
+                                right: AppSizes.md,
+                                top: AppSizes.md,
+                                child: AppCardContainer(
+                                    onTap: ()=> Get.back(),
+                                    applyRadius: false,
+                                    backgroundColor: AppColors.grey,
+                                    height: 40,
+                                    width: 40,
+                                    child: const Icon(Icons.clear)),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
