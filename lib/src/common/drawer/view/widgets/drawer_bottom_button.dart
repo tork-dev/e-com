@@ -14,7 +14,9 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/helpers/auth_helper.dart';
 import '../../../widgets/buttons/app_buttons.dart';
+import 'common_drawer_card.dart';
 
 class AppDrawerBottomButton extends StatelessWidget {
   const AppDrawerBottomButton({
@@ -30,19 +32,12 @@ class AppDrawerBottomButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 100,
-                child: AppButtons.largeFlatFilledButton(
-                    onPressed: () {
-                      Get.to(()=> const LogIn());
-                    },
-                    backgroundColor: AppColors.white,
-                    buttonRadius: 0,
-                   // verticallyPadding: 0,
-                    buttonText: 'Login',
-                  buttonTextColor: AppColors.secondary
-                ),
-              ),
+              AppDrawerCard(
+                  title: 'Login'.toUpperCase(),
+                  onPress: () {
+                    // AuthHelper().clearUserData();
+                    // Get.offAll(() => const HelloConvexAppBar());
+                  }),
               const Gap(AppSizes.md),
               SizedBox(
                 width: 100,
@@ -95,7 +90,7 @@ class AppDrawerBottomButton extends StatelessWidget {
         ),
         const Gap(AppSizes.md),
         Text(
-          "version: ${AppLocalStorage().readData(LocalStorageKeys.appVersion)}",
+          "Version: ${AppLocalStorage().readData(LocalStorageKeys.appVersion)}",
           style: const TextStyle(fontWeight: FontWeight.w500, color: AppColors.white),
         )
       ],

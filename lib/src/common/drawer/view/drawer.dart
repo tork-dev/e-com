@@ -466,13 +466,7 @@ class AppDrawer extends StatelessWidget {
                   // ),
                 ],
               )),
-          const Gap(AppSizes.xs),
-          Container(
-            width: AppHelperFunctions.screenWidth() * 1,
-            color: AppColors.darkGrey,
-            height: .5,
-          ),
-          const Gap(AppSizes.md),
+          const Gap(AppSizes.defaultSpace),
           const AppDrawerBottomButton()
         ],
       ),

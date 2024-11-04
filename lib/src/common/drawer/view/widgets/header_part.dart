@@ -24,46 +24,46 @@ class AppDrawerHeaderPart extends StatelessWidget {
       children: [
         AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true
             ? Column(
-              children: [
-                ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: userImage != null
-                          ? NetworkImage(userImage) as ImageProvider
-                          : const AssetImage(AppImages.profileIcon)
-                              as ImageProvider,
-                    ),
-                    title: Text(
-                      userName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .apply(color: AppColors.white),
-                    ),
-                    subtitle: Text(
-                      userPhone,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .apply(color: AppColors.light.withOpacity(.9)),
-                    )),
-                const Gap(AppSizes.xs),
-                Container(
-                  width: AppHelperFunctions.screenWidth() * 1,
-                  color: AppColors.darkGrey,
-                  height: .5,
+                children: [
+                  ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: userImage != null
+                            ? NetworkImage(userImage) as ImageProvider
+                            : const AssetImage(AppImages.profileIcon)
+                                as ImageProvider,
+                      ),
+                      title: Text(
+                        userName,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .apply(color: AppColors.white),
+                      ),
+                      subtitle: Text(
+                        userPhone,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .apply(color: AppColors.light.withOpacity(.9)),
+                      )),
+                  const Gap(AppSizes.xs),
+                  Container(
+                    width: AppHelperFunctions.screenWidth() * 1,
+                    color: AppColors.darkGrey,
+                    height: .5,
+                  ),
+                ],
+              )
+            : Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                InkWell(
+                  onTap: () => Get.back(),
+                  child: const Icon(
+                    Icons.clear,
+                    color: AppColors.white,
+                  ),
                 ),
-              ],
-            )
-            :  Align(
-          alignment: Alignment.topRight,
-                child: InkWell(
-                  onTap: ()=> Get.back(),
-                  child: Text('x   ', style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .apply(color: AppColors.primary)),
-                ),
-              ),
+                const Gap(AppSizes.sm)
+              ]),
       ],
     );
   }
