@@ -46,6 +46,11 @@ class HomeShopByConcern extends StatelessWidget {
                         : Column(
                             children: [
                               AppBannerImage(
+                                onPress: (){
+                                  shopController.resetAll();
+                                  shopController.goodFor.value = homeController.homeProductResponse.value.skinConcern![index].slug ?? '';
+                                  bottomController.jumpToTab(1);
+                                },
                                   width: 128,
                                   height: 160,
                                   fit: BoxFit.cover,
