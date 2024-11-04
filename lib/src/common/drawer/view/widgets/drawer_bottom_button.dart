@@ -14,7 +14,6 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/auth_helper.dart';
 import '../../../widgets/buttons/app_buttons.dart';
 import 'common_drawer_card.dart';
 
@@ -32,24 +31,18 @@ class AppDrawerBottomButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AppDrawerCard(
-                  title: 'Login'.toUpperCase(),
-                  onPress: () {
-                    // AuthHelper().clearUserData();
-                    // Get.offAll(() => const HelloConvexAppBar());
-                  }),
-              const Gap(AppSizes.md),
               SizedBox(
                 width: 100,
-                child: AppButtons.largeFlatFilledButton(
-                    onPressed: () {
-                      Get.to(()=> const SignUp());
-                    },
-                    backgroundColor: AppColors.white,
-                    buttonRadius: 0,
-                   // verticallyPadding: 0,
-                    buttonText: 'Register',
-                  buttonTextColor: AppColors.secondary
+                child: AppDrawerCard(
+                  title: 'Login'.toUpperCase(),
+                  onPress: () => Get.to(const LogIn()),
+                ),
+              ),
+              SizedBox(
+                width: 110,
+                child:  AppDrawerCard(
+                  title: 'Register'.toUpperCase(),
+                  onPress: () => Get.to(const SignUp()),
                 ),
               ),
             ],

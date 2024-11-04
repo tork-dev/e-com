@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import '../../../../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../widgets/other_login_option.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../controllers/signup_controller.dart';
@@ -19,7 +17,7 @@ class SignUp extends StatelessWidget {
     final signUpController = Get.put(SignUpPageController());
     return const AppLayoutWithBackButton(
       padding: AppSizes.defaultSpace,
-      showBackButton: false,
+      showBackButton: true,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
