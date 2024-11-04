@@ -11,17 +11,11 @@ import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.da
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
-import 'package:kirei/src/features/influencer_store/view/influencer_screen.dart';
 import 'package:kirei/src/features/reward_point/view/reward_details_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
-import 'package:kirei/src/update_controller.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:upgrader/upgrader.dart';
 import 'features/ai_recommendation/view/recommended_products.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
-import 'features/details/bindings/details_bindings.dart';
 import 'features/group_shopping/view/group_shopping_payment_screen.dart';
 import 'features/kirei_tube/view/kirei_tube_details.dart';
 import 'features/kirei_tube/view/kirei_tube_screen.dart';

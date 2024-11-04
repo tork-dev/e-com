@@ -4,7 +4,7 @@ description: "Japanese Beauty Products Store in Bangladesh – Authentic Product
 
 publish_to: 'none'
 
-version: 3.0.5+35
+version: 3.0.6+36
 #version: 2.0.5+35
 
 
@@ -34,7 +34,6 @@ dependencies:
   shimmer: ^3.0.0
   gap: ^3.0.1
   package_info_plus: ^6.0.0
-  upgrader: 10.3.0
   printing: ^5.12.0
   open_file: ^3.3.2
   flutter_rating_bar: ^4.0.1
