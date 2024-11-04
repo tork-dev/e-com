@@ -36,6 +36,7 @@ class ShopScreen extends StatelessWidget {
               shopDataController.allProducts.clear();
               shopDataController.getShopData();
             },
+            prevRoute: '/shop',
           );
         }),
         body: Stack(

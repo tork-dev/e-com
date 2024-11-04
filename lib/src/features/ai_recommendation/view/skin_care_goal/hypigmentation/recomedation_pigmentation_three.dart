@@ -86,7 +86,7 @@ class RecommendationPigmentationThree extends StatelessWidget {
                     .toList();
                 recommendationController.sendData();
                 recommendationController.resetValues();
-                Get.to(()=> const RecommendedProducts());
+                Get.toNamed('/recommended-products');
               },
             )
           ],

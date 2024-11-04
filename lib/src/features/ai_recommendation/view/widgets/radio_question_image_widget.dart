@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
@@ -70,7 +68,10 @@ class RadioQuestionImageWidget extends StatelessWidget {
                             activeColor: AppColors.secondary,
                             value: index,
                             groupValue: recommendationController.radioButtonSelectedValue.value,
-                            onChanged: (value){},
+                            onChanged: (value){
+                              recommendationController
+                                  .setRadioButtonValue(index);
+                            },
                             title: Text(
                               option[index],
                               maxLines: 2,
@@ -83,28 +84,6 @@ class RadioQuestionImageWidget extends StatelessWidget {
                         }
                       )
 
-                      // Row(
-                      //   children: [
-                      //     Obx(() {
-                      //       return Radio<int>(
-                      //           activeColor: AppColors.secondary,
-                      //           value: index,
-                      //           groupValue: recommendationController
-                      //               .radioButtonSelectedValue.value,
-                      //           onChanged: (value) {
-                      //             recommendationController
-                      //                 .setRadioButtonValue(value!);
-                      //           });
-                      //     }),
-                      //     SizedBox(
-                      //       width: 100,
-                      //       child: Text(
-                      //         option[index],
-                      //         style: const TextStyle(fontWeight: FontWeight.bold),
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
                     ),
                   ],
                 ),

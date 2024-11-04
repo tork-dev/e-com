@@ -27,6 +27,8 @@ class RewardProductCard extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   AppBannerImage(
+                    height: 150,
+                    width: double.infinity,
                     isNetworkImage: true,
                     imgUrl: products.pointRedemptionResponse.value.data![index]
                         .product!.thumbnailImage,

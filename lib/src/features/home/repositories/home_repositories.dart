@@ -71,6 +71,7 @@ class HomeRepositories {
         },
         body: postBody);
     print('sended fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
+    print('posted body $postBody}');
 
     return deviceTokenUpdateResponseFromJson(response.body);
   }

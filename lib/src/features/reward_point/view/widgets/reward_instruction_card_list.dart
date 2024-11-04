@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/reward_point/controller/reward_controller.dart';
 import 'package:kirei/src/features/reward_point/view/widgets/reward_instruction_card.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
@@ -13,31 +14,35 @@ class RewardInstructionCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
+    final controller = RewardController.instance;
     return  Column(
       children: [
         InkWell(
           onTap: (){
-            Get.to(() => WebViewScreen(
-                title: 'Earn points',
-                url: "$baseUrlWeb/earn-points?type=app"));
+            Get.toNamed('/reward-details');
           },
           child: const RewardInstructionCard(
             imgUrl: 'assets/images/icons/earn_reward.png',
             title: 'How to earn points',
-            subTitle: 'Welcome to our Reward Points Program! Earn points with every interaction and redeem them for exciting rewards.',
+            subTitle: [
+              'For every 100 BDT spent on product purchases, you’ll continue earn points!',
+              'Product Reviews: Earn 5 points per review.',
+              'Community Posts: Earn 3 points per post.'
+            ],
           ),
         ),
         const Gap(AppSizes.spaceBtwItems),
         InkWell(
           onTap: (){
-            Get.to(() => WebViewScreen(
-                title: 'Redeem points',
-                url: "$baseUrlWeb/redeem-points?type=app"));
-          },
+            Get.toNamed('/reward-details', arguments: 'redeem');
+            },
           child: const RewardInstructionCard(
             imgUrl: 'assets/images/icons/redeem_reward.png',
             title: 'How to redeem points',
-            subTitle: 'Welcome to our Redeem Points Program! Redeem points with every interaction and redeem them for exciting rewards.',
+            subTitle: [
+              'Customers need to have a minimum 100 points to redeem',
+              'After 100 points ,it can be redeemed in the multiple of 50'
+            ],
           ),
         )
       ],

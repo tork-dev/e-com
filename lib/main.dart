@@ -12,7 +12,6 @@ import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import 'src/features/home/repositories/home_repositories.dart';
 import 'src/utils/helpers/routing_helper.dart';
 
@@ -48,10 +47,6 @@ Future<void> main() async {
 
   notificationServices.getDeviceToken().then((value){
     AppLocalStorage().saveData(LocalStorageKeys.fcmToken, value);
-    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-      HomeRepositories().getDeviceTokenUpdateResponse();
-    }
-
     if (kDebugMode) {
       print('device token');
       print(value);

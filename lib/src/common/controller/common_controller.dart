@@ -17,7 +17,6 @@ class CommonController extends GetxController {
     if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
       Get.put(GaipUserIdController());
     }
-    final spinnerController = Get.put(SpinnerController());
     showPopUp();
   }
 

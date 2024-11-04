@@ -76,7 +76,7 @@ class RecommendationDehydrationTwo extends StatelessWidget {
                 recommendationController.dehydredTwoSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 recommendationController.sendData();
                 recommendationController.resetValues();
-                Get.to(()=> const RecommendedProducts());
+                Get.toNamed('/recommended-products');
               },
             )
           ],

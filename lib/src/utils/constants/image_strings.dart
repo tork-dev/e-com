@@ -38,6 +38,7 @@ class AppImages {
   static const String instagramInIcon = "assets/images/icons/instagram_in_icon.png";
   static const String twitterInIcon = "assets/images/icons/twitter_in_icon.png";
   static const String aiIcon = "assets/images/icons/ai_icon.png";
+  static const String redeemPoint = "assets/images/icons/redeem_point.png";
 
   // -- OnBoarding images
   static const String onBoardingImage1 = "assets/images/on_boarding_images/ask_expert.gif";
@@ -47,6 +48,7 @@ class AppImages {
   //Banners
   static const String kireiYoutube = "assets/images/banners/kireibd-youtube.png";
   static const String beautyTipsOne = "assets/images/banners/beauty_tips_one.png";
+  static const String rewardLadyImage = "assets/images/banners/reward_merkating_image.png";
 
   //Profile
   static const String user = "assets/images/content/user.png";
@@ -59,4 +61,5 @@ class AppImages {
   static const String influencerBg = "assets/images/background/influencer_bg.png";
   static const String aiRecommendationBg = "assets/images/background/ai_recommendation_bg.png";
   static const String kireiTubeBg = "assets/images/background/kireitube_bg.png";
+  static const String rewardRedeemPointBg = "assets/images/background/reward_redeem_guidline_bg.png";
 }

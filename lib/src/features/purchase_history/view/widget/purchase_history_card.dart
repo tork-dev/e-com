@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -20,19 +19,19 @@ class AppPurchaseHistoryCard extends StatelessWidget {
     final purchaseHistoryController = PurchaseHistoryController.instance;
     return Obx(() {
       return AppListViewLayout(
-          itemCount:
-              purchaseHistoryController.hittingApi.value
-                  ? 5
-                  : purchaseHistoryController
-                      .purchaseHistoryList.value.data!.length,
+          itemCount: purchaseHistoryController.hittingApi.value
+              ? 5
+              : purchaseHistoryController
+                  .purchaseHistoryList.value.data!.length,
           builderFunction: (context, index) {
             return purchaseHistoryController.purchaseHistoryList.value.data ==
                     null
                 ? ShimmerHelper().buildBasicShimmer(height: 125)
                 : AppCardContainer(
+                    applyRadius: false,
                     onTap: () {
-                      Get.toNamed('/order/${purchaseHistoryController
-                          .purchaseHistoryList.value.data![index].id!}');
+                      Get.toNamed(
+                          '/order/${purchaseHistoryController.purchaseHistoryList.value.data![index].id!}');
                     },
                     padding: const EdgeInsets.all(AppSizes.md),
                     width: AppHelperFunctions.screenWidth(),
@@ -94,7 +93,10 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                                                   .reOrderResponse
                                                   .value
                                                   .message!),
-                                  Get.offAll(()=> const HelloConvexAppBar(pageIndex: 2,))
+                                          Get.offAll(
+                                              () => const HelloConvexAppBar(
+                                                    pageIndex: 2,
+                                                  ))
                                         });
                               },
                               child: AppCardContainer(

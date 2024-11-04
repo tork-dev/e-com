@@ -2,7 +2,7 @@
 class AppValidator {
   static String? validateEmailOrPhone(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email or phone is required.';
+      return 'Phone is required.';
     }
 
     // Regular expression for email and phone validation
@@ -12,10 +12,11 @@ class AppValidator {
     if ((phoneRegExp.hasMatch(value)) || emailRegExp.hasMatch(value)){
       return null;
     } else{
-      return 'Invalid email or phone';
+      return 'Invalid Phone';
     }
 
   }
+
 
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {

@@ -7,7 +7,8 @@ import '../../../utils/constants/colors.dart';
 class AppBarSearch extends StatelessWidget {
   final Widget? Function(String txt) onSubmit;
   final FocusNode focusOn;
-  const AppBarSearch({super.key, required this.onSubmit, required this.focusOn});
+  final String prevRoute;
+  const AppBarSearch({super.key, required this.onSubmit, required this.focusOn, required this.prevRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,7 @@ class AppBarSearch extends StatelessWidget {
               borderSide: BorderSide(color: Colors.transparent)),
         ),
       ),
+      prevRoute: prevRoute,
     );
   }
 }

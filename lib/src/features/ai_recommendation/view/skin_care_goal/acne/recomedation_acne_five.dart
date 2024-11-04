@@ -80,7 +80,7 @@ class RecommendationAcneFive extends StatelessWidget {
                 print(recommendationController.acneFiveSelected);
                 recommendationController.sendData();
                 recommendationController.resetValues();
-                Get.to(()=> const RecommendedProducts());
+                Get.toNamed('/recommended-products');
               },
             )
           ],

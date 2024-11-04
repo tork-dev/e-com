@@ -18,7 +18,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    //appStatus();
+    // appStatus();
     appInfo();
     changeScreen();
 

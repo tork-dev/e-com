@@ -48,8 +48,6 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                 if (AppLocalStorage()
                     .readData(LocalStorageKeys.isLoggedIn) !=
                     null) {
-                  EventLogger().logAddToCartEvent('${sectionName![index].slug}',
-                      sectionName![index].salePrice!);
 
                   if (sectionName![index].requestAvailable != 0) {
                     cartController
@@ -86,6 +84,9 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     'preorder_available' : sectionName![index].preorderAvailable.toString()
                   });
                 }
+
+                EventLogger().logAddToCartEvent('${sectionName![index].slug}',
+                    sectionName![index].salePrice!);
               },
               productName: sectionName![index].name!,
               ratings: sectionName![index].ratings!.toDouble(),

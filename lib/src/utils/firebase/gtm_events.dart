@@ -92,7 +92,7 @@ class EventLogger {
 
     facebookAppEvents.logEvent(
       name: 'AddToWishlist',
-      valueToSum: double.parse(itemPrice),
+      valueToSum: double.parse(itemPrice.toString()),
       parameters: {
         'advertiser_tracking_enabled': true,
         'Content_ID': itemId,

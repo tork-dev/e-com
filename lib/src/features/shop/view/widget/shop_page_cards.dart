@@ -67,7 +67,9 @@ class AppShopGridScrollCard extends StatelessWidget {
                                 imgWidth: double.infinity,
                                 onTap: () {
                                   Get.toNamed(
-                                      '/product/${shopController.allProducts[index].slug!}');
+                                      '/product/${shopController.allProducts[index].slug!}', parameters: {'prevRoute' : '/shop'});
+                                  EventLogger().logProductDetailsViewEvent(
+                                      shopController.allProducts[index].slug!);
                                 },
                                 onCartTap: () {
                                   if (AppLocalStorage().readData(

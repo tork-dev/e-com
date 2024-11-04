@@ -21,7 +21,6 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../../../ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 
 class AppFeatureCategories extends StatelessWidget {
@@ -36,7 +35,7 @@ class AppFeatureCategories extends StatelessWidget {
     return Obx(() {
       return SizedBox(
           height:
-              homeController.homeFeaturedCategoryResponse.isEmpty ? 70 : 100,
+              homeController.homeFeaturedCategoryResponse.isEmpty ? 70 : 105,
           child: AppListViewLayout(
               isScrollVertically: false,
               itemCount: homeController.homeFeaturedCategoryResponse.isEmpty
@@ -44,74 +43,79 @@ class AppFeatureCategories extends StatelessWidget {
                   : homeController.homeFeaturedCategoryResponse.length,
               builderFunction: (BuildContext context, int index) =>
                   homeController.homeFeaturedCategoryResponse.isEmpty
-                      ? ShimmerHelper().buildBasicShimmer(
-                          height: 60, width: 70, radius: 100)
-                      : Column(
-                          children: [
-                            AppBannerImage(
-                              onPress: () {
-                                if (homeController
-                                        .homeFeaturedCategoryResponse[index]
-                                        .slug ==
-                                    'AiSuggestion()') {
-                                  if (AppLocalStorage().readData(
-                                          LocalStorageKeys.isLoggedIn) ==
-                                      true) {
-                                    Get.offAll(
-                                        () => const SkinCareHistoryOne());
-                                  } else {
-                                    Get.to(() => const LogIn());
+                      ? ShimmerHelper()
+                          .buildBasicShimmer(height: 60, width: 70, radius: 100)
+                      : SizedBox(
+                          width: 80,
+                          child: Column(
+                            children: [
+                              AppBannerImage(
+                                onPress: () {
+                                  if (homeController
+                                          .homeFeaturedCategoryResponse[index]
+                                          .slug ==
+                                      'AiSuggestion()') {
+                                    if (AppLocalStorage().readData(
+                                            LocalStorageKeys.isLoggedIn) ==
+                                        true) {
+                                      Get.offAll(
+                                          () => const SkinCareHistoryOne());
+                                    } else {
+                                      Get.to(() => const LogIn());
+                                    }
                                   }
-                                }
-                                if (homeController
+                                  if (homeController
+                                          .homeFeaturedCategoryResponse[index]
+                                          .slug! ==
+                                      'BeautyTips()') {
+                                    Get.offAll(() => const BeautyTipsScreen());
+                                    return;
+                                  }
+                                  if (homeController
+                                          .homeFeaturedCategoryResponse[index]
+                                          .slug! ==
+                                      'FeedList()') {
+                                    Get.offAll(() => const CommunityScreen());
+                                    return;
+                                  }
+                                  if (homeController
+                                          .homeFeaturedCategoryResponse[index]
+                                          .slug! ==
+                                      'Appointment()') {
+                                    Get.offAll(() => const AppointmentScreen());
+                                    return;
+                                  }
+                                  categoryPassingController.updateCategory(
+                                      homeController
+                                          .homeFeaturedCategoryResponse[index]
+                                          .slug!);
+                                  categoryPassingController.getShopData();
+                                  categoryPassingController.getSubCategory();
+                                  bottomController.jumpToTab(1);
+                                },
+                                height: 60,
+                                width: 60,
+                                imgBoarderRadius: 100,
+                                fit: BoxFit.cover,
+                                isNetworkImage: homeController
                                         .homeFeaturedCategoryResponse[index]
-                                        .slug! ==
-                                    'BeautyTips()') {
-                                  Get.offAll(() => const BeautyTipsScreen());
-                                  return;
-                                }
-                                if (homeController
+                                        .icon !=
+                                    null,
+                                imgUrl: homeController
                                         .homeFeaturedCategoryResponse[index]
-                                        .slug! ==
-                                    'FeedList()') {
-                                  Get.offAll(() => const CommunityScreen());
-                                  return;
-                                }
-                                if (homeController
-                                        .homeFeaturedCategoryResponse[index]
-                                        .slug! ==
-                                    'Appointment()') {
-                                  Get.offAll(() => const AppointmentScreen());
-                                  return;
-                                }
-                                categoryPassingController.updateCategory(
-                                    homeController
-                                        .homeFeaturedCategoryResponse[index]
-                                        .slug!);
-                                categoryPassingController.getShopData();
-                                categoryPassingController.getSubCategory();
-                                bottomController.jumpToTab(1);
-                              },
-                              height: 60,
-                              width: 60,
-                              imgBoarderRadius: 100,
-                              fit: BoxFit.cover,
-                              isNetworkImage: homeController
-                                      .homeFeaturedCategoryResponse[index]
-                                      .icon !=
-                                  null,
-                              imgUrl: homeController
-                                      .homeFeaturedCategoryResponse[index]
-                                      .icon ??
-                                  AppImages.placeholder,
-                            ),
-                            const Gap(AppSizes.sm),
-                            Text(
-                              homeController
-                                  .homeFeaturedCategoryResponse[index].name!,
-                              style: Theme.of(context).textTheme.labelLarge,
-                            )
-                          ],
+                                        .icon ??
+                                    AppImages.placeholder,
+                              ),
+                              const Gap(AppSizes.sm),
+                              Text(
+                                homeController
+                                    .homeFeaturedCategoryResponse[index].name!,
+                                style: Theme.of(context).textTheme.labelLarge,
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
                         )));
     });
   }

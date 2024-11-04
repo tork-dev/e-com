@@ -18,11 +18,11 @@ import '../model/home_sliders_model.dart';
 import '../model/request_stock_model.dart';
 import '../repositories/home_repositories.dart';
 
-
-class HomeController extends GetxController{
+class HomeController extends GetxController {
   static HomeController get instance => Get.find();
 
   final bool callApis;
+
   HomeController({this.callApis = true});
 
   ///Controller
@@ -37,6 +37,7 @@ class HomeController extends GetxController{
   /// Key
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> surprisePhoneKey = GlobalKey<FormState>();
+
   // final GlobalKey<ScaffoldState> homeTwoKey = GlobalKey<ScaffoldState>();
 
   final carouselCurrentIndex = 0.obs;
@@ -46,28 +47,34 @@ class HomeController extends GetxController{
 
   /// Model Class Instance
   Rx<HomeProductResponse> homeProductResponse = HomeProductResponse().obs;
-  RxList<FeaturedCategory>homeFeaturedCategoryResponse = <FeaturedCategory>[].obs;
+  RxList<FeaturedCategory> homeFeaturedCategoryResponse =
+      <FeaturedCategory>[].obs;
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
-  Rx<ProductRequestResponse> requestStockResponse = ProductRequestResponse().obs;
-  Rx<DetailsProductsResponse> recommendedProductsResponse = DetailsProductsResponse().obs;
-  Rx<DetailsProductsResponse> trendingProductsResponse = DetailsProductsResponse().obs;
-  Rx<DetailsProductsResponse> recommendedProductsForYouResponse = DetailsProductsResponse().obs;
+  Rx<ProductRequestResponse> requestStockResponse =
+      ProductRequestResponse().obs;
+  Rx<DetailsProductsResponse> recommendedProductsResponse =
+      DetailsProductsResponse().obs;
+  Rx<DetailsProductsResponse> trendingProductsResponse =
+      DetailsProductsResponse().obs;
+  Rx<DetailsProductsResponse> recommendedProductsForYouResponse =
+      DetailsProductsResponse().obs;
   Rx<SurprizeGiftResponse> surpriseGiftResponse = SurprizeGiftResponse().obs;
+
   //Rx<DeviceTokenUpdateResponse> trendingProductsResponse = DetailsProductsResponse().obs;
 
-
-
   @override
-  void onInit(){
-    if(callApis == true) {
-    onRefresh();
+  void onInit() {
+    if (callApis == true) {
+      onRefresh();
     }
-
+    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+      HomeRepositories().getDeviceTokenUpdateResponse();
+    }
 
     super.onInit();
   }
 
-  Future<void> onRefresh()async{
+  Future<void> onRefresh() async {
     homeSlidersLink.clear();
     homeSliders.clear();
     getProductData();
@@ -77,45 +84,49 @@ class HomeController extends GetxController{
     getTrendingProducts();
   }
 
-
   Future<void> getProductData() async {
     hittingApi.value = true;
     homeProductResponse.value = await HomeRepositories.getHomeProducts();
     fetchCarouselImages();
     // homeProductResponse.value.bestsellingProducts[0].id
-    AppLoggerHelper.debug(homeProductResponse.value.sliders![0].link.toString());
+    AppLoggerHelper.debug(
+        homeProductResponse.value.sliders![0].link.toString());
     hittingApi.value = false;
   }
 
   void fetchFeaturedCategories() async {
-    homeFeaturedCategoryResponse.value = await HomeRepositories().getHomeFeaturedCategories();
+    homeFeaturedCategoryResponse.value =
+        await HomeRepositories().getHomeFeaturedCategories();
   }
 
-
-
-  Future<AddToCartResponse> getAddToCartResponse(int id, int quantity, dynamic preorderAvailable) async {
-    return addToCartResponse.value = await CartRepositories().getCartAddResponse(id, quantity, preorderAvailable);
+  Future<AddToCartResponse> getAddToCartResponse(
+      int id, int quantity, dynamic preorderAvailable) async {
+    return addToCartResponse.value = await CartRepositories()
+        .getCartAddResponse(id, quantity, preorderAvailable);
   }
 
-  Future<ProductRequestResponse> getRequestResponse({required int productId}) async {
-    return requestStockResponse.value = await CartRepositories().getRequestStock(productId: productId);
+  Future<ProductRequestResponse> getRequestResponse(
+      {required int productId}) async {
+    return requestStockResponse.value =
+        await CartRepositories().getRequestStock(productId: productId);
   }
 
-  Future<DetailsProductsResponse> getRecommendedProducts() async{
-    return recommendedProductsResponse.value = await DetailsRepositories.getRecommendedProduct();
+  Future<DetailsProductsResponse> getRecommendedProducts() async {
+    return recommendedProductsResponse.value =
+        await DetailsRepositories.getRecommendedProduct();
   }
 
   Future<void> getRecommendedProductsForYou() async {
-      recommendedProductsForYouResponse.value = await HomeRepositories.getRecommendedProductForYou();
+    recommendedProductsForYouResponse.value =
+        await HomeRepositories.getRecommendedProductForYou();
   }
 
-
-  Future<DetailsProductsResponse> getTrendingProducts() async{
-    return trendingProductsResponse.value = await HomeRepositories.getTrendingProduct();
+  Future<DetailsProductsResponse> getTrendingProducts() async {
+    return trendingProductsResponse.value =
+        await HomeRepositories.getTrendingProduct();
   }
 
-
-  void updateCurrentIndex (index){
+  void updateCurrentIndex(index) {
     carouselCurrentIndex.value = index;
   }
 
@@ -123,19 +134,18 @@ class HomeController extends GetxController{
     var carouselResponse = homeProductResponse.value.sliders;
     debugPrint('sliders $carouselResponse');
     carouselResponse?.forEach((slider) {
-      if(slider.photo != null) {
+      if (slider.photo != null) {
         homeSliders.add(slider.photo);
         homeSlidersLink.add(slider.link);
       }
     });
   }
 
-  Future<void> getSurpriseTap()async{
+  Future<void> getSurpriseTap() async {
     if (!surprisePhoneKey.currentState!.validate()) return;
-    surpriseGiftResponse.value = await HomeRepositories().getSurprizResponse(surprisePhoneController.text.toString());
+    surpriseGiftResponse.value = await HomeRepositories()
+        .getSurprizResponse(surprisePhoneController.text.toString());
     AppHelperFunctions.showToast(surpriseGiftResponse.value.message!);
     surprisePhoneController.clear();
   }
-
-
 }

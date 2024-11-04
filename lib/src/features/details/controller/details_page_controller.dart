@@ -45,6 +45,7 @@ class DetailsPageController extends GetxController {
   @override
   void onInit() {
     print('productSlug');
+    print('prevRoute ${Get.parameters['prevRoute']}' );
     super.onInit();
     productSlugList.add(Get.parameters['id']!);
     prevRoute.value = Get.parameters['prevRoute']!;

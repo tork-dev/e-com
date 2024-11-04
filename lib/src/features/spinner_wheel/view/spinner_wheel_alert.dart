@@ -76,16 +76,21 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                             )),
                                     ],
                                     onAnimationEnd: () {
-                                      spinController.selectedCoupon.value =
-                                          spinController.couponList[
-                                              spinController
-                                                  .selectedIndex.value];
-                                      print(
-                                          spinController.selectedCoupon.value);
-                                      Get.back();
+
+                                      print('animation end ${spinController.selectedCoupon.value}');
+
                                       if (spinController.selectedCouponResponse
                                               .value.result ==
                                           true) {
+                                        spinController.selectedCoupon.value =
+                                        spinController.couponList[
+                                        spinController
+                                            .selectedIndex.value];
+                                      }
+
+                                      print(
+                                          spinController.selectedCoupon.value);
+                                      Get.back();
                                         AppHelperFunctions.showSpinnerCoupon(
                                             title: spinController
                                                     .selectedCouponResponse
@@ -123,7 +128,6 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                                     ?.image ??
                                                 '');
                                       }
-                                    },
                                   ),
                                 ),
                               ),
@@ -201,6 +205,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                     AppHelperFunctions().verifyPhone();
                                     AppLocalStorage().saveData(
                                         LocalStorageKeys.sowedSpinner, true);
+
                                   },
                                   buttonText: "Try My Luck!"),
                             ],
@@ -218,6 +223,8 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                             child: InkWell(
                                 onTap: () {
                                   Get.back();
+                                  AppLocalStorage().saveData(
+                                      LocalStorageKeys.sowedSpinner, true);
                                 },
                                 child: const Icon(Icons.clear))),
                       )
@@ -248,11 +255,13 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                           child: InkWell(
                               onTap: () {
                                 Get.back();
+                                AppLocalStorage().saveData(
+                                    LocalStorageKeys.sowedSpinner, true);
                               },
                               child: const Icon(Icons.clear))),
                     ],
                   ),
-                  Gap(AppSizes.md),
+                  const Gap(AppSizes.md),
                   Text(
                     'Welcome to kirei',
                     style: Theme.of(context).textTheme.headlineLarge,

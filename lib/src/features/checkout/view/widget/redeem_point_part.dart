@@ -45,14 +45,14 @@ class RedeemPointPart extends StatelessWidget {
                               'You have not enough points');
                     },
                     child: Text(
-                      "redeem point".toUpperCase(),
+                      "redeem points".toUpperCase(),
                       style: TextStyle(
                         shadows: [
                           Shadow(
                               color: checkoutController.rewardBalance.value > 99
                                   ? AppColors.primary
                                   : AppColors.grey,
-                              offset: Offset(0, -4))
+                              offset: const Offset(0, -4))
                         ],
                         fontSize: 16,
                         color: Colors.transparent,

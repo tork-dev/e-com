@@ -1,16 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/reward_point/model/reward_model.dart';
 import 'package:kirei/src/features/reward_point/repositories/reward_repositories.dart';
 
-class RewardController extends GetxController{
+class RewardController extends GetxController {
   static RewardController get instance => Get.find();
 
   RxBool hittingApi = false.obs;
   Rx<RewardResponse> rewardResponse = RewardResponse().obs;
   RxDouble percentage = 0.0.obs;
-
+  List<int> percentageList = [0,100,200,300];
 
   @override
   void onInit() {
@@ -18,8 +17,9 @@ class RewardController extends GetxController{
     getRewardResponse();
   }
 
-  Future<void> onRefresh() async{
+  Future<void> onRefresh() async {
     print('refresh');
+    getRewardResponse();
   }
 
   Future<void> getRewardResponse() async {
@@ -43,13 +43,14 @@ class RewardController extends GetxController{
       int maxValue = allValues.reduce((a, b) => a > b ? a : b);
       print("Maximum Value: $maxValue");
 
-      double percent = rewardResponse.value.balance / maxValue ;
-      if(percent < 1){
+      double percent = rewardResponse.value.nextMemberships!.memberShipPoint! / maxValue;
+
+
+      if (percent < 1) {
         percentage.value = percent;
-      }else{
+      } else {
         percentage.value = 1;
       }
     }
   }
-
 }

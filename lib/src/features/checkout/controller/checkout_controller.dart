@@ -1,9 +1,9 @@
-import 'dart:convert';
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
@@ -15,12 +15,10 @@ import 'package:kirei/src/features/checkout/repositories/checkout_repositories.d
 import 'package:kirei/src/features/checkout/view/widget/bkash_screen.dart';
 import 'package:kirei/src/features/checkout/view/order_status_page.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
-import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/features/address/controller/address_controller.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../../../common/widgets/buttons/app_buttons.dart';
 import '../../../common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
@@ -151,7 +149,7 @@ class CheckoutController extends GetxController {
 
     AppHelperFunctions.showLoaderDialog(Get.overlayContext!); // Make sure overlayContext is not null
 
-    Map<String, dynamic> requestBody = prepareRequestBody();
+    Map<String, dynamic> requestBody = await prepareRequestBody();
 
     try {
       orderCreateResponse.value = await CheckoutRepositories()
@@ -254,14 +252,12 @@ class CheckoutController extends GetxController {
       return false;
     }
 
-    if (addressController.selectedCityName.value == "" ||
-        addressController.selectedCityName.value.isEmpty) {
+    if (addressController.selectedCityId.value == 0) {
       AppHelperFunctions.showToast('City is required');
       return false;
     }
 
-    if (addressController.selectedZoneName.value == "" ||
-        addressController.selectedZoneName.value.isEmpty) {
+    if (addressController.selectedZoneId.value == 0) {
       AppHelperFunctions.showToast('Zone is required');
       return false;
     }
@@ -269,7 +265,7 @@ class CheckoutController extends GetxController {
     return true;
   }
 
-  Map<String, dynamic> prepareRequestBody() {
+  Future<Map<String, dynamic>> prepareRequestBody() async {
     List<String> productIdsStringsArr = productIdsString.split(',');
     List<int> productIds = productIdsStringsArr.map(int.parse).toList();
 
@@ -296,7 +292,8 @@ class CheckoutController extends GetxController {
       "type": 'app',
       "version": "${AppLocalStorage().readData(LocalStorageKeys.appVersion)}",
       "coupon_code": couponCode,
-      "redeem_point" : redeemedPoint.value
+      "redeem_point" : redeemedPoint.value,
+      'app_info': await AppHelperFunctions.appInfo(),
     };
 
     return requestBody;

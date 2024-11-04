@@ -66,11 +66,11 @@ class AddressController extends GetxController {
     phoneController.text = shippingAddress.value.data![0].phone!;
     emailController.text = shippingAddress.value.data![0].email ?? '';
     addressController.text = shippingAddress.value.data![0].address!;
-    selectedCityName.value = shippingAddress.value.data![0].cityName!;
+    selectedCityController.text = shippingAddress.value.data![0].cityName!;
     selectedCityId.value = shippingAddress.value.data![0].cityId!;
-    selectedZoneName.value = shippingAddress.value.data![0].zoneName!;
+    selectedZoneController.text = shippingAddress.value.data![0].zoneName!;
     selectedZoneId.value = shippingAddress.value.data![0].zoneId!;
-    selectedAreaName.value = shippingAddress.value.data![0].areaName!;
+    selectedAreaController.text = shippingAddress.value.data![0].areaName!;
     selectedAreaId.value = shippingAddress.value.data![0].areaId!;
   }
 

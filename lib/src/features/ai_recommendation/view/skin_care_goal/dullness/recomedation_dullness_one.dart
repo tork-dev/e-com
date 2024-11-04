@@ -82,7 +82,7 @@ class RecommendationDullnessOne extends StatelessWidget {
                 print(recommendationController.dullnessOneSelected);
                 recommendationController.sendData();
                 recommendationController.resetValues();
-                Get.to(()=> const RecommendedProducts());
+                Get.toNamed('/recommended-products');
               },
             )
           ],

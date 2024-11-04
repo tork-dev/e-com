@@ -23,6 +23,8 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../features/authentication/views/log_in/view/login.dart';
+import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/auth_helper.dart';
 import 'widgets/common_drawer_card.dart';
@@ -66,13 +68,21 @@ class AppDrawer extends StatelessWidget {
               // shopController.getShopData();
               bottomController.jumpToTab(1);
 
-              if(bottomController.pageIndex.value == 1){
+              if (bottomController.pageIndex.value == 1) {
                 Get.back();
               }
             },
           ),
           Obx(() {
             return ExpansionTile(
+              collapsedShape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
               iconColor: AppColors.white,
               collapsedIconColor: AppColors.white,
               backgroundColor: AppColors.white.withOpacity(.05),
@@ -130,6 +140,14 @@ class AppDrawer extends StatelessWidget {
                           backgroundColor: AppColors.white.withOpacity(.09),
                           iconColor: AppColors.white,
                           collapsedIconColor: AppColors.white,
+                          collapsedShape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                            side: BorderSide.none,
+                          ),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                            side: BorderSide.none,
+                          ),
                           title: GestureDetector(
                               onTap: () {
                                 shopController.resetAll();
@@ -141,12 +159,14 @@ class AppDrawer extends StatelessWidget {
                                 shopController.updateCategory(category.slug!);
                                 // shopController.getShopData();
                                 bottomController.jumpToTab(1);
-                                if(bottomController.pageIndex.value == 1){
+                                if (bottomController.pageIndex.value == 1) {
                                   Get.back();
                                 }
                               },
                               child: Text(
-                                category.name!,
+                                category.counts != null
+                                    ? '${category.name!} (${category.counts})'
+                                    : '${category.name}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
@@ -161,9 +181,19 @@ class AppDrawer extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 16),
                               child: child.children!.isNotEmpty
                                   ? ExpansionTile(
-                                backgroundColor: AppColors.white.withOpacity(.1),
+                                      backgroundColor:
+                                          AppColors.white.withOpacity(.1),
                                       iconColor: AppColors.white,
                                       collapsedIconColor: AppColors.white,
+                                      collapsedShape:
+                                          const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        side: BorderSide.none,
+                                      ),
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        side: BorderSide.none,
+                                      ),
                                       title: Text(child.name!,
                                           style: Theme.of(context)
                                               .textTheme
@@ -196,11 +226,15 @@ class AppDrawer extends StatelessWidget {
                                                 }
                                                 // shopController.getShopData();
                                                 bottomController.jumpToTab(1);
-                                                if(bottomController.pageIndex.value == 1){
+                                                if (bottomController
+                                                        .pageIndex.value ==
+                                                    1) {
                                                   Get.back();
                                                 }
                                               },
-                                              title: children.name ?? '',
+                                              title: children.counts != null
+                                                  ? '${children.name!} (${children.counts})'
+                                                  : '${children.name}',
                                             ));
                                       }).toList(),
                                     )
@@ -217,11 +251,14 @@ class AppDrawer extends StatelessWidget {
                                             .updateCategory(child.slug!);
                                         // shopController.getShopData();
                                         bottomController.jumpToTab(1);
-                                        if(bottomController.pageIndex.value == 1){
+                                        if (bottomController.pageIndex.value ==
+                                            1) {
                                           Get.back();
                                         }
                                       },
-                                      title: child.name ?? '',
+                                      title: child.counts != null
+                                          ? "${child.name} (${child.counts})"
+                                          : "${child.name}",
                                     ),
                             );
                           }).toList(),
@@ -241,7 +278,7 @@ class AppDrawer extends StatelessWidget {
                             shopController.updateCategory(category.slug!);
                             // shopController.getShopData();
                             bottomController.jumpToTab(1);
-                            if(bottomController.pageIndex.value == 1){
+                            if (bottomController.pageIndex.value == 1) {
                               Get.back();
                             }
                           },
@@ -250,6 +287,11 @@ class AppDrawer extends StatelessWidget {
               }).toList(),
             );
           }),
+          AppDrawerCard(
+            title: 'Kip membership'.toUpperCase(),
+            titleColor: const Color(0xffFFAC00),
+            onPress: () => Get.toNamed('/reward-details'),
+          ),
           AppDrawerCard(
             title: 'beauty tips'.toUpperCase(),
             onPress: () => Get.offAll(() => const BeautyTipsScreen()),
@@ -276,11 +318,19 @@ class AppDrawer extends StatelessWidget {
           AppDrawerCard(
             title: 'blog'.toUpperCase(),
             onPress: () {
-              Get.to(() =>  WebViewScreen(
+              Get.to(() => WebViewScreen(
                   url: "$baseUrlWeb/blogs?type=app", title: 'Blogs'));
             },
           ),
           ExpansionTile(
+              collapsedShape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
               iconColor: AppColors.white,
               collapsedIconColor: AppColors.white,
               backgroundColor: AppColors.white.withOpacity(.05),
@@ -331,7 +381,7 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'who we are?'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
+                    Get.to(() => WebViewScreen(
                         url: '$baseUrlWeb/about-us?type=app',
                         title: 'Who We Are?'));
                   },
@@ -339,15 +389,14 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'faqs'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
-                        url: '$baseUrlWeb/faq?type=app',
-                        title: 'FAQs'));
+                    Get.to(() => WebViewScreen(
+                        url: '$baseUrlWeb/faq?type=app', title: 'FAQs'));
                   },
                 ),
                 AppDrawerCard(
                   title: 'contact us'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
+                    Get.to(() => WebViewScreen(
                         url: '$baseUrlWeb/contact-us?type=app',
                         title: 'Contact us'));
                   },
@@ -355,7 +404,7 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'testimonials'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
+                    Get.to(() => WebViewScreen(
                         url: '$baseUrlWeb/testimonial?type=app',
                         title: 'Testimonials'));
                   },
@@ -363,7 +412,7 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'privacy & policy'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
+                    Get.to(() => WebViewScreen(
                         url: '$baseUrlWeb/privacy-policy?type=app',
                         title: 'Privacy & Policy'));
                   },
@@ -371,7 +420,7 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'terms & condition'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
+                    Get.to(() => WebViewScreen(
                         url: '$baseUrlWeb/term-condition?type=app',
                         title: 'Terms & Conditions'));
                   },
@@ -379,7 +428,7 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'returns & refunds'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
+                    Get.to(() => WebViewScreen(
                         url: '$baseUrlWeb/return-refund?type=app',
                         title: 'Returns & Refunds'));
                   },
@@ -387,9 +436,8 @@ class AppDrawer extends StatelessWidget {
                 AppDrawerCard(
                   title: 'responsibility disclosure'.capitalize!,
                   onPress: () {
-                    Get.to(() =>  WebViewScreen(
-                        url:
-                            '$baseUrlWeb/responsible-disclosure?type=app',
+                    Get.to(() => WebViewScreen(
+                        url: '$baseUrlWeb/responsible-disclosure?type=app',
                         title: 'Responsible Disclosure'));
                   },
                 ),
@@ -420,9 +468,23 @@ class AppDrawer extends StatelessWidget {
                   // ),
                 ],
               )),
-          const Gap(AppSizes.xs),
-          AppDividersStyle.fullFlatAppDivider,
-          const Gap(AppSizes.xs),
+          Visibility(
+            visible: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppDrawerCard(
+                  title: 'Login'.toUpperCase(),
+                  onPress: () => Get.to(const LogIn()),
+                ),
+                AppDrawerCard(
+                  title: 'Register'.toUpperCase(),
+                  onPress: () => Get.to(const SignUp()),
+                ),
+              ],
+            ),
+          ),
+          const Gap(AppSizes.defaultSpace),
           const AppDrawerBottomButton()
         ],
       ),

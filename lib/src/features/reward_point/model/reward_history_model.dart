@@ -31,10 +31,11 @@ class RewardHistoryResponse {
 class Datum {
   int? id;
   dynamic orderId;
-  int? totalRewardPointEarned;
+  dynamic totalRewardPointEarned;
   DateTime? date;
   String? event;
   String? source;
+  Details? details;
 
   Datum({
     this.id,
@@ -42,7 +43,7 @@ class Datum {
     this.totalRewardPointEarned,
     this.date,
     this.event,
-    this.source,
+    this.details
   });
 
   factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
@@ -55,7 +56,7 @@ class Datum {
     totalRewardPointEarned: json["total_reward_point_earned"],
     date: json["date"] == null ? null : DateTime.parse(json["date"]),
     event: json["event"],
-    source: json["source"],
+    details: json["details"] == null ? null : Details.fromMap(json["details"]),
   );
 
   Map<String, dynamic> toMap() => {
@@ -66,4 +67,41 @@ class Datum {
     "event": event,
     "source": source,
   };
+}
+
+class Details{
+  String? source;
+  int? orderId;
+  String? productName;
+  String? productSlug;
+  String? postTitle;
+
+  Details({
+    this.source,
+    this.orderId,
+    this.productName,
+    this.productSlug,
+    this.postTitle
+});
+
+  factory Details.fromJson(String str) => Details.fromMap(json.decode(str));
+  String toJson() => json.encode(toMap());
+
+
+  factory Details.fromMap(Map<String, dynamic> json) => Details(
+    source: json["source"],
+    orderId: json["order_id"],
+    productName: json["product_name"],
+    productSlug: json["product_slug"],
+    postTitle: json["post_title"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "source" : source,
+    "order_id": orderId,
+    "product_name" : productName,
+    "product_slug" : productSlug,
+    "post_title" : postTitle
+  };
+
 }

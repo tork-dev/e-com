@@ -31,34 +31,43 @@ class ShopRepositories{
 
     if (searchName != "") parameters['search'] = searchName;
     if (categories != "") {
-      parameters['category'] = categories.toLowerCase().replaceAll(' ', '-');
+      // parameters['category'] = categories.toLowerCase().replaceAll(' ', '-');
+      parameters['category'] = categories;
     }
     if (sortKey != "") {
-      parameters['order_by'] = sortKey.toLowerCase().replaceAll(' ', '-');
+      // parameters['order_by'] = sortKey.toLowerCase().replaceAll(' ', '-');
+      parameters['order_by'] = sortKey;
     }
     if (skinType != "") {
-      parameters['skin_type'] = skinType.toLowerCase().replaceAll(' ', '-');
+      // parameters['skin_type'] = skinType.toLowerCase().replaceAll(' ', '-');
+      parameters['skin_type'] = skinType;
     }
     if (min != "") parameters['min_price'] = int.tryParse(min);
     if (max != "") parameters['max_price'] = int.tryParse(max);
     if (keyIngredients != "") {
       parameters['key_ingredients'] =
-          keyIngredients.toLowerCase().replaceAll(' ', '-');
+          // keyIngredients.toLowerCase().replaceAll(' ', '-');
+          keyIngredients;
     }
     if (goodFor != "") {
-      parameters['good_for'] = goodFor.toLowerCase().replaceAll(' ', '-');
+      // parameters['good_for'] = goodFor.toLowerCase().replaceAll(' ', '-');
+      parameters['good_for'] = goodFor;
     }
     if (tag != "") {
-      parameters['tag'] = tag.toLowerCase().replaceAll(' ', '-');
+      // parameters['tag'] = tag.toLowerCase().replaceAll(' ', '-');
+      parameters['tag'] = tag;
     }
     if (type != "") {
-      parameters['type'] = type.toLowerCase().replaceAll(' ', '-');
+      // parameters['type'] = type.toLowerCase().replaceAll(' ', '-');
+      parameters['type'] = type;
     }
     if (search != "") {
-      parameters['search'] = search.toLowerCase().replaceAll(' ', '-');
+      // parameters['search'] = search.toLowerCase().replaceAll(' ', '-');
+      parameters['search'] = search;
     }
     if (brand != "") {
-      parameters['brand'] = brand.toLowerCase().replaceAll(' ', '-');
+      // parameters['brand'] = brand.toLowerCase().replaceAll(' ', '-');
+      parameters['brand'] = brand;
     }
 
     // Constructing the query string manually

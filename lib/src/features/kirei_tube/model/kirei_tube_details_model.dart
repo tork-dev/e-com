@@ -41,6 +41,7 @@ class Data {
   String? shortDescription;
   String? description;
   String? video;
+  String? orientation;
   Statistics? statistics;
   List<Product>? products;
 
@@ -53,6 +54,7 @@ class Data {
     this.shortDescription,
     this.description,
     this.video,
+    this.orientation,
     this.statistics,
     this.products,
   });
@@ -70,6 +72,7 @@ class Data {
     shortDescription: json["short_description"],
     description: json["description"],
     video: json["video"],
+    orientation: json["orientation"],
     statistics: json['statistics'] is Map<String, dynamic>
         ? Statistics.fromJson(json['statistics'] as Map<String, dynamic>)
         : null,
@@ -85,6 +88,7 @@ class Data {
     "short_description": shortDescription,
     "description": description,
     "video": video,
+    "orientation" : orientation,
     'statistics': statistics?.toJson(),
     "products": products == null ? [] : List<dynamic>.from(products!.map((x) => x.toMap())),
   };

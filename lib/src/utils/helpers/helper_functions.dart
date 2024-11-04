@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
@@ -10,7 +16,10 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import '../constants/colors.dart';
+import '../local_storage/local_storage_keys.dart';
+import '../local_storage/storage_utility.dart';
 
 class AppHelperFunctions {
   static Color? getColor(String value) {
@@ -184,13 +193,13 @@ class AppHelperFunctions {
   }
 
   static void showPopUpAlert(
-      {required String title,
-      required String subTitle,
+      {String? title,
+      String? subTitle,
       required String leftButtonName,
-      required String rightButtonName,
-      required VoidCallback onRightPress,
+      String? rightButtonName,
+      VoidCallback? onRightPress,
       required VoidCallback onLeftPress,
-        String? imgUrl}) {
+      String? imgUrl}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -215,57 +224,81 @@ class AppHelperFunctions {
                         isNetworkImage: true,
                         imgUrl: imgUrl),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(AppSizes.defaultSpace),
-                    child: Column(
-                      children: [
-                        Text(
-                          title,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        const Gap(AppSizes.sm),
-
-                        HtmlWidget(subTitle),
-                        // Text(
-                        //   message,
-                        //   style: Theme.of(context).textTheme.bodyLarge,
-                        // ),
-                        const Gap(AppSizes.xl),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            AppCardContainer(
-                                onTap: onLeftPress,
-                                applyRadius: false,
-                                height: 40,
-                                width: 150,
-                                hasBorder: true,
-                                child: Center(
-                                  child: Text(
-                                    leftButtonName,
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                )),
-                            const Gap(AppSizes.sm),
-                            AppCardContainer(
-                                onTap: onRightPress,
-                                applyRadius: false,
-                                height: 40,
-                                width: 150,
-                                backgroundColor: AppColors.primary,
-                                child: Center(
-                                  child: Text(
-                                    rightButtonName,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .apply(color: AppColors.white),
-                                  ),
-                                )),
-                          ],
-                        ),
-                      ],
+                  Visibility(
+                    visible: title != null,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: AppSizes.defaultSpace),
+                      child: Column(
+                        children: [
+                          const Gap(AppSizes.defaultSpace),
+                          Text(
+                            title ?? '',
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                          const Gap(AppSizes.sm),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: subTitle != null,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppSizes.defaultSpace,
+                          vertical: title == null ? AppSizes.defaultSpace : 0),
+                      child: Column(
+                        children: [
+                          HtmlWidget(subTitle ?? ''),
+                          const Gap(AppSizes.xl),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: rightButtonName != null,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: AppSizes.defaultSpace),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              AppCardContainer(
+                                  onTap: onLeftPress,
+                                  applyRadius: false,
+                                  height: 40,
+                                  width: 120,
+                                  hasBorder: true,
+                                  child: Center(
+                                    child: Text(
+                                      leftButtonName,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  )),
+                              const Gap(AppSizes.sm),
+                              AppCardContainer(
+                                  onTap: onRightPress,
+                                  applyRadius: false,
+                                  height: 40,
+                                  width: 120,
+                                  backgroundColor: AppColors.primary,
+                                  child: Center(
+                                    child: Text(
+                                      rightButtonName ?? '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .apply(color: AppColors.white),
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          const Gap(AppSizes.md),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -274,7 +307,7 @@ class AppHelperFunctions {
                 right: AppSizes.md,
                 top: AppSizes.md,
                 child: AppCardContainer(
-                  onTap: onLeftPress,
+                    onTap: onLeftPress,
                     applyRadius: false,
                     backgroundColor: AppColors.grey,
                     height: 40,
@@ -296,34 +329,30 @@ class AppHelperFunctions {
         builder: (BuildContext context) => const AppSpinnerWheelAlert());
   }
 
-
-  void  verifyPhone(){
+  void verifyPhone() {
     showDialog(
         context: Get.context!,
         barrierDismissible: false,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return const Dialog(
             backgroundColor: AppColors.white,
             insetPadding: EdgeInsets.symmetric(horizontal: AppSizes.md),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
-            child: Otp(isForSpinner: true,),
+            child: Otp(
+              isForSpinner: true,
+            ),
           );
-        }
-    );
+        });
   }
-
-
-
-
 
   static void showSpinnerCoupon(
       {required String title,
-        required String subTitle,
-        String? couponCode,
-        VoidCallback? onCouponPress,
-        required String imgUrl}) {
+      required String subTitle,
+      String? couponCode,
+      VoidCallback? onCouponPress,
+      required String imgUrl}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -353,28 +382,22 @@ class AppHelperFunctions {
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         const Gap(AppSizes.sm),
-
                         Text(
                           subTitle,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-
                         const Gap(AppSizes.xl),
                         Visibility(
-                          visible: couponCode != null,
+                            visible: couponCode != null,
                             child: AppButtons.largeFlatOutlineButton(
-                                onPressed: onCouponPress ?? (){},
-                                buttonText: couponCode.toString()
-                            )
-                        ),
+                                onPressed: onCouponPress ?? () {},
+                                buttonText: couponCode.toString())),
                         const Gap(AppSizes.defaultSpace),
-
                         AppButtons.largeFlatFilledButton(
-                            onPressed: (){
+                            onPressed: () {
                               Get.offAllNamed('/shop');
                             },
-                            buttonText: 'Continue shopping'
-                        )
+                            buttonText: 'Continue shopping')
                       ],
                     ),
                   ),
@@ -384,7 +407,7 @@ class AppHelperFunctions {
                 right: AppSizes.md,
                 top: AppSizes.md,
                 child: AppCardContainer(
-                    onTap: ()=> Get.back(),
+                    onTap: () => Get.back(),
                     applyRadius: false,
                     backgroundColor: AppColors.grey,
                     height: 40,
@@ -401,7 +424,8 @@ class AppHelperFunctions {
   static Future<void> showLoaderDialog(BuildContext context) {
     return showDialog(
       context: context,
-      barrierDismissible: false, // Prevents closing the dialog by tapping outside
+      barrierDismissible: false,
+      // Prevents closing the dialog by tapping outside
       builder: (BuildContext context) {
         return const Dialog(
           shape: RoundedRectangleBorder(
@@ -410,9 +434,12 @@ class AppHelperFunctions {
           child: Padding(
             padding: EdgeInsets.all(20.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min, // Ensures the dialog won't take full screen
+              mainAxisSize: MainAxisSize.min,
+              // Ensures the dialog won't take full screen
               children: [
-                CircularProgressIndicator(color: AppColors.primary,), // Loader
+                CircularProgressIndicator(
+                  color: AppColors.primary,
+                ), // Loader
                 SizedBox(height: 20), // Space between loader and text
                 Text(
                   "Please wait...",
@@ -425,9 +452,6 @@ class AppHelperFunctions {
       },
     );
   }
-
-
-
 
   static void navigateToScreen(BuildContext context, Widget screen) {
     Navigator.push(
@@ -480,7 +504,59 @@ class AppHelperFunctions {
   }
 
   String stripHtmlTags(String htmlString) {
-    final RegExp regExp = RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
+    final RegExp regExp =
+        RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
     return htmlString.replaceAll(regExp, '');
+  }
+
+  bool isVersionLessThan(String version1, String version2) {
+    List<int> v1 = version1.split('.').map(int.parse).toList();
+    List<int> v2 = version2.split('.').map(int.parse).toList();
+
+    for (int i = 0; i < 3; i++) {
+      if (v1[i] < v2[i]) return true;
+      if (v1[i] > v2[i]) return false;
+    }
+    return false; // They are equal
+  }
+
+
+
+  static getAndroidDeviceInfo() async {
+    final String version =
+    AppLocalStorage().readData(LocalStorageKeys.appVersion);
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    final Map<String, dynamic> allInfo = {
+      'app_version' : version,
+      'device_type': 'android',
+      'os_version': androidInfo.version.release,
+      'device_model': androidInfo.model,
+      'device_brand': androidInfo.brand,
+      'device_manufacturer': androidInfo.manufacturer,
+    };
+    return allInfo;
+  }
+
+  static getIosDeviceInfo() async {
+    final String version =
+    AppLocalStorage().readData(LocalStorageKeys.appVersion);
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+    final Map<String, dynamic> allInfo = {
+      'app_version' : version,
+      'device_type': 'IOS',
+      'os_version': iosDeviceInfo.systemVersion,
+      'device_model': iosDeviceInfo.name,
+    };
+    return allInfo;
+  }
+
+  static appInfo() async {
+    final Map<String, dynamic> deviceInfoHeaders = Platform.isAndroid
+        ? await AppHelperFunctions.getAndroidDeviceInfo()
+        : await AppHelperFunctions.getIosDeviceInfo();
+
+    return deviceInfoHeaders;
   }
 }

@@ -104,7 +104,7 @@ class RecommendationBlackHeadsTwo extends StatelessWidget {
                   print(recommendationController.blackHeadsTwoSelected);
                   recommendationController.sendData();
                   recommendationController.resetValues();
-                  Get.to(()=> const RecommendedProducts());
+                  Get.toNamed('/recommended-products');
                 },
               ),
               Gap(AppSizes.defaultSpace)
