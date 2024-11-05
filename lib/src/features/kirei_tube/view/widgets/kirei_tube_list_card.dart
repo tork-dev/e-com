@@ -59,11 +59,14 @@ class KireiTubeListCard extends StatelessWidget {
             ),
           ),
           const Gap(AppSizes.sm),
-          Text(
-            kireiTubeController.videoList.value.data![index].title!,
-            style: Theme.of(context).textTheme.titleLarge,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+          SizedBox(
+            height: 40,
+            child: Text(
+              kireiTubeController.videoList.value.data![index].title!,
+              style: Theme.of(context).textTheme.titleLarge,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
           ),
           const Gap(AppSizes.sm),
           Row(
@@ -71,15 +74,15 @@ class KireiTubeListCard extends StatelessWidget {
             children: [
               Text(
                 "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics?.viewCount ?? '0'))} Views" '',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.labelSmall,
               ),
               Text(
                 "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics?.likeCount ?? '0'))} Likes",
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.labelSmall,
               ),
               Text(
                 "${NumberFormat.compact().format(int.parse(kireiTubeController.videoList.value.data![index].statistics?.commentCount ?? '0'))} Comments",
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ],
           ),

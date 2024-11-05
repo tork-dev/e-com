@@ -32,7 +32,7 @@ class RewardDetailsPage extends StatelessWidget {
           children: [
             AppCardContainer(
                 width: AppHelperFunctions.screenWidth(),
-                backgroundColor: const Color(0xffF5F5FF),
+                backgroundColor: AppColors.headerBackground,
                 applyRadius: false,
                 padding: const EdgeInsets.all(AppSizes.md),
                 child: Column(

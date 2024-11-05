@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kirei/src/utils/theme/widget_themes/search_bar_theme.dart';
 import '../theme/widget_themes/text_theme.dart';
 import '../theme/widget_themes/chip_theme.dart';
 import '../theme/widget_themes/appbar_theme.dart';
@@ -27,6 +28,7 @@ class MyAppTheme {
     elevatedButtonTheme: AppElevatedButtonTheme.lightElevatedButtonTheme,
     outlinedButtonTheme: APPOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: AppTextFormFieldTheme.lightInputDecorationTheme,
+    // searchBarTheme: CustomSearchBarTheme.lightSearchBarTheme
   );
 
   static ThemeData darkTheme = ThemeData(

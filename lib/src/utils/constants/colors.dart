@@ -20,6 +20,7 @@ class AppColors {
   static const Color inStock = Colors.green;
   static const Color backLayoutAppBarTitle = Colors.blueGrey;
   static const Color whitePink = Color(0xffFFF5F9);
+  static const Color headerBackground = Color(0xFFF5F5FF);
 
   static Color request = const Color(0xffF78C2C);
 
