@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_controller.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_home.dart';
+import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_videos.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
@@ -35,8 +38,7 @@ class KireiTubeScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               backgroundColor: AppColors.headerBackground,
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              margin:
-                  const EdgeInsets.only(bottom: AppSizes.spaceBtwSections),
+              margin: const EdgeInsets.only(bottom: AppSizes.spaceBtwSections),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,6 +78,7 @@ class KireiTubeScreen extends StatelessWidget {
                     horizontal: AppSizes.spaceBtwDefaultItems),
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
+                physics: const NeverScrollableScrollPhysics(),
                 tabs: const [
                   Tab(text: 'Home'),
                   Tab(text: 'Videos'),
@@ -88,25 +91,15 @@ class KireiTubeScreen extends StatelessWidget {
         ],
         body: TabBarView(
           controller: controller.tabController,
-          children: [
-            const KireiTubeHome(),
-            _buildTabContent('Videos'),
-            _buildTabContent('Shorts'),
-            _buildTabContent('Playlists'),
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            KireiTubeHome(),
+            KireiTubeVideosTab(),
+            KireiTubeVideosTab(),
+            KireiTubeVideosTab(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTabContent(String title) {
-    return ListView.builder(
-      itemCount: 20, // Adjust item count as needed
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text('$title Item ${index + 1}'),
-        );
-      },
     );
   }
 }
@@ -131,8 +124,7 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
             child: SearchBar(
               elevation: const MaterialStatePropertyAll(0),
               backgroundColor: const MaterialStatePropertyAll(AppColors.white),
-              shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero, // Rounded corners
+              shape: const MaterialStatePropertyAll(ContinuousRectangleBorder(
                 side: BorderSide(
                     color: AppColors.grey, width: 1), // Border color and width
               )),

@@ -29,7 +29,9 @@ class AppButtons {
       Color? backgroundColor,
       Color? buttonTextColor = AppColors.white,
       double buttonRadius = 0,
-      double verticallyPadding = 16}) {
+      double verticallyPadding = 16,
+      double horizontalPadding = 16,
+      }) {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -37,7 +39,7 @@ class AppButtons {
             borderRadius: BorderRadius.circular(buttonRadius),
           ),
           minimumSize:  Size(AppHelperFunctions.screenWidth(), 0),
-          padding: EdgeInsets.symmetric(vertical: verticallyPadding),
+          padding: EdgeInsets.symmetric(vertical: verticallyPadding, horizontal: horizontalPadding),
           backgroundColor: backgroundColor,
         ),
         child: Text(
@@ -45,6 +47,35 @@ class AppButtons {
           style: TextStyle(color: buttonTextColor),
         ));
   }
+
+
+  static ElevatedButton customFlatFilledButton(
+      {required VoidCallback onPressed,
+        required String buttonText,
+        Color? backgroundColor,
+        Color? buttonTextColor = AppColors.white,
+        double buttonRadius = 0,
+        double verticallyPadding = 16,
+        double horizontalPadding = 16,
+        required double buttonWidth
+      }) {
+    return ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(buttonRadius),
+          ),
+          minimumSize:  Size(buttonWidth, 0),
+          maximumSize: Size(AppHelperFunctions.screenWidth(), 58),
+          padding: EdgeInsets.symmetric(vertical: verticallyPadding, horizontal: horizontalPadding),
+          backgroundColor: backgroundColor,
+        ),
+        child: Text(
+          buttonText,
+          style: TextStyle(color: buttonTextColor),
+        ));
+  }
+
 
   static ElevatedButton largeFlatFilledIconButton(
       {required VoidCallback onPressed,

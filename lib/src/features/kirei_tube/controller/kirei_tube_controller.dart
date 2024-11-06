@@ -9,19 +9,28 @@ class KireiTubeController extends GetxController with GetSingleTickerProviderSta
 
   RxBool hittingApi = false.obs;
   Rx<KireiTubeResponse> videoList = KireiTubeResponse().obs;
+  RxnInt selectedFilter = RxnInt();
+  RxString selectedSortKey = 'Date added (newest)'.obs;
+
+  List<String> filterOption= [
+    'Latest',
+    'Popular',
+    'Oldest'
+  ];
+
+  List <String> sortKeys = [
+    'Date added (newest)',
+    'Last video added'
+  ];
 
   late TabController tabController ;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 4, vsync: this, initialIndex: 0, animationDuration: Durations.medium1);
     onRefresh();
   }
-
-
-
-
 
 
   Future<void> onRefresh() async{
