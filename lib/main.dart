@@ -17,7 +17,10 @@ import 'src/utils/helpers/routing_helper.dart';
 
 
 
-
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  NotificationServices().handleMessage(message.data['route']);
+}
 
 Future<void> main() async {
   await GetStorage.init();
@@ -32,7 +35,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
 
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
-import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_details_controller.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_video_player.dart';
 import 'package:kirei/src/utils/constants/colors.dart';

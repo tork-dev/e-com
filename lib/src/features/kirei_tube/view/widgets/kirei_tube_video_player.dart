@@ -12,24 +12,20 @@ class KireiDetailsVideoPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = KireiTubeDetailsController.instance;
-    return AppCardContainer(child: Obx(() {
-      return controller.hittingApi.value
-          ? ShimmerHelper().buildBasicShimmer(height: 250)
-          : controller.videoUrl.contains('facebook.com')
-              ? AspectRatio(
-                  aspectRatio: controller.kireiTubeDetailsResponse.value.data
-                              ?.orientation ==
-                          "portrait"
-                      ? 9 / 16
-                      : 16 / 9,
-                  child: WebViewWidget(
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: AppCardContainer(child: Obx(() {
+        return controller.hittingApi.value
+            ? ShimmerHelper().buildBasicShimmer(height: 250)
+            : controller.videoUrl.contains('facebook.com')
+                ? WebViewWidget(
                     controller: controller.webViewController!,
-                  ),
-                )
-              : YoutubePlayer(
-                  aspectRatio: 16 / 9,
-                  controller: controller.youtubeController.value!,
-                );
-    }));
+                  )
+                : YoutubePlayer(
+                    aspectRatio: 16 / 9,
+                    controller: controller.youtubeController.value!,
+                  );
+      })),
+    );
   }
 }
