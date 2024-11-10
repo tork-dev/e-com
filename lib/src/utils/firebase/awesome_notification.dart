@@ -16,7 +16,7 @@ class NotificationServices {
   // Function to initialise flutter local notification plugin to show notifications for android when app is active
   void initLocalNotifications(RemoteMessage message) async {
     var androidInitializationSettings =
-    const AndroidInitializationSettings('@drawable/ic_notification');
+    const AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosInitializationSettings = const DarwinInitializationSettings();
 
     var initializationSetting = InitializationSettings(

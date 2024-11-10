@@ -18,3 +18,6 @@
 -dontwarn net.jcip.annotations.NotThreadSafe
 -dontwarn net.jcip.annotations.ThreadSafe
 
+-keep class com.google.firebase.messaging.** { *; }
+-keep class com.dexterous.flutterlocalnotifications.** { *; }
+
