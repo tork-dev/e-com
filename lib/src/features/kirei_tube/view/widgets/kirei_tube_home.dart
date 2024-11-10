@@ -89,6 +89,12 @@ class KireiTubeHome extends StatelessWidget {
                             isScrollVertically: false,
                             builderFunction: (context, index) =>
                                 KireiTubeShortsCard(
+                                  onShortsPress: (){
+                                     print('${controller.videoList.value.data![index].slug}');
+                                    Get.toNamed(
+                                        '/kirei-shorts/${controller.videoList.value
+                                            .data![index].slug}');
+                                  },
                                   hittingApi: controller.hittingApi.value,
                                   shortsBanner: controller.videoList.value.data?[index].banner ?? '',
                                   shortsTitle: controller.videoList.value.data?[index].title ?? '',

@@ -20,6 +20,7 @@ class KireiTubeListCard extends StatelessWidget {
     this.kireiTubePlaylistVideoCount,
     required this.onTapBanner,
     required this.isPlaylist,
+    this.onTapViewPlaylist,
     super.key,
   });
 
@@ -31,6 +32,7 @@ class KireiTubeListCard extends StatelessWidget {
       kireiTubePlaylistVideoCount;
   final bool isPlaylist;
   final VoidCallback onTapBanner;
+  final VoidCallback? onTapViewPlaylist;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +84,7 @@ class KireiTubeListCard extends StatelessWidget {
                         child: AppCardContainer(
                           backgroundColor: AppColors.white,
                           applyRadius: false,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: AppSizes.xs, vertical: 3),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -111,10 +113,13 @@ class KireiTubeListCard extends StatelessWidget {
           const Gap(AppSizes.sm),
           Visibility(
               visible: isPlaylist,
-              child: Text(
-                'View full playlist',
-                style:
-                    Theme.of(context).textTheme.bodyMedium!.copyWith(height: 0),
+              child: InkWell(
+                onTap: onTapViewPlaylist,
+                child: Text(
+                  'View full playlist',
+                  style:
+                      Theme.of(context).textTheme.bodyMedium!.copyWith(height: 0),
+                ),
               )),
           Visibility(
             visible: !isPlaylist,

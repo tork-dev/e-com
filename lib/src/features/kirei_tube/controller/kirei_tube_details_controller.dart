@@ -77,7 +77,7 @@ class KireiTubeDetailsController extends GetxController {
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       // Example Facebook video embed URL
       ..loadRequest(Uri.parse(
-          videoUrl.value));
+          videoUrl.value))..setJavaScriptMode(JavaScriptMode.unrestricted);
     print('playing facebook video');
   }
 

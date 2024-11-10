@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/kirei_tube/view/kirei_tube_playlist_view.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_shorts_card.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../common/layouts/gridview_layout/gridview_layout.dart';
@@ -124,6 +125,9 @@ class KireiTubeVideosTab extends StatelessWidget {
                                   kireiTubeController.tabController.index == 3
                                       ? true
                                       : false,
+                    onTapViewPlaylist: (){
+                      Get.to(()=> KireiTubePlaylistScreen());
+                    },
                               kireiTubeBanner: controller
                                   .videoList.value.data?[index].banner,
                               kireiTubeTitle:
