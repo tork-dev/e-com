@@ -35,12 +35,12 @@ class NotificationServices {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
-      if (kDebugMode) {
         print("Notifications Title: ${notification?.title}");
         print("Notifications Body: ${notification?.body}");
         print('Count: ${android?.count}');
         print('Data: ${message.data.toString()}');
-      }
+        print('channel id: ${message.notification!.android!.channelId.toString()}');
+
 
       if (Platform.isIOS) {
         forgroundMessage();
