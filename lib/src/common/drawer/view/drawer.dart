@@ -65,6 +65,7 @@ class AppDrawer extends StatelessWidget {
                 ));
               }
               shopController.updateCategory('new');
+              shopController.type('new-arrivals');
               // shopController.getShopData();
               bottomController.jumpToTab(1);
 

@@ -160,7 +160,7 @@ class HomeThree extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSectionTitleText(
-                  sectionTitle: 'Popular Search Products',
+                  sectionTitle: 'International Brands',
                   haveTxtButton: false,
                 ),
               ),
@@ -168,8 +168,7 @@ class HomeThree extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
                   child: AppHorizontalScrollProductCard(
-                      sectionName: controller
-                          .recommendedProductsResponse.value.data),
+                      sectionName: controller.homeProductResponse.value.internationalBrands),
                 );
               }),
               const Gap(AppSizes.spaceBtwSections),

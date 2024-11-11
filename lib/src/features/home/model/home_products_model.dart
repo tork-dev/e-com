@@ -4,6 +4,7 @@ class HomeProductResponse {
   List<Product>? newProducts;
   List<Product>? bestsellingProducts;
   List<Product>? featuredProducts;
+  List<Product>? internationalBrands;
   bool? success;
   int? status;
   List<Slider>? sliders;
@@ -15,6 +16,7 @@ class HomeProductResponse {
     this.newProducts,
     this.bestsellingProducts,
     this.featuredProducts,
+    this.internationalBrands,
     this.success,
     this.status,
     this.sliders,
@@ -31,6 +33,7 @@ class HomeProductResponse {
     newProducts: json["new_products"] == null ? [] : List<Product>.from(json["new_products"]!.map((x) => Product.fromMap(x))),
     bestsellingProducts: json["bestselling_products"] == null ? [] : List<Product>.from(json["bestselling_products"]!.map((x) => Product.fromMap(x))),
     featuredProducts: json["featured_products"] == null ? [] : List<Product>.from(json["featured_products"]!.map((x) => Product.fromMap(x))),
+    internationalBrands: json["international_brands"] == null ? [] : List<Product>.from(json["international_brands"]!.map((x) => Product.fromMap(x))),
     success: json["success"],
     status: json["status"],
     sliders: json["sliders"] == null ? [] : List<Slider>.from(json["sliders"]!.map((x) => Slider.fromMap(x))),
@@ -43,6 +46,7 @@ class HomeProductResponse {
     "new_products": newProducts == null ? [] : List<dynamic>.from(newProducts!.map((x) => x.toMap())),
     "bestselling_products": bestsellingProducts == null ? [] : List<dynamic>.from(bestsellingProducts!.map((x) => x.toMap())),
     "featured_products": featuredProducts == null ? [] : List<dynamic>.from(featuredProducts!.map((x) => x.toMap())),
+    "international_brands": internationalBrands == null ? [] : List<dynamic>.from(internationalBrands!.map((x) => x.toMap())),
     "success": success,
     "status": status,
     "sliders": sliders == null ? [] : List<dynamic>.from(sliders!.map((x) => x.toMap())),
