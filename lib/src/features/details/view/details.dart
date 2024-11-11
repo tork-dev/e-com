@@ -106,7 +106,17 @@ class DetailsPage extends StatelessWidget {
                 AppDividersStyle.fullFlatAppDivider,
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 const AppDetailsCategoriesPart(),
-                const AppDetailsFullDescription(),
+                AppDetailsFullDescription(
+                  descriptionTitle: 'description',
+                  description:
+                      "${controller.productDetails.value.detailedProducts?.description}",
+                ),
+                AppDividersStyle.fullFlatAppDivider,
+                AppDetailsFullDescription(
+                  descriptionTitle: 'guid',
+                  description:
+                      "${controller.productDetails.value.detailedProducts?.guide}",
+                ),
                 AppDividersStyle.fullFlatAppDivider,
                 ReviewAndQuestion(
                   onTap: () {
