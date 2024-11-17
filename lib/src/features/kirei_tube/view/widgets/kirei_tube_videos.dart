@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_playlist_view.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_shorts_card.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
@@ -10,12 +11,34 @@ import '../../../../utils/constants/sizes.dart';
 import '../../controller/kirei_tube_controller.dart';
 import 'kirei_tube_list_card.dart';
 
-class KireiTubeVideosTab extends StatelessWidget {
+class KireiTubeVideosTab extends StatefulWidget {
   const KireiTubeVideosTab({super.key});
 
   @override
+  State<KireiTubeVideosTab> createState() => _KireiTubeVideosTabState();
+}
+
+class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
+  final kireiTubeController = KireiTubeController.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (kireiTubeController.tabController.index != 3) {
+      if (kireiTubeController.tabController.index == 1) {
+        kireiTubeController.selectedOrientation.value = 'landscape';
+      } else if (kireiTubeController.tabController.index == 2) {
+        kireiTubeController.selectedOrientation.value = "portrait";
+      }
+      kireiTubeController.getKireitubeVideos();
+    } else {
+      kireiTubeController.getKireitubePlaylist();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final kireiTubeController = KireiTubeController.instance;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
@@ -38,8 +61,8 @@ class KireiTubeVideosTab extends StatelessWidget {
                         hintText: 'Sort by',
                         width: 128,
                         inputDecorationTheme: const InputDecorationTheme(
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: AppSizes.sm, vertical: 0),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: AppSizes.sm, vertical: 0),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.zero,
                                 borderSide: BorderSide(
@@ -84,6 +107,31 @@ class KireiTubeVideosTab extends StatelessWidget {
                                 onSelected: (bool selected) {
                                   kireiTubeController.selectedFilter.value =
                                       selected ? index : null;
+                                  if (kireiTubeController
+                                          .selectedFilter.value ==
+                                      null) {
+                                    kireiTubeController.orderBy.value = '';
+                                    kireiTubeController.isPopular.value = 0;
+                                  } else if (kireiTubeController
+                                              .selectedFilter.value !=
+                                          null &&
+                                      kireiTubeController
+                                              .selectedFilter.value !=
+                                          1) {
+                                    kireiTubeController.isPopular.value = 0;
+                                    kireiTubeController.orderBy.value =
+                                        kireiTubeController.filterOption[
+                                                kireiTubeController
+                                                    .selectedFilter.value!]
+                                            .toLowerCase();
+                                  } else if (kireiTubeController
+                                          .selectedFilter.value !=
+                                      null) {
+                                    kireiTubeController.orderBy.value = '';
+                                    kireiTubeController.isPopular.value = 1;
+                                  }
+
+                                  kireiTubeController.getKireitubeVideos();
                                 },
                               );
                             });
@@ -99,45 +147,54 @@ class KireiTubeVideosTab extends StatelessWidget {
                       kireiTubeController.tabController.index == 2 ? .57 : .94,
                   itemCount: controller.hittingApi.value
                       ? 10
-                      : controller.videoList.value.data!.length,
+                      : kireiTubeController.tabController.index == 3
+                          ? controller.videoPlaylist.value.data!.length
+                          : controller.videosList.value.data!.length,
                   builderFunction: (context, index) => controller
                           .hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
                       : kireiTubeController.tabController.index == 2
                           ? KireiTubeShortsCard(
+                              onShortsPress: () {
+                                Get.toNamed(
+                                    "/kirei-shorts/${controller.videosList.value.data![index].slug}");
+                              },
                               hittingApi: controller.hittingApi.value,
                               shortsBanner: controller
-                                      .videoList.value.data?[index].banner ??
+                                      .videosList.value.data?[index].banner ??
                                   '',
                               shortsTitle: controller
-                                      .videoList.value.data?[index].title ??
+                                      .videosList.value.data?[index].title ??
                                   '',
-                              shortsViewCount: controller.videoList.value
-                                      .data?[index].statistics?.viewCount ??
-                                  '0')
+                            )
                           : KireiTubeListCard(
-                    onTapBanner: (){
-                      Get.toNamed(
-                          '/kirei-tube/${controller.videoList.value
-                              .data![index].slug}');
-                    },
+                              onTapBanner: () {
+                                Get.toNamed(
+                                    '/kirei-tube/${controller.videosList.value.data![index].slug}');
+                              },
                               isPlaylist:
                                   kireiTubeController.tabController.index == 3
                                       ? true
                                       : false,
-                    onTapViewPlaylist: (){
-                      Get.to(()=> KireiTubePlaylistScreen());
-                    },
-                              kireiTubeBanner: controller
-                                  .videoList.value.data?[index].banner,
+                              onTapViewPlaylist: () {
+                                kireiTubeController.getKireitubePlaylistDetails(
+                                    controller
+                                        .videoPlaylist.value.data![index].id
+                                        .toString());
+                                Get.to(() => const KireiTubePlaylistScreen());
+                              },
+                              kireiTubeBanner:
+                                  kireiTubeController.tabController.index == 3
+                                      ? controller.videoPlaylist.value
+                                          .data![index].banner
+                                      : controller
+                                          .videosList.value.data?[index].banner,
                               kireiTubeTitle:
-                                  controller.videoList.value.data?[index].title,
-                              kireiTubeViewsCount: controller.videoList.value
-                                  .data?[index].statistics?.viewCount,
-                              kireiTubeLikeCount: controller.videoList.value
-                                  .data?[index].statistics?.likeCount,
-                              kireiTubeCommentCount: controller.videoList.value
-                                  .data?[index].statistics?.commentCount,
+                                  kireiTubeController.tabController.index == 3
+                                      ? controller.videoPlaylist.value
+                                          .data![index].title
+                                      : controller
+                                          .videosList.value.data?[index].title,
                               kireiTubePlaylistVideoCount: '6',
                             ));
             }),

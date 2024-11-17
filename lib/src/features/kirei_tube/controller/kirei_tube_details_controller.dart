@@ -41,7 +41,7 @@ class KireiTubeDetailsController extends GetxController {
 
   Future<void> onRefresh() async {
     print('refresh');
-    getKireiTubeDetails();
+     getKireiTubeDetails();
   }
 
   Future<void> getKireiTubeDetails() async {

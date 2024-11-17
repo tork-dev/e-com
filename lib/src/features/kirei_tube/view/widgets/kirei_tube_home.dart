@@ -38,7 +38,7 @@ class KireiTubeHome extends StatelessWidget {
             GetBuilder<KireiTubeController>(builder: (controller) {
               return AppGridViewLayout(
                   mobileAspect: .94,
-                  itemCount: 4,
+                  itemCount: controller.videoList.value.videos?.data?.length ?? 4,
                   builderFunction: (context, index) =>
                       controller.hittingApi.value
                           ? ShimmerHelper().buildBasicShimmer(height: 250)
@@ -46,14 +46,10 @@ class KireiTubeHome extends StatelessWidget {
                         isPlaylist: false,
                         onTapBanner: (){
                           Get.toNamed(
-                              '/kirei-tube/${controller.videoList.value
-                                  .data![index].slug}');
+                              '/kirei-tube/${controller.videoList.value.videos?.data![index].slug}');
                         },
-                        kireiTubeBanner: controller.videoList.value.data?[index].banner,
-                        kireiTubeTitle: controller.videoList.value.data?[index].title,
-                        kireiTubeViewsCount: controller.videoList.value.data?[index].statistics?.viewCount,
-                        kireiTubeLikeCount: controller.videoList.value.data?[index].statistics?.likeCount,
-                        kireiTubeCommentCount: controller.videoList.value.data?[index].statistics?.commentCount,
+                        kireiTubeBanner: controller.videoList.value.videos?.data?[index].banner,
+                        kireiTubeTitle: controller.videoList.value.videos?.data?[index].title,
                       ));
             }),
             const Gap(AppSizes.md),
@@ -85,20 +81,18 @@ class KireiTubeHome extends StatelessWidget {
                       child: GetBuilder<KireiTubeController>(
                           builder: (controller) {
                         return AppListViewLayout(
-                            itemCount: 4,
+                            itemCount: controller.videoList.value.shorts?.data?.length ?? 4,
                             isScrollVertically: false,
                             builderFunction: (context, index) =>
                                 KireiTubeShortsCard(
                                   onShortsPress: (){
-                                     print('${controller.videoList.value.data![index].slug}');
+                                     print('${controller.videoList.value.shorts?.data![index].slug}');
                                     Get.toNamed(
-                                        '/kirei-shorts/${controller.videoList.value
-                                            .data![index].slug}');
+                                        '/kirei-shorts/${controller.videoList.value.shorts?.data![index].slug}');
                                   },
                                   hittingApi: controller.hittingApi.value,
-                                  shortsBanner: controller.videoList.value.data?[index].banner ?? '',
-                                  shortsTitle: controller.videoList.value.data?[index].title ?? '',
-                                  shortsViewCount: controller.videoList.value.data?[index].statistics?.viewCount ?? '0',
+                                  shortsBanner: controller.videoList.value.shorts?.data?[index].banner ?? '',
+                                  shortsTitle: controller.videoList.value.shorts?.data?[index].title ?? '',
                                 ));
                       }),
                     ),
@@ -122,19 +116,18 @@ class KireiTubeHome extends StatelessWidget {
             GetBuilder<KireiTubeController>(builder: (controller) {
               return AppGridViewLayout(
                   mobileAspect: .94,
-                  itemCount: 4,
+                  itemCount: controller.videoList.value.playlists?.length ?? 4,
                   builderFunction: (context, index) =>
                   controller.hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
                       : KireiTubeListCard(
                     onTapBanner: (){
                       Get.toNamed(
-                          '/kirei-tube/${controller.videoList.value
-                              .data![index].slug}');
+                          '/kirei-tube/${controller.videoList.value.playlists?[index].slug}');
                     },
                     isPlaylist: true,
-                    kireiTubeBanner: controller.videoList.value.data?[index].banner,
-                    kireiTubeTitle: controller.videoList.value.data?[index].title,
+                    kireiTubeBanner: controller.videoList.value.playlists?[index].banner,
+                    kireiTubeTitle: controller.videoList.value.playlists?[index].title,
                     kireiTubePlaylistVideoCount: '6',
                   ));
             }),

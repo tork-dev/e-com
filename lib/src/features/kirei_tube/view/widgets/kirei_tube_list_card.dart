@@ -1,22 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../controller/kirei_tube_controller.dart';
 
 class KireiTubeListCard extends StatelessWidget {
   const KireiTubeListCard({
     this.kireiTubeBanner,
     this.kireiTubeTitle,
-    this.kireiTubeViewsCount,
-    this.kireiTubeLikeCount,
-    this.kireiTubeCommentCount,
     this.kireiTubePlaylistVideoCount,
     required this.onTapBanner,
     required this.isPlaylist,
@@ -26,9 +18,6 @@ class KireiTubeListCard extends StatelessWidget {
 
   final String? kireiTubeBanner,
       kireiTubeTitle,
-      kireiTubeViewsCount,
-      kireiTubeLikeCount,
-      kireiTubeCommentCount,
       kireiTubePlaylistVideoCount;
   final bool isPlaylist;
   final VoidCallback onTapBanner;
@@ -36,7 +25,6 @@ class KireiTubeListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final kireiTubeController = KireiTubeController.instance;
     return AppCardContainer(
       backgroundColor: AppColors.white,
       applyRadius: false,
@@ -45,7 +33,7 @@ class KireiTubeListCard extends StatelessWidget {
         children: [
           // AspectRatio to maintain image proportions and control Stack layout
           InkWell(
-            onTap: onTapBanner,
+            onTap: isPlaylist? onTapViewPlaylist: onTapBanner,
             child: AspectRatio(
               aspectRatio: 16 / 9, // 16:9 aspect ratio for the image
               child: Stack(
@@ -121,27 +109,6 @@ class KireiTubeListCard extends StatelessWidget {
                       Theme.of(context).textTheme.bodyMedium!.copyWith(height: 0),
                 ),
               )),
-          Visibility(
-            visible: !isPlaylist,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "${NumberFormat.compact().format(int.parse(kireiTubeViewsCount ?? '0'))} Views",
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-                Text(
-                  "${NumberFormat.compact().format(int.parse(kireiTubeLikeCount ?? '0'))} Likes",
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-                Text(
-                  "${NumberFormat.compact().format(int.parse(kireiTubeCommentCount ?? '0'))} Comments",
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
-            ),
-          ),
-          const Gap(AppSizes.md),
         ],
       ),
     );

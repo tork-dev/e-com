@@ -12,11 +12,10 @@ class KireiTubeShortsCard extends StatelessWidget {
       required this.hittingApi,
       required this.shortsBanner,
       required this.shortsTitle,
-      required this.shortsViewCount,
       this.onShortsPress});
 
   final bool hittingApi;
-  final String shortsBanner, shortsTitle, shortsViewCount;
+  final String shortsBanner, shortsTitle;
   final VoidCallback? onShortsPress;
 
   @override
@@ -34,33 +33,17 @@ class KireiTubeShortsCard extends StatelessWidget {
                   applyImageRadius: false,
                   isNetworkImage: true,
                   imgUrl: shortsBanner),
-          Padding(
-            padding: const EdgeInsets.all(AppSizes.sm),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 40,
-                  child: hittingApi
-                      ? ShimmerHelper()
-                          .buildBasicShimmer(height: 15, width: 100)
-                      : Text(
-                          shortsTitle,
-                          style: Theme.of(context).textTheme.titleLarge,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                        ),
-                ),
-                const Gap(AppSizes.xs),
-                hittingApi
-                    ? ShimmerHelper().buildBasicShimmer(height: 10, width: 70)
-                    : Text(
-                        "${NumberFormat.compact().format(int.parse(shortsViewCount))} Views",
-                        style: Theme.of(context).textTheme.labelLarge,
-                        overflow: TextOverflow.ellipsis,
-                      )
-              ],
-            ),
+          SizedBox(
+            height: 40,
+            child: hittingApi
+                ? ShimmerHelper()
+                    .buildBasicShimmer(height: 15, width: 100)
+                : Text(
+                    shortsTitle,
+                    style: Theme.of(context).textTheme.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
           ),
         ],
       ),

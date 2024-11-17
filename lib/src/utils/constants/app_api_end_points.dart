@@ -129,8 +129,10 @@ class AppApiEndPoints {
 
 
   ///Kirei-tube
-  static String kireiTubeList = "$baseUrl/youtube-videos";
-  static String kireiTubeDetails = "$baseUrl/youtube-videos/";
+  static String kireiTubeHome = "$baseUrl/kireitube-home";
+  static String kireiTubeVideos = "$baseUrl/youtube-videos";
+  static String kireiPlaylist = "$baseUrl/kireitube-playlists";
+  static String kireiPlaylistDetails = "$baseUrl/kireitube-playlist";
 
 
   ///Group Shopping
