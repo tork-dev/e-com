@@ -107,9 +107,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                 onSelected: (bool selected) {
                                   kireiTubeController.selectedFilter.value =
                                       selected ? index : null;
-                                  if (kireiTubeController
-                                          .selectedFilter.value ==
-                                      null) {
+                                  if(kireiTubeController.selectedFilter.value == null){
                                     kireiTubeController.orderBy.value = '';
                                     kireiTubeController.isPopular.value = 0;
                                   } else if (kireiTubeController
@@ -121,12 +119,11 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                     kireiTubeController.isPopular.value = 0;
                                     kireiTubeController.orderBy.value =
                                         kireiTubeController.filterOption[
-                                                kireiTubeController
-                                                    .selectedFilter.value!]
-                                            .toLowerCase();
-                                  } else if (kireiTubeController
-                                          .selectedFilter.value !=
-                                      null) {
+                                            kireiTubeController
+                                                .selectedFilter.value!].toLowerCase();
+                                  }else if(kireiTubeController
+                                      .selectedFilter.value !=
+                                      null){
                                     kireiTubeController.orderBy.value = '';
                                     kireiTubeController.isPopular.value = 1;
                                   }

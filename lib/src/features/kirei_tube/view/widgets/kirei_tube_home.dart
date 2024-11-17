@@ -14,6 +14,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../controller/kirei_tube_controller.dart';
+import '../kirei_tube_playlist_view.dart';
 import 'kirei_tube_list_card.dart';
 import 'kirei_tube_shorts_card.dart';
 
@@ -121,9 +122,12 @@ class KireiTubeHome extends StatelessWidget {
                   controller.hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
                       : KireiTubeListCard(
-                    onTapBanner: (){
-                      Get.toNamed(
-                          '/kirei-tube/${controller.videoList.value.playlists?[index].slug}');
+                    onTapViewPlaylist: (){
+                      kireiController.getKireitubePlaylistDetails(
+                          controller
+                              .videoPlaylist.value.data![index].id
+                              .toString());
+                      Get.to(() => const KireiTubePlaylistScreen());
                     },
                     isPlaylist: true,
                     kireiTubeBanner: controller.videoList.value.playlists?[index].banner,

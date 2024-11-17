@@ -27,7 +27,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
       this.fit = BoxFit.contain,
       this.bgUrl = AppImages.aiRecommendationBg});
 
-  final sectionName;
+  final dynamic sectionName;
   final bool showTheSection, showBg;
   final BoxFit fit;
   final String bgUrl;

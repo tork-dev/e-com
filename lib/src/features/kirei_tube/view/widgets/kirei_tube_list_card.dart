@@ -10,7 +10,7 @@ class KireiTubeListCard extends StatelessWidget {
     this.kireiTubeBanner,
     this.kireiTubeTitle,
     this.kireiTubePlaylistVideoCount,
-    required this.onTapBanner,
+    this.onTapBanner,
     required this.isPlaylist,
     this.onTapViewPlaylist,
     super.key,
@@ -20,7 +20,7 @@ class KireiTubeListCard extends StatelessWidget {
       kireiTubeTitle,
       kireiTubePlaylistVideoCount;
   final bool isPlaylist;
-  final VoidCallback onTapBanner;
+  final VoidCallback? onTapBanner;
   final VoidCallback? onTapViewPlaylist;
 
   @override
