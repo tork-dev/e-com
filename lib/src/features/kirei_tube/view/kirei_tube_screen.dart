@@ -1,9 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
@@ -12,6 +7,7 @@ import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_home.dart'
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_videos.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+
 
 class KireiTubeScreen extends StatelessWidget {
   const KireiTubeScreen({super.key});
@@ -67,27 +63,38 @@ class KireiTubeScreen extends StatelessWidget {
             ),
           ),
           SliverPersistentHeader(
-            pinned: true,
-            delegate: _TabBarDelegate(
-              TabBar(
-                controller: controller.tabController,
-                indicatorColor: AppColors.primary,
-                labelColor: AppColors.primary,
-                labelStyle: Theme.of(context).textTheme.titleLarge,
-                labelPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.spaceBtwDefaultItems),
-                tabAlignment: TabAlignment.start,
-                isScrollable: true,
-                physics: const NeverScrollableScrollPhysics(),
-                tabs: const [
-                  Tab(text: 'Home'),
-                  Tab(text: 'Videos'),
-                  Tab(text: 'Shorts'),
-                  Tab(text: 'Playlists'),
-                ],
-              ),
-            ),
-          ),
+              pinned: true,
+              delegate: _TabBarDelegate(
+                  TabBar(
+                    controller: controller.tabController,
+                    indicatorColor: AppColors.primary,
+                    labelColor: AppColors.primary,
+                    labelStyle: Theme.of(context).textTheme.titleLarge,
+                    labelPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.spaceBtwDefaultItems),
+                    tabAlignment: TabAlignment.start,
+                    isScrollable: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    onTap: (value) {
+                      controller.searchController.clear();
+                    },
+                    tabs: const [
+                      Tab(text: 'Home'),
+                      Tab(text: 'Videos'),
+                      Tab(text: 'Shorts'),
+                      Tab(text: 'Playlists'),
+                    ],
+                  ),
+                  controller.searchController,
+                  (value){
+                    if(controller.tabController.index == 3){
+                      controller.getKireitubePlaylist();
+                    }else if(controller.tabController.index == 0){
+
+                    }else{
+                      controller.getKireitubeVideos();
+                    }
+                  })),
         ],
         body: TabBarView(
           controller: controller.tabController,
@@ -106,8 +113,10 @@ class KireiTubeScreen extends StatelessWidget {
 
 class _TabBarDelegate extends SliverPersistentHeaderDelegate {
   final TabBar tabBar;
+  final TextEditingController controller;
+  final dynamic onChanged;
 
-  _TabBarDelegate(this.tabBar);
+  _TabBarDelegate(this.tabBar, this.controller, this.onChanged);
 
   @override
   Widget build(
@@ -122,6 +131,8 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
           SizedBox(
             height: 48,
             child: SearchBar(
+              controller: controller,
+              onChanged: onChanged,
               elevation: const MaterialStatePropertyAll(0),
               backgroundColor: const MaterialStatePropertyAll(AppColors.white),
               shape: const MaterialStatePropertyAll(ContinuousRectangleBorder(

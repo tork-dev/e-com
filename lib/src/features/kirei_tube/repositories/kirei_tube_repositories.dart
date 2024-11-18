@@ -22,18 +22,20 @@ class KireiTubeRepositories {
     }
   }
 
-  Future<KireiTubeVideosListResponse> getKireiTubeVideos({int? isPopular, String? orientation, String? orderBy}) async {
+  Future<KireiTubeVideosListResponse> getKireiTubeVideos(
+      {int? isPopular, String? orientation, String? orderBy}) async {
     Map<String, dynamic> parameters = {
-      "is_popular" : isPopular,
-      "orientation" : orientation,
-      "order_by" : orderBy
+      "is_popular": isPopular,
+      "orientation": orientation,
+      "order_by": orderBy,
     };
 
     String queryString = parameters.entries
         .map((entry) =>
-    '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
+            '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
         .join('&');
-    final response = await http.get(Uri.parse("${AppApiEndPoints.kireiTubeVideos}?$queryString"));
+    final response = await http
+        .get(Uri.parse("${AppApiEndPoints.kireiTubeVideos}?$queryString"));
 
     AppLoggerHelper.debug(response.body.toString());
 
@@ -44,8 +46,23 @@ class KireiTubeRepositories {
     }
   }
 
-  Future<KireiTubeVideosPlaylistResponse> getKireiPlaylist() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.kireiPlaylist));
+  Future<KireiTubeVideosPlaylistResponse> getKireiPlaylist(
+      {required int isPopular,
+      required String searchName,
+      required String orderBy}) async {
+    Map<String, dynamic> parameters = {
+      "is_popular": isPopular,
+      "title": searchName,
+      "order_by": orderBy
+    };
+
+    String queryString = parameters.entries
+        .map((entry) =>
+    '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
+        .join('&');
+
+    final response = await http
+        .get(Uri.parse("${AppApiEndPoints.kireiPlaylist}?$queryString"));
 
     AppLoggerHelper.debug(response.body.toString());
 
@@ -55,7 +72,6 @@ class KireiTubeRepositories {
       throw 'error';
     }
   }
-
 
   Future<KireiTubeDetailsResponse> getKireiDetailsData(String videoSlug) async {
     final response = await http
@@ -70,9 +86,10 @@ class KireiTubeRepositories {
     }
   }
 
-  Future<KireiTubePlaylistDetailsResponse> getKireiPlaylistDetails(String playlistSlug) async {
-    final response = await http
-        .get(Uri.parse('${AppApiEndPoints.kireiPlaylistDetails}/$playlistSlug'));
+  Future<KireiTubePlaylistDetailsResponse> getKireiPlaylistDetails(
+      String playlistSlug) async {
+    final response = await http.get(
+        Uri.parse('${AppApiEndPoints.kireiPlaylistDetails}/$playlistSlug'));
 
     AppLoggerHelper.debug(response.body.toString());
 

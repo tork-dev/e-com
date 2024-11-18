@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -15,8 +16,10 @@ class KireiTubeController extends GetxController
 
   RxBool hittingApi = false.obs;
   Rx<KireiTubeHomeResponse> videoList = KireiTubeHomeResponse().obs;
-  Rx<KireiTubeVideosPlaylistResponse> videoPlaylist = KireiTubeVideosPlaylistResponse().obs;
-  Rx<KireiTubePlaylistDetailsResponse> playlistDetails = KireiTubePlaylistDetailsResponse().obs;
+  Rx<KireiTubeVideosPlaylistResponse> videoPlaylist =
+      KireiTubeVideosPlaylistResponse().obs;
+  Rx<KireiTubePlaylistDetailsResponse> playlistDetails =
+      KireiTubePlaylistDetailsResponse().obs;
   Rx<KireiTubeVideosListResponse> videosList =
       KireiTubeVideosListResponse().obs;
   RxnInt selectedFilter = RxnInt();
@@ -29,6 +32,8 @@ class KireiTubeController extends GetxController
   RxString selectedOrientation = 'portrait'.obs;
   RxString orderBy = ''.obs;
   RxInt isPopular = 0.obs;
+
+  TextEditingController searchController = TextEditingController();
 
   late TabController tabController;
 
@@ -67,14 +72,16 @@ class KireiTubeController extends GetxController
 
   Future<void> getKireitubePlaylist() async {
     hittingApi.value = true;
-    videoPlaylist.value = await KireiTubeRepositories().getKireiPlaylist();
+    videoPlaylist.value = await KireiTubeRepositories().getKireiPlaylist(
+        searchName: searchController.text.toString(), orderBy: orderBy.value, isPopular: isPopular.value);
     hittingApi.value = false;
     update();
   }
 
   Future<void> getKireitubePlaylistDetails(playlistSlug) async {
     hittingApi.value = true;
-    playlistDetails.value = await KireiTubeRepositories().getKireiPlaylistDetails(playlistSlug);
+    playlistDetails.value =
+        await KireiTubeRepositories().getKireiPlaylistDetails(playlistSlug);
     hittingApi.value = false;
     update();
   }

@@ -520,15 +520,17 @@ class AppHelperFunctions {
     return false; // They are equal
   }
 
-
+  static deBouncerSearchDelay(function) {
+    Future.delayed(const Duration(microseconds: 300), () => function);
+  }
 
   static getAndroidDeviceInfo() async {
     final String version =
-    AppLocalStorage().readData(LocalStorageKeys.appVersion);
+        AppLocalStorage().readData(LocalStorageKeys.appVersion);
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     final Map<String, dynamic> allInfo = {
-      'app_version' : version,
+      'app_version': version,
       'device_type': 'android',
       'os_version': androidInfo.version.release,
       'device_model': androidInfo.model,
@@ -540,11 +542,11 @@ class AppHelperFunctions {
 
   static getIosDeviceInfo() async {
     final String version =
-    AppLocalStorage().readData(LocalStorageKeys.appVersion);
+        AppLocalStorage().readData(LocalStorageKeys.appVersion);
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
     final Map<String, dynamic> allInfo = {
-      'app_version' : version,
+      'app_version': version,
       'device_type': 'IOS',
       'os_version': iosDeviceInfo.systemVersion,
       'device_model': iosDeviceInfo.name,

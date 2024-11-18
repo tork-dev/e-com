@@ -67,11 +67,27 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                 borderRadius: BorderRadius.zero,
                                 borderSide: BorderSide(
                                     width: 1, color: AppColors.lightGrey))),
-                        onSelected: (String? value) {
-                          kireiTubeController.selectedSortKey.value = value!;
-                          debugPrint(kireiTubeController.selectedSortKey.value);
+                        onSelected: (value) {
+                          kireiTubeController.selectedFilter.value = kireiTubeController.filterOption.indexOf(value!);
+                          if (kireiTubeController
+                                  .selectedFilter.value !=
+                                  1) {
+                            kireiTubeController.isPopular.value = 0;
+                            kireiTubeController.orderBy.value =
+                                kireiTubeController.filterOption[
+                                kireiTubeController
+                                    .selectedFilter.value!]
+                                    .toLowerCase();
+                          } else if (kireiTubeController
+                              .selectedFilter.value !=
+                              null) {
+                            kireiTubeController.orderBy.value = '';
+                            kireiTubeController.isPopular.value = 1;
+                          }
+
+                          kireiTubeController.getKireitubePlaylist();
                         },
-                        dropdownMenuEntries: kireiTubeController.sortKeys
+                        dropdownMenuEntries: kireiTubeController.filterOption
                             .map<DropdownMenuEntry<String>>((String value) {
                           return DropdownMenuEntry<String>(
                               value: value, label: value);
@@ -107,7 +123,9 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                 onSelected: (bool selected) {
                                   kireiTubeController.selectedFilter.value =
                                       selected ? index : null;
-                                  if(kireiTubeController.selectedFilter.value == null){
+                                  if (kireiTubeController
+                                          .selectedFilter.value ==
+                                      null) {
                                     kireiTubeController.orderBy.value = '';
                                     kireiTubeController.isPopular.value = 0;
                                   } else if (kireiTubeController
@@ -119,11 +137,12 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                     kireiTubeController.isPopular.value = 0;
                                     kireiTubeController.orderBy.value =
                                         kireiTubeController.filterOption[
-                                            kireiTubeController
-                                                .selectedFilter.value!].toLowerCase();
-                                  }else if(kireiTubeController
-                                      .selectedFilter.value !=
-                                      null){
+                                                kireiTubeController
+                                                    .selectedFilter.value!]
+                                            .toLowerCase();
+                                  } else if (kireiTubeController
+                                          .selectedFilter.value !=
+                                      null) {
                                     kireiTubeController.orderBy.value = '';
                                     kireiTubeController.isPopular.value = 1;
                                   }
