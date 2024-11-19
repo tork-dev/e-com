@@ -20,7 +20,7 @@ class ReviewController extends GetxController {
   Rx<ReviewResponse> reviewResponse = ReviewResponse().obs;
   Rx<ReviewSubmitResponse> reviewSubmitResponse = ReviewSubmitResponse().obs;
 
-  RxDouble givenRating = 1.0.obs;
+  RxDouble givenRating = 5.0.obs;
   RxBool apiHitting = false.obs;
   RxInt pageNumber = 1.obs;
 

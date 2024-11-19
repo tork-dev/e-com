@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kirei/main.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/view/signup.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return GetMaterialApp(
+      navigatorKey: navigatorKey,
       initialBinding: GeneralBindings(),
       title: AppTexts.appName,
       themeMode: ThemeMode.light,

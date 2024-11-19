@@ -23,12 +23,19 @@ class KireiTubeRepositories {
   }
 
   Future<KireiTubeVideosListResponse> getKireiTubeVideos(
-      {int? isPopular, String? orientation, String? orderBy}) async {
+      {String? searchName, int? isPopular, String? orientation, String? orderBy}) async {
     Map<String, dynamic> parameters = {
       "is_popular": isPopular,
-      "orientation": orientation,
-      "order_by": orderBy,
     };
+    if(searchName != ''){
+      parameters["title"] = searchName;
+    }
+    if(orientation != ''){
+      parameters["orientation"] = orientation;
+    }
+    if(orderBy != ''){
+      parameters["order_by"] = orderBy;
+    }
 
     String queryString = parameters.entries
         .map((entry) =>

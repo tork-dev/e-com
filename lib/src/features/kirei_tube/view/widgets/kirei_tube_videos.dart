@@ -11,34 +11,12 @@ import '../../../../utils/constants/sizes.dart';
 import '../../controller/kirei_tube_controller.dart';
 import 'kirei_tube_list_card.dart';
 
-class KireiTubeVideosTab extends StatefulWidget {
+class KireiTubeVideosTab extends StatelessWidget {
   const KireiTubeVideosTab({super.key});
 
   @override
-  State<KireiTubeVideosTab> createState() => _KireiTubeVideosTabState();
-}
-
-class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
-  final kireiTubeController = KireiTubeController.instance;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (kireiTubeController.tabController.index != 3) {
-      if (kireiTubeController.tabController.index == 1) {
-        kireiTubeController.selectedOrientation.value = 'landscape';
-      } else if (kireiTubeController.tabController.index == 2) {
-        kireiTubeController.selectedOrientation.value = "portrait";
-      }
-      kireiTubeController.getKireitubeVideos();
-    } else {
-      kireiTubeController.getKireitubePlaylist();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final kireiTubeController = KireiTubeController.instance;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
@@ -162,7 +140,9 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                       ? 10
                       : kireiTubeController.tabController.index == 3
                           ? controller.videoPlaylist.value.data!.length
-                          : controller.videosList.value.data!.length,
+                          : kireiTubeController.tabController.index == 1
+                              ? controller.videoList.length
+                              : controller.shortsList.length,
                   builderFunction: (context, index) => controller
                           .hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
@@ -170,14 +150,12 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                           ? KireiTubeShortsCard(
                               onShortsPress: () {
                                 Get.toNamed(
-                                    "/kirei-shorts/${controller.videosList.value.data![index].slug}");
+                                    "/kirei-shorts/${controller.shortsList[index].slug}");
                               },
                               hittingApi: controller.hittingApi.value,
-                              shortsBanner: controller
-                                      .videosList.value.data?[index].banner ??
+                              shortsBanner: controller.shortsList[index].banner ??
                                   '',
-                              shortsTitle: controller
-                                      .videosList.value.data?[index].title ??
+                              shortsTitle: controller.shortsList[index].title ??
                                   '',
                             )
                           : KireiTubeListCard(
@@ -200,14 +178,12 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                   kireiTubeController.tabController.index == 3
                                       ? controller.videoPlaylist.value
                                           .data![index].banner
-                                      : controller
-                                          .videosList.value.data?[index].banner,
+                                      : controller.videoList[index].banner,
                               kireiTubeTitle:
                                   kireiTubeController.tabController.index == 3
                                       ? controller.videoPlaylist.value
                                           .data![index].title
-                                      : controller
-                                          .videosList.value.data?[index].title,
+                                      : controller.videoList[index].title,
                               kireiTubePlaylistVideoCount: kireiTubeController
                                   .videoPlaylist.value.data?[index].videoCount
                                   .toString(),

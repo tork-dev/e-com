@@ -15,7 +15,7 @@ class KireiTubeController extends GetxController
   static KireiTubeController get instance => Get.find();
 
   RxBool hittingApi = false.obs;
-  Rx<KireiTubeHomeResponse> videoList = KireiTubeHomeResponse().obs;
+  Rx<KireiTubeHomeResponse> videoListResponse = KireiTubeHomeResponse().obs;
   Rx<KireiTubeVideosPlaylistResponse> videoPlaylist =
       KireiTubeVideosPlaylistResponse().obs;
   Rx<KireiTubePlaylistDetailsResponse> playlistDetails =
@@ -29,9 +29,11 @@ class KireiTubeController extends GetxController
 
   List<String> sortKeys = ['Date added (newest)', 'Last video added'];
 
-  RxString selectedOrientation = 'portrait'.obs;
+  RxString selectedOrientation = ''.obs;
   RxString orderBy = ''.obs;
   RxInt isPopular = 0.obs;
+  RxList<VideoList> videoList = <VideoList>[].obs;
+  RxList<VideoList> shortsList = <VideoList>[].obs;
 
   TextEditingController searchController = TextEditingController();
 
@@ -51,21 +53,28 @@ class KireiTubeController extends GetxController
 
   Future<void> onRefresh() async {
     getKireiTubeHomeData();
+    getKireitubeVideos();
+    getKireitubePlaylist();
   }
 
   Future<void> getKireiTubeHomeData() async {
     hittingApi.value = true;
-    videoList.value = await KireiTubeRepositories().getKireiHome();
+    videoListResponse.value = await KireiTubeRepositories().getKireiHome();
     hittingApi.value = false;
     update();
   }
 
   Future<void> getKireitubeVideos() async {
+    videoList.clear();
+    shortsList.clear();
     hittingApi.value = true;
     videosList.value = await KireiTubeRepositories().getKireiTubeVideos(
+        searchName: searchController.text.toString(),
         isPopular: isPopular.value,
         orderBy: orderBy.value,
         orientation: selectedOrientation.value);
+    videoList.addAll(videosList.value.data!.where((item) => item.orientation == 'landscape').toList());
+    shortsList.addAll(videosList.value.data!.where((item) => item.orientation == 'portrait').toList());
     hittingApi.value = false;
     update();
   }
@@ -73,7 +82,9 @@ class KireiTubeController extends GetxController
   Future<void> getKireitubePlaylist() async {
     hittingApi.value = true;
     videoPlaylist.value = await KireiTubeRepositories().getKireiPlaylist(
-        searchName: searchController.text.toString(), orderBy: orderBy.value, isPopular: isPopular.value);
+        searchName: searchController.text.toString(),
+        orderBy: orderBy.value,
+        isPopular: isPopular.value);
     hittingApi.value = false;
     update();
   }

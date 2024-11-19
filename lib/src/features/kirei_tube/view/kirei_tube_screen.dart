@@ -94,7 +94,7 @@ class KireiTubeScreen extends StatelessWidget {
                     }else{
                       controller.getKireitubeVideos();
                     }
-                  })),
+                  }, controller.tabController.index != 0  )),
         ],
         body: TabBarView(
           controller: controller.tabController,
@@ -115,8 +115,9 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
   final TabBar tabBar;
   final TextEditingController controller;
   final dynamic onChanged;
+  final bool needSearch;
 
-  _TabBarDelegate(this.tabBar, this.controller, this.onChanged);
+  _TabBarDelegate(this.tabBar, this.controller, this.onChanged, this.needSearch);
 
   @override
   Widget build(
@@ -127,28 +128,35 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
       child: Column(
         children: [
           tabBar,
-          const Gap(AppSizes.md),
-          SizedBox(
-            height: 48,
-            child: SearchBar(
-              controller: controller,
-              onChanged: onChanged,
-              elevation: const MaterialStatePropertyAll(0),
-              backgroundColor: const MaterialStatePropertyAll(AppColors.white),
-              shape: const MaterialStatePropertyAll(ContinuousRectangleBorder(
-                side: BorderSide(
-                    color: AppColors.grey, width: 1), // Border color and width
-              )),
-              hintText: 'Search',
-              hintStyle: MaterialStatePropertyAll(Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .apply(color: AppColors.darkGrey)),
-              trailing: const [
-                Icon(
-                  Icons.search_sharp,
-                  color: AppColors.darkGrey,
-                )
+          Visibility(
+            visible: true,
+            child: Column(
+              children: [
+                const Gap(AppSizes.md),
+                SizedBox(
+                  height: 48,
+                  child: SearchBar(
+                    controller: controller,
+                    onChanged: onChanged,
+                    elevation: const MaterialStatePropertyAll(0),
+                    backgroundColor: const MaterialStatePropertyAll(AppColors.white),
+                    shape: const MaterialStatePropertyAll(ContinuousRectangleBorder(
+                      side: BorderSide(
+                          color: AppColors.grey, width: 1), // Border color and width
+                    )),
+                    hintText: 'Search',
+                    hintStyle: MaterialStatePropertyAll(Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .apply(color: AppColors.darkGrey)),
+                    trailing: const [
+                      Icon(
+                        Icons.search_sharp,
+                        color: AppColors.darkGrey,
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           )

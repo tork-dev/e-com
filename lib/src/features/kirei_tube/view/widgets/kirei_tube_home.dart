@@ -39,7 +39,7 @@ class KireiTubeHome extends StatelessWidget {
             GetBuilder<KireiTubeController>(builder: (controller) {
               return AppGridViewLayout(
                   mobileAspect: .94,
-                  itemCount: controller.videoList.value.videos?.data?.length ?? 4,
+                  itemCount: controller.videoListResponse.value.videos?.data?.length ?? 4,
                   builderFunction: (context, index) =>
                       controller.hittingApi.value
                           ? ShimmerHelper().buildBasicShimmer(height: 250)
@@ -47,10 +47,10 @@ class KireiTubeHome extends StatelessWidget {
                         isPlaylist: false,
                         onTapBanner: (){
                           Get.toNamed(
-                              '/kirei-tube/${controller.videoList.value.videos?.data![index].slug}');
+                              '/kirei-tube/${controller.videoListResponse.value.videos?.data![index].slug}');
                         },
-                        kireiTubeBanner: controller.videoList.value.videos?.data?[index].banner,
-                        kireiTubeTitle: controller.videoList.value.videos?.data?[index].title,
+                        kireiTubeBanner: controller.videoListResponse.value.videos?.data?[index].banner,
+                        kireiTubeTitle: controller.videoListResponse.value.videos?.data?[index].title,
                       ));
             }),
             const Gap(AppSizes.md),
@@ -82,18 +82,18 @@ class KireiTubeHome extends StatelessWidget {
                       child: GetBuilder<KireiTubeController>(
                           builder: (controller) {
                         return AppListViewLayout(
-                            itemCount: controller.videoList.value.shorts?.data?.length ?? 4,
+                            itemCount: controller.videoListResponse.value.shorts?.data?.length ?? 4,
                             isScrollVertically: false,
                             builderFunction: (context, index) =>
                                 KireiTubeShortsCard(
                                   onShortsPress: (){
-                                     print('${controller.videoList.value.shorts?.data![index].slug}');
+                                     print('${controller.videoListResponse.value.shorts?.data![index].slug}');
                                     Get.toNamed(
-                                        '/kirei-shorts/${controller.videoList.value.shorts?.data![index].slug}');
+                                        '/kirei-shorts/${controller.videoListResponse.value.shorts?.data![index].slug}');
                                   },
                                   hittingApi: controller.hittingApi.value,
-                                  shortsBanner: controller.videoList.value.shorts?.data?[index].banner ?? '',
-                                  shortsTitle: controller.videoList.value.shorts?.data?[index].title ?? '',
+                                  shortsBanner: controller.videoListResponse.value.shorts?.data?[index].banner ?? '',
+                                  shortsTitle: controller.videoListResponse.value.shorts?.data?[index].title ?? '',
                                 ));
                       }),
                     ),
@@ -117,7 +117,7 @@ class KireiTubeHome extends StatelessWidget {
             GetBuilder<KireiTubeController>(builder: (controller) {
               return AppGridViewLayout(
                   mobileAspect: .94,
-                  itemCount: controller.videoList.value.playlists?.length ?? 4,
+                  itemCount: controller.videoListResponse.value.playlists?.length ?? 4,
                   builderFunction: (context, index) =>
                   controller.hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
@@ -130,8 +130,8 @@ class KireiTubeHome extends StatelessWidget {
                       Get.to(() => const KireiTubePlaylistScreen());
                     },
                     isPlaylist: true,
-                    kireiTubeBanner: controller.videoList.value.playlists?[index].banner,
-                    kireiTubeTitle: controller.videoList.value.playlists?[index].title,
+                    kireiTubeBanner: controller.videoListResponse.value.playlists?[index].banner,
+                    kireiTubeTitle: controller.videoListResponse.value.playlists?[index].title,
                     kireiTubePlaylistVideoCount: '6',
                   ));
             }),

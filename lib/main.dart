@@ -12,11 +12,12 @@ import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
-@pragma('vm:entry-point') // Required for background execution
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message: ${message.messageId}');
-  // Add custom handling for background messages if needed
-}
+// @pragma('vm:entry-point') // Required for background execution
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   print('Handling a background message: ${message.messageId}');
+//   // Add custom handling for background messages if needed
+// }
+GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,9 @@ void main() async {
 
   // Initialize local storage
   await GetStorage.init();
+
+  // Initialize dependency injection
+  DependencyInjection.init();
 
   // Ensure BASE_URL_WEB is available
   final baseUrlWeb = dotenv.env["BASE_URL_WEB"];
@@ -44,7 +48,7 @@ void main() async {
   // Initialize Firebase
   try {
     await Firebase.initializeApp(name: 'KireiBD');
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   } catch (e) {
     if (kDebugMode) {
       print("Firebase initialization error: $e");
@@ -74,9 +78,6 @@ void main() async {
       print("Error fetching FCM token: $e");
     }
   }
-
-  // Initialize dependency injection
-  DependencyInjection.init();
 
   // Run the app
   runApp(const MyApp());

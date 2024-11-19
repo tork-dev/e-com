@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class KireiTubeVideosListResponse {
-  List<Datum>? data;
+  List<VideoList>? data;
   bool? success;
   int? status;
 
@@ -16,7 +16,7 @@ class KireiTubeVideosListResponse {
   String toJson() => json.encode(toMap());
 
   factory KireiTubeVideosListResponse.fromMap(Map<String, dynamic> json) => KireiTubeVideosListResponse(
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromMap(x))),
+    data: json["data"] == null ? [] : List<VideoList>.from(json["data"]!.map((x) => VideoList.fromMap(x))),
     success: json["success"],
     status: json["status"],
   );
@@ -28,7 +28,7 @@ class KireiTubeVideosListResponse {
   };
 }
 
-class Datum {
+class VideoList {
   int? id;
   String? title;
   String? slug;
@@ -37,7 +37,7 @@ class Datum {
   int? isPopular;
   String? video;
 
-  Datum({
+  VideoList({
     this.id,
     this.title,
     this.slug,
@@ -47,11 +47,11 @@ class Datum {
     this.video,
   });
 
-  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+  factory VideoList.fromJson(String str) => VideoList.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+  factory VideoList.fromMap(Map<String, dynamic> json) => VideoList(
     id: json["id"],
     title: json["title"],
     slug: json["slug"],

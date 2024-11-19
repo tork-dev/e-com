@@ -8,7 +8,7 @@ class RoutingHelper {
 
     if (url != null && url.contains(baseUrl)) {
       String route = url.replaceFirst(baseUrl, '');
-
+      print('navigation to $route');
       try {
         switch (route) {
           case '/shop':

@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:kirei/main.dart';
 import '../helpers/routing_helper.dart';
 
 class NotificationServices {
@@ -30,6 +32,9 @@ class NotificationServices {
   }
 
   void firebaseInit() {
+    // Check if the app was launched from a terminated state via notification
+    // _checkInitialMessage();
+
     // Listen for foreground messages
     FirebaseMessaging.onMessage.listen((message) {
       RemoteNotification? notification = message.notification;
@@ -40,9 +45,9 @@ class NotificationServices {
         print("Notifications Body: ${notification?.body}");
         print('Count: ${android?.count}');
         print('Data: ${message.data.toString()}');
-        print('channel id: ${message.notification!.android!.channelId.toString()}');
-
-
+        print('channel id: ${message.notification!.android!.channelId
+            .toString()}');
+      }
       if (Platform.isIOS) {
         forgroundMessage();
       }
@@ -57,19 +62,28 @@ class NotificationServices {
     // Listen for background messages
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       // Handle notification tapped when the app is in the background
+      print('background state');
       handleMessage(message);
+      // String route = message.data["route"].replaceFirst("https://beta.kireibd.com", '');
+      // print(route);
+      // // Navigator.pushReplacementNamed(navigatorKey.currentState!.context, route);
+      // print(navigatorKey.currentContext);
+      // navigatorKey.currentState?.pushNamed(message.data["route"]);
     });
 
-    // Check if the app was launched from a terminated state via notification
-    _checkInitialMessage();
+
   }
 
   Future<void> _checkInitialMessage() async {
     RemoteMessage? initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
       // Handle the initial message when the app is launched from a terminated state
-      handleMessage(initialMessage);
+      // print('response ${initialMessage.data}');
+      //   handleMessage(initialMessage);
+      print('terminated state');
+      navigatorKey.currentState?.pushNamed(initialMessage.data["route"]);
     }
+    return;
   }
 
   void requestNotificationPermission() async {
