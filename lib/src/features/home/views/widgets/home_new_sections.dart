@@ -1,21 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
-import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-
 import '../../../../utils/helpers/routing_helper.dart';
 
 class HomeImageTitleAndButtonSection extends StatelessWidget {
@@ -83,7 +78,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                     homeController.hittingApi.value
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 20, width: 200)
-                        : HtmlWidget(
+                          : HtmlWidget(
                             sectionName?.description ?? '',
                           ),
                     const Gap(AppSizes.defaultSpace),

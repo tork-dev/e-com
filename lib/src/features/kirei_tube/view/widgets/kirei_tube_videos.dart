@@ -53,7 +53,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                       ? 'Videos'
                       : kireiTubeController.tabController.index == 2
                           ? 'Shorts'
-                          : 'Playlist',
+                          : 'Playlists',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 kireiTubeController.tabController.index == 3
@@ -68,18 +68,15 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                 borderSide: BorderSide(
                                     width: 1, color: AppColors.lightGrey))),
                         onSelected: (value) {
-                          kireiTubeController.selectedFilter.value = kireiTubeController.filterOption.indexOf(value!);
-                          if (kireiTubeController
-                                  .selectedFilter.value !=
-                                  1) {
+                          kireiTubeController.selectedFilter.value =
+                              kireiTubeController.filterOption.indexOf(value!);
+                          if (kireiTubeController.selectedFilter.value != 1) {
                             kireiTubeController.isPopular.value = 0;
-                            kireiTubeController.orderBy.value =
-                                kireiTubeController.filterOption[
-                                kireiTubeController
-                                    .selectedFilter.value!]
-                                    .toLowerCase();
-                          } else if (kireiTubeController
-                              .selectedFilter.value !=
+                            kireiTubeController.orderBy
+                                .value = kireiTubeController.filterOption[
+                                    kireiTubeController.selectedFilter.value!]
+                                .toLowerCase();
+                          } else if (kireiTubeController.selectedFilter.value !=
                               null) {
                             kireiTubeController.orderBy.value = '';
                             kireiTubeController.isPopular.value = 1;
@@ -211,7 +208,9 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                           .data![index].title
                                       : controller
                                           .videosList.value.data?[index].title,
-                              kireiTubePlaylistVideoCount: '6',
+                              kireiTubePlaylistVideoCount: kireiTubeController
+                                  .videoPlaylist.value.data?[index].videoCount
+                                  .toString(),
                             ));
             }),
           ],

@@ -1,15 +1,10 @@
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/details/repositories/details_repositories.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
-import 'package:kirei/src/features/home/repositories/home_repositories.dart';
-import 'package:kirei/src/features/wishlist/model/wishlist_remove_model.dart';
 import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../../../utils/firebase/gtm_events.dart';
 import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
@@ -27,9 +22,9 @@ class DetailsPageController extends GetxController {
 
   /// Image SwapPing
   RxInt pictureIndex = 0.obs;
+
   RxBool viewMore = false.obs;
   RxBool apiHitting = true.obs;
-
   RxInt productCount = 1.obs;
   RxBool isAddedToCart = false.obs;
 
@@ -47,8 +42,8 @@ class DetailsPageController extends GetxController {
     print('productSlug');
     print('prevRoute ${Get.parameters['prevRoute']}' );
     super.onInit();
-    productSlugList.add(Get.parameters['id']!);
-    prevRoute.value = Get.parameters['prevRoute']!;
+    productSlugList.add(Get.parameters['id'] ?? '/home');
+    prevRoute.value = Get.parameters['prevRoute'] ?? '/home';
     // productSlugIndex.value = productSlugList.length;
 
     // productSlug.value = Get.parameters['id']??'';

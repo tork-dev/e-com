@@ -79,7 +79,7 @@ class HomeController extends GetxController {
     homeSliders.clear();
     getProductData();
     fetchFeaturedCategories();
-    getRecommendedProducts();
+    // getRecommendedProducts();
     getRecommendedProductsForYou();
     getTrendingProducts();
   }

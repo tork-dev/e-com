@@ -43,6 +43,7 @@ class Datum {
   String? banner;
   String? visibility;
   String? description;
+  int? videoCount;
 
   Datum({
     this.id,
@@ -51,6 +52,7 @@ class Datum {
     this.banner,
     this.visibility,
     this.description,
+    this.videoCount
   });
 
   factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
@@ -64,6 +66,7 @@ class Datum {
     banner: json["banner"],
     visibility: json["visibility"],
     description: json["description"],
+    videoCount: json["video_count"]
   );
 
   Map<String, dynamic> toMap() => {
@@ -73,6 +76,7 @@ class Datum {
     "banner": banner,
     "visibility": visibility,
     "description": description,
+    "video_count" : videoCount
   };
 }
 

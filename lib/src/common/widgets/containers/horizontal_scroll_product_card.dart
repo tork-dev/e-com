@@ -24,7 +24,6 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
-    final gtm = Gtm.instance;
     return SizedBox(
         height: sectionName == null ? 170 : 270,
         child: AppListViewLayout(

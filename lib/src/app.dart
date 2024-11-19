@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return GetMaterialApp(
-      // navigatorKey: navigatorKey,
       initialBinding: GeneralBindings(),
       title: AppTexts.appName,
       themeMode: ThemeMode.light,
@@ -175,8 +174,6 @@ class MyApp extends StatelessWidget {
             page: () => const KireiTubeShortsPlayer()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],
-
-      //navigatorKey: navigatorKey,
     );
   }
 }
