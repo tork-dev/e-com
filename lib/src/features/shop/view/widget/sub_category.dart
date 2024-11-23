@@ -13,6 +13,7 @@ import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/app_dividers.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
+import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 
 class ShopSubCategory extends StatelessWidget {
