@@ -48,16 +48,18 @@ class ShopSubCategory extends StatelessWidget {
                             children: [
                               AppBannerImage(
                                 height: 60,
+                                applyImageRadius: true,
+                                boarderRadius: 100,
+                                imgBoarderRadius: 100,
                                 onPress: (){
                                   shopController.resetAll();
                                   shopController.categories.value = shopController.subCategoryResponse[index].slug;
                                   shopController.getShopData();
                                   bottomNavController.jumpToTab(1);
                                 },
-                                isNetworkImage: true,
+                                isNetworkImage: shopController.subCategoryResponse[index].icon != null,
                                 imgUrl: shopController
-                                        .subCategoryResponse[index].icon ??
-                                    '$baseUrlWeb/images/home/categories/New-Arrivals.png',
+                                        .subCategoryResponse[index].icon ?? AppImages.placeholder,
                               ),
                               const Gap(AppSizes.xs),
                               Text(
