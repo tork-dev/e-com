@@ -66,7 +66,6 @@ class AppDrawer extends StatelessWidget {
               }
               shopController.updateCategory('new');
               shopController.type('new-arrivals');
-              // shopController.getShopData();
               bottomController.jumpToTab(1);
 
               if (bottomController.pageIndex.value == 1) {
@@ -158,7 +157,6 @@ class AppDrawer extends StatelessWidget {
                                       ));
                                 }
                                 shopController.updateCategory(category.slug!);
-                                // shopController.getShopData();
                                 bottomController.jumpToTab(1);
                                 if (bottomController.pageIndex.value == 1) {
                                   Get.back();
@@ -225,7 +223,6 @@ class AppDrawer extends StatelessWidget {
                                                           .skinType.value =
                                                       children.slug ?? '';
                                                 }
-                                                // shopController.getShopData();
                                                 bottomController.jumpToTab(1);
                                                 if (bottomController
                                                         .pageIndex.value ==
@@ -250,7 +247,6 @@ class AppDrawer extends StatelessWidget {
                                         }
                                         shopController
                                             .updateCategory(child.slug!);
-                                        // shopController.getShopData();
                                         bottomController.jumpToTab(1);
                                         if (bottomController.pageIndex.value ==
                                             1) {
@@ -277,7 +273,6 @@ class AppDrawer extends StatelessWidget {
                                   ));
                             }
                             shopController.updateCategory(category.slug!);
-                            // shopController.getShopData();
                             bottomController.jumpToTab(1);
                             if (bottomController.pageIndex.value == 1) {
                               Get.back();
@@ -470,7 +465,8 @@ class AppDrawer extends StatelessWidget {
                 ],
               )),
           Visibility(
-            visible: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true,
+            visible:
+                AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

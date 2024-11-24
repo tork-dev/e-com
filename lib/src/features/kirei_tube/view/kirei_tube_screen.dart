@@ -90,7 +90,7 @@ class KireiTubeScreen extends StatelessWidget {
                     if(controller.tabController.index == 3){
                       controller.getKireitubePlaylist();
                     }else if(controller.tabController.index == 0){
-
+                      controller.getKireiTubeHomeData();
                     }else{
                       controller.getKireitubeVideos();
                     }

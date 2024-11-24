@@ -187,6 +187,7 @@ class CheckoutController extends GetxController {
 
       // If no specific payment method, show toast and navigate to Order Status Screen
       AppHelperFunctions.showToast(orderCreateResponse.value.message!);
+      print(orderCreateResponse.value);
       Get.offAll(() => AppOrderStatusScreen(
         statusString: orderCreateResponse.value.message!,
         status: orderCreateResponse.value.result ?? false,

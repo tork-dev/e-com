@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -31,7 +29,8 @@ class AppOrderStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller =
-        Get.put(PurchaseHistoryDetailsController(orderId: orderId));
+        Get.put(PurchaseHistoryDetailsController());
+    controller.onRefresh(orderId);
 
     return AppLayoutWithoutAppBar(
         title: const Text(
@@ -91,14 +90,17 @@ class AppOrderStatusScreen extends StatelessWidget {
                       ),
                     ),
                     const Gap(AppSizes.xs),
-                    Text(
-                      textAlign: TextAlign.center,
-                      '🎉 Congrats!\n You’ll get ${controller.purchaseHistoryDetails.value
-                          .data![0].rewardPoint} points after delivery!',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .apply(color: AppColors.warning),
+                    Visibility(
+                      visible: status,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        '🎉 Congrats!\n You’ll get ${controller.purchaseHistoryDetails.value
+                            .data![0].rewardPoint} points after delivery!',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .apply(color: AppColors.warning),
+                      ),
                     ),
                     Visibility(
                       visible: status,
@@ -160,16 +162,19 @@ class AppOrderStatusScreen extends StatelessWidget {
                       ),
                     ),
                     const Gap(AppSizes.lg),
-                    SizedBox(
-                        width: 200,
-                        child: AppButtons.largeFlatFilledButton(
-                            onPressed: () {
-                              Get.offAll(() => const PurchaseHistory(
-                                    backToHome: true,
-                                  ));
-                            },
-                            buttonText: 'Order History',
-                            backgroundColor: AppColors.secondary)),
+                    Visibility(
+                      visible: status,
+                      child: SizedBox(
+                          width: 200,
+                          child: AppButtons.largeFlatFilledButton(
+                              onPressed: () {
+                                Get.offAll(() => const PurchaseHistory(
+                                      backToHome: true,
+                                    ));
+                              },
+                              buttonText: 'Order History',
+                              backgroundColor: AppColors.secondary)),
+                    ),
                     const Gap(AppSizes.md),
                     SizedBox(
                         width: 200,

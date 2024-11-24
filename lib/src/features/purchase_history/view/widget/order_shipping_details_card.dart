@@ -202,7 +202,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                       backgroundColor: AppColors.secondary,
                       onPressed: () {
                         listController
-                            .getReorderResponse(detailsController.orderId)
+                            .getReorderResponse(detailsController.purchaseHistoryDetails.value.data![0].id!)
                             .then((value) => {
                                   AppHelperFunctions.showToast(listController
                                       .reOrderResponse.value.message!),

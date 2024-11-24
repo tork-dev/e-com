@@ -9,7 +9,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../../bottom_navigation/convex-bottom_navigation.dart';
 import '../order_status_page.dart';
 
-
 class SslCommerzScreen extends StatefulWidget {
   final double amount;
   final String paymentType;
@@ -18,16 +17,16 @@ class SslCommerzScreen extends StatefulWidget {
   final int orderId;
 
   const SslCommerzScreen({
-    Key? key,
+    super.key,
     this.amount = 0,
     this.paymentType = "",
     this.paymentMethodKey = "",
     required this.orderId,
     required this.sslInitialUrl,
-  }) : super(key: key);
+  });
 
   @override
-  _SslCommerzScreenState createState() => _SslCommerzScreenState();
+   _SslCommerzScreenState createState() => _SslCommerzScreenState();
 }
 
 class _SslCommerzScreenState extends State<SslCommerzScreen> {
@@ -49,15 +48,16 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
             print(url);
             if (url.contains("status=success")) {
               AppHelperFunctions.showToast('Order Successful');
-              navigateToOrderSuccess('Order Successful', "success");
-            } else if (url.contains("status=failure") || url.contains("status=DECLINED")) {
+              navigateToOrderSuccess('Order Successful', true);
+            } else if (url.contains("status=failure") ||
+                url.contains("status=DECLINED")) {
               AppHelperFunctions.showToast("Payment Cancelled");
-              navigateToOrderSuccess("Payment Cancelled", "danger");
+              navigateToOrderSuccess("Payment Cancelled", false);
             }
           },
           onWebResourceError: (error) {
             print(error);
-            navigateToOrderSuccess("Something went wrong.", "danger");
+            navigateToOrderSuccess("Something went wrong.", false);
           },
         ),
       )
@@ -68,10 +68,13 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
   Widget build(BuildContext context) {
     return AppLayoutWithBackButton(
         padding: AppSizes.defaultSpace,
-        title: const Text('Pay with Sslcommerz', style: TextStyle(color: AppColors.primary),),
-        leadingOnPress: (){
+        title: const Text(
+          'Pay with Sslcommerz',
+          style: TextStyle(color: AppColors.primary),
+        ),
+        leadingOnPress: () {
           print('working');
-          Get.offAll(()=> const HelloConvexAppBar());
+          Get.offAll(() => const HelloConvexAppBar());
         },
         body: buildBody());
   }
@@ -84,17 +87,17 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
     );
   }
 
-
-  void navigateToOrderSuccess(String message, String type) {
+  void navigateToOrderSuccess(String message, bool status) {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
         builder: (_) => AppOrderStatusScreen(
-          statusString: '',
+          statusString: message,
+          status: status,
           orderId: widget.orderId,
         ),
       ),
-          (route) => false,
+      (route) => false,
     );
   }
 }

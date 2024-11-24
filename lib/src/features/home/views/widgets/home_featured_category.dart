@@ -89,8 +89,8 @@ class AppFeatureCategories extends StatelessWidget {
                                       homeController
                                           .homeFeaturedCategoryResponse[index]
                                           .slug!);
-                                  categoryPassingController.getShopData();
-                                  categoryPassingController.getSubCategory();
+                                  // categoryPassingController.getShopData();
+                                  // categoryPassingController.getSubCategory();
                                   bottomController.jumpToTab(1);
                                 },
                                 height: 60,

@@ -10,75 +10,7 @@ import '../model/skin_type_model.dart';
 
 
 class ShopRepositories{
-  Future<ShopPageResponse> getFilteredProducts({
-    required String searchName,
-    required int pageNumber,
-    required String sortKey,
-    required String categories,
-    required String skinType,
-    required String tag,
-    required String min,
-    required String max,
-    required String type,
-    required String search,
-    required String keyIngredients,
-    required String goodFor,
-    required String brand,
-  }) async {
-    Map<dynamic, dynamic> parameters = {
-      'page': pageNumber,
-    };
-
-    if (searchName != "") parameters['search'] = searchName;
-    if (categories != "") {
-      // parameters['category'] = categories.toLowerCase().replaceAll(' ', '-');
-      parameters['category'] = categories;
-    }
-    if (sortKey != "") {
-      // parameters['order_by'] = sortKey.toLowerCase().replaceAll(' ', '-');
-      parameters['order_by'] = sortKey;
-    }
-    if (skinType != "") {
-      // parameters['skin_type'] = skinType.toLowerCase().replaceAll(' ', '-');
-      parameters['skin_type'] = skinType;
-    }
-    if (min != "") parameters['min_price'] = int.tryParse(min);
-    if (max != "") parameters['max_price'] = int.tryParse(max);
-    if (keyIngredients != "") {
-      parameters['key_ingredients'] =
-          // keyIngredients.toLowerCase().replaceAll(' ', '-');
-          keyIngredients;
-    }
-    if (goodFor != "") {
-      // parameters['good_for'] = goodFor.toLowerCase().replaceAll(' ', '-');
-      parameters['good_for'] = goodFor;
-    }
-    if (tag != "") {
-      // parameters['tag'] = tag.toLowerCase().replaceAll(' ', '-');
-      parameters['tag'] = tag;
-    }
-    if (type != "") {
-      // parameters['type'] = type.toLowerCase().replaceAll(' ', '-');
-      parameters['type'] = type;
-    }
-    if (search != "") {
-      // parameters['search'] = search.toLowerCase().replaceAll(' ', '-');
-      parameters['search'] = search;
-    }
-    if (brand != "") {
-      // parameters['brand'] = brand.toLowerCase().replaceAll(' ', '-');
-      parameters['brand'] = brand;
-    }
-
-    // Constructing the query string manually
-    String queryString = parameters.entries
-        .map((entry) =>
-    '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
-        .join('&');
-
-    // Append gaip_user_id=null at the end
-    queryString += '&gaip_user_id=${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}';
-
+  Future<ShopPageResponse> getFilteredProducts({required String queryString}) async {
     // Construct the final URL
     Uri url = Uri.parse("${AppApiEndPoints.shopProducts}$queryString");
     print(url);

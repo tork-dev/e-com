@@ -19,14 +19,13 @@ class PurchaseHistoryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String orderId = Get.parameters['id'] ?? '';
-    final controller = Get.put(PurchaseHistoryDetailsController(orderId: int.parse(orderId)));
-    //Get.put(PurchaseHistoryController);
+    final controller = Get.put(PurchaseHistoryDetailsController());
+    controller.onRefresh(int.parse(orderId));
     return  AppLayoutWithBackButton(
       title: const Text('Order Details', style: TextStyle(color: AppColors.secondary),),
         centerTitle: true,
         padding: AppSizes.defaultSpace,
-        body: AppLayoutWithRefresher(
-          onRefresh: controller.onRefresh,
+        body: ListView(
             children: [
               const AppOrderShippingDetailsCard(),
               const Gap(AppSizes.spaceBtwSections),

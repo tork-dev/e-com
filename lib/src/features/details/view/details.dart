@@ -51,7 +51,7 @@ class DetailsPage extends StatelessWidget {
             controller.productSlugIndex = controller.productSlugIndex--;
             controller.onRefresh();
             print('on press back');
-          } else {
+          }else{
             Get.offAllNamed(controller.prevRoute.value);
           }
         },

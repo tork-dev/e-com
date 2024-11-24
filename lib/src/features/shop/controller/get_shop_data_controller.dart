@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
+import '../../../utils/local_storage/local_storage_keys.dart';
+import '../../../utils/local_storage/storage_utility.dart';
 import '../model/shop_data_model.dart';
 import '../model/skin_type_model.dart';
 import '../model/sub_category_model.dart';
@@ -14,6 +16,7 @@ class GetShopDataController extends GetxController {
   RxBool hittingSubCategoryApi = false.obs;
   RxBool isFromCategory = false.obs;
   RxBool isFromSearch = false.obs;
+  RxString queryStringValue = ''.obs;
   final searchOn = Rx<FocusNode>(FocusNode());
 
   /// Model
@@ -46,7 +49,6 @@ class GetShopDataController extends GetxController {
     super.onInit();
     final uri = Uri.parse(Get.currentRoute);
     print('this is the url ${uri.path}');
-
     if (uri.queryParameters.containsKey('type')) {
       type.value = uri.queryParameters['type'] ?? '';
     }
@@ -129,24 +131,70 @@ class GetShopDataController extends GetxController {
 
   Future<void> getShopData() async {
     hittingApi.value = true;
+
+    Map<dynamic, dynamic> parameters = {
+      'page': pageNumber,
+    };
+
+    if (searchName.value != "") parameters['search'] = searchName;
+    if (categories.value != "") {
+      // parameters['category'] = categories.toLowerCase().replaceAll(' ', '-');
+      parameters['category'] = categories;
+    }
+    if (sortKey.value != "") {
+      // parameters['order_by'] = sortKey.toLowerCase().replaceAll(' ', '-');
+      parameters['order_by'] = sortKey;
+    }
+    if (skinType.value != "") {
+      // parameters['skin_type'] = skinType.toLowerCase().replaceAll(' ', '-');
+      parameters['skin_type'] = skinType;
+    }
+    if (minimumPriceController.text.toString() != "") {
+      parameters['min_price'] =
+          int.tryParse(minimumPriceController.text.toString());
+    }
+    if (maximumPriceController.text.toString() != "") {
+      parameters['max_price'] =
+          int.tryParse(maximumPriceController.text.toString());
+    }
+    if (keyIngredients.value != "") {
+      parameters['key_ingredients'] = keyIngredients;
+    }
+    if (goodFor.value != "") {
+      parameters['good_for'] = goodFor;
+    }
+    if (tag.value != "") {
+      parameters['tag'] = tag;
+    }
+    if (type.value != "") {
+      parameters['type'] = type;
+    }
+    if (search.value != "") {
+      parameters['search'] = search;
+    }
+    if (brand.value != "") {
+      parameters['brand'] = brand;
+    }
+
+    // Constructing the query string manually
+    String queryString = parameters.entries
+        .map((entry) =>
+            '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
+        .join('&');
+
+    // Append gaip_user_id=null at the end
+    queryString +=
+        '&gaip_user_id=${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}';
     // Fetch products for the current page
-    shopPageProduct.value = await ShopRepositories().getFilteredProducts(
-      searchName: searchName.value,
-      tag: tag.value,
-      sortKey: sortKey.value,
-      skinType: selectedSkinTypes.isEmpty
-          ? skinType.value
-          : selectedSkinTypes.join(",").toString(),
-      search: search.value,
-      min: minimumPriceController.text,
-      max: maximumPriceController.text,
-      keyIngredients: keyIngredients.value,
-      goodFor: goodFor.value,
-      categories: categories.value,
-      pageNumber: pageNumber.value,
-      type: type.value,
-      brand: brand.value
-    );
+
+    queryStringValue.value = queryString;
+
+    if(categories.value != ''){
+      getSubCategory();
+    }
+
+    shopPageProduct.value =
+        await ShopRepositories().getFilteredProducts(queryString: queryString);
 
     // print(shopPageProduct.value.meta!.lastPage);
     print('this is response: ${shopPageProduct.value.data!.length}');
@@ -159,7 +207,7 @@ class GetShopDataController extends GetxController {
     hittingApi.value = false;
   }
 
-  Future getSubCategory() async {
+  Future<void> getSubCategory() async {
     isFromCategory.value = true;
     hittingSubCategoryApi.value = true;
     subCategoryResponse.value =
@@ -229,9 +277,10 @@ class GetShopDataController extends GetxController {
             newMaxScrollExtent - maxScrollExtentBeforeLoad;
         scrollController.jumpTo(currentScrollPosition +
             scrollOffsetDifference); // Maintain position after loading
-
-      } else if (pageNumber.value >= shopPageProduct.value.meta!.lastPage! && scrollController.position.pixels >=
-          scrollController.position.maxScrollExtent && !isLoadingMore) {
+      } else if (pageNumber.value >= shopPageProduct.value.meta!.lastPage! &&
+          scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          !isLoadingMore) {
         isLoadingMore = true;
         AppHelperFunctions.showToast('No more products in this category');
       }

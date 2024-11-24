@@ -16,10 +16,6 @@ import '../model/product_history_items_model.dart';
 class PurchaseHistoryDetailsController extends GetxController {
   static PurchaseHistoryDetailsController get instance => Get.find();
 
-  PurchaseHistoryDetailsController({required this.orderId});
-
-  final int orderId;
-
   Rx<PurchaseHistoryDetailsResponse> purchaseHistoryDetails =
       PurchaseHistoryDetailsResponse().obs;
   Rx<PurchaseHistoryItemsResponse> purchaseHistoryItemDetails =
@@ -44,18 +40,9 @@ class PurchaseHistoryDetailsController extends GetxController {
   TextEditingController selectedAreaName = TextEditingController();
 
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    onRefresh();
-  }
-
-
-  Future onRefresh() async {
-    print('refresh');
-     await getPurchaseHistoryDetails();
-     await getPurchaseHistoryItemDetails();
+  Future onRefresh(orderId) async {
+     await getPurchaseHistoryDetails(orderId);
+     await getPurchaseHistoryItemDetails(orderId);
     setAddress();
   }
 
@@ -87,18 +74,18 @@ class PurchaseHistoryDetailsController extends GetxController {
     await AddressRepositories().getAreas(selectedZoneId);
   }
 
-  Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails() async {
+  Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails(orderId) async {
     return purchaseHistoryDetails.value =
         await PurchaseHistoryRepositories().getPurchaseHistoryDetails(orderId);
   }
 
-  Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails() async {
+  Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails(orderId) async {
     return purchaseHistoryItemDetails.value =
     await PurchaseHistoryRepositories().getPurchaseHistoryItemDetails(orderId);
   }
 
 
-  Future<void> processOrderAddressUpdate()async{
+  Future<void> processOrderAddressUpdate(orderId)async{
 
     try{
       if (nameController.text == "") {
@@ -149,7 +136,7 @@ class PurchaseHistoryDetailsController extends GetxController {
         shippingAreaId: selectedAreaId.value ,
         shippingPhone: phoneController.text,
       );
-      await onRefresh();
+      await onRefresh(orderId);
       AppHelperFunctions.showToast(changedResponse.value.message!);
     } on Exception catch(e){
       print("error is .... ${e.toString()}");

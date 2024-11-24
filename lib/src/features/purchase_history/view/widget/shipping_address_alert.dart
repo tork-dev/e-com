@@ -354,7 +354,7 @@ class AppAlertAllAddressFields extends StatelessWidget {
                   width: 100,
                   child: AppButtons.largeFlatFilledButton(
                       onPressed: (){
-                        addressController.processOrderAddressUpdate();
+                        addressController.processOrderAddressUpdate(addressController.purchaseHistoryDetails.value.data![0].id);
                         Get.back();
                       },
                       buttonText: 'Update',

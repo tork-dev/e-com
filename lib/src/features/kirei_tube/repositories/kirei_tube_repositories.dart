@@ -10,8 +10,8 @@ import '../model/kirei_tube_playlist.dart';
 import '../model/playlist_details_response.dart';
 
 class KireiTubeRepositories {
-  Future<KireiTubeHomeResponse> getKireiHome() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.kireiTubeHome));
+  Future<KireiTubeHomeResponse> getKireiHome(String? searchName) async {
+    final response = await http.get(Uri.parse('${AppApiEndPoints.kireiTubeHome}?search=$searchName'));
 
     AppLoggerHelper.debug(response.body.toString());
 
@@ -28,7 +28,7 @@ class KireiTubeRepositories {
       "is_popular": isPopular,
     };
     if(searchName != ''){
-      parameters["title"] = searchName;
+      parameters["search"] = searchName;
     }
     if(orientation != ''){
       parameters["orientation"] = orientation;

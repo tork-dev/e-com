@@ -32,8 +32,6 @@ class KireiTubeController extends GetxController
   RxString selectedOrientation = ''.obs;
   RxString orderBy = ''.obs;
   RxInt isPopular = 0.obs;
-  RxList<VideoList> videoList = <VideoList>[].obs;
-  RxList<VideoList> shortsList = <VideoList>[].obs;
 
   TextEditingController searchController = TextEditingController();
 
@@ -59,22 +57,18 @@ class KireiTubeController extends GetxController
 
   Future<void> getKireiTubeHomeData() async {
     hittingApi.value = true;
-    videoListResponse.value = await KireiTubeRepositories().getKireiHome();
+    videoListResponse.value = await KireiTubeRepositories().getKireiHome(searchController.text.toString());
     hittingApi.value = false;
     update();
   }
 
   Future<void> getKireitubeVideos() async {
-    videoList.clear();
-    shortsList.clear();
     hittingApi.value = true;
     videosList.value = await KireiTubeRepositories().getKireiTubeVideos(
         searchName: searchController.text.toString(),
         isPopular: isPopular.value,
         orderBy: orderBy.value,
         orientation: selectedOrientation.value);
-    videoList.addAll(videosList.value.data!.where((item) => item.orientation == 'landscape').toList());
-    shortsList.addAll(videosList.value.data!.where((item) => item.orientation == 'portrait').toList());
     hittingApi.value = false;
     update();
   }

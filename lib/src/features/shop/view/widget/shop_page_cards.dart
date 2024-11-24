@@ -67,7 +67,11 @@ class AppShopGridScrollCard extends StatelessWidget {
                                 imgWidth: double.infinity,
                                 onTap: () {
                                   Get.toNamed(
-                                      '/product/${shopController.allProducts[index].slug!}', parameters: {'prevRoute' : '/shop'});
+                                      '/product/${shopController.allProducts[index].slug!}',
+                                      parameters: {
+                                        'prevRoute':
+                                            '/shop?${shopController.queryStringValue.value}'
+                                      });
                                   EventLogger().logProductDetailsViewEvent(
                                       shopController.allProducts[index].slug!);
                                 },
@@ -102,11 +106,19 @@ class AppShopGridScrollCard extends StatelessWidget {
                                             shopController.allProducts[index]
                                                 .preorderAvailable)
                                         .then((value) => {
-                                      if(cartController.addToCartResponse.value.result == true){
-                                        cartController.cartCount.value =
-                                            cartController.addToCartResponse.value
-                                                .cartQuantity ?? 0,
-                                      },
+                                              if (cartController
+                                                      .addToCartResponse
+                                                      .value
+                                                      .result ==
+                                                  true)
+                                                {
+                                                  cartController.cartCount
+                                                      .value = cartController
+                                                          .addToCartResponse
+                                                          .value
+                                                          .cartQuantity ??
+                                                      0,
+                                                },
                                               AppHelperFunctions.showToast(
                                                   cartController
                                                       .addToCartResponse
