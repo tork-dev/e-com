@@ -23,9 +23,8 @@ class LogIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String previousRoute = Get.parameters['prevRoute'] ?? '/home';
     final logInController =
-        Get.put(LogInPageController(previousRoute: previousRoute));
+        Get.put(LogInPageController());
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: AppLayoutWithBackButton(

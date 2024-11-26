@@ -97,10 +97,13 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                         (int index) {
                       return Obx(() {
                         return ChoiceChip(
-                          backgroundColor: AppColors.white,
-                          shape: const ContinuousRectangleBorder(
+                          // backgroundColor: AppColors.white,
+                          color: MaterialStatePropertyAll(AppColors.white),
+                          shape:  ContinuousRectangleBorder(
                               side: BorderSide(
-                                  width: 1, color: AppColors.lightGrey)),
+                                  width: 1, color: AppColors.primary.withOpacity(kireiTubeController
+                                  .selectedFilter.value ==
+                                  index? .5 : .3))),
                           elevation: 0,
                           labelPadding: EdgeInsets.zero,
                           showCheckmark: false,
@@ -108,7 +111,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                               color: kireiTubeController
                                   .selectedFilter.value ==
                                   index
-                                  ? AppColors.white
+                                  ? AppColors.primary
                                   : AppColors.secondary),
                           padding: const EdgeInsets.symmetric(
                               horizontal: AppSizes.sm),

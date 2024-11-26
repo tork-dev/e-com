@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_controller.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_home.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_videos.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class KireiTubeScreen extends StatelessWidget {
   const KireiTubeScreen({super.key});
@@ -28,39 +30,53 @@ class KireiTubeScreen extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverToBoxAdapter(
-            child: AppCardContainer(
-              height: 214,
-              applyRadius: false,
-              width: MediaQuery.of(context).size.width,
-              backgroundColor: AppColors.headerBackground,
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              margin: const EdgeInsets.only(bottom: AppSizes.spaceBtwSections),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Earn More as You Shop!',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .apply(color: AppColors.primary),
-                  ),
-                  const Gap(AppSizes.sm),
-                  Text(
-                    'Introducing Our Exclusive Kirei Tube',
-                    style: Theme.of(context).textTheme.headlineMedium!,
-                    textAlign: TextAlign.center,
-                  ),
-                  const Gap(AppSizes.sm),
-                  Text(
-                    'We believe in rewarding our customers for their loyalty and engagement. With our brand-new point system, the more you shop and interact, the more benefits',
-                    style: Theme.of(context).textTheme.bodySmall!,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+            child: GetBuilder<KireiTubeController>(builder: (controller) {
+              return controller.hittingApi.value
+                  ? ShimmerHelper().buildBasicShimmer(height: 215)
+                  : Stack(
+                      children: [
+                        AppBannerImage(
+                            height: 215,
+                            width: AppHelperFunctions.screenWidth(),
+                            isNetworkImage: true,
+                            applyImageRadius: false,
+                            imgUrl: controller.kireiTubeHomeResponse.value
+                                    .setting?.banner ??
+                                ''),
+                        Padding(
+                          padding: const EdgeInsets.all(AppSizes.md),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Text(
+                                //   controller.kireiTubeHomeResponse.value.setting?.tittle ?? '',
+                                //   style: Theme.of(context)
+                                //       .textTheme
+                                //       .titleLarge!
+                                //       .apply(color: AppColors.primary),
+                                // ),
+                                const Gap(AppSizes.sm),
+                                Text(
+                                          controller.kireiTubeHomeResponse.value.setting?.tittle ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.headlineMedium!,
+                                  textAlign: TextAlign.center,
+                                ),
+                                const Gap(AppSizes.sm),
+                                Text(
+                                  AppHelperFunctions().stripHtmlTags(controller.kireiTubeHomeResponse.value.setting?.description ?? ''),
+                                  style: Theme.of(context).textTheme.bodySmall!,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+            }),
           ),
           SliverPersistentHeader(
               pinned: true,
@@ -85,16 +101,15 @@ class KireiTubeScreen extends StatelessWidget {
                       Tab(text: 'Playlists'),
                     ],
                   ),
-                  controller.searchController,
-                  (value){
-                    if(controller.tabController.index == 3){
-                      controller.getKireitubePlaylist();
-                    }else if(controller.tabController.index == 0){
-                      controller.getKireiTubeHomeData();
-                    }else{
-                      controller.getKireitubeVideos();
-                    }
-                  }, controller.tabController.index != 0  )),
+                  controller.searchController, (value) {
+                if (controller.tabController.index == 3) {
+                  controller.getKireitubePlaylist();
+                } else if (controller.tabController.index == 0) {
+                  controller.getKireiTubeHomeData();
+                } else {
+                  controller.getKireitubeVideos();
+                }
+              }, controller.tabController.index != 0)),
         ],
         body: TabBarView(
           controller: controller.tabController,
@@ -117,7 +132,8 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
   final dynamic onChanged;
   final bool needSearch;
 
-  _TabBarDelegate(this.tabBar, this.controller, this.onChanged, this.needSearch);
+  _TabBarDelegate(
+      this.tabBar, this.controller, this.onChanged, this.needSearch);
 
   @override
   Widget build(
@@ -139,10 +155,13 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
                     controller: controller,
                     onChanged: onChanged,
                     elevation: const MaterialStatePropertyAll(0),
-                    backgroundColor: const MaterialStatePropertyAll(AppColors.white),
-                    shape: const MaterialStatePropertyAll(ContinuousRectangleBorder(
+                    backgroundColor:
+                        const MaterialStatePropertyAll(AppColors.white),
+                    shape: const MaterialStatePropertyAll(
+                        ContinuousRectangleBorder(
                       side: BorderSide(
-                          color: AppColors.grey, width: 1), // Border color and width
+                          color: AppColors.grey,
+                          width: 1), // Border color and width
                     )),
                     hintText: 'Search',
                     hintStyle: MaterialStatePropertyAll(Theme.of(context)

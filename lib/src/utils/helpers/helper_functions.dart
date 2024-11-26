@@ -504,9 +504,23 @@ class AppHelperFunctions {
   }
 
   String stripHtmlTags(String htmlString) {
-    final RegExp regExp =
-        RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
-    return htmlString.replaceAll(regExp, '');
+    // Remove HTML comments and metadata tags
+    final RegExp regExpComments = RegExp(r'<!--.*?-->', multiLine: true, caseSensitive: false);
+    String result = htmlString.replaceAll(regExpComments, '');
+
+    // Remove all HTML tags
+    final RegExp regExpTags = RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
+    result = result.replaceAll(regExpTags, '');
+
+    // Replace common HTML entities
+    result = result.replaceAll('&nbsp;', ' ');
+    result = result.replaceAll('&lt;', '<');
+    result = result.replaceAll('&gt;', '>');
+    result = result.replaceAll('&amp;', '&');
+    result = result.replaceAll('&quot;', '"');
+    result = result.replaceAll('&apos;', "'");
+
+    return result.trim();
   }
 
   bool isVersionLessThan(String version1, String version2) {

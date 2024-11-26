@@ -4,6 +4,7 @@ class KireiTubeHomeResponse {
   Shorts? videos;
   Shorts? shorts;
   List<Playlist>? playlists;
+  Setting? setting;
   bool? success;
   int? status;
 
@@ -11,6 +12,7 @@ class KireiTubeHomeResponse {
     this.videos,
     this.shorts,
     this.playlists,
+    this.setting,
     this.success,
     this.status,
   });
@@ -22,6 +24,7 @@ class KireiTubeHomeResponse {
   factory KireiTubeHomeResponse.fromMap(Map<String, dynamic> json) => KireiTubeHomeResponse(
     videos: json["videos"] == null ? null : Shorts.fromMap(json["videos"]),
     shorts: json["shorts"] == null ? null : Shorts.fromMap(json["shorts"]),
+    setting: json["setting"] == null ? null : Setting.fromMap(json["setting"]),
     playlists: json["playlists"] == null ? [] : List<Playlist>.from(json["playlists"]!.map((x) => Playlist.fromMap(x))),
     success: json["success"],
     status: json["status"],
@@ -151,3 +154,23 @@ class Datum {
     "statistics": statistics == null ? [] : List<dynamic>.from(statistics!.map((x) => x)),
   };
 }
+
+ class Setting{
+  String? tittle;
+  String? banner;
+  String? description;
+
+  Setting({
+    this.tittle,
+    this.banner,
+    this.description
+ });
+  factory Setting.fromJson(String str) => Setting.fromMap(json.decode(str));
+
+  factory Setting.fromMap(Map<String, dynamic> json) => Setting(
+    tittle: json["title"],
+    banner: json["banner"],
+    description: json["description"]
+  );
+
+ }

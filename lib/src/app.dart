@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
           name: '/',
           page: () => const SplashScreen(),
         ),
-        GetPage(name: '/login/:prevRoute', page: () => const LogIn()),
+        GetPage(name: '/login', page: () => const LogIn()),
         GetPage(name: '/register', page: () => const SignUp()),
         GetPage(
             name: '/home',

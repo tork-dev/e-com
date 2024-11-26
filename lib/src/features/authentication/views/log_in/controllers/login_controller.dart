@@ -23,11 +23,18 @@ import '../model/social_option_model.dart';
 
 class LogInPageController extends GetxController {
   static LogInPageController get instance => Get.find();
-  final String? previousRoute;
 
-  LogInPageController({this.previousRoute = '/home'});
 
-  //final userController = Get.put(UserController());
+  RxString previousRoute = '/home'.obs;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    if(Get.arguments != null) {
+      previousRoute.value = Get.arguments["prevRoute"] ?? '/home';
+    }
+  }
 
   ///Controllers
   final emailController = TextEditingController();
@@ -117,7 +124,7 @@ class LogInPageController extends GetxController {
                       });
             }
           }
-          Get.offAllNamed(previousRoute!);
+          Get.offAllNamed(previousRoute.value);
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
         }
@@ -175,7 +182,7 @@ class LogInPageController extends GetxController {
             });
           }
         }
-        Get.offAllNamed(previousRoute!);
+        Get.offAllNamed(previousRoute.value);
         EventLogger().logLoginEvent('Google');
       }
       GoogleSignIn().disconnect();
@@ -235,7 +242,7 @@ class LogInPageController extends GetxController {
               });
             }
           }
-          Get.offAllNamed(previousRoute!);
+          Get.offAllNamed(previousRoute.value);
         }
         AppHelperFunctions.showToast(loginResponse.value.message!);
       } else {
@@ -340,7 +347,7 @@ class LogInPageController extends GetxController {
             });
           }
         }
-        Get.offAllNamed(previousRoute!);
+        Get.offAllNamed(previousRoute.value);
       }
       AppHelperFunctions.showToast(loginResponse.value.message!);
     } on Exception catch (e) {

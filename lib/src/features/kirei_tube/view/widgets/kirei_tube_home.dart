@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/state_manager.dart';
 import 'package:kirei/src/common/layouts/gridview_layout/gridview_layout.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
@@ -28,129 +31,200 @@ class KireiTubeHome extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         horizontal: AppSizes.md,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Gap(AppSizes.spaceBtwSections),
-            const AppSectionTitleText(
-              sectionTitle: 'Videos',
-              haveTxtButton: false,
-            ),
-            GetBuilder<KireiTubeController>(builder: (controller) {
-              return AppGridViewLayout(
-                  mobileAspect: .94,
-                  itemCount: controller.videoListResponse.value.videos?.data?.length ?? 4,
-                  builderFunction: (context, index) =>
-                      controller.hittingApi.value
-                          ? ShimmerHelper().buildBasicShimmer(height: 250)
-                          : KireiTubeListCard(
-                        isPlaylist: false,
-                        onTapBanner: (){
-                          Get.toNamed(
-                              '/kirei-tube/${controller.videoListResponse.value.videos?.data![index].slug}');
-                        },
-                        kireiTubeBanner: controller.videoListResponse.value.videos?.data?[index].banner,
-                        kireiTubeTitle: controller.videoListResponse.value.videos?.data?[index].title,
-                      ));
-            }),
-            const Gap(AppSizes.md),
-            AppButtons.customFlatFilledButton(
-                onPressed: () {
-                  kireiController.switchTab(1);
-                },
-                buttonWidth: 100,
-                backgroundColor: AppColors.secondary,
-                verticallyPadding: AppSizes.sm,
-                horizontalPadding: AppSizes.md,
-                buttonText: 'View more'),
-            const Gap(AppSizes.spaceBtwSections),
-            AppCardContainer(
-                width: AppHelperFunctions.screenWidth(),
-                applyRadius: false,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.md, vertical: AppSizes.defaultSpace),
-                backgroundColor: AppColors.headerBackground,
+      child: GetBuilder<KireiTubeController>(builder: (controller) {
+        return controller.hittingApi.value
+            ? AppListViewLayout(
+                itemCount: 5,
+                builderFunction: (context, index) =>
+                    ShimmerHelper().buildBasicShimmer(height: 250))
+            : SingleChildScrollView(
                 child: Column(
                   children: [
-                    const AppSectionTitleText(
-                      sectionTitle: 'Shorts',
-                      haveTxtButton: false,
+                    Visibility(
+                      visible: !controller.hittingApi.value &&
+                          kireiController.kireiTubeHomeResponse.value.videos!
+                              .data!.isNotEmpty,
+                      child: Column(
+                        children: [
+                          const Gap(AppSizes.spaceBtwSections),
+                          const AppSectionTitleText(
+                            sectionTitle: 'Videos',
+                            haveTxtButton: false,
+                          ),
+                          AppGridViewLayout(
+                              mobileAspect: .94,
+                              itemCount: controller.kireiTubeHomeResponse.value
+                                      .videos?.data?.length ??
+                                  4,
+                              builderFunction: (context, index) =>
+                                  KireiTubeListCard(
+                                    isPlaylist: false,
+                                    onTapBanner: () {
+                                      Get.toNamed(
+                                          '/kirei-tube/${controller.kireiTubeHomeResponse.value.videos?.data![index].slug}');
+                                    },
+                                    kireiTubeBanner: controller
+                                        .kireiTubeHomeResponse
+                                        .value
+                                        .videos
+                                        ?.data?[index]
+                                        .banner,
+                                    kireiTubeTitle: controller
+                                        .kireiTubeHomeResponse
+                                        .value
+                                        .videos
+                                        ?.data?[index]
+                                        .title,
+                                  )),
+                          const Gap(AppSizes.md),
+                          AppButtons.customFlatFilledButton(
+                              onPressed: () {
+                                kireiController.switchTab(1);
+                              },
+                              buttonWidth: 100,
+                              backgroundColor: AppColors.secondary,
+                              verticallyPadding: AppSizes.sm,
+                              horizontalPadding: AppSizes.md,
+                              buttonText: 'View more'),
+                        ],
+                      ),
                     ),
-                    const Gap(AppSizes.spaceBtwItems),
-                    SizedBox(
-                      height: 305,
-                      child: GetBuilder<KireiTubeController>(
-                          builder: (controller) {
-                        return AppListViewLayout(
-                            itemCount: controller.videoListResponse.value.shorts?.data?.length ?? 4,
-                            isScrollVertically: false,
-                            builderFunction: (context, index) =>
-                                KireiTubeShortsCard(
-                                  onShortsPress: (){
-                                     print('${controller.videoListResponse.value.shorts?.data![index].slug}');
-                                    Get.toNamed(
-                                        '/kirei-shorts/${controller.videoListResponse.value.shorts?.data![index].slug}');
-                                  },
-                                  hittingApi: controller.hittingApi.value,
-                                  shortsBanner: controller.videoListResponse.value.shorts?.data?[index].banner ?? '',
-                                  shortsTitle: controller.videoListResponse.value.shorts?.data?[index].title ?? '',
-                                ));
-                      }),
+                    Visibility(
+                      visible: !controller.hittingApi.value &&
+                          kireiController.kireiTubeHomeResponse.value.shorts!
+                              .data!.isNotEmpty,
+                      child: Column(
+                        children: [
+                          const Gap(AppSizes.spaceBtwSections),
+                          AppCardContainer(
+                              width: AppHelperFunctions.screenWidth(),
+                              applyRadius: false,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: AppSizes.md,
+                                  vertical: AppSizes.defaultSpace),
+                              backgroundColor: AppColors.headerBackground,
+                              child: Column(
+                                children: [
+                                  const AppSectionTitleText(
+                                    sectionTitle: 'Shorts',
+                                    haveTxtButton: false,
+                                  ),
+                                  const Gap(AppSizes.spaceBtwItems),
+                                  SizedBox(
+                                    height: 305,
+                                    child: GetBuilder<KireiTubeController>(
+                                        builder: (controller) {
+                                      return AppListViewLayout(
+                                          itemCount: controller
+                                                  .kireiTubeHomeResponse
+                                                  .value
+                                                  .shorts
+                                                  ?.data
+                                                  ?.length ??
+                                              4,
+                                          isScrollVertically: false,
+                                          builderFunction: (context, index) =>
+                                              KireiTubeShortsCard(
+                                                onShortsPress: () {
+                                                  print(
+                                                      '${controller.kireiTubeHomeResponse.value.shorts?.data![index].slug}');
+                                                  Get.toNamed(
+                                                      '/kirei-shorts/${controller.kireiTubeHomeResponse.value.shorts?.data![index].slug}');
+                                                },
+                                                hittingApi:
+                                                    controller.hittingApi.value,
+                                                shortsBanner: controller
+                                                        .kireiTubeHomeResponse
+                                                        .value
+                                                        .shorts
+                                                        ?.data?[index]
+                                                        .banner ??
+                                                    '',
+                                                shortsTitle: controller
+                                                        .kireiTubeHomeResponse
+                                                        .value
+                                                        .shorts
+                                                        ?.data?[index]
+                                                        .title ??
+                                                    '',
+                                              ));
+                                    }),
+                                  ),
+                                  const Gap(AppSizes.md),
+                                  AppButtons.customFlatFilledButton(
+                                      onPressed: () {
+                                        kireiController.switchTab(2);
+                                      },
+                                      buttonWidth: 100,
+                                      backgroundColor: AppColors.secondary,
+                                      verticallyPadding: AppSizes.sm,
+                                      horizontalPadding: AppSizes.md,
+                                      buttonText: 'View more'),
+                                ],
+                              )),
+                        ],
+                      ),
                     ),
-                    const Gap(AppSizes.md),
-                    AppButtons.customFlatFilledButton(
-                        onPressed: () {
-                          kireiController.switchTab(2);
-                        },
-                        buttonWidth: 100,
-                        backgroundColor: AppColors.secondary,
-                        verticallyPadding: AppSizes.sm,
-                        horizontalPadding: AppSizes.md,
-                        buttonText: 'View more'),
+                    Visibility(
+                      visible: !controller.hittingApi.value &&
+                          kireiController.kireiTubeHomeResponse.value.playlists!.isNotEmpty,
+                      child: Column(
+                        children: [
+                          const Gap(AppSizes.spaceBtwSections),
+                          const AppSectionTitleText(
+                            sectionTitle: 'Playlists',
+                            haveTxtButton: false,
+                          ),
+                          GetBuilder<KireiTubeController>(
+                              builder: (controller) {
+                            return AppGridViewLayout(
+                                mobileAspect: .94,
+                                itemCount: controller.kireiTubeHomeResponse
+                                        .value.playlists?.length ??
+                                    4,
+                                builderFunction: (context, index) =>
+                                    KireiTubeListCard(
+                                      onTapViewPlaylist: () {
+                                        kireiController
+                                            .getKireitubePlaylistDetails(
+                                                controller.videoPlaylist.value
+                                                    .data![index].id
+                                                    .toString());
+                                        Get.to(() =>
+                                            const KireiTubePlaylistScreen());
+                                      },
+                                      isPlaylist: true,
+                                      kireiTubeBanner: controller
+                                          .kireiTubeHomeResponse
+                                          .value
+                                          .playlists?[index]
+                                          .banner,
+                                      kireiTubeTitle: controller
+                                          .kireiTubeHomeResponse
+                                          .value
+                                          .playlists?[index]
+                                          .title,
+                                      kireiTubePlaylistVideoCount: '6',
+                                    ));
+                          }),
+                          const Gap(AppSizes.md),
+                          AppButtons.customFlatFilledButton(
+                              onPressed: () {
+                                kireiController.switchTab(3);
+                              },
+                              buttonWidth: 100,
+                              backgroundColor: AppColors.secondary,
+                              verticallyPadding: AppSizes.sm,
+                              horizontalPadding: AppSizes.md,
+                              buttonText: 'View more'),
+                        ],
+                      ),
+                    ),
+                    const Gap(AppSizes.defaultSpace)
                   ],
-                )),
-            const Gap(AppSizes.spaceBtwSections),
-            const AppSectionTitleText(
-              sectionTitle: 'Playlists',
-              haveTxtButton: false,
-            ),
-            GetBuilder<KireiTubeController>(builder: (controller) {
-              return AppGridViewLayout(
-                  mobileAspect: .94,
-                  itemCount: controller.videoListResponse.value.playlists?.length ?? 4,
-                  builderFunction: (context, index) =>
-                  controller.hittingApi.value
-                      ? ShimmerHelper().buildBasicShimmer(height: 250)
-                      : KireiTubeListCard(
-                    onTapViewPlaylist: (){
-                      kireiController.getKireitubePlaylistDetails(
-                          controller
-                              .videoPlaylist.value.data![index].id
-                              .toString());
-                      Get.to(() => const KireiTubePlaylistScreen());
-                    },
-                    isPlaylist: true,
-                    kireiTubeBanner: controller.videoListResponse.value.playlists?[index].banner,
-                    kireiTubeTitle: controller.videoListResponse.value.playlists?[index].title,
-                    kireiTubePlaylistVideoCount: '6',
-                  ));
-            }),
-            const Gap(AppSizes.md),
-            AppButtons.customFlatFilledButton(
-                onPressed: () {
-                  kireiController.switchTab(3);
-                },
-                buttonWidth: 100,
-                backgroundColor: AppColors.secondary,
-                verticallyPadding: AppSizes.sm,
-                horizontalPadding: AppSizes.md,
-                buttonText: 'View more'),
-            const Gap(AppSizes.defaultSpace)
-          ],
-        ),
-      ),
+                ),
+              );
+      }),
     );
   }
 }
-
-

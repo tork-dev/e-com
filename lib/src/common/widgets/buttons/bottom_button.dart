@@ -34,7 +34,7 @@ class AppBottomButton extends StatelessWidget {
                           if (AppLocalStorage()
                                   .readData(LocalStorageKeys.isLoggedIn) !=
                               true) {
-                            Get.to(() => const LogIn());
+                            Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
                             // Get.toNamed(
                             //     '/login/product/${detailsController.productSlug.value}');
                             return;
@@ -70,7 +70,7 @@ class AppBottomButton extends StatelessWidget {
                           if (AppLocalStorage()
                                   .readData(LocalStorageKeys.isLoggedIn) !=
                               true) {
-                            Get.to(() => const LogIn());
+                            Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
                             // Get.toNamed(
                             //     '/login/product/${detailsController.productSlug.value}');
                             return;
@@ -105,7 +105,7 @@ class AppBottomButton extends StatelessWidget {
                     if (AppLocalStorage()
                             .readData(LocalStorageKeys.isLoggedIn) !=
                         true) {
-                      Get.to(() => const LogIn());
+                      Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
                       return;
                     }
                     final cartController = Get.put(CartController());

@@ -10,6 +10,7 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 
 class AppReviewDescriptionPart extends StatelessWidget {
   final int index;
+
   const AppReviewDescriptionPart({super.key, required this.index});
 
   @override
@@ -19,62 +20,64 @@ class AppReviewDescriptionPart extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Obx(() {
         return Visibility(
-                child: ExpandableNotifier(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expandable(
-                        collapsed: SizedBox(
-                          height: 40,
-                          child: Text(
-                              reviewController.reviewResponse.value.data![index].comment!),
-                        ),
-                        expanded: SizedBox(
-                          child: Text(
-                              reviewController.reviewResponse.value.data![index].comment!),
-                        ),
-
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Builder(
-                            builder: (context) {
-                              var controller = ExpandableController.of(context);
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 10.0, top: 8.0),
-                                child: Visibility(
-                                  visible: reviewController.reviewResponse.value.data![index].comment!.length > 200 ,
-                                  child: GestureDetector(
-                                    child: Text(
-                                        !controller!.expanded
-                                            ? 'view More'
-                                            : 'Show Less',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge!
-                                            .apply(
-                                                color: AppColors.primary,
-                                                decoration:
-                                                    TextDecoration.underline)),
-                                    onTap: () {
-                                      controller.toggle();
-                                      print(reviewController.reviewResponse.value.data![index].comment!.length.toString());
-                                    },
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      const Gap(AppSizes.spaceBtwDefaultItems),
-                    ],
+          child: ExpandableNotifier(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expandable(
+                  collapsed: SizedBox(
+                    height: 40,
+                    child: Text(reviewController
+                        .reviewResponse.value.data![index].comment!),
+                  ),
+                  expanded: SizedBox(
+                    child: Text(reviewController
+                        .reviewResponse.value.data![index].comment!),
                   ),
                 ),
-              );
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Builder(
+                      builder: (context) {
+                        var controller = ExpandableController.of(context);
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 10.0, top: 8.0),
+                          child: Visibility(
+                            visible: reviewController.reviewResponse.value
+                                    .data![index].comment!.length >
+                                120,
+                            child: GestureDetector(
+                              child: Text(
+                                  !controller!.expanded
+                                      ? 'view More'
+                                      : 'Show Less',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .apply(
+                                          color: AppColors.primary,
+                                          decoration:
+                                              TextDecoration.underline)),
+                              onTap: () {
+                                controller.toggle();
+                                print(reviewController.reviewResponse.value
+                                    .data![index].comment!.length
+                                    .toString());
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const Gap(AppSizes.spaceBtwDefaultItems),
+              ],
+            ),
+          ),
+        );
       }),
     );
   }

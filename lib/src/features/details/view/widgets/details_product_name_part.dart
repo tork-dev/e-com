@@ -17,6 +17,7 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../review/view/review_screen.dart';
 
 class AppDetailsProductNamePart extends StatelessWidget {
   const AppDetailsProductNamePart({super.key});
@@ -45,42 +46,49 @@ class AppDetailsProductNamePart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            child: Row(
-                              children: [
-                                RatingBar(
-                                  itemSize: 18.0,
-                                  ignoreGestures: true,
-                                  initialRating: double.parse(detailsController
-                                      .productDetails
-                                      .value
-                                      .detailedProducts!
-                                      .ratings
-                                      .toString()),
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: false,
-                                  itemCount: 5,
-                                  ratingWidget: RatingWidget(
-                                    full: const Icon(Icons.star,
-                                        color: Color(0xffffe234)),
-                                    empty: const Icon(Icons.star,
-                                        color:
-                                            Color.fromRGBO(224, 224, 225, 1)),
-                                    half: const Icon(Icons.star,
-                                        color: Color.fromRGBO(192, 53, 50, 1)),
+                          InkWell(
+                            onTap: (){
+                              Get.to(() => ReviewScreen(
+                                  productId: detailsController
+                                      .productDetails.value.detailedProducts!.slug!));
+                            },
+                            child: SizedBox(
+                              child: Row(
+                                children: [
+                                  RatingBar(
+                                    itemSize: 18.0,
+                                    ignoreGestures: true,
+                                    initialRating: double.parse(detailsController
+                                        .productDetails
+                                        .value
+                                        .detailedProducts!
+                                        .ratings
+                                        .toString()),
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: false,
+                                    itemCount: 5,
+                                    ratingWidget: RatingWidget(
+                                      full: const Icon(Icons.star,
+                                          color: Color(0xffffe234)),
+                                      empty: const Icon(Icons.star,
+                                          color:
+                                              Color.fromRGBO(224, 224, 225, 1)),
+                                      half: const Icon(Icons.star,
+                                          color: Color.fromRGBO(192, 53, 50, 1)),
+                                    ),
+                                    itemPadding:
+                                        const EdgeInsets.only(right: 1.0),
+                                    onRatingUpdate: (double value) {},
                                   ),
-                                  itemPadding:
-                                      const EdgeInsets.only(right: 1.0),
-                                  onRatingUpdate: (double value) {},
-                                ),
-                                Text(
-                                  ' (${detailsController.productDetails.value.detailedProducts!.reviews})',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .apply(color: AppColors.darkGrey),
-                                ),
-                              ],
+                                  Text(
+                                    ' (${detailsController.productDetails.value.detailedProducts!.reviews})',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .apply(color: AppColors.darkGrey),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(

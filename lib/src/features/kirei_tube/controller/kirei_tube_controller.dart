@@ -15,7 +15,7 @@ class KireiTubeController extends GetxController
   static KireiTubeController get instance => Get.find();
 
   RxBool hittingApi = false.obs;
-  Rx<KireiTubeHomeResponse> videoListResponse = KireiTubeHomeResponse().obs;
+  Rx<KireiTubeHomeResponse> kireiTubeHomeResponse = KireiTubeHomeResponse().obs;
   Rx<KireiTubeVideosPlaylistResponse> videoPlaylist =
       KireiTubeVideosPlaylistResponse().obs;
   Rx<KireiTubePlaylistDetailsResponse> playlistDetails =
@@ -51,13 +51,14 @@ class KireiTubeController extends GetxController
 
   Future<void> onRefresh() async {
     getKireiTubeHomeData();
-    getKireitubeVideos();
-    getKireitubePlaylist();
+    // getKireitubeVideos();
+    // getKireitubePlaylist();
   }
 
   Future<void> getKireiTubeHomeData() async {
     hittingApi.value = true;
-    videoListResponse.value = await KireiTubeRepositories().getKireiHome(searchController.text.toString());
+    kireiTubeHomeResponse.value = await KireiTubeRepositories()
+        .getKireiHome(searchController.text.toString());
     hittingApi.value = false;
     update();
   }
