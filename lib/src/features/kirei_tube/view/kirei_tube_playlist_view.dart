@@ -11,7 +11,6 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-
 import 'widgets/video_horizontal_card.dart';
 
 class KireiTubePlaylistScreen extends StatelessWidget {
@@ -39,12 +38,14 @@ class KireiTubePlaylistScreen extends StatelessWidget {
                         imgUrl: kireiTubeController
                             .playlistDetails.value.data?[0].banner),
                 const Gap(AppSizes.spaceBtwDefaultItems),
-                Text(
-                  '${kireiTubeController.playlistDetails.value.data?[0].title}',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                kireiTubeController.hittingApi.value
+                    ? ShimmerHelper().buildBasicShimmer(height: 30)
+                    : Text(
+                        '${kireiTubeController.playlistDetails.value.data?[0].title}',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                 const Gap(AppSizes.sm),
                 Row(
                   children: [
@@ -100,18 +101,27 @@ class KireiTubePlaylistScreen extends StatelessWidget {
                     builderFunction: (context, index) =>
                         kireiTubeController.hittingApi.value
                             ? ShimmerHelper().buildBasicShimmer(height: 150)
-                            :  VideoHorizontalCard(
-                          onTap: (){
-                            if(kireiTubeController.playlistDetails.value.data![0].videos![index].orientation == "portrait"){
-                              Get.toNamed("/kirei-shorts/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}");
-                            }else{
-                              Get.toNamed("/kirei-tube/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}");
-                            }
-
-                          },
-                          imgUrl: kireiTubeController.playlistDetails.value.data![0].videos![index].banner ,
-                          title: kireiTubeController.playlistDetails.value.data![0].videos![index].title ,
-                        ))
+                            : VideoHorizontalCard(
+                                onTap: () {
+                                  if (kireiTubeController
+                                          .playlistDetails
+                                          .value
+                                          .data![0]
+                                          .videos![index]
+                                          .orientation ==
+                                      "portrait") {
+                                    Get.toNamed(
+                                        "/kirei-shorts/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}");
+                                  } else {
+                                    Get.toNamed(
+                                        "/kirei-tube/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}");
+                                  }
+                                },
+                                imgUrl: kireiTubeController.playlistDetails
+                                    .value.data![0].videos![index].banner,
+                                title: kireiTubeController.playlistDetails.value
+                                    .data![0].videos![index].title,
+                              ))
               ],
             );
           }),

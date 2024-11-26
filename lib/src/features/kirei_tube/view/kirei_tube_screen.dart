@@ -44,29 +44,37 @@ class KireiTubeScreen extends StatelessWidget {
                                     .setting?.banner ??
                                 ''),
                         Padding(
-                          padding: const EdgeInsets.all(AppSizes.md),
+                          padding: const EdgeInsets.symmetric(horizontal: AppSizes.xl, vertical: 48),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                // Text(
-                                //   controller.kireiTubeHomeResponse.value.setting?.tittle ?? '',
-                                //   style: Theme.of(context)
-                                //       .textTheme
-                                //       .titleLarge!
-                                //       .apply(color: AppColors.primary),
-                                // ),
+                                Text(
+                                  controller.kireiTubeHomeResponse.value.setting?.subtitle ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .apply(color: AppColors.primary),
+                                ),
                                 const Gap(AppSizes.sm),
                                 Text(
-                                          controller.kireiTubeHomeResponse.value.setting?.tittle ?? '',
-                                  style:
-                                      Theme.of(context).textTheme.headlineMedium!,
+                                  controller.kireiTubeHomeResponse.value.setting
+                                          ?.tittle ??
+                                      '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium!,
                                   textAlign: TextAlign.center,
                                 ),
                                 const Gap(AppSizes.sm),
                                 Text(
-                                  AppHelperFunctions().stripHtmlTags(controller.kireiTubeHomeResponse.value.setting?.description ?? ''),
+                                  AppHelperFunctions().stripHtmlTags(controller
+                                          .kireiTubeHomeResponse
+                                          .value
+                                          .setting
+                                          ?.description ??
+                                      ''),
                                   style: Theme.of(context).textTheme.bodySmall!,
                                   textAlign: TextAlign.center,
                                 ),

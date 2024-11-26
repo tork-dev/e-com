@@ -91,27 +91,24 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                   }).toList(),
                 )
                     : Wrap(
-                  spacing: 5.0,
+                  spacing: AppSizes.sm,
                   children: List<Widget>.generate(
                     3,
                         (int index) {
                       return Obx(() {
                         return ChoiceChip(
-                          // backgroundColor: AppColors.white,
-                          color: MaterialStatePropertyAll(AppColors.white),
-                          shape:  ContinuousRectangleBorder(
+                          backgroundColor: AppColors.white,
+                          shape:  const ContinuousRectangleBorder(
                               side: BorderSide(
-                                  width: 1, color: AppColors.primary.withOpacity(kireiTubeController
-                                  .selectedFilter.value ==
-                                  index? .5 : .3))),
+                                  width: 1, color: AppColors.lightGrey)),
                           elevation: 0,
-                          labelPadding: EdgeInsets.zero,
+                          labelPadding: const EdgeInsets.symmetric(horizontal: AppSizes.xs),
                           showCheckmark: false,
                           labelStyle: TextStyle(
                               color: kireiTubeController
                                   .selectedFilter.value ==
                                   index
-                                  ? AppColors.primary
+                                  ? AppColors.white
                                   : AppColors.secondary),
                           padding: const EdgeInsets.symmetric(
                               horizontal: AppSizes.sm),

@@ -167,7 +167,8 @@ class KireiTubeHome extends StatelessWidget {
                     ),
                     Visibility(
                       visible: !controller.hittingApi.value &&
-                          kireiController.kireiTubeHomeResponse.value.playlists!.isNotEmpty,
+                          kireiController.kireiTubeHomeResponse.value.playlists!
+                              .isNotEmpty,
                       child: Column(
                         children: [
                           const Gap(AppSizes.spaceBtwSections),
@@ -184,28 +185,32 @@ class KireiTubeHome extends StatelessWidget {
                                     4,
                                 builderFunction: (context, index) =>
                                     KireiTubeListCard(
-                                      onTapViewPlaylist: () {
-                                        kireiController
-                                            .getKireitubePlaylistDetails(
-                                                controller.videoPlaylist.value
-                                                    .data![index].id
-                                                    .toString());
-                                        Get.to(() =>
-                                            const KireiTubePlaylistScreen());
-                                      },
-                                      isPlaylist: true,
-                                      kireiTubeBanner: controller
-                                          .kireiTubeHomeResponse
-                                          .value
-                                          .playlists?[index]
-                                          .banner,
-                                      kireiTubeTitle: controller
-                                          .kireiTubeHomeResponse
-                                          .value
-                                          .playlists?[index]
-                                          .title,
-                                      kireiTubePlaylistVideoCount: '6',
-                                    ));
+                                        onTapViewPlaylist: () {
+                                          print("playlist tap");
+                                          kireiController
+                                              .getKireitubePlaylistDetails(
+                                                  controller
+                                                      .kireiTubeHomeResponse
+                                                      .value
+                                                      .playlists![index]
+                                                      .id
+                                                      .toString());
+                                          Get.to(() =>
+                                              const KireiTubePlaylistScreen());
+                                        },
+                                        isPlaylist: true,
+                                        kireiTubeBanner: controller
+                                            .kireiTubeHomeResponse
+                                            .value
+                                            .playlists?[index]
+                                            .banner,
+                                        kireiTubeTitle: controller
+                                            .kireiTubeHomeResponse
+                                            .value
+                                            .playlists?[index]
+                                            .title,
+                                        kireiTubePlaylistVideoCount:
+                                            "${kireiController.kireiTubeHomeResponse.value.playlists![index].videoCount}"));
                           }),
                           const Gap(AppSizes.md),
                           AppButtons.customFlatFilledButton(

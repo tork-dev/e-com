@@ -45,8 +45,8 @@ class KireiTubeProductCard extends StatelessWidget {
                         AppBannerImage(
                             onPress: () => Get.toNamed(
                                 '/product/${kireiTubeDetailsController.kireiTubeDetailsResponse.value.data!.products![index].slug}'),
-                            height: 112,
-                            width: 112,
+                            height: 100,
+                            width: 100,
                             applyImageRadius: false,
                             backgroundColor: AppColors.white,
                             isNetworkImage: true,
@@ -122,66 +122,107 @@ class KireiTubeProductCard extends StatelessWidget {
                                       ],
                                     ),
                                     AppCardContainer(
-                                      onTap: (){
-                                        if (AppLocalStorage()
-                                            .readData(LocalStorageKeys.isLoggedIn) !=
-                                            null) {
+                                        onTap: () {
+                                          if (AppLocalStorage().readData(
+                                                  LocalStorageKeys
+                                                      .isLoggedIn) !=
+                                              null) {
+                                            EventLogger().logAddToCartEvent(
+                                                '${kireiTubeDetailsController.kireiTubeDetailsResponse.value.data?.products![index].slug}',
+                                                kireiTubeDetailsController
+                                                    .kireiTubeDetailsResponse
+                                                    .value
+                                                    .data
+                                                    ?.products![index]
+                                                    .salePrice!);
 
-                                          EventLogger().logAddToCartEvent('${kireiTubeDetailsController.kireiTubeDetailsResponse.value.data?.products![index].slug}', kireiTubeDetailsController.kireiTubeDetailsResponse.value.data?.products![index].salePrice!);
+                                            if (kireiTubeDetailsController
+                                                    .kireiTubeDetailsResponse
+                                                    .value
+                                                    .data
+                                                    ?.products![index]
+                                                    .requestAvailable !=
+                                                0) {
+                                              cartController
+                                                  .getRequestResponse(
+                                                      productId:
+                                                          kireiTubeDetailsController
+                                                              .kireiTubeDetailsResponse
+                                                              .value
+                                                              .data
+                                                              ?.products![index]
+                                                              .id)
+                                                  .then((value) => AppHelperFunctions
+                                                      .showToast(cartController
+                                                          .requestStockResponse
+                                                          .value
+                                                          .message!));
 
-                                          if (kireiTubeDetailsController.kireiTubeDetailsResponse.value.data?.products![index].requestAvailable != 0) {
+                                              // AwesomeNotificationController.showNotification();
+                                              return;
+                                            }
+
                                             cartController
-                                                .getRequestResponse(
-                                                productId: kireiTubeDetailsController.kireiTubeDetailsResponse.value.data?.products![index].id)
-                                                .then((value) => AppHelperFunctions.showToast(
-                                                cartController
-                                                    .requestStockResponse.value.message!));
-
-                                            // AwesomeNotificationController.showNotification();
-                                            return;
+                                                .getAddToCartResponse(
+                                                    kireiTubeDetailsController
+                                                        .kireiTubeDetailsResponse
+                                                        .value
+                                                        .data
+                                                        ?.products![index]
+                                                        .id,
+                                                    1,
+                                                    kireiTubeDetailsController
+                                                        .kireiTubeDetailsResponse
+                                                        .value
+                                                        .data
+                                                        ?.products![index]
+                                                        .preorderAvailable)
+                                                .then((value) => {
+                                                      cartController.cartCount
+                                                          .value = cartController
+                                                              .addToCartResponse
+                                                              .value
+                                                              .cartQuantity ??
+                                                          0,
+                                                      AppHelperFunctions.showToast(
+                                                          cartController
+                                                              .addToCartResponse
+                                                              .value
+                                                              .message!)
+                                                    });
+                                          } else {
+                                            Get.to(() => const LogIn());
                                           }
-
-                                          cartController
-                                              .getAddToCartResponse(kireiTubeDetailsController.kireiTubeDetailsResponse.value.data?.products![index].id, 1,
-                                              kireiTubeDetailsController.kireiTubeDetailsResponse.value.data?.products![index].preorderAvailable)
-                                              .then((value) => {
-                                            cartController.cartCount.value =
-                                                cartController.addToCartResponse.value
-                                                    .cartQuantity ?? 0,
-                                            AppHelperFunctions.showToast(cartController
-                                                .addToCartResponse.value.message!)
-                                          });
-                                        } else {
-                                          Get.to(() => const LogIn());
-                                        }
-                                      },
+                                        },
                                         padding: const EdgeInsets.symmetric(
                                             horizontal:
                                                 AppSizes.spaceBtwDefaultItems,
                                             vertical: AppSizes.sm),
-                                        backgroundColor:
-                                        kireiTubeDetailsController
-                                            .kireiTubeDetailsResponse
-                                            .value
-                                            .data
-                                            ?.products![index]
-                                            .stock >
-                                            0
-                                            ?AppColors.addToCartButton : kireiTubeDetailsController
-                                            .kireiTubeDetailsResponse
-                                            .value
-                                            .data
-                                            ?.products![index]
-                                            .preorderAvailable ==
-                                            1
-                                            ? AppColors.preorder : kireiTubeDetailsController
-                                            .kireiTubeDetailsResponse
-                                            .value
-                                            .data
-                                            ?.products![index]
-                                            .requestAvailable ==
-                                            1
-                                            ? AppColors.request : AppColors.primary,
+                                        backgroundColor: kireiTubeDetailsController
+                                                    .kireiTubeDetailsResponse
+                                                    .value
+                                                    .data
+                                                    ?.products![index]
+                                                    .stock >
+                                                0
+                                            ? AppColors.addToCartButton
+                                            : kireiTubeDetailsController
+                                                        .kireiTubeDetailsResponse
+                                                        .value
+                                                        .data
+                                                        ?.products![index]
+                                                        .preorderAvailable ==
+                                                    1
+                                                ? AppColors.preorder
+                                                : kireiTubeDetailsController
+                                                            .kireiTubeDetailsResponse
+                                                            .value
+                                                            .data
+                                                            ?.products![index]
+                                                            .requestAvailable ==
+                                                        1
+                                                    ? AppColors.request
+                                                    : AppColors.primary,
                                         applyRadius: false,
                                         child:
                                             // Icon(Icons.shopping_bag_outlined)

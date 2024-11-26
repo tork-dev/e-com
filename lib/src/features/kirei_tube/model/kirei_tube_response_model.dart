@@ -44,6 +44,7 @@ class Playlist {
   String? title;
   String? slug;
   String? banner;
+  int? videoCount;
   String? visibility;
   String? description;
 
@@ -52,6 +53,7 @@ class Playlist {
     this.title,
     this.slug,
     this.banner,
+    this.videoCount,
     this.visibility,
     this.description,
   });
@@ -65,6 +67,7 @@ class Playlist {
     title: json["title"],
     slug: json["slug"],
     banner: json["banner"],
+    videoCount: json["video_count"],
     visibility: json["visibility"],
     description: json["description"],
   );
@@ -74,6 +77,7 @@ class Playlist {
     "title": title,
     "slug": slug,
     "banner": banner,
+    "video_count" : videoCount,
     "visibility": visibility,
     "description": description,
   };
@@ -157,11 +161,13 @@ class Datum {
 
  class Setting{
   String? tittle;
+  String? subtitle;
   String? banner;
   String? description;
 
   Setting({
     this.tittle,
+    this.subtitle,
     this.banner,
     this.description
  });
@@ -169,6 +175,7 @@ class Datum {
 
   factory Setting.fromMap(Map<String, dynamic> json) => Setting(
     tittle: json["title"],
+    subtitle: json["sub_title"],
     banner: json["banner"],
     description: json["description"]
   );
