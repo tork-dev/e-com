@@ -74,7 +74,7 @@ class OtpController extends GetxController {
           : AuthHelper().setUserData(loginResponse.value);
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
       if (otpKey.currentState!.validate()) {
         if (forgetPasswordController.isForgotPassword.value == true
@@ -129,7 +129,7 @@ class OtpController extends GetxController {
                       loginController.emailController.text);
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
       AppHelperFunctions.showToast(sendOtpResponse.value.message!);
     }
@@ -143,7 +143,7 @@ class OtpController extends GetxController {
       sendOtpResponse.value = await LoginRepository().getLoginOTPResponse(spinnerController.phoneNumberController.text);
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
       AppHelperFunctions.showToast(sendOtpResponse.value.message!);
     }

@@ -54,7 +54,7 @@ class NewPasswordController extends GetxController{
 
     }catch(e){
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
      // print("problem${e.toString()}");
     }finally{
       //FullScreenLoader.stopLoading();

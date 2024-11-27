@@ -57,7 +57,7 @@ class SignUpPageController extends GetxController {
 
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
       //FullScreenLoader.stopLoading();
       if (signupFormKey.currentState!.validate()) {
@@ -94,7 +94,7 @@ class SignUpPageController extends GetxController {
       if (!signupFormKey.currentState!.validate()) return;
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
       if(signupFormKey.currentState!.validate()){
         if(signupList[0].result==true){

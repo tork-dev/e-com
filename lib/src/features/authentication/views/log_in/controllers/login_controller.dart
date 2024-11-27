@@ -82,8 +82,7 @@ class LogInPageController extends GetxController {
       EventLogger().logLoginEvent('email and Password');
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
-      print('login error' + e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
       //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
@@ -92,7 +91,7 @@ class LogInPageController extends GetxController {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
           //await getUserDataByToken();
 
-          if (previousRoute == 'cart') {
+          if (previousRoute.value == 'cart') {
             final cartController = CartController.instance;
             EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
                 double.parse(Get.parameters['sale_price']!));
@@ -249,7 +248,7 @@ class LogInPageController extends GetxController {
         AppHelperFunctions.showToast(result.message!);
       }
     } on Exception catch (e) {
-      AppHelperFunctions.showSimpleSnackBar(e.toString());
+      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
       // TODO
     }
     return null;
@@ -274,7 +273,7 @@ class LogInPageController extends GetxController {
       );
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: e.toString());
+      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
       if (logInFormKey.currentState!.validate()) {
         if (sendOtpResponse.value.result == true) {
@@ -351,7 +350,7 @@ class LogInPageController extends GetxController {
       }
       AppHelperFunctions.showToast(loginResponse.value.message!);
     } on Exception catch (e) {
-      AppHelperFunctions.showSimpleSnackBar(e.toString());
+      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
       print("error is ....... $e");
       // TODO
     }
