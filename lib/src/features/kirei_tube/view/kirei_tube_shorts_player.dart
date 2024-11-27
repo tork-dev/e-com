@@ -23,21 +23,20 @@ class KireiTubeShortsPlayer extends StatelessWidget {
         title: const Text('Shorts'),
         backgroundColor: Colors.transparent,
       ),
-        body: AspectRatio(
-          aspectRatio: 9/16,
-          child: AppCardContainer(
-              child: Obx(() {
-                return controller.hittingApi.value
-                    ? ShimmerHelper().buildBasicShimmer(
-                        height: AppHelperFunctions.screenHeight())
-                    : controller.videoUrl.contains('facebook.com')
-                        ? WebViewWidget(
-                            controller: controller.webViewController!,
-                          )
-                        : YoutubePlayer(
-                            controller: controller.youtubeController.value!,
-                          );
-              })),
-        ));
+        body: AppCardContainer(
+          height: AppHelperFunctions.screenHeight(),
+            width: AppHelperFunctions.screenWidth(),
+            child: Obx(() {
+              return controller.hittingApi.value
+                  ? ShimmerHelper().buildBasicShimmer(
+                      height: AppHelperFunctions.screenHeight())
+                  : controller.videoUrl.contains('facebook.com')
+                      ? WebViewWidget(
+                          controller: controller.webViewController!,
+                        )
+                      : YoutubePlayer(
+                          controller: controller.youtubeController.value!,
+                        );
+            })));
   }
 }
