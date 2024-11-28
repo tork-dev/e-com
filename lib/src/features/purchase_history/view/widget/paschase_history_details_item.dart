@@ -34,15 +34,15 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                            '${detailsItemController.purchaseHistoryItemDetails.value.data![0].productName}'),
+                            '${detailsItemController.purchaseHistoryItemDetails.value.data![index].productName}'),
                         const Gap(AppSizes.sm),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                          Text('${detailsItemController.purchaseHistoryItemDetails.value.data![0].quantity} item',
+                          Text('${detailsItemController.purchaseHistoryItemDetails.value.data![index].quantity} item',
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            Text('${detailsItemController.purchaseHistoryItemDetails.value.data![0].price}',
+                            Text('${detailsItemController.purchaseHistoryItemDetails.value.data![index].price}',
                               style: Theme.of(context).textTheme.titleMedium!.apply(color: AppColors.primary),)
                           ],)
                       ],
