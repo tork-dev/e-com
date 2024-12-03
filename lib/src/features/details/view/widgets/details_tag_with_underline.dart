@@ -29,7 +29,7 @@ class AppDetailsTagUnderlineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomController = ConvexBottomNavController.instance;
+    final categoryPassingController = GetShopDataController.instance;
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
@@ -43,19 +43,14 @@ class AppDetailsTagUnderlineWidget extends StatelessWidget {
         ...List.generate(types.length, (index) {
           return InkWell(
             onTap: () {
-              final categoryPassingController = Get.put(GetShopDataController());
-              //final shopController = Get.put(ShopController());
               categoryPassingController.resetAll();
               if(title == 'Key Ingredients: '){
-                categoryPassingController.keyIngredients.value = types[index].slug!;
+                Get.offAllNamed('/shop?key_ingredients=${types[index].slug!}');
               }else if(title == 'Tags: '){
-                categoryPassingController.tag.value = types[index].slug!;
+                Get.offAllNamed('/shop?tag=${types[index].slug!}');
               }else if(title == 'Categories: '){
-                categoryPassingController.categories.value = types[index].slug;
+                Get.offAllNamed('/shop?category=${types[index].slug!}');
               }
-              categoryPassingController.getShopData();
-              Get.back();
-              bottomController.jumpToTab(1);
             },
             child: Text(
                 "${types[index].name!.substring(0, 1).toUpperCase()}${types[index].name!.substring(1)},  ",

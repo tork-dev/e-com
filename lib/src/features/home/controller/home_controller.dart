@@ -89,7 +89,7 @@ class HomeController extends GetxController {
     homeProductResponse.value = await HomeRepositories.getHomeProducts();
     fetchCarouselImages();
     // homeProductResponse.value.bestsellingProducts[0].id
-    AppLoggerHelper.debug(
+    Log.d(
         homeProductResponse.value.sliders![0].link.toString());
     hittingApi.value = false;
   }

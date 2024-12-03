@@ -134,7 +134,7 @@ class CartController extends GetxController {
         }
       }
 
-      AppLoggerHelper.info(cartIds.toString());
+      Log.i(cartIds.toString());
       EventLogger()
           .initialCheckoutEvent(productIds.toString(), cartItemTotalPrice.toString());
 

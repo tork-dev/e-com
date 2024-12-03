@@ -1,25 +1,25 @@
 import 'package:logger/logger.dart';
 
-class AppLoggerHelper {
+class Log {
   static final Logger _logger = Logger(
     printer: PrettyPrinter(),
     // Customize the log levels based on your needs
     level: Level.debug,
   );
 
-  static void debug(String message) {
+  static void d(String message) {
     _logger.d(message);
   }
 
-  static void info(String message) {
+  static void i(String message) {
     _logger.i(message);
   }
 
-  static void warning(String message) {
+  static void w(String message) {
     _logger.w(message);
   }
 
-  static void error(String message, [dynamic error]) {
+  static void e(String message, [dynamic error]) {
     _logger.e(message, error: error,  stackTrace: StackTrace.current);
   }
 }

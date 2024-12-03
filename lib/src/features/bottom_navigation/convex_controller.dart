@@ -50,24 +50,24 @@ class ConvexBottomNavController extends GetxController
     }
   }
 
-  void changePage(int index) {
-    pageIndex.value = index;
-    if (pageIndex.value == 2) {
-       cartController.onRefresh();
-    }
-    // if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null &&
-    //     pageIndex.value == 3) {
-    //   Get.offAll(() => const LogIn());
-    //   return;
-    // }
-    if(pageIndex.value != 1){
-      categoryController.resetAll();
-      return;
-    }
-    if(categoryController.isFromSearch.value == false && pageIndex.value ==1 ){
-      categoryController.getShopData();
-      return;
-    }
-  }
+  // void changePage(int index) {
+  //   pageIndex.value = index;
+  //   if (pageIndex.value == 2) {
+  //      cartController.onRefresh();
+  //   }
+  //   // if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null &&
+  //   //     pageIndex.value == 3) {
+  //   //   Get.offAll(() => const LogIn());
+  //   //   return;
+  //   // }
+  //   if(pageIndex.value != 1){
+  //     categoryController.resetAll();
+  //     return;
+  //   }
+  //   if(categoryController.isFromSearch.value == false && pageIndex.value ==1 ){
+  //     categoryController.getShopData();
+  //     return;
+  //   }
+  // }
 
 }

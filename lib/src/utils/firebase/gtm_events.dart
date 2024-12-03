@@ -106,7 +106,7 @@ class EventLogger {
   }
 
   void logAddToCartEvent(String itemId, dynamic itemPrice) async {
-    AppLoggerHelper.info(memberId.toString());
+    Log.i(memberId.toString());
     logEvent('add_to_cart', {
       'user_id': gaipUserId,
       'member': memberId,
@@ -262,7 +262,7 @@ class EventLogger {
 
 
   void logRemoveFromCartEvent(String itemId, dynamic itemPrice) async {
-    AppLoggerHelper.info(memberId.toString());
+    Log.i(memberId.toString());
     logEvent('remove_from_cart', {
       'user_id': gaipUserId,
       'member': memberId,

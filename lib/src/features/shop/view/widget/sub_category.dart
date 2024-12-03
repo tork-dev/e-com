@@ -22,8 +22,6 @@ class ShopSubCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GetShopDataController shopController = GetShopDataController.instance;
-    ConvexBottomNavController bottomNavController = ConvexBottomNavController.instance;
-    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.sm,
@@ -65,7 +63,7 @@ class ShopSubCategory extends StatelessWidget {
                               const Gap(AppSizes.xs),
                               Text(
                                 shopController.subCategoryResponse[index].name,
-                                style: Theme.of(context).textTheme.labelSmall,
+                                style: Theme.of(context).textTheme.labelSmall!.apply(color: AppColors.secondary),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ],

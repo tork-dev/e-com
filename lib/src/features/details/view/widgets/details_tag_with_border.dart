@@ -25,7 +25,7 @@ class AppDetailsTagBorderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomController = ConvexBottomNavController.instance;
+    final categoryPassingController = GetShopDataController.instance;
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
@@ -40,17 +40,12 @@ class AppDetailsTagBorderWidget extends StatelessWidget {
           final value = types[index];
           return InkWell(
             onTap: () {
-              //final shopController = Get.put(ShopController());
-              final categoryPassingController = Get.put(GetShopDataController());
               categoryPassingController.resetAll();
               if(title == 'Skin Types: '){
-                categoryPassingController.skinType.value = types[index].slug!;
+                Get.offAllNamed('shop?skin_type=${value.slug!}');
               }else if(title == 'Good For: '){
-                categoryPassingController.goodFor.value = types[index].slug!;
+                Get.offAllNamed('shop?good_for=${value.slug!}');
               }
-              categoryPassingController.getShopData();
-              Get.back();
-              bottomController.jumpToTab(1);
             },
             child: AppCardContainer(
               margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),

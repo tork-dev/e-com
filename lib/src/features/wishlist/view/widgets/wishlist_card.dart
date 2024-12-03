@@ -47,7 +47,7 @@ class AppWishListProductCard extends StatelessWidget {
                                         .value
                                         .data![index]
                                         .product!
-                                        .thumbnailImage!),
+                                        .thumbnailImage ?? ''),
                                 const Gap(AppSizes.sm),
                                 SizedBox(
                                   width: AppHelperFunctions.screenWidth() * .4,
@@ -91,9 +91,9 @@ class AppWishListProductCard extends StatelessWidget {
                                                             .data![index]
                                                             .product!
                                                             .preorderAvailable !=
-                                                        0
+                                                        1
                                                     ? 'Stock out'
-                                                    : 'Preorder Available',
+                                                    : 'Preorder',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!
@@ -113,7 +113,7 @@ class AppWishListProductCard extends StatelessWidget {
                                                                         index]
                                                                     .product!
                                                                     .preorderAvailable !=
-                                                                0
+                                                                1
                                                             ? AppColors.error
                                                             : AppColors
                                                                 .preorder),

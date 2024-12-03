@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
@@ -197,12 +198,14 @@ class GetShopDataController extends GetxController {
         await ShopRepositories().getFilteredProducts(queryString: queryString);
 
     // print(shopPageProduct.value.meta!.lastPage);
-    print('this is response: ${shopPageProduct.value.data!.length}');
-    print('this is last page: ${shopPageProduct.value.meta!.lastPage}');
+    Log.i('this is response: ${shopPageProduct.value.data!.length}');
+
+    Log.i('this is current page: ${shopPageProduct.value.meta!.currentPage}');
+    Log.i('this is last page: ${shopPageProduct.value.meta!.lastPage}');
 
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);
-      print('all products : ${allProducts.length}');
+      Log.i('all products : ${allProducts.length}');
     }
     hittingApi.value = false;
   }

@@ -74,7 +74,7 @@ class LogInPageController extends GetxController {
         passwordController.text.toString(),
         rememberMe.value,
       );
-      AppLoggerHelper.info(loginResponse.value.toString());
+      Log.i(loginResponse.value.toString());
 
       ///Save
       AppLocalStorage()

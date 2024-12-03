@@ -13,7 +13,7 @@ class KireiTubeRepositories {
   Future<KireiTubeHomeResponse> getKireiHome(String? searchName) async {
     final response = await http.get(Uri.parse('${AppApiEndPoints.kireiTubeHome}?search=$searchName'));
 
-    AppLoggerHelper.debug(response.body.toString());
+    Log.d(response.body.toString());
 
     if (response.statusCode == 200) {
       return KireiTubeHomeResponse.fromJson(response.body);
@@ -44,7 +44,7 @@ class KireiTubeRepositories {
     final response = await http
         .get(Uri.parse("${AppApiEndPoints.kireiTubeVideos}?$queryString"));
 
-    AppLoggerHelper.debug(response.body.toString());
+    Log.d(response.body.toString());
 
     if (response.statusCode == 200) {
       return KireiTubeVideosListResponse.fromJson(response.body);
@@ -71,7 +71,7 @@ class KireiTubeRepositories {
     final response = await http
         .get(Uri.parse("${AppApiEndPoints.kireiPlaylist}?$queryString"));
 
-    AppLoggerHelper.debug(response.body.toString());
+    Log.d(response.body.toString());
 
     if (response.statusCode == 200) {
       return KireiTubeVideosPlaylistResponse.fromJson(response.body);
@@ -84,7 +84,7 @@ class KireiTubeRepositories {
     final response = await http
         .get(Uri.parse('${AppApiEndPoints.kireiTubeVideos}/$videoSlug'));
 
-    AppLoggerHelper.debug(response.body.toString());
+    Log.d(response.body.toString());
 
     if (response.statusCode == 200) {
       return KireiTubeDetailsResponse.fromJson(response.body);
@@ -98,7 +98,7 @@ class KireiTubeRepositories {
     final response = await http.get(
         Uri.parse('${AppApiEndPoints.kireiPlaylistDetails}/$playlistSlug'));
 
-    AppLoggerHelper.debug(response.body.toString());
+    Log.d(response.body.toString());
 
     if (response.statusCode == 200) {
       return KireiTubePlaylistDetailsResponse.fromJson(response.body);

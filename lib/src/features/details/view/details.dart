@@ -76,7 +76,7 @@ class DetailsPage extends StatelessWidget {
         action: [
           InkWell(
             onTap: () {
-              Get.back();
+              Get.offAllNamed('/home');
             },
             child: const Icon(
               Icons.home_outlined,
@@ -86,8 +86,7 @@ class DetailsPage extends StatelessWidget {
           const Gap(AppSizes.sm),
           InkWell(
               onTap: () {
-                Get.back();
-                bottomController.jumpToTab(2);
+               Get.offAllNamed('/cart');
               },
               child: const Icon(Icons.shopping_bag_outlined,
                   color: AppColors.white)),
@@ -106,16 +105,22 @@ class DetailsPage extends StatelessWidget {
                 AppDividersStyle.fullFlatAppDivider,
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 const AppDetailsCategoriesPart(),
-                AppDetailsFullDescription(
-                  descriptionTitle: 'description',
-                  description:
-                      "${controller.productDetails.value.detailedProducts?.description}",
+                Obx( () {
+                    return AppDetailsFullDescription(
+                      descriptionTitle: 'description',
+                      description:
+                          "${controller.productDetails.value.detailedProducts?.description}",
+                    );
+                  }
                 ),
                 AppDividersStyle.fullFlatAppDivider,
-                AppDetailsFullDescription(
-                  descriptionTitle: 'guid',
-                  description:
-                      "${controller.productDetails.value.detailedProducts?.guide}",
+                Obx( () {
+                    return AppDetailsFullDescription(
+                      descriptionTitle: 'guide',
+                      description:
+                          "${controller.productDetails.value.detailedProducts?.guide}",
+                    );
+                  }
                 ),
                 AppDividersStyle.fullFlatAppDivider,
                 ReviewAndQuestion(
