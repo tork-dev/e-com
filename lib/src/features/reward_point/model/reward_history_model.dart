@@ -1,0 +1,107 @@
+import 'dart:convert';
+
+class RewardHistoryResponse {
+  List<Datum>? data;
+  bool? result;
+  int? status;
+
+  RewardHistoryResponse({
+    this.data,
+    this.result,
+    this.status,
+  });
+
+  factory RewardHistoryResponse.fromJson(String str) => RewardHistoryResponse.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory RewardHistoryResponse.fromMap(Map<String, dynamic> json) => RewardHistoryResponse(
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromMap(x))),
+    result: json["result"],
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
+    "result": result,
+    "status": status,
+  };
+}
+
+class Datum {
+  int? id;
+  dynamic orderId;
+  dynamic totalRewardPointEarned;
+  DateTime? date;
+  String? event;
+  String? source;
+  Details? details;
+
+  Datum({
+    this.id,
+    this.orderId,
+    this.totalRewardPointEarned,
+    this.date,
+    this.event,
+    this.details
+  });
+
+  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+    id: json["id"],
+    orderId: json["order_id"],
+    totalRewardPointEarned: json["total_reward_point_earned"],
+    date: json["date"] == null ? null : DateTime.parse(json["date"]),
+    event: json["event"],
+    details: json["details"] == null ? null : Details.fromMap(json["details"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id,
+    "order_id": orderId,
+    "total_reward_point_earned": totalRewardPointEarned,
+    "date": date,
+    "event": event,
+    "source": source,
+  };
+}
+
+class Details{
+  String? source;
+  int? orderId;
+  String? productName;
+  String? productSlug;
+  String? postTitle;
+
+  Details({
+    this.source,
+    this.orderId,
+    this.productName,
+    this.productSlug,
+    this.postTitle
+});
+
+  factory Details.fromJson(String str) => Details.fromMap(json.decode(str));
+  String toJson() => json.encode(toMap());
+
+
+  factory Details.fromMap(Map<String, dynamic> json) => Details(
+    source: json["source"],
+    orderId: json["order_id"],
+    productName: json["product_name"],
+    productSlug: json["product_slug"],
+    postTitle: json["post_title"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "source" : source,
+    "order_id": orderId,
+    "product_name" : productName,
+    "product_slug" : productSlug,
+    "post_title" : postTitle
+  };
+
+}
