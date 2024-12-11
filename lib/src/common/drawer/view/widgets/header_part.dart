@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import '../../../../features/personalization/view/account_details.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
@@ -26,6 +27,7 @@ class AppDrawerHeaderPart extends StatelessWidget {
             ? Column(
                 children: [
                   ListTile(
+                      onTap: () => Get.to(() => const AccountDetailsScreen()),
                       leading: CircleAvatar(
                         backgroundImage: userImage != null
                             ? NetworkImage(userImage) as ImageProvider

@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/drawer/view/widgets/drawer_bottom_button.dart';
+import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
@@ -48,9 +49,7 @@ class AppDrawer extends StatelessWidget {
       applyRadius: false,
       child: ListView(
         children: [
-          InkWell(
-              onTap: () => Get.to(() => const AccountDetailsScreen()),
-              child: const AppDrawerHeaderPart()),
+          const AppDrawerHeaderPart(),
           AppDrawerCard(
             title: 'HOME',
             onPress: () => Get.offAll(() => const HelloConvexAppBar()),
@@ -73,214 +72,186 @@ class AppDrawer extends StatelessWidget {
               }
             },
           ),
-          Obx(() {
-            return ExpansionTile(
-              collapsedShape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
-                side: BorderSide.none,
-              ),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
-                side: BorderSide.none,
-              ),
-              iconColor: AppColors.white,
-              collapsedIconColor: AppColors.white,
-              backgroundColor: AppColors.white.withOpacity(.05),
-              title: Row(
-                children: [
-                  Text("Categories".toUpperCase(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .apply(color: AppColors.light)),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  Stack(
-                    children: [
-                      Transform.rotate(
-                        angle: pi / 5,
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          height: 15,
-                          width: 15,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: Colors.pinkAccent,
+          Obx((){
+            return AppListViewLayout(
+              itemCount: drawerController.allCategories.length,
+              applyPadding: false,
+              builderFunction: (context, index) => ExpansionTile(
+                collapsedShape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                  side: BorderSide.none,
+                ),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                  side: BorderSide.none,
+                ),
+                iconColor: AppColors.white,
+                collapsedIconColor: AppColors.white,
+                backgroundColor: AppColors.white.withOpacity(.05),
+                title: Text(drawerController.allCategories[index].name ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .apply(color: AppColors.light)),
+                children:
+                    drawerController.allCategories[index].children!.asMap().entries.map((entry) {
+                  final category = entry.value;
+                  return category.children != null &&
+                          category.children!.isNotEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: ExpansionTile(
+                            backgroundColor: AppColors.white.withOpacity(.09),
+                            iconColor: AppColors.white,
+                            collapsedIconColor: AppColors.white,
+                            collapsedShape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                              side: BorderSide.none,
+                            ),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                              side: BorderSide.none,
+                            ),
+                            title: GestureDetector(
+                                onTap: () {
+                                  shopController.resetAll();
+                                  if (isFromOtherPage) {
+                                    Get.to(() => const HelloConvexAppBar(
+                                          pageIndex: 1,
+                                        ));
+                                  }
+                                  shopController.updateCategory(category.slug!);
+                                  bottomController.jumpToTab(1);
+                                  if (bottomController.pageIndex.value == 1) {
+                                    Get.back();
+                                  }
+                                },
+                                child: Text(
+                                  category.counts != null
+                                      ? '${category.name!} (${category.counts})'
+                                      : '${category.name}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .apply(color: AppColors.light),
+                                )),
+                            // children: category.children!
+                            //     .asMap()
+                            //     .entries
+                            //     .map((childEntry) {
+                            //   final child = childEntry.value;
+                            //   return Padding(
+                            //     padding: const EdgeInsets.only(left: 16),
+                            //     child: child != null
+                            //         ? ExpansionTile(
+                            //             backgroundColor:
+                            //                 AppColors.white.withOpacity(.1),
+                            //             iconColor: AppColors.white,
+                            //             collapsedIconColor: AppColors.white,
+                            //             collapsedShape:
+                            //                 const RoundedRectangleBorder(
+                            //               borderRadius: BorderRadius.zero,
+                            //               side: BorderSide.none,
+                            //             ),
+                            //             shape: const RoundedRectangleBorder(
+                            //               borderRadius: BorderRadius.zero,
+                            //               side: BorderSide.none,
+                            //             ),
+                            //             title: Text(child.name!,
+                            //                 style: Theme.of(context)
+                            //                     .textTheme
+                            //                     .bodyLarge!
+                            //                     .apply(color: AppColors.light)),
+                            //             children:
+                            //                 child((children) {
+                            //               return Padding(
+                            //                   padding: const EdgeInsets.only(
+                            //                       left: 16),
+                            //                   child: AppDrawerCard(
+                            //                     onPress: () {
+                            //                       shopController.resetAll();
+                            //                       if (child.name ==
+                            //                           'By Category') {
+                            //                         shopController
+                            //                             .updateCategory(
+                            //                                 children.slug ??
+                            //                                     '');
+                            //                       } else if (child.name ==
+                            //                           'By Skin Concern') {
+                            //                         shopController
+                            //                                 .goodFor.value =
+                            //                             children.slug ?? '';
+                            //                       } else if (child.name ==
+                            //                           'By Brand') {
+                            //                         shopController.brand.value =
+                            //                             children.slug ?? '';
+                            //                         print(children.slug);
+                            //                       } else {
+                            //                         shopController
+                            //                                 .skinType.value =
+                            //                             children.slug ?? '';
+                            //                       }
+                            //                       bottomController.jumpToTab(1);
+                            //                       if (bottomController
+                            //                               .pageIndex.value ==
+                            //                           1) {
+                            //                         Get.back();
+                            //                       }
+                            //                     },
+                            //                     title: children.counts != null
+                            //                         ? '${children.name!} (${children.counts})'
+                            //                         : '${children.name}',
+                            //                   ));
+                            //             }).toList(),
+                            //           )
+                            //         : AppDrawerCard(
+                            //             onPress: () {
+                            //               print('print value');
+                            //               shopController.resetAll();
+                            //               if (isFromOtherPage) {
+                            //                 Get.to(
+                            //                     () => const HelloConvexAppBar(
+                            //                           pageIndex: 1,
+                            //                         ));
+                            //               }
+                            //               shopController
+                            //                   .updateCategory(child.slug!);
+                            //               bottomController.jumpToTab(1);
+                            //               if (bottomController
+                            //                       .pageIndex.value ==
+                            //                   1) {
+                            //                 Get.back();
+                            //               }
+                            //             },
+                            //             title: child.counts != null
+                            //                 ? "${child.name} (${child.counts})"
+                            //                 : "${child.name}",
+                            //           ),
+                            //   );
+                            // }).toList(),
                           ),
-                        ),
-                      ),
-                      Container(
-                        height: 22,
-                        width: 45,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.pinkAccent,
-                            borderRadius: BorderRadius.circular(2)),
-                        child: const Text(
-                          "New!",
-                          style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: AppDrawerCard(
+                            title: category.name!,
+                            onPress: () {
+                              shopController.resetAll();
+                              if (isFromOtherPage) {
+                                Get.to(() => const HelloConvexAppBar(
+                                      pageIndex: 1,
+                                    ));
+                              }
+                              shopController.updateCategory(category.slug!);
+                              bottomController.jumpToTab(1);
+                              if (bottomController.pageIndex.value == 1) {
+                                Get.back();
+                              }
+                            },
+                          ),
+                        );
+                }).toList(),
               ),
-              children:
-                  drawerController.allCategories.asMap().entries.map((entry) {
-                final category = entry.value;
-                return category.children != null &&
-                        category.children!.isNotEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: ExpansionTile(
-                          backgroundColor: AppColors.white.withOpacity(.09),
-                          iconColor: AppColors.white,
-                          collapsedIconColor: AppColors.white,
-                          collapsedShape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero,
-                            side: BorderSide.none,
-                          ),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero,
-                            side: BorderSide.none,
-                          ),
-                          title: GestureDetector(
-                              onTap: () {
-                                shopController.resetAll();
-                                if (isFromOtherPage) {
-                                  Get.to(() => const HelloConvexAppBar(
-                                        pageIndex: 1,
-                                      ));
-                                }
-                                shopController.updateCategory(category.slug!);
-                                bottomController.jumpToTab(1);
-                                if (bottomController.pageIndex.value == 1) {
-                                  Get.back();
-                                }
-                              },
-                              child: Text(
-                                category.counts != null
-                                    ? '${category.name!} (${category.counts})'
-                                    : '${category.name}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .apply(color: AppColors.light),
-                              )),
-                          children: category.children!
-                              .asMap()
-                              .entries
-                              .map((childEntry) {
-                            final child = childEntry.value;
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 16),
-                              child: child.children!.isNotEmpty
-                                  ? ExpansionTile(
-                                      backgroundColor:
-                                          AppColors.white.withOpacity(.1),
-                                      iconColor: AppColors.white,
-                                      collapsedIconColor: AppColors.white,
-                                      collapsedShape:
-                                          const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        side: BorderSide.none,
-                                      ),
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        side: BorderSide.none,
-                                      ),
-                                      title: Text(child.name!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .apply(color: AppColors.light)),
-                                      children: child.children!.map((children) {
-                                        return Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 16),
-                                            child: AppDrawerCard(
-                                              onPress: () {
-                                                shopController.resetAll();
-                                                if (child.name ==
-                                                    'By Category') {
-                                                  shopController.updateCategory(
-                                                      children.slug ?? '');
-                                                } else if (child.name ==
-                                                    'By Skin Concern') {
-                                                  shopController.goodFor.value =
-                                                      children.slug ?? '';
-                                                } else if (child.name ==
-                                                    'By Brand') {
-                                                  shopController.brand.value =
-                                                      children.slug ?? '';
-                                                  print(children.slug);
-                                                } else {
-                                                  shopController
-                                                          .skinType.value =
-                                                      children.slug ?? '';
-                                                }
-                                                bottomController.jumpToTab(1);
-                                                if (bottomController
-                                                        .pageIndex.value ==
-                                                    1) {
-                                                  Get.back();
-                                                }
-                                              },
-                                              title: children.counts != null
-                                                  ? '${children.name!} (${children.counts})'
-                                                  : '${children.name}',
-                                            ));
-                                      }).toList(),
-                                    )
-                                  : AppDrawerCard(
-                                      onPress: () {
-                                        print('print value');
-                                        shopController.resetAll();
-                                        if (isFromOtherPage) {
-                                          Get.to(() => const HelloConvexAppBar(
-                                                pageIndex: 1,
-                                              ));
-                                        }
-                                        shopController
-                                            .updateCategory(child.slug!);
-                                        bottomController.jumpToTab(1);
-                                        if (bottomController.pageIndex.value ==
-                                            1) {
-                                          Get.back();
-                                        }
-                                      },
-                                      title: child.counts != null
-                                          ? "${child.name} (${child.counts})"
-                                          : "${child.name}",
-                                    ),
-                            );
-                          }).toList(),
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: AppDrawerCard(
-                          title: category.name!,
-                          onPress: () {
-                            shopController.resetAll();
-                            if (isFromOtherPage) {
-                              Get.to(() => const HelloConvexAppBar(
-                                    pageIndex: 1,
-                                  ));
-                            }
-                            shopController.updateCategory(category.slug!);
-                            bottomController.jumpToTab(1);
-                            if (bottomController.pageIndex.value == 1) {
-                              Get.back();
-                            }
-                          },
-                        ),
-                      );
-              }).toList(),
             );
           }),
           AppDrawerCard(
