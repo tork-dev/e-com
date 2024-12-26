@@ -14,6 +14,7 @@ import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
+import '../../../notification/view/notification_screen.dart';
 import 'details_card.dart';
 
 class DetailsCardPart extends StatelessWidget {
@@ -48,10 +49,10 @@ class DetailsCardPart extends StatelessWidget {
             cardText: 'My Rewards',
               onTap: ()=> Get.to(()=> const RewardScreen())),
         const Gap(AppSizes.spaceBtwDefaultItems),
-        // DetailsCard(
-        //     cardText: 'Kirei Youtube',
-        //     onTap: ()=> Get.to(()=> const KireiTubeScreen())),
-        // const Gap(AppSizes.spaceBtwDefaultItems),
+        DetailsCard(
+            cardText: 'Notification',
+            onTap: ()=> Get.to(()=> const NotificationScreen())),
+        const Gap(AppSizes.spaceBtwDefaultItems),
       ],
     );
   }

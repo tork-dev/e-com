@@ -106,7 +106,7 @@ class AppDrawer extends StatelessWidget {
                           }
                         },
                         child: Text(
-                            drawerController.allCategories[index].name ?? '',
+                            drawerController.allCategories[index].name!.toUpperCase() ?? '',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -293,7 +293,7 @@ class AppDrawer extends StatelessWidget {
                       }).toList(),
                     )
                   : AppDrawerCard(
-                      title: drawerController.allCategories[index].name!,
+                      title: drawerController.allCategories[index].name!.toUpperCase(),
                       onPress: () {
                         shopController.updateCategory(
                             drawerController.allCategories[index].slug!);
