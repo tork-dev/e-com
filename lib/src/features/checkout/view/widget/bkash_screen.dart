@@ -63,7 +63,7 @@ class _BkashScreenState extends State<BkashScreen> {
         print('working');
         Get.offAll(()=> const HelloConvexAppBar());
         },
-        padding: AppSizes.defaultSpace,
+        padding: 0,
         body: buildBody());
   }
 

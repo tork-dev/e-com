@@ -538,6 +538,32 @@ class AppHelperFunctions {
     Future.delayed(const Duration(microseconds: 300), () => function);
   }
 
+
+  static String formatTimestampWithAgo(DateTime? dateAndTime) {
+    DateTime now = DateTime.now();
+    DateTime dateTime = (dateAndTime ?? now);
+    Duration difference = now.difference(dateTime);
+
+    if (difference.inDays >= 7) {
+      int weeks = (difference.inDays / 7).floor();
+      return weeks == 1 ? '1 week ago' : '$weeks weeks ago';
+    } else if (difference.inDays >= 1) {
+      return difference.inDays == 1
+          ? '1 day ago'
+          : '${difference.inDays} days ago';
+    } else if (difference.inHours >= 1) {
+      return difference.inHours == 1
+          ? '1 hour ago'
+          : '${difference.inHours} hours ago';
+    } else if (difference.inMinutes >= 1) {
+      return difference.inMinutes == 1
+          ? '1 minute ago'
+          : '${difference.inMinutes} minutes ago';
+    } else {
+      return 'Just now';
+    }
+  }
+
   static getAndroidDeviceInfo() async {
     final String version =
         AppLocalStorage().readData(LocalStorageKeys.appVersion);

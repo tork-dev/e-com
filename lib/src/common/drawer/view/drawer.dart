@@ -92,6 +92,9 @@ class AppDrawer extends StatelessWidget {
                       backgroundColor: AppColors.white.withOpacity(.05),
                       title: InkWell(
                         onTap: () {
+                          if(drawerController.allCategories[index].name!.toUpperCase() == "J-BEAUTY"){
+                            return;
+                          }
                           shopController.resetAll();
                           if (isFromOtherPage) {
                             Get.to(() => const HelloConvexAppBar(

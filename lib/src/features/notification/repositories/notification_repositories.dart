@@ -17,4 +17,13 @@ class NotificationRepo {
     });
     return UserNotificationResponse.fromJson(response.body);
   }
+
+  Future<UserNotificationResponse> getNotificationDetails(int notificationId) async {
+    final response = await http
+        .get(Uri.parse("${AppApiEndPoints.userNotificationList}/$notificationId"), headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $accessToken",
+    });
+    return UserNotificationResponse.fromJson(response.body);
+  }
 }

@@ -67,7 +67,7 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
   @override
   Widget build(BuildContext context) {
     return AppLayoutWithBackButton(
-        padding: AppSizes.defaultSpace,
+        padding: 0,
         title: const Text(
           'Pay with Sslcommerz',
           style: TextStyle(color: AppColors.primary),

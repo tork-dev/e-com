@@ -24,6 +24,7 @@ class AppCheckoutOrderProductsCard extends StatelessWidget {
         itemCount: productsList.length,
         builderFunction: (context, index) {
           return AppCardContainer(
+            height: 100,
               applyRadius: false,
               padding: const EdgeInsets.all(AppSizes.md),
               backgroundColor: AppColors.white,

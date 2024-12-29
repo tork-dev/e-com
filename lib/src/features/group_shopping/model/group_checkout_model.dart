@@ -3,7 +3,7 @@ import 'dart:convert';
 class GroupShoppingCheckoutResponse {
   bool? result;
   String? message;
-  dynamic data;
+  Data? data;
 
   GroupShoppingCheckoutResponse({
     this.result,
@@ -18,12 +18,32 @@ class GroupShoppingCheckoutResponse {
   factory GroupShoppingCheckoutResponse.fromMap(Map<String, dynamic> json) => GroupShoppingCheckoutResponse(
     result: json["result"],
     message: json["message"],
-    data: json["data"],
+    data: json["data"] == null ? null : Data.fromMap(json["data"]),
   );
 
   Map<String, dynamic> toMap() => {
     "result": result,
     "message": message,
-    "data": data,
+    "data": data?.toMap(),
+  };
+}
+
+class Data {
+  String? paymentUrl;
+
+  Data({
+    this.paymentUrl,
+  });
+
+  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Data.fromMap(Map<String, dynamic> json) => Data(
+    paymentUrl: json["payment_url"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "payment_url": paymentUrl,
   };
 }

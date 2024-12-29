@@ -2,8 +2,11 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/notification/model/user_notification_response.dart';
 import 'package:kirei/src/features/notification/repositories/notification_repositories.dart';
 
-class NotificationController extends GetxController{
-  static NotificationController get instance => Get.find();
+class NotificationDetailsController extends GetxController{
+  static NotificationDetailsController get instance => Get.find();
+
+  final int notificationId;
+  NotificationDetailsController({required this.notificationId});
 
   RxBool hittingApi = false.obs;
   Rx<UserNotificationResponse> notificationList = UserNotificationResponse().obs;
@@ -16,13 +19,12 @@ class NotificationController extends GetxController{
   }
 
   Future <void> onRefresh() async{
-    getNotificationList();
+    getNotificationDetails();
   }
 
-  Future<void> getNotificationList() async{
+  Future<void> getNotificationDetails() async{
     hittingApi.value = true;
-    notificationList.value = await NotificationRepo().getNotificationList();
+    notificationList.value = await NotificationRepo().getNotificationDetails(notificationId);
     hittingApi.value = false;
   }
-
 }

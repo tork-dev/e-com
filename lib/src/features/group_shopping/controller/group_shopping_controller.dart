@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/checkout/view/widget/bkash_screen.dart';
 import 'package:kirei/src/features/group_shopping/model/group_shopping_products_model.dart';
 import 'package:kirei/src/features/group_shopping/repositories/group_shopping_repositories.dart';
 import '../../../utils/constants/app_api_end_points.dart';
@@ -9,6 +10,7 @@ import '../../address/model/address_city_model.dart';
 import '../../address/model/area_response.dart';
 import '../../address/model/zone_response.dart';
 import '../../address/repositories/address_repositories.dart';
+import '../../checkout/view/widget/ssl_screen.dart';
 import '../model/group_checkout_model.dart';
 import '../model/group_shopping_groups.dart';
 
@@ -119,6 +121,12 @@ class GroupShoppingController extends GetxController {
         selectedAreaId.value,
         noteController.text.toString());
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
+
+    if(selectedPaymentMethod.value == "ssl"){
+      Get.to(()=> SslCommerzScreen(sslInitialUrl: checkoutResponse.value.data!.paymentUrl!, orderId: 520,));
+    }else{
+      Get.to(()=> BkashScreen(bkashInitialUrl: checkoutResponse.value.data!.paymentUrl!, orderId: 520,));
+    }
   }
 
   // Method to start the countdown

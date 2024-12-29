@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/features/notification/controller/notification_details_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
 class NotificationDetails extends StatelessWidget {
-  const NotificationDetails({super.key});
+  final int notificationId;
+  const NotificationDetails({super.key, required this.notificationId});
 
   @override
   Widget build(BuildContext context) {
+    final detailsController = Get.put(NotificationDetailsController(notificationId: notificationId));
     return AppLayoutWithBackButton(
       title: const Text('Notification Details'),
         body: ListView(

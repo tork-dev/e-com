@@ -153,6 +153,7 @@ class CartController extends GetxController {
       if (checkoutCartUpdateResponse.value.result == false) {
         AppHelperFunctions.showToast(checkoutCartUpdateResponse.value.message!);
       } else {
+        Log.i('All products: $allCartProducts');
         Get.to(() => CheckoutScreen(
               allProductResponse: allCartProducts,
               productIdsString: productIdsString,
