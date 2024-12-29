@@ -14,11 +14,9 @@ class AppApiEndPoints {
   static String socialSignIn = "$baseUrl/auth/social-login";
   static String socialLogOut = "$baseUrl/auth/logout";
   static String socialOption = "$baseUrl/activated-social-login";
-
   static String signUp = "$baseUrl/auth/signup";
   static String signupOtp = "$baseUrl/send-signup-otp";
   static String verifySignUpOtp = "$baseUrl/verify-signup-otp";
-
   static String forgetPasswordOtpSend = "$baseUrl/send-reset-otp";
   static String forgetConfirmPassword = "$baseUrl/verify-reset-otp";
   static String passwordConfirmReset = "$baseUrl/auth/password/confirm_reset";
@@ -38,12 +36,14 @@ class AppApiEndPoints {
   static String shopSkinTypes = "$baseUrl/skin-types";
   static String subCategory = "$baseUrl/sub-categories";
 
+
   ///Details
   static String productDetails = "$baseUrl/products/details/";
   static String relatedProduct = "$baseUrl/gigalogy/related-products/";
   static String recommendedProduct = "$baseUrl/gigalogy/users/search/recommend?gaip_user_id=";
   static String recommendedProductForUser = "$baseUrl/gigalogy/users/recommend?gaip_user_id=";
   static String trendingProduct = "$baseUrl/gigalogy/items/trending?gaip_user_id=";
+
 
   ///Carts
   static String addToCart = "$baseUrl/carts/add";
@@ -53,6 +53,7 @@ class AppApiEndPoints {
   static String proceedToCheckout = "$baseUrl/carts/process";
   static String requestStock = "$baseUrl/add-product-request/";
 
+
   ///Checkout
   static String checkoutSummary = "$baseUrl/cart-summary";
   static String paymentTypes = "$baseUrl/payment-types";
@@ -60,21 +61,25 @@ class AppApiEndPoints {
   static String couponRemove = "$baseUrl/coupon-remove";
   static String placeOrder = "$baseUrl/credential/order-store/v2";
 
+
   ///Purchase History
   static String purchaseHistory = "$baseUrl/purchase-history";
   static String purchaseHistoryDetails = "$baseUrl/purchase-history-details";
   static String purchaseHistoryItem = "$baseUrl/purchase-history-items";
   static String reOrder = "$baseUrl/reorder";
 
+
   ///Update Profile info
   static String updateProfile = "$baseUrl/profile/update";
   static String updateProfileImage = "$baseUrl/profile/update-image";
+
 
   ///Wishlist
   static String wishlistProducts = "$baseUrl/wishlists";
   static String addWishlistProduct = "$baseUrl/wishlists-add-product?product_id=";
   static String removeWishlistProduct = "$baseUrl/wishlists-remove-product?product_id=";
   static String checkWishlistProduct = "$baseUrl/wishlists-check-product?product_id=";
+
 
   ///Address
   static String shippingAddress = "$baseUrl/user/shipping/address";
@@ -84,9 +89,11 @@ class AppApiEndPoints {
   static String areaAddresses  = "$baseUrl/areas-by-zone";
   static String changeOrderAddresses  = "$baseUrl/order/shipping-update/";
 
+
   ///Product Review
   static String productReview = "$baseUrl/reviews/product";
   static String submitReview = "$baseUrl/reviews/submit";
+
 
   ///Product Questions
   static String productQuestions = "$baseUrl/product-questions/";
@@ -141,6 +148,8 @@ class AppApiEndPoints {
   static String createGroup = "$baseUrl/groups/store";
   static String joinGroup = "$baseUrl/groups/join";
 
+  /// User Notification
+  static String userNotificationList = "$baseUrl/user-notifications";
 
   ///Gigalogy
   static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
@@ -148,5 +157,8 @@ class AppApiEndPoints {
   static String purchaseEvent = "$gialogyBaseUrl/items/purchase";
   static String userChoosingEvent = "$gialogyBaseUrl/items/rating";
   static String userDataEvent= "$gialogyBaseUrl/users";
+
+
+
 
 }
