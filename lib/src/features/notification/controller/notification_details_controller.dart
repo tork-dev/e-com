@@ -9,7 +9,7 @@ class NotificationDetailsController extends GetxController{
   NotificationDetailsController({required this.notificationId});
 
   RxBool hittingApi = false.obs;
-  Rx<UserNotificationResponse> notificationList = UserNotificationResponse().obs;
+  Rx<UserNotificationResponse> userNotification = UserNotificationResponse().obs;
 
 
   @override
@@ -24,7 +24,7 @@ class NotificationDetailsController extends GetxController{
 
   Future<void> getNotificationDetails() async{
     hittingApi.value = true;
-    notificationList.value = await NotificationRepo().getNotificationDetails(notificationId);
+    userNotification.value = await NotificationRepo().getNotificationDetails(notificationId);
     hittingApi.value = false;
   }
 }
