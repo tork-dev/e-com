@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
@@ -14,6 +12,7 @@ import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import '../../../../utils/constants/app_api_end_points.dart';
 import '../../../../utils/constants/colors.dart';
 
@@ -83,37 +82,74 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
                                   isNetworkImage: true,
                                   applyImageRadius: false,
                                 ),
+
                                 AppCardContainer(
+                                  width: 140,
                                   applyRadius: false,
                                   backgroundColor:
                                   const Color(0xffE4F7E8),
-                                  padding: const EdgeInsets.all(
-                                      AppSizes.xs),
-                                  child:   Obx(() {
-                                    groupShoppingController.startCountdown(
-                                        groupShoppingController
-                                            .endTime.value =
-                                        groupShoppingController
-                                            .groupShoppingGroup
-                                            .value
-                                            .popular![index]
-                                            .expiredAt!);
-                                    return RichText(
-                                      text: TextSpan(
-                                        text: 'Duration: ',
-                                        style: const TextStyle(fontSize: 8, color: AppColors.secondary),
-                                        children: [
-                                          TextSpan(
-                                            text: groupShoppingController.remainingTime.value,
-                                            style: const TextStyle(
-                                                color: AppColors.primary,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
+                                  // padding: const EdgeInsets.all(
+                                  //     AppSizes.xs),
+                                  child:  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text("Duration: ", style: TextStyle(color: AppColors.primary, fontSize: 10, fontWeight: FontWeight.bold),),
+                                      SlideCountdown(
+                                        duration: Duration(days: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.day, hours: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.hour, minutes: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.minute, seconds: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.second),
+                                        decoration: const BoxDecoration(color: Colors.transparent,),
+                                        durationTitle: const DurationTitle(days: "d : ", hours: "h : ", minutes: "m : ", seconds: "s"),
+                                        separatorPadding: EdgeInsets.zero,
+                                        separatorType: SeparatorType.title,
+                                        style: const TextStyle(color: AppColors.primary, fontSize: 10),
+                                        separatorStyle: const TextStyle(color: AppColors.primary),
+                                        padding: EdgeInsets.zero,
+                                        shouldShowMinutes: (duration) => duration.inDays == 0,
+
                                       ),
-                                    );
-                                  }),
-                                )
+                                    ],
+                                  )
+                                ),
+
+                                // AppCardContainer(
+                                //   applyRadius: false,
+                                //   backgroundColor:
+                                //       const Color(0xffE4F7E8),
+                                //   padding: const EdgeInsets.all(
+                                //       AppSizes.xs),
+                                //   child: Obx(() {
+                                //     groupShoppingController.startCountdown(
+                                //     groupShoppingController
+                                //             .endTime.value =
+                                //         groupShoppingController
+                                //             .groupShoppingGroup
+                                //             .value
+                                //             .justCreated![index]
+                                //             .expiredAt!);
+                                //     return RichText(
+                                //       text: TextSpan(
+                                //         text: 'Duration: ',
+                                //         style: const TextStyle(
+                                //             fontSize: 8,
+                                //             color:
+                                //                 AppColors.secondary),
+                                //         children: [
+                                //           TextSpan(
+                                //             text:
+                                //                 groupShoppingController
+                                //                     .remainingTime
+                                //                     .value,
+                                //             style: const TextStyle(
+                                //                 color:
+                                //                     AppColors.primary,
+                                //                 fontWeight:
+                                //                     FontWeight.bold),
+                                //           ),
+                                //         ],
+                                //       ),
+                                //     );
+                                //   }),
+                                // )
                               ],
                             ),
                             const Gap(AppSizes.spaceBtwDefaultItems),
