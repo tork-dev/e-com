@@ -80,7 +80,7 @@ class NotificationScreen extends StatelessWidget {
                               Text(
                                   AppHelperFunctions.formatTimestampWithAgo(
                                       controller.notificationList.value.data!
-                                          .data![index].updatedAt),
+                                          .data![index].createdAt),
                                   style:
                                       Theme.of(context).textTheme.labelMedium),
                             ],

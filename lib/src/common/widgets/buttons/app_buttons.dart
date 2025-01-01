@@ -66,7 +66,7 @@ class AppButtons {
             borderRadius: BorderRadius.circular(buttonRadius),
           ),
           minimumSize:  Size(buttonWidth, 0),
-          maximumSize: Size(AppHelperFunctions.screenWidth(), 58),
+          maximumSize: Size(buttonWidth, 58),
           padding: EdgeInsets.symmetric(vertical: verticallyPadding, horizontal: horizontalPadding),
           backgroundColor: backgroundColor,
         ),

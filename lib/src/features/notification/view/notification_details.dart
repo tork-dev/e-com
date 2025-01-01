@@ -1,10 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/notification/controller/notification_details_controller.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
 
 import '../../../utils/helpers/helper_functions.dart';
@@ -44,9 +49,38 @@ class NotificationDetails extends StatelessWidget {
                     Text(
                       AppHelperFunctions.formatTimestampWithAgo(
                           detailsController
-                              .userNotification.value.data!.data![0].updatedAt),
+                              .userNotification.value.data!.data![0].createdAt),
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
+
+                    const Gap(AppSizes.appBarHeight),
+
+                    Visibility(
+                      visible: detailsController.userNotification.value.data?.data?[0].route != null,
+
+                      child: AppCardContainer(
+                        onTap: ()=>  RoutingHelper.urlRouting(detailsController.userNotification.value.data?.data?[0].route),
+                        backgroundColor: AppColors.primary,
+                        width: 150,
+                        applyRadius: false,
+                        padding: const EdgeInsets.symmetric(vertical: AppSizes.sm, horizontal: AppSizes.spaceBtwItems),
+                        child:  Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(detailsController.userNotification.value.data?.data?[0].btnName ?? 'View details ', style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.white),),
+                            const Icon(Icons.arrow_forward, size: 18, color: AppColors.white,)
+                          ],
+                        )
+                      ),
+
+                      // child: TextButton(onPressed: (){
+                      //   RoutingHelper.urlRouting(detailsController.userNotification.value.data?.data?[0].route);
+                      // }, child:
+
+                      // ),
+                    )
                   ],
                 );
         }));

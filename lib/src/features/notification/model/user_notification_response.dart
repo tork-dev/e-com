@@ -102,6 +102,9 @@ class UserNotification {
   String? title;
   String? description;
   dynamic type;
+  String? image;
+  String? route;
+  String? btnName;
   dynamic seenAt;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -112,6 +115,9 @@ class UserNotification {
     this.title,
     this.description,
     this.type,
+    this.image,
+    this.route,
+    this.btnName,
     this.seenAt,
     this.createdAt,
     this.updatedAt,
@@ -127,6 +133,9 @@ class UserNotification {
     title: json["title"],
     description: json["description"],
     type: json["type"],
+    image: json["image"],
+    route: json["route"],
+    btnName: json["btn_name"],
     seenAt: json["seen_at"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
