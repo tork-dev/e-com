@@ -32,7 +32,7 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
           ),
           const Gap(AppSizes.spaceBtwDefaultItems),
           Obx(() {
-            return !groupShoppingController.hittingApi.value &&
+            return !groupShoppingController.hittingGroupApi.value &&
                     groupShoppingController
                         .groupShoppingGroup.value.justCreated!.isEmpty
                 ? Center(
@@ -48,13 +48,13 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                 : SizedBox(
                     height: 375,
                     child: AppListViewLayout(
-                        itemCount: groupShoppingController.hittingApi.value
+                        itemCount: groupShoppingController.hittingGroupApi.value
                             ? 5
                             : groupShoppingController
                                 .groupShoppingGroup.value.justCreated!.length,
                         isScrollVertically: false,
                         builderFunction: (context, index) {
-                          return groupShoppingController.hittingApi.value
+                          return groupShoppingController.hittingGroupApi.value
                               ? ShimmerHelper()
                                   .buildBasicShimmer(width: 200, height: 200)
                               : AppCardContainer(
