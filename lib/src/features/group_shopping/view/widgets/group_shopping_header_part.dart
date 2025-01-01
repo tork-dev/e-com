@@ -12,10 +12,6 @@ import 'package:kirei/src/features/group_shopping/view/widgets/group_checkout_al
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
-
-import '../../../../common/widgets/containers/course_title_container.dart';
-import '../../../../common/widgets/containers/product_image.dart';
-import '../../../../common/widgets/containers/vertical_product_card.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -78,7 +74,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                         [];
                     final pageCount = (products.length / 2).ceil();
 
-                    return groupShoppingController.hittingApi.value
+                    return groupShoppingController.hittingProductApi.value
                         ? ShimmerHelper().buildBasicShimmer(
                             height: 300,
                           )
@@ -404,7 +400,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                         [];
                     final pageCount = (products.length / 2).ceil();
 
-                    return groupShoppingController.hittingApi.value
+                    return groupShoppingController.hittingProductApi.value
                         ? ShimmerHelper().buildBasicShimmer(height: 10)
                         : SmoothPageIndicator(
                             controller: pageController,
