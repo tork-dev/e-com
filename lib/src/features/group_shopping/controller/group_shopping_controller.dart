@@ -17,7 +17,8 @@ import '../model/group_shopping_groups.dart';
 class GroupShoppingController extends GetxController {
   static GroupShoppingController get instance => Get.find();
 
-  RxBool hittingApi = false.obs;
+  RxBool hittingGroupApi = false.obs;
+  RxBool hittingProductApi = false.obs;
 
   Rx<GroupShoppingProductsResponse> groupShoppingProduct =
       GroupShoppingProductsResponse().obs;
@@ -58,6 +59,7 @@ class GroupShoppingController extends GetxController {
   Future<void> onRefresh() async {
     print('refresh');
     getProducts();
+    getGroups();
   }
 
   void scrollToBottom() {
@@ -69,12 +71,17 @@ class GroupShoppingController extends GetxController {
   }
 
   Future<void> getProducts() async {
-    hittingApi.value = true;
+    hittingProductApi.value = true;
     groupShoppingProduct.value =
     await GroupShoppingRepo().getGroupShoppingProducts();
+    hittingProductApi.value = false;
+  }
+
+  Future<void> getGroups() async{
+    hittingGroupApi.value = true;
     groupShoppingGroup.value =
     await GroupShoppingRepo().getGroupShoppingGroups();
-    hittingApi.value = false;
+    hittingGroupApi.value = false;
   }
 
   Future<CityResponse> getCityList() async {
