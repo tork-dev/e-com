@@ -10,6 +10,7 @@ import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
 import 'package:kirei/src/features/group_shopping/controller/group_shopping_controller.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:slide_countdown/slide_countdown.dart';
@@ -36,7 +37,7 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
             return !groupShoppingController.hittingGroupApi.value &&
                     groupShoppingController
                         .groupShoppingGroup.value.popular!.isEmpty
-                ?  Center(
+                ? Center(
                     child: Column(
                       children: [
                         Text(
@@ -45,250 +46,318 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ) : SizedBox(
-              height: 375,
-              child: AppListViewLayout(
-                  itemCount: groupShoppingController.hittingGroupApi.value
-                      ? 5
-                      : groupShoppingController
-                      .groupShoppingGroup.value.popular!.length,
-                  isScrollVertically: false,
-                  builderFunction: (context, index) {
-                    return groupShoppingController.hittingGroupApi.value
-                        ? ShimmerHelper().buildBasicShimmer(width: 200)
-                        : AppCardContainer(
-                        applyShadow: true,
-                        width: 221,
-                        applyRadius: false,
-                        backgroundColor: AppColors.white,
-                        padding: const EdgeInsets.all(AppSizes.sm),
-                        child: Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                AppBannerImage(
-                                  height: 120,
-                                  width: 215,
-                                  fit: BoxFit.contain,
-                                  imgUrl: groupShoppingController
-                                      .groupShoppingGroup
-                                      .value
-                                      .popular![index]
-                                      .product
-                                      ?.thumbnailImage ??
-                                      '',
-                                  isNetworkImage: true,
-                                  applyImageRadius: false,
-                                ),
-
-                                AppCardContainer(
-                                  width: 140,
+                  )
+                : SizedBox(
+                    height: 375,
+                    child: AppListViewLayout(
+                        itemCount: groupShoppingController.hittingGroupApi.value
+                            ? 5
+                            : groupShoppingController
+                                .groupShoppingGroup.value.popular!.length,
+                        isScrollVertically: false,
+                        builderFunction: (context, index) {
+                          return groupShoppingController.hittingGroupApi.value
+                              ? ShimmerHelper().buildBasicShimmer(width: 200)
+                              : AppCardContainer(
+                                  applyShadow: true,
+                                  width: 221,
                                   applyRadius: false,
-                                  backgroundColor:
-                                  const Color(0xffE4F7E8),
-                                  // padding: const EdgeInsets.all(
-                                  //     AppSizes.xs),
-                                  child:  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                  backgroundColor: AppColors.white,
+                                  padding: const EdgeInsets.all(AppSizes.sm),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Text("Duration: ", style: TextStyle(color: AppColors.primary, fontSize: 10, fontWeight: FontWeight.bold),),
-                                      SlideCountdown(
-                                        duration: Duration(days: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.day, hours: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.hour, minutes: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.minute, seconds: groupShoppingController.groupShoppingGroup.value.popular![index].expiredAt!.second),
-                                        decoration: const BoxDecoration(color: Colors.transparent,),
-                                        durationTitle: const DurationTitle(days: "d : ", hours: "h : ", minutes: "m : ", seconds: "s"),
-                                        separatorPadding: EdgeInsets.zero,
-                                        separatorType: SeparatorType.title,
-                                        style: const TextStyle(color: AppColors.primary, fontSize: 10),
-                                        separatorStyle: const TextStyle(color: AppColors.primary),
-                                        padding: EdgeInsets.zero,
-                                        shouldShowMinutes: (duration) => duration.inDays == 0,
-
-                                      ),
-                                    ],
-                                  )
-                                ),
-                              ],
-                            ),
-                            const Gap(AppSizes.spaceBtwDefaultItems),
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.start,
-                              children: [
-                                Visibility(
-                                  visible: true,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "৳${groupShoppingController.groupShoppingGroup.value.popular![index].product?.price ?? 0}",
-                                        textAlign: TextAlign.left,
-                                        overflow:
-                                        TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                            decoration: TextDecoration
-                                                .lineThrough,
-                                            color: AppColors.darkGrey,
-                                            fontSize: 9,
-                                            fontWeight:
-                                            FontWeight.w600),
-                                      ),
-                                      const Gap(AppSizes.sm)
-                                    ],
-                                  ),
-                                ),
-                                Text(
-                                  "৳${groupShoppingController.groupShoppingGroup.value.popular![index].product?.salePrice ?? 0}",
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                      color: AppColors.primary,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 40,
-                              child: Text(
-                                groupShoppingController
-                                    .groupShoppingGroup
-                                    .value
-                                    .popular![index]
-                                    .product
-                                    ?.name ??
-                                    '',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const Gap(AppSizes.sm),
-                            SizedBox(
-                              width: 205,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  AppBannerImage(
-                                    height: 30,
-                                    width: 30,
-                                    applyImageRadius: true,
-                                    isNetworkImage:
-                                    groupShoppingController
-                                        .groupShoppingGroup
-                                        .value
-                                        .popular![index]
-                                        .groupAdmin
-                                        ?.avatar !=
-                                        null,
-                                    imgUrl: groupShoppingController
-                                        .groupShoppingGroup
-                                        .value
-                                        .popular![index]
-                                        .groupAdmin
-                                        ?.avatar ??
-                                        AppImages.avatarIcon,
-                                  ),
-                                  const Gap(AppSizes.sm),
-                                  Expanded(
-                                    // Use Expanded to allow RichText to use remaining space
-                                    child: RichText(
-                                      softWrap: true,
-                                      overflow: TextOverflow.ellipsis,
-                                      // Adds ellipsis if the text is too long
-                                      text: TextSpan(
-                                        text: 'Created by ',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium!
-                                            .apply(
-                                            color: AppColors
-                                                .secondary),
+                                      Stack(
                                         children: [
-                                          TextSpan(
-                                            text: groupShoppingController
-                                                .groupShoppingGroup
-                                                .value
-                                                .popular![index]
-                                                .groupAdmin
-                                                ?.name ??
+                                          AppBannerImage(
+                                            height: 120,
+                                            width: 215,
+                                            fit: BoxFit.contain,
+                                            imgUrl: groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .popular![index]
+                                                    .product
+                                                    ?.thumbnailImage ??
                                                 '',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium,
+                                            isNetworkImage: true,
+                                            applyImageRadius: false,
+                                          ),
+                                          AppCardContainer(
+                                              width: 140,
+                                              applyRadius: false,
+                                              backgroundColor:
+                                                  const Color(0xffE4F7E8),
+                                              // padding: const EdgeInsets.all(
+                                              //     AppSizes.xs),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  const Text(
+                                                    "Duration: ",
+                                                    style: TextStyle(
+                                                        color:
+                                                            AppColors.primary,
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  SlideCountdown(
+                                                    duration: Duration(
+                                                        days: groupShoppingController
+                                                            .groupShoppingGroup
+                                                            .value
+                                                            .popular![index]
+                                                            .expiredAt!
+                                                            .day,
+                                                        hours: groupShoppingController
+                                                            .groupShoppingGroup
+                                                            .value
+                                                            .popular![index]
+                                                            .expiredAt!
+                                                            .hour,
+                                                        minutes:
+                                                            groupShoppingController
+                                                                .groupShoppingGroup
+                                                                .value
+                                                                .popular![index]
+                                                                .expiredAt!
+                                                                .minute,
+                                                        seconds:
+                                                            groupShoppingController
+                                                                .groupShoppingGroup
+                                                                .value
+                                                                .popular![index]
+                                                                .expiredAt!
+                                                                .second),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      color: Colors.transparent,
+                                                    ),
+                                                    durationTitle:
+                                                        const DurationTitle(
+                                                            days: "d : ",
+                                                            hours: "h : ",
+                                                            minutes: "m : ",
+                                                            seconds: "s"),
+                                                    separatorPadding:
+                                                        EdgeInsets.zero,
+                                                    separatorType:
+                                                        SeparatorType.title,
+                                                    style: const TextStyle(
+                                                        color:
+                                                            AppColors.primary,
+                                                        fontSize: 10),
+                                                    separatorStyle:
+                                                        const TextStyle(
+                                                            color: AppColors
+                                                                .primary),
+                                                    padding: EdgeInsets.zero,
+                                                    shouldShowMinutes:
+                                                        (duration) =>
+                                                            duration.inDays ==
+                                                            0,
+                                                  ),
+                                                ],
+                                              )),
+                                        ],
+                                      ),
+                                      const Gap(AppSizes.spaceBtwDefaultItems),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Visibility(
+                                            visible: true,
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "৳${groupShoppingController.groupShoppingGroup.value.popular![index].product?.price ?? 0}",
+                                                  textAlign: TextAlign.left,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      color: AppColors.darkGrey,
+                                                      fontSize: 9,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                const Gap(AppSizes.sm)
+                                              ],
+                                            ),
+                                          ),
+                                          Text(
+                                            "৳${groupShoppingController.groupShoppingGroup.value.popular![index].product?.salePrice ?? 0}",
+                                            textAlign: TextAlign.left,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                color: AppColors.primary,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Joined Members',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium,
-                                ),
-                                Text(
-                                  '${groupShoppingController.groupShoppingGroup.value.popular![index].currentUserQuantity} / ${groupShoppingController.groupShoppingGroup.value.popular![index].totalUserQuantity} ',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium,
-                                )
-                              ],
-                            ),
-                            const Gap(AppSizes.xs),
-                            LinearPercentIndicator(
-                              //lineHeight: AppSizes.xs,
-                              percent: .2,
-                              padding: EdgeInsets.zero,
-                              backgroundColor: AppColors.lightGrey,
-                              progressColor: AppColors.success,
-                            ),
-                            const Gap(AppSizes.sm),
-                            SizedBox(
-                              width: 205,
-                              child: AppButtons.largeFlatFilledButton(
-                                  backgroundColor:
-                                  AppColors.secondary,
-                                  verticallyPadding: AppSizes.sm,
-                                  onPressed: () {
-                                    Get.toNamed(
-                                        '/group-shopping/${groupShoppingController.groupShoppingGroup.value.popular![index].token}',
-                                        parameters: {
-                                          'productId':
-                                          "${groupShoppingController.groupShoppingGroup.value.popular![index].product!.id}"
-                                        });
-                                  },
-                                  buttonText: 'JOIN GROUP'),
-                            ),
-                            SizedBox(
-                              width: 205,
-                              child: AppButtons.largeFlatFilledButton(
-                                  backgroundColor:
-                                  AppColors.secondary,
-                                  verticallyPadding: AppSizes.sm,
-                                  onPressed: () {
-                                    final String link =
-                                        '${AppApiEndPoints.baseUrl}/group-shopping/${groupShoppingController.groupShoppingGroup.value.popular![index].token}';
-                                    Share.share(link);
-                                  },
-                                  buttonText: 'SHARE'),
-                            )
-                          ],
-                        ));
-                  }),
-            );
+                                      SizedBox(
+                                        height: 40,
+                                        child: Text(
+                                          groupShoppingController
+                                                  .groupShoppingGroup
+                                                  .value
+                                                  .popular![index]
+                                                  .product
+                                                  ?.name ??
+                                              '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      const Gap(AppSizes.sm),
+                                      SizedBox(
+                                        width: 205,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            AppBannerImage(
+                                              height: 30,
+                                              width: 30,
+                                              applyImageRadius: true,
+                                              isNetworkImage:
+                                                  groupShoppingController
+                                                          .groupShoppingGroup
+                                                          .value
+                                                          .popular![index]
+                                                          .groupAdmin
+                                                          ?.avatar !=
+                                                      null,
+                                              imgUrl: groupShoppingController
+                                                      .groupShoppingGroup
+                                                      .value
+                                                      .popular![index]
+                                                      .groupAdmin
+                                                      ?.avatar ??
+                                                  AppImages.avatarIcon,
+                                            ),
+                                            const Gap(AppSizes.sm),
+                                            Expanded(
+                                              // Use Expanded to allow RichText to use remaining space
+                                              child: RichText(
+                                                softWrap: true,
+                                                overflow: TextOverflow.ellipsis,
+                                                // Adds ellipsis if the text is too long
+                                                text: TextSpan(
+                                                  text: 'Created by ',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .labelMedium!
+                                                      .apply(
+                                                          color: AppColors
+                                                              .secondary),
+                                                  children: [
+                                                    TextSpan(
+                                                      text: groupShoppingController
+                                                              .groupShoppingGroup
+                                                              .value
+                                                              .popular![index]
+                                                              .groupAdmin
+                                                              ?.name ??
+                                                          '',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Joined Members',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
+                                          ),
+                                          Text(
+                                            '${groupShoppingController.groupShoppingGroup.value.popular![index].currentUserQuantity} / ${groupShoppingController.groupShoppingGroup.value.popular![index].totalUserQuantity} ',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
+                                          )
+                                        ],
+                                      ),
+                                      const Gap(AppSizes.xs),
+                                      LinearPercentIndicator(
+                                        //lineHeight: AppSizes.xs,
+                                        percent: .2,
+                                        padding: EdgeInsets.zero,
+                                        backgroundColor: AppColors.lightGrey,
+                                        progressColor: AppColors.success,
+                                      ),
+                                      const Gap(AppSizes.sm),
+                                      SizedBox(
+                                        width: 205,
+                                        child: AppButtons.largeFlatFilledButton(
+                                            backgroundColor:
+                                                AppColors.secondary,
+                                            verticallyPadding: AppSizes.sm,
+                                            onPressed: () {
+                                              groupShoppingController
+                                                          .groupShoppingGroup
+                                                          .value
+                                                          .popular?[index]
+                                                          .isPurchased ==
+                                                      true
+                                                  ? AppHelperFunctions.showToast(
+                                                      "You already a member of this group")
+                                                  : Get.toNamed(
+                                                      '/group-shopping/${groupShoppingController.groupShoppingGroup.value.popular![index].token}',
+                                                      parameters: {
+                                                          'productId':
+                                                              "${groupShoppingController.groupShoppingGroup.value.popular![index].product!.id}"
+                                                        });
+                                            },
+                                            buttonText: groupShoppingController
+                                                        .groupShoppingGroup
+                                                        .value
+                                                        .popular?[index]
+                                                        .isPurchased ==
+                                                    true
+                                                ? "JOINED"
+                                                : 'JOIN GROUP'),
+                                      ),
+                                      SizedBox(
+                                        width: 205,
+                                        child: AppButtons.largeFlatFilledButton(
+                                            backgroundColor:
+                                                AppColors.secondary,
+                                            verticallyPadding: AppSizes.sm,
+                                            onPressed: () {
+                                              final String link =
+                                                  '${AppApiEndPoints.baseUrl}/group-shopping/${groupShoppingController.groupShoppingGroup.value.popular![index].token}';
+                                              Share.share(link);
+                                            },
+                                            buttonText: 'SHARE'),
+                                      )
+                                    ],
+                                  ));
+                        }),
+                  );
           }),
           const Gap(AppSizes.defaultSpace),
         ],
