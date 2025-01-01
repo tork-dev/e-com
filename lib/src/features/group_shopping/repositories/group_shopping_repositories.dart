@@ -13,7 +13,9 @@ class GroupShoppingRepo {
 
   Future<GroupShoppingProductsResponse> getGroupShoppingProducts() async {
     final response =
-        await http.get(Uri.parse(AppApiEndPoints.groupShoppingProducts));
+        await http.get(Uri.parse(AppApiEndPoints.groupShoppingProducts), headers: {
+          "Authorization": "Bearer $accessToken",
+        });
 
     if (response.statusCode == 200) {
       return GroupShoppingProductsResponse.fromJson(response.body);
@@ -23,7 +25,9 @@ class GroupShoppingRepo {
   }
 
   Future<GroupShoppingGroupsResponse> getGroupShoppingGroups() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.shoppingGroups));
+    final response = await http.get(Uri.parse(AppApiEndPoints.shoppingGroups), headers: {
+      "Authorization": "Bearer $accessToken",
+    });
 
     if (response.statusCode == 200) {
       return GroupShoppingGroupsResponse.fromJson(response.body);

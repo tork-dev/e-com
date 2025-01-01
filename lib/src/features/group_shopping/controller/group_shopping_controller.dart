@@ -6,6 +6,7 @@ import 'package:kirei/src/features/group_shopping/model/group_shopping_products_
 import 'package:kirei/src/features/group_shopping/repositories/group_shopping_repositories.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../../utils/helpers/helper_functions.dart';
+import '../../address/controller/address_controller.dart';
 import '../../address/model/address_city_model.dart';
 import '../../address/model/area_response.dart';
 import '../../address/model/zone_response.dart';
@@ -13,12 +14,16 @@ import '../../address/repositories/address_repositories.dart';
 import '../../checkout/view/widget/ssl_screen.dart';
 import '../model/group_checkout_model.dart';
 import '../model/group_shopping_groups.dart';
+import '../view/widgets/bkash_screen_group.dart';
+import '../view/widgets/ssl_screen_group.dart';
 
 class GroupShoppingController extends GetxController {
   static GroupShoppingController get instance => Get.find();
 
   RxBool hittingGroupApi = false.obs;
   RxBool hittingProductApi = false.obs;
+
+  final addressController = Get.put(AddressController());
 
   Rx<GroupShoppingProductsResponse> groupShoppingProduct =
       GroupShoppingProductsResponse().obs;
@@ -31,15 +36,8 @@ class GroupShoppingController extends GetxController {
   RxInt selectedCityId = 0.obs;
   RxInt selectedZoneId = 0.obs;
   RxInt selectedAreaId = 0.obs;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController selectedCityName = TextEditingController();
-  TextEditingController selectedZoneName = TextEditingController();
-  TextEditingController selectedAreaName = TextEditingController();
   TextEditingController noteController = TextEditingController();
-  RxString selectedPaymentMethod = 'bksah'.obs;
+  RxString selectedPaymentMethod = 'bkash'.obs;
   Rx<GroupShoppingCheckoutResponse> checkoutResponse =
       GroupShoppingCheckoutResponse().obs;
 
@@ -103,9 +101,9 @@ class GroupShoppingController extends GetxController {
         AppApiEndPoints.createGroup,
         productId,
         selectedPaymentMethod.value,
-        nameController.text.toString(),
-        phoneController.text.toString(),
-        addressController.text.toString(),
+        addressController.nameController.text.toString(),
+        addressController.phoneController.text.toString(),
+        addressController.addressController.text.toString(),
         selectedCityId.value,
         selectedZoneId.value,
         selectedAreaId.value,
@@ -120,9 +118,9 @@ class GroupShoppingController extends GetxController {
         '${AppApiEndPoints.joinGroup}/$token',
         productId,
         selectedPaymentMethod.value,
-        nameController.text.toString(),
-        phoneController.text.toString(),
-        addressController.text.toString(),
+        addressController.nameController.text.toString(),
+        addressController.phoneController.text.toString(),
+        addressController.addressController.text.toString(),
         selectedCityId.value,
         selectedZoneId.value,
         selectedAreaId.value,
@@ -130,9 +128,9 @@ class GroupShoppingController extends GetxController {
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
 
     if(selectedPaymentMethod.value == "ssl"){
-      Get.to(()=> SslCommerzScreen(sslInitialUrl: checkoutResponse.value.data!.paymentUrl!, orderId: 520,));
+      Get.to(()=> GroupSslCommerzScreen(sslInitialUrl: checkoutResponse.value.data!.paymentUrl!));
     }else{
-      Get.to(()=> BkashScreen(bkashInitialUrl: checkoutResponse.value.data!.paymentUrl!, orderId: 520,));
+      Get.to(()=> GroupBkashScreen(bkashInitialUrl: checkoutResponse.value.data!.paymentUrl!));
     }
   }
 

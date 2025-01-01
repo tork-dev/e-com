@@ -110,46 +110,6 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
                                     ],
                                   )
                                 ),
-
-                                // AppCardContainer(
-                                //   applyRadius: false,
-                                //   backgroundColor:
-                                //       const Color(0xffE4F7E8),
-                                //   padding: const EdgeInsets.all(
-                                //       AppSizes.xs),
-                                //   child: Obx(() {
-                                //     groupShoppingController.startCountdown(
-                                //     groupShoppingController
-                                //             .endTime.value =
-                                //         groupShoppingController
-                                //             .groupShoppingGroup
-                                //             .value
-                                //             .justCreated![index]
-                                //             .expiredAt!);
-                                //     return RichText(
-                                //       text: TextSpan(
-                                //         text: 'Duration: ',
-                                //         style: const TextStyle(
-                                //             fontSize: 8,
-                                //             color:
-                                //                 AppColors.secondary),
-                                //         children: [
-                                //           TextSpan(
-                                //             text:
-                                //                 groupShoppingController
-                                //                     .remainingTime
-                                //                     .value,
-                                //             style: const TextStyle(
-                                //                 color:
-                                //                     AppColors.primary,
-                                //                 fontWeight:
-                                //                     FontWeight.bold),
-                                //           ),
-                                //         ],
-                                //       ),
-                                //     );
-                                //   }),
-                                // )
                               ],
                             ),
                             const Gap(AppSizes.spaceBtwDefaultItems),
