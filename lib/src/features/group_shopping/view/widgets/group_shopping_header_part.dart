@@ -115,12 +115,14 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                             children: [
                                               Stack(
                                                 children: [
-                                                  AppBannerImage(
-                                                    height: 150,
-                                                    imgUrl: product
-                                                        .pictures![0].url!,
-                                                    isNetworkImage: true,
-                                                    applyImageRadius: false,
+                                                  Center(
+                                                    child: AppBannerImage(
+                                                      height: 150,
+                                                      imgUrl: product
+                                                          .pictures![0].url!,
+                                                      isNetworkImage: true,
+                                                      applyImageRadius: false,
+                                                    ),
                                                   ),
                                                   AppCardContainer(
                                                       applyRadius: false,
