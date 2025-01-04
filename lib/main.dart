@@ -17,7 +17,7 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 //   print('Handling a background message: ${message.messageId}');
 //   // Add custom handling for background messages if needed
 // }
-GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -13,12 +13,12 @@ class NotificationServices {
 
   // Initialising flutter local notifications plugin
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   // Function to initialise flutter local notification plugin to show notifications for android when app is active
   void initLocalNotifications(RemoteMessage message) async {
     var androidInitializationSettings =
-    const AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosInitializationSettings = const DarwinInitializationSettings();
 
     var initializationSetting = InitializationSettings(
@@ -26,14 +26,14 @@ class NotificationServices {
 
     await _flutterLocalNotificationsPlugin.initialize(initializationSetting,
         onDidReceiveNotificationResponse: (payload) {
-          // Handle interaction when app is active for android
-          handleMessage(message);
-        });
+      // Handle interaction when app is active for android
+      handleMessage(message);
+    });
   }
 
   void firebaseInit() {
     // Check if the app was launched from a terminated state via notification
-    // _checkInitialMessage();
+    _checkInitialMessage();
 
     // Listen for foreground messages
     FirebaseMessaging.onMessage.listen((message) {
@@ -45,8 +45,8 @@ class NotificationServices {
         print("Notifications Body: ${notification?.body}");
         print('Count: ${android?.count}');
         print('Data: ${message.data.toString()}');
-        print('channel id: ${message.notification!.android!.channelId
-            .toString()}');
+        print(
+            'channel id: ${message.notification!.android!.channelId.toString()}');
       }
       if (Platform.isIOS) {
         forgroundMessage();
@@ -61,29 +61,21 @@ class NotificationServices {
 
     // Listen for background messages
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      // Handle notification tapped when the app is in the background
       print('background state');
       handleMessage(message);
-      // String route = message.data["route"].replaceFirst("https://beta.kireibd.com", '');
-      // print(route);
-      // // Navigator.pushReplacementNamed(navigatorKey.currentState!.context, route);
-      // print(navigatorKey.currentContext);
-      // navigatorKey.currentState?.pushNamed(message.data["route"]);
     });
-
-
   }
 
   Future<void> _checkInitialMessage() async {
     RemoteMessage? initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
-      // Handle the initial message when the app is launched from a terminated state
-      // print('response ${initialMessage.data}');
-      //   handleMessage(initialMessage);
       print('terminated state');
-      navigatorKey.currentState?.pushNamed(initialMessage.data["route"]);
+      // navigatorKey.currentState?.pushNamed(initialMessage.data["route"]);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        print(initialMessage.data["route"]);
+        handleMessage(initialMessage);
+      });
     }
-    return;
   }
 
   void requestNotificationPermission() async {
@@ -124,7 +116,7 @@ class NotificationServices {
     );
 
     AndroidNotificationDetails androidNotificationDetails =
-    AndroidNotificationDetails(
+        AndroidNotificationDetails(
       channel.id.toString(),
       channel.name.toString(),
       channelDescription: 'Your channel description',
@@ -136,8 +128,8 @@ class NotificationServices {
     );
 
     const DarwinNotificationDetails darwinNotificationDetails =
-    DarwinNotificationDetails(
-        presentAlert: true, presentBadge: true, presentSound: true);
+        DarwinNotificationDetails(
+            presentAlert: true, presentBadge: true, presentSound: true);
 
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: darwinNotificationDetails);
@@ -168,7 +160,12 @@ class NotificationServices {
 
   // Handle tap on notification when app is in background or terminated
   void handleMessage(RemoteMessage message) {
-    RoutingHelper.urlRouting(message.data['route']);
+    if (message.data["route"] != null) {
+      RoutingHelper.urlRouting(message.data['route']);
+    }
+    // String route = message.data["route"].replaceFirst("https://beta.kireibd.com", '');
+    // print(route);
+    // navigatorKey.currentState?.pushNamed(message.data["route"]);
   }
 
   Future<void> forgroundMessage() async {
