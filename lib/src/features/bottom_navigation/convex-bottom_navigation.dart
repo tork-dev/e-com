@@ -53,7 +53,20 @@ class HelloConvexAppBar extends StatelessWidget {
                   },
                   rightButtonTextColor: AppColors.secondary,
                   rightButtonColor: Colors.transparent);
+            } else if (controller.pageIndex.value == 1 &&
+                controller.categoryController.categoryRouteList.length > 1) {
+              print('back press in category');
+              controller.categoryController.allProducts.clear();
+
+              controller.categoryController.getValuesFromUrl(Uri.parse(
+                  controller.categoryController.categoryRouteList[(
+                      controller.categoryController.categoryRouteList.length -
+                          1) - 1]));
+              controller.categoryController.getShopData();
+              controller.categoryController.categoryRouteList.removeAt(
+                  controller.categoryController.categoryRouteList.length - 1);
             } else {
+              print(controller.categoryController.categoryRouteList.length);
               GetShopDataController().resetAll();
               controller.jumpToTab(0);
             }

@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/notification/controller/notification_details_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
-
 import '../../../utils/helpers/helper_functions.dart';
 
 class NotificationDetails extends StatelessWidget {
@@ -45,7 +43,16 @@ class NotificationDetails extends StatelessWidget {
                           '',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
-                    const Gap(AppSizes.md),
+                    const Gap(AppSizes.spaceBtwItems),
+                    Visibility(
+                      visible: detailsController.userNotification.value.data!.data![0].image != null,
+                      child: AppBannerImage(
+                        isNetworkImage: true,
+                        imgUrl: detailsController.userNotification.value.data!.data![0].image,
+                      ),
+                    ),
+
+                    const Gap(AppSizes.spaceBtwItems),
                     Text(
                       AppHelperFunctions.formatTimestampWithAgo(
                           detailsController
@@ -57,7 +64,6 @@ class NotificationDetails extends StatelessWidget {
 
                     Visibility(
                       visible: detailsController.userNotification.value.data?.data?[0].route != null,
-
                       child: AppCardContainer(
                         onTap: ()=>  RoutingHelper.urlRouting(detailsController.userNotification.value.data?.data?[0].route),
                         backgroundColor: AppColors.primary,

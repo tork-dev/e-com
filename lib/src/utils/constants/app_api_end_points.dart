@@ -26,7 +26,8 @@ class AppApiEndPoints {
   static String homeSlider = "$baseUrl/sliders";
   static String homeFeaturedCategory = "$baseUrl/home-featured-categories";
   static String sideBarData = "$baseUrl/sidebar-data";
-  static String allCategories = "$baseUrl/all-categories?new=true";
+  static String allNewCategories = "$baseUrl/all-categories?new=true";
+  static String allCategories = "$baseUrl/all-categories";
   static String deviceToken = "$baseUrl/profile/update-device-token";
   static String surpriseGift = "$baseUrl/surprize-store";
 

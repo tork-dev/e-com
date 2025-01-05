@@ -11,14 +11,10 @@ import '../model/skin_type_model.dart';
 
 class ShopRepositories{
   Future<ShopPageResponse> getFilteredProducts({required String queryString}) async {
-    // Construct the final URL
     Uri url = Uri.parse("${AppApiEndPoints.shopProducts}$queryString");
-    print(url);
 
     final response = await http.get(url);
     var responseBody = jsonDecode(response.body);
-
-    // print('this is response ${responseBody["result"] == true}');
 
     return ShopPageResponse.fromJson(responseBody);
   }

@@ -38,7 +38,7 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final drawerController = Get.put(AppDrawerController());
+    final drawerController = Get.put(AppDrawerController(isOpenDrawer: true));
     final shopController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
@@ -74,10 +74,10 @@ class AppDrawer extends StatelessWidget {
           ),
           Obx(() {
             return AppListViewLayout(
-              itemCount: drawerController.allCategories.length,
+              itemCount: drawerController.allNewCategories.length,
               applyPadding: false,
               builderFunction: (context, index) => drawerController
-                      .allCategories[index].children!.isNotEmpty
+                      .allNewCategories[index].children!.isNotEmpty
                   ? ExpansionTile(
                       collapsedShape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
@@ -92,7 +92,7 @@ class AppDrawer extends StatelessWidget {
                       backgroundColor: AppColors.white.withOpacity(.05),
                       title: InkWell(
                         onTap: () {
-                          if(drawerController.allCategories[index].name!.toUpperCase() == "J-BEAUTY"){
+                          if(drawerController.allNewCategories[index].name!.toUpperCase() == "J-BEAUTY"){
                             return;
                           }
                           shopController.resetAll();
@@ -102,20 +102,20 @@ class AppDrawer extends StatelessWidget {
                                 ));
                           }
                           shopController.updateCategory(
-                              drawerController.allCategories[index].slug!);
+                              drawerController.allNewCategories[index].slug!);
                           bottomController.jumpToTab(1);
                           if (bottomController.pageIndex.value == 1) {
                             Get.back();
                           }
                         },
                         child: Text(
-                            drawerController.allCategories[index].name!.toUpperCase() ?? '',
+                            drawerController.allNewCategories[index].name!.toUpperCase() ?? '',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
                                 .apply(color: AppColors.light)),
                       ),
-                      children: drawerController.allCategories[index].children!
+                      children: drawerController.allNewCategories[index].children!
                           .asMap()
                           .entries
                           .map((entry) {
@@ -296,10 +296,10 @@ class AppDrawer extends StatelessWidget {
                       }).toList(),
                     )
                   : AppDrawerCard(
-                      title: drawerController.allCategories[index].name!.toUpperCase(),
+                      title: drawerController.allNewCategories[index].name!.toUpperCase(),
                       onPress: () {
                         shopController.updateCategory(
-                            drawerController.allCategories[index].slug!);
+                            drawerController.allNewCategories[index].slug!);
                         bottomController.jumpToTab(1);
                       }),
             );

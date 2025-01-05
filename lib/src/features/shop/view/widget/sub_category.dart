@@ -54,6 +54,9 @@ class ShopSubCategory extends StatelessWidget {
                                   shopController.resetAll();
                                   shopController.categories.value = shopController.subCategoryResponse[index].slug;
                                   shopController.getShopData();
+                                  shopController.categoryRouteList.add(shopController.queryStringValue.value);
+                                  shopController.currentRouteIndex ++;
+                                  print('length of routes: ${shopController.categoryRouteList}');
                                   // bottomNavController.jumpToTab(1);
                                 },
                                 isNetworkImage: shopController.subCategoryResponse[index].icon != null,

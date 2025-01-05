@@ -47,7 +47,7 @@ class AppReviewDescriptionPart extends StatelessWidget {
                           child: Visibility(
                             visible: reviewController.reviewResponse.value
                                     .data![index].comment!.length >
-                                120,
+                                100,
                             child: GestureDetector(
                               child: Text(
                                   !controller!.expanded

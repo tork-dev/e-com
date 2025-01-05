@@ -25,6 +25,7 @@ class ShopController extends GetxController{
 
   @override
   void onInit() {
+    getShopDataController.categoryRouteList.clear();
     if(getShopDataController.isFromSearch.value == false) {
       onRefresh();
     }

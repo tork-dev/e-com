@@ -19,6 +19,8 @@ class GetShopDataController extends GetxController {
   RxBool isFromSearch = false.obs;
   RxString queryStringValue = ''.obs;
   final searchOn = Rx<FocusNode>(FocusNode());
+  RxList<String> categoryRouteList = <String>[].obs;
+  RxInt currentRouteIndex = 0.obs;
 
   /// Model
   Rx<ShopPageResponse> shopPageProduct = ShopPageResponse().obs;
@@ -49,6 +51,10 @@ class GetShopDataController extends GetxController {
   void onInit() {
     super.onInit();
     final uri = Uri.parse(Get.currentRoute);
+    getValuesFromUrl(uri);
+  }
+
+  getValuesFromUrl(Uri uri){
     print('this is the url ${uri.path}');
     if (uri.queryParameters.containsKey('type')) {
       type.value = uri.queryParameters['type'] ?? '';
@@ -91,48 +97,8 @@ class GetShopDataController extends GetxController {
     }
   }
 
-  Rx<int?> selectedCategoryIndex = Rx<int?>(null);
-  RxList<String> selectedSkinTypes = <String>[].obs;
 
-  // RxInt selectedSortIndex = 0.obs;
-
-  void resetAll() {
-    searchName.value = '';
-    sortKey.value = '';
-    tag.value = '';
-    skinType.value = '';
-    search.value = '';
-    minimumPriceController.text = '';
-    maximumPriceController.text = '';
-    keyIngredients.value = '';
-    goodFor.value = '';
-    categories.value = '';
-    pageNumber.value = 1;
-    type.value = '';
-    brand.value = '';
-    selectedSkinTypes.clear();
-    selectedCategoryIndex.value = null; // Correct this line
-    isFromCategory.value = false;
-    allProducts.clear();
-    isFromSearch.value = false;
-  }
-
-  void updateCategory(String category) {
-    categories.value = category;
-  }
-
-  void updateSelectedCategoryIndex(int index, String value) {
-    selectedCategoryIndex.value = index; // Update this observable
-    categories.value = value;
-  }
-
-  void updateSortKey(String value) {
-    sortKey.value = value;
-  }
-
-  Future<void> getShopData() async {
-    hittingApi.value = true;
-
+  setValuesFromUrl(){
     Map<dynamic, dynamic> parameters = {
       'page': pageNumber,
     };
@@ -180,28 +146,75 @@ class GetShopDataController extends GetxController {
     // Constructing the query string manually
     String queryString = parameters.entries
         .map((entry) =>
-            '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
+    '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
         .join('&');
 
     // Append gaip_user_id=null at the end
     queryString +=
-        '&gaip_user_id=${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}';
+    '&gaip_user_id=${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}';
     // Fetch products for the current page
 
     queryStringValue.value = queryString;
+  }
+
+  Rx<int?> selectedCategoryIndex = Rx<int?>(null);
+  RxList<String> selectedSkinTypes = <String>[].obs;
+
+  // RxInt selectedSortIndex = 0.obs;
+
+  void resetAll() {
+    searchName.value = '';
+    sortKey.value = '';
+    tag.value = '';
+    skinType.value = '';
+    search.value = '';
+    minimumPriceController.text = '';
+    maximumPriceController.text = '';
+    keyIngredients.value = '';
+    goodFor.value = '';
+    categories.value = '';
+    pageNumber.value = 1;
+    type.value = '';
+    brand.value = '';
+    selectedSkinTypes.clear();
+    selectedCategoryIndex.value = null; // Correct this line
+    isFromCategory.value = false;
+    allProducts.clear();
+    isFromSearch.value = false;
+  }
+
+  void updateCategory(String category) {
+    categories.value = category;
+  }
+
+  void updateSelectedCategoryIndex(int index, String value) {
+    selectedCategoryIndex.value = index; // Update this observable
+    categories.value = value;
+  }
+
+  void updateSortKey(String value) {
+    sortKey.value = value;
+  }
+
+  Future<void> getShopData() async {
+    hittingApi.value = true;
+    // if(categoryRouteList.length < 2) {
+    //   setValuesFromUrl();
+    // }
+      setValuesFromUrl();
 
     if(categories.value != ''){
       getSubCategory();
     }
-
     shopPageProduct.value =
-        await ShopRepositories().getFilteredProducts(queryString: queryString);
+        await ShopRepositories().getFilteredProducts(queryString: queryStringValue.value);
+
 
     // print(shopPageProduct.value.meta!.lastPage);
-    Log.i('this is response: ${shopPageProduct.value.data!.length}');
+    Log.i('this is response: ${shopPageProduct.value.data?[0].name}');
 
-    Log.i('this is current page: ${shopPageProduct.value.meta!.currentPage}');
-    Log.i('this is last page: ${shopPageProduct.value.meta!.lastPage}');
+    Log.i('this is current page: ${shopPageProduct.value.meta?.currentPage}');
+    Log.i('this is last page: ${shopPageProduct.value.meta?.lastPage}');
 
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);

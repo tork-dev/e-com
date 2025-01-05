@@ -88,7 +88,7 @@ class NotificationScreen extends StatelessWidget {
                           trailing: Visibility(
                             visible: controller.notificationList.value.data!
                                     .data![index].seenAt ==
-                                1,
+                                null,
                             child: Container(
                               height: 8,
                               width: 8,

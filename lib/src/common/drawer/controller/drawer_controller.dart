@@ -3,9 +3,14 @@ import 'package:kirei/src/common/drawer/repositories/repositories.dart';
 import '../model/all_category_model.dart';
 
 class AppDrawerController extends GetxController{
+
+  final bool isOpenDrawer;
+  AppDrawerController({required this.isOpenDrawer});
+
   static AppDrawerController get instance => Get.find();
 
 
+  RxList<AllCategory> allNewCategories = <AllCategory>[].obs;
   RxList<AllCategory> allCategories = <AllCategory>[].obs;
   // RxList<bool> isExpandedListCategoryList = [false].obs;
   // RxList isExpandedListSubCategoryList = [].obs;
@@ -15,16 +20,18 @@ class AppDrawerController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    fetchAllCategories();
+    if(isOpenDrawer) {
+      fetchAllNewCategories();
+    }else{
+      fetchAllCategories();
+    }
+  }
+
+  void fetchAllNewCategories() async {
+    allNewCategories.value = await DrawerRepositories().getAllNewCategories();
   }
 
   void fetchAllCategories() async {
-    allCategories.value = await DrawerRepositories().getAllCategories();
-    // Initialize the list based on the number of categories
-    // isExpandedListCategoryList.value = List.generate(allCategories.length, (index) => false);
-    // isExpandedListSubCategoryList.value = allCategories.map((category) {
-    //   return List.generate(category.children?.length ?? 0, (index) => false);
-    // }).toList();
-
+    allNewCategories.value = await DrawerRepositories().getAllCategories();
   }
 }

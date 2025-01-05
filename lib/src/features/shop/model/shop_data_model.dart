@@ -331,13 +331,13 @@ class Picture {
 }
 
 class Meta {
-  int? currentPage;
-  int? from;
-  int? lastPage;
-  String? path;
-  int? perPage;
-  int? to;
-  int? total;
+  dynamic currentPage;
+  dynamic from;
+  dynamic lastPage;
+  dynamic path;
+  dynamic perPage;
+  dynamic to;
+  dynamic total;
 
   Meta({
     this.currentPage,
