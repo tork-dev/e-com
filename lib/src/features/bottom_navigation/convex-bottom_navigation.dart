@@ -62,6 +62,10 @@ class HelloConvexAppBar extends StatelessWidget {
                   controller.categoryController.categoryRouteList[(
                       controller.categoryController.categoryRouteList.length -
                           1) - 1]));
+
+              print(controller.categoryController.categoryRouteList[(
+                  controller.categoryController.categoryRouteList.length -
+                      1) - 1]);
               controller.categoryController.getShopData();
               controller.categoryController.categoryRouteList.removeAt(
                   controller.categoryController.categoryRouteList.length - 1);

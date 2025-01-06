@@ -5,6 +5,7 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import '../../../../utils/logging/logger.dart';
 import '../../controller/shop_controller.dart';
 
 class AppSortAlertDialog extends StatelessWidget {
@@ -43,6 +44,8 @@ class AppSortAlertDialog extends StatelessWidget {
                  categoryPassingController.allProducts.clear();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
+                 categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                 Get.back();
               },
             ),
@@ -56,6 +59,8 @@ class AppSortAlertDialog extends StatelessWidget {
                  categoryPassingController.allProducts.clear();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
+                 categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                 Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                 Get.back();
               },
             ),
@@ -69,6 +74,8 @@ class AppSortAlertDialog extends StatelessWidget {
                  categoryPassingController.allProducts.clear();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
+                 categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                 Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                 Get.back();
               },
             ),
@@ -82,6 +89,8 @@ class AppSortAlertDialog extends StatelessWidget {
                  categoryPassingController.allProducts.clear();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
+                 categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                 Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                 Get.back();
               },
             ),
@@ -95,6 +104,8 @@ class AppSortAlertDialog extends StatelessWidget {
                  categoryPassingController.allProducts.clear();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
+                 categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                 Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                 Get.back();
               },
             ),
@@ -108,6 +119,8 @@ class AppSortAlertDialog extends StatelessWidget {
                  categoryPassingController.allProducts.clear();;
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
+                 categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                 Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                 Get.back();
               },
             ),
@@ -121,6 +134,8 @@ class AppSortAlertDialog extends StatelessWidget {
                 categoryPassingController.allProducts.clear();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
+                categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                 Get.back();
               },
             ),

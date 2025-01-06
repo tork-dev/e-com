@@ -38,7 +38,7 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final drawerController = Get.put(AppDrawerController(isOpenDrawer: true));
+    final drawerController = Get.put(AppDrawerController());
     final shopController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;

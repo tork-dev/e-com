@@ -9,6 +9,7 @@ import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/features/shop/view/widget/shop_page_cards.dart';
 import 'package:kirei/src/features/shop/view/widget/sort_alert_box.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import '../../../utils/logging/logger.dart';
 import '../controller/get_shop_data_controller.dart';
 
 class ShopScreen extends StatelessWidget {
@@ -35,6 +36,8 @@ class ShopScreen extends StatelessWidget {
               shopDataController.isFromSearch.value = true;
               shopDataController.allProducts.clear();
               shopDataController.getShopData();
+              shopDataController.categoryRouteList.add('/shop?${shopDataController.queryStringValue.value}');
+              Log.d('length of routes: ${shopDataController.categoryRouteList}');
             },
             prevRoute: '/shop?${shopDataController.queryStringValue.value}',
           );

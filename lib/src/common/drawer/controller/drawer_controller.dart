@@ -4,9 +4,6 @@ import '../model/all_category_model.dart';
 
 class AppDrawerController extends GetxController{
 
-  final bool isOpenDrawer;
-  AppDrawerController({required this.isOpenDrawer});
-
   static AppDrawerController get instance => Get.find();
 
 
@@ -20,11 +17,8 @@ class AppDrawerController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    if(isOpenDrawer) {
       fetchAllNewCategories();
-    }else{
       fetchAllCategories();
-    }
   }
 
   void fetchAllNewCategories() async {
@@ -32,6 +26,6 @@ class AppDrawerController extends GetxController{
   }
 
   void fetchAllCategories() async {
-    allNewCategories.value = await DrawerRepositories().getAllCategories();
+    allCategories.value = await DrawerRepositories().getAllCategories();
   }
 }

@@ -7,6 +7,7 @@ import '../../../features/shop/view/widget/price_filter_field.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../../layouts/listview_layout/listview_layout.dart';
 import '../../styles/app_dividers.dart';
 import '../../styles/skeleton_style.dart';
@@ -188,6 +189,8 @@ class AppEndDrawer extends StatelessWidget {
                     onPressed: () {
                       categoryPassingController.allProducts.clear();
                       categoryPassingController.getShopData();
+                      categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
+                      Log.d('length of routes: ${categoryPassingController.categoryRouteList}');
                       Get.back();
                     },
                     buttonText: 'APPLY',

@@ -8,6 +8,7 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/app_dividers.dart';
@@ -51,12 +52,13 @@ class ShopSubCategory extends StatelessWidget {
                                 boarderRadius: 100,
                                 imgBoarderRadius: 100,
                                 onPress: (){
+                                  print(shopController.categoryRouteList);
                                   shopController.resetAll();
                                   shopController.categories.value = shopController.subCategoryResponse[index].slug;
                                   shopController.getShopData();
-                                  shopController.categoryRouteList.add(shopController.queryStringValue.value);
-                                  shopController.currentRouteIndex ++;
-                                  print('length of routes: ${shopController.categoryRouteList}');
+                                  shopController.categoryRouteList.add(
+                                      '/shop?${shopController.queryStringValue.value}');
+                                  print(shopController.categoryRouteList);
                                   // bottomNavController.jumpToTab(1);
                                 },
                                 isNetworkImage: shopController.subCategoryResponse[index].icon != null,
