@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,9 @@ class AppHomeAppBarTitle extends StatelessWidget {
               },
               child: Row(
                   children: [
-                    Text('Hi, ${AppLocalStorage().readData(LocalStorageKeys.userName ) ?? 'User'} ', style: Theme.of(context).textTheme.bodyLarge,),
+                    Container(width: 170,
+                        alignment: Alignment.centerRight,
+                        child: Text('Hi, ${AppLocalStorage().readData(LocalStorageKeys.userName ) ?? 'User'} ', style: Theme.of(context).textTheme.bodyLarge,)),
                     const Gap(AppSizes.spaceBtwSmallItem),
                     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true?
                      AppCardContainer(
