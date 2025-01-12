@@ -21,13 +21,13 @@ class CommunityHeader extends StatelessWidget {
         applyShadow: true,
         child: Column(
           children: [
-            Text(
-              'Community Post',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .apply(color: Colors.blue),
-            ),
+            // Text(
+            //   'Community Post',
+            //   style: Theme.of(context)
+            //       .textTheme
+            //       .titleLarge!
+            //       .apply(color: Colors.blue),
+            // ),
             TextFormField(
               controller: communityController.communityFieldController,
               keyboardType: TextInputType.multiline,
@@ -47,11 +47,14 @@ class CommunityHeader extends StatelessWidget {
               maxLines: 5,
               cursorColor: AppColors.primary,
               decoration: const InputDecoration(
-                  hintText: 'Share your mind on community..',
+                  hintText: 'Share Your Beauty Secret ...',
                   hintStyle: TextStyle(color: AppColors.darkGrey),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColors.primary, width: 2))),
+                  // focusedBorder: UnderlineInputBorder(
+                  //     borderSide:
+                  //         BorderSide(color: AppColors.primary, width: 2))
+                focusedBorder: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.lightGrey))
+              ),
               validator: (v) {
                 if (v!.trim().isEmpty) {
                   return 'Please enter something';
@@ -79,7 +82,8 @@ class CommunityHeader extends StatelessWidget {
                 ),
                 AppCardContainer(
                   height: 40,
-                  applyRadius: false,
+                  applyRadius: true,
+                  borderRadius: AppSizes.xs,
                   padding: const EdgeInsets.symmetric(horizontal: AppSizes.xl),
                   backgroundColor: AppColors.backLayoutAppBarTitle,
                   child: InkWell(
@@ -112,16 +116,17 @@ class CommunityHeader extends StatelessWidget {
                   borderRadius: AppSizes.xs,
                   padding: const EdgeInsets.symmetric(
                       horizontal: AppSizes.xl, vertical: AppSizes.xs),
-                  gradient: const LinearGradient(colors: [
-                    Colors.teal,
-                    Colors.lightBlue,
-                    Colors.deepPurple
-                  ]),
+                  // gradient: const LinearGradient(colors: [
+                  //   Colors.teal,
+                  //   // Colors.lightBlue,
+                  //   // Colors.deepPurple
+                  // ]),
+                  backgroundColor: AppColors.secondary,
                   child: Center(
                     child: Text(
-                      "Add",
+                      "POST",
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.white),
                     ),
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -80,14 +81,17 @@ class CommunityPostContainer extends StatelessWidget {
                             .communityResponse.value.data![index].description ??
                         ''),
                     const Gap(AppSizes.sm),
-                    Center(
-                      child: AppBannerImage(
-                          height: 150,
-                          applyImageRadius: false,
-                          isNetworkImage: true,
-                          imgUrl: communityController.communityResponse.value
-                                  .data![index].banner ??
-                              ''),
+                    Visibility(
+                       visible:communityController.communityResponse.value.data?[index].banner != null,
+                      child: Center(
+                        child: AppBannerImage(
+                            height: 150,
+                            applyImageRadius: false,
+                            isNetworkImage: true,
+                            imgUrl: communityController.communityResponse.value
+                                    .data![index].banner ??
+                                ''),
+                      ),
                     ),
                     const Gap(AppSizes.spaceBtwDefaultItems),
                     Row(
