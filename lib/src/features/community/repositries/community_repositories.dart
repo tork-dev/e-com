@@ -28,30 +28,26 @@ class CommunityRepositories{
   }
 
   Future<NewCommunityPostResponse> getNewCommunityPostResponse({
-    required File imageFile,
-    required String filename,
+    File? imageFile, // Now non-required, nullable
+    required String filename, // Can be retained or modified as optional if needed
     required String description,
   }) async {
-    // Ensure the file exists
-    if (!imageFile.existsSync()) {
-      print("File does not exist");
-      throw Exception("File does not exist");
-    }
-
     // Define the endpoint URL
     Uri url = Uri.parse(AppApiEndPoints.createCommunityPost); // Replace with your actual endpoint URL
 
     // Create the multipart request
     var request = http.MultipartRequest('POST', url);
 
-    // Add the file to the request
-    request.files.add(
-      await http.MultipartFile.fromPath(
-        'banner', // The name of the field in the request, should match the expected field name on server
-        imageFile.path,
-        filename: filename,
-      ),
-    );
+    // Conditionally add the file if it exists
+    if (imageFile != null && imageFile.path.isNotEmpty) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'banner', // Field name
+          imageFile.path,
+          filename: filename,
+        ),
+      );
+    }
 
     // Add other fields to the request
     request.fields['description'] = description;
@@ -59,7 +55,7 @@ class CommunityRepositories{
 
     // Add headers to the request
     request.headers.addAll({
-      "Authorization": "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}", // Replace with your actual access token
+      "Authorization": "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}",
     });
 
     try {
@@ -69,10 +65,10 @@ class CommunityRepositories{
       // Check the response status
       if (response.statusCode == 200) {
         var responseBody = await response.stream.bytesToString();
-        print("Image uploaded successfully: $responseBody");
+        print("Post created successfully: $responseBody");
         return newCommunityPostResponseFromJson(responseBody);
       } else {
-        print("Image upload failed with status: ${response.statusCode}");
+        print("Post creation failed with status: ${response.statusCode}");
         throw Exception('Failed to create post');
       }
     } catch (e) {
@@ -80,6 +76,7 @@ class CommunityRepositories{
       throw e;
     }
   }
+
 
 
   Future<AddCommunityLike> getCommunityLikeCreateResponse(

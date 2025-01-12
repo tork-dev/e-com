@@ -46,7 +46,7 @@ class BeautyTipsScreen extends StatelessWidget {
                     Get.toNamed('/kirei-tube');
                   },
                     imgUrl: AppImages.kireiYoutube),
-                Text('Kirei Youtube', style: Theme.of(context).textTheme.titleMedium),
+                Text('KireiTube', style: Theme.of(context).textTheme.titleMedium),
 
               ],
             ),

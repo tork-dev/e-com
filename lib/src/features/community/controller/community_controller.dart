@@ -67,11 +67,12 @@ class CommunityController extends GetxController {
     //   AppHelperFunctions.showToast('Please select a picture');
     //   return;
     // }
+    print('going');
     try {
       isLoading.value = true;
       createCommunityResponse.value = await CommunityRepositories()
           .getNewCommunityPostResponse(
-              imageFile: imageFile!,
+              imageFile: imageFile,
               filename: imageName.value,
               description: communityFieldController.text);
       AppHelperFunctions.showToast(createCommunityResponse.value.message!);
