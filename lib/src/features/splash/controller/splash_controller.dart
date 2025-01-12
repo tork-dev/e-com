@@ -34,44 +34,44 @@ class SplashController extends GetxController {
   }
 
 
-  Future<void> appStatus()async{
-    //AppStatusModel appStatusModel = await _appStatus.getAppStatus(context);
-
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version = packageInfo.version;
-    debugPrint(version);
-
-    if(version != '2.0.0'){
-      showDialog(
-          barrierDismissible: false,
-          context: Get.overlayContext!,
-          builder: (context) {
-            return AlertDialog(
-              // backgroundColor: Colors.pink[100],
-              icon: const Icon(Icons.update),
-              title: const Text('Update here'),
-              content: const Text('New version is available. Please update your app.'),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CupertinoButton(
-                        onPressed: () async {
-                          AppDeviceUtils.browseUrl('https://play.google.com/store/apps/details?id=com.thetork.kirei&hl=en&gl=US');
-                        },
-                        child: const Text(
-                          'Update',
-                          style: TextStyle(color: Colors.red),
-                        )),
-                  ],
-                ),
-              ],
-            );
-          });
-    }else {
-      changeScreen();
-    }
-  }
+  // Future<void> appStatus()async{
+  //   //AppStatusModel appStatusModel = await _appStatus.getAppStatus(context);
+  //
+  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //   String version = packageInfo.version;
+  //   debugPrint(version);
+  //
+  //   if(version != '2.0.0'){
+  //     showDialog(
+  //         barrierDismissible: false,
+  //         context: Get.overlayContext!,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             // backgroundColor: Colors.pink[100],
+  //             icon: const Icon(Icons.update),
+  //             title: const Text('Update here'),
+  //             content: const Text('New version is available. Please update your app.'),
+  //             actions: [
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.end,
+  //                 children: [
+  //                   CupertinoButton(
+  //                       onPressed: () async {
+  //                         AppDeviceUtils.browseUrl('https://play.google.com/store/apps/details?id=com.thetork.kirei&hl=en&gl=US');
+  //                       },
+  //                       child: const Text(
+  //                         'Update',
+  //                         style: TextStyle(color: Colors.red),
+  //                       )),
+  //                 ],
+  //               ),
+  //             ],
+  //           );
+  //         });
+  //   }else {
+  //     changeScreen();
+  //   }
+  // }
 
   changeScreen() {
     final isNotFirst =

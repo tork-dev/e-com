@@ -1,16 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:kirei/src/features/home/model/search_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../model/products_response.dart';
-import '../question_and_value.dart';
-import '../question_model.dart';
 
 class RecommendationController extends GetxController{
   static RecommendationController get instance => Get.find();
@@ -23,8 +18,8 @@ class RecommendationController extends GetxController{
   Rxn<int> radioButtonSelectedValue = Rxn<int>();
   RxList checkboxSelectedValues = <int>[].obs;
   RxBool apiHitting = true.obs;
- // int get radioButtonSelectedValue => _radioButtonSelectedValue;
   Rx<RecommendationProductResponse> productResponse = RecommendationProductResponse().obs;
+  RxString queryValue = ''.obs;
 
 
 
@@ -176,11 +171,9 @@ class RecommendationController extends GetxController{
   Future<RecommendationProductResponse> sendData() async {
     apiHitting.value = true;
     // Replace this with your API endpoint
-
+    buildQueryParams();
     // Create the formatted data
     Map<String, dynamic> formattedData = formatDataToJson();
-
-    // Send the POST request
     final response = await http.post(
       Uri.parse(AppApiEndPoints.recommendationQuestion),
       headers: {
@@ -202,5 +195,94 @@ class RecommendationController extends GetxController{
       throw Exception('Failed to send data');
     }
   }
+
+
+
+  String buildQueryParams() {
+    Map<String, dynamic> queryParams = {};
+
+    queryParams.addAll({
+      "skincare_history_q1": selectedAge,
+      "skincare_history_q2": selectedGender,
+      "skincare_history_q3": selectedAlergy,
+      "skincare_history_q4": selectedPregnant,
+      "skincare_history_q5": selectedRational,
+      "skincare_history_q6": selectedBasicSkinCare,
+      "skincare_history_q7": selectedFollowingSkinCare.join(","),
+      "sensitivity_related_q8": selectedSkinSensitive,
+      "sensitivity_related_q9": selectedSkinBurning,
+      "skincare_goal_q1": skinCareConcern.join(","),
+      "skincare_goal_q2": selectedSkinType,
+      "skincare_goal_q3": morningFeel,
+      "skincare_goal_q4": afterShower,
+      "skincare_goal_q5": afterMoisturizer,
+      "skincare_goal_q6": selectedDamaged,
+      "acne_targeting_questions_q1": acneOneSelected,
+      "acne_targeting_questions_q2": acneTwoSelected,
+      "acne_targeting_questions_q3": acneThreeSelected,
+      "acne_targeting_questions_q4": acneFourSelected,
+      "acne_targeting_questions_q5": acneFiveSelected,
+      "anti_aging_related_q1": agingOneSelected,
+      "anti_aging_related_q2": agingTwoSelected,
+      "closed_comedones_blackheads_whiteheads_related_questions_q3": blackHeadsOneSelected,
+      "closed_comedones_blackheads_whiteheads_related_questions_q4": blackHeadsTwoSelected,
+      "hyperpigmentation_and_dark_spots_related_questions_q5": pigmentationOneSelected,
+      "hyperpigmentation_and_dark_spots_related_questions_q6": pigmentationTwoSelected.join(","),
+      "hyperpigmentation_and_dark_spots_related_questions_q7": pigmentationThreeSelected.join(","),
+      "dullness_related_questions_q8": dullnessOneSelected,
+      "dehydrated_skin_related_questions_q9": dehydredOneSelected,
+      "dehydrated_skin_related_questions_q10": dehydredTwoSelected,
+    });
+
+    print(Uri(queryParameters: queryParams).query);
+    return Uri(queryParameters: queryParams).query;
+  }
+
+
+
+  void extractValuesFromUrl(String url) {
+    final uri = Uri.parse(url); // Parse the URL
+    final queryParams = uri.queryParameters; // Extract query parameters
+
+    // Extract and assign values
+    selectedAge = queryParams['skincare_history_q1'] ?? '';
+    selectedGender = queryParams['skincare_history_q2'] ?? '';
+    selectedAlergy = queryParams['skincare_history_q3'] ?? '';
+    selectedPregnant = queryParams['skincare_history_q4'] ?? '';
+    selectedRational = queryParams['skincare_history_q5'] ?? '';
+    selectedBasicSkinCare = queryParams['skincare_history_q6'] ?? '';
+    selectedFollowingSkinCare = queryParams['skincare_history_q7']?.split(',') ?? [];
+    selectedSkinSensitive = queryParams['sensitivity_related_q8'] ?? '';
+    selectedSkinBurning = queryParams['sensitivity_related_q9'] ?? '';
+
+    skinCareConcern = queryParams['skincare_goal_q1']?.split(',') ?? [];
+    selectedSkinType = queryParams['skincare_goal_q2'] ?? '';
+    morningFeel = queryParams['skincare_goal_q3'] ?? '';
+    afterShower = queryParams['skincare_goal_q4'] ?? '';
+    afterMoisturizer = queryParams['skincare_goal_q5'] ?? '';
+    selectedDamaged = queryParams['skincare_goal_q6'] ?? '';
+
+    acneOneSelected = queryParams['acne_targeting_q1'] ?? '';
+    acneTwoSelected = queryParams['acne_targeting_q2'] ?? '';
+    acneThreeSelected = queryParams['acne_targeting_q3'] ?? '';
+    acneFourSelected = queryParams['acne_targeting_q4'] ?? '';
+    acneFiveSelected = queryParams['acne_targeting_q5'] ?? '';
+
+    agingOneSelected = queryParams['anti_aging_q1'] ?? '';
+    agingTwoSelected = queryParams['anti_aging_q2'] ?? '';
+
+    blackHeadsOneSelected = queryParams['blackheads_q3'] ?? '';
+    blackHeadsTwoSelected = queryParams['blackheads_q4'] ?? '';
+
+    pigmentationOneSelected = queryParams['pigmentation_q5'] ?? '';
+    pigmentationTwoSelected = queryParams['pigmentation_q6']?.split(',') ?? [];
+    pigmentationThreeSelected = queryParams['pigmentation_q7']?.split(',') ?? [];
+
+    dullnessOneSelected = queryParams['dullness_q8'] ?? '';
+
+    dehydredOneSelected = queryParams['dehydrated_q9'] ?? '';
+    dehydredTwoSelected = queryParams['dehydrated_q10'] ?? '';
+  }
+
 
 }

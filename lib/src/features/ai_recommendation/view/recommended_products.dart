@@ -80,9 +80,14 @@ class RecommendedProducts extends StatelessWidget {
                                 : '',
                             onTap: () {
                               Get.toNamed('/product/${product.slug}',
+                                  // parameters: {
+                                  //   'prevRoute':
+                                  //   '/shop?${shopController.queryStringValue.value}'
+                                  // }
                                   parameters: {
-                                    'prevRoute': '/recommended-products'
-                                  });
+                                    'prevRoute': '/recommended-products/${recommendationController.buildQueryParams()}'
+                                  }
+                                  );
 
                               EventLogger().logProductDetailsViewEvent(
                                   '${product.slug}');

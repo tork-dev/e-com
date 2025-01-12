@@ -211,10 +211,6 @@ class GetShopDataController extends GetxController {
 
 
     // print(shopPageProduct.value.meta!.lastPage);
-    Log.i('this is response: ${shopPageProduct.value.data?[0].name}');
-
-    Log.i('this is current page: ${shopPageProduct.value.meta?.currentPage}');
-    Log.i('this is last page: ${shopPageProduct.value.meta?.lastPage}');
 
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);
