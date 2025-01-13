@@ -194,7 +194,7 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            "৳${groupShoppingController.groupShoppingGroup.value.popular![index].product?.salePrice ?? 0}",
+                                            "৳${groupShoppingController.groupShoppingGroup.value.popular![index].groupPurchasePrice ?? 0}",
                                             textAlign: TextAlign.left,
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,

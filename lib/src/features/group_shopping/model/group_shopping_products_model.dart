@@ -80,6 +80,7 @@ class Datum {
   String? metaDescription;
   String? metaTags;
   String? productLink;
+  int? groupPurchasePrice;
 
   Datum({
     this.id,
@@ -133,6 +134,7 @@ class Datum {
     this.metaDescription,
     this.metaTags,
     this.productLink,
+    this.groupPurchasePrice
   });
 
   factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
@@ -191,6 +193,7 @@ class Datum {
     metaDescription: json["meta_description"],
     metaTags: json["meta_tags"],
     productLink: json["product_link"],
+    groupPurchasePrice: json["group_purchase_price"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -245,6 +248,7 @@ class Datum {
     "meta_description": metaDescription,
     "meta_tags": metaTags,
     "product_link": productLink,
+    "group_purchase_price" : groupPurchasePrice
   };
 }
 

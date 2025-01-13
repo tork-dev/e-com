@@ -8,24 +8,18 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import '../../../common/styles/skeleton_style.dart';
-import '../../../common/widgets/containers/card_container.dart';
-import '../controller/kirei_tube_details_controller.dart';
+import '../../../../common/styles/skeleton_style.dart';
+import '../../../../common/widgets/containers/card_container.dart';
+import '../../controller/kirei_tube_details_controller.dart';
 
 class KireiTubeShortsPlayer extends StatelessWidget {
   const KireiTubeShortsPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(KireiTubeDetailsController());
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Shorts'),
-        backgroundColor: Colors.transparent,
-      ),
-        body: AppCardContainer(
-          height: AppHelperFunctions.screenHeight(),
-            width: AppHelperFunctions.screenWidth(),
+    final controller = KireiTubeDetailsController.instance;
+    return AppCardContainer(
+      height: AppHelperFunctions.screenHeight() * 0.6,
             child: Obx(() {
               return controller.hittingApi.value
                   ? ShimmerHelper().buildBasicShimmer(
@@ -37,6 +31,6 @@ class KireiTubeShortsPlayer extends StatelessWidget {
                       : YoutubePlayer(
                           controller: controller.youtubeController.value!,
                         );
-            })));
+            }));
   }
 }

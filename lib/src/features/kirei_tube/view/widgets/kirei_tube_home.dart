@@ -2,11 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:get/state_manager.dart';
 import 'package:kirei/src/common/layouts/gridview_layout/gridview_layout.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
@@ -81,11 +77,11 @@ class KireiTubeHome extends StatelessWidget {
                               onPressed: () {
                                 kireiController.switchTab(1);
                               },
-                              buttonWidth: 100,
+                              buttonWidth: 120,
                               backgroundColor: AppColors.secondary,
                               verticallyPadding: AppSizes.sm,
                               horizontalPadding: AppSizes.md,
-                              buttonText: 'View more'),
+                              buttonText: 'View More'),
                         ],
                       ),
                     ),
@@ -126,8 +122,7 @@ class KireiTubeHome extends StatelessWidget {
                                           builderFunction: (context, index) =>
                                               KireiTubeShortsCard(
                                                 onShortsPress: () {
-                                                  print(
-                                                      '${controller.kireiTubeHomeResponse.value.shorts?.data![index].slug}');
+                                                  print(controller.kireiTubeHomeResponse.value.shorts?.data![index].slug);
                                                   Get.toNamed(
                                                       '/kirei-shorts/${controller.kireiTubeHomeResponse.value.shorts?.data![index].slug}');
                                                 },
@@ -155,11 +150,11 @@ class KireiTubeHome extends StatelessWidget {
                                       onPressed: () {
                                         kireiController.switchTab(2);
                                       },
-                                      buttonWidth: 100,
+                                      buttonWidth: 120,
                                       backgroundColor: AppColors.secondary,
                                       verticallyPadding: AppSizes.sm,
                                       horizontalPadding: AppSizes.md,
-                                      buttonText: 'View more'),
+                                      buttonText: 'View More'),
                                 ],
                               )),
                         ],
@@ -217,11 +212,11 @@ class KireiTubeHome extends StatelessWidget {
                               onPressed: () {
                                 kireiController.switchTab(3);
                               },
-                              buttonWidth: 100,
+                              buttonWidth: 120,
                               backgroundColor: AppColors.secondary,
                               verticallyPadding: AppSizes.sm,
                               horizontalPadding: AppSizes.md,
-                              buttonText: 'View more'),
+                              buttonText: 'View More'),
                         ],
                       ),
                     ),

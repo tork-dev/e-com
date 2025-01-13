@@ -169,6 +169,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                       : kireiTubeController.tabController.index == 2
                       ? KireiTubeShortsCard(
                     onShortsPress: () {
+                      print(controller.videosList.value.data![index].slug);
                       Get.toNamed(
                           "/kirei-shorts/${controller.videosList.value.data![index].slug}");
                     },

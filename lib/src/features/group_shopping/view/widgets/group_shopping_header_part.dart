@@ -320,7 +320,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                                 children: [
                                                   Visibility(
                                                     visible:
-                                                        product.salePrice !=
+                                                        product.groupPurchasePrice !=
                                                             product.price,
                                                     child: Row(
                                                       children: [
@@ -347,7 +347,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "৳${product.salePrice}",
+                                                    "৳${product.groupPurchasePrice}",
                                                     textAlign: TextAlign.left,
                                                     overflow:
                                                         TextOverflow.ellipsis,

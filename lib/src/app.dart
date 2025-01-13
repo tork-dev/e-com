@@ -12,7 +12,7 @@ import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.da
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
-import 'package:kirei/src/features/kirei_tube/view/kirei_tube_shorts_player.dart';
+import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_shorts_player.dart';
 import 'package:kirei/src/features/reward_point/view/reward_details_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'features/ai_recommendation/view/recommended_products.dart';
@@ -21,6 +21,7 @@ import 'features/appoinment/view/appointment_screen.dart';
 import 'features/group_shopping/view/group_shopping_payment_screen.dart';
 import 'features/kirei_tube/view/kirei_tube_details.dart';
 import 'features/kirei_tube/view/kirei_tube_screen.dart';
+import 'features/kirei_tube/view/kirei_tube_shorts_screen.dart';
 import 'features/purchase_history/view/purchase_history_details.dart';
 import 'features/reward_point/view/point_history_screen.dart';
 import 'features/reward_point/view/point_level_screen.dart';
@@ -173,7 +174,7 @@ class MyApp extends StatelessWidget {
             page: () => const RecommendedProducts()),
         GetPage(
             name: '/kirei-shorts/:id',
-            page: () => const KireiTubeShortsPlayer()),
+            page: () => const KireiTubeShortsDetailsScreen()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],
     );

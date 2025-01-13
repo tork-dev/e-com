@@ -204,8 +204,7 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                 ),
                                 Text(
                                   "৳${groupShoppingController.groupShoppingGroup
-                                      .value.justCreated![index].product
-                                      ?.salePrice ?? 0}",
+                                      .value.justCreated![index].groupPurchasePrice ?? 0}",
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
