@@ -36,17 +36,59 @@ class OtpFormsAndButton extends StatelessWidget {
             obscured: false,
             textInputType: TextInputType.number,
           ),
-          const Gap(AppSizes.md),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: AppButtons.textUnderlineButton(
-              onPressed: () {
-                !isForSpinner?
-                otpController.reSendCode() : otpController.reSendCodeForSpinner();
-              },
-              buttonText: "Resend Code",
-              backgroundColor: AppColors.primary,
+          const Gap(AppSizes.defaultSpace),
+          Obx(
+            () => Visibility(
+              visible: otpController.startTime.value != 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.otpTimOne,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .apply(color: AppColors.textPrimary),
+                  ),
+                  Obx(
+                    () => Text(
+                      " ${otpController.startTime.value.toString()} ",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .apply(color: AppColors.primary),
+                    ),
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.otpTimeTwo,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .apply(color: AppColors.textPrimary),
+                  ),
+                ],
+              ),
             ),
+          ),
+          Obx(() {
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: AppButtons.textUnderlineButton(
+                  onPressed: () {
+                    if (otpController.startTime.value == 0) {
+                      !isForSpinner
+                          ? otpController.reSendCode()
+                          : otpController.reSendCodeForSpinner();
+                      otpController.timeCount();
+                    }
+                  },
+                  buttonText: "Resend Code",
+                  backgroundColor: otpController.startTime.value == 0
+                      ? AppColors.primary
+                      : AppColors.grey,
+                ),
+              );
+            }
           ),
           const Gap(AppSizes.md),
           AppButtons.largeFlatFilledButton(

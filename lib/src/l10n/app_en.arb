@@ -44,6 +44,7 @@
   "singingOut" : "Signing out",
   "processing" : "Processing",
   "singingIn" : "Singing in",
-  "loggedIn" : "Logged in"
-
+  "loggedIn" : "Logged in",
+  "otpTimOne" : "You can resend the code in",
+  "otpTimeTwo" : "second"
 }

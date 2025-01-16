@@ -78,7 +78,7 @@ class LogIn extends StatelessWidget {
                             // const Gap(AppSizes.sm),
                             Visibility(
                               visible: AppLocalStorage()
-                                  .readData(LocalStorageKeys.facebookLogin),
+                                  .readData(LocalStorageKeys.facebookLogin) == true,
                               child: AppButtons.largeFlatFilledIconButton(
                                   onPressed: () {
                                     logInController.onPressedFacebookLogin();
@@ -94,7 +94,7 @@ class LogIn extends StatelessWidget {
                             const Gap(AppSizes.sm),
                             Visibility(
                               visible: AppLocalStorage()
-                                  .readData(LocalStorageKeys.googleLogin),
+                                  .readData(LocalStorageKeys.googleLogin) == true,
                               child: AppButtons.largeFlatFilledIconButton(
                                   onPressed: () {
                                     logInController.onPressedGoogleLogin();
@@ -109,7 +109,7 @@ class LogIn extends StatelessWidget {
                             Visibility(
                               visible: !Platform.isAndroid &&
                                   AppLocalStorage()
-                                      .readData(LocalStorageKeys.appleLogin),
+                                      .readData(LocalStorageKeys.appleLogin) == true,
                               child: AppButtons.largeFlatFilledIconButton(
                                   onPressed: () {
                                     logInController.onPressAppleLogin();

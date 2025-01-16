@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -36,6 +38,16 @@ class OtpController extends GetxController {
   Rx<ForgetPasswordConfirmResponse> otpForgetPasswordResponse =
       ForgetPasswordConfirmResponse().obs;
   Rx<SendOtpCodeResponse> sendOtpResponse = SendOtpCodeResponse().obs;
+  RxInt startTime = 60.obs;
+  Timer? timer;
+
+
+  @override
+  void onInit() {
+    super.onInit();
+    // TODO: implement onInit
+    timeCount();
+  }
 
   @override
   void dispose() {
@@ -166,5 +178,21 @@ class OtpController extends GetxController {
       return;
     }
     AppHelperFunctions.showToast(loginResponse.value.message!);
+  }
+
+  timeCount() {
+    if (timer != null && timer!.isActive) {
+      timer!.cancel(); // Cancel the old timer if it's still running
+    }
+
+    startTime.value = 60;
+
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (startTime.value > 0) {
+        startTime.value--;
+      } else {
+        timer.cancel();
+      }
+    });
   }
 }
