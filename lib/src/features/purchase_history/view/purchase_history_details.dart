@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
-import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/widget/paschase_history_details_item.dart';
 import 'package:kirei/src/features/purchase_history/view/widget/purchase_history_summary.dart';
 import 'package:kirei/src/utils/constants/colors.dart';

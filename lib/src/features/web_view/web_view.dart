@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
 import '../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import '../../utils/constants/sizes.dart';
 

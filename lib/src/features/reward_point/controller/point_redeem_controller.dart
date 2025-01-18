@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:kirei/src/features/reward_point/repositories/reward_repositories.dart';
-
 import '../model/point_redemption_model.dart';
 
 class PointRedeemController extends GetxController{

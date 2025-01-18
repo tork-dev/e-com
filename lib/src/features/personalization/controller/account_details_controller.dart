@@ -1,18 +1,13 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/personalization/model/profile_update_image_model.dart';
 import 'package:kirei/src/features/personalization/model/profile_update_model.dart';
 import 'package:kirei/src/features/personalization/repositories/personalization_repositories.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../../../utils/helpers/file_helper.dart';
 
 class AccountDetailsController extends GetxController {

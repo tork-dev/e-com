@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:kirei/src/features/reward_point/repositories/reward_repositories.dart';
-
 import '../model/reward_history_model.dart';
 
 class RewardPointHistoryController extends GetxController{

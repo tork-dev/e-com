@@ -2,7 +2,6 @@ import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../model/membership_level_model.dart';
 import '../model/point_redemption_model.dart';
 import '../model/reward_history_model.dart';

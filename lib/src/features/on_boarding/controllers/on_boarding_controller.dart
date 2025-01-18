@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/controller/common_controller.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
-import 'package:kirei/src/features/splash/controller/splash_controller.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
-import '../../authentication/views/log_in/view/login.dart';
 
 class OnBoardingController extends GetxController{
   static OnBoardingController get instance => Get.find();

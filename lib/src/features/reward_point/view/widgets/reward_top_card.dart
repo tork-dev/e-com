@@ -1,13 +1,9 @@
-import 'package:expandable/expandable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/app_dividers.dart';
 import '../../../../common/widgets/containers/card_container.dart';
@@ -15,6 +11,7 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../controller/reward_controller.dart';
+
 
 class RewardTopCard extends StatelessWidget {
   const RewardTopCard({

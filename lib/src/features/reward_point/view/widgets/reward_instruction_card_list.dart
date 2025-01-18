@@ -6,7 +6,6 @@ import 'package:kirei/src/features/reward_point/controller/reward_controller.dar
 import 'package:kirei/src/features/reward_point/view/widgets/reward_instruction_card.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
-import '../../../web_view/web_view.dart';
 
 class RewardInstructionCardList extends StatelessWidget {
   const RewardInstructionCardList({super.key});

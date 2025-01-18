@@ -9,7 +9,6 @@ import 'package:kirei/src/features/reward_point/view/widgets/reward_top_card.dar
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
-import '../../../common/widgets/buttons/app_buttons.dart';
 
 class RewardScreen extends StatelessWidget {
   const RewardScreen({super.key});

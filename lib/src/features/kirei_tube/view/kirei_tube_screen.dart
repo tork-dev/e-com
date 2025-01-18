@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_controller.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_home.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_videos.dart';

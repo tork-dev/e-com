@@ -6,7 +6,6 @@ import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.da
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/widget/purchase_history_card.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/sizes.dart';
 
 class PurchaseHistory extends StatelessWidget {
   final bool backToHome;

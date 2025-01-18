@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_playlist.dart';
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_response_model.dart';
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_videos_model.dart';
 import 'package:kirei/src/features/kirei_tube/repositories/kirei_tube_repositories.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
-
 import '../model/playlist_details_response.dart';
 
 class KireiTubeController extends GetxController
