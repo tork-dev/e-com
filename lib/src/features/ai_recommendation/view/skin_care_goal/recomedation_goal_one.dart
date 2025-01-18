@@ -5,7 +5,6 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_two.dart';
-import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_two.dart';
 import 'package:kirei/src/features/ai_recommendation/view/widgets/checkbox_question_widget.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -14,7 +13,6 @@ import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
 import '../widgets/linear_progress_section.dart';
-import '../widgets/radio_question_widget.dart';
 
 class RecommendationGoalOne extends StatelessWidget {
   const RecommendationGoalOne({super.key});
@@ -75,7 +73,7 @@ class RecommendationGoalOne extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.skinCareConcern = recommendationController.checkboxSelectedValues
+                recommendationController.skinCareConcern.value = recommendationController.checkboxSelectedValues
                     .map((index) => String.fromCharCode(65 + index as int).toLowerCase())
                     .toList();
                 print(recommendationController.selectedAge);

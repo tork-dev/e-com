@@ -14,12 +14,6 @@ import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
 import '../widgets/linear_progress_section.dart';
 import '../widgets/radio_question_widget.dart';
-import 'acne/recomedation_acne_one.dart';
-import 'anti_aging/recomedation_anti_aging_one.dart';
-import 'blackheads/recomedation_black_heads_one.dart';
-import 'dehydration/recomedation_dehydration_one.dart';
-import 'dullness/recomedation_dullness_one.dart';
-import 'hypigmentation/recomedation_pigmentaion_one.dart';
 
 class RecommendationGoalTwo extends StatelessWidget {
   const RecommendationGoalTwo({super.key});
@@ -80,7 +74,7 @@ class RecommendationGoalTwo extends StatelessWidget {
             const Gap(AppSizes.md),
          ButtonRow(
            onTapNext: () {
-             recommendationController.selectedSkinType = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+             recommendationController.selectedSkinType.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
              print(recommendationController.selectedSkinType);
 
              if (recommendationController.radioButtonSelectedValue.value == 5) {

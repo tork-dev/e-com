@@ -71,7 +71,7 @@ class SkinCareHistoryTwo extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.selectedGender = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+                recommendationController.selectedGender.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 print(recommendationController.selectedGender);
                 Get.to(()=> const SkinCareHistoryThree());
                 recommendationController.resetValues();

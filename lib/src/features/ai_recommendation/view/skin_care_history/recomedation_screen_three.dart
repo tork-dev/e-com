@@ -94,7 +94,7 @@ class SkinCareHistoryThree extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.selectedAlergy = recommendationController.ageController.text.toLowerCase();
+                recommendationController.selectedAlergy.value = recommendationController.ageController.text.toLowerCase();
                 print(recommendationController.selectedAlergy);
                 if(recommendationController.selectedGender == 'a'){
                   Get.to(()=> const SkinCareHistoryFive());

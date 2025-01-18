@@ -80,14 +80,10 @@ class RecommendedProducts extends StatelessWidget {
                                 : '',
                             onTap: () {
                               Get.toNamed('/product/${product.slug}',
-                                  // parameters: {
-                                  //   'prevRoute':
-                                  //   '/shop?${shopController.queryStringValue.value}'
-                                  // }
                                   parameters: {
-                                    'prevRoute': '/recommended-products/${recommendationController.buildQueryParams()}'
-                                  }
-                                  );
+                                    'prevRoute':
+                                        '/recommended-products?${recommendationController.buildQueryParams()}'
+                                  });
 
                               EventLogger().logProductDetailsViewEvent(
                                   '${product.slug}');
@@ -115,8 +111,8 @@ class RecommendedProducts extends StatelessWidget {
                                     'Added to cart.');
                               });
 
-                              EventLogger().logAddToCartEvent('${product.slug}',
-                                  product.salePrice!);
+                              EventLogger().logAddToCartEvent(
+                                  '${product.slug}', product.salePrice!);
                             },
                             productName: product.name ?? 'Unnamed Product',
                             ratings: double.parse("${product.ratings ?? 0}"),

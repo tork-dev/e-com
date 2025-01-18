@@ -8,7 +8,6 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../question_and_value.dart';
-import '../../recommended_products.dart';
 import '../../widgets/button_row.dart';
 import '../../widgets/circular_progress_section.dart';
 import '../../widgets/linear_progress_section.dart';
@@ -73,7 +72,7 @@ class RecommendationDehydrationTwo extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.dehydredTwoSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+                recommendationController.dehydredTwoSelected.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 recommendationController.sendData();
                 recommendationController.resetValues();
                 Get.toNamed('/recommended-products');

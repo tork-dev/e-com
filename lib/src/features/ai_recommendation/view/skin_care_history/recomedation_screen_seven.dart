@@ -72,7 +72,7 @@ class SkinCareHistorySeven extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.selectedFollowingSkinCare =  recommendationController.checkboxSelectedValues
+                recommendationController.selectedFollowingSkinCare.value =  recommendationController.checkboxSelectedValues
                     .map((index) => String.fromCharCode(65 + index as int).toLowerCase())
                     .toList();
                 print(recommendationController.selectedFollowingSkinCare);

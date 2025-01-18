@@ -5,7 +5,6 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/acne/recomedation_acne_two.dart';
-import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/recomedation_goal_five.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../../utils/constants/image_strings.dart';
@@ -74,7 +73,7 @@ class RecommendationAcneOne extends StatelessWidget {
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.acneOneSelected = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+                recommendationController.acneOneSelected.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 print(recommendationController.acneOneSelected);
                 Get.to(()=> const RecommendationAcneTwo());
                 recommendationController.resetValues();

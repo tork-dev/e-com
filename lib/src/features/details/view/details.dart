@@ -52,6 +52,7 @@ class DetailsPage extends StatelessWidget {
             controller.onRefresh();
             print('on press back');
           }else{
+            print('prev route 22: ${controller.prevRoute.value}');
             Get.offAllNamed(controller.prevRoute.value);
           }
         },

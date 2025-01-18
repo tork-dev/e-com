@@ -76,7 +76,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
             const Gap(AppSizes.md),
             ButtonRow(
               onTapNext: (){
-                recommendationController.selectedRational = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+                recommendationController.selectedRational.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 print(recommendationController.selectedRational);
                 Get.to(()=> const SkinCareHistorySix());
                 recommendationController.resetValues();

@@ -10,7 +10,6 @@ import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/blackhe
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/dehydration/recomedation_dehydration_one.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/dullness/recomedation_dullness_one.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/hypigmentation/recomedation_pigmentaion_one.dart';
-import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_seven.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -92,7 +91,7 @@ class RecommendationGoalSix extends StatelessWidget {
                 }else if(recommendationController.skinCareConcern[0] == 'f'){
                   Get.to(()=> const RecommendationDehydrationOne());
                 }
-                recommendationController.selectedDamaged = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
+                recommendationController.selectedDamaged.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
                 print(recommendationController.selectedDamaged);
                 recommendationController.resetValues();
               },
