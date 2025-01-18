@@ -16,7 +16,6 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../constants/colors.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
@@ -589,7 +588,8 @@ class AppHelperFunctions {
       'app_version': version,
       'device_type': 'IOS',
       'os_version': iosDeviceInfo.systemVersion,
-      'device_model': iosDeviceInfo.name,
+      'device_name': iosDeviceInfo.name,
+      'device_model' : iosDeviceInfo.model
     };
     return allInfo;
   }
