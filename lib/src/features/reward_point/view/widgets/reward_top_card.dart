@@ -179,33 +179,41 @@ class RewardTopCard extends StatelessWidget {
               const Gap(AppSizes.spaceBtwDefaultItems),
               RichText(
                 text: TextSpan(
-                    text: rewardController.rewardResponse.value.nextMemberships!
-                                .needPoint! >
-                            0
-                        ? 'Get ${rewardController.rewardResponse.value.nextMemberships!.needPoint}'
-                        : "Congratulation !",
+                    text: rewardController.rewardResponse.value.balance == 0
+                        ? "Buy "
+                        : rewardController.rewardResponse.value.nextMemberships!
+                                    .needPoint! >
+                                0
+                            ? 'Get ${rewardController.rewardResponse.value.nextMemberships!.needPoint}'
+                            : "Congratulation !",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
                         .copyWith(fontWeight: FontWeight.w700),
                     children: [
                       TextSpan(
-                          text: rewardController.rewardResponse.value
-                                      .nextMemberships!.needPoint! >
+                          text: rewardController.rewardResponse.value.balance ==
                                   0
-                              ? ' more points to become a ${rewardController.rewardResponse.value.nextMemberships!.title} member within '
-                                  .toLowerCase()
-                              : " you're already our ${rewardController.rewardResponse.value.nextMemberships!.title} member "
-                                  .toLowerCase(),
+                              ? "any Product from us to become a "
+                              : rewardController.rewardResponse.value
+                                          .nextMemberships!.needPoint! >
+                                      0
+                                  ? ' more points to become a ${rewardController.rewardResponse.value.nextMemberships!.title} member within '
+                                      .toLowerCase()
+                                  : " you're already our ${rewardController.rewardResponse.value.nextMemberships!.title} member "
+                                      .toLowerCase(),
                           style: Theme.of(context).textTheme.labelLarge),
                       TextSpan(
-                          text: rewardController.rewardResponse.value
-                                      .nextMemberships!.needPoint! >
-                                  0
-                              ? rewardController.rewardResponse.value
-                                      .nextMemberships?.lastDate ??
-                                  ''
-                              : '')
+                          text:
+                              rewardController.rewardResponse.value.balance == 0
+                                  ? "KIP Member!"
+                                  : rewardController.rewardResponse.value
+                                              .nextMemberships!.needPoint! >
+                                          0
+                                      ? rewardController.rewardResponse.value
+                                              .nextMemberships?.lastDate ??
+                                          ''
+                                      : '')
                     ]),
               ),
               const Gap(AppSizes.spaceBtwItems),

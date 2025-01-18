@@ -588,8 +588,8 @@ class AppHelperFunctions {
       'app_version': version,
       'device_type': 'IOS',
       'os_version': iosDeviceInfo.systemVersion,
-      'device_name': iosDeviceInfo.name,
-      'device_model' : iosDeviceInfo.model
+      'device_brand': iosDeviceInfo.name,
+      'device_model' : iosDeviceInfo.model,
     };
     return allInfo;
   }
