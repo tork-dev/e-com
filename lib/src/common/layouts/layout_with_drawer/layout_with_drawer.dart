@@ -21,10 +21,12 @@ class AppLayoutWithDrawer extends StatelessWidget {
     this.isFromOtherPage = false,
     this.backToHome = false,
     this.inHome = false,
+    this.bottomNav,
     super.key,
   });
 
   final Widget title, body;
+  final Widget? bottomNav;
   final bool centerTitle, hasEndDrawer, isFromOtherPage, backToHome, inHome;
   final List<Widget>? action;
   final dynamic globalKey;
@@ -51,6 +53,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
           key: globalKey,
           drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
           endDrawer: hasEndDrawer ? const AppEndDrawer() : null,
+          bottomNavigationBar: bottomNav,
           appBar: CustomAppBar(
             title: title,
             showBackArrow: false,
