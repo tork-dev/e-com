@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
-
 import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -25,14 +24,13 @@ class AppointmentPaymentSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 30,
+                height: 40,
                 width: 150,
                 child: RadioListTile(
                   title: Align(
                     alignment: Alignment.centerLeft,
                     child: Image.asset(
                       AppImages.bKashIcon,
-                      height: 30,
                     ),
                   ),
                   value: 'bkash',
@@ -49,14 +47,13 @@ class AppointmentPaymentSection extends StatelessWidget {
               ),
               const Gap(AppSizes.spaceBtwItems),
               SizedBox(
-                height: 30,
+                height: 40,
                 width: 150,
                 child: RadioListTile(
                   title: Align(
                     alignment: Alignment.centerLeft,
                     child: Image.asset(
                       AppImages.sslIcon,
-                      height: 30,
                     ),
                   ),
                   value: 'ssl',

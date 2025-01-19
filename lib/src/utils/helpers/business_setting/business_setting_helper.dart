@@ -87,6 +87,16 @@ class BusinessSettingHelper extends GetxController {
             isIosUpdateRequired.value = element.value.toString() == "1";
           }
           break;
+        case 'doctor_appointment_banner':
+          {
+            AppLocalStorage().saveData(LocalStorageKeys.doctorAppointmentBanner, element.value.toString());
+          }
+          break;
+        case 'doctor_appointment_fee':
+          {
+            AppLocalStorage().saveData(LocalStorageKeys.doctorAppointmentFee, element.value.toString());
+          }
+          break;
         default:
           {}
           break;
