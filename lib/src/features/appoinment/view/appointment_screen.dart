@@ -9,9 +9,7 @@ import 'package:kirei/src/features/appoinment/view/widgets/payment_section.dart'
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import '../../../common/widgets/buttons/app_buttons.dart';
 import '../../../common/widgets/containers/banner_image.dart';
-import '../../../utils/constants/image_strings.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 

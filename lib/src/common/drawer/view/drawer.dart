@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/drawer/view/widgets/drawer_bottom_button.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
-import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
@@ -15,8 +13,6 @@ import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
-import 'package:kirei/src/features/influencer_store/view/influencer_screen.dart';
-import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
@@ -24,6 +20,7 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
@@ -198,7 +195,7 @@ class AppDrawer extends StatelessWidget {
                                                   .asMap()
                                                   .entries
                                                   .map((children) {
-                                                final child = children.value;
+                                                final childValue = children.value;
                                                 return Padding(
                                                     padding:
                                                         const EdgeInsets.only(
@@ -211,24 +208,23 @@ class AppDrawer extends StatelessWidget {
                                                             'By Category') {
                                                           shopController
                                                               .updateCategory(
-                                                                  child.slug ??
+                                                              childValue.slug ??
                                                                       '');
                                                         } else if (child.name ==
                                                             'By Skin Concern') {
                                                           shopController.goodFor
                                                                   .value =
-                                                              child.slug ?? '';
-                                                        } else if (child.name ==
+                                                              childValue.slug ?? '';
+                                                        } else if (childValue.name ==
                                                             'By Brand') {
                                                           shopController
                                                                   .brand.value =
-                                                              child.slug ?? '';
-                                                          print(child.slug);
+                                                              childValue.slug ?? '';
                                                         } else {
                                                           shopController
                                                                   .skinType
                                                                   .value =
-                                                              child.slug ?? '';
+                                                              childValue.slug ?? '';
                                                         }
                                                         bottomController
                                                             .jumpToTab(1);
@@ -239,16 +235,15 @@ class AppDrawer extends StatelessWidget {
                                                           Get.back();
                                                         }
                                                       },
-                                                      title: child.counts !=
+                                                      title: childValue.counts !=
                                                               null
-                                                          ? '${child.name!} (${child.counts})'
-                                                          : '${child.name}',
+                                                          ? '${childValue.name!} (${childValue.counts})'
+                                                          : '${childValue.name}',
                                                     ));
                                               }).toList(),
                                             )
                                           : AppDrawerCard(
                                               onPress: () {
-                                                print('print value');
                                                 shopController.resetAll();
                                                 if (isFromOtherPage) {
                                                   Get.to(() =>
@@ -256,8 +251,13 @@ class AppDrawer extends StatelessWidget {
                                                         pageIndex: 1,
                                                       ));
                                                 }
-                                                shopController.updateCategory(
-                                                    child.slug!);
+                                                if(category.name == "By Brand"){
+                                                  // shopController.updateCategory();
+                                                  shopController.brand.value = child.slug!;
+                                                }else {
+                                                  shopController.updateCategory(
+                                                      child.slug!);
+                                                }
                                                 bottomController.jumpToTab(1);
                                                 if (bottomController
                                                         .pageIndex.value ==
@@ -479,10 +479,6 @@ class AppDrawer extends StatelessWidget {
                         AuthHelper().clearUserData();
                         Get.offAll(() => const HelloConvexAppBar());
                       }),
-                  // AppDrawerCard(
-                  //   title: 'influencer store'.toUpperCase(),
-                  //   onPress: () => Get.offAll(() => const InfluencerStore()),
-                  // ),
                 ],
               )),
           Visibility(

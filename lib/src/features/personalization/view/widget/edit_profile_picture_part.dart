@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/personalization/controller/account_details_controller.dart';
-
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/local_storage/local_storage_keys.dart';
 import '../../../../utils/local_storage/storage_utility.dart';
 

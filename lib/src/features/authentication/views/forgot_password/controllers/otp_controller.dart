@@ -42,12 +42,12 @@ class OtpController extends GetxController {
   Timer? timer;
 
 
-  @override
-  void onInit() {
-    super.onInit();
-    // TODO: implement onInit
-    timeCount();
-  }
+    @override
+    void onInit() {
+      super.onInit();
+      // TODO: implement onInit
+      timeCount();
+    }
 
   @override
   void dispose() {
