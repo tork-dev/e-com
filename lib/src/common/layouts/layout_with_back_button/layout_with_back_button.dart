@@ -47,12 +47,6 @@ class AppLayoutWithBackButton extends StatelessWidget {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             backToHome ? Get.offAllNamed('/home') : showCustomLeading? leadingOnPress!() :  null;
           });
-          // if (backToHome) {
-          //   Get.offAllNamed('/home');
-          // } else if (showCustomLeading && leadingOnPress != null) {
-          //   leadingOnPress!();
-          // }
-          // No else case needed; the default behavior will execute automatically
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,

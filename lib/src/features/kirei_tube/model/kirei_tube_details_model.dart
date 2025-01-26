@@ -43,6 +43,8 @@ class Data {
   String? video;
   String? orientation;
   Statistics? statistics;
+  NextVideo? nextVideo;
+  NextVideo? prevVideo;
   List<Product>? products;
 
   Data({
@@ -56,6 +58,8 @@ class Data {
     this.video,
     this.orientation,
     this.statistics,
+    this.nextVideo,
+    this.prevVideo,
     this.products,
   });
 
@@ -76,6 +80,8 @@ class Data {
     statistics: json['statistics'] is Map<String, dynamic>
         ? Statistics.fromJson(json['statistics'] as Map<String, dynamic>)
         : null,
+    nextVideo: json["next_video"] == null ? null : NextVideo.fromMap(json["next_video"]) ,
+    prevVideo: json["prev_video"] == null ? null : NextVideo.fromMap(json["prev_video"]),
     products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
   );
 
@@ -92,6 +98,28 @@ class Data {
     'statistics': statistics?.toJson(),
     "products": products == null ? [] : List<dynamic>.from(products!.map((x) => x.toMap())),
   };
+}
+
+class NextVideo{
+  String? title;
+  String? slug;
+  String? orientation;
+
+  NextVideo({
+    this.title,
+    this.slug,
+    this.orientation
+});
+
+  factory NextVideo.fromJson(String str) => NextVideo.fromMap(json.decode(str));
+
+  factory NextVideo.fromMap(Map<String, dynamic> json) => NextVideo(
+
+    title: json["title"],
+    slug: json["slug"],
+    orientation: json["orientation"]
+  );
+
 }
 
 class Product {

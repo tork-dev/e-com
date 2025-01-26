@@ -14,7 +14,8 @@ class KireiDetailsVideoPlayer extends StatelessWidget {
     final controller = KireiTubeDetailsController.instance;
     return AspectRatio(
       aspectRatio: 16 / 9,
-      child: AppCardContainer(child: Obx(() {
+      child: AppCardContainer(
+          child: Obx(() {
         return controller.hittingApi.value
             ? ShimmerHelper().buildBasicShimmer(height: 250)
             : controller.videoUrl.contains('facebook.com')
