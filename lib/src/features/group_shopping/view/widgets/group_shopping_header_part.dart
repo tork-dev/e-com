@@ -237,7 +237,9 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                                                           '/group-shopping/${product.groupToken}',
                                                                           parameters: {
                                                                             'productId':
-                                                                            "${product.id}"
+                                                                            "${product.id}",
+                                                                            'group_price' : '${product.groupPurchasePrice}',
+                                                                            'shipping_charge' : '${product.groupShippingCharge}',
                                                                           });
                                                                     },
                                                                     backgroundColor: AppColors.secondary,

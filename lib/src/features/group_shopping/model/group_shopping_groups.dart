@@ -28,6 +28,7 @@ class JustCreated {
   int? id;
   String? title;
   int? groupPurchasePrice;
+  int? groupShippingCharge;
   Product? product;
   dynamic description;
   bool? isPurchased;
@@ -42,6 +43,7 @@ class JustCreated {
     this.id,
     this.title,
     this.groupPurchasePrice,
+    this.groupShippingCharge,
     this.product,
     this.description,
     this.isPurchased,
@@ -61,6 +63,7 @@ class JustCreated {
     id: json["id"],
     title: json["title"],
     groupPurchasePrice: json["group_purchase_price"],
+    groupShippingCharge: json["group_shipping_charge"],
     product: json["product"] == null ? null : Product.fromMap(json["product"]),
     description: json["description"],
     isPurchased: json["is_purchased"],
@@ -76,6 +79,7 @@ class JustCreated {
     "id": id,
     "title": title,
     "group_purchase_price": groupPurchasePrice,
+    "group_shipping_charge": groupShippingCharge,
     "product": product?.toMap(),
     "description": description,
     "is_purchased" : isPurchased,

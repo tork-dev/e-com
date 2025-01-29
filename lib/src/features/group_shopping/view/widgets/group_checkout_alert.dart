@@ -11,6 +11,7 @@ import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
+import 'order_summary.dart';
 
 
 class GroupCheckoutAlert extends StatelessWidget {
@@ -347,6 +348,8 @@ class GroupCheckoutAlert extends StatelessWidget {
               fieldTitle: 'Note',
               hintText: 'Enter note',
             ),
+            const Gap(AppSizes.md),
+            const GroupCheckoutSummary(),
             const Gap(AppSizes.md),
             Text('Payment Method *', style: Theme.of(context).textTheme.bodySmall!),
             const Gap(AppSizes.sm),

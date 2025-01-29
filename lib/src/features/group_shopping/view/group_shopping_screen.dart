@@ -40,7 +40,7 @@ class GroupShoppingScreen extends StatelessWidget {
             Obx(() {
               return Visibility(
                   visible: controller.hittingGroupApi.value ||
-                      controller.groupShoppingGroup.value.popular!.isNotEmpty,
+                      controller.groupShoppingGroup.value.justCreated!.isNotEmpty,
                   child: const GroupShoppingCreateNowGroups());
             }),
             const Gap(AppSizes.md)

@@ -24,7 +24,7 @@ class GroupShoppingController extends GetxController {
 
   RxBool hittingGroupApi = false.obs;
   RxBool hittingProductApi = false.obs;
-  var addressController;
+  final addressController = Get.put(AddressController());
 
 
   Rx<GroupShoppingProductsResponse> groupShoppingProduct =
@@ -55,9 +55,9 @@ class GroupShoppingController extends GetxController {
     super.onInit();
     onRefresh();
 
-    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-      addressController = Get.put(AddressController());
-    }
+    // if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+    //
+    // }
   }
 
   Future<void> onRefresh() async {

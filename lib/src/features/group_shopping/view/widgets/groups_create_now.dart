@@ -350,7 +350,13 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                           'productId':
                                           "${groupShoppingController
                                               .groupShoppingGroup.value
-                                              .justCreated![index].product!.id}"
+                                              .justCreated![index].product!.id}",
+                                          'group_price' : '${groupShoppingController
+                                              .groupShoppingGroup.value
+                                              .justCreated![index].groupPurchasePrice}',
+                                          'shipping_charge' : '${groupShoppingController
+                                              .groupShoppingGroup.value
+                                              .justCreated![index].groupShippingCharge}',
                                         });
                                   },
                                   buttonText: groupShoppingController

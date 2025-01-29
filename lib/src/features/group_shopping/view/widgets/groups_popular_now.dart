@@ -329,7 +329,13 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
                                                       '/group-shopping/${groupShoppingController.groupShoppingGroup.value.popular![index].token}',
                                                       parameters: {
                                                           'productId':
-                                                              "${groupShoppingController.groupShoppingGroup.value.popular![index].product!.id}"
+                                                              "${groupShoppingController.groupShoppingGroup.value.popular![index].product!.id}",
+                                                        'group_price' : '${groupShoppingController
+                                                            .groupShoppingGroup.value
+                                                            .popular![index].groupPurchasePrice}',
+                                                        'shipping_charge' : '${groupShoppingController
+                                                            .groupShoppingGroup.value
+                                                            .popular![index].groupShippingCharge}',
                                                         });
                                             },
                                             buttonText: groupShoppingController
