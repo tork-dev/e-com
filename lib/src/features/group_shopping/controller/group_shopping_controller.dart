@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/checkout/view/widget/bkash_screen.dart';
 import 'package:kirei/src/features/group_shopping/model/group_shopping_products_model.dart';
 import 'package:kirei/src/features/group_shopping/repositories/group_shopping_repositories.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../address/controller/address_controller.dart';
@@ -22,8 +24,8 @@ class GroupShoppingController extends GetxController {
 
   RxBool hittingGroupApi = false.obs;
   RxBool hittingProductApi = false.obs;
+  var addressController;
 
-  final addressController = Get.put(AddressController());
 
   Rx<GroupShoppingProductsResponse> groupShoppingProduct =
       GroupShoppingProductsResponse().obs;
@@ -52,6 +54,10 @@ class GroupShoppingController extends GetxController {
   void onInit() {
     super.onInit();
     onRefresh();
+
+    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+      addressController = Get.put(AddressController());
+    }
   }
 
   Future<void> onRefresh() async {

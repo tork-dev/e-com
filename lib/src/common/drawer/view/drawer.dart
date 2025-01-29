@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
@@ -13,6 +14,7 @@ import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
+import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
@@ -38,6 +40,7 @@ class AppDrawer extends StatelessWidget {
     final drawerController = Get.put(AppDrawerController());
     final shopController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
+    final homeController = HomeController.instance;
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
@@ -304,6 +307,13 @@ class AppDrawer extends StatelessWidget {
                       }),
             );
           }),
+          Visibility(
+            visible: homeController.homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false,
+            child: AppDrawerCard(
+              title: 'Group shopping'.toUpperCase(),
+              onPress: () => Get.toNamed('/group-shopping'),
+            ),
+          ),
           AppDrawerCard(
             title: 'Kip membership'.toUpperCase(),
             titleColor: const Color(0xffFFAC00),

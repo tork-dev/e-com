@@ -54,7 +54,7 @@ class Datum {
   int? groupMemberQuantity;
   int? groupDuration;
   String? groupToken;
-  int? ratings;
+  dynamic ratings;
   int? reviews;
   int? isHot;
   bool? isSale;
