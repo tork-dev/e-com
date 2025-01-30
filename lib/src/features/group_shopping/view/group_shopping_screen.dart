@@ -19,6 +19,13 @@ class GroupShoppingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(GroupShoppingController());
     return AppLayoutWithBackButton(
+        showCustomLeading: true,
+        customLeadingIcon: Icons.arrow_back,
+        showBackButton: false,
+        leadingOnPress: (){
+          print('back presws');
+          Get.offAllNamed('/home');
+        },
         padding: 0,
         title: const Text(
           'Group Shopping',

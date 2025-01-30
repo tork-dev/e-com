@@ -1,18 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:kirei/src/common/drawer/model/all_category_model.dart';
 import 'package:kirei/src/features/home/model/home_featured_category_model.dart';
 import 'package:kirei/src/features/home/model/home_products_model.dart';
-import 'package:kirei/src/features/home/model/request_stock_model.dart';
 import 'package:kirei/src/features/home/model/surprize_gift_model.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../details/model/products_model.dart';
 import '../model/device_token_model.dart';
-import '../model/home_sliders_model.dart';
 
 class HomeRepositories {
   static Future<HomeProductResponse> getHomeProducts() async {

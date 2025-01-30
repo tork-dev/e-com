@@ -15,6 +15,8 @@ class GroupShoppingPaymentScreen extends StatelessWidget {
     final groupShoppingController = GroupShoppingController.instance;
     final token = Get.parameters["id"];
     final productId = Get.parameters["productId"];
+    final buttonName = Get.parameters["buttonName"];
+    final buttonWork = Get.parameters["buttonWork"];
 
     return  AppLayoutWithBackButton(
       title: const Text('Group Shopping', style: TextStyle(color: AppColors.secondary),),
@@ -22,9 +24,10 @@ class GroupShoppingPaymentScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.only(bottom: AppSizes.defaultSpace),
           child: GroupCheckoutAlert(
-            buttonName: 'JOIN GROUP',
+            buttonName: buttonName ?? "JOIN GROUP",
             buttonWork: (){
-              groupShoppingController.joinGroup(token, productId);
+              print('button tapped');
+              buttonWork == "createGroup" ? groupShoppingController.createGroup(productId) : groupShoppingController.joinGroup(token, productId);
             },
           ),
         ));

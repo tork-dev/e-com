@@ -87,8 +87,11 @@ class GroupCheckoutAlert extends StatelessWidget {
                   onSelected: (value)  {
                     groupShoppingController.selectedCityId.value = value.id!;
                     groupShoppingController.addressController.selectedCityName.value = value.name!;
+                    groupShoppingController.addressController.selectedCityController.text = value.name!;
                     groupShoppingController.addressController.selectedZoneName.value = '';
+                    groupShoppingController.addressController.selectedZoneController.text = '';
                     groupShoppingController.addressController.selectedAreaName.value = '';
+                    groupShoppingController.addressController.selectedAreaController.text = '';
                     groupShoppingController.selectedZoneId.value = 0;
                     groupShoppingController.selectedAreaId.value = 0;
                     groupShoppingController.zoneList.value.data?.zones?.clear();
@@ -164,9 +167,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                 const Gap(AppSizes.xs),
                 InkWell(
                   onTap: (){
-                    print('zone suggession1');
                     zoneSuggestion.refresh();
-                    print('zone suggession2');
                   },
                   child: SizedBox(
                     child: TypeAheadField(
@@ -191,6 +192,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                       onSelected: (zone) {
                         groupShoppingController.selectedZoneId.value = zone.id!;
                         groupShoppingController.addressController.selectedZoneName.value = zone.name!;
+                        groupShoppingController.addressController.selectedZoneController.text = zone.name!;
                         groupShoppingController.addressController.selectedAreaName.value = '';
                         groupShoppingController.selectedAreaId.value = 0;
                         groupShoppingController.areaList.value.areas?.clear();
@@ -284,6 +286,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                     onSelected: (area) {
                       groupShoppingController.selectedAreaId.value = area.id!;
                       groupShoppingController.addressController.selectedAreaName.value = area.name!;
+                      groupShoppingController.addressController.selectedAreaController.text = area.name!;
                       areaNode.unfocus();
                     },
                     controller: groupShoppingController.addressController.selectedAreaController,
@@ -348,7 +351,7 @@ class GroupCheckoutAlert extends StatelessWidget {
               fieldTitle: 'Note',
               hintText: 'Enter note',
             ),
-            const Gap(AppSizes.md),
+            const Gap(AppSizes.spaceBtwSections),
             const GroupCheckoutSummary(),
             const Gap(AppSizes.md),
             Text('Payment Method *', style: Theme.of(context).textTheme.bodySmall!),

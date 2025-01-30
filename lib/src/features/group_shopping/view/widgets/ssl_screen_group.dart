@@ -37,8 +37,8 @@ class _GroupSslCommerzScreenState extends State<GroupSslCommerzScreen> {
           onPageFinished: (String url) {
             print(url);
             if (url.contains("status=success")) {
-              AppHelperFunctions.showToast('Order Successful');
-              navigateToOrderSuccess('Order Successful', true);
+              AppHelperFunctions.showToast('Payment Successful');
+              navigateToOrderSuccess('Payment Successful', true);
             } else if (url.contains("status=failure") ||
                 url.contains("status=DECLINED")) {
               AppHelperFunctions.showToast("Payment Cancelled");

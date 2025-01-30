@@ -15,25 +15,22 @@ class GroupCheckoutSummary extends StatelessWidget {
     final shippingCost = Get.parameters["shipping_charge"];
     final groupPrice = Get.parameters["group_price"];
     return AppCardContainer(
-          padding: const EdgeInsets.all(AppSizes.sm),
           applyRadius: false,
           backgroundColor: AppColors.white,
           child: Column(
             children: [
               AppSummaryTextWidget(
                   title: 'Subtotal',
-                  amount:
-                  '$groupPrice'),
+                  amount: '৳$groupPrice'),
               const Gap(AppSizes.sm),
               AppSummaryTextWidget(
                   title: 'Shipping Cost',
-                  amount:
-                  '$shippingCost'),
+                  amount: '৳$shippingCost'),
               const Gap(AppSizes.sm),
-              // AppSummaryTextWidget(
-              //     title: 'Total',
-              //     amount:
-              //     '৳${shippingCost!+groupPrice!}'),
+              AppSummaryTextWidget(
+                  title: 'Total',
+                  amount:
+                  '৳${int.parse(shippingCost!) + int.parse(groupPrice!)}'),
             ],
           ));
   }

@@ -88,7 +88,7 @@ class AddressController extends GetxController {
         await AddressRepositories().getAreas(selectedZoneId);
   }
 
-  Future<void> onPressSave() async {
+  void validateForm(){
     if (nameController.text == "") {
       AppHelperFunctions.showToast('Name is required');
       return;
@@ -116,12 +116,12 @@ class AddressController extends GetxController {
       return;
     }
 
-    if (selectedCityName.value == "") {
+    if (selectedCityController.text == "") {
       AppHelperFunctions.showToast('City is required');
       return;
     }
 
-    if (selectedZoneName.value == "") {
+    if (selectedAreaController.text == "") {
       AppHelperFunctions.showToast('Zone is required');
       return;
     }
@@ -131,7 +131,10 @@ class AddressController extends GetxController {
         return;
       }
     }
+  }
 
+  Future<void> onPressSave() async {
+    validateForm();
     createOrUpdateAddress.value =
         await AddressRepositories().getAddressAddResponse(
       name: nameController.value.text,

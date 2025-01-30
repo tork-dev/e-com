@@ -9,6 +9,8 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
 import 'package:kirei/src/features/group_shopping/view/widgets/group_checkout_alert.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
@@ -155,101 +157,156 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                               ),
                                               AppButtons.largeFlatFilledButton(
                                                   onPressed: () {
-                                                    print(product.groupToken);
-                                                    product.groupToken ==
-                                                            null
-                                                        ? showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (context) =>
-                                                                    Dialog(
-                                                                      backgroundColor:
-                                                                          AppColors
-                                                                              .white,
-                                                                      shape:
-                                                                          const RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.zero,
-                                                                      ),
-                                                                      insetPadding: const EdgeInsets
-                                                                          .all(
-                                                                          AppSizes
-                                                                              .md),
-                                                                      child:
-                                                                          Stack(
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(AppSizes.md),
-                                                                            child:
-                                                                                ListView(
-                                                                              children: [
-                                                                                const AppSectionTitleText(
-                                                                                  sectionTitle: 'Create Group',
-                                                                                  haveTxtButton: false,
-                                                                                ),
-                                                                                const Gap(AppSizes.spaceBtwDefaultItems),
-                                                                                GroupCheckoutAlert(
-                                                                                  buttonName: 'Create group',
-                                                                                  buttonWork: () {
-                                                                                    groupShoppingController.createGroup(groupShoppingController.groupShoppingProduct.value.data![index].id);
-                                                                                  },
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          Positioned(
-                                                                              right: 10,
-                                                                              top: 10,
-                                                                              child: AppCardContainer(onTap: () => Get.back(), height: 44, width: 44, backgroundColor: AppColors.white, applyRadius: false, child: const Icon(Icons.clear)))
-                                                                        ],
-                                                                      ),
-                                                                    ))
-                                                        : showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext context) {
-                                                        return Dialog(
-                                                          shape: const RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.zero,
-                                                          ),
-                                                          child: AppCardContainer(
-                                                            padding: const EdgeInsets.all(20),
-                                                            child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                              mainAxisSize: MainAxisSize.min,
-                                                              children:[
-                                                                const Text(
-                                                                  "This product has already a group",
-                                                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                                                  textAlign: TextAlign.center,
-                                                                ),
-                                                                const SizedBox(height: 10),
-                                                                const Text(
-                                                                  "Please join here",
-                                                                  style: TextStyle(fontSize: 16),
-                                                                  textAlign: TextAlign.center,
-                                                                ),
-                                                                const SizedBox(height: 20),
-                                                                AppButtons.largeFlatFilledButton(
-                                                                    onPressed: (){
-                                                                      Get.back();
-                                                                      Get.toNamed(
-                                                                          '/group-shopping/${product.groupToken}',
-                                                                          parameters: {
-                                                                            'productId':
-                                                                            "${product.id}",
-                                                                            'group_price' : '${product.groupPurchasePrice}',
-                                                                            'shipping_charge' : '${product.groupShippingCharge}',
-                                                                          });
-                                                                    },
-                                                                    backgroundColor: AppColors.secondary,
-                                                                    buttonText: 'JOIN NOW')
-                                                              ],
+                                                    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+                                                      product.groupToken == null
+                                                          ? Get.toNamed(
+                                                          '/group-shopping/${product
+                                                              .groupToken}',
+                                                          parameters: {
+                                                            'productId':
+                                                            "${product.id}",
+                                                            'group_price':
+                                                            '${product
+                                                                .groupPurchasePrice}',
+                                                            'shipping_charge':
+                                                            '${product
+                                                                .groupShippingCharge}',
+                                                            'buttonName':
+                                                            'CREATE GROUP',
+                                                            'buttonWork': 'createGroup',
+                                                          })
+
+                                                      // print(product.groupToken);
+                                                      // product.groupToken ==
+                                                      //         null
+                                                      //     ? showDialog(
+                                                      //         context: context,
+                                                      //         builder:
+                                                      //             (context) =>
+                                                      //                 Dialog(
+                                                      //                   backgroundColor:
+                                                      //                       AppColors
+                                                      //                           .white,
+                                                      //                   shape:
+                                                      //                       const RoundedRectangleBorder(
+                                                      //                     borderRadius:
+                                                      //                         BorderRadius.zero,
+                                                      //                   ),
+                                                      //                   insetPadding: const EdgeInsets
+                                                      //                       .all(
+                                                      //                       AppSizes
+                                                      //                           .md),
+                                                      //                   child:
+                                                      //                       Stack(
+                                                      //                     children: [
+                                                      //                       Padding(
+                                                      //                         padding:
+                                                      //                             const EdgeInsets.all(AppSizes.md),
+                                                      //                         child:
+                                                      //                             ListView(
+                                                      //                           children: [
+                                                      //                             const AppSectionTitleText(
+                                                      //                               sectionTitle: 'Create Group',
+                                                      //                               haveTxtButton: false,
+                                                      //                             ),
+                                                      //                             const Gap(AppSizes.spaceBtwDefaultItems),
+                                                      //                             GroupCheckoutAlert(
+                                                      //                               buttonName: 'Create group',
+                                                      //                               buttonWork: () {
+                                                      //                                 groupShoppingController.createGroup(groupShoppingController.groupShoppingProduct.value.data![index].id);
+                                                      //                               },
+                                                      //                             ),
+                                                      //                           ],
+                                                      //                         ),
+                                                      //                       ),
+                                                      //                       Positioned(
+                                                      //                           right: 10,
+                                                      //                           top: 10,
+                                                      //                           child: AppCardContainer(onTap: () => Get.back(), height: 44, width: 44, backgroundColor: AppColors.white, applyRadius: false, child: const Icon(Icons.clear)))
+                                                      //                     ],
+                                                      //                   ),
+                                                      //                 ))
+                                                          : showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (BuildContext
+                                                        context) {
+                                                          return Dialog(
+                                                            shape:
+                                                            const RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .zero,
                                                             ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
+                                                            child:
+                                                            AppCardContainer(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .all(
+                                                                  20),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                                mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                                children: [
+                                                                  const Text(
+                                                                    "This product has already a group",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                        18,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                                    textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                  ),
+                                                                  const Gap(
+                                                                      10),
+                                                                  const Text(
+                                                                    "Please join here",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                        16),
+                                                                    textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                  ),
+                                                                  const Gap(
+                                                                      20),
+                                                                  AppButtons
+                                                                      .largeFlatFilledButton(
+                                                                      onPressed: () {
+                                                                        Get
+                                                                            .back();
+                                                                        Get
+                                                                            .toNamed(
+                                                                            '/group-shopping/${product
+                                                                                .groupToken}',
+                                                                            parameters: {
+                                                                              'productId': "${product
+                                                                                  .id}",
+                                                                              'group_price': '${product
+                                                                                  .groupPurchasePrice}',
+                                                                              'shipping_charge': '${product
+                                                                                  .groupShippingCharge}',
+                                                                            });
+                                                                      },
+                                                                      backgroundColor: AppColors
+                                                                          .secondary,
+                                                                      buttonText: 'JOIN NOW')
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    }else{
+                                                      Get.toNamed('/login', arguments: {"prevRoute" : '/group-shopping'});
+                                                    }
                                                   },
                                                   buttonText: 'Create Group',
                                                   verticallyPadding:
@@ -321,9 +378,9 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Visibility(
-                                                    visible:
-                                                        product.groupPurchasePrice !=
-                                                            product.price,
+                                                    visible: product
+                                                            .groupPurchasePrice !=
+                                                        product.price,
                                                     child: Row(
                                                       children: [
                                                         Text(

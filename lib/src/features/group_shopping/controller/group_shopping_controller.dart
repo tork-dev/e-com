@@ -54,10 +54,6 @@ class GroupShoppingController extends GetxController {
   void onInit() {
     super.onInit();
     onRefresh();
-
-    // if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-    //
-    // }
   }
 
   Future<void> onRefresh() async {
@@ -103,6 +99,7 @@ class GroupShoppingController extends GetxController {
   }
 
   Future<void> createGroup(productId) async {
+    // addressController.validateForm();
     checkoutResponse.value = await GroupShoppingRepo().createAGroup(
         AppApiEndPoints.createGroup,
         productId,
@@ -114,9 +111,13 @@ class GroupShoppingController extends GetxController {
         selectedZoneId.value,
         selectedAreaId.value,
         noteController.text.toString());
-    Get.back();
+
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
-    onRefresh();
+    if(selectedPaymentMethod.value == "ssl"){
+      Get.to(()=> GroupSslCommerzScreen(sslInitialUrl: checkoutResponse.value.data!.paymentUrl!));
+    }else{
+      Get.to(()=> GroupBkashScreen(bkashInitialUrl: checkoutResponse.value.data!.paymentUrl!));
+    }
   }
 
   Future<void> joinGroup(token, productId) async {

@@ -28,23 +28,21 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.bkashInitialUrl != null) {
-      webViewController = WebViewController()
-        ..setJavaScriptMode(JavaScriptMode.unrestricted)
-        ..setNavigationDelegate(
-          NavigationDelegate(
-            onPageFinished: (String url) {
-              readResponse();
-            },
-            onWebResourceError: (error) {
-              print(error);
-              navigateToOrderSuccess("Something went wrong.", false);
-            },
-          ),
-        )
-        ..loadRequest(Uri.parse(widget.bkashInitialUrl));
+    webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            readResponse();
+          },
+          onWebResourceError: (error) {
+            print(error);
+            navigateToOrderSuccess("Payment cancel", false);
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.bkashInitialUrl));
     }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +78,11 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
       print('Bkash json Response: $decodedJSON');
 
       if (responseJSON["result"] == true) {
-        // handle success
-        navigateToOrderSuccess("Order Successful", true);
+        print('success');
+        navigateToOrderSuccess("Payment Successful", true);
       } else if (responseJSON["result"] == false) {
-        // handle failure
-        navigateToOrderSuccess("Payment Cancelled", false);
+        print("payment cancel");
+        navigateToOrderSuccess("Something went wrong", false);
       }
     });
   }

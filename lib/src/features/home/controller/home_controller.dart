@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/model/surprize_gift_model.dart';
@@ -7,14 +6,12 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
-import '../../../utils/firebase/awesome_notification.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../../details/model/products_model.dart';
 import '../../details/repositories/details_repositories.dart';
 import '../model/home_featured_category_model.dart';
 import '../model/home_products_model.dart';
-import '../model/home_sliders_model.dart';
 import '../model/request_stock_model.dart';
 import '../repositories/home_repositories.dart';
 
