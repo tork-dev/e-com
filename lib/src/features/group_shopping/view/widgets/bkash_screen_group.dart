@@ -48,6 +48,10 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
   Widget build(BuildContext context) {
 
     return AppLayoutWithBackButton(
+        showCustomLeading: true,
+        backToHome: true,
+        showBackButton: false,
+        customLeadingIcon: Icons.arrow_back,
       title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
         leadingOnPress: (){
         print('working');

@@ -58,6 +58,10 @@ class _GroupSslCommerzScreenState extends State<GroupSslCommerzScreen> {
   Widget build(BuildContext context) {
     return AppLayoutWithBackButton(
         padding: 0,
+        showCustomLeading: true,
+        backToHome: true,
+        showBackButton: false,
+        customLeadingIcon: Icons.arrow_back,
         title: const Text(
           'Pay with Sslcommerz',
           style: TextStyle(color: AppColors.primary),
