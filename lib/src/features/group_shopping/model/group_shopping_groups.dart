@@ -136,7 +136,7 @@ class Product {
   int? salePrice;
   String? thumbnailImage;
   int? stock;
-  int? rating;
+  dynamic rating;
   int? sales;
   List<ProductCategory>? productCategories;
 

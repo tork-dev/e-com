@@ -304,7 +304,7 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
                                       const Gap(AppSizes.xs),
                                       LinearPercentIndicator(
                                         //lineHeight: AppSizes.xs,
-                                        percent: .2,
+                                        percent: (groupShoppingController.groupShoppingGroup.value.popular![index].currentUserQuantity!.toDouble() / groupShoppingController.groupShoppingGroup.value.popular![index].totalUserQuantity!.toDouble()),
                                         padding: EdgeInsets.zero,
                                         backgroundColor: AppColors.lightGrey,
                                         progressColor: AppColors.success,

@@ -7,6 +7,7 @@ import 'package:kirei/src/features/address/model/zone_response.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../utils/helpers/helper_functions.dart';
 import '../model/address_city_model.dart';
 import 'package:http/http.dart' as http;
 import '../model/order_address_change.dart';
@@ -68,8 +69,7 @@ class AddressRepositories{
       "phone": phone,
       "name": name,
       "email": email,
-      "version" : version,
-      "device_os" : deviceOs
+      'app_info': await AppHelperFunctions.appInfo(),
     });
 
     print("Request Body: $postBody");

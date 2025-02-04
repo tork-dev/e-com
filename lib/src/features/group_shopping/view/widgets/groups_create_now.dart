@@ -323,8 +323,11 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                             ),
                             const Gap(AppSizes.xs),
                             LinearPercentIndicator(
-                              //lineHeight: AppSizes.xs,
-                              percent: .2,
+                              percent: (groupShoppingController.groupShoppingGroup
+                                  .value.justCreated![index]
+                                  .currentUserQuantity!.toDouble() / groupShoppingController
+                                  .groupShoppingGroup.value
+                                  .justCreated![index].totalUserQuantity!.toDouble()),
                               padding: EdgeInsets.zero,
                               backgroundColor: AppColors.lightGrey,
                               progressColor: AppColors.success,

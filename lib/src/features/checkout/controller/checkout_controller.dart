@@ -146,7 +146,6 @@ class CheckoutController extends GetxController {
   Future<void> onPressProceedToCheckout() async {
 
     if (!await validateCheckoutDetails()) return;
-
     AppHelperFunctions.showLoaderDialog(Get.overlayContext!); // Make sure overlayContext is not null
 
     Map<String, dynamic> requestBody = await prepareRequestBody();

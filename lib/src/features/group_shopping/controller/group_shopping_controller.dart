@@ -35,9 +35,6 @@ class GroupShoppingController extends GetxController {
   Rx<CityResponse> cityList = CityResponse().obs;
   Rx<ZoneResponse> zoneList = ZoneResponse().obs;
   Rx<AreaResponse> areaList = AreaResponse().obs;
-  RxInt selectedCityId = 0.obs;
-  RxInt selectedZoneId = 0.obs;
-  RxInt selectedAreaId = 0.obs;
   TextEditingController noteController = TextEditingController();
   RxString selectedPaymentMethod = 'bkash'.obs;
   Rx<GroupShoppingCheckoutResponse> checkoutResponse =
@@ -107,9 +104,9 @@ class GroupShoppingController extends GetxController {
         addressController.nameController.text.toString(),
         addressController.phoneController.text.toString(),
         addressController.addressController.text.toString(),
-        selectedCityId.value,
-        selectedZoneId.value,
-        selectedAreaId.value,
+        addressController.selectedCityId.value,
+        addressController.selectedZoneId.value,
+        addressController.selectedAreaId.value,
         noteController.text.toString());
 
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
@@ -128,9 +125,9 @@ class GroupShoppingController extends GetxController {
         addressController.nameController.text.toString(),
         addressController.phoneController.text.toString(),
         addressController.addressController.text.toString(),
-        selectedCityId.value,
-        selectedZoneId.value,
-        selectedAreaId.value,
+        addressController.selectedCityId.value,
+        addressController.selectedZoneId.value,
+        addressController.selectedAreaId.value,
         noteController.text.toString());
     AppHelperFunctions.showToast(checkoutResponse.value.message!);
 

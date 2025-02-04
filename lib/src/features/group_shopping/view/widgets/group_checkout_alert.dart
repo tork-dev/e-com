@@ -85,15 +85,15 @@ class GroupCheckoutAlert extends StatelessWidget {
                         dense: true, title: Text(dataItem.name ?? 'Not found'));
                   },
                   onSelected: (value)  {
-                    groupShoppingController.selectedCityId.value = value.id!;
+                    groupShoppingController.addressController.selectedCityId.value = value.id!;
                     groupShoppingController.addressController.selectedCityName.value = value.name!;
                     groupShoppingController.addressController.selectedCityController.text = value.name!;
                     groupShoppingController.addressController.selectedZoneName.value = '';
                     groupShoppingController.addressController.selectedZoneController.text = '';
                     groupShoppingController.addressController.selectedAreaName.value = '';
                     groupShoppingController.addressController.selectedAreaController.text = '';
-                    groupShoppingController.selectedZoneId.value = 0;
-                    groupShoppingController.selectedAreaId.value = 0;
+                    groupShoppingController.addressController.selectedZoneId.value = 0;
+                    groupShoppingController.addressController.selectedAreaId.value = 0;
                     groupShoppingController.zoneList.value.data?.zones?.clear();
                     groupShoppingController.areaList.value.areas?.clear();
                     areaNode.unfocus();
@@ -190,11 +190,11 @@ class GroupCheckoutAlert extends StatelessWidget {
                           )),
                       emptyBuilder: (context) => const Text('No items found!'),
                       onSelected: (zone) {
-                        groupShoppingController.selectedZoneId.value = zone.id!;
+                        groupShoppingController.addressController.selectedZoneId.value = zone.id!;
                         groupShoppingController.addressController.selectedZoneName.value = zone.name!;
                         groupShoppingController.addressController.selectedZoneController.text = zone.name!;
                         groupShoppingController.addressController.selectedAreaName.value = '';
-                        groupShoppingController.selectedAreaId.value = 0;
+                        groupShoppingController.addressController.selectedAreaId.value = 0;
                         groupShoppingController.areaList.value.areas?.clear();
                         areaNode.unfocus();
                         areaSuggestion.unfocus();
@@ -206,7 +206,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                       suggestionsController: zoneSuggestion,
                       suggestionsCallback: (value) async {
                         if(groupShoppingController.zoneList.value.data == null){
-                          await groupShoppingController.getZoneList(groupShoppingController.selectedCityId.value);
+                          await groupShoppingController.getZoneList(groupShoppingController.addressController.selectedCityId.value);
                         }
                         return groupShoppingController.zoneList.value.data!.zones!
                             .where((element) {
@@ -284,7 +284,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                           child: Text('errr'),
                         )),
                     onSelected: (area) {
-                      groupShoppingController.selectedAreaId.value = area.id!;
+                      groupShoppingController.addressController.selectedAreaId.value = area.id!;
                       groupShoppingController.addressController.selectedAreaName.value = area.name!;
                       groupShoppingController.addressController.selectedAreaController.text = area.name!;
                       areaNode.unfocus();
@@ -293,7 +293,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                     suggestionsController: areaSuggestion,
                     suggestionsCallback: (value) async{
                       if(groupShoppingController.areaList.value.areas == null){
-                        await groupShoppingController.getAreaList(groupShoppingController.selectedZoneId.value);
+                        await groupShoppingController.getAreaList(groupShoppingController.addressController.selectedZoneId.value);
                       }
                       return groupShoppingController.areaList.value.areas!.where((element) {
                         return element.name!

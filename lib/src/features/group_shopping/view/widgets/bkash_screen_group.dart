@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 import 'group_order_status_page.dart';
 
 class GroupBkashScreen extends StatefulWidget {
@@ -21,8 +23,6 @@ class GroupBkashScreen extends StatefulWidget {
 }
 
 class _GroupBkashScreenState extends State<GroupBkashScreen> {
-  int combinedOrderId = 0;
-  bool orderInit = false;
   late final WebViewController webViewController;
 
   @override
@@ -33,10 +33,19 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageFinished: (String url) {
-            readResponse();
+            Log.i('navigation finished $url');
+            if (url.contains("result=true&message=Successfully%20Paid")) {
+              AppHelperFunctions.showToast('Successfully Paid');
+              navigateToOrderSuccess('Payment Successful', true);
+            } else if (url.contains("result=false&message=Payment%20Cancelled") ) {
+              AppHelperFunctions.showToast("Payment Cancelled");
+              navigateToOrderSuccess("Payment Cancelled", false);
+            }else if(url.contains("result=false&message=Payment%20Failed")){
+              navigateToOrderSuccess("Payment Failed", false);
+            }
           },
           onWebResourceError: (error) {
-            print(error);
+            Log.i('error in payment $error');
             navigateToOrderSuccess("Payment cancel", false);
           },
         ),
@@ -72,7 +81,7 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
 
 
   void readResponse() async {
-    var paymentDetails = '';
+    Log.d('Reading response');
     webViewController
         .runJavaScriptReturningResult("document.body.innerText")
         .then((data) {
