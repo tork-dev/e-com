@@ -22,7 +22,7 @@ class AppApiEndPoints {
   static String passwordConfirmReset = "$baseUrl/auth/password/confirm_reset";
 
   /// Home
-  static String homeProducts = "$baseUrl/home-things?for=desktop";
+  static String homeProducts = "$baseUrl/home-things";
   static String homeSlider = "$baseUrl/sliders";
   static String homeFeaturedCategory = "$baseUrl/home-featured-categories";
   static String sideBarData = "$baseUrl/sidebar-data";
