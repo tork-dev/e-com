@@ -4,8 +4,7 @@ description: "Japanese Beauty Products Store in Bangladesh – Authentic Product
 
 publish_to: 'none'
 
-version: 4.0.0+41
-#version: 2.0.5+35
+version: 4.0.1+42
 
 
 
@@ -83,6 +82,7 @@ dependencies:
   firebase_messaging: ^14.7.20
   firebase_analytics: ^10.10.7
   app_links: ^6.3.2
+  firebase_performance: ^0.9.4+7
 
 
 
