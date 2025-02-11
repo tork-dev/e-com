@@ -23,7 +23,7 @@ class KireiTubeDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    videoSlug.value = Get.parameters['id']!;
+    videoSlug.value = Get.arguments['id']!;
     if (videoSlug.isNotEmpty) {
       onRefresh();
     }

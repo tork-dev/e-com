@@ -7,15 +7,19 @@ import 'package:kirei/src/common/layouts/gridview_layout/gridview_layout.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
+import 'package:kirei/src/features/kirei_tube/view/kirei_tube_shorts_screen.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../controller/kirei_tube_controller.dart';
+import '../kirei_tube_details.dart';
 import '../kirei_tube_playlist_view.dart';
 import 'kirei_tube_list_card.dart';
 import 'kirei_tube_shorts_card.dart';
+import 'kirei_tube_video_player.dart';
 
 class KireiTubeHome extends StatelessWidget {
   const KireiTubeHome({super.key});
@@ -56,8 +60,35 @@ class KireiTubeHome extends StatelessWidget {
                                   KireiTubeListCard(
                                     isPlaylist: false,
                                     onTapBanner: () {
-                                      Get.toNamed(
-                                          '/kirei-tube/${controller.kireiTubeHomeResponse.value.videos?.data![index].slug}');
+                                      controller
+                                                  .kireiTubeHomeResponse
+                                                  .value
+                                                  .videos!
+                                                  .data![index]
+                                                  .orientation ==
+                                              "portrait"
+                                          ? Get.to(
+                                              () =>
+                                                  const KireiTubeShortsDetailsScreen(),
+                                              arguments: {
+                                                  'id': controller
+                                                      .kireiTubeHomeResponse
+                                                      .value
+                                                      .videos
+                                                      ?.data![index]
+                                                      .slug
+                                                })
+                                          : Get.to(
+                                              () =>
+                                                  const KireiTubeDetailsScreen(),
+                                              arguments: {
+                                                  'id': controller
+                                                      .kireiTubeHomeResponse
+                                                      .value
+                                                      .videos
+                                                      ?.data![index]
+                                                      .slug
+                                                });
                                     },
                                     kireiTubeBanner: controller
                                         .kireiTubeHomeResponse
@@ -122,9 +153,24 @@ class KireiTubeHome extends StatelessWidget {
                                           builderFunction: (context, index) =>
                                               KireiTubeShortsCard(
                                                 onShortsPress: () {
-                                                  print(controller.kireiTubeHomeResponse.value.shorts?.data![index].slug);
-                                                  Get.toNamed(
-                                                      '/kirei-shorts/${controller.kireiTubeHomeResponse.value.shorts?.data![index].slug}');
+                                                  print(controller
+                                                      .kireiTubeHomeResponse
+                                                      .value
+                                                      .shorts
+                                                      ?.data![index]
+                                                      .slug);
+
+                                                  Get.to(
+                                                      () =>
+                                                          const KireiTubeShortsDetailsScreen(),
+                                                      arguments: {
+                                                        "id": controller
+                                                            .kireiTubeHomeResponse
+                                                            .value
+                                                            .shorts
+                                                            ?.data![index]
+                                                            .slug
+                                                      });
                                                 },
                                                 hittingApi:
                                                     controller.hittingApi.value,

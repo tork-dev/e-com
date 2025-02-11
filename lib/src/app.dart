@@ -162,7 +162,7 @@ class MyApp extends StatelessWidget {
             page: () => const RewardPointHistoryScreen()),
         GetPage(name: '/kirei-tube', page: () => const KireiTubeScreen()),
         GetPage(
-            name: '/kirei-tube/:id',
+            name: '/kirei-tube-details/:id',
             page: () => const KireiTubeDetailsScreen()),
         GetPage(
             name: '/group-shopping', page: () => const GroupShoppingScreen()),

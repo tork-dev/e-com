@@ -7,6 +7,7 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_controller.dart';
+import 'package:kirei/src/features/kirei_tube/view/kirei_tube_shorts_screen.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -109,12 +110,16 @@ class KireiTubePlaylistScreen extends StatelessWidget {
                                           .data![0]
                                           .videos![index]
                                           .orientation ==
-                                      "portrait") {
-                                    Get.toNamed(
-                                        "/kirei-shorts/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}");
+                                      "portrait" || kireiTubeController
+                                      .playlistDetails
+                                      .value
+                                      .data![0]
+                                      .videos![index]
+                                      .orientation ==
+                                      "shorts") {
+                                    Get.to(()=> const KireiTubeShortsDetailsScreen(), arguments: {"id" : kireiTubeController.playlistDetails.value.data![0].videos![index].slug});
                                   } else {
-                                    Get.toNamed(
-                                        "/kirei-tube/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}");
+                                    Get.to(()=> const KireiTubeShortsDetailsScreen(), arguments: {"id" : kireiTubeController.playlistDetails.value.data![0].videos![index].slug});
                                   }
                                 },
                                 imgUrl: kireiTubeController.playlistDetails
