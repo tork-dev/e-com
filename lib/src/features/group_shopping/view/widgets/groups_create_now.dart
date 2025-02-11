@@ -89,17 +89,17 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                   applyImageRadius: false,
                                 ),
                                 AppCardContainer(
-                                    width: 140,
+                                    // width: 140,
                                     applyRadius: false,
+                                    padding: EdgeInsets.symmetric(horizontal: 4),
                                     backgroundColor:
                                     const Color(0xffE4F7E8),
-                                    // padding: const EdgeInsets.all(
-                                    //     AppSizes.xs),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                      MainAxisAlignment.start,
                                       crossAxisAlignment:
                                       CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         const Text(
                                           "Duration: ",
@@ -117,13 +117,13 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                                   .value
                                                   .justCreated![index]
                                                   .expiredAt!
-                                                  .day,
+                                                  .day - DateTime.now().day,
                                               hours: groupShoppingController
                                                   .groupShoppingGroup
                                                   .value
                                                   .justCreated![index]
                                                   .expiredAt!
-                                                  .hour,
+                                                  .hour - DateTime.now().hour,
                                               minutes:
                                               groupShoppingController
                                                   .groupShoppingGroup
@@ -131,7 +131,7 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                                   .justCreated![
                                               index]
                                                   .expiredAt!
-                                                  .minute,
+                                                  .minute - DateTime.now().minute,
                                               seconds:
                                               groupShoppingController
                                                   .groupShoppingGroup
@@ -139,16 +139,16 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                                   .justCreated![
                                               index]
                                                   .expiredAt!
-                                                  .second),
+                                                  .second - DateTime.now().second),
                                           decoration:
                                           const BoxDecoration(
                                             color: Colors.transparent,
                                           ),
                                           durationTitle:
                                           const DurationTitle(
-                                              days: "d : ",
-                                              hours: "h : ",
-                                              minutes: "m : ",
+                                              days: "d ",
+                                              hours: "h ",
+                                              minutes: "m ",
                                               seconds: "s"),
                                           separatorPadding:
                                           EdgeInsets.zero,
@@ -164,9 +164,9 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                                   .primary),
                                           padding: EdgeInsets.zero,
                                           shouldShowMinutes:
-                                              (duration) =>
-                                          duration.inDays ==
-                                              0,
+                                              (duration) => true
+                                          // duration.inDays ==
+                                          //     0,
                                         ),
                                       ],
                                     )),
