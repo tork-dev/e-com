@@ -85,82 +85,84 @@ class GroupShoppingPopularNowGroups extends StatelessWidget {
                                             applyImageRadius: false,
                                           ),
                                           AppCardContainer(
-                                              width: 140,
+                                            // width: 140,
                                               applyRadius: false,
+                                              padding: const EdgeInsets.symmetric(horizontal: 4),
                                               backgroundColor:
-                                                  const Color(0xffE4F7E8),
-                                              // padding: const EdgeInsets.all(
-                                              //     AppSizes.xs),
+                                              const Color(0xffE4F7E8),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                MainAxisAlignment.start,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   const Text(
                                                     "Duration: ",
                                                     style: TextStyle(
                                                         color:
-                                                            AppColors.primary,
+                                                        AppColors.primary,
                                                         fontSize: 10,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                        FontWeight.bold),
                                                   ),
                                                   SlideCountdown(
-                                                    duration: Duration(
-                                                        days: groupShoppingController
-                                                            .groupShoppingGroup
-                                                            .value
-                                                            .popular![index]
-                                                            .expiredAt!
-                                                            .day,
-                                                        hours: groupShoppingController
-                                                            .groupShoppingGroup
-                                                            .value
-                                                            .popular![index]
-                                                            .expiredAt!
-                                                            .hour,
-                                                        minutes:
-                                                            groupShoppingController
-                                                                .groupShoppingGroup
-                                                                .value
-                                                                .popular![index]
-                                                                .expiredAt!
-                                                                .minute,
-                                                        seconds:
-                                                            groupShoppingController
-                                                                .groupShoppingGroup
-                                                                .value
-                                                                .popular![index]
-                                                                .expiredAt!
-                                                                .second),
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Colors.transparent,
-                                                    ),
-                                                    durationTitle:
-                                                        const DurationTitle(
-                                                            days: "d : ",
-                                                            hours: "h : ",
-                                                            minutes: "m : ",
-                                                            seconds: "s"),
-                                                    separatorPadding:
-                                                        EdgeInsets.zero,
-                                                    separatorType:
-                                                        SeparatorType.title,
-                                                    style: const TextStyle(
-                                                        color:
-                                                            AppColors.primary,
-                                                        fontSize: 10),
-                                                    separatorStyle:
-                                                        const TextStyle(
-                                                            color: AppColors
-                                                                .primary),
-                                                    padding: EdgeInsets.zero,
-                                                    shouldShowMinutes:
-                                                        (duration) =>
-                                                            duration.inDays ==
-                                                            0,
+                                                      duration: Duration(
+                                                          days: groupShoppingController
+                                                              .groupShoppingGroup
+                                                              .value
+                                                              .popular![index]
+                                                              .expiredAt!
+                                                              .day - DateTime.now().day,
+                                                          hours: groupShoppingController
+                                                              .groupShoppingGroup
+                                                              .value
+                                                              .popular![index]
+                                                              .expiredAt!
+                                                              .hour - DateTime.now().hour,
+                                                          minutes:
+                                                          groupShoppingController
+                                                              .groupShoppingGroup
+                                                              .value
+                                                              .popular![
+                                                          index]
+                                                              .expiredAt!
+                                                              .minute - DateTime.now().minute,
+                                                          seconds:
+                                                          groupShoppingController
+                                                              .groupShoppingGroup
+                                                              .value
+                                                              .popular![
+                                                          index]
+                                                              .expiredAt!
+                                                              .second - DateTime.now().second),
+                                                      decoration:
+                                                      const BoxDecoration(
+                                                        color: Colors.transparent,
+                                                      ),
+                                                      durationTitle:
+                                                      const DurationTitle(
+                                                          days: "d ",
+                                                          hours: "h ",
+                                                          minutes: "m ",
+                                                          seconds: "s"),
+                                                      separatorPadding:
+                                                      EdgeInsets.zero,
+                                                      separatorType:
+                                                      SeparatorType.title,
+                                                      style: const TextStyle(
+                                                          color:
+                                                          AppColors.primary,
+                                                          fontSize: 10),
+                                                      separatorStyle:
+                                                      const TextStyle(
+                                                          color: AppColors
+                                                              .primary),
+                                                      padding: EdgeInsets.zero,
+                                                      shouldShowMinutes:
+                                                          (duration) => true
+                                                    // duration.inDays ==
+                                                    //     0,
                                                   ),
                                                 ],
                                               )),

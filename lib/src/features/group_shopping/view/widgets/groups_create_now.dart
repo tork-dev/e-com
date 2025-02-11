@@ -91,7 +91,7 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                 AppCardContainer(
                                     // width: 140,
                                     applyRadius: false,
-                                    padding: EdgeInsets.symmetric(horizontal: 4),
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
                                     backgroundColor:
                                     const Color(0xffE4F7E8),
                                     child: Row(
