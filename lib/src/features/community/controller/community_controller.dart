@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kirei/src/features/community/model/community_like_create_response.dart';
 import 'package:kirei/src/features/community/model/create_community_post_response.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/community_response.dart';
 import '../repositries/community_repositories.dart';
 
@@ -14,11 +15,8 @@ class CommunityController extends GetxController {
 
   TextEditingController communityFieldController = TextEditingController();
 
-  // ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
-
-  // HomeController homeController = Get.put(HomeController());
-  // final shopController = Get.put(ShopController());
-
+  final ScrollController scrollController = ScrollController();
+  RxInt pageNumber = 1.obs;
   RxBool isLoading = false.obs;
 
   ///Model
@@ -26,6 +24,8 @@ class CommunityController extends GetxController {
   Rx<NewCommunityPostResponse> createCommunityResponse =
       NewCommunityPostResponse().obs;
   Rx<AddCommunityLike> addCommunityLike = AddCommunityLike().obs;
+  RxList<CommunityPost> communityPostList = <CommunityPost>[].obs;
+
 
   @override
   void onInit() {
@@ -35,12 +35,18 @@ class CommunityController extends GetxController {
 
   Future<void> onRefresh() async {
     print('refresh');
+    // pageNumber.value = 1;
     getCommunityResponse();
+    addItems();
   }
 
   Future<void> getCommunityResponse() async {
     isLoading.value = true;
-    communityResponse.value = await CommunityRepositories().getCommunityPost();
+    communityResponse.value = await CommunityRepositories().getCommunityPost(pageNumber.value);
+    if (communityResponse.value.data != null) {
+      communityPostList.addAll(communityResponse.value.data ?? []);
+      Log.i('all post : ${communityPostList.length}');
+    }
     isLoading.value = false;
   }
 
@@ -86,9 +92,64 @@ class CommunityController extends GetxController {
     }
   }
 
-  Future<void> getAddCommunityLike(String postId)async{
-    addCommunityLike.value = await CommunityRepositories().getCommunityLikeCreateResponse(postId);
+  Future<void> getAddCommunityLike(String postId) async {
+    addCommunityLike.value =
+        await CommunityRepositories().getCommunityLikeCreateResponse(postId);
   }
 
+  bool isLoadingMore = false;
 
+  void addItems() {
+    scrollController.addListener(() {
+      // if (scrollController.position.pixels <=
+      //         scrollController.position.minScrollExtent + 50 &&
+      //     pageNumber.value > 1 &&
+      //     !isLoadingMore &&
+      //     !isLoading.value) {
+      //   isLoadingMore = true; // Set loading flag to true
+      //
+      //   AppHelperFunctions.showToast('Loading more...');
+      //   print('Reached the top of the list, loading previous page...');
+      //   pageNumber.value--;
+      //   getCommunityResponse().then((_) {
+      //     isLoadingMore = false; // Reset loading flag
+      //     update(); // Trigger UI update
+      //   });
+      // }
+        if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent - 50 &&
+          pageNumber.value < communityResponse.value.meta!.lastPage! &&
+          !isLoadingMore &&
+          !isLoading.value) {
+        isLoadingMore = true; // Set loading flag to true
+
+        AppHelperFunctions.showToast('Loading more...');
+        print('Loading more data for page number: ${pageNumber.value}');
+
+        // Save current scroll position and content height before loading more data
+        double currentScrollPosition = scrollController.position.pixels;
+        double maxScrollExtentBeforeLoad =
+            scrollController.position.maxScrollExtent;
+
+        pageNumber.value++;
+        isLoading.value = true;
+
+        getCommunityResponse();
+        isLoading.value = false;
+        isLoadingMore = false; // Reset loading flag
+
+        double newMaxScrollExtent = scrollController.position.maxScrollExtent;
+        double scrollOffsetDifference =
+            newMaxScrollExtent - maxScrollExtentBeforeLoad;
+        scrollController.jumpTo(currentScrollPosition +
+            scrollOffsetDifference); // Maintain position after loading
+      } else if (pageNumber.value >= communityResponse.value.meta!.lastPage! &&
+          scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          !isLoadingMore) {
+        isLoadingMore = true;
+        AppHelperFunctions.showToast('No Post');
+      }
+    });
+  }
 }

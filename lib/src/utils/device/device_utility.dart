@@ -112,6 +112,7 @@ class AppDeviceUtils {
   // }
 
   static Future<void> browseUrl(String url) async {
+    print('object');
     if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');
     }

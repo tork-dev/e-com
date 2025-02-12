@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class CommunityResponse {
-  List<Datum>? data;
+  List<CommunityPost>? data;
   Links? links;
   Meta? meta;
   bool? success;
@@ -20,7 +20,7 @@ class CommunityResponse {
   String toRawJson() => json.encode(toJson());
 
   factory CommunityResponse.fromJson(Map<String, dynamic> json) => CommunityResponse(
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+    data: json["data"] == null ? [] : List<CommunityPost>.from(json["data"]!.map((x) => CommunityPost.fromJson(x))),
     links: json["links"] == null ? null : Links.fromJson(json["links"]),
     meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
     success: json["success"],
@@ -36,7 +36,7 @@ class CommunityResponse {
   };
 }
 
-class Datum {
+class CommunityPost {
   int? id;
   int? customerId;
   String? customerName;
@@ -50,7 +50,7 @@ class Datum {
   int? commentsCount;
   List<AllComment>? allComments;
 
-  Datum({
+  CommunityPost({
     this.id,
     this.customerId,
     this.customerName,
@@ -65,11 +65,11 @@ class Datum {
     this.allComments,
   });
 
-  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
+  factory CommunityPost.fromRawJson(String str) => CommunityPost.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory CommunityPost.fromJson(Map<String, dynamic> json) => CommunityPost(
     id: json["id"],
     customerId: json["customer_id"],
     customerName: json["customer_name"],

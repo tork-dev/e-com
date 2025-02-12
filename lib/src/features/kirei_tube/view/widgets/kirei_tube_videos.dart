@@ -197,8 +197,6 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                       "id": controller
                                           .videosList.value.data![index].slug
                                     });
-                                // Get.toNamed(
-                                //     '/kirei-tube-details/${controller.videosList.value.data![index].slug}');
                               },
                               isPlaylist:
                                   kireiTubeController.tabController.index == 3

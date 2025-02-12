@@ -198,9 +198,6 @@ class GetShopDataController extends GetxController {
 
   Future<void> getShopData() async {
     hittingApi.value = true;
-    // if(categoryRouteList.length < 2) {
-    //   setValuesFromUrl();
-    // }
       setValuesFromUrl();
 
     if(categories.value != ''){
@@ -208,9 +205,6 @@ class GetShopDataController extends GetxController {
     }
     shopPageProduct.value =
         await ShopRepositories().getFilteredProducts(queryString: queryStringValue.value);
-
-
-    // print(shopPageProduct.value.meta!.lastPage);
 
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);

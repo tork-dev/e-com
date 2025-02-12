@@ -25,14 +25,6 @@ class KireiTubeDetailsDescription extends StatelessWidget {
                       .kireiTubeDetailsResponse.value.data!.title!,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
-          const Gap(AppSizes.sm),
-          kireiTubeDetailsController.hittingApi.value
-              ? ShimmerHelper().buildBasicShimmer(height: 30)
-              : Text(
-                  "${NumberFormat.compact().format(int.parse(kireiTubeDetailsController.kireiTubeDetailsResponse.value.data!.statistics?.viewCount ?? '0'))} Views",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-          const Gap(AppSizes.spaceBtwDefaultItems),
           kireiTubeDetailsController.hittingApi.value
               ? ShimmerHelper().buildBasicShimmer(height: 50)
               : HtmlWidget(

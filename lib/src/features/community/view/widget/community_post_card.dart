@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/texts/expandable_text.dart';
 import 'package:kirei/src/features/community/controller/community_controller.dart';
 import 'package:kirei/src/features/community/view/community_comment_screen.dart';
 
@@ -26,7 +27,7 @@ class CommunityPostContainer extends StatelessWidget {
       return AppListViewLayout(
         itemCount: communityController.isLoading.value
             ? 5
-            : communityController.communityResponse.value.data!.length,
+            : communityController.communityPostList.length,
         builderFunction: (context, index) => communityController.isLoading.value
             ? ShimmerHelper().buildBasicShimmer(height: 150)
             : AppCardContainer(
@@ -57,8 +58,9 @@ class CommunityPostContainer extends StatelessWidget {
                             SizedBox(
                               width: 250,
                               child: Text(
-                                communityController.communityResponse.value
-                                    .data![index].customerName!,
+                                communityController.communityPostList[index]
+                                        .customerName ??
+                                    "Guest",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -69,7 +71,7 @@ class CommunityPostContainer extends StatelessWidget {
                             ),
                             Text(
                               communityController
-                                  .communityResponse.value.data![index].date!,
+                                  .communityPostList[index].date!,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -77,19 +79,27 @@ class CommunityPostContainer extends StatelessWidget {
                       ],
                     ),
                     const Gap(AppSizes.sm),
-                    Text(communityController
-                            .communityResponse.value.data![index].description ??
-                        ''),
+                    ExpandableText(
+                        text: communityController
+                                .communityPostList[index].description ??
+                            '',
+                      maxLength: 200,
+                    ),
+                    // Text(communityController
+                    //         .communityPostList[index].description ??
+                    //     ''),
                     const Gap(AppSizes.sm),
                     Visibility(
-                       visible:communityController.communityResponse.value.data?[index].banner != null,
+                      visible:
+                          communityController.communityPostList[index].banner !=
+                              null,
                       child: Center(
                         child: AppBannerImage(
                             height: 150,
                             applyImageRadius: false,
                             isNetworkImage: true,
-                            imgUrl: communityController.communityResponse.value
-                                    .data![index].banner ??
+                            imgUrl: communityController
+                                    .communityPostList[index].banner ??
                                 ''),
                       ),
                     ),
@@ -100,9 +110,9 @@ class CommunityPostContainer extends StatelessWidget {
                         InkWell(
                             onTap: () => Get.to(() => CommunityCommentScreen(
                                 postId: communityController
-                                    .communityResponse.value.data![index].id!)),
+                                    .communityPostList[index].id!)),
                             child: Text(
-                                "${communityController.communityResponse.value.data![index].commentsCount} Comment")),
+                                "${communityController.communityPostList[index].commentsCount} Comment")),
                         SizedBox(
                             child: CommunityLikeButton(
                           cardIndex: index,

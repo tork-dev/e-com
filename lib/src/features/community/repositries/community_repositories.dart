@@ -4,7 +4,6 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import '../controller/community_comment_controller.dart';
 import '../model/community_comment_response.dart';
 import '../model/community_like_create_response.dart';
 import '../model/community_response.dart';
@@ -14,8 +13,8 @@ class CommunityRepositories{
 
   final dynamic accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
-  Future<CommunityResponse> getCommunityPost()async{
-    Uri url = Uri.parse(AppApiEndPoints.communityPost);
+  Future<CommunityResponse> getCommunityPost(int pageNumber)async{
+    Uri url = Uri.parse("${AppApiEndPoints.communityPost}?page=$pageNumber");
     final response = await http.get(
       url,
       headers: {

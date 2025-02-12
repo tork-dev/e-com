@@ -4,6 +4,7 @@ import 'package:kirei/src/features/community/controller/community_controller.dar
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:like_button/like_button.dart';
 
 class CommunityLikeButton extends StatelessWidget {
@@ -17,16 +18,16 @@ class CommunityLikeButton extends StatelessWidget {
         return LikeButton(
           onTap: (bool isLiked) async {
             if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
-              controller.getAddCommunityLike(controller.communityResponse.value.data![cardIndex].id.toString());
+              controller.getAddCommunityLike(controller.communityPostList[cardIndex].id.toString());
             } else {
               AppHelperFunctions.showToast('Please login first!');
-              Get.toNamed('/login/community');
+              Get.toNamed('/login', arguments: {"prevRoute" : "/community"});
             }
             return !isLiked;
           },
 
           size: 32,
-          isLiked: controller.communityResponse.value.data![cardIndex].isLike == true ? true : false,
+          isLiked: controller.communityPostList[cardIndex].isLike == true ? true : false,
           circleColor: const CircleColor(
               start: Color(0xff00ddff), end: Color(0xff0099cc)),
           bubblesColor: const BubblesColor(
@@ -40,7 +41,7 @@ class CommunityLikeButton extends StatelessWidget {
               size: 31,
             );
           },
-          likeCount: controller.communityResponse.value.data![cardIndex].likeCount,
+          likeCount: controller.communityPostList[cardIndex].likeCount,
           countPostion: CountPostion.right,
           likeCountPadding: const EdgeInsets.all(0),
           mainAxisAlignment: MainAxisAlignment.start,

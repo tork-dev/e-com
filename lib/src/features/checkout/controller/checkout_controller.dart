@@ -52,7 +52,6 @@ class CheckoutController extends GetxController {
   String productQuantitiesString;
   RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
-  RxBool isLoading = false.obs;
   RxInt rewardBalance = 0.obs;
   RxInt redeemPoint = 0.obs;
   RxInt redeemedPoint = 0.obs;

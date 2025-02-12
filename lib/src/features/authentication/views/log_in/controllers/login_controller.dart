@@ -9,6 +9,7 @@ import 'package:kirei/src/features/authentication/views/log_in/repository/login_
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
+import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -149,7 +150,7 @@ class LogInPageController extends GetxController {
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
         AuthHelper().setUserData(loginResponse.value);
-        if (previousRoute == 'cart') {
+        if (previousRoute.value == 'cart') {
           final cartController = CartController.instance;
           EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
               double.parse(Get.parameters['sale_price']!));
@@ -161,7 +162,6 @@ class LogInPageController extends GetxController {
                 .then((value) => AppHelperFunctions.showToast(
                 cartController.requestStockResponse.value.message!));
 
-            // AwesomeNotificationController.showNotification();
           } else {
             cartController
                 .getAddToCartResponse(

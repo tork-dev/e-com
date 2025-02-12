@@ -22,7 +22,6 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
@@ -40,7 +39,7 @@ class AppDrawer extends StatelessWidget {
     final drawerController = Get.put(AppDrawerController());
     final shopController = Get.put(GetShopDataController());
     final bottomController = Get.put(ConvexBottomNavController());
-    final homeController = HomeController.instance;
+    final homeController = Get.put(HomeController());
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
@@ -336,7 +335,7 @@ class AppDrawer extends StatelessWidget {
               }),
           AppDrawerCard(
             title: 'kirei community'.toUpperCase(),
-            onPress: () => Get.offAll(() => const CommunityScreen()),
+            onPress: () => Get.toNamed("/community"),
           ),
           AppDrawerCard(
             title: 'dr. appointment'.toUpperCase(),

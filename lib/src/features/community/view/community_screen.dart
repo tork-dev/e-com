@@ -31,6 +31,7 @@ class CommunityScreen extends StatelessWidget {
             left: AppSizes.xs, right: AppSizes.xs, top: AppSizes.xs),
         child: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
+          scrollController: controller.scrollController,
           children:  const [
             CommunityHeader(),
             Gap(AppSizes.sm),

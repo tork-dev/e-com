@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/personal-recommendation',
             page: () => const SkinCareHistoryOne()),
-        GetPage(name: '/community', page: () => const CommunityScreen()),
+        GetPage(name: "/community", page: () => const CommunityScreen()),
         GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
         GetPage(name: '/order/:id', page: () => const PurchaseHistoryDetails()),
         GetPage(
