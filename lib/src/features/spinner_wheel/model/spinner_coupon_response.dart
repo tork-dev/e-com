@@ -33,12 +33,16 @@ class Data {
   dynamic image;
   String? title;
   String? description;
+  String? expireAt;
+  String? expiredMessage;
 
   Data({
     this.couponCode,
     this.image,
     this.title,
     this.description,
+    this.expireAt,
+    this.expiredMessage
   });
 
   factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
@@ -50,6 +54,8 @@ class Data {
     image: json["image"],
     title: json["title"],
     description: json["description"],
+    expireAt: json["expired_at"],
+    expiredMessage: json["expired_message"]
   );
 
   Map<String, dynamic> toMap() => {
