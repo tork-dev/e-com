@@ -345,6 +345,7 @@ class AppHelperFunctions {
   static void showSpinnerCoupon(
       {required String title,
       required String subTitle,
+        String? expireMessage,
       String? couponCode,
       VoidCallback? onCouponPress,
       required String imgUrl}) {
@@ -362,10 +363,10 @@ class AppHelperFunctions {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Gap(AppSizes.md),
+                  const Gap(AppSizes.xl),
                   AppBannerImage(
                       applyImageRadius: false,
-                      height: 180,
+                      height: 100,
                       isNetworkImage: true,
                       imgUrl: imgUrl),
                   Padding(
@@ -381,14 +382,37 @@ class AppHelperFunctions {
                           subTitle,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
+                        const Gap(AppSizes.md),
+                        Text(
+                          "*NOTE: $expireMessage",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .apply(color: AppColors.error),
+                          textAlign: TextAlign.center,
+                        ),
                         const Gap(AppSizes.xl),
                         Visibility(
                             visible: couponCode != null,
-                            child: AppButtons.largeFlatOutlineButton(
-                                onPressed: onCouponPress ?? () {},
-                                buttonText: couponCode.toString())),
+                            child: AppCardContainer(
+                              applyRadius: false,
+                              onTap: onCouponPress,
+                              backgroundColor: AppColors.white,
+                              padding: const EdgeInsets.symmetric(vertical: AppSizes.md),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(couponCode ?? ''),
+                                  const Gap(AppSizes.sm),
+                                  const Icon(Icons.copy)
+                                ],
+                              ),
+                            )
+                        ),
                         const Gap(AppSizes.defaultSpace),
                         AppButtons.largeFlatFilledButton(
+                            backgroundColor: const Color(0xffDA5555),
                             onPressed: () {
                               Get.offAllNamed('/shop');
                             },
@@ -500,11 +524,13 @@ class AppHelperFunctions {
 
   String stripHtmlTags(String htmlString) {
     // Remove HTML comments and metadata tags
-    final RegExp regExpComments = RegExp(r'<!--.*?-->', multiLine: true, caseSensitive: false);
+    final RegExp regExpComments =
+        RegExp(r'<!--.*?-->', multiLine: true, caseSensitive: false);
     String result = htmlString.replaceAll(regExpComments, '');
 
     // Remove all HTML tags
-    final RegExp regExpTags = RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
+    final RegExp regExpTags =
+        RegExp(r'<[^>]*>', multiLine: true, caseSensitive: false);
     result = result.replaceAll(regExpTags, '');
 
     // Replace common HTML entities
@@ -532,7 +558,6 @@ class AppHelperFunctions {
   static deBouncerSearchDelay(function) {
     Future.delayed(const Duration(microseconds: 300), () => function);
   }
-
 
   static String formatTimestampWithAgo(DateTime? dateAndTime) {
     DateTime now = DateTime.now();
@@ -585,7 +610,7 @@ class AppHelperFunctions {
       'device_type': 'IOS',
       'os_version': iosDeviceInfo.systemVersion,
       'device_brand': iosDeviceInfo.name,
-      'device_model' : iosDeviceInfo.model,
+      'device_model': iosDeviceInfo.model,
     };
     return allInfo;
   }

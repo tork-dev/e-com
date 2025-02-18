@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
-import 'package:kirei/src/common/styles/spacing_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';

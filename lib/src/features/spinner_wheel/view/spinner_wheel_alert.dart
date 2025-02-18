@@ -103,6 +103,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                                 .value
                                                 .data
                                                 ?.couponCode,
+                                            expireMessage: spinController.selectedCouponResponse.value.data?.expiredMessage ?? '',
                                             onCouponPress: () {
                                               FlutterClipboard.copy(spinController
                                                           .selectedCouponResponse

@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtm/gtm.dart';
@@ -38,10 +39,27 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
               imgHeight: 150,
               imgWidth: 150,
               onTap: () {
-                // Get.reload<DetailsPageController>();
                 Get.toNamed('/product/${sectionName![index].slug}', parameters: {'prevRoute' : '/home'});
                 EventLogger().logProductDetailsViewEvent(
                     '${sectionName![index].slug}');
+                // AppHelperFunctions.showSpinnerCoupon(
+                //     title: "You just won 18% off",
+                //     couponCode: "SPIN18XQM",
+                //     expireMessage: "valid for 7 days",
+                //     onCouponPress: () {
+                //       // FlutterClipboard.copy(spinController
+                //       //     .selectedCouponResponse
+                //       //     .value
+                //       //     .data
+                //       //     ?.couponCode ??
+                //       //     '')
+                //       //     .then((value) =>
+                //       //     AppHelperFunctions
+                //       //         .showToast(
+                //       //         'Coupon copied'));
+                //     },
+                //     subTitle: 'Apply this coupon on checkout',
+                //     imgUrl: "https://appbeta1.kireibd.com/storage/all/sales.png");
               },
               onCartTap: () {
                 if (AppLocalStorage()
