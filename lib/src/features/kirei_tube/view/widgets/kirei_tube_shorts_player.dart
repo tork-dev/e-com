@@ -18,19 +18,19 @@ class KireiTubeShortsPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = KireiTubeDetailsController.instance;
-    return AppCardContainer(
-      height: AppHelperFunctions.screenHeight() * 0.6,
-            child: Obx(() {
-              return controller.hittingApi.value
-                  ? ShimmerHelper().buildBasicShimmer(
-                      height: AppHelperFunctions.screenHeight())
-                  : controller.videoUrl.contains('facebook.com')
-                      ? WebViewWidget(
-                          controller: controller.webViewController!,
-                        )
-                      : YoutubePlayer(
-                          controller: controller.youtubeController.value!,
-                        );
-            }));
+    return AspectRatio(
+        aspectRatio: 9 / 16,
+        child: Obx(() {
+          return controller.hittingApi.value
+              ? ShimmerHelper()
+                  .buildBasicShimmer(height: AppHelperFunctions.screenHeight())
+              : controller.videoUrl.contains('facebook.com')
+                  ? WebViewWidget(
+                      controller: controller.webViewController!,
+                    )
+                  : YoutubePlayer(
+                      controller: controller.youtubeController.value!,
+                    );
+        }));
   }
 }

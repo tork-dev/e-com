@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:kirei/src/features/kirei_tube/model/kirei_tube_details_model.dart';
 import 'package:kirei/src/features/kirei_tube/repositories/kirei_tube_repositories.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -18,6 +19,7 @@ class KireiTubeDetailsController extends GetxController {
 
   void setVideoUrl(String url) {
     videoUrl.value = url;
+    Log.i("video url ${videoUrl.value}");
   }
 
   @override
@@ -70,13 +72,42 @@ class KireiTubeDetailsController extends GetxController {
     }
   }
 
+  // Future<void> initializeWebView() async {
+  //   webViewController = WebViewController()
+  //     ..setJavaScriptMode(JavaScriptMode.unrestricted)
+  //     // Example Facebook video embed URL
+  //     ..loadRequest(Uri.parse(
+  //         videoUrl.value))..setJavaScriptMode(JavaScriptMode.unrestricted);
+  //   print('playing facebook video');
+  // }
+
   Future<void> initializeWebView() async {
     webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      // Example Facebook video embed URL
-      ..loadRequest(Uri.parse(
-          videoUrl.value))..setJavaScriptMode(JavaScriptMode.unrestricted);
-    print('playing facebook video');
+      ..loadRequest(Uri.parse(videoUrl.value))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            // Inject JavaScript to trigger fullscreen mode
+            webViewController?.runJavaScript('''
+              // Find the video element
+              var video = document.querySelector('video');
+              if (video) {
+                // Request fullscreen mode
+                if (video.requestFullscreen) {
+                  video.requestFullscreen();
+                } else if (video.mozRequestFullScreen) { // Firefox
+                  video.mozRequestFullScreen();
+                } else if (video.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+                  video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { // IE/Edge
+                  video.msRequestFullscreen();
+                }
+              }
+            ''');
+          },
+        ),
+      );
   }
 
   @override

@@ -99,34 +99,49 @@ class KireiTubePlaylistScreen extends StatelessWidget {
                         ? 5
                         : kireiTubeController
                             .playlistDetails.value.data![0].videos!.length,
-                    builderFunction: (context, index) =>
-                        kireiTubeController.hittingApi.value
-                            ? ShimmerHelper().buildBasicShimmer(height: 150)
-                            : VideoHorizontalCard(
-                                onTap: () {
-                                  if (kireiTubeController
+                    builderFunction: (context, index) => kireiTubeController
+                            .hittingApi.value
+                        ? ShimmerHelper().buildBasicShimmer(height: 150)
+                        : VideoHorizontalCard(
+                            onTap: () {
+                              if (kireiTubeController
                                           .playlistDetails
                                           .value
                                           .data![0]
                                           .videos![index]
                                           .orientation ==
-                                      "portrait" || kireiTubeController
-                                      .playlistDetails
-                                      .value
-                                      .data![0]
-                                      .videos![index]
-                                      .orientation ==
+                                      "portrait" ||
+                                  kireiTubeController
+                                          .playlistDetails
+                                          .value
+                                          .data![0]
+                                          .videos![index]
+                                          .orientation ==
                                       "shorts") {
-                                    Get.to(()=> const KireiTubeShortsDetailsScreen(), arguments: {"id" : kireiTubeController.playlistDetails.value.data![0].videos![index].slug});
-                                  } else {
-                                    Get.to(()=> const KireiTubeShortsDetailsScreen(), arguments: {"id" : kireiTubeController.playlistDetails.value.data![0].videos![index].slug});
-                                  }
-                                },
-                                imgUrl: kireiTubeController.playlistDetails
-                                    .value.data![0].videos![index].banner,
-                                title: kireiTubeController.playlistDetails.value
-                                    .data![0].videos![index].title,
-                              ))
+                                Get.to(
+                                    () => const KireiTubeShortsDetailsScreen(),
+                                    arguments: {
+                                      "id": kireiTubeController.playlistDetails
+                                          .value.data![0].videos![index].slug
+                                    });
+                              } else {
+                                Get.to(
+                                    () => const KireiTubeShortsDetailsScreen(),
+                                    arguments: {
+                                      "id": kireiTubeController.playlistDetails
+                                          .value.data![0].videos![index].slug
+                                    });
+                              }
+                            },
+                            imgUrl: kireiTubeController.playlistDetails.value
+                                .data![0].videos![index].banner,
+                            title: kireiTubeController.playlistDetails.value
+                                .data![0].videos![index].title,
+                            createdAt:
+                                AppHelperFunctions.formatTimestampWithAgo(
+                                    kireiTubeController.playlistDetails.value
+                                        .data![0].videos![index].createdAt),
+                          ))
               ],
             );
           }),

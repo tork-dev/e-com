@@ -83,6 +83,7 @@ dependencies:
   firebase_analytics: ^10.10.7
   app_links: ^6.3.2
   firebase_performance: ^0.9.4+7
+  video_player: ^2.9.2
 
 
 

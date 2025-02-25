@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -29,7 +30,9 @@ class KireiTubeShortsCard extends StatelessWidget {
               ? ShimmerHelper().buildBasicShimmer(width: 138, height: 228)
               : AppBannerImage(
                   height: 228,
-                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  backgroundColor: AppColors.addToCartButton,
+                  fit: BoxFit.fitHeight,
                   applyImageRadius: false,
                   isNetworkImage: true,
                   imgUrl: shortsBanner),

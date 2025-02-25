@@ -179,8 +179,6 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                       "id": controller
                                           .videosList.value.data![index].slug
                                     });
-                                // Get.toNamed(
-                                //     "/kirei-shorts/${controller.videosList.value.data![index].slug}");
                               },
                               hittingApi: controller.hittingApi.value,
                               shortsBanner: controller
@@ -192,6 +190,16 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             )
                           : KireiTubeListCard(
                               onTapBanner: () {
+                                controller
+                                    .videosList.value.data![index].orientation == "portrait"?
+                                Get.to(
+                                        () =>
+                                    const KireiTubeShortsDetailsScreen(),
+                                    arguments: {
+                                      'id': controller
+                                          .videosList.value.data![index].slug
+                                    }) :
+
                                 Get.to(() => const KireiTubeDetailsScreen(),
                                     arguments: {
                                       "id": controller

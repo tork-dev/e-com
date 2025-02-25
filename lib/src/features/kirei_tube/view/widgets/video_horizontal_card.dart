@@ -8,13 +8,14 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 
 class VideoHorizontalCard extends StatelessWidget {
-  final String? imgUrl, title;
+  final String? imgUrl, title, createdAt;
   final VoidCallback? onTap;
 
   const VideoHorizontalCard({
     this.imgUrl,
     this.title,
     this.onTap,
+    this.createdAt,
     super.key,
   });
 
@@ -31,6 +32,8 @@ class VideoHorizontalCard extends StatelessWidget {
             AppBannerImage(
                 width: 104,
                 height: 70,
+                backgroundColor: AppColors.addToCartButton,
+                fit: BoxFit.fitHeight,
                 isNetworkImage: true,
                 applyImageRadius: false,
                 imgUrl: imgUrl ?? ''),
@@ -55,7 +58,7 @@ class VideoHorizontalCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  '11 Month ago',
+                  createdAt ?? '',
                   style: Theme.of(context).textTheme.labelSmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

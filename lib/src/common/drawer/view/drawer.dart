@@ -22,6 +22,7 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
@@ -303,6 +304,9 @@ class AppDrawer extends StatelessWidget {
                         shopController.updateCategory(
                             drawerController.allNewCategories[index].slug!);
                         bottomController.jumpToTab(1);
+                        if (bottomController.pageIndex.value == 1) {
+                          Get.back();
+                        }
                       }),
             );
           }),

@@ -60,7 +60,8 @@ class AppProductImage extends StatelessWidget {
                     height: imgHeight,
                   applyImageRadius: false,
                   isNetworkImage: true,
-                    imgUrl: imgUrl
+                    imgUrl: imgUrl,
+                  fit: BoxFit.cover,
                 ),
                 Visibility(
                   visible: isDiscountAvailable,

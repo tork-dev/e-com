@@ -564,7 +564,15 @@ class AppHelperFunctions {
     DateTime dateTime = (dateAndTime ?? now);
     Duration difference = now.difference(dateTime);
 
-    if (difference.inDays >= 7) {
+    if(difference.inDays >= 365){
+    int year = (difference.inDays / 365).floor();
+    return year == 1 ? '1 year ago' : '$year year ago';
+    }
+    else if(difference.inDays >= 30){
+      int month = (difference.inDays / 30).floor();
+      return month == 1 ? '1 month ago' : '$month month ago';
+    }
+    else if (difference.inDays >= 7) {
       int weeks = (difference.inDays / 7).floor();
       return weeks == 1 ? '1 week ago' : '$weeks weeks ago';
     } else if (difference.inDays >= 1) {

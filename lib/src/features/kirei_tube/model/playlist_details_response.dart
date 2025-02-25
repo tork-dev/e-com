@@ -80,6 +80,7 @@ class Video {
   String? shortDescription;
   String? orientation;
   String? video;
+  DateTime? createdAt;
 
   Video({
     this.id,
@@ -89,6 +90,7 @@ class Video {
     this.shortDescription,
     this.orientation,
     this.video,
+    this.createdAt
   });
 
   factory Video.fromJson(String str) => Video.fromMap(json.decode(str));
@@ -103,6 +105,7 @@ class Video {
     shortDescription: json["short_description"],
     orientation: json["orientation"],
     video: json["video"],
+    createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
   );
 
   Map<String, dynamic> toMap() => {
@@ -113,5 +116,6 @@ class Video {
     "short_description": shortDescription,
     "orientation": orientation,
     "video": video,
+    'created_at': createdAt?.toIso8601String(),
   };
 }
