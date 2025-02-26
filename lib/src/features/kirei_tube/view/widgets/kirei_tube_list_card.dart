@@ -42,24 +42,24 @@ class KireiTubeListCard extends StatelessWidget {
                     width: double.infinity,
                     applyImageRadius: false,
                     height: double.infinity,
-                    // Match the parent's height
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitHeight,
+                    backgroundColor: AppColors.darkerGrey,
                     isNetworkImage: true,
                     imgUrl: kireiTubeBanner,
                   ),
                   Visibility(
                     visible: !isPlaylist,
-                    child: Center(
+                    child: const Center(
                       child: AppCardContainer(
-                        height: 70,
-                        width: 70,
+                        height: 60,
+                        width: 60,
                         applyRadius: false,
                         isCircle: true,
-                        backgroundColor: AppColors.dark.withOpacity(.2),
-                        child: const Icon(
-                          Icons.play_circle_filled_sharp,
-                          color: AppColors.dark,
-                          size: 60,
+                        backgroundColor: AppColors.dark,
+                        child: Icon(
+                          Icons.play_arrow_rounded,
+                          color: AppColors.white,
+                          size: 40,
                         ),
                       ),
                     ),

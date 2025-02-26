@@ -101,21 +101,6 @@ class CommunityController extends GetxController {
 
   void addItems() {
     scrollController.addListener(() {
-      // if (scrollController.position.pixels <=
-      //         scrollController.position.minScrollExtent + 50 &&
-      //     pageNumber.value > 1 &&
-      //     !isLoadingMore &&
-      //     !isLoading.value) {
-      //   isLoadingMore = true; // Set loading flag to true
-      //
-      //   AppHelperFunctions.showToast('Loading more...');
-      //   print('Reached the top of the list, loading previous page...');
-      //   pageNumber.value--;
-      //   getCommunityResponse().then((_) {
-      //     isLoadingMore = false; // Reset loading flag
-      //     update(); // Trigger UI update
-      //   });
-      // }
         if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 50 &&
           pageNumber.value < communityResponse.value.meta!.lastPage! &&

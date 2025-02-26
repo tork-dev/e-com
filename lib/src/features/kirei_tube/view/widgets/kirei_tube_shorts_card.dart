@@ -24,30 +24,48 @@ class KireiTubeShortsCard extends StatelessWidget {
     return AppCardContainer(
       onTap: onShortsPress,
       width: 138,
-      child: Column(
+      child: Stack(
         children: [
           hittingApi
               ? ShimmerHelper().buildBasicShimmer(width: 138, height: 228)
-              : AppBannerImage(
-                  height: 228,
-                  width: double.infinity,
-                  backgroundColor: AppColors.addToCartButton,
-                  fit: BoxFit.fitHeight,
-                  applyImageRadius: false,
-                  isNetworkImage: true,
-                  imgUrl: shortsBanner),
-          SizedBox(
-            height: 40,
-            child: hittingApi
-                ? ShimmerHelper()
-                    .buildBasicShimmer(height: 15, width: 100)
-                : Text(
-                    shortsTitle,
-                    style: Theme.of(context).textTheme.titleLarge,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
+              : AspectRatio(
+            aspectRatio: 9/16,
+                child: AppBannerImage(
+                    // height: 250,
+                    // width: double.infinity,
+                    backgroundColor: AppColors.addToCartButton,
+                    fit: BoxFit.fitHeight,
+                    applyImageRadius: false,
+                    isNetworkImage: true,
+                    imgUrl: shortsBanner),
+              ),
+          const Center(
+            child: AppCardContainer(
+              height: 60,
+              width: 60,
+              applyRadius: false,
+              isCircle: true,
+              backgroundColor: AppColors.dark,
+              child: Icon(
+                Icons.play_arrow_rounded,
+                color: AppColors.white,
+                size: 40,
+              ),
+            ),
           ),
+          // const Gap(AppSizes.sm),
+          // SizedBox(
+          //   height: 40,
+          //   child: hittingApi
+          //       ? ShimmerHelper()
+          //           .buildBasicShimmer(height: 15, width: 100)
+          //       : Text(
+          //           shortsTitle,
+          //           style: Theme.of(context).textTheme.titleLarge,
+          //           overflow: TextOverflow.ellipsis,
+          //           maxLines: 2,
+          //         ),
+          // ),
         ],
       ),
     );
