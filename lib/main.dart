@@ -29,7 +29,7 @@ void main() async {
   await GetStorage.init();
 
   // Initialize dependency injection
-  DependencyInjection.init();
+  // DependencyInjection.init();
 
   // Ensure BASE_URL_WEB is available
   final baseUrlWeb = dotenv.env["BASE_URL_WEB"];

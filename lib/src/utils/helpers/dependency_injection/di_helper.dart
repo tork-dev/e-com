@@ -25,32 +25,34 @@ import 'package:kirei/src/utils/helpers/network_manager.dart';
 
 import '../../../features/spinner_wheel/controller/spinner_controller.dart';
 
-class DependencyInjection {
-  static Future init() async{
-    Get.lazyPut(()=>OnBoardingController());
-    Get.lazyPut(()=>NetworkManager());
-    Get.lazyPut(()=>CommonController());
-    Get.lazyPut(()=>SplashController());
-    Get.lazyPut(()=>SpinnerController());
-    Get.lazyPut(()=>LogInPageController());
-    Get.lazyPut(()=>SignUpPageController());
-    Get.lazyPut(()=>ForgotPasswordController());
-    Get.lazyPut(()=>OtpController());
-    Get.lazyPut(()=>ConvexBottomNavController());
-    Get.lazyPut(()=>HomeController());
-    Get.lazyPut(()=>ShopController());
-    Get.lazyPut(()=>GetShopDataController());
-    Get.lazyPut(()=>CartController());
-    Get.lazyPut(()=>UserController());
-    Get.lazyPut(()=>AccountDetailsController());
-    Get.lazyPut(()=>DetailsPageController());
-    Get.lazyPut(()=>RecommendationController());
-    Get.lazyPut(()=>AppointmentController());
-    Get.lazyPut(()=>CommunityController());
-    Get.lazyPut(()=>GroupShoppingController());
-    Get.lazyPut(()=>InfluencerStoreController());
-    Get.lazyPut(()=>KireiTubeController());
-    Get.lazyPut(()=>PurchaseHistoryController());
+class DependencyInjection extends Bindings {
+
+  @override
+  void dependencies() {
+    Get.lazyPut<OnBoardingController>(()=>OnBoardingController());
+    Get.lazyPut<NetworkManager>(()=>NetworkManager());
+    Get.lazyPut<CommonController>(()=>CommonController());
+    Get.lazyPut<SplashController>(()=>SplashController());
+    Get.lazyPut<SpinnerController>(()=>SpinnerController());
+    Get.lazyPut<LogInPageController>(()=>LogInPageController());
+    Get.lazyPut<SignUpPageController>(()=>SignUpPageController());
+    Get.lazyPut<ForgotPasswordController>(()=>ForgotPasswordController());
+    Get.lazyPut<OtpController>(()=>OtpController());
+    Get.lazyPut<ConvexBottomNavController>(()=>ConvexBottomNavController());
+    Get.lazyPut<HomeController>(()=>HomeController());
+    Get.lazyPut<ShopController>(()=>ShopController());
+    Get.lazyPut<GetShopDataController>(()=>GetShopDataController());
+    Get.lazyPut<CartController>(()=>CartController());
+    Get.lazyPut<UserController>(()=>UserController());
+    Get.lazyPut<AccountDetailsController>(()=>AccountDetailsController());
+    Get.lazyPut<DetailsPageController>(()=>DetailsPageController());
+    Get.lazyPut<RecommendationController>(()=>RecommendationController());
+    Get.lazyPut<AppointmentController>(()=>AppointmentController());
+    Get.lazyPut<CommunityController>(()=>CommunityController());
+    Get.lazyPut<GroupShoppingController>(()=>GroupShoppingController());
+    Get.lazyPut<InfluencerStoreController>(()=>InfluencerStoreController());
+    Get.lazyPut<KireiTubeController>(()=>KireiTubeController());
+    Get.lazyPut<PurchaseHistoryController>(()=>PurchaseHistoryController());
 
   }
 }
