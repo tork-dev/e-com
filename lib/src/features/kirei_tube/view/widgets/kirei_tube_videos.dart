@@ -160,7 +160,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
             GetBuilder<KireiTubeController>(builder: (controller) {
               return AppGridViewLayout(
                   mobileAspect:
-                      kireiTubeController.tabController.index == 2 ? 9/16 : kireiTubeController.tabController.index == 1? 1.15 : 1.05,
+                      kireiTubeController.tabController.index == 2 ? 9/16 : kireiTubeController.tabController.index == 1? 1:1,
                   itemCount: controller.hittingApi.value
                       ? 10
                       : kireiTubeController.tabController.index == 3

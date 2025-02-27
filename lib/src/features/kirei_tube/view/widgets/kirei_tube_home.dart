@@ -138,7 +138,7 @@ class KireiTubeHome extends StatelessWidget {
                                   ),
                                   const Gap(AppSizes.spaceBtwItems),
                                   SizedBox(
-                                    height: 305,
+                                    height: 250,
                                     child: GetBuilder<KireiTubeController>(
                                         builder: (controller) {
                                       return AppListViewLayout(

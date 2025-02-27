@@ -53,19 +53,6 @@ class KireiTubeShortsCard extends StatelessWidget {
               ),
             ),
           ),
-          // const Gap(AppSizes.sm),
-          // SizedBox(
-          //   height: 40,
-          //   child: hittingApi
-          //       ? ShimmerHelper()
-          //           .buildBasicShimmer(height: 15, width: 100)
-          //       : Text(
-          //           shortsTitle,
-          //           style: Theme.of(context).textTheme.titleLarge,
-          //           overflow: TextOverflow.ellipsis,
-          //           maxLines: 2,
-          //         ),
-          // ),
         ],
       ),
     );
