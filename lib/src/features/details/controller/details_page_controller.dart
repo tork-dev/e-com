@@ -13,7 +13,7 @@ import '../model/products_model.dart';
 class DetailsPageController extends GetxController {
   static DetailsPageController get instance => Get.find();
 
-  final homeController = Get.put(HomeController(callApis: false));
+  HomeController homeController = Get.put(HomeController(callApis: false));
 
   RxList<String> productSlugList = <String>[].obs;
   RxInt productSlugIndex = 0.obs;

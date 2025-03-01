@@ -27,9 +27,9 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DetailsPageController());
-    final categoryController = Get.put(GetShopDataController());
-    final bottomController = Get.put(ConvexBottomNavController());
+    DetailsPageController controller = Get.put(DetailsPageController());
+    GetShopDataController categoryController = Get.put(GetShopDataController());
+    ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
 
     if (controller.productSlugList[controller.productSlugIndex.value] !=
         Get.parameters['id']) {
@@ -62,13 +62,14 @@ class DetailsPage extends StatelessWidget {
           print('print product id ${Get.parameters['id']}');
           return AppBarSearch(
             focusOn: categoryController.searchOn.value,
-            onSubmit: (txt) {
+            onSubmit: (String txt) {
               categoryController.search.value = txt;
               categoryController.isFromSearch.value = true;
               categoryController.getShopData();
               Get.back();
               bottomController.jumpToTab(1);
               EventLogger().logSearchEvent(txt);
+              return null;
             },
             prevRoute: '/shop',
           );

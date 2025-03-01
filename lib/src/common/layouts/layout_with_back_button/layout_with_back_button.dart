@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/view/drawer.dart';
 import 'package:kirei/src/common/widgets/appbar/custom_app_bar.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/home/views/home_three.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -38,15 +39,22 @@ class AppLayoutWithBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final isDark = AppHelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: PopScope(
         canPop: !backToHome,
-        onPopInvoked: (pop) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            backToHome ? Get.offAllNamed('/home') : showCustomLeading? leadingOnPress!() :  null;
-          });
+        onPopInvoked: (bool didPop) async {
+          if (!didPop) {
+            bool popped = await Navigator.maybePop(context);
+            if (!popped) {
+              if (backToHome) {
+                // Navigator.popUntil(context, (HomeThree) => false);
+                Get.offAllNamed('/home');
+              } else if (showCustomLeading && leadingOnPress != null) {
+                leadingOnPress!();
+              }
+            }
+          }
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,

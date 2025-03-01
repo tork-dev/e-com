@@ -14,7 +14,9 @@ class CommonController extends GetxController {
     super.onInit();
 
     // Initialize GAIP User ID Controller if not already initialized
+      print('calling gaip user id before');
     if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
+      print('calling gaip user id');
       Get.put(GaipUserIdController());
     }
     showPopUp();
