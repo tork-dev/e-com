@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart' as cw;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
@@ -8,8 +8,6 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import '../../../../utils/constants/image_strings.dart';
-import '../../../../utils/constants/sizes.dart';
 import '../../containers/banner_image.dart';
 
 class CustomSlider extends StatelessWidget {
@@ -19,7 +17,7 @@ class CustomSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = HomeController.instance;
+    HomeController controller = HomeController.instance;
     return AppCardContainer(
       height: 185,
       child: Obx(() {
@@ -34,15 +32,15 @@ class CustomSlider extends StatelessWidget {
                         onTap: () => RoutingHelper.urlRouting(
                             controller.homeSlidersLink[
                                 controller.carouselCurrentIndex.value]),
-                        child: CarouselSlider(
+                        child: cw.CarouselSlider(
                             items: controller.homeSliders
-                                .map((url) => AppBannerImage(
+                                .map((dynamic url) => AppBannerImage(
                                     width: AppHelperFunctions.screenWidth(),
                                     isNetworkImage: true,
                                     fit: BoxFit.cover,
                                     imgUrl: url))
                                 .toList(),
-                            options: CarouselOptions(
+                            options: cw.CarouselOptions(
                               //aspectRatio: 3.37,
                               viewportFraction: 1,
                               initialPage: 0,

@@ -13,10 +13,10 @@ class SignUpPageController extends GetxController {
   static SignUpPageController get instance => Get.find();
 
   ///Controllers
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   Rx<bool> passwordObscured = true.obs;
@@ -38,13 +38,13 @@ class SignUpPageController extends GetxController {
   Future<void> sendOtpSignUp(
 
       ) async {
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try {
       /// Validate Form
       if (!signupFormKey.currentState!.validate()) return;
 
       ///Check Internet
-      if (!isConnected) return;
+      // if (!isConnected) return;
 
       ///Api Calling
        var response = await SignupRepository().getSignupOtpResponse(
@@ -73,10 +73,10 @@ class SignUpPageController extends GetxController {
 
 
   Future<void> emailPasswordSignUp() async {
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try {
       ///Check Internet
-      if (!isConnected) return;
+      // if (!isConnected) return;
 
 
       ///API Calling

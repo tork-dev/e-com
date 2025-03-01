@@ -25,9 +25,9 @@ import '../../../model/resend_code_model.dart';
 
 class OtpController extends GetxController {
   static OtpController get instance => Get.find();
-  final forgetPasswordController = Get.put(ForgotPasswordController());
-  final signUpController = Get.put(SignUpPageController());
-  final loginController = Get.put(LogInPageController());
+  ForgotPasswordController forgetPasswordController = Get.put(ForgotPasswordController());
+  SignUpPageController signUpController = Get.put(SignUpPageController());
+  LogInPageController loginController = Get.put(LogInPageController());
 
   ///Controllers
   final otpCodeController = TextEditingController();
@@ -56,10 +56,10 @@ class OtpController extends GetxController {
   }
 
   Future<void> verify() async {
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try {
       ///Check Internet
-      if (!isConnected) return;
+      // if (!isConnected) return;
 
       /// Validate Form
       if (!otpKey.currentState!.validate()) return;
@@ -121,10 +121,10 @@ class OtpController extends GetxController {
   }
 
   Future<void> reSendCode() async {
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try {
       ///Check Internet
-      if (!isConnected) return;
+      // if (!isConnected) return;
 
       ///Api Calling
       forgetPasswordController.isForgotPassword.value == true

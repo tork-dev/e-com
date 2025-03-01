@@ -38,8 +38,8 @@ class LogInPageController extends GetxController {
   }
 
   ///Controllers
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> logInFormKey = GlobalKey<FormState>();
 
   //final authController = Get.put(AuthRepositories());
@@ -56,13 +56,13 @@ class LogInPageController extends GetxController {
 
   /// Log in with email and password
   Future<void> emailPasswordLogIn() async {
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try {
       /// Validate Form
       if (!logInFormKey.currentState!.validate()) return;
 
       ///Check Internet
-      if (!isConnected) return;
+      // if (!isConnected) return;
 
       /// Start Loading
       // FullScreenLoader.openLoadingDialog(
@@ -256,10 +256,10 @@ class LogInPageController extends GetxController {
 
   /// Login with OTP
   Future<void> sendCode() async {
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try {
       ///Check Internet
-      if (!isConnected) return;
+      // if (!isConnected) return;
 
       /// Validate Form
       if (!logInFormKey.currentState!.validate()) return;

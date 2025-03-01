@@ -30,7 +30,7 @@ class DependencyInjection extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<OnBoardingController>(()=>OnBoardingController());
-    Get.lazyPut<NetworkManager>(()=>NetworkManager());
+    // Get.lazyPut<NetworkManager>(()=>NetworkManager());
     Get.put(CommonController());
     Get.lazyPut<SplashController>(()=>SplashController());
     Get.lazyPut<SpinnerController>(()=>SpinnerController());

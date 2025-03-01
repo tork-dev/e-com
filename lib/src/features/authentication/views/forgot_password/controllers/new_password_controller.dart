@@ -17,11 +17,11 @@ import '../../../../../utils/popups/full_screen_loader.dart';
 
 class NewPasswordController extends GetxController{
   static NewPasswordController get instance => Get.find();
-  final otpController = Get.put(OtpController());
-  final forgetPasswordController = Get.put(ForgotPasswordController());
+  OtpController otpController = Get.put(OtpController());
+  ForgotPasswordController forgetPasswordController = Get.put(ForgotPasswordController());
   ///Controllers
-  final newPassword = TextEditingController();
-  final newConfirmPassword = TextEditingController();
+  TextEditingController newPassword = TextEditingController();
+  TextEditingController newConfirmPassword = TextEditingController();
 
   Rx<bool> passwordObscured = true.obs;
   Rx<bool> confirmPasswordObscured = true.obs;
@@ -31,13 +31,13 @@ class NewPasswordController extends GetxController{
   List<NewPasswordResponse> newPasswordList = [];
 
   Future<void> submit() async{
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try{
       /// Start Loading
       //FullScreenLoader.openLoadingDialog('Processing', AppImages.loaderAnimation);
 
       ///Check Internet
-      if(!isConnected) return;
+      // if(!isConnected) return;
 
       /// Validate Form
       //if(!newPasswordKey.currentState!.validate()) return;

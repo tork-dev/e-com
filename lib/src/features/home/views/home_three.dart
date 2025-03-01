@@ -29,10 +29,10 @@ class HomeThree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
-    final GetShopDataController getShopDataController =
+    HomeController controller = Get.put(HomeController());
+    GetShopDataController getShopDataController =
     Get.put(GetShopDataController());
-    final ConvexBottomNavController convexBottomNavController =
+    ConvexBottomNavController convexBottomNavController =
         ConvexBottomNavController.instance;
     return AppLayoutWithDrawer(
         backToHome: true,
@@ -49,7 +49,7 @@ class HomeThree extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSearchWidget(
-                    builder: (context, controller, focusNode) =>
+                    builder: (BuildContext context, TextEditingController controller, FocusNode focusNode) =>
                         HomeSearchDecoration(
                             categoryController: getShopDataController,
                             bottomController: convexBottomNavController,

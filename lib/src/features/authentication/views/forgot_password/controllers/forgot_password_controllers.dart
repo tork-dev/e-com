@@ -15,7 +15,7 @@ class ForgotPasswordController extends GetxController{
   static ForgotPasswordController get instance => Get.find();
 
   ///Controllers
-  final forgotPasswordEmail = TextEditingController();
+  TextEditingController forgotPasswordEmail = TextEditingController();
 
   RxBool isForgotPassword = false.obs;
 
@@ -26,10 +26,10 @@ class ForgotPasswordController extends GetxController{
 
 
   Future<void> sendCode() async{
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try{
       ///Check Internet
-      if(!isConnected) return;
+      // if(!isConnected) return;
 
       /// Validate Form
       if(!forgotEmailKey.currentState!.validate()) return;

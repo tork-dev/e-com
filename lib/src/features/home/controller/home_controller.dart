@@ -23,13 +23,13 @@ class HomeController extends GetxController {
   HomeController({this.callApis = true});
 
   ///Controller
-  final categoryController = Get.put(GetShopDataController());
+  GetShopDataController categoryController = Get.put(GetShopDataController());
 
   ///TextEditingController
-  final emailController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   /// surprise number controller
-  final surprisePhoneController = TextEditingController();
+  TextEditingController surprisePhoneController = TextEditingController();
 
   /// Key
   final GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
@@ -37,7 +37,7 @@ class HomeController extends GetxController {
 
   // final GlobalKey<ScaffoldState> homeTwoKey = GlobalKey<ScaffoldState>();
 
-  final carouselCurrentIndex = 0.obs;
+  RxInt carouselCurrentIndex = 0.obs;
   RxList homeSliders = [].obs;
   RxList homeSlidersLink = [].obs;
   RxBool hittingApi = false.obs;
@@ -123,7 +123,7 @@ class HomeController extends GetxController {
         await HomeRepositories.getTrendingProduct();
   }
 
-  void updateCurrentIndex(index) {
+  void updateCurrentIndex(int index) {
     carouselCurrentIndex.value = index;
   }
 
