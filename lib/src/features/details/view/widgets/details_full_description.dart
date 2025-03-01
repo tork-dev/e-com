@@ -19,7 +19,7 @@ class AppDetailsFullDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detailsController = DetailsPageController.instance;
+    DetailsPageController detailsController = DetailsPageController.instance;
     return Obx(() {
       return detailsController.productDetails.value.detailedProducts == null
           ? Padding(

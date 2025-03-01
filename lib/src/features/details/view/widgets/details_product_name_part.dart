@@ -24,7 +24,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detailsController = DetailsPageController.instance;
+    DetailsPageController detailsController = DetailsPageController.instance;
     return Obx(() {
       return Column(
         children: [

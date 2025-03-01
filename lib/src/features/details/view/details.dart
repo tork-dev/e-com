@@ -44,16 +44,16 @@ class DetailsPage extends StatelessWidget {
         showCustomLeading: true,
         customLeadingIcon: Icons.arrow_back,
         leadingOnPress: () {
-          print(controller.productSlugIndex.value);
           if (controller.productSlugIndex.value > 0) {
-            controller.productSlugList
-                .removeAt(controller.productSlugIndex.value);
-            controller.productSlugIndex = controller.productSlugIndex--;
+            controller.productSlugList.removeAt(controller.productSlugIndex.value);
+            controller.productSlugIndex.value--; // Correctly decrement index
             controller.onRefresh();
-            print('on press back');
-          }else{
-            print('prev route 22: ${controller.prevRoute.value}');
-            Get.offAllNamed(controller.prevRoute.value);
+          } else {
+            if (controller.prevRoute.value != '') {
+              Get.back(); // Pop to previous screen
+            } else {
+              Get.offAllNamed(controller.prevRoute.value); // Fallback to home
+            }
           }
         },
         backgroundColor: AppColors.primary,

@@ -13,7 +13,7 @@ class AppDetailsCategoriesPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = DetailsPageController.instance;
+    DetailsPageController controller = DetailsPageController.instance;
     return Obx(() {
       return Column(
         children: [

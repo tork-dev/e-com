@@ -12,7 +12,7 @@ class AppRecommendedAndRelatedProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = DetailsPageController.instance;
+    DetailsPageController controller = DetailsPageController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
       child: Column(

@@ -13,7 +13,7 @@ class AppDetailsDescriptionPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detailsController = DetailsPageController.instance;
+    DetailsPageController detailsController = DetailsPageController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Obx(() {

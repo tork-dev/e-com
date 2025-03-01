@@ -20,7 +20,7 @@ class AppDetailsPicturePart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detailsController = DetailsPageController.instance;
+    DetailsPageController detailsController = DetailsPageController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
       child: Obx(() {
@@ -40,7 +40,7 @@ class AppDetailsPicturePart extends StatelessWidget {
                         ? 3
                         : detailsController.productDetails.value
                             .detailedProducts!.pictures!.length,
-                    builderFunction: (context, index) => detailsController
+                    builderFunction: (BuildContext context, int index) => detailsController
                                 .productDetails.value.detailedProducts ==
                             null
                         ? ShimmerHelper()
@@ -66,20 +66,28 @@ class AppDetailsPicturePart extends StatelessWidget {
               ),
               const Gap(AppSizes.spaceBtwSections),
               detailsController.productDetails.value.detailedProducts == null
-                  ? ShimmerHelper().buildBasicShimmer(height: 200, width: 250)
-                  : InstaImageViewer(
-                    child: Material(
-                      child: AppBannerImage(
-                          width: 250,
-                          fit: BoxFit.contain,
-                          applyImageRadius: false,
-                          isNetworkImage: true,
-                          imgUrl: detailsController
-                              .productDetails
-                              .value
-                              .detailedProducts!
-                              .pictures![detailsController.pictureIndex.value]
-                              .url!),
+                  ? ShimmerHelper().buildBasicShimmer(height: 200, width: AppHelperFunctions.screenWidth() * .60)
+                  : SizedBox(
+                width: AppHelperFunctions.screenWidth() * .60,
+                    child: InstaImageViewer(
+                      imageUrl: detailsController
+                          .productDetails
+                          .value
+                          .detailedProducts!
+                          .pictures![detailsController.pictureIndex.value]
+                          .url!,
+                      child: Material(
+                        child: AppBannerImage(
+                            fit: BoxFit.cover,
+                            applyImageRadius: false,
+                            isNetworkImage: true,
+                            imgUrl: detailsController
+                                .productDetails
+                                .value
+                                .detailedProducts!
+                                .pictures![detailsController.pictureIndex.value]
+                                .url!),
+                      ),
                     ),
                   )
             ],

@@ -43,12 +43,11 @@ class AppLayoutWithBackButton extends StatelessWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: PopScope(
         canPop: !backToHome,
-        onPopInvoked: (bool didPop) async {
+        onPopInvokedWithResult: (bool didPop, Object? result) async {
           if (!didPop) {
             bool popped = await Navigator.maybePop(context);
             if (!popped) {
               if (backToHome) {
-                // Navigator.popUntil(context, (HomeThree) => false);
                 Get.offAllNamed('/home');
               } else if (showCustomLeading && leadingOnPress != null) {
                 leadingOnPress!();

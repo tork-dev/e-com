@@ -25,7 +25,7 @@ class AppDetailsTagBorderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryPassingController = GetShopDataController.instance;
+    GetShopDataController categoryPassingController = GetShopDataController.instance;
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
