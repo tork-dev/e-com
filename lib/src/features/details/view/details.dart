@@ -44,7 +44,8 @@ class DetailsPage extends StatelessWidget {
         showCustomLeading: true,
         customLeadingIcon: Icons.arrow_back,
         leadingOnPress: () {
-          if (controller.productSlugIndex.value > 0) {
+          if (controller.productSlugList.length > 1) {
+            print('Backing to prev product');
             controller.productSlugList.removeAt(controller.productSlugIndex.value);
             controller.productSlugIndex.value--; // Correctly decrement index
             controller.onRefresh();

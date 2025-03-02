@@ -44,16 +44,10 @@ class AppLayoutWithBackButton extends StatelessWidget {
       child: PopScope(
         canPop: !backToHome,
         onPopInvokedWithResult: (bool didPop, Object? result) async {
-          if (!didPop) {
-            bool popped = await Navigator.maybePop(context);
-            if (!popped) {
-              if (backToHome) {
-                Get.offAllNamed('/home');
-              } else if (showCustomLeading && leadingOnPress != null) {
-                leadingOnPress!();
-              }
-            }
-          }
+          print("pop invoked");
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            backToHome ? Get.offAllNamed('/home') : showCustomLeading? leadingOnPress!() :  null;
+          });
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,
