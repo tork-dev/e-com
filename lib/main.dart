@@ -32,7 +32,7 @@ void main() async {
   // DependencyInjection.init();
 
   // Ensure BASE_URL_WEB is available
-  final baseUrlWeb = dotenv.env["BASE_URL_WEB"];
+  String? baseUrlWeb = dotenv.env["BASE_URL_WEB"];
   if (baseUrlWeb == null) {
     throw Exception("BASE_URL_WEB is not defined in .env file.");
   }
