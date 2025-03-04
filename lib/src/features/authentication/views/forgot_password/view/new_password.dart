@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import '../../../../../l10n/app_localizations.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../widgets/header_logo_part.dart';
 import '../controllers/new_password_controller.dart';

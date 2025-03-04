@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
@@ -10,6 +9,7 @@ import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../../../l10n/app_localizations.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../forgot_password/view/forgot.dart';

@@ -36,9 +36,7 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  AppCardContainer(
-                      height: AppHelperFunctions.screenHeight() * 0.6,
-                      child: const KireiTubeShortsPlayer()),
+                  const KireiTubeShortsPlayer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,

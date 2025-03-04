@@ -14,12 +14,17 @@ class KireiTubeDetailsController extends GetxController {
   Rx<YoutubePlayerController?> youtubeController =
       Rx<YoutubePlayerController?>(null);
   RxString videoSlug = ''.obs;
-  final videoUrl = ''.obs;
+  RxString videoUrl = ''.obs;
+  RxDouble aspectRatio = 0.0.obs;
   WebViewController? webViewController;
 
   void setVideoUrl(String url) {
     videoUrl.value = url;
-    Log.i("video url ${videoUrl.value}");
+    Uri uri = Uri.parse(url);
+    final int height = int.parse(uri.queryParameters["height"] ?? "16");
+    final int width = int.parse(uri.queryParameters["width"] ?? "9");
+    aspectRatio.value = width / height;
+    Log.i("video url ${videoUrl.value}, aspect ratio ${aspectRatio.value}");
   }
 
   @override
@@ -88,23 +93,23 @@ class KireiTubeDetailsController extends GetxController {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageFinished: (String url) {
-            // Inject JavaScript to trigger fullscreen mode
-            webViewController?.runJavaScript('''
-              // Find the video element
-              var video = document.querySelector('video');
-              if (video) {
-                // Request fullscreen mode
-                if (video.requestFullscreen) {
-                  video.requestFullscreen();
-                } else if (video.mozRequestFullScreen) { // Firefox
-                  video.mozRequestFullScreen();
-                } else if (video.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-                  video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) { // IE/Edge
-                  video.msRequestFullscreen();
-                }
-              }
-            ''');
+            // // Inject JavaScript to trigger fullscreen mode
+            // webViewController?.runJavaScript('''
+            //   // Find the video element
+            //   var video = document.querySelector('video');
+            //   if (video) {
+            //     // Request fullscreen mode
+            //     if (video.requestFullscreen) {
+            //       video.requestFullscreen();
+            //     } else if (video.mozRequestFullScreen) { // Firefox
+            //       video.mozRequestFullScreen();
+            //     } else if (video.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            //       video.webkitRequestFullscreen();
+            //     } else if (video.msRequestFullscreen) { // IE/Edge
+            //       video.msRequestFullscreen();
+            //     }
+            //   }
+            // ''');
           },
         ),
       );

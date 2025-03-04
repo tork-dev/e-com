@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';

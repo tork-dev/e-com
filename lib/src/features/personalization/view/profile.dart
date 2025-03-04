@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
@@ -9,6 +8,7 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/personalization/view/widget/log_out_button.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import '../../../l10n/app_localizations.dart';
 import '../controller/user_controller.dart';
 import 'widget/details_part.dart';
 import 'widget/picture_part.dart';

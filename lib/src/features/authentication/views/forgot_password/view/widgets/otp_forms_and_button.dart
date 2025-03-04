@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
+import '../../../../../../l10n/app_localizations.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../../utils/validators/validation.dart';

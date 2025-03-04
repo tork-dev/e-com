@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:kirei/src/features/authentication/views/widgets/auth_input_field.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kirei/main.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/view/signup.dart';
@@ -12,7 +11,6 @@ import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.da
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
-import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_shorts_player.dart';
 import 'package:kirei/src/features/reward_point/view/reward_details_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
@@ -31,7 +29,7 @@ import 'features/reward_point/view/reward_screen.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
 import './utils/constants/text_strings.dart';
-import 'common/bindings/general_bindings.dart';
+import 'l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
