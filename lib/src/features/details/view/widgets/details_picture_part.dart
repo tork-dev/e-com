@@ -77,10 +77,12 @@ class AppDetailsPicturePart extends StatelessWidget {
                           .pictures![detailsController.pictureIndex.value]
                           .url!,
                       child: Material(
+                        color: Colors.transparent,
                         child: AppBannerImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fitHeight,
                             applyImageRadius: false,
                             isNetworkImage: true,
+                            backgroundColor: Colors.transparent,
                             imgUrl: detailsController
                                 .productDetails
                                 .value

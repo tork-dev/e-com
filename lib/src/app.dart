@@ -28,8 +28,10 @@ import 'features/reward_point/view/point_redemption_screen.dart';
 import 'features/reward_point/view/reward_screen.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
+
 import './utils/constants/text_strings.dart';
 import 'l10n/app_localizations.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
       localizationsDelegates: const [
-        AppLocalizations.delegate, // Add this line
+        ...AppLocalizations.localizationsDelegates,// Add this line
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -61,6 +63,7 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('es'), // Spanish
       ],
+
       initialRoute: '/',
       navigatorObservers: [observer],
       getPages: [
