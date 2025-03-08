@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
@@ -13,7 +12,6 @@ import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
-import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
@@ -22,7 +20,6 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
@@ -37,10 +34,10 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final drawerController = Get.put(AppDrawerController());
-    final shopController = Get.put(GetShopDataController());
-    final bottomController = Get.put(ConvexBottomNavController());
-    final homeController = Get.put(HomeController());
+    AppDrawerController drawerController = Get.put(AppDrawerController());
+    GetShopDataController shopController = Get.put(GetShopDataController());
+    ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
+    HomeController homeController = Get.put(HomeController());
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
       margin: const EdgeInsets.only(bottom: 50),
@@ -76,7 +73,7 @@ class AppDrawer extends StatelessWidget {
             return AppListViewLayout(
               itemCount: drawerController.allNewCategories.length,
               applyPadding: false,
-              builderFunction: (context, index) => drawerController
+              builderFunction: (BuildContext context, int index) => drawerController
                       .allNewCategories[index].children!.isNotEmpty
                   ? ExpansionTile(
                       collapsedShape: const RoundedRectangleBorder(
@@ -89,7 +86,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       iconColor: AppColors.white,
                       collapsedIconColor: AppColors.white,
-                      backgroundColor: AppColors.white.withOpacity(.05),
+                      backgroundColor: AppColors.white.withAlpha(13),
                       title: InkWell(
                         onTap: () {
                           if(drawerController.allNewCategories[index].name!.toUpperCase() == "J-BEAUTY"){
@@ -173,7 +170,7 @@ class AppDrawer extends StatelessWidget {
                                       child: child.children!.isNotEmpty
                                           ? ExpansionTile(
                                               backgroundColor: AppColors.white
-                                                  .withOpacity(.1),
+                                                  .withAlpha(26),
                                               iconColor: AppColors.white,
                                               collapsedIconColor:
                                                   AppColors.white,
@@ -363,7 +360,7 @@ class AppDrawer extends StatelessWidget {
               ),
               iconColor: AppColors.white,
               collapsedIconColor: AppColors.white,
-              backgroundColor: AppColors.white.withOpacity(.05),
+              backgroundColor: AppColors.white.withAlpha(13),
               title: Row(
                 children: [
                   Text("kirei".toUpperCase(),
