@@ -29,15 +29,7 @@ class SkinCareHistoryOne extends StatelessWidget {
           style: TextStyle(color: AppColors.backLayoutAppBarTitle),
         ),
         centerTitle: true,
-        leadingIconColor: AppColors.darkGrey,
-        customLeadingIcon: Icons.arrow_back,
-        showBackButton: false,
-        showCustomLeading: true,
-        leadingOnPress: (){
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            Get.offAllNamed('/home');
-          });
-        },
+        showBackButton: true,
 
         padding: 0,
         body: ListView(
