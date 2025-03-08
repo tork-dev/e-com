@@ -23,11 +23,11 @@ class RecommendationController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    final uri = Uri.parse(Get.currentRoute);
-    if (uri.hasQuery) {
-      extractValuesFromUrl(uri);
-      sendData();
-    }
+    // final uri = Uri.parse(Get.currentRoute);
+    // if (uri.hasQuery) {
+    //   extractValuesFromUrl(uri);
+    //   sendData();
+    // }
 
 
   }

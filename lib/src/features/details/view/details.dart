@@ -37,25 +37,32 @@ class DetailsPage extends StatelessWidget {
       controller.productSlugIndex = controller.productSlugIndex++;
       controller.onRefresh();
       print('calling from ui class');
+      print(controller.productSlugList);
     }
     return AppLayoutWithBackButton(
+      canPop: false,
         padding: 0,
         showBackButton: false,
         showCustomLeading: true,
         customLeadingIcon: Icons.arrow_back,
         leadingOnPress: () {
+        Get.back();
           if (controller.productSlugList.length > 1) {
             print('Backing to prev product');
             controller.productSlugList.removeAt(controller.productSlugIndex.value);
             controller.productSlugIndex.value--; // Correctly decrement index
+            print(controller.productSlugList);
             controller.onRefresh();
-          } else {
-            if (controller.prevRoute.value != '') {
-              Get.back(); // Pop to previous screen
-            } else {
-              Get.offAllNamed(controller.prevRoute.value); // Fallback to home
-            }
           }
+          // else {
+          //   if (controller.prevRoute.value != '') {
+          //     Get.back(); // Pop to previous screen
+          //     print(controller.prevRoute);
+          //   }
+          //   else {
+          //     Get.offAllNamed(controller.prevRoute.value); // Fallback to home
+          //   }
+          // }
         },
         backgroundColor: AppColors.primary,
         bottomNav: const AppBottomButton(),

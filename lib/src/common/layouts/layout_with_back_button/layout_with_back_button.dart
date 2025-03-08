@@ -24,6 +24,7 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.bottomNav,
     this.leadingOnPress,
     this.backToHome = false,
+    this.canPop = true,
     this.showCustomLeading = false,
     super.key,
   });
@@ -32,7 +33,7 @@ class AppLayoutWithBackButton extends StatelessWidget {
   final bool centerTitle;
   final Color? backgroundColor, leadingIconColor, bodyBackgroundColor;
   final List<Widget>? action;
-  final bool showBackButton, showCustomLeading, backToHome;
+  final bool showBackButton, showCustomLeading, backToHome, canPop;
   final double padding;
   final VoidCallback? leadingOnPress;
   final IconData? customLeadingIcon;
@@ -42,12 +43,19 @@ class AppLayoutWithBackButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: PopScope(
-        canPop: !backToHome,
+        canPop: canPop,
         onPopInvokedWithResult: (bool didPop, Object? result) async {
           print("pop invoked");
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            backToHome ? Get.offAllNamed('/home') : showCustomLeading? leadingOnPress!() :  null;
-          });
+          if (!didPop) { // This means pop was prevented
+            print("pop invoked 2");
+            if (backToHome) {
+              Get.offAllNamed('/home'); // Navigate to home instead of popping
+              print("pop invoked 4");
+            } else if (showCustomLeading && leadingOnPress != null) {
+              print("pop invoked 3");
+              leadingOnPress!(); // Call custom leading function
+            }
+          }
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,
