@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/state_manager.dart';
-import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
-import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
 import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../../l10n/app_localizations.dart';
@@ -13,7 +11,6 @@ import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../../utils/validators/validation.dart';
-import '../../../sign_up/view/signup.dart';
 import '../../../widgets/auth_input_field.dart';
 import 'remember_and_forgot_button.dart';
 

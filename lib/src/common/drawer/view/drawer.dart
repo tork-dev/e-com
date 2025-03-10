@@ -106,7 +106,7 @@ class AppDrawer extends StatelessWidget {
                           }
                         },
                         child: Text(
-                            drawerController.allNewCategories[index].name!.toUpperCase() ?? '',
+                            drawerController.allNewCategories[index].name!.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!

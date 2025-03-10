@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/shop/controller/shop_controller.dart';
-
 import '../../bottom_navigation/convex_controller.dart';
 import '../../home/controller/home_controller.dart';
 

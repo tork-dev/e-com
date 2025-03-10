@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/helpers/helper_functions.dart';

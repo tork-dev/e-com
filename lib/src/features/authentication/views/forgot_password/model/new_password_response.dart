@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 
 NewPasswordResponse newPasswordResponseFromJson(String str) => NewPasswordResponse.fromJson(json.decode(str));
 

@@ -81,7 +81,6 @@ class _BkashScreenState extends State<BkashScreen> {
 
 
   void readResponse() async {
-    var paymentDetails = '';
     webViewController
         .runJavaScriptReturningResult("document.body.innerText")
         .then((data) {

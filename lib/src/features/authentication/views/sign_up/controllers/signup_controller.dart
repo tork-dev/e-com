@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/model/signup_response.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
-import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../../bottom_navigation/convex-bottom_navigation.dart';

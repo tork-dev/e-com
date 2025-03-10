@@ -4,7 +4,6 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/features/de_active_account/controller/de_active_controller.dart';
 import 'package:kirei/src/features/de_active_account/view/widgets/de_active_widgets.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/sizes.dart';
 
 class DeActiveAccount extends StatelessWidget {
   const DeActiveAccount({super.key});

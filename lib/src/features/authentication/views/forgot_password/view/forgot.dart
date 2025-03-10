@@ -5,9 +5,7 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:kirei/src/features/authentication/views/widgets/header_logo_part.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
-import '../../../../../common/styles/spacing_style.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import 'widgets/forgot_forms&button.dart';
 

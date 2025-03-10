@@ -1,15 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
-import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
-import '../../../../utils/constants/image_strings.dart';
 
 class CartLogOutView extends StatelessWidget {
   const CartLogOutView({super.key, required this.imgUrl, required this.titleText, required this.buttonName, required this.onTap});

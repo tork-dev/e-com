@@ -48,6 +48,7 @@ class AuthHelper{
       AppLocalStorage().saveData(LocalStorageKeys.userHavePassword, userData.passwordSaved);
       AppLocalStorage().saveData(LocalStorageKeys.avatarOriginal, userData.avatar);
 
+      print(AppLocalStorage().readData(LocalStorageKeys.userId));
       EventLogger().logUserDataEvent();
   }
 

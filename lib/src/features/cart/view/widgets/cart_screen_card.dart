@@ -9,8 +9,6 @@ import 'package:kirei/src/features/cart/view/widgets/log_out_view.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';

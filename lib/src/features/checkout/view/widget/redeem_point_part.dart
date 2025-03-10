@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
-import 'package:kirei/src/common/widgets/buttons/bottom_button.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/checkout/controller/checkout_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';

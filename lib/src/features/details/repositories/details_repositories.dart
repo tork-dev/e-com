@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/details/model/products_model.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';

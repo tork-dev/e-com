@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
-import 'package:kirei/src/features/appoinment/view/payment_screen.dart';
 import 'package:kirei/src/features/appoinment/view/widgets/appointment_forms.dart';
 import 'package:kirei/src/features/appoinment/view/widgets/payment_section.dart';
 import 'package:kirei/src/utils/constants/colors.dart';

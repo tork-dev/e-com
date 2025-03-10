@@ -5,7 +5,7 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 
 import '../../../../utils/constants/colors.dart';
 import '../../../bottom_navigation/convex_controller.dart';
-import '../../controller/home_controller.dart';
+
 
 class HomeSearchDecoration extends StatelessWidget {
   const HomeSearchDecoration({

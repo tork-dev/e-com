@@ -1,14 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/cart/model/checkout_cart_update_model.dart';
 import 'package:kirei/src/features/checkout/view/checkout_screen.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
-
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 import '../../home/model/request_stock_model.dart';
@@ -104,6 +101,7 @@ class CartController extends GetxController {
         'quantity': item.quantity,
       };
     }).toList();
+
 
     EventLogger().logViewCartEvent(jsonEncode(items));
   }

@@ -10,8 +10,6 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
-import 'package:kirei/src/features/wishlist/controller/wishlist_controller.dart';
-import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';

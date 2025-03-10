@@ -1,22 +1,17 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/model/forget_password_confrim_response.dart';
-import 'package:kirei/src/features/authentication/views/forgot_password/model/forgot_password_reponse.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/repository/forgot_password_repository.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/view/new_password.dart';
 import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/repository/login_repository.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
-import 'package:kirei/src/features/authentication/views/sign_up/model/signup_response.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/repository/signup_repository.dart';
 import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../../../utils/firebase/gtm_events.dart';
 import '../../../../../utils/helpers/auth_helper.dart';

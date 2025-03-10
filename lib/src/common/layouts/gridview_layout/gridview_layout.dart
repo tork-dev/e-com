@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kirei/src/common/widgets/containers/product_image.dart';
-import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppGridViewLayout extends StatelessWidget {
   const AppGridViewLayout(

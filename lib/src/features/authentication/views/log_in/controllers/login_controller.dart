@@ -9,9 +9,7 @@ import 'package:kirei/src/features/authentication/views/log_in/repository/login_
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
-import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/helpers/network_manager.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
@@ -248,6 +246,7 @@ class LogInPageController extends GetxController {
         AppHelperFunctions.showToast(result.message!);
       }
     } on Exception catch (e) {
+      Log.e(e.toString());
       AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
       // TODO
     }

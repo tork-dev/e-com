@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/local_storage/local_storage_keys.dart';
 import '../../../../utils/local_storage/storage_utility.dart';

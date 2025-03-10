@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 
 ForgetPasswordConfirmResponse forgetPasswordConfirmResponseFromJson(String str) => ForgetPasswordConfirmResponse.fromJson(json.decode(str));
 

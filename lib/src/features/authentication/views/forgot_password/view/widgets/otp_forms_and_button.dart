@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../../l10n/app_localizations.dart';
@@ -71,26 +70,29 @@ class OtpFormsAndButton extends StatelessWidget {
             ),
           ),
           Obx(() {
-              return Align(
-                alignment: Alignment.centerLeft,
-                child: AppButtons.textUnderlineButton(
-                  onPressed: () {
-                    if (otpController.startTime.value == 0) {
-                      !isForSpinner
-                          ? otpController.reSendCode()
-                          : otpController.reSendCodeForSpinner();
-                      otpController.timeCount();
-                    }
-                  },
-                  buttonText: "Resend Code",
-                  backgroundColor: otpController.startTime.value == 0
-                      ? AppColors.primary
-                      : AppColors.grey,
+              return Visibility(
+                visible: otpController.startTime.value == 0,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: AppButtons.textUnderlineButton(
+                    onPressed: () {
+                      if (otpController.startTime.value == 0) {
+                        !isForSpinner
+                            ? otpController.reSendCode()
+                            : otpController.reSendCodeForSpinner();
+                        otpController.timeCount();
+                      }
+                    },
+                    buttonText: "Resend Code",
+                    backgroundColor: otpController.startTime.value == 0
+                        ? AppColors.primary
+                        : AppColors.grey,
+                  ),
                 ),
               );
             }
           ),
-          const Gap(AppSizes.md),
+          const Gap(AppSizes.xl),
           AppButtons.largeFlatFilledButton(
             onPressed: () {
               !isForSpinner

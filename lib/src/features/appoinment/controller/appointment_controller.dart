@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/appoinment/repositories/appoinment_repositories.dart';
 import 'package:kirei/src/features/appoinment/view/payment_screen.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import '../../bottom_navigation/convex_controller.dart';
-import '../../home/controller/home_controller.dart';
-import '../../shop/controller/shop_controller.dart';
 import '../model/appointment_model.dart';
 
 class AppointmentController extends GetxController {
@@ -28,19 +25,19 @@ class AppointmentController extends GetxController {
 
   RxString paymentMethod = 'bkash'.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // homeController.callApis.value = false;
-    //shopController.callApis.value = false;
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   // homeController.callApis.value = false;
+  //   //shopController.callApis.value = false;
+  // }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-    appointmentKey.currentState!.dispose();
-  }
+  // @override
+  // void onClose() {
+  //   // TODO: implement onClose
+  //   super.onClose();
+  //   appointmentKey.currentState!.dispose();
+  // }
 
   void onMakePayment() async {
     if (fullNameController.text == '') {

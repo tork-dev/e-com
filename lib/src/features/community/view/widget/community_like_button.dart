@@ -4,7 +4,6 @@ import 'package:kirei/src/features/community/controller/community_controller.dar
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:like_button/like_button.dart';
 
 class CommunityLikeButton extends StatelessWidget {

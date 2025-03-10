@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 
 SignupResponse signupResponseFromJson(String str) =>
     SignupResponse.fromJson(json.decode(str));
@@ -18,7 +17,7 @@ class SignupResponse {
   String? message;
   String? accessToken;
   String? tokenType;
-  Null? expiresAt;
+  dynamic expiresAt;
   User? user;
   String? phone;
 
@@ -59,12 +58,12 @@ class SignupResponse {
 
 class User {
   int? id;
-  Null? type;
+  dynamic type;
   String? name;
   String? email;
   String? avatar;
-  Null? avatarOriginal;
-  Null? phone;
+  dynamic avatarOriginal;
+  dynamic phone;
   bool? passwordSaved;
 
   User(

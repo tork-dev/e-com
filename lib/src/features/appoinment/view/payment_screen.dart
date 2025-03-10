@@ -82,7 +82,6 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
 
 
   void readResponse() async {
-    var paymentDetails = '';
     webViewController
         .runJavaScriptReturningResult("document.body.innerText")
         .then((data) {

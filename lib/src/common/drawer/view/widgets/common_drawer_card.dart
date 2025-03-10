@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 
-import '../../../../features/bottom_navigation/convex-bottom_navigation.dart';
 
 class AppDrawerCard extends StatelessWidget {
   const AppDrawerCard({

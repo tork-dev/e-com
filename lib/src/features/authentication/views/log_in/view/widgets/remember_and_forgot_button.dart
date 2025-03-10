@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../../l10n/app_localizations.dart';
 import '../../../../../../utils/constants/colors.dart';
-import '../../../../../../utils/helpers/helper_functions.dart';
-import '../../../forgot_password/view/forgot.dart';
 import '../../controllers/login_controller.dart';
 
 class RememberAndForgotButton extends StatelessWidget {
@@ -14,7 +12,6 @@ class RememberAndForgotButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loginController = LogInPageController.instance;
-    final isDark = AppHelperFunctions.isDarkMode(context);
     return Row(children: [
       Expanded(
         child: Row(

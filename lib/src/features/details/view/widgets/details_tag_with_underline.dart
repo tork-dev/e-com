@@ -1,17 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/common/styles/app_dividers.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
-import 'package:kirei/src/features/details/controller/details_page_controller.dart';
-import 'package:kirei/src/features/details/model/product_details_model.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/sizes.dart';
 
 class AppDetailsTagUnderlineWidget extends StatelessWidget {
   const AppDetailsTagUnderlineWidget(

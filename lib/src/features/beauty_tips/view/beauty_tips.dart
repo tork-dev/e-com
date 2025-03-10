@@ -5,13 +5,10 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/features/beauty_tips/controller/beauty_tips_controller.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/device/device_utility.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class BeautyTipsScreen extends StatelessWidget {
   const BeautyTipsScreen({super.key});

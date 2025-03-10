@@ -1,17 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'dart:convert';
-import '../../../personalization/model/user_by_token_model.dart';
-import '../../model/confirm_code_model.dart';
-import '../../model/login_model.dart';
 import '../../model/logout_model.dart';
-import '../../model/password_confirm_model.dart';
-import '../../model/password_forgot_model.dart';
-import '../../model/resend_code_model.dart';
-import '../../model/signup_model.dart';
 import '../../views/log_in/model/login_response.dart';
 
 class AuthRepository extends GetxController {

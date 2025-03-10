@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/cart/model/card_add_response_model.dart';
 import 'package:kirei/src/features/cart/model/cart_delete_response_model.dart';

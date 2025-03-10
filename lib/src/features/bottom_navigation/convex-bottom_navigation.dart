@@ -94,8 +94,7 @@ class HelloConvexAppBar extends StatelessWidget {
                   icon: badge.Badge(
                     badgeContent: Obx(() {
                       return Text(
-                        controller.cartController.cartCount?.value.toString() ??
-                            '0',
+                        controller.cartController.cartCount.value.toString(),
                         style: const TextStyle(color: AppColors.white),
                       );
                     }),

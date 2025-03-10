@@ -6,7 +6,6 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/device/device_utility.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppDetailsFullDescription extends StatelessWidget {
   const AppDetailsFullDescription({

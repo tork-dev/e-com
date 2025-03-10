@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/features/de_active_account/controller/de_active_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 

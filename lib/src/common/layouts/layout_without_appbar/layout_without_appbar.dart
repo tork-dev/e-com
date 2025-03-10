@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kirei/src/common/widgets/appbar/custom_app_bar.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
-import '../../../utils/helpers/helper_functions.dart';
 import '../../styles/spacing_style.dart';
 
 class AppLayoutWithoutAppBar extends StatelessWidget {

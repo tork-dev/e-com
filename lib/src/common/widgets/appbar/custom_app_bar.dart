@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:kirei/src/common/widgets/appbar/appbar_bottom.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../utils/device/device_utility.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

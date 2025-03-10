@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
-import 'package:kirei/src/features/checkout/view/checkout_screen.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/device/device_utility.dart';

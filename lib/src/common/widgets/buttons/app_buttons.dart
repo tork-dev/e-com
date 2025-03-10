@@ -1,10 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -139,13 +135,13 @@ class AppButtons {
     );
   }
 
-  static TextButton textUnderlineButton({
+  static InkWell textUnderlineButton({
     required VoidCallback onPressed,
     required String buttonText,
     Color? backgroundColor,
   }) {
-    return TextButton(
-        onPressed: onPressed,
+    return InkWell(
+        onTap: onPressed,
         child: Text(
           buttonText,
           style: TextStyle(

@@ -1,11 +1,7 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gtm/gtm.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
-import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
-import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';

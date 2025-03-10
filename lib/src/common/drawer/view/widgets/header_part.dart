@@ -8,7 +8,6 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../../../utils/local_storage/local_storage_keys.dart';
 import '../../../../utils/local_storage/storage_utility.dart';
-import '../../../styles/app_dividers.dart';
 
 class AppDrawerHeaderPart extends StatelessWidget {
   const AppDrawerHeaderPart({
@@ -46,7 +45,7 @@ class AppDrawerHeaderPart extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
-                            .apply(color: AppColors.light.withOpacity(.9)),
+                            .apply(color: AppColors.light.withAlpha(230)),
                       )),
                   const Gap(AppSizes.xs),
                   Container(

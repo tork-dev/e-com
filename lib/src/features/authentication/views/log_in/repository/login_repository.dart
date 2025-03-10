@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import '../../../../../utils/constants/app_api_end_points.dart';

@@ -19,7 +19,6 @@ import '../kirei_tube_details.dart';
 import '../kirei_tube_playlist_view.dart';
 import 'kirei_tube_list_card.dart';
 import 'kirei_tube_shorts_card.dart';
-import 'kirei_tube_video_player.dart';
 
 class KireiTubeHome extends StatelessWidget {
   const KireiTubeHome({super.key});
