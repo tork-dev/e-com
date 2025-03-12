@@ -8,19 +8,19 @@ class AppTabBarTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MyTabController _tabx = Get.put(MyTabController());
+    final MyTabController tabx = Get.put(MyTabController());
     // ↑ init tab controllers
 
     return Scaffold(
       appBar: AppBar(
         bottom: TabBar(
-          controller: _tabx.controller,
-          tabs: _tabx.myTabs,
+          controller: tabx.controller,
+          tabs: tabx.myTabs,
         ),
       ),
       body: TabBarView(
-        controller: _tabx.controller,
-        children: _tabx.myTabs.map((Tab tab) {
+        controller: tabx.controller,
+        children: tabx.myTabs.map((Tab tab) {
           final String label = tab.text!;
           return Center(
             child: Text(

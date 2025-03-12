@@ -14,6 +14,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../utils/constants/colors.dart';
+import '../../utils/logging/logger.dart';
 
 class HelloConvexAppBar extends StatelessWidget {
   final int pageIndex;
@@ -35,7 +36,7 @@ class HelloConvexAppBar extends StatelessWidget {
     return Obx(() {
       return PopScope(
           canPop: false,
-          onPopInvoked: (pop) {
+          onPopInvokedWithResult: (pop, result) {
             if (pop) {
               return;
             }
@@ -55,7 +56,7 @@ class HelloConvexAppBar extends StatelessWidget {
                   rightButtonColor: Colors.transparent);
             } else if (controller.pageIndex.value == 1 &&
                 controller.categoryController.categoryRouteList.length > 1) {
-              print('back press in category');
+              Log.d('back press in category');
               controller.categoryController.allProducts.clear();
 
               controller.categoryController.getValuesFromUrl(Uri.parse(
@@ -63,14 +64,14 @@ class HelloConvexAppBar extends StatelessWidget {
                       controller.categoryController.categoryRouteList.length -
                           1) - 1]));
 
-              print(controller.categoryController.categoryRouteList[(
+              Log.d(controller.categoryController.categoryRouteList[(
                   controller.categoryController.categoryRouteList.length -
                       1) - 1]);
               controller.categoryController.getShopData();
               controller.categoryController.categoryRouteList.removeAt(
                   controller.categoryController.categoryRouteList.length - 1);
             } else {
-              print(controller.categoryController.categoryRouteList.length);
+              Log.d(controller.categoryController.categoryRouteList.length.toString());
               GetShopDataController().resetAll();
               controller.jumpToTab(0);
             }

@@ -5,6 +5,7 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../../../../utils/logging/logger.dart';
 import '../order_status_page.dart';
 
 class BkashScreen extends StatefulWidget {
@@ -44,7 +45,7 @@ class _BkashScreenState extends State<BkashScreen> {
               readResponse();
             },
             onWebResourceError: (error) {
-              print(error);
+              Log.d(error.toString());
               navigateToOrderSuccess("Something went wrong.", false);
             },
           ),
@@ -63,7 +64,7 @@ class _BkashScreenState extends State<BkashScreen> {
         customLeadingIcon: Icons.arrow_back,
       title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
         leadingOnPress: (){
-        print('working');
+          Log.d('working');
         Get.offAll(()=> const HelloConvexAppBar());
         },
         padding: 0,
@@ -87,7 +88,7 @@ class _BkashScreenState extends State<BkashScreen> {
       var decodedJSON = jsonDecode(data.toString());
       Map<String, dynamic> responseJSON = jsonDecode(decodedJSON);
 
-      print('Bkash json Response: $decodedJSON');
+      Log.d('Bkash json Response: $decodedJSON');
 
       if (responseJSON["result"] == true) {
         // handle success

@@ -5,10 +5,10 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_nine.dart';
-import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_seven.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
@@ -73,9 +73,9 @@ class SkinCareHistoryEight extends StatelessWidget {
             ButtonRow(
               onTapNext: (){
                 recommendationController.selectedSkinSensitive.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
-                print(recommendationController.selectedSkinSensitive);
+                Log.d(recommendationController.selectedSkinSensitive.toString());
                 Get.to(()=> const SkinCareHistoryNine());
-                recommendationController.resetValues();;
+                recommendationController.resetValues();
               },
             )
           ],

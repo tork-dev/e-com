@@ -8,6 +8,7 @@ import 'package:kirei/src/features/ai_recommendation/view/widgets/radio_question
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../../utils/constants/image_strings.dart';
+import '../../../../../utils/logging/logger.dart';
 import '../../../question_and_value.dart';
 import '../../widgets/button_row.dart';
 import '../../widgets/circular_progress_section.dart';
@@ -76,7 +77,7 @@ class RecommendationBlackHeadsOne extends StatelessWidget {
             ButtonRow(
               onTapNext: (){
                 recommendationController.blackHeadsOneSelected.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
-                print(recommendationController.blackHeadsOneSelected);
+                Log.d(recommendationController.blackHeadsOneSelected.toString());
                 Get.to(()=> const RecommendationBlackHeadsTwo());
                 recommendationController.resetValues();
               },

@@ -5,6 +5,7 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/checkout/controller/checkout_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../../address/view/widgets/all_address_fields.dart';
 
 class AppShippingAddressContainer extends StatelessWidget {
@@ -14,7 +15,7 @@ class AppShippingAddressContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
         return Obx(() {
-          print('address check ${checkoutController.isAddressAvailable.value}');
+          Log.d('address check ${checkoutController.isAddressAvailable.value}');
             return AppCardContainer(
               padding: const EdgeInsets.only(top: AppSizes.sm, bottom: AppSizes.sm),
               backgroundColor: AppColors.white,

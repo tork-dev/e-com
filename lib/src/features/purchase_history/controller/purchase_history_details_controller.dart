@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/purchase_history/model/purchase_history_details_model.dart';
 import 'package:kirei/src/features/purchase_history/repositories/purchase_history_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../../address/model/address_city_model.dart';
 import '../../address/model/address_create_model.dart';
 import '../../address/model/address_model.dart';
@@ -138,9 +139,9 @@ class PurchaseHistoryDetailsController extends GetxController {
       await onRefresh(orderId);
       AppHelperFunctions.showToast(changedResponse.value.message!);
     } on Exception catch(e){
-      print("error is .... ${e.toString()}");
+      Log.d("error is .... ${e.toString()}");
     } catch(e){
-      print("e is ${e.toString()}");
+      Log.d("e is ${e.toString()}");
     }
   }
 

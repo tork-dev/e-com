@@ -4,9 +4,8 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-
 import '../../../../utils/logging/logger.dart';
-import '../../controller/shop_controller.dart';
+
 
 class AppSortAlertDialog extends StatelessWidget {
   const AppSortAlertDialog({super.key});
@@ -116,7 +115,7 @@ class AppSortAlertDialog extends StatelessWidget {
               controlAffinity: ListTileControlAffinity.leading,
               title: const Text('Price high to low'),
               onChanged: (value) {
-                 categoryPassingController.allProducts.clear();;
+                 categoryPassingController.allProducts.clear();
                 categoryPassingController.updateSortKey(value!);
                 categoryPassingController.getShopData();
                  categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');

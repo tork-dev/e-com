@@ -53,7 +53,7 @@ class NotificationScreen extends StatelessWidget {
                             height: 40,
                             width: 40,
                             borderRadius: AppSizes.sm,
-                            backgroundColor: AppColors.primary.withOpacity(.1),
+                            backgroundColor: AppColors.primary.withAlpha((0.1 * 255).toInt()),
                             child: const Icon(Icons.notifications_none_sharp),
                           ),
                           isThreeLine: true,

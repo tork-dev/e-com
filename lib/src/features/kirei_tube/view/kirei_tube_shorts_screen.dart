@@ -60,7 +60,7 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(AppSizes.sm),
                           isCircle: true,
                           applyRadius: false,
-                          backgroundColor: Colors.grey.withOpacity(.5),
+                          backgroundColor: Colors.grey.withAlpha((0.5 * 255).toInt()),
                           margin: const EdgeInsets.only(left: AppSizes.sm),
                           child: const Icon(Icons.arrow_back_ios_new_rounded)),
                       AppCardContainer(
@@ -81,7 +81,7 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
                             }
                           },
                           padding: const EdgeInsets.all(AppSizes.sm),
-                          backgroundColor: Colors.grey.withOpacity(.5),
+                          backgroundColor: Colors.grey.withAlpha((0.5 * 255).toInt()),
                           margin: const EdgeInsets.only(right: AppSizes.sm),
                           isCircle: true,
                           applyRadius: false,

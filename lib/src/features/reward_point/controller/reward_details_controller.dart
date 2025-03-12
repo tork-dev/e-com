@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class RewardDetailsController extends GetxController{
   static RewardDetailsController get instance => Get.find();
 
@@ -13,7 +15,7 @@ class RewardDetailsController extends GetxController{
     super.onInit();
 
     if(Get.arguments == 'redeem'){
-      print('redeem');
+      Log.d('redeem');
       scrollToTargetWidget();
     }
   }

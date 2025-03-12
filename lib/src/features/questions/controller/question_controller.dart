@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/questions/model/questions_model.dart';
 import 'package:kirei/src/features/questions/repositories/question_repositories.dart';
 import '../../../utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/question_submit_model.dart';
 
 class QuestionController extends GetxController {
@@ -58,7 +59,7 @@ class QuestionController extends GetxController {
       questionController.text = '';
       AppHelperFunctions.showToast(questionSubmitResponse.value.message!);
     } catch (e) {
-      print(e.toString());
+      Log.d(e.toString());
     }
   }
 }

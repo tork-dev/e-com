@@ -69,7 +69,7 @@ class _GroupSslCommerzScreenState extends State<GroupSslCommerzScreen> {
           style: TextStyle(color: AppColors.primary),
         ),
         leadingOnPress: () {
-          print('working');
+          Log.d('working');
           Get.offAll(() => const HelloConvexAppBar());
         },
         body: buildBody());

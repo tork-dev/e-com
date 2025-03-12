@@ -4,6 +4,7 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:http/http.dart' as http;
+import '../../../utils/logging/logger.dart';
 import '../model/wishlist_model.dart';
 import '../model/wishlist_remove_model.dart';
 
@@ -15,7 +16,7 @@ class WishlistRepositories {
     Uri url = Uri.parse(
         "${AppApiEndPoints.addWishlistProduct}$productId");
 
-    print(url.toString());
+    Log.d(url.toString());
     final response = await http.get(
       url,
       headers: {
@@ -36,7 +37,7 @@ class WishlistRepositories {
         "Authorization": "Bearer $accessToken",
       },
     );
-    print(response.body);
+    Log.d(response.body);
     return WishListAddResponse.fromJson(jsonDecode(response.body));
   }
 

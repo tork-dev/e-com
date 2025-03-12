@@ -3,6 +3,7 @@ import 'package:kirei/src/features/authentication/views/log_in/model/login_respo
 import 'package:kirei/src/features/authentication/views/sign_up/controllers/signup_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
+import '../../../../../utils/logging/logger.dart';
 import '../../../model/resend_code_model.dart';
 import '../model/signup_response.dart';
 
@@ -32,8 +33,8 @@ class SignupRepository{
           //"App-Language": app_language.$,
         },
         body: postBody);
-    print("Request data: $postBody");
-    print(response.body);
+    Log.d("Request data: $postBody");
+    Log.d(response.body);
     return signupResponseFromJson(response.body);
   }
 
@@ -44,15 +45,15 @@ class SignupRepository{
       "email": phone,
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
-    print(postBody);
+    Log.d(postBody);
     Uri url = Uri.parse(AppApiEndPoints.signupOtp);
-    print(url);
+    Log.d(url.toString());
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
         },
         body: postBody);
-    print("SignUpResponse:"+response.body.toString());
+    Log.d("SignUpResponse:${response.body}");
     return signupResponseFromJson(response.body);
   }
 
@@ -67,7 +68,7 @@ class SignupRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    print(response.body);
+    Log.d(response.body);
     return AppLoginResponse.fromJson(jsonDecode(response.body));
   }
 
@@ -85,7 +86,7 @@ class SignupRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    print(response.body);
+    Log.d(response.body);
     return resendCodeResponseFromJson(response.body);
   }
 

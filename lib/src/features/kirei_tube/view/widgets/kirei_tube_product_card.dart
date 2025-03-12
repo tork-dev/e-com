@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
@@ -8,11 +6,9 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
-import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_details_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-
 import '../../../../utils/firebase/gtm_events.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../../../utils/local_storage/local_storage_keys.dart';

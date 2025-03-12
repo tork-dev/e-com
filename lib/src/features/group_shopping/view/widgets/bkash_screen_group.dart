@@ -63,7 +63,7 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
         customLeadingIcon: Icons.arrow_back,
       title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
         leadingOnPress: (){
-        print('working');
+          Log.d('working');
         Get.offAll(()=> const HelloConvexAppBar());
         },
         padding: 0,
@@ -88,13 +88,13 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
       var decodedJSON = jsonDecode(data.toString());
       Map<String, dynamic> responseJSON = jsonDecode(decodedJSON);
 
-      print('Bkash json Response: $decodedJSON');
+      Log.d('Bkash json Response: $decodedJSON');
 
       if (responseJSON["result"] == true) {
-        print('success');
+        Log.d('success');
         navigateToOrderSuccess("Payment Successful", true);
       } else if (responseJSON["result"] == false) {
-        print("payment cancel");
+        Log.d("payment cancel");
         navigateToOrderSuccess("Something went wrong", false);
       }
     });

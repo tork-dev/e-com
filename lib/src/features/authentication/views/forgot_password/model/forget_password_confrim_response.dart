@@ -29,10 +29,10 @@ class ForgetPasswordConfirmResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (result != null) data['result'] = this.result;
-    if (phone != null) data['phone'] = this.phone;
-    if (message != null) data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (result != null) data['result'] = result;
+    if (phone != null) data['phone'] = phone;
+    if (message != null) data['message'] = message;
     return data;
   }
 }
@@ -57,10 +57,10 @@ class ResendForgetPasswordResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (result != null) data['result'] = this.result;
-    if (phone != null) data['phone'] = this.phone;
-    if (message != null) data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (result != null) data['result'] = result;
+    if (phone != null) data['phone'] = phone;
+    if (message != null) data['message'] = message;
     return data;
   }
 }

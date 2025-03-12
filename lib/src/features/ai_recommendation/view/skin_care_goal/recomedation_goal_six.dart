@@ -13,6 +13,7 @@ import 'package:kirei/src/features/ai_recommendation/view/skin_care_goal/hypigme
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
@@ -92,7 +93,7 @@ class RecommendationGoalSix extends StatelessWidget {
                   Get.to(()=> const RecommendationDehydrationOne());
                 }
                 recommendationController.selectedDamaged.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
-                print(recommendationController.selectedDamaged);
+                Log.d(recommendationController.selectedDamaged.toString());
                 recommendationController.resetValues();
               },
             )

@@ -11,9 +11,9 @@ import 'package:kirei/src/features/kirei_tube/view/kirei_tube_shorts_screen.dart
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/skeleton_style.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../controller/kirei_tube_controller.dart';
 import '../kirei_tube_details.dart';
 import '../kirei_tube_playlist_view.dart';
@@ -152,12 +152,12 @@ class KireiTubeHome extends StatelessWidget {
                                           builderFunction: (context, index) =>
                                               KireiTubeShortsCard(
                                                 onShortsPress: () {
-                                                  print(controller
+                                                  Log.d(controller
                                                       .kireiTubeHomeResponse
                                                       .value
                                                       .shorts
                                                       ?.data![index]
-                                                      .slug);
+                                                      .slug ?? "Slug");
 
                                                   Get.to(
                                                       () =>
@@ -226,7 +226,7 @@ class KireiTubeHome extends StatelessWidget {
                                 builderFunction: (context, index) =>
                                     KireiTubeListCard(
                                         onTapViewPlaylist: () {
-                                          print("playlist tap");
+                                          Log.d("playlist tap");
                                           kireiController
                                               .getKireitubePlaylistDetails(
                                                   controller

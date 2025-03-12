@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class UserController extends GetxController {
   static UserController get instance => Get.find();
 
@@ -9,15 +11,10 @@ class UserController extends GetxController {
  // Rx<UserModel> user = UserModel.empty().obs;
 
 
-  @override
-  void onInit() {
-    super.onInit();
-    //fetchUserData();
-  }
 
   /// On refresh
   Future<void> onRefresh() async {
-    print('refresh');
+    Log.d('refresh');
   }
 
 //   /// Save User Record

@@ -6,6 +6,8 @@ import 'package:kirei/src/features/group_shopping/view/widgets/group_checkout_al
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class GroupShoppingPaymentScreen extends StatelessWidget {
   const GroupShoppingPaymentScreen({super.key});
 
@@ -26,7 +28,7 @@ class GroupShoppingPaymentScreen extends StatelessWidget {
           child: GroupCheckoutAlert(
             buttonName: buttonName ?? "JOIN GROUP",
             buttonWork: (){
-              print('button tapped');
+              Log.d('button tapped');
               buttonWork == "createGroup" ? groupShoppingController.createGroup(productId) : groupShoppingController.joinGroup(token, productId);
             },
           ),

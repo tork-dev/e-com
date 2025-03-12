@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
-import 'package:kirei/src/common/layouts/layout_without_appbar/layout_without_appbar.dart';
-import 'package:kirei/src/features/web_view/web_view.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';

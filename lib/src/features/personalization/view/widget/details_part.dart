@@ -3,17 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/address/view/adress_screen.dart';
 import 'package:kirei/src/features/de_active_account/view/de_active_account.dart';
-import 'package:kirei/src/features/kirei_tube/view/kirei_tube_screen.dart';
 import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/reward_point/view/reward_screen.dart';
-import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
-
 import '../../../notification/view/notification_screen.dart';
 import 'details_card.dart';
 

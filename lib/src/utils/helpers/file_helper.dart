@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import '../logging/logger.dart';
+
 class FileHelper {
   static String getBase64FormatedFile(String path) {
     File file = File(path);
-    print('File is = $file');
+    Log.d('File is = $file');
     List<int> fileInByte = file.readAsBytesSync();
     String fileInBase64 = base64Encode(fileInByte);
     return fileInBase64;

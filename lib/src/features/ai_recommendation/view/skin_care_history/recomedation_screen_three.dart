@@ -9,6 +9,7 @@ import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/reco
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/logging/logger.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
 import '../widgets/linear_progress_section.dart';
@@ -92,8 +93,8 @@ class SkinCareHistoryThree extends StatelessWidget {
             ButtonRow(
               onTapNext: (){
                 recommendationController.selectedAlergy.value = recommendationController.ageController.text.toLowerCase();
-                print(recommendationController.selectedAlergy);
-                if(recommendationController.selectedGender == 'a'){
+                Log.d(recommendationController.selectedAlergy.toString());
+                if(recommendationController.selectedGender.value == 'a'){
                   Get.to(()=> const SkinCareHistoryFive());
                   return;
                 }

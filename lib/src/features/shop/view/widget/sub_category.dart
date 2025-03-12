@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
-
 import '../../../../common/layouts/listview_layout/listview_layout.dart';
-import '../../../../common/styles/app_dividers.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/logging/logger.dart';
 
 class ShopSubCategory extends StatelessWidget {
   const ShopSubCategory({super.key});
@@ -52,13 +47,13 @@ class ShopSubCategory extends StatelessWidget {
                                 boarderRadius: 100,
                                 imgBoarderRadius: 100,
                                 onPress: (){
-                                  print(shopController.categoryRouteList);
+                                  Log.d(shopController.categoryRouteList.toString());
                                   shopController.resetAll();
                                   shopController.categories.value = shopController.subCategoryResponse[index].slug;
                                   shopController.getShopData();
                                   shopController.categoryRouteList.add(
                                       '/shop?${shopController.queryStringValue.value}');
-                                  print(shopController.categoryRouteList);
+                                  Log.d(shopController.categoryRouteList.toString());
                                   // bottomNavController.jumpToTab(1);
                                 },
                                 isNetworkImage: shopController.subCategoryResponse[index].icon != null,

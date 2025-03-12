@@ -4,6 +4,7 @@ import 'package:kirei/src/features/home/controller/search_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../../bottom_navigation/convex_controller.dart';
 
 
@@ -46,7 +47,7 @@ class HomeSearchDecoration extends StatelessWidget {
               hintStyle: Theme.of(context).textTheme.bodySmall,
               suffixIcon: InkWell(
                   onTap: () {
-                    print('clicked');
+                    Log.d('clicked');
                     searchController.searchByImage();
                   },
                   child: const Icon(Icons.camera_alt)),

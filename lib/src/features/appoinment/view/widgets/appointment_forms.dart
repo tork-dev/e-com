@@ -23,7 +23,7 @@ class AppAppointmentForms extends StatelessWidget {
             visible: !AppLocalStorage()
                 .readData(LocalStorageKeys.activeDoctorAppointment),
             child: AppCardContainer(
-                backgroundColor: AppColors.primary.withOpacity(.7),
+                backgroundColor: AppColors.primary.withAlpha((0.7 * 255).toInt()),
                 applyRadius: false,
                 padding: const EdgeInsets.symmetric(
                     horizontal: AppSizes.md, vertical: AppSizes.md),

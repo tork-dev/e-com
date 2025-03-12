@@ -11,6 +11,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
+import '../../../utils/logging/logger.dart';
 import '../../../utils/validators/validation.dart';
 import '../../authentication/views/log_in/repository/login_repository.dart';
 
@@ -77,7 +78,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                     ],
                                     onAnimationEnd: () {
 
-                                      print('animation end ${spinController.selectedCoupon.value}');
+                                      Log.d('animation end ${spinController.selectedCoupon.value}');
 
                                       if (spinController.selectedCouponResponse
                                               .value.result ==
@@ -88,7 +89,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                             .selectedIndex.value];
                                       }
 
-                                      print(
+                                      Log.d(
                                           spinController.selectedCoupon.value);
                                       Get.back();
                                         AppHelperFunctions.showSpinnerCoupon(
@@ -191,7 +192,9 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                               AppButtons.largeFlatFilledButton(
                                   onPressed: () {
                                     if (!spinController.phoneKey.currentState!
-                                        .validate()) return;
+                                        .validate()) {
+                                      return;
+                                    }
                                     if (!spinController.isChecked.value) {
                                       AppHelperFunctions.showToast(
                                           'Please agree to the terms and condition');

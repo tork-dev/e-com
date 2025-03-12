@@ -4,6 +4,7 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import '../../../../../utils/constants/app_api_end_points.dart';
 import '../../../../../utils/local_storage/storage_utility.dart';
 import 'package:http/http.dart' as http;
+import '../../../../../utils/logging/logger.dart';
 import '../../../model/resend_code_model.dart';
 import '../model/social_option_model.dart';
 import '../model/user_by_token_response.dart';
@@ -35,7 +36,7 @@ class LoginRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    print(response.body);
+    Log.d(response.body);
     return AppLoginResponse.fromJson(jsonDecode(response.body));
   }
 
@@ -47,7 +48,7 @@ class LoginRepository{
       "remember_me": rememberMe,
       //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
-    print('credential $email,$password,$rememberMe');
+    Log.d('credential $email,$password,$rememberMe');
 
     Uri url = Uri.parse(AppApiEndPoints.logIn);
     final response = await http.post(url,
@@ -56,7 +57,7 @@ class LoginRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    print(response.body.toString());
+    Log.d(response.body.toString());
 
     return AppLoginResponse.fromJson(jsonDecode( response.body.toString()));
   }
@@ -71,7 +72,7 @@ class LoginRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    print(response.body);
+    Log.d(response.body);
 
     return UserByTokenResponse.fromJson(jsonDecode(response.body));
   }
@@ -87,7 +88,7 @@ class LoginRepository{
           "Content-Type": "application/json",
         },
         body: postBody);
-    print(response.body);
+    Log.d(response.body);
     return SendOtpCodeResponse.fromJson(jsonDecode(response.body));
   }
 

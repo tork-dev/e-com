@@ -9,6 +9,7 @@ import 'package:kirei/src/features/review/controller/review_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/logging/logger.dart';
 
 class AppReviewPostCard extends StatelessWidget {
   const AppReviewPostCard({super.key});
@@ -117,7 +118,7 @@ class AppReviewPostCard extends StatelessWidget {
                     ),
                     AppButtons.smallRoundButton(
                         onPressed: (){
-                          print(controller.submitReview());
+                          Log.d(controller.submitReview().toString());
                         },
                         buttonColor: AppColors.primary,
                         buttonChild: const Icon(Icons.send))

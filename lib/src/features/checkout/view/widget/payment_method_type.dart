@@ -9,6 +9,8 @@ import 'package:kirei/src/features/checkout/controller/checkout_controller.dart'
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import '../../../../utils/logging/logger.dart';
+
 class AppPaymentMethodType extends StatelessWidget {
   const AppPaymentMethodType({super.key});
 
@@ -43,7 +45,7 @@ class AppPaymentMethodType extends StatelessWidget {
                               checkoutController.selectedPaymentMethodName.value =
                                   checkoutController
                                       .paymentMethods[index].paymentTypeKey!;
-                              print(checkoutController
+                              Log.d(checkoutController
                                   .selectedPaymentMethodName.value);
                             },
                             activeColor: Colors.green,

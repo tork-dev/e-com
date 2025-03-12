@@ -8,6 +8,7 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/address_city_model.dart';
 import 'package:http/http.dart' as http;
 import '../model/order_address_change.dart';
@@ -72,7 +73,7 @@ class AddressRepositories{
       'app_info': await AppHelperFunctions.appInfo(),
     });
 
-    print("Request Body: $postBody");
+    Log.d("Request Body: $postBody");
 
     Uri url = Uri.parse(AppApiEndPoints.shippingAddressCreateOrUpdate);
 
@@ -85,10 +86,10 @@ class AddressRepositories{
       body: postBody,
     );
 
-    print("Request URL: $url");
-    print("Request Headers: ${response.request?.headers}");
-    print("Response Status Code: ${response.statusCode}");
-    print("Response Body: ${response.body}");
+    Log.d("Request URL: $url");
+    Log.d("Request Headers: ${response.request?.headers}");
+    Log.d("Response Status Code: ${response.statusCode}");
+    Log.d("Response Body: ${response.body}");
 
     if (response.statusCode == 200) {
       return AddressCreateResponse.fromJson(jsonDecode(response.body));
@@ -106,7 +107,7 @@ class AddressRepositories{
         "Authorization": "Bearer $accessToken",
       },
     );
-    print("response.body.toString()${response.body.toString()}");
+    Log.d("response.body.toString()${response.body.toString()}");
     return AddressResponse.fromJson(response.body);
 
   }
@@ -135,8 +136,8 @@ class AddressRepositories{
           "Authorization": "Bearer $accessToken",
         },
         body: postBody);
-    print(response.body.toString());
-    print("URL:$url");
+    Log.d(response.body.toString());
+    Log.d("URL:$url");
     return shippingResponseFromJson(response.body);
     //return addressUpdateResponseFromJson(response.body);
   }

@@ -10,6 +10,7 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../../utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/coupon_apply_model.dart';
 
 class CheckoutRepositories {
@@ -49,7 +50,7 @@ class CheckoutRepositories {
       "coupon_code": couponCode,
       'app_info': await AppHelperFunctions.appInfo(),
     });
-    print(postBody);
+    Log.d(postBody);
 
     Uri url = Uri.parse(AppApiEndPoints.couponAdd);
     final response = await http.post(url,
@@ -59,7 +60,7 @@ class CheckoutRepositories {
         },
         body: postBody);
 
-    print(response.body.toString());
+    Log.d(response.body.toString());
 
     return CouponResponse.fromJson(jsonDecode(response.body));
   }
@@ -107,8 +108,8 @@ class CheckoutRepositories {
       var responseBody = jsonDecode(response.body);
       return OrderCreateResponse.fromJson(responseBody);
     } else {
-      print('Request failed with status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      Log.d('Request failed with status: ${response.statusCode}');
+      Log.d('Response body: ${response.body}');
       throw Exception('Failed to create order. Status code: ${response.statusCode}');
     }
   }

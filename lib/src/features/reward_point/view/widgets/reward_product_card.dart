@@ -61,7 +61,7 @@ class RewardProductCard extends StatelessWidget {
                   products.pointRedemptionResponse.value.data![index]
                       .product!.productCategories!
                       .map((category) => category.name)
-                      .where((name) => name != null && name!.isNotEmpty)
+                      .where((name) => name != null && name.isNotEmpty)
                       .join(', '),
                   style: Theme.of(context).textTheme.labelSmall,
                   overflow: TextOverflow.ellipsis, // No ellipsis, text will wrap naturally
@@ -89,7 +89,7 @@ class RewardProductCard extends StatelessWidget {
               applyRadius: false,
               height: double.infinity,
               width: double.infinity,
-              backgroundColor: AppColors.grey.withOpacity(.9),
+              backgroundColor: AppColors.grey.withAlpha((0.9 * 255).toInt()),
               child: Center(
                   child: Text(
                       textAlign: TextAlign.center,

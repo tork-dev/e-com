@@ -178,8 +178,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                                 isNetworkImage: true,
                                 discount: shopController
                                         .allProducts[index].discount!
-                                        .toInt() ??
-                                    0,
+                                        .toInt(),
                                 isStockAvailable:
                                     shopController.allProducts[index].stock !=
                                         0,

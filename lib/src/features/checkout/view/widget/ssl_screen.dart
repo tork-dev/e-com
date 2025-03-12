@@ -4,6 +4,7 @@ import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_bac
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../../bottom_navigation/convex-bottom_navigation.dart';
 import '../order_status_page.dart';
 
@@ -43,7 +44,7 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageFinished: (String url) {
-            print(url);
+            Log.d(url);
             if (url.contains("status=success")) {
               AppHelperFunctions.showToast('Order Successful');
               navigateToOrderSuccess('Order Successful', true);
@@ -54,7 +55,7 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
             }
           },
           onWebResourceError: (error) {
-            print(error);
+            Log.d(error.toString());
             navigateToOrderSuccess("Something went wrong.", false);
           },
         ),
@@ -75,7 +76,7 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
           style: TextStyle(color: AppColors.primary),
         ),
         leadingOnPress: () {
-          print('working');
+          Log.d('working');
           Get.offAll(() => const HelloConvexAppBar());
         },
         body: buildBody());

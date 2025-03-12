@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../model/products_response.dart';
 
 class RecommendationController extends GetxController{
@@ -20,17 +19,6 @@ class RecommendationController extends GetxController{
   Rx<RecommendationProductResponse> productResponse = RecommendationProductResponse().obs;
 
 
-  @override
-  void onInit() {
-    super.onInit();
-    // final uri = Uri.parse(Get.currentRoute);
-    // if (uri.hasQuery) {
-    //   extractValuesFromUrl(uri);
-    //   sendData();
-    // }
-
-
-  }
 
   setRadioButtonValue(int? value){
     radioButtonSelectedValue.value = value;

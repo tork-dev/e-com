@@ -6,6 +6,8 @@ import 'package:kirei/src/features/review/controller/review_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import '../../../../utils/logging/logger.dart';
+
 class AppReviewDescriptionPart extends StatelessWidget {
   final int index;
 
@@ -60,7 +62,7 @@ class AppReviewDescriptionPart extends StatelessWidget {
                                               TextDecoration.underline)),
                               onTap: () {
                                 controller.toggle();
-                                print(reviewController.reviewResponse.value
+                                Log.d(reviewController.reviewResponse.value
                                     .data![index].comment!.length
                                     .toString());
                               },

@@ -12,6 +12,7 @@ import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/helpers/routing_helper.dart';
+import '../../../../utils/logging/logger.dart';
 
 class HomeImageTitleAndButtonSection extends StatelessWidget {
   const HomeImageTitleAndButtonSection(
@@ -87,7 +88,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                             .buildBasicShimmer(height: 40, width: 150)
                         : AppCardContainer(
                             onTap: () {
-                              print(sectionName?.route);
+                              Log.d(sectionName?.route);
                               RoutingHelper.urlRouting(sectionName?.route ??
                                   '$baseUrlWeb/kirei-tube');
                             },

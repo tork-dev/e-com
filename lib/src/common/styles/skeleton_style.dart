@@ -10,7 +10,7 @@ class ShimmerHelper {
       {double height = double.infinity, double width = double.infinity, double radius = 0.0, isDark}) {
     return Shimmer.fromColors(
       baseColor: AppColors.grey,
-      highlightColor: AppColors.lightGrey.withOpacity(.5),
+      highlightColor: AppColors.lightGrey.withAlpha((0.5 * 255).toInt()),
       child: Container(
         height: height,
         width: width,
@@ -97,8 +97,8 @@ class ShimmerHelper {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Shimmer.fromColors(
-            baseColor: AppColors.primary.withOpacity(0.04),
-            highlightColor: AppColors.primary.withOpacity(0.08),
+            baseColor: AppColors.primary.withAlpha((0.04 * 255).toInt()),
+            highlightColor: AppColors.primary.withAlpha((0.08 * 255).toInt()),
             child: Container(
               height: 120,
               width: double.infinity,

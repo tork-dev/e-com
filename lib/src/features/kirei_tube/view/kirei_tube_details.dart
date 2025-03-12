@@ -10,6 +10,7 @@ import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_video_play
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import 'kirei_tube_shorts_screen.dart';
 import 'widgets/kirei_tube_details_description_part.dart';
 import 'widgets/kirei_tube_product_card.dart';
@@ -56,7 +57,7 @@ class KireiTubeDetailsScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(AppSizes.sm),
                         isCircle: true,
                         applyRadius: false,
-                        backgroundColor: Colors.grey.withOpacity(.5),
+                        backgroundColor: Colors.grey.withAlpha((0.5 * 255).toInt()),
                         margin: const EdgeInsets.only(left: AppSizes.sm),
                         child: const Icon(Icons.arrow_back_ios_new_rounded)),
                     AppCardContainer(
@@ -72,14 +73,14 @@ class KireiTubeDetailsScreen extends StatelessWidget {
                               Get.to(()=> const KireiTubeShortsDetailsScreen());
                             }
                           }else{
-                            print(controller.kireiTubeDetailsResponse.value.data!.nextVideo);
+                            Log.d(controller.kireiTubeDetailsResponse.value.data!.nextVideo.toString());
                             AppHelperFunctions.showToast("No Next video found");
                           }
                         },
                         padding: const EdgeInsets.all(AppSizes.sm),
                         isCircle: true,
                         applyRadius: false,
-                        backgroundColor: Colors.grey.withOpacity(.5),
+                        backgroundColor: Colors.grey.withAlpha((0.5 * 255).toInt()),
                         margin: const EdgeInsets.only(right: AppSizes.sm),
                         child: const Icon(Icons.arrow_forward_ios)),
                   ],

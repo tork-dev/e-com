@@ -19,7 +19,7 @@ class GaipUserIdController extends GetxController{
   }
 
   Future<void> getGaipUserId() async{
-    print("gaip user api called");
+    Log.d("gaip user api called");
     gaipResponse.value = await GigalogyRepository().getGaipUserId();
     Log.d(gaipResponse.value.toString());
     AppLocalStorage().saveDataIfNull(LocalStorageKeys.gaipUserId, gaipResponse.value.detail!.response);

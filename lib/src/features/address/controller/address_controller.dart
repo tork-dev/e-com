@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/state_manager.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/address/model/address_city_model.dart';
 import 'package:kirei/src/features/address/model/address_create_model.dart';
 import 'package:kirei/src/features/address/model/address_model.dart';
@@ -12,6 +8,8 @@ import 'package:kirei/src/features/address/model/area_response.dart';
 import 'package:kirei/src/features/address/model/zone_response.dart';
 import 'package:kirei/src/features/address/repositories/address_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+
+import '../../../utils/logging/logger.dart';
 
 class AddressController extends GetxController {
   static AddressController get instance => Get.find();
@@ -52,7 +50,7 @@ class AddressController extends GetxController {
       setAddress();
     }
     getCityList();
-    print('refresh');
+    Log.d('refresh');
   }
 
   Future<void> getShippingAddress() async {

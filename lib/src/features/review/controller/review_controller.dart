@@ -6,6 +6,8 @@ import 'package:kirei/src/features/review/repositories/review_repositories.dart'
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class ReviewController extends GetxController {
   static ReviewController get instance => Get.find();
 
@@ -74,7 +76,7 @@ class ReviewController extends GetxController {
       commentController.text = '';
       AppHelperFunctions.showToast(reviewSubmitResponse.value.message!);
     } catch (e) {
-      print(e.toString());
+      Log.d(e.toString());
     }
   }
 }

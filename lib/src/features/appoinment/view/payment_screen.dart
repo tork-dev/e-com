@@ -8,6 +8,8 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class AppointmentPaymentScreen extends StatefulWidget {
   final String initialUrl;
   final String screenName;
@@ -40,7 +42,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
             readResponse();
           },
           onWebResourceError: (error) {
-            print(error);
+            Log.d(error.toString());
             AppHelperFunctions.showToast('Something went wrong');
             Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
           },
@@ -59,7 +61,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
         customLeadingIcon: Icons.arrow_back,
         showCustomLeading: true,
         leadingOnPress: () {
-          print('working');
+          Log.d('working');
           Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
         },
         padding: AppSizes.defaultSpace,
@@ -88,7 +90,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
       var decodedJSON = jsonDecode(data.toString());
       Map<String, dynamic> responseJSON = jsonDecode(decodedJSON);
 
-      print('Bkash json Response: $decodedJSON');
+      Log.d('Bkash json Response: $decodedJSON');
 
       if (responseJSON["result"] == true) {
         AppHelperFunctions.showToast('Payment Successful');

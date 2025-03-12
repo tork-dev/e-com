@@ -4,6 +4,7 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/community_comment_response.dart';
 import '../model/community_like_create_response.dart';
 import '../model/community_response.dart';
@@ -64,15 +65,15 @@ class CommunityRepositories{
       // Check the response status
       if (response.statusCode == 200) {
         var responseBody = await response.stream.bytesToString();
-        print("Post created successfully: $responseBody");
+        Log.d("Post created successfully: $responseBody");
         return newCommunityPostResponseFromJson(responseBody);
       } else {
-        print("Post creation failed with status: ${response.statusCode}");
+        Log.d("Post creation failed with status: ${response.statusCode}");
         throw Exception('Failed to create post');
       }
     } catch (e) {
-      print("Exception occurred: $e");
-      throw e;
+      Log.d("Exception occurred: $e");
+      rethrow;
     }
   }
 
@@ -89,8 +90,8 @@ class CommunityRepositories{
           "Authorization": "Bearer $accessToken",
         },
         body: postBody);
-    print(url);
-    print(response.body.toString());
+    Log.d(url.toString());
+    Log.d(response.body.toString());
     return addCommunityLikeFromJson(response.body);
   }
 
@@ -125,8 +126,8 @@ class CommunityRepositories{
         },
         body: postBody);
 
-    print(url);
-    print(response.body.toString());
+    Log.d(url.toString());
+    Log.d(response.body.toString());
     return newCommunityPostResponseFromJson(response.body);
   }
 }

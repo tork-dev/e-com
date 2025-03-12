@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
-import '../../../utils/constants/sizes.dart';
 import 'card_container.dart';
 import 'course_title_container.dart';
 import 'product_image.dart';

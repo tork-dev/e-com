@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';

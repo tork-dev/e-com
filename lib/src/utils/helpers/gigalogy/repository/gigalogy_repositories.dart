@@ -4,6 +4,7 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 
 import '../../../local_storage/local_storage_keys.dart';
 import '../../../local_storage/storage_utility.dart';
+import '../../../logging/logger.dart';
 import '../model/gaip_user_id_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,13 +23,13 @@ class GigalogyRepository {
     Uri url = Uri.parse(AppApiEndPoints.generateGaipUserId);
     final response = await http
         .get(url, headers: {"project-key": projectKey, "api-key": apiKey});
-    print(url);
-    print(response.body.toString());
+    Log.d(url.toString());
+    Log.d(response.body.toString());
     return GaipUserIdResponse.fromJson(jsonDecode(response.body));
   }
 
   Future<void> sendDetailsEvent(String itemSlug) async {
-    final response = await http.post(
+    await http.post(
         Uri.parse(AppApiEndPoints.detailsPageEvent),
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +54,7 @@ class GigalogyRepository {
     if (feedBack != null) {
       reqBody['feedback'] = feedBack;
     }
-    final response = await http.post(
+    await http.post(
         Uri.parse(AppApiEndPoints.userChoosingEvent),
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +81,7 @@ class GigalogyRepository {
   }
 
   Future<void> sendUserDataEvent() async {
-    final response = await http.post(
+    await http.post(
         Uri.parse(AppApiEndPoints.userDataEvent),
         headers: {
           'Content-Type': 'application/json',

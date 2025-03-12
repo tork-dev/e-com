@@ -7,6 +7,7 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../utils/logging/logger.dart';
 import '../../home/model/request_stock_model.dart';
 import '../model/cart_update_response_model.dart';
 import '../model/checkout_cart_update_model.dart';
@@ -57,7 +58,7 @@ class CartRepositories {
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
-      print('cart response : $jsonResponse');
+      Log.d('cart response : $jsonResponse');
       return jsonResponse
           .map((data) => CartItemGetResponse.fromJson(data))
           .toList();
@@ -70,13 +71,13 @@ class CartRepositories {
   Future<CartUpdateResponse> getCartQuantityUpdate(
       productId, int productQuantity) async {
     Uri url = Uri.parse(AppApiEndPoints.cartQuantityUpdate);
-    print("cart Change Quantity");
+    Log.d("cart Change Quantity");
 
     var postBody = jsonEncode({
       "id": productId,
       "quantity": productQuantity,
     });
-    print(postBody);
+    Log.d(postBody);
 
     final response = await http.post(
       url,
@@ -86,9 +87,9 @@ class CartRepositories {
       },
       body: postBody,
     );
-    print("access token $accessToken");
+    Log.d("access token $accessToken");
 
-    print("cart Quantity res ${response.body}");
+    Log.d("cart Quantity res ${response.body}");
 
     return CartUpdateResponse.fromJson(jsonDecode(response.body));
   }
@@ -115,7 +116,7 @@ class CartRepositories {
       {required String cartIds, required String cartQuantities}) async {
     var postBody =
         jsonEncode({"cart_ids": cartIds, "cart_quantities": cartQuantities});
-    print(postBody);
+    Log.d(postBody);
     Uri url = Uri.parse(AppApiEndPoints.proceedToCheckout);
     final response = await http.post(url,
         headers: {
@@ -124,8 +125,8 @@ class CartRepositories {
         },
         body: postBody);
 
-    print(url);
-    print(response.body.toString());
+    Log.d(url.toString());
+    Log.d(response.body.toString());
     return CheckoutCartUpdateResponse.fromJson(jsonDecode(response.body));
   }
 

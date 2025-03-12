@@ -1,4 +1,3 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';

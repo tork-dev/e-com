@@ -55,7 +55,7 @@ class GetShopDataController extends GetxController {
   }
 
   getValuesFromUrl(Uri uri){
-    print('this is the url ${uri.path}');
+    Log.d('this is the url ${uri.path}');
     if (uri.queryParameters.containsKey('type')) {
       type.value = uri.queryParameters['type'] ?? '';
     }
@@ -249,7 +249,7 @@ class GetShopDataController extends GetxController {
         isLoadingMore = true; // Set loading flag to true
 
         AppHelperFunctions.showToast('Loading more...');
-        print('Reached the top of the list, loading previous page...');
+        Log.d('Reached the top of the list, loading previous page...');
         pageNumber.value--;
         getShopData().then((_) {
           isLoadingMore = false; // Reset loading flag
@@ -264,7 +264,7 @@ class GetShopDataController extends GetxController {
         isLoadingMore = true; // Set loading flag to true
 
         AppHelperFunctions.showToast('Loading more...');
-        print('Loading more data for page number: ${pageNumber.value}');
+        Log.d('Loading more data for page number: ${pageNumber.value}');
 
         // Save current scroll position and content height before loading more data
         double currentScrollPosition = scrollController.position.pixels;

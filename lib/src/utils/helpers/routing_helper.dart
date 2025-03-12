@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
+import '../logging/logger.dart';
 
 class RoutingHelper {
 
   static urlRouting(String? url) {
     String baseUrl = AppLocalStorage().readData(LocalStorageKeys.appUrl);
-    print(baseUrl);
+    Log.d(baseUrl);
     if (url != null) {
       if (url.contains(baseUrl)) {
         String route = url.replaceFirst(baseUrl, '');

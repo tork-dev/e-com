@@ -34,7 +34,7 @@ class CommunityController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    print('refresh');
+    Log.d('refresh');
     // pageNumber.value = 1;
     getCommunityResponse();
     addItems();
@@ -73,7 +73,7 @@ class CommunityController extends GetxController {
     //   AppHelperFunctions.showToast('Please select a picture');
     //   return;
     // }
-    print('going');
+    Log.d('going');
     try {
       isLoading.value = true;
       createCommunityResponse.value = await CommunityRepositories()
@@ -87,7 +87,7 @@ class CommunityController extends GetxController {
       communityFieldController.clear();
       imageName.value = '';
     } catch (e) {
-      print(e.toString());
+      Log.d(e.toString());
       isLoading.value = false;
     }
   }
@@ -109,7 +109,7 @@ class CommunityController extends GetxController {
         isLoadingMore = true; // Set loading flag to true
 
         AppHelperFunctions.showToast('Loading more...');
-        print('Loading more data for page number: ${pageNumber.value}');
+        Log.d('Loading more data for page number: ${pageNumber.value}');
 
         // Save current scroll position and content height before loading more data
         double currentScrollPosition = scrollController.position.pixels;

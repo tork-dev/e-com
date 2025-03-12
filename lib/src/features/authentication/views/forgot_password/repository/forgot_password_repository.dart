@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:kirei/src/features/authentication/views/forgot_password/model/forget_password_confrim_response.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
+import '../../../../../utils/logging/logger.dart';
 import '../../../model/resend_code_model.dart';
 import '../controllers/forgot_password_controllers.dart';
 import '../model/forgot_password_reponse.dart';
@@ -23,7 +24,7 @@ class ForgotPasswordRepository{
         },
         body: postBody);
 
-    print(response.body.toString());
+    Log.d(response.body.toString());
 
     return passwordForgetResponseFromJson(response.body);
   }
@@ -41,7 +42,7 @@ class ForgotPasswordRepository{
         },
         body: postBody);
 
-    print(response.body.toString());
+    Log.d(response.body.toString());
 
     return forgetPasswordConfirmResponseFromJson(response.body);
   }
@@ -60,7 +61,7 @@ class ForgotPasswordRepository{
         },
         body: postBody);
 
-    print(response.body);
+    Log.d(response.body);
 
     return resendCodeResponseFromJson(response.body);
   }

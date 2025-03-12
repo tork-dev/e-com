@@ -11,6 +11,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../common/widgets/containers/card_container.dart';
 import '../../../utils/firebase/gtm_events.dart';
+import '../../../utils/logging/logger.dart';
 import '../../purchase_history/controller/purchase_history_details_controller.dart';
 import '../../purchase_history/view/purchace_history.dart';
 import 'widget/status_section_details.dart';
@@ -51,7 +52,7 @@ class AppOrderStatusScreen extends StatelessWidget {
                 'quantity': item.quantity,
               };
             }).toList();
-            print(items);
+            Log.d(items.toString());
 
             EventLogger().logPurchaseEvent(
                 jsonEncode(items),

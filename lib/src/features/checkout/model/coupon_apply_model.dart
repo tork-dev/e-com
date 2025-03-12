@@ -17,7 +17,7 @@ class CouponResponse {
     return CouponResponse(
       result: json['result'],
       data: _parseData(json['data']),
-      amount: json['amount'] != null ? json['amount'].toDouble() : null,
+      amount: json['amount']?.toDouble(),
       message: json['message'],
     );
   }

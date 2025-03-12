@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
+import '../../../logging/logger.dart';
 import '../model/business_setting_response.dart';
 
 
@@ -10,7 +11,7 @@ class BusinessSettingRepository{
     final response = await http.get(url);
     if(response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
-      print('business data $responseBody');
+      Log.d('business data $responseBody');
       return BusinessSettingResponse.fromJson(response.body);
     }else{
       throw 'not responded';

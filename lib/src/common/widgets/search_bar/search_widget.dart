@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/home/repositories/search_repositories.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 

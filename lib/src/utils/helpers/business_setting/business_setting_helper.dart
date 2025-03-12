@@ -13,6 +13,7 @@ import '../../../common/widgets/containers/card_container.dart';
 import '../../../features/spinner_wheel/controller/spinner_controller.dart';
 import '../../constants/sizes.dart';
 import '../../device/device_utility.dart';
+import '../../logging/logger.dart';
 import '../helper_functions.dart';
 import '../routing_helper.dart';
 import 'model/business_setting_response.dart';
@@ -208,7 +209,7 @@ class BusinessSettingHelper extends GetxController {
 
     // Check if there are popups to display
     if (AppLocalStorage().readData(LocalStorageKeys.sowedSpinner) == true) {
-      print('interval time $intervalTime');
+      Log.d('interval time $intervalTime');
       if (businessLists.popup?.data != null &&
           businessLists.popup!.data!.isNotEmpty) {
         intervalTime.value = businessLists.popup?.interval ?? 0;

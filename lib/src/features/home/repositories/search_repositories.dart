@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
+import '../../../utils/logging/logger.dart';
 import '../../shop/model/shop_data_model.dart';
 import '../model/search_model.dart';
 import 'package:http/http.dart' as http;
@@ -33,9 +34,9 @@ class SearchRepositories {
     var response = await http.Response.fromStream(await request.send());
 
     if (response.statusCode == 200) {
-      print('Image uploaded successfully');
+      Log.d('Image uploaded successfully');
     } else {
-      print('Failed to upload image. Error: ${response.reasonPhrase}');
+      Log.d('Failed to upload image. Error: ${response.reasonPhrase}');
     }
     return ShopPageResponse.fromJson(jsonDecode(response.body));
     //return jsonDecode(response.body);

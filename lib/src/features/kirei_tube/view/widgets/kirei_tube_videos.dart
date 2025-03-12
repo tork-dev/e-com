@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_details.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_playlist_view.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_shorts_screen.dart';
@@ -10,6 +9,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../common/layouts/gridview_layout/gridview_layout.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../controller/kirei_tube_controller.dart';
 import 'kirei_tube_list_card.dart';
 
@@ -172,8 +172,8 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                       : kireiTubeController.tabController.index == 2
                           ? KireiTubeShortsCard(
                               onShortsPress: () {
-                                print(controller
-                                    .videosList.value.data![index].slug);
+                                Log.d(controller
+                                    .videosList.value.data![index].slug.toString());
                                 Get.to(() => const KireiTubeShortsDetailsScreen(),
                                     arguments: {
                                       "id": controller

@@ -38,19 +38,19 @@ class SignupResponse {
     tokenType = json['token_type'];
     expiresAt = json['expires_at'];
     phone = json["phone"];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['result'] = this.result;
-    data['message'] = this.message;
-    data['access_token'] = this.accessToken;
-    data['token_type'] = this.tokenType;
-    data['expires_at'] = this.expiresAt;
-    data['phone'] = this.phone;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['result'] = result;
+    data['message'] = message;
+    data['access_token'] = accessToken;
+    data['token_type'] = tokenType;
+    data['expires_at'] = expiresAt;
+    data['phone'] = phone;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
@@ -88,15 +88,15 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['type'] = this.type;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['avatar'] = this.avatar;
-    data['avatar_original'] = this.avatarOriginal;
-    data['phone'] = this.phone;
-    data['password_saved'] = this.passwordSaved;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['type'] = type;
+    data['name'] = name;
+    data['email'] = email;
+    data['avatar'] = avatar;
+    data['avatar_original'] = avatarOriginal;
+    data['phone'] = phone;
+    data['password_saved'] = passwordSaved;
     return data;
   }
 }
@@ -120,10 +120,10 @@ class SignupResendOtpResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['result'] = this.result;
-    data['phone'] = this.phone;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['result'] = result;
+    data['phone'] = phone;
+    data['message'] = message;
     return data;
   }
 }

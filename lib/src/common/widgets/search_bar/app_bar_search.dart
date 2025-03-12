@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kirei/src/common/widgets/search_bar/search_widget.dart';
-import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-
 import '../../../utils/constants/colors.dart';
 
 class AppBarSearch extends StatelessWidget {

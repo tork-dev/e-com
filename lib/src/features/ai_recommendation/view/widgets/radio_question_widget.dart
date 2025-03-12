@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../controller/recommendation_controller.dart';
 
 class RadioQuestionWidget extends StatelessWidget {
@@ -53,7 +54,7 @@ class RadioQuestionWidget extends StatelessWidget {
                           groupValue: recommendationController.radioButtonSelectedValue.value,
                           onChanged: (value) {
                             recommendationController.setRadioButtonValue(value!);
-                            print(recommendationController.radioButtonSelectedValue);
+                            Log.d(recommendationController.radioButtonSelectedValue.toString());
                           },
                         title: Text(
                           option[index],

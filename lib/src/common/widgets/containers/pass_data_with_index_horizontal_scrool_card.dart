@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
-import '../../../features/details/view/details.dart';
 import '../../../features/home/controller/home_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
-import '../../layouts/listview_layout/listview_layout.dart';
-import '../../styles/skeleton_style.dart';
 import 'vertical_product_card.dart';
 
 class AppPassDataHorizontalProductCard extends StatelessWidget {

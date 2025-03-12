@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 
+import '../../utils/logging/logger.dart';
+
 class ConvexBottomNavController extends GetxController
     with GetSingleTickerProviderStateMixin {
   static ConvexBottomNavController get instance => Get.find();
@@ -51,7 +53,7 @@ class ConvexBottomNavController extends GetxController
       categoryController.getShopData().then((value) {
         categoryController.categoryRouteList
             .add('/shop?${categoryController.queryStringValue.value}');
-        print(categoryController.categoryRouteList);
+        Log.d(categoryController.categoryRouteList.toString());
       });
       return;
     }

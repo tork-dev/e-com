@@ -11,6 +11,7 @@ import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/logging/logger.dart';
 import 'order_summary.dart';
 
 
@@ -24,7 +25,6 @@ class GroupCheckoutAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final groupShoppingController = GroupShoppingController.instance;
-    final SuggestionsController citySuggestion = SuggestionsController();
     final SuggestionsController zoneSuggestion = SuggestionsController();
     final SuggestionsController areaSuggestion = SuggestionsController();
     FocusNode areaNode = FocusNode();
@@ -125,7 +125,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                       controller: controller,
                       focusNode: focusNode,
                       onTap: (){
-                        print('city');
+                        Log.d('city');
                         areaSuggestion.refresh();
                         areaNode.unfocus();
                         controller.clear();
@@ -200,7 +200,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                         areaSuggestion.unfocus();
                         areaSuggestion.refresh();
                         groupShoppingController.getAreaList(zone.id!);
-                        print(zone.id);
+                        Log.d(zone.id);
                       },
                       controller: groupShoppingController.addressController.selectedZoneController,
                       suggestionsController: zoneSuggestion,
@@ -227,7 +227,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                           controller: controller,
                           focusNode: focusNode,
                           onTap: (){
-                            print('zone');
+                            Log.d('zone');
                             zoneSuggestion.refresh();
                             areaNode.unfocus();
                             controller.clear();
@@ -313,7 +313,7 @@ class GroupCheckoutAlert extends StatelessWidget {
                         controller: controller,
                         focusNode: focusNode,
                         onTap: (){
-                          print('area');
+                          Log.d('area');
                           areaSuggestion.refresh();
                           controller.clear();
                         },

@@ -3,17 +3,27 @@ import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/home/model/home_featured_category_model.dart';
 import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/features/home/model/surprize_gift_model.dart';
+import 'package:kirei/src/utils/caching/caching_keys.dart';
+import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/app_api_end_points.dart';
+import '../../../utils/logging/logger.dart';
 import '../../details/model/products_model.dart';
 import '../model/device_token_model.dart';
 
 class HomeRepositories {
+
   static Future<HomeProductResponse> getHomeProducts() async {
+    // Check if data is already cached
+    final homeCachedData = CachingUtility.getData(CachingKeys.homePageCachedData);
+    if (homeCachedData != null) {
+      return HomeProductResponse.fromJson(homeCachedData);
+    }
+
     final response = await http.get(Uri.parse(AppApiEndPoints.homeProducts));
     if (response.statusCode == 200) {
-      var responseBody = jsonDecode(response.body.toString());
+      await CachingUtility.saveData(CachingKeys.homePageCachedData, response.body);
       return HomeProductResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to load data: ${response.statusCode}');
@@ -21,23 +31,15 @@ class HomeRepositories {
   }
 
   Future<List<FeaturedCategory>> getHomeFeaturedCategories() async {
+    final featuredCategoryCachedData = CachingUtility.getData(CachingKeys.featuredCategoryCachedData);
+    if (featuredCategoryCachedData != null) {
+      return featuredCategoryListFromJson(featuredCategoryCachedData);
+    }
     Uri url = Uri.parse(AppApiEndPoints.homeFeaturedCategory);
-    final response = await http.get(url, headers: {
-      //"App-Language": app_language.$,
-    });
+    final response = await http.get(url);
+    await CachingUtility.saveData(CachingKeys.featuredCategoryCachedData, response.body);
     return featuredCategoryListFromJson(response.body);
   }
-
-  // static Future<HomeSlidersResponse> getHomeSliders() async {
-  //   final response = await http.get(Uri.parse(AppApiEndPoints.homeSlider));
-  //   if (response.statusCode == 200) {
-  //     var responseBody = jsonDecode(response.body.toString());
-  //     return HomeSlidersResponse.fromJson(responseBody);
-  //   } else {
-  //     throw Exception('Failed to load data: ${response.statusCode}');
-  //   }
-  // }
-
 
 
   static Future<DetailsProductsResponse> getTrendingProduct() async {
@@ -53,7 +55,7 @@ class HomeRepositories {
   }
 
   Future<DeviceTokenUpdateResponse> getDeviceTokenUpdateResponse() async {
-    print('sending fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
+    Log.d('sending fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
     var postBody = jsonEncode({
       "device_token": AppLocalStorage().readData(LocalStorageKeys.fcmToken)
     });
@@ -65,8 +67,8 @@ class HomeRepositories {
               "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}",
         },
         body: postBody);
-    print('sended fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
-    print('posted body $postBody}');
+    Log.d('sended fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
+    Log.d('posted body $postBody}');
 
     return deviceTokenUpdateResponseFromJson(response.body);
   }

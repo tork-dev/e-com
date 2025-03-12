@@ -9,6 +9,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/helpers/file_helper.dart';
+import '../../../utils/logging/logger.dart';
 
 class AccountDetailsController extends GetxController {
   static AccountDetailsController get instance => Get.find();
@@ -66,7 +67,7 @@ class AccountDetailsController extends GetxController {
   chooseAndUploadImage() async {
     // var status = await Permission.photos.request();
       _file = await _picker.pickImage(source: ImageSource.gallery);
-      print(_file);
+      Log.d(_file.toString());
 
       if(_file!= null) {
         String base64Image = FileHelper.getBase64FormatedFile(_file!.path);

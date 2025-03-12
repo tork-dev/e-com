@@ -8,6 +8,7 @@ import 'package:kirei/src/features/ai_recommendation/controller/recommendation_c
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../../utils/constants/image_strings.dart';
+import '../../../../../utils/logging/logger.dart';
 import '../../../question_and_value.dart';
 import '../../widgets/button_row.dart';
 import '../../widgets/circular_progress_section.dart';
@@ -95,7 +96,7 @@ class RecommendationBlackHeadsTwo extends StatelessWidget {
                       .blackHeadsTwoSelected.value = String.fromCharCode(65 +
                           recommendationController.radioButtonSelectedValue.value!)
                       .toLowerCase();
-                  print(recommendationController.blackHeadsTwoSelected);
+                  Log.d(recommendationController.blackHeadsTwoSelected.toString());
                   recommendationController.sendData();
                   recommendationController.resetValues();
                   Get.toNamed('/recommended-products');

@@ -124,7 +124,7 @@ class AppDrawer extends StatelessWidget {
                                     const EdgeInsets.only(left: AppSizes.sm),
                                 child: ExpansionTile(
                                   backgroundColor:
-                                      AppColors.white.withOpacity(.09),
+                                  AppColors.white.withAlpha((0.09 * 255).toInt()),
                                   iconColor: AppColors.white,
                                   collapsedIconColor: AppColors.white,
                                   collapsedShape: const RoundedRectangleBorder(

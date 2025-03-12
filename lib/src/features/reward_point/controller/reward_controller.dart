@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/reward_point/model/reward_model.dart';
 import 'package:kirei/src/features/reward_point/repositories/reward_repositories.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class RewardController extends GetxController {
   static RewardController get instance => Get.find();
 
@@ -17,7 +19,7 @@ class RewardController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    print('refresh');
+    Log.d('refresh');
     getRewardResponse();
   }
 
@@ -40,7 +42,7 @@ class RewardController extends GetxController {
     // Find the maximum value from allValues list
     if (allValues.isNotEmpty) {
       int maxValue = allValues.reduce((a, b) => a > b ? a : b);
-      print("Maximum Value: $maxValue");
+      Log.d("Maximum Value: $maxValue");
 
       double percent = rewardResponse.value.nextMemberships!.memberShipPoint! / maxValue;
 

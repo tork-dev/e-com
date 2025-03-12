@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import '../../utils/helpers/business_setting/business_setting_helper.dart';
 import '../../utils/helpers/gigalogy/controller/gigalogy_controller.dart';
 
@@ -12,9 +13,9 @@ class CommonController extends GetxController {
     super.onInit();
 
     // Initialize GAIP User ID Controller if not already initialized
-      print('calling gaip user id before');
+      Log.d('calling gaip user id before');
     if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
-      print('calling gaip user id');
+      Log.d('calling gaip user id');
       GaipUserIdController().getGaipUserId();
     }
     showPopUp();
@@ -22,7 +23,7 @@ class CommonController extends GetxController {
 
   // Method to handle popup display
   Future<void> showPopUp() async {
-    print("show pop up called");
+    Log.d("show pop up called");
     await BusinessSettingHelper().setBusinessSettingData();
   }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/reward_point/controller/reward_controller.dart';
 import 'package:kirei/src/features/reward_point/view/widgets/reward_instruction_card.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
@@ -12,8 +10,6 @@ class RewardInstructionCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
-    final controller = RewardController.instance;
     return  Column(
       children: [
         InkWell(

@@ -39,7 +39,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: PopScope(
         canPop: !backToHome,
-        onPopInvoked: (pop) {
+        onPopInvokedWithResult: (bool didPop, Object? result) async {
           !inHome
               ? Get.offAll(() => const HelloConvexAppBar(
                     pageIndex: 0,

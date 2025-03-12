@@ -207,7 +207,7 @@ class LogInPageController extends GetxController {
         if (loginResponse.value.result == true) {
           EventLogger().logLoginEvent('Facebook');
           AuthHelper().setUserData(loginResponse.value);
-          if (previousRoute == 'cart') {
+          if (previousRoute .value == 'cart') {
             final cartController = CartController.instance;
             EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
                 double.parse(Get.parameters['sale_price']!));
@@ -302,7 +302,7 @@ class LogInPageController extends GetxController {
           AppleIDAuthorizationScopes.fullName,
         ],
       );
-      print(credential);
+      Log.d(credential.toString());
       loginResponse.value = await AuthRepository().getSocialLoginResponse(
           'apple',
           credential.givenName,
@@ -313,7 +313,7 @@ class LogInPageController extends GetxController {
       if (loginResponse.value.result == true) {
         EventLogger().logLoginEvent('Apple');
         AuthHelper().setUserData(loginResponse.value);
-        if (previousRoute == 'cart') {
+        if (previousRoute.value == 'cart') {
           final cartController = CartController.instance;
           EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
               double.parse(Get.parameters['sale_price']!));
@@ -350,7 +350,7 @@ class LogInPageController extends GetxController {
       AppHelperFunctions.showToast(loginResponse.value.message!);
     } on Exception catch (e) {
       AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
-      print("error is ....... $e");
+      Log.d("error is ....... $e");
       // TODO
     }
     return null;

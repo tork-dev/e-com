@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
-import '../../../../utils/constants/sizes.dart';
 
 class KireiTubeShortsCard extends StatelessWidget {
   const KireiTubeShortsCard(

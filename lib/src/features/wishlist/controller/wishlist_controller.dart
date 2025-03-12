@@ -3,6 +3,8 @@ import 'package:kirei/src/features/wishlist/model/wishlist_model.dart';
 import 'package:kirei/src/features/wishlist/model/wishlist_remove_model.dart';
 import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class WishlistController extends GetxController {
   static WishlistController get instance => Get.find();
 
@@ -20,7 +22,7 @@ class WishlistController extends GetxController {
 
   Future<void> onRefresh() async {
     getWishlistData();
-    print('refresh');
+    Log.d('refresh');
   }
 
   Future<void> getWishlistData() async {

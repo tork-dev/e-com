@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/texts/expandable_text.dart';
 import 'package:kirei/src/features/community/controller/community_controller.dart';
 import 'package:kirei/src/features/community/view/community_comment_screen.dart';
-
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';

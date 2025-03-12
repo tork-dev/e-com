@@ -6,6 +6,7 @@ import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/home/repositories/search_repositories.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import '../../../utils/helpers/file_helper.dart';
+import '../../../utils/logging/logger.dart';
 
 class AppSearchController extends GetxController{
   static AppSearchController get instance => Get.find();
@@ -57,11 +58,11 @@ class AppSearchController extends GetxController{
           imageName: imageName,
         );
         shopDataController.allProducts.addAll(shopDataController.shopPageProduct.value.data!);
-        print('Image search successful');
+        Log.d('Image search successful');
         shopDataController.hittingApi.value = false;
 
       } catch (e) {
-        print('Image search failed: $e');
+        Log.d('Image search failed: $e');
       } finally {
         //isLoading(false);
       }

@@ -161,17 +161,17 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
                   child: SearchBar(
                     controller: controller,
                     onChanged: onChanged,
-                    elevation: const MaterialStatePropertyAll(0),
+                    elevation: const WidgetStatePropertyAll(0),
                     backgroundColor:
-                        const MaterialStatePropertyAll(AppColors.white),
-                    shape: const MaterialStatePropertyAll(
+                        const WidgetStatePropertyAll(AppColors.white),
+                    shape: const WidgetStatePropertyAll(
                         ContinuousRectangleBorder(
                       side: BorderSide(
                           color: AppColors.grey,
                           width: 1), // Border color and width
                     )),
                     hintText: 'Search',
-                    hintStyle: MaterialStatePropertyAll(Theme.of(context)
+                    hintStyle: WidgetStatePropertyAll(Theme.of(context)
                         .textTheme
                         .titleLarge!
                         .apply(color: AppColors.darkGrey)),

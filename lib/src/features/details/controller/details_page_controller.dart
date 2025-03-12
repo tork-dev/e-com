@@ -6,6 +6,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/firebase/gtm_events.dart';
+import '../../../utils/logging/logger.dart';
 import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
 import '../model/products_model.dart';
@@ -39,12 +40,12 @@ class DetailsPageController extends GetxController {
 
   @override
   void onInit() {
-    print('prevRoute ${Get.parameters['prevRoute']}' );
+    Log.d('prevRoute ${Get.parameters['prevRoute']}' );
     super.onInit();
     productSlugList.add(Get.parameters['id'] ?? '/home');
     prevRoute.value = Get.parameters['prevRoute'] ?? '/home';
 
-    print('on init ${productSlugList[productSlugIndex.value]}');
+    Log.d('on init ${productSlugList[productSlugIndex.value]}');
     onRefresh();
   }
 

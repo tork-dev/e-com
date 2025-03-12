@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'dart:convert';
+import '../../../../utils/logging/logger.dart';
 import '../../model/logout_model.dart';
 import '../../views/log_in/model/login_response.dart';
 
@@ -45,7 +46,7 @@ class AuthRepository extends GetxController {
       },
     );
 
-    print(response.body);
+    Log.d(response.body);
 
     return logoutResponseFromJson(response.body);
   }

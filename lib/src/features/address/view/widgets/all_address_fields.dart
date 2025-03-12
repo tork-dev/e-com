@@ -7,6 +7,7 @@ import 'package:kirei/src/features/address/view/widgets/address_text_field.dart'
 import 'package:kirei/src/utils/constants/sizes.dart';
 
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../../../utils/validators/validation.dart';
 
 class AppAllAddressFields extends StatelessWidget {
@@ -16,7 +17,6 @@ class AppAllAddressFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final addressController = AddressController.instance;
-    final SuggestionsController citySuggestion = SuggestionsController();
     final SuggestionsController zoneSuggestion = SuggestionsController();
     final SuggestionsController areaSuggestion = SuggestionsController();
     FocusNode areaNode = FocusNode();
@@ -116,7 +116,7 @@ class AppAllAddressFields extends StatelessWidget {
                     controller: controller,
                     focusNode: focusNode,
                     onTap: (){
-                      print('city');
+                      Log.d('city');
                       areaSuggestion.refresh();
                       areaNode.unfocus();
                       controller.clear();
@@ -158,9 +158,9 @@ class AppAllAddressFields extends StatelessWidget {
               const Gap(AppSizes.xs),
               InkWell(
                 onTap: (){
-                  print('zone suggession1');
+                  Log.d('zone suggession1');
                   zoneSuggestion.refresh();
-                  print('zone suggession2');
+                  Log.d('zone suggession2');
                 },
                 child: SizedBox(
                   child: TypeAheadField(
@@ -193,9 +193,9 @@ class AppAllAddressFields extends StatelessWidget {
                       areaSuggestion.unfocus();
                       areaSuggestion.refresh();
                       addressController.getAreaList(zone.id!);
-                      print(zone.id);
-                      print(addressController.selectedZoneName.value);
-                      print(addressController.selectedZoneController.text);
+                      Log.d(zone.id);
+                      Log.d(addressController.selectedZoneName.value);
+                      Log.d(addressController.selectedZoneController.text);
                     },
                     controller: addressController.selectedZoneController,
                     suggestionsController: zoneSuggestion,
@@ -222,8 +222,8 @@ class AppAllAddressFields extends StatelessWidget {
                         controller: controller,
                         focusNode: focusNode,
                         onTap: (){
-                          print('zone');
-                          print('name : ${addressController.selectedCityName.value}');
+                          Log.d('zone');
+                          Log.d('name : ${addressController.selectedCityName.value}');
                           if(addressController.selectedCityController.text != addressController.selectedCityName.value){
                             addressController.selectedCityController.clear();
                             addressController.selectedCityName.value = '';
@@ -313,7 +313,7 @@ class AppAllAddressFields extends StatelessWidget {
                       controller: controller,
                       focusNode: focusNode,
                       onTap: (){
-                        print('area');
+                        Log.d('area');
                         areaSuggestion.refresh();
                         controller.clear();
                         if(addressController.selectedZoneName.value != addressController.selectedZoneController.text){

@@ -18,8 +18,8 @@ class AppLoaders {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: AppHelperFunctions.isDarkMode(Get.overlayContext!)
-                  ? AppColors.darkGrey.withOpacity(0.9)
-                  : AppColors.grey.withOpacity(0.9)),
+                  ? AppColors.darkGrey.withAlpha((0.9 * 255).toInt())
+                  : AppColors.grey.withAlpha((0.9 * 255).toInt())),
           child: Center(
             child: Text(
               message,

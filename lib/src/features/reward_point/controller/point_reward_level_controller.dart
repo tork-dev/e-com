@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:kirei/src/features/reward_point/repositories/reward_repositories.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/membership_level_model.dart';
 
 class RewardPointLevelController extends GetxController{
@@ -16,7 +17,7 @@ class RewardPointLevelController extends GetxController{
   }
 
   Future<void> onRefresh() async{
-    print('refresh');
+    Log.d('refresh');
     getMembershipLevel();
   }
 

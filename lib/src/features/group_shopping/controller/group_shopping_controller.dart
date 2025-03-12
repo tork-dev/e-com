@@ -5,6 +5,7 @@ import 'package:kirei/src/features/group_shopping/model/group_shopping_products_
 import 'package:kirei/src/features/group_shopping/repositories/group_shopping_repositories.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../../utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../../address/controller/address_controller.dart';
 import '../../address/model/address_city_model.dart';
 import '../../address/model/area_response.dart';
@@ -50,7 +51,7 @@ class GroupShoppingController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    print('refresh');
+    Log.d('refresh');
     getProducts();
     getGroups();
   }

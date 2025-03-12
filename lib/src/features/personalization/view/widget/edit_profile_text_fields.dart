@@ -1,18 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/personalization/controller/account_details_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/validators/validation.dart';
-
 import '../../../../utils/constants/sizes.dart';
 import '../../../authentication/views/widgets/auth_input_field.dart';
 

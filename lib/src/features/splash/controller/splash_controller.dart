@@ -4,6 +4,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
+import '../../../utils/logging/logger.dart';
 import '../../on_boarding/views/on_boarding.dart';
 
 class SplashController extends GetxController {
@@ -23,7 +24,6 @@ class SplashController extends GetxController {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     AppLocalStorage().saveData(LocalStorageKeys.appVersion, version);
-    print(AppLocalStorage().readData(LocalStorageKeys.accessToken).runtimeType);
   }
 
 

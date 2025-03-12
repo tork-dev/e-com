@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/appoinment/repositories/appoinment_repositories.dart';
 import 'package:kirei/src/features/appoinment/view/payment_screen.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/appointment_model.dart';
 
 class AppointmentController extends GetxController {
@@ -53,7 +54,7 @@ class AppointmentController extends GetxController {
       return AppHelperFunctions.showToast('WhatsApp number is required');
     }
     if (problemController.text == '') {
-      print(problemController.text);
+      Log.d(problemController.text);
       return AppHelperFunctions.showToast('Problem is required');
     }
 

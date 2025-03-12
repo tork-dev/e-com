@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';

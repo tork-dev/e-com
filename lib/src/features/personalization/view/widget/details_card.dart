@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/helpers/helper_functions.dart';
+
 
 class DetailsCard extends StatelessWidget {
   final String cardText;
@@ -19,7 +18,6 @@ class DetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = AppHelperFunctions.isDarkMode(context);
     return InkWell(
       onTap: onTap,
       child: Column(

@@ -5,6 +5,7 @@ import 'package:kirei/src/features/details/controller/details_page_controller.da
 import '../../../../common/styles/app_dividers.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/logging/logger.dart';
 import 'details_tag_with_border.dart';
 import 'details_tag_with_underline.dart';
 
@@ -53,7 +54,7 @@ class AppDetailsCategoriesPart extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: AppDetailsTagUnderlineWidget(
                           onTap: () {
-                            print(controller.productDetails.value.detailedProducts!.keyIngredients!);
+                            Log.d(controller.productDetails.value.detailedProducts!.keyIngredients!.toString());
                           },
                           title: 'Key Ingredients: ',
                           types: controller.productDetails.value

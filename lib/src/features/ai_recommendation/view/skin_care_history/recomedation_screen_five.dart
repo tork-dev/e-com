@@ -9,6 +9,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
@@ -77,7 +78,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
             ButtonRow(
               onTapNext: (){
                 recommendationController.selectedRational.value = String.fromCharCode(65 + recommendationController.radioButtonSelectedValue.value!).toLowerCase();
-                print(recommendationController.selectedRational);
+                Log.d(recommendationController.selectedRational.toString());
                 Get.to(()=> const SkinCareHistorySix());
                 recommendationController.resetValues();
               },

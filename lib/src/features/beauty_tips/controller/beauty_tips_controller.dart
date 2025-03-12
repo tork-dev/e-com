@@ -14,11 +14,4 @@ class BeautyTipsController extends GetxController{
   //ShopController shopController = Get.put(ShopController());
 
 
-  @override
-  void onInit() {
-    super.onInit();
-    // homeController.callApis.value = false;
-    //shopController.callApis.value = false;
-
-  }
 }

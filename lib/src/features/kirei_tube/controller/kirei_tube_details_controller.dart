@@ -45,7 +45,7 @@ class KireiTubeDetailsController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    print('refresh');
+    Log.d('refresh');
      getKireiTubeDetails();
   }
 
@@ -73,7 +73,7 @@ class KireiTubeDetailsController extends GetxController {
             showFullscreenButton: true, showControls: true),
       );
     } catch (e) {
-      print("Exception is $e");
+      Log.d("Exception is $e");
     }
   }
 

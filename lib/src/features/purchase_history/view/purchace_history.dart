@@ -17,7 +17,7 @@ class PurchaseHistory extends StatelessWidget {
     final controller = Get.put(PurchaseHistoryController());
     return PopScope(
       canPop: !backToHome,
-      onPopInvoked: (pop) {
+      onPopInvokedWithResult: (pop, result) {
         if (pop == true) {
           Future.delayed(Duration.zero, () {
             Get.back();

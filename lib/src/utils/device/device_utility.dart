@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../logging/logger.dart';
+
 
 class AppDeviceUtils {
   static void hideKeyboard(BuildContext context) {
@@ -112,7 +114,7 @@ class AppDeviceUtils {
   // }
 
   static Future<void> browseUrl(String url) async {
-    print('object');
+    Log.d('object');
     if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');
     }

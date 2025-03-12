@@ -9,11 +9,11 @@ import 'package:kirei/src/features/ai_recommendation/view/widgets/checkbox_quest
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/logging/logger.dart';
 import '../../question_and_value.dart';
 import '../widgets/button_row.dart';
 import '../widgets/circular_progress_section.dart';
 import '../widgets/linear_progress_section.dart';
-import '../widgets/radio_question_widget.dart';
 
 class SkinCareHistorySeven extends StatelessWidget {
   const SkinCareHistorySeven({super.key});
@@ -75,7 +75,7 @@ class SkinCareHistorySeven extends StatelessWidget {
                 recommendationController.selectedFollowingSkinCare.value =  recommendationController.checkboxSelectedValues
                     .map((index) => String.fromCharCode(65 + index as int).toLowerCase())
                     .toList();
-                print(recommendationController.selectedFollowingSkinCare);
+                Log.d(recommendationController.selectedFollowingSkinCare.toString());
                 Get.to(()=> const SkinCareHistoryEight());
                 recommendationController.resetValues();
               },

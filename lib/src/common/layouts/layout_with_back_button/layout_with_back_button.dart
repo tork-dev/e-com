@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/appbar/custom_app_bar.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import '../../../utils/logging/logger.dart';
+
 class AppLayoutWithBackButton extends StatelessWidget {
   const AppLayoutWithBackButton({
     this.padding = AppSizes.md,
@@ -39,14 +41,14 @@ class AppLayoutWithBackButton extends StatelessWidget {
       child: PopScope(
         canPop: canPop,
         onPopInvokedWithResult: (bool didPop, Object? result) async {
-          print("pop invoked");
+          Log.d("pop invoked");
           if (!didPop) { // This means pop was prevented
-            print("pop invoked 2");
+            Log.d("pop invoked 2");
             if (backToHome) {
               Get.offAllNamed('/home'); // Navigate to home instead of popping
-              print("pop invoked 4");
+              Log.d("pop invoked 4");
             } else if (showCustomLeading && leadingOnPress != null) {
-              print("pop invoked 3");
+              Log.d("pop invoked 3");
               leadingOnPress!(); // Call custom leading function
             }
           }

@@ -20,6 +20,7 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import '../../../utils/constants/sizes.dart';
+import '../../../utils/logging/logger.dart';
 import 'widgets/details_picture_part.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -36,8 +37,8 @@ class DetailsPage extends StatelessWidget {
       controller.productSlugList.add(Get.parameters['id']!);
       controller.productSlugIndex = controller.productSlugIndex++;
       controller.onRefresh();
-      print('calling from ui class');
-      print(controller.productSlugList);
+      Log.d('calling from ui class');
+      Log.d(controller.productSlugList.toString());
     }
     return AppLayoutWithBackButton(
       canPop: false,
@@ -48,10 +49,10 @@ class DetailsPage extends StatelessWidget {
         leadingOnPress: () {
         Get.back();
           if (controller.productSlugList.length > 1) {
-            print('Backing to prev product');
+            Log.d('Backing to prev product');
             controller.productSlugList.removeAt(controller.productSlugIndex.value);
             controller.productSlugIndex.value--; // Correctly decrement index
-            print(controller.productSlugList);
+            Log.d(controller.productSlugList.toString());
             controller.onRefresh();
           }
           // else {
@@ -67,7 +68,7 @@ class DetailsPage extends StatelessWidget {
         backgroundColor: AppColors.primary,
         bottomNav: const AppBottomButton(),
         title: Obx(() {
-          print('print product id ${Get.parameters['id']}');
+          Log.d('print product id ${Get.parameters['id']}');
           return AppBarSearch(
             focusOn: categoryController.searchOn.value,
             onSubmit: (String txt) {

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../helpers/routing_helper.dart';
+import '../logging/logger.dart';
 
 class NotificationServices {
   // Initialising firebase message plugin
@@ -59,7 +60,7 @@ class NotificationServices {
 
     // Listen for background messages
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print('background state');
+      Log.d('background state');
       handleMessage(message);
     });
   }
@@ -67,10 +68,10 @@ class NotificationServices {
   Future<void> _checkInitialMessage() async {
     RemoteMessage? initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
-      print('terminated state');
+      Log.d('terminated state');
       // navigatorKey.currentState?.pushNamed(initialMessage.data["route"]);
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        print(initialMessage.data["route"]);
+        Log.d(initialMessage.data["route"]);
         handleMessage(initialMessage);
       });
     }

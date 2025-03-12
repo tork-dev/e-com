@@ -20,6 +20,7 @@ import '../../../common/widgets/buttons/app_buttons.dart';
 import '../../../common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
+import '../../../utils/logging/logger.dart';
 import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
@@ -62,7 +63,7 @@ class CheckoutController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    print('refresh');
+    Log.d('refresh');
     await getCheckoutSummary();
     await getPaymentMethods();
     AppHelperFunctions.showToast('Cart Updated');
@@ -76,7 +77,7 @@ class CheckoutController extends GetxController {
       'Authorization' : "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}"
     });
     rewardBalance.value = int.parse(response.body);
-    print('this is balance : ${response.body}');
+    Log.d('this is balance : ${response.body}');
   }
 
   void addressAvailabilityCheck() {
@@ -182,7 +183,7 @@ class CheckoutController extends GetxController {
 
       // If no specific payment method, show toast and navigate to Order Status Screen
       AppHelperFunctions.showToast(orderCreateResponse.value.message!);
-      print(orderCreateResponse.value);
+      Log.d(orderCreateResponse.value.toString());
       Get.offAll(() => AppOrderStatusScreen(
         statusString: orderCreateResponse.value.message!,
         status: orderCreateResponse.value.result ?? false,
@@ -191,7 +192,7 @@ class CheckoutController extends GetxController {
 
     } catch (e) {
       Get.back(); // Ensure the loader is closed in case of an error
-      print('Error in onPressProceed: $e');
+      Log.d('Error in onPressProceed: $e');
       AppHelperFunctions.showToast('An error occurred. Please try again.');
     }
   }

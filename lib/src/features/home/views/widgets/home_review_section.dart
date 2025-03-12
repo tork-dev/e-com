@@ -10,6 +10,8 @@ import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import '../../../../utils/logging/logger.dart';
+
 class HomeReviewSection extends StatelessWidget {
   const HomeReviewSection({super.key});
 
@@ -102,7 +104,7 @@ class HomeReviewSection extends StatelessWidget {
                                       color: AppColors.primary,
                                     ),
                                     onRatingUpdate: (rating) {
-                                      print(rating);
+                                      Log.d(rating.toString());
                                     },
                                   ),
                             const Gap(AppSizes.sm),
