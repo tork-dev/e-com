@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/model/surprize_gift_model.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/utils/caching/caching_keys.dart';
+import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -62,7 +64,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     if (callApis == true) {
-      onRefresh();
+      getData();
     }
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
       HomeRepositories().getDeviceTokenUpdateResponse();
@@ -72,6 +74,14 @@ class HomeController extends GetxController {
   }
 
   Future<void> onRefresh() async {
+  CachingUtility.clearCache(CachingKeys.allCategoryCachedData);
+  CachingUtility.clearCache(CachingKeys.allCategoryNewCachedData);
+  CachingUtility.clearCache(CachingKeys.featuredCategoryCachedData);
+  CachingUtility.clearCache(CachingKeys.homePageCachedData);
+  await getData();
+  }
+
+  Future<void> getData() async{
     homeSlidersLink.clear();
     homeSliders.clear();
     getProductData();

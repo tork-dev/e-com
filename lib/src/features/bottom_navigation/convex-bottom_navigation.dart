@@ -10,6 +10,7 @@ import 'package:kirei/src/features/home/views/home_three.dart';
 import 'package:kirei/src/features/personalization/view/profile.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/shop/view/shop.dart';
+import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -49,6 +50,7 @@ class HelloConvexAppBar extends StatelessWidget {
                     Get.back();
                   },
                   onLeftPress: () {
+                    CachingUtility.clearAll();
                     Get.back();
                     Platform.isAndroid ? SystemNavigator.pop() : exit(0);
                   },

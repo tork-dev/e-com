@@ -13,20 +13,20 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-@pragma('vm:entry-point') // Required for background execution
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message ${message.data}');
-  print('Handling a background message ${message.data["show_notification"].runtimeType}');
-
-  if(message.data["show_notification"] == "false"){
-    await Hive.initFlutter(); // Initialize Hive
-    await Hive.openBox('cacheBox'); // Open Hive Box for caching
-    CachingUtility.clearAll();
-  }else {
-    NotificationServices().showNotification(message);
-  }
-  // Add custom handling for background messages if needed
-}
+// @pragma('vm:entry-point') // Required for background execution
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   print('Handling a background message ${message.data}');
+//   print('Handling a background message ${message.data["show_notification"].runtimeType}');
+//
+//   if(message.data["show_notification"] == "false"){
+//     await Hive.initFlutter(); // Initialize Hive
+//     await Hive.openBox('cacheBox'); // Open Hive Box for caching
+//     CachingUtility.clearAll();
+//   }else {
+//     NotificationServices().showNotification(message);
+//   }
+//   // Add custom handling for background messages if needed
+// }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -64,7 +64,7 @@ void main() async {
       print("Firebase initialization error: $e");
     }
   }
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Set system UI overlay style
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
