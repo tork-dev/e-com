@@ -9,6 +9,7 @@ class KireiTubeDetailsController extends GetxController {
   static KireiTubeDetailsController get instance => Get.find();
 
   RxBool hittingApi = false.obs;
+  RxString orientation = 'portrait'.obs;
   Rx<KireiTubeDetailsResponse> kireiTubeDetailsResponse =
       KireiTubeDetailsResponse().obs;
   Rx<YoutubePlayerController?> youtubeController =
@@ -30,7 +31,14 @@ class KireiTubeDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    videoSlug.value = Get.arguments['id']!;
+    if(Get.arguments != null) {
+      videoSlug.value = Get.arguments['id']!;
+      orientation.value = Get.arguments['orientation']!;
+    }
+    else{
+    videoSlug.value = Get.parameters['id']!;
+    }
+
     if (videoSlug.isNotEmpty) {
       onRefresh();
     }

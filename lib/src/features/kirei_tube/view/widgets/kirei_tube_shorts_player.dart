@@ -16,13 +16,13 @@ class KireiTubeShortsPlayer extends StatelessWidget {
     return Obx(() {
       return controller.hittingApi.value
           ? ShimmerHelper().buildBasicShimmer(
-            height: AppHelperFunctions.screenHeight() * .6,
+            height: controller.orientation.value != "landscape"? AppHelperFunctions.screenHeight() * .6 : 220,
           )
           : AppCardContainer(
-        height: controller.aspectRatio.value < 1? AppHelperFunctions.screenHeight() * .6 : null,
+        height: controller.orientation.value != "landscape" && controller.aspectRatio.value < 1? AppHelperFunctions.screenHeight() * .6 : null,
             child: AspectRatio(
               aspectRatio:
-                  controller.aspectRatio.value,
+                  controller.orientation.value != "landscape" ?controller.aspectRatio.value : 16/9,
               child:
                   controller.videoUrl.contains('facebook.com')
                       ? WebViewWidget(controller: controller.webViewController!)

@@ -104,34 +104,16 @@ class KireiTubePlaylistScreen extends StatelessWidget {
                         ? ShimmerHelper().buildBasicShimmer(height: 150)
                         : VideoHorizontalCard(
                             onTap: () {
-                              if (kireiTubeController
-                                          .playlistDetails
-                                          .value
-                                          .data![0]
-                                          .videos![index]
-                                          .orientation ==
-                                      "portrait" ||
-                                  kireiTubeController
-                                          .playlistDetails
-                                          .value
-                                          .data![0]
-                                          .videos![index]
-                                          .orientation ==
-                                      "shorts") {
+                              Get.toNamed('/kirei-tube/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}');
                                 Get.to(
                                     () => const KireiTubeShortsDetailsScreen(),
                                     arguments: {
                                       "id": kireiTubeController.playlistDetails
-                                          .value.data![0].videos![index].slug
+                                          .value.data![0].videos![index].slug,
+                                      "orientation": kireiTubeController.playlistDetails
+                                          .value.data![0].videos![index].orientation
                                     });
-                              } else {
-                                Get.to(
-                                    () => const KireiTubeShortsDetailsScreen(),
-                                    arguments: {
-                                      "id": kireiTubeController.playlistDetails
-                                          .value.data![0].videos![index].slug
-                                    });
-                              }
+
                             },
                             imgUrl: kireiTubeController.playlistDetails.value
                                 .data![0].videos![index].banner,

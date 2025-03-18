@@ -6,6 +6,9 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/device/device_utility.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
+import '../../../../utils/local_storage/local_storage_keys.dart';
+import '../../../../utils/local_storage/storage_utility.dart';
 import '../../../../utils/logging/logger.dart';
 
 
@@ -33,8 +36,13 @@ class AppDetailsFullDescription extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: HtmlWidget(
                       onTapUrl: (url){
-                        AppDeviceUtils.browseUrl(url);
                         Log.d(url);
+                        print(AppLocalStorage().readData(LocalStorageKeys.appUrl));
+                        if(url.contains(AppLocalStorage().readData(LocalStorageKeys.appUrl))){
+                          Log.d("true");
+                          return RoutingHelper.urlRouting(url);
+                        }
+                        // AppDeviceUtils.browseUrl(url);
                         return true;
                       },
                         description)),

@@ -163,9 +163,9 @@ class MyApp extends StatelessWidget {
             name: '/point-history',
             page: () => const RewardPointHistoryScreen()),
         GetPage(name: '/kirei-tube', page: () => const KireiTubeScreen()),
-        GetPage(
-            name: '/kirei-tube-details/:id',
-            page: () => const KireiTubeDetailsScreen()),
+        // GetPage(
+        //     name: '/kirei-tube/:id',
+        //     page: () => const KireiTubeDetailsScreen()),
         GetPage(
             name: '/group-shopping', page: () => const GroupShoppingScreen()),
         GetPage(
@@ -175,7 +175,7 @@ class MyApp extends StatelessWidget {
             name: '/recommended-products',
             page: () => const RecommendedProducts()),
         GetPage(
-            name: '/kirei-shorts/:id',
+            name: '/kirei-tube/:id',
             page: () => const KireiTubeShortsDetailsScreen()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],

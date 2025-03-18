@@ -12,7 +12,6 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../controller/kirei_tube_details_controller.dart';
-import 'kirei_tube_details.dart';
 
 class KireiTubeShortsDetailsScreen extends StatelessWidget {
   const KireiTubeShortsDetailsScreen({super.key});
@@ -48,11 +47,11 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
                               controller.kireiTubeDetailsResponse.value.data!
                                   .prevVideo!.slug!;
                               controller.onRefresh();
-                              if(controller.kireiTubeDetailsResponse.value.data!.prevVideo!.orientation == "landscape"){
-                                Get.to(()=> const KireiTubeDetailsScreen());
-                              }else{
+                              // if(controller.kireiTubeDetailsResponse.value.data!.prevVideo!.orientation == "landscape"){
+                              //   Get.to(()=> const KireiTubeDetailsScreen());
+                              // }else{
+                              // }
                                 Get.to(()=> const KireiTubeShortsDetailsScreen());
-                              }
                             }else{
                               AppHelperFunctions.showToast("No Previous video found");
                             }
@@ -71,11 +70,11 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
                                   .nextVideo!.slug!;
 
                               controller.onRefresh();
-                              if(controller.kireiTubeDetailsResponse.value.data!.nextVideo!.orientation == "landscape"){
-                                Get.to(()=> const KireiTubeDetailsScreen());
-                              }else{
+                              // if(controller.kireiTubeDetailsResponse.value.data!.nextVideo!.orientation == "landscape"){
+                              //   Get.to(()=> const KireiTubeDetailsScreen());
+                              // }else{
+                              // }
                                 Get.to(()=> const KireiTubeShortsDetailsScreen());
-                              }
                             }else{
                               AppHelperFunctions.showToast("No Next video found");
                             }

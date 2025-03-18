@@ -59,35 +59,22 @@ class KireiTubeHome extends StatelessWidget {
                                   KireiTubeListCard(
                                     isPlaylist: false,
                                     onTapBanner: () {
-                                      controller
-                                                  .kireiTubeHomeResponse
-                                                  .value
-                                                  .videos!
-                                                  .data![index]
-                                                  .orientation ==
-                                              "portrait"
-                                          ? Get.to(
+                                      Get.to(
                                               () =>
-                                                  const KireiTubeShortsDetailsScreen(),
-                                              arguments: {
-                                                  'id': controller
-                                                      .kireiTubeHomeResponse
-                                                      .value
-                                                      .videos
-                                                      ?.data![index]
-                                                      .slug
-                                                })
-                                          : Get.to(
-                                              () =>
-                                                  const KireiTubeDetailsScreen(),
-                                              arguments: {
-                                                  'id': controller
-                                                      .kireiTubeHomeResponse
-                                                      .value
-                                                      .videos
-                                                      ?.data![index]
-                                                      .slug
-                                                });
+                                          const KireiTubeShortsDetailsScreen(),
+                                          arguments: {
+                                            "id": controller
+                                                .kireiTubeHomeResponse
+                                                .value
+                                                .videos
+                                                ?.data?[index]
+                                                .slug,
+                                            "orientation": controller
+                                                .kireiTubeHomeResponse
+                                                .value
+                                                .videos
+                                                ?.data?[index].orientation
+                                          });
                                     },
                                     kireiTubeBanner: controller
                                         .kireiTubeHomeResponse
@@ -159,6 +146,12 @@ class KireiTubeHome extends StatelessWidget {
                                                       ?.data![index]
                                                       .slug ?? "Slug");
 
+                                                  // Get.toNamed('/kirei-tube/${controller
+                                                  //     .kireiTubeHomeResponse
+                                                  //     .value
+                                                  //     .shorts
+                                                  //     ?.data![index]
+                                                  //     .slug}');
                                                   Get.to(
                                                       () =>
                                                           const KireiTubeShortsDetailsScreen(),

@@ -177,7 +177,8 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                 Get.to(() => const KireiTubeShortsDetailsScreen(),
                                     arguments: {
                                       "id": controller
-                                          .videosList.value.data![index].slug
+                                          .videosList.value.data![index].slug,
+                                      "orientation": controller.videosList.value.data![index].orientation
                                     });
                               },
                               hittingApi: controller.hittingApi.value,
@@ -190,21 +191,8 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             )
                           : KireiTubeListCard(
                               onTapBanner: () {
-                                controller
-                                    .videosList.value.data![index].orientation == "portrait"?
-                                Get.to(
-                                        () =>
-                                    const KireiTubeShortsDetailsScreen(),
-                                    arguments: {
-                                      'id': controller
-                                          .videosList.value.data![index].slug
-                                    }) :
-
-                                Get.to(() => const KireiTubeDetailsScreen(),
-                                    arguments: {
-                                      "id": controller
-                                          .videosList.value.data![index].slug
-                                    });
+                                Get.to(KireiTubeShortsDetailsScreen(), arguments: {"id": controller
+                                    .videosList.value.data![index].slug});
                               },
                               isPlaylist:
                                   kireiTubeController.tabController.index == 3
