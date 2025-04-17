@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../helpers/routing_helper.dart';
 import '../logging/logger.dart';
@@ -39,14 +38,12 @@ class NotificationServices {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
-      if (kDebugMode) {
-        print("Notifications Title: ${notification?.title}");
-        print("Notifications Body: ${notification?.body}");
-        print('Count: ${android?.count}');
-        print('Data: ${message.data.toString()}');
-        print(
+        debugPrint("Notifications Title: ${notification?.title}");
+        debugPrint("Notifications Body: ${notification?.body}");
+        debugPrint('Count: ${android?.count}');
+        debugPrint('Data: ${message.data.toString()}');
+        debugPrint(
             'channel id: ${message.notification!.android!.channelId.toString()}');
-      }
       if (Platform.isIOS) {
         forgroundMessage();
       }
@@ -89,18 +86,12 @@ class NotificationServices {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      if (kDebugMode) {
-        print('User granted permission');
-      }
+        debugPrint('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      if (kDebugMode) {
-        print('User granted provisional permission');
-      }
+        debugPrint('User granted provisional permission');
     } else {
-      if (kDebugMode) {
-        print('User denied permission');
-      }
+      debugPrint('User denied permission');
     }
   }
 
@@ -151,9 +142,7 @@ class NotificationServices {
 
   void isTokenRefresh() async {
     messaging.onTokenRefresh.listen((event) {
-      if (kDebugMode) {
-        print('Token refreshed: $event');
-      }
+        debugPrint('Token refreshed: $event');
     });
   }
 

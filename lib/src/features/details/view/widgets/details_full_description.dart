@@ -37,7 +37,7 @@ class AppDetailsFullDescription extends StatelessWidget {
                     child: HtmlWidget(
                       onTapUrl: (url){
                         Log.d(url);
-                        print(AppLocalStorage().readData(LocalStorageKeys.appUrl));
+                        debugPrint(AppLocalStorage().readData(LocalStorageKeys.appUrl));
                         if(url.contains(AppLocalStorage().readData(LocalStorageKeys.appUrl))){
                           Log.d("true");
                           return RoutingHelper.urlRouting(url);

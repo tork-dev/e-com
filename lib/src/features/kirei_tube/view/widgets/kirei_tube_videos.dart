@@ -191,7 +191,10 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             )
                           : KireiTubeListCard(
                               onTapBanner: () {
-                                Get.to(KireiTubeShortsDetailsScreen(), arguments: {"id": controller
+                                Log.d(controller
+                                    .videosList.value.data![index].slug.toString());
+
+                                Get.to(()=>KireiTubeShortsDetailsScreen(), arguments: {"id": controller
                                     .videosList.value.data![index].slug});
                               },
                               isPlaylist:

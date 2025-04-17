@@ -21,13 +21,14 @@
     <key>CFBundleVersion</key>
     <string>$(FLUTTER_BUILD_NUMBER)</string>
 
+    <key>FLTEnableImpeller</key>
+    <false/>
+
     <!-- Facebook Configuration -->
     <key>FacebookAppID</key>
     <string>7989294924414445</string>
     <key>FacebookClientToken</key>
     <string>a80730de25ce0a033cd49f0396ef5aa3</string>
-    <key>FacebookDisplayName</key>
-    <string>Kirei</string>
 
     <!-- URL Schemes -->
     <key>CFBundleURLTypes</key>

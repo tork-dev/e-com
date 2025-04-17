@@ -1,17 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/app.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/firebase/awesome_notification.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'src/utils/helpers/app_life_cycle_helper.dart';
 
 // @pragma('vm:entry-point') // Required for background execution
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -31,7 +31,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  AppLifecycleObserver lifecycleObserver = AppLifecycleObserver();
+  WidgetsBinding.instance.addObserver(lifecycleObserver);
+
 
   // Load environment variables
   await dotenv.load(fileName: ".env");
@@ -60,9 +64,7 @@ void main() async {
   try {
     await Firebase.initializeApp(name: 'KireiBD');
   } catch (e) {
-    if (kDebugMode) {
-      print("Firebase initialization error: $e");
-    }
+      debugPrint("Firebase initialization error: $e");
   }
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -81,13 +83,9 @@ void main() async {
   try {
     final fcmToken = await notificationServices.getDeviceToken();
     AppLocalStorage().saveData(LocalStorageKeys.fcmToken, fcmToken);
-    if (kDebugMode) {
-      print('Device Token: $fcmToken');
-    }
+      debugPrint('Device Token: $fcmToken');
   } catch (e) {
-    if (kDebugMode) {
-      print("Error fetching FCM token: $e");
-    }
+      debugPrint("Error fetching FCM token: $e");
   }
 
   // Run the app

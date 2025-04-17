@@ -33,7 +33,7 @@ class KireiTubeDetailsController extends GetxController {
     super.onInit();
     if(Get.arguments != null) {
       videoSlug.value = Get.arguments['id']!;
-      orientation.value = Get.arguments['orientation']!;
+      // orientation.value = Get.arguments['orientation']!;
     }
     else{
     videoSlug.value = Get.parameters['id']!;
@@ -42,6 +42,7 @@ class KireiTubeDetailsController extends GetxController {
     if (videoSlug.isNotEmpty) {
       onRefresh();
     }
+    Log.d('hitting youtube api');
   }
 
   @override

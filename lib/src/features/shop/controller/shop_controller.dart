@@ -17,17 +17,17 @@ class ShopController extends GetxController{
   @override
   void onInit() {
     getShopDataController.categoryRouteList.clear();
-    if(getShopDataController.isFromSearch.value == false) {
-      onRefresh();
-    }
+    // if(getShopDataController.isFromSearch.value == false) {
+    // }
+    //   onRefresh();
+    getShopDataController.getSkinTypesData();
     getShopDataController.addItems();
     super.onInit();
   }
 
   Future onRefresh()async{
-    // getShopDataController.getShopData();
+    getShopDataController.getShopData();
     getShopDataController.getSkinTypesData();
-
     Log.d('refresh2');
   }
 

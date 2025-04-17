@@ -18,7 +18,6 @@ import 'features/ai_recommendation/view/recommended_products.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
 import 'features/group_shopping/view/group_shopping_payment_screen.dart';
-import 'features/kirei_tube/view/kirei_tube_details.dart';
 import 'features/kirei_tube/view/kirei_tube_screen.dart';
 import 'features/kirei_tube/view/kirei_tube_shorts_screen.dart';
 import 'features/purchase_history/view/purchase_history_details.dart';
@@ -28,7 +27,6 @@ import 'features/reward_point/view/point_redemption_screen.dart';
 import 'features/reward_point/view/reward_screen.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
-
 import './utils/constants/text_strings.dart';
 import 'l10n/app_localizations.dart';
 
