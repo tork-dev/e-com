@@ -10,7 +10,7 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';

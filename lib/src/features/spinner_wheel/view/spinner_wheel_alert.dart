@@ -7,6 +7,7 @@ import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
@@ -184,12 +185,23 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                     spinController.isChecked.value =
                                         !spinController.isChecked.value;
                                   },
-                                  title: const Text(
-                                      'I’ve read and agree to the Terms and the Privacy Policy.'),
+                                  title: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text("I’ve read and agree to the Terms and the"),
+                                      InkWell(
+                                        onTap: (){
+                                          AppDeviceUtils.browseUrl("https://kireibd.com/privacy-policy");
+                                        },
+                                          child: const Text(" Privacy Policy.", style: TextStyle(color: AppColors.primary, decoration: TextDecoration.underline, decorationColor: AppColors.primary))),
+
+                                    ],
+                                  ),
                                 );
                               }),
                               const Gap(AppSizes.spaceBtwSections),
                               AppButtons.largeFlatFilledButton(
+                                backgroundColor: !spinController.isChecked.value? AppColors.buttonDisabled : AppColors.buttonPrimary,
                                   onPressed: () {
                                     if (!spinController.phoneKey.currentState!
                                         .validate()) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/view/end_drawer.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import '../../../utils/constants/colors.dart';
 import '../../drawer/view/drawer.dart';
 import '../../widgets/appbar/custom_app_bar.dart';

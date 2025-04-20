@@ -4,7 +4,7 @@ import 'package:kirei/src/features/authentication/views/sign_up/model/signup_res
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
-import '../../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../../../bottom_navigation/convex_bottom_navigation.dart';
 import '../../forgot_password/view/otp.dart';
 import '../repository/signup_repository.dart';
 

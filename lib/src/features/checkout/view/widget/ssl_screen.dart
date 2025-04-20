@@ -5,7 +5,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../utils/logging/logger.dart';
-import '../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../../bottom_navigation/convex_bottom_navigation.dart';
 import '../order_status_page.dart';
 
 class SslCommerzScreen extends StatefulWidget {

@@ -39,7 +39,7 @@ class AppColors {
   static Color darkContainer = AppColors.white.withAlpha((0.1 * 255).toInt());
 
   // Button colors
-  static const Color buttonPrimary = Color(0xFF4b68ff);
+  static const Color buttonPrimary = Color(0xffd02128);
   static const Color buttonSecondary = Color(0xFF6C757D);
   static const Color buttonDisabled = Color(0xFFC4C4C4);
 
@@ -59,6 +59,7 @@ class AppColors {
  // static const Color darkGrey = Color(0xFF939393);
   static const Color grey = Color(0xFFE0E0E0);
   static const Color softGrey = Color(0xFFF4F4F4);
+  static const Color linkColor = Color(0xFFF4F4F4);
   //static const Color lightGrey = Color(0xFFF9F9F9);
   //static const Color white = Color(0xFFFFFFFF);
 

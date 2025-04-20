@@ -15,7 +15,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../../../utils/firebase/gtm_events.dart';
 import '../../../../../utils/helpers/auth_helper.dart';
-import '../../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../../../bottom_navigation/convex_bottom_navigation.dart';
 import '../../../model/resend_code_model.dart';
 
 class OtpController extends GetxController {

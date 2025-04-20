@@ -184,11 +184,14 @@ class CheckoutController extends GetxController {
       // If no specific payment method, show toast and navigate to Order Status Screen
       AppHelperFunctions.showToast(orderCreateResponse.value.message!);
       Log.d(orderCreateResponse.value.toString());
-      Get.offAll(() => AppOrderStatusScreen(
-        statusString: orderCreateResponse.value.message!,
-        status: orderCreateResponse.value.result ?? false,
-        orderId: orderCreateResponse.value.data!.order!.id!,
-      ));
+      if(orderCreateResponse.value.data!.order!.id != null) {
+        Get.offAll(() =>
+            AppOrderStatusScreen(
+              statusString: orderCreateResponse.value.message!,
+              status: orderCreateResponse.value.result ?? false,
+              orderId: orderCreateResponse.value.data!.order!.id!,
+            ));
+      }
 
     } catch (e) {
       Get.back(); // Ensure the loader is closed in case of an error

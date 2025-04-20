@@ -10,7 +10,7 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/firebase/gtm_events.dart';
 import '../../../utils/helpers/helper_functions.dart';
-import '../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../bottom_navigation/convex_bottom_navigation.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../controller/recommendation_controller.dart';
 

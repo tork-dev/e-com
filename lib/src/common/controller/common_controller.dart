@@ -16,7 +16,7 @@ class CommonController extends GetxController {
       Log.d('calling gaip user id before');
     if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
       Log.d('calling gaip user id');
-      GaipUserIdController().getGaipUserId();
+      // GaipUserIdController().getGaipUserId();
     }
     showPopUp();
   }

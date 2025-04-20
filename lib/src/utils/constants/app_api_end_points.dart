@@ -4,7 +4,7 @@ class AppApiEndPoints {
   AppApiEndPoints._();
 
   static final String baseUrl = dotenv.env["BASE_URL"]!;
-   static final String gialogyBaseUrl = dotenv.env["GIGALOGY_BASE_URL"]!;
+   // static final String gialogyBaseUrl = dotenv.env["GIGALOGY_BASE_URL"]!;
 
   ///Authentication
   static String logIn = "$baseUrl/auth/login";
@@ -152,12 +152,12 @@ class AppApiEndPoints {
   /// User Notification
   static String userNotificationList = "$baseUrl/user-notifications";
 
-  ///Gigalogy
-  static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
-  static String detailsPageEvent = "$gialogyBaseUrl/items/browse";
-  static String purchaseEvent = "$gialogyBaseUrl/items/purchase";
-  static String userChoosingEvent = "$gialogyBaseUrl/items/rating";
-  static String userDataEvent= "$gialogyBaseUrl/users";
+  // ///Gigalogy
+  // static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
+  // static String detailsPageEvent = "$gialogyBaseUrl/items/browse";
+  // static String purchaseEvent = "$gialogyBaseUrl/items/purchase";
+  // static String userChoosingEvent = "$gialogyBaseUrl/items/rating";
+  // static String userDataEvent= "$gialogyBaseUrl/users";
 
 
 

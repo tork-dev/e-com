@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:gtm/gtm.dart';
-import 'package:kirei/src/utils/helpers/gigalogy/repository/gigalogy_repositories.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
@@ -16,8 +14,8 @@ class EventLogger {
       AppLocalStorage().readData(LocalStorageKeys.userEmail).toString();
   final String? userName =
       AppLocalStorage().readData(LocalStorageKeys.userName);
-  final String? gaipUserId =
-      AppLocalStorage().readData(LocalStorageKeys.gaipUserId);
+  // final String? gaipUserId =
+  //     AppLocalStorage().readData(LocalStorageKeys.gaipUserId);
 
   void logEvent(String name, Map<String, Object>? parameters) {
     _analytics.logEvent(name: name, parameters: parameters);
@@ -25,13 +23,13 @@ class EventLogger {
 
   void logProductDetailsViewEvent(String itemId) async {
     logEvent('product_details_view', {
-      'gaip_user_id': gaipUserId!,
+      // 'gaip_user_id': gaipUserId!,
       'member_id': memberId!,
       'item_id': itemId,
     });
 
     gtm.push('product_details_view', parameters: {
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
     });
@@ -45,18 +43,18 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
-    GigalogyRepository().sendDetailsEvent(itemId);
+    // GigalogyRepository().sendDetailsEvent(itemId);
   }
 
   void logPurchaseEvent(items, dynamic itemPrice) async {
     logEvent('purchase', {
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member_id': memberId!,
       'items': items,
     });
 
     gtm.push('purchase', parameters: {
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId,
       'items': items,
     });
@@ -74,17 +72,17 @@ class EventLogger {
       },
     );
 
-    GigalogyRepository().sendPurchaseDataEvent(items: jsonDecode(items));
+    // GigalogyRepository().sendPurchaseDataEvent(items: jsonDecode(items));
   }
 
   void logAddToWishlistEvent(String itemId, dynamic itemPrice) async {
     logEvent('add_to_wishlist', {
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member_id': memberId!,
       'item_id': itemId,
     });
     gtm.push('add_to_wishlist', parameters: {
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
     });
@@ -101,19 +99,19 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
-    GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
+    // GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
   }
 
   void logAddToCartEvent(String itemId, dynamic itemPrice) async {
     Log.i(memberId.toString());
     logEvent('add_to_cart', {
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member': memberId!,
       'item_id': itemId,
     });
 
     gtm.push('add_to_cart', parameters: {
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
     });
@@ -130,27 +128,27 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
-   GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
+   // GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
   }
 
   void logUserDataEvent() async {
     logEvent('user_data_update', {
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member': memberId!,
     });
-    GigalogyRepository().sendUserDataEvent();
+    // GigalogyRepository().sendUserDataEvent();
   }
 
   void logSearchEvent(String searchValue) {
     logEvent('Search', {
       'SearchValue': searchValue,
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member_id': memberId!
     });
 
     gtm.push('Search', parameters: {
       'item_id': searchValue,
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId
     });
 
@@ -168,14 +166,14 @@ class EventLogger {
   void initialCheckoutEvent(String cartId, dynamic subtotalPrice) {
     logEvent('Search', {
       'cart_id': cartId,
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member_id': memberId!,
       'subtotal': subtotalPrice
     });
 
     gtm.push('Search', parameters: {
       'cart_id': cartId,
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId,
       'subtotal': subtotalPrice
     });
@@ -198,8 +196,8 @@ class EventLogger {
       {required String itemId,
       required String rating,
       required String feedback}) {
-    GigalogyRepository().sendChoosingDataEvent(
-        itemSlug: itemId, rating: rating, feedBack: feedback);
+    // GigalogyRepository().sendChoosingDataEvent(
+    //     itemSlug: itemId, rating: rating, feedBack: feedback);
   }
 
   void logLoginEvent(String loginMethod) {
@@ -263,13 +261,13 @@ class EventLogger {
   void logRemoveFromCartEvent(String itemId, dynamic itemPrice) async {
     Log.i(memberId.toString());
     logEvent('remove_from_cart', {
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member': memberId!,
       'item_id': itemId,
     });
 
     gtm.push('remove_from_cart', parameters: {
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
     });
@@ -291,13 +289,13 @@ class EventLogger {
 
   void logViewCartEvent(String items) async {
     logEvent('view_cart', {
-      'user_id': gaipUserId!,
+      // 'user_id': gaipUserId!,
       'member_id': memberId!,
       'items': items,
     });
 
     gtm.push('view_cart', parameters: {
-      'user_id': gaipUserId,
+      // 'user_id': gaipUserId,
       'member_id': memberId,
       'items': items,
     });
