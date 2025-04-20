@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -166,14 +168,18 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                       : kireiTubeController.tabController.index == 3
                           ? controller.videoPlaylist.value.data!.length
                           : controller.videosList.value.data!.length,
-                  builderFunction: (context, index) => controller
+                  builderFunction: (BuildContext context, int index) {
+                    Log.d(kireiTubeController.tabController.index.toString());
+                    Log.d(controller.videosList.value.data!.length.toString());
+                    return controller
                           .hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
                       : kireiTubeController.tabController.index == 2
                           ? KireiTubeShortsCard(
                               onShortsPress: () {
-                                Log.d(controller
-                                    .videosList.value.data![index].slug.toString());
+
+                                // Log.d(controller
+                                //     .videosList.value.data![index].slug.toString());
                                 Get.to(() => const KireiTubeShortsDetailsScreen(),
                                     arguments: {
                                       "id": controller
@@ -198,9 +204,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                     .videosList.value.data![index].slug});
                               },
                               isPlaylist:
-                                  kireiTubeController.tabController.index == 3
-                                      ? true
-                                      : false,
+                                  kireiTubeController.tabController.index == 3,
                               onTapViewPlaylist: () {
                                 kireiTubeController.getKireitubePlaylistDetails(
                                     controller
@@ -220,10 +224,11 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                           .data![index].title
                                       : controller
                                           .videosList.value.data?[index].title,
-                              kireiTubePlaylistVideoCount: kireiTubeController
-                                  .videoPlaylist.value.data?[index].videoCount
-                                  .toString(),
-                            ));
+                              kireiTubePlaylistVideoCount: kireiTubeController.tabController.index == 3? kireiTubeController
+                                  .videoPlaylist.value.data![index].videoCount
+                                  .toString() : "0",
+                            );
+    });
             }),
           ],
         ),
