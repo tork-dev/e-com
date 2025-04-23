@@ -79,6 +79,7 @@ dependencies:
   firebase_messaging: ^15.2.5
   firebase_analytics: ^11.4.5
   app_links: ^6.4.0
+  firebase_crashlytics: ^4.3.5
 
 
 

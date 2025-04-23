@@ -48,24 +48,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+
             <!-- App Links Intent Filter -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <!-- Handles specific path `/cart` on your domain -->
-                <data android:scheme="https" android:host="www.kireibd.com" android:pathPrefix="/cart" />
-                <!-- You can add more paths if needed -->
+                <data android:scheme="http" android:host="beta.kireibd.com" />
+                <data android:scheme="https" />
             </intent-filter>
 
-            <!-- General Deep Links -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="www.kireibd.com" />
-            </intent-filter>
+<!--            &lt;!&ndash; General Deep Links &ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+<!--                <data android:scheme="https" android:host="www.beta.kireibd.com" />-->
+<!--            </intent-filter>-->
 
             <!-- Notification Click Intent -->
             <intent-filter>

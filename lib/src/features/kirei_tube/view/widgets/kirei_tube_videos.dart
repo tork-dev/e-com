@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/kirei_tube/view/kirei_tube_details.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_playlist_view.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_shorts_screen.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_shorts_card.dart';
@@ -14,6 +11,7 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/logging/logger.dart';
 import '../../controller/kirei_tube_controller.dart';
 import 'kirei_tube_list_card.dart';
+
 
 class KireiTubeVideosTab extends StatefulWidget {
   const KireiTubeVideosTab({super.key});

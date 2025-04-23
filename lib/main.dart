@@ -1,15 +1,19 @@
+import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/app.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/firebase/awesome_notification.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
+import 'package:kirei/src/utils/helpers/deep_link_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'src/utils/helpers/app_life_cycle_helper.dart';
 
 // @pragma('vm:entry-point') // Required for background execution
@@ -44,6 +48,7 @@ void main() async {
 
   await Hive.initFlutter(); // Initialize Hive
   await Hive.openBox('cacheBox'); // Open Hive Box for caching
+  CachingUtility.clearAll();
 
   // Ensure BASE_URL_WEB is available
   String? baseUrlWeb = dotenv.env["BASE_URL_WEB"];
@@ -86,6 +91,15 @@ void main() async {
   } catch (e) {
       debugPrint("Error fetching FCM token: $e");
   }
+
+  // Catch Flutter framework errors
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  // Catch async and other uncaught errors
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 
   // Run the app
   runApp(const MyApp());
