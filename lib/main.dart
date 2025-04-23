@@ -39,7 +39,6 @@ void main() async {
   AppLifecycleObserver lifecycleObserver = AppLifecycleObserver();
   WidgetsBinding.instance.addObserver(lifecycleObserver);
 
-
   // Load environment variables
   await dotenv.load(fileName: ".env");
 

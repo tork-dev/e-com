@@ -89,7 +89,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
               reviews: sectionName![index].reviews!,
               salePrice: sectionName![index].salePrice!,
               price: sectionName![index].price!,
-              imgUrl: sectionName![index].pictures![0].url!,
+              imgUrl: sectionName?[index].pictures?[0].url ?? '',
               isStockAvailable: sectionName![index].stock != 0,
               buttonName: sectionName![index].stock != 0
                   ? 'ADD TO CART'

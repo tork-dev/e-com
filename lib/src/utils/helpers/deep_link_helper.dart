@@ -1,36 +1,33 @@
-// import 'dart:async';
-// import 'package:app_links/app_links.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:kirei/src/utils/helpers/routing_helper.dart';
-//
-// class DeepLinkHelper {
-//   final AppLinks _appLinks = AppLinks();
-//   StreamSubscription<Uri>? _linkSubscription;
-//
-//   void deepLinkController() {
-//     print('initial deep link');
-//     _linkSubscription = _appLinks.uriLinkStream.listen((Uri? uri) {
-//       if (uri != null) {
-//         print('Received deep link: $uri');
-//         // handleDeepLink(uri);
-//         RoutingHelper.urlRouting(uri.toString());
-//       }
-//     }, onError: (Object err) {
-//       print('Failed to receive deep link: $err');
-//     });
-//   }
-//
-//   void handleDeepLink(Uri uri) {
-//     // Example: handle deep link and navigate to the correct page
-//     if (uri.path == '/book/hello-world') {
-//       Get.toNamed('/register');
-//     } else {
-//       print('Unknown deep link: $uri');
-//     }
-//   }
-//
-//   void dispose() {
-//     _linkSubscription?.cancel();
-//   }
-// }
+import 'dart:async';
+
+import 'package:app_links/app_links.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
+
+class DeepLinkController extends GetxController {
+  late final AppLinks _appLinks;
+  late final Stream<Uri> _uriLinkStream;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _appLinks = AppLinks();
+    _uriLinkStream = _appLinks.uriLinkStream;
+
+    // Listen to stream for initial + future deep links
+    _uriLinkStream.listen((Uri uri) {
+      _handleDeepLink(uri);
+    });
+  }
+
+  void _handleDeepLink(Uri uri) {
+    print('Received Deep Link: $uri');
+    Future.delayed(Duration(seconds: 1), (){
+      print("urls: ${uri.path}");
+    // RoutingHelper.urlRouting(uri.toString());
+      if(uri.path.contains("/product")){
+        Get.toNamed(uri.path);
+      }
+    });
+  }
+}
