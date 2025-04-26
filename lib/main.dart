@@ -91,6 +91,7 @@ void main() async {
       debugPrint("Error fetching FCM token: $e");
   }
 
+  Get.put(DeepLinkController());
   // Catch Flutter framework errors
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 

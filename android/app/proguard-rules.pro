@@ -21,3 +21,4 @@
 -keep class com.google.firebase.messaging.** { *; }
 -keep class com.dexterous.flutterlocalnotifications.** { *; }
 
+

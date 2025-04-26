@@ -66,7 +66,6 @@ class NotificationServices {
     RemoteMessage? initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
       Log.d('terminated state');
-      // navigatorKey.currentState?.pushNamed(initialMessage.data["route"]);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Log.d(initialMessage.data["route"]);
         handleMessage(initialMessage);

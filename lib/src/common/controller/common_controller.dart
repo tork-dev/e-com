@@ -13,11 +13,11 @@ class CommonController extends GetxController {
     super.onInit();
 
     // Initialize GAIP User ID Controller if not already initialized
-      Log.d('calling gaip user id before');
-    if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
-      Log.d('calling gaip user id');
-      // GaipUserIdController().getGaipUserId();
-    }
+    //   Log.d('calling gaip user id before');
+    // if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
+    //   Log.d('calling gaip user id');
+    //   // GaipUserIdController().getGaipUserId();
+    // }
     showPopUp();
   }
 

@@ -20,6 +20,8 @@ import 'features/appoinment/view/appointment_screen.dart';
 import 'features/group_shopping/view/group_shopping_payment_screen.dart';
 import 'features/kirei_tube/view/kirei_tube_screen.dart';
 import 'features/kirei_tube/view/kirei_tube_shorts_screen.dart';
+import 'features/personalization/view/account_details.dart';
+import 'features/purchase_history/view/purchace_history.dart';
 import 'features/purchase_history/view/purchase_history_details.dart';
 import 'features/reward_point/view/point_history_screen.dart';
 import 'features/reward_point/view/point_level_screen.dart';
@@ -28,6 +30,7 @@ import 'features/reward_point/view/reward_screen.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
 import './utils/constants/text_strings.dart';
+import 'features/wishlist/view/wishlist.dart';
 import 'l10n/app_localizations.dart';
 
 
@@ -91,13 +94,15 @@ class MyApp extends StatelessWidget {
             page: () => const HelloConvexAppBar(
                   pageIndex: 3,
                 )),
-        GetPage(name: '/product/:id', page: () => const DetailsPage()),
+        GetPage(name: '/account-details', page: () => const AccountDetailsScreen()),
+        GetPage(name: '/product/:slug', page: () => const DetailsPage()),
         GetPage(name: '/beauty-tips', page: () => const BeautyTipsScreen()),
         GetPage(
             name: '/personal-recommendation',
             page: () => const SkinCareHistoryOne()),
         GetPage(name: "/community", page: () => const CommunityScreen()),
         GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
+        GetPage(name: '/orders-details', page: () => const PurchaseHistory()),
         GetPage(name: '/order/:id', page: () => const PurchaseHistoryDetails()),
         GetPage(
             name: '/blogs',
@@ -161,9 +166,6 @@ class MyApp extends StatelessWidget {
             name: '/point-history',
             page: () => const RewardPointHistoryScreen()),
         GetPage(name: '/kirei-tube', page: () => const KireiTubeScreen()),
-        // GetPage(
-        //     name: '/kirei-tube/:id',
-        //     page: () => const KireiTubeDetailsScreen()),
         GetPage(
             name: '/group-shopping', page: () => const GroupShoppingScreen()),
         GetPage(
@@ -175,6 +177,8 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/kirei-tube/:id',
             page: () => const KireiTubeShortsDetailsScreen()),
+        GetPage(
+            name: '/wishlist', page: () => const WishlistScreen()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],
     );

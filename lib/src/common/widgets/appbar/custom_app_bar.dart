@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: showBackArrow
           ? IconButton(
               onPressed: (){
-                Get.back();
+                handleBackNavigation(context);
               },
               icon: Icon(
                 Icons.arrow_back,
@@ -52,4 +52,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(AppDeviceUtils.getAppBarHeight());
+}
+
+void handleBackNavigation(BuildContext context) {
+  if (Navigator.canPop(context)) {
+    Navigator.pop(context);
+  } else {
+    Get.offAllNamed('/home');
+  }
 }

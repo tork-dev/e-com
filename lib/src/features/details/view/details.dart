@@ -32,13 +32,19 @@ class DetailsPage extends StatelessWidget {
     GetShopDataController categoryController = Get.put(GetShopDataController());
     ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
 
-    if (controller.productSlugList[controller.productSlugIndex.value] !=
-        Get.parameters['id']) {
-      controller.productSlugList.add(Get.parameters['id']!);
-      controller.productSlugIndex = controller.productSlugIndex++;
-      controller.onRefresh();
-      Log.d('calling from ui class');
-      Log.d(controller.productSlugList.toString());
+    final slug = Get.parameters['slug'];
+    if (slug != null) {
+      if (controller.productSlugList[controller.productSlugIndex.value] != slug) {
+        controller.productSlugList.add(slug);
+        controller.productSlugIndex = controller.productSlugIndex++;
+        controller.onRefresh();
+        Log.d('calling from ui class');
+        Log.d(controller.productSlugList.toString());
+      }
+    } else {
+      Log.e('Slug parameter is null. Route might be incorrect.');
+      // Optionally show an error or redirect to a fallback screen
+      // Get.offAllNamed('/shop'); // fallback route if you want
     }
     return AppLayoutWithBackButton(
       canPop: false,
@@ -68,7 +74,7 @@ class DetailsPage extends StatelessWidget {
         backgroundColor: AppColors.primary,
         bottomNav: const AppBottomButton(),
         title: Obx(() {
-          Log.d('print product id ${Get.parameters['id']}');
+          Log.d('print product id ${Get.parameters['slug']}');
           return AppBarSearch(
             focusOn: categoryController.searchOn.value,
             onSubmit: (String txt) {
