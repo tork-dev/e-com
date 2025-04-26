@@ -42,9 +42,9 @@ class RoutingHelper {
         } else if (route.startsWith('/product')) {
           Get.offNamed(route);
         }
-        // else {
-        //   Get.toNamed(route);
-        // }
+        else {
+          Get.toNamed(route);
+        }
       }
     }
   }
