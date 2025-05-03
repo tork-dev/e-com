@@ -68,7 +68,6 @@ class NotificationDetails extends StatelessWidget {
                         onTap: ()=>  RoutingHelper.urlRouting(detailsController.userNotification.value.data?.data?[0].route),
                         backgroundColor: AppColors.primary,
                         width: 150,
-                        applyRadius: false,
                         padding: const EdgeInsets.symmetric(vertical: AppSizes.sm, horizontal: AppSizes.spaceBtwItems),
                         child:  Row(
                           crossAxisAlignment: CrossAxisAlignment.center,

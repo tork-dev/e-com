@@ -15,6 +15,7 @@ import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../../utils/constants/colors.dart';
 import '../../../ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 
 class AppFeatureCategories extends StatelessWidget {
@@ -29,7 +30,7 @@ class AppFeatureCategories extends StatelessWidget {
     return Obx(() {
       return SizedBox(
           height:
-              homeController.homeFeaturedCategoryResponse.isEmpty ? 70 : 105,
+              homeController.homeFeaturedCategoryResponse.isEmpty ? 80 : 130,
           child: AppListViewLayout(
               isScrollVertically: false,
               itemCount: homeController.homeFeaturedCategoryResponse.isEmpty
@@ -38,9 +39,9 @@ class AppFeatureCategories extends StatelessWidget {
               builderFunction: (BuildContext context, int index) =>
                   homeController.homeFeaturedCategoryResponse.isEmpty
                       ? ShimmerHelper()
-                          .buildBasicShimmer(height: 60, width: 70, radius: 100)
+                          .buildBasicShimmer(height: 80, width: 80, radius: AppSizes.borderRadiusMd)
                       : SizedBox(
-                          width: 80,
+                          width: 90,
                           child: Column(
                             children: [
                               AppBannerImage(
@@ -87,9 +88,10 @@ class AppFeatureCategories extends StatelessWidget {
                                   // categoryPassingController.getSubCategory();
                                   bottomController.jumpToTab(1);
                                 },
-                                height: 60,
-                                width: 60,
-                                imgBoarderRadius: 100,
+                                backgroundColor: AppColors.accent,
+                                height: 80,
+                                width: 80,
+                                imgBoarderRadius: AppSizes.borderRadiusMd,
                                 fit: BoxFit.cover,
                                 isNetworkImage: homeController
                                         .homeFeaturedCategoryResponse[index]

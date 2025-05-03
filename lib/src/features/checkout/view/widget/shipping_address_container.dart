@@ -19,7 +19,6 @@ class AppShippingAddressContainer extends StatelessWidget {
             return AppCardContainer(
               padding: const EdgeInsets.only(top: AppSizes.sm, bottom: AppSizes.sm),
               backgroundColor: AppColors.white,
-              applyRadius: false,
               child: checkoutController.isAddressAvailable.value == false
                   ? const Padding(
                       padding: EdgeInsets.all(8.0),
@@ -29,12 +28,12 @@ class AppShippingAddressContainer extends StatelessWidget {
                       title: RichText(
                           text: TextSpan(
                               text: 'Deliver to',
-                              style: const TextStyle(color: AppColors.secondary),
+                              style: Theme.of(context).textTheme.titleMedium,
                               children: [
                             TextSpan(
                                 text:
                                     ' ${checkoutController.addressController.addressController.value.text}',
-                                style: const TextStyle(fontWeight: FontWeight.bold))
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold))
                           ])),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,20 +41,18 @@ class AppShippingAddressContainer extends StatelessWidget {
                           const Gap(AppSizes.spaceBtwDefaultItems),
                           Text(
                             '${checkoutController.addressController.nameController.value.text}  |  ${checkoutController.addressController.phoneController.text}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.labelLarge,
                           ),
-                          const AppCardContainer(
+                           AppCardContainer(
                               margin: EdgeInsets.only(left: 32, top: 16, bottom: 8),
                               height: 36,
                               hasBorder: true,
-                              applyRadius: false,
-                              borderColor: AppColors.grey,
+                              borderColor: AppColors.lightGrey,
                               width: double.infinity,
                               child: Center(
                                   child: Text(
                                 'Change Delivery Address',
-                                style: TextStyle(
-                                    color: Colors.green, fontWeight: FontWeight.bold),
+                                style: Theme.of(context).textTheme.labelLarge?.apply(color: Colors.green),
                               ))),
                         ],
                       ),
@@ -65,9 +62,10 @@ class AppShippingAddressContainer extends StatelessWidget {
                       children: [
                         Container(
                           height: 10,
-                          color: AppColors.lightGrey,
+                          color: AppColors.light,
                         ),
-                        const Padding(
+                        const AppCardContainer(
+                          applyRadius: true,
                           padding: EdgeInsets.all(8.0),
                           child: AppAllAddressFields(),
                         ),

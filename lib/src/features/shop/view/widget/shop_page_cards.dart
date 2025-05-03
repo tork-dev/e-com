@@ -150,7 +150,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                                     0,
                                 buttonName:
                                     shopController.allProducts[index].stock != 0
-                                        ? 'ADD TO CART'
+                                        ? 'Add to cart'
                                         : shopController.allProducts[index]
                                                     .preorderAvailable ==
                                                 0

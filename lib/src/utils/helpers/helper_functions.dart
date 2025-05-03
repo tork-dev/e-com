@@ -127,7 +127,7 @@ class AppHelperFunctions {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(AppSizes.cardRadiusSm),
           ),
           contentPadding: const EdgeInsets.all(16),
           backgroundColor: AppColors.white,
@@ -138,7 +138,7 @@ class AppHelperFunctions {
               children: [
                 Text(
                   message,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const Gap(AppSizes.xs),
                 Row(

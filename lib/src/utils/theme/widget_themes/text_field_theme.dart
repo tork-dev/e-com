@@ -10,8 +10,8 @@ class AppTextFormFieldTheme {
     prefixIconColor: AppColors.darkGrey,
     suffixIconColor: AppColors.darkGrey,
     // constraints: const BoxConstraints.expand(height: TSizes.inputFieldHeight),
-    labelStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeMd, color: AppColors.black),
-    hintStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeSm, color: AppColors.black),
+    labelStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeXSm, color: AppColors.black),
+    hintStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeXSm, color: AppColors.black),
     errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
     floatingLabelStyle: const TextStyle().copyWith(color: AppColors.black.withAlpha((0.8 * 255).toInt())),
     // border: const OutlineInputBorder().copyWith(
@@ -41,8 +41,8 @@ class AppTextFormFieldTheme {
     prefixIconColor: AppColors.darkGrey,
     suffixIconColor: AppColors.darkGrey,
     // constraints: const BoxConstraints.expand(height: TSizes.inputFieldHeight),
-    labelStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeMd, color: AppColors.white),
-    hintStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeSm, color: AppColors.white),
+    labelStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeSMd, color: AppColors.white),
+    hintStyle: const TextStyle().copyWith(fontSize: AppSizes.fontSizeSMd, color: AppColors.white),
     floatingLabelStyle: const TextStyle().copyWith(color: AppColors.white.withAlpha((0.8 * 255).toInt())),
     // border: const OutlineInputBorder().copyWith(
     //   borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),

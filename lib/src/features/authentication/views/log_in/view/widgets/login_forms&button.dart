@@ -5,6 +5,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/state_manager.dart';
 import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
+import 'package:kirei/src/features/authentication/views/widgets/other_login_option.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../../l10n/app_localizations.dart';
 import '../../../../../../utils/constants/colors.dart';
@@ -24,9 +25,11 @@ class LogInFormsAndButton extends StatelessWidget {
     return Form(
       key: loginController.logInFormKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text("Phone", style: Theme.of(context).textTheme.titleMedium),
+          Gap(AppSizes.xs),
           AuthInputField(
             isDark: isDark,
             controller: loginController.emailController,
@@ -39,19 +42,13 @@ class LogInFormsAndButton extends StatelessWidget {
             () => Visibility(
               visible: loginController.loginWithPassword.value,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Password",
-                      //textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: AppSizes.fontSizeSm,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                  Text(
+                    "Password",
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  Gap(AppSizes.xs),
                   AuthInputField(
                     isDark: isDark,
                     controller: loginController.passwordController,
@@ -62,48 +59,52 @@ class LogInFormsAndButton extends StatelessWidget {
                         loginController.passwordObscured.value =
                             !loginController.passwordObscured.value;
                       },
-                      child: Icon(loginController.passwordObscured.value
-                          ? Icons.remove_red_eye
-                          : Icons.remove_red_eye_outlined),
+                      child: Icon(
+                        loginController.passwordObscured.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility,
+                        color: AppColors.grey,
+                      ),
                     ),
                     obscured: loginController.passwordObscured.value,
-                  )
+                  ),
+                  const Gap(AppSizes.spaceBtwSmallItem),
+                  const RememberAndForgotButton(),
+                  const Gap(AppSizes.spaceBtwItems),
                 ],
               ),
             ),
           ),
-          const RememberAndForgotButton(),
-          const Gap(AppSizes.spaceBtwSections),
           Obx(
             () => AppButtons.largeFlatFilledButton(
-              onPressed: () => loginController.loginWithPassword.value
-                  ? loginController.emailPasswordLogIn()
-                  : loginController.sendCode(),
-              buttonText: loginController.loginWithPassword.value
-                  ? AppLocalizations.of(context)!.login
-                  : AppLocalizations.of(context)!.sendOtp,
-              backgroundColor: AppColors.dark,
+              onPressed:
+                  () =>
+                      loginController.loginWithPassword.value
+                          ? loginController.emailPasswordLogIn()
+                          : loginController.sendCode(),
+              buttonText:
+                  loginController.loginWithPassword.value
+                      ? AppLocalizations.of(context)!.login
+                      : AppLocalizations.of(context)!.sendOtp,
+              backgroundColor: AppColors.primary,
             ),
           ),
-          const Gap(AppSizes.sm),
-          Text(
-            AppLocalizations.of(context)!.orLogInWith,
-            textAlign: TextAlign.center,
-          ),
+          const Gap(AppSizes.spaceBtwSections),
+          OtherLogInOrSignUpOption(title: "Or Login With",),
           const Gap(AppSizes.sm),
           Obx(
             () => AppButtons.largeFlatFilledButton(
-                onPressed: () {
-                  loginController.loginWithPassword.value =
-                      !loginController.loginWithPassword.value;
-                },
-                buttonText: loginController.loginWithPassword.value
-                    ? AppLocalizations.of(context)!.loginWithOtp
-                    : AppLocalizations.of(context)!.loginWithPassword,
-                backgroundColor: loginController.loginWithPassword.value
-                    ? AppColors.primary
-                    : AppColors.signUpWithPassword),
-          )
+              onPressed: () {
+                loginController.loginWithPassword.value =
+                    !loginController.loginWithPassword.value;
+              },
+              buttonText:
+                  loginController.loginWithPassword.value
+                      ? AppLocalizations.of(context)!.loginWithOtp
+                      : AppLocalizations.of(context)!.loginWithPassword,
+              backgroundColor: AppColors.buttonSecondary,
+            ),
+          ),
         ],
       ),
     );

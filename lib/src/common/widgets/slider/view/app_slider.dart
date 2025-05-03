@@ -68,7 +68,10 @@ class CustomSlider extends StatelessWidget {
                               count: controller.homeSliders.length,
                               effect: const WormEffect(
                                   activeDotColor: AppColors.primary,
-                                  dotHeight: 6),
+                                  dotColor: AppColors.lightGrey,
+                                  dotHeight: 12,
+                                dotWidth: 12
+                              ),
                             ),
                           ),
                         ))

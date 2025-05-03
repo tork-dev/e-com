@@ -47,12 +47,12 @@ class ProfileLogOutButton extends StatelessWidget {
                       size: 14,
                     ),
                   )),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.all(6.0),
                 child: Text(
                   "Logout",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: AppColors.secondary, fontSize: 18),
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               )
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/controller/search_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/logging/logger.dart';
@@ -36,36 +37,34 @@ class HomeSearchDecoration extends StatelessWidget {
             bottomController.jumpToTab(1);
           },
           decoration: InputDecoration(
-              fillColor: AppColors.lightGrey,
-              filled: true,
               focusColor: AppColors.grey,
               prefixIcon: const Icon(
                 Icons.search,
-                color: AppColors.secondary,
+                color: AppColors.grey,
               ),
               hintText: 'Search with AI (EX: Facewash for acne)',
               hintStyle: Theme.of(context).textTheme.bodySmall,
-              suffixIcon: InkWell(
-                  onTap: () {
-                    Log.d('clicked');
-                    searchController.searchByImage();
-                  },
-                  child: const Icon(Icons.camera_alt)),
+              // suffixIcon: InkWell(
+              //     onTap: () {
+              //       Log.d('clicked');
+              //       searchController.searchByImage();
+              //     },
+              //     child: const Icon(Icons.camera_alt)),
               focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: AppColors.grey),
-                  borderRadius: BorderRadius.circular(0)),
+                  borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)),
               border: OutlineInputBorder(
                   borderSide: const BorderSide(
                     color: AppColors.grey,
                     width: 0,
                   ),
-                  borderRadius: BorderRadius.circular(0)),
+                  borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)),
               enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                     color: AppColors.grey,
                     width: 0,
                   ),
-                  borderRadius: BorderRadius.circular(0)))),
+                  borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)))),
     );
   }
 }

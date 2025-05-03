@@ -26,6 +26,7 @@ class ShopScreen extends StatelessWidget {
         globalKey: shopController.shopKey,
         backgroundColor: AppColors.primary,
         leadingIconColor: AppColors.white,
+        bodyBackgroundColor: AppColors.secondaryBackground,
         hasEndDrawer: true,
         action: const [SizedBox()],
         title: Obx(() {

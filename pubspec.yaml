@@ -80,6 +80,7 @@ dependencies:
   firebase_analytics: ^11.4.5
   app_links: ^6.4.0
   firebase_crashlytics: ^4.3.5
+  flutter_timer_countdown: ^1.0.7
 
 
 
@@ -124,15 +125,14 @@ flutter:
 
   # Local Fonts
   fonts:
-    - family: OpenSans
+    - family: WorkSans
       fonts:
-        - asset: assets/fonts/OpenSans-Regular.ttf
-        - asset: assets/fonts/OpenSans-Medium.ttf
-        - asset: assets/fonts/OpenSans-Light.ttf
-        - asset: assets/fonts/OpenSans-Bold.ttf
-        - asset: assets/fonts/OpenSans-SemiBold.ttf
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+        - asset: assets/fonts/WorkSans.ttf
+        - asset: assets/fonts/WorkSans-Italic.ttf
+
+    - family: ClashDisplay
+      fonts:
+        - asset: assets/fonts/ClashDisplay-Regular.otf
+        - asset: assets/fonts/ClashDisplay-Medium.otf
+        - asset: assets/fonts/ClashDisplay-Bold.otf
+

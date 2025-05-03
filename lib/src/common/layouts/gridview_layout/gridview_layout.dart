@@ -6,7 +6,7 @@ class AppGridViewLayout extends StatelessWidget {
       {required this.itemCount,
       required this.builderFunction,
       this.scrollController,
-      this.mobileAspect = 0.631,
+      this.mobileAspect = 0.7,
       this.tabletAspect = 0.5,
       this.desktopAspect = .65,
       super.key});

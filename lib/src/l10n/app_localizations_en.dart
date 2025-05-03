@@ -15,13 +15,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hi => 'Hi';
 
   @override
-  String get emailOrPhoneHintText => '01*********';
+  String get emailOrPhoneHintText => 'Enter your phone number';
 
   @override
   String get dontHaveAccount => 'Don\'t have an account?';
 
   @override
-  String get passwordHintText => '........';
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get passwordHintText => 'Enter your password';
 
   @override
   String get newPassword => 'Enter New Password';
@@ -30,16 +33,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newPasswordHintText => 'New Password';
 
   @override
-  String get confirmPasswordHintText => '........';
+  String get confirmPasswordHintText => 'Enter confirm password';
+
+  @override
+  String get nameHintText => 'Enter your name';
 
   @override
   String get createAccount => 'Create Account';
 
   @override
-  String get loginWithOtp => 'LOGIN WITH OTP';
+  String get loginWithOtp => 'Login with OTP';
 
   @override
-  String get loginWithPassword => 'LOGIN WITH PASSWORD';
+  String get loginWithPassword => 'Login with Password';
 
   @override
   String get orLogInWith => 'OR,';
@@ -54,16 +60,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPassword => 'Forgot Password?';
 
   @override
-  String get sendOtp => 'SEND OTP';
+  String get sendOtp => 'Send OTP';
 
   @override
   String get sendCode => 'Send Code';
 
   @override
-  String get signupWithPassword => 'SIGN UP WITH PASSWORD ';
+  String get signupWithPassword => 'Signup with Password';
 
   @override
-  String get signupWithOtp => 'SIGN UP WITH OTP';
+  String get signupWithOtp => 'Signup with OTP';
 
   @override
   String get otp => '12345';
@@ -87,7 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Log out';
 
   @override
-  String get signUp => 'REGISTER';
+  String get signUp => 'Register';
 
   @override
   String get skip => 'Skip';

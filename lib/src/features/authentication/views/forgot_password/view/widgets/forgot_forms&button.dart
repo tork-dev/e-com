@@ -29,7 +29,7 @@ class ForgotFormsAndButton extends StatelessWidget {
             child: Text("Phone",
               style: TextStyle(
                 color: AppColors.primary,
-                fontSize: AppSizes.fontSizeSm,
+                fontSize: AppSizes.fontSizeXSm,
                 fontWeight: FontWeight.w500,
               ),
             ),

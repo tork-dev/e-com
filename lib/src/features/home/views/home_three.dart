@@ -45,7 +45,7 @@ class HomeThree extends StatelessWidget {
         body: AppLayoutWithRefresher(
             onRefresh: controller.onRefresh,
             children: [
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              const Gap(AppSizes.spaceBtwItems),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSearchWidget(
@@ -58,12 +58,12 @@ class HomeThree extends StatelessWidget {
                   prevRoute: '/home',
                 ),
               ),
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              const Gap(AppSizes.spaceBtwItems),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: CustomSlider(),
               ),
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              const Gap(AppSizes.spaceBtwItems),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppFeatureCategories(),
@@ -85,6 +85,22 @@ class HomeThree extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSectionTitleText(
+                  sectionTitle: 'Flash sales',
+                  haveTxtButton: false,
+                  showCountDown: true,
+                ),
+              ),
+              Obx(() {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppHorizontalScrollProductCard(
+                      sectionName: controller.recommendedProductsForYouResponse.value.data),
+                );
+              }),
+              const Gap(AppSizes.spaceBtwSections),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                child: AppSectionTitleText(
                   sectionTitle: 'Best Selling Products',
                   haveTxtButton: false,
                 ),
@@ -97,6 +113,7 @@ class HomeThree extends StatelessWidget {
                           .homeProductResponse.value.bestsellingProducts),
                 );
               }),
+
               const Gap(AppSizes.spaceBtwSections),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),

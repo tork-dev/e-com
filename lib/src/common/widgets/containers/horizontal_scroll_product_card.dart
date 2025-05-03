@@ -24,7 +24,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     return SizedBox(
-        height: sectionName == null ? 170 : 270,
+        height: sectionName == null ? 170 : 285,
         child: AppListViewLayout(
             isScrollVertically: false,
             itemCount: sectionName == null ? 5 : sectionName!.length,
@@ -92,14 +92,14 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
               imgUrl: sectionName?[index].pictures?[0].url ?? '',
               isStockAvailable: sectionName![index].stock != 0,
               buttonName: sectionName![index].stock != 0
-                  ? 'ADD TO CART'
+                  ? 'Add To Cart'
                   : sectionName![index].preorderAvailable == 0
                   ? sectionName![index].requestAvailable == 0
-                  ? 'OUT OF STOCK'
-                  : "REQUEST FOR STOCK"
-                  : 'PREORDER NOW',
+                  ? 'Out Of Stock'
+                  : "Request Stock"
+                  : 'Preorder Now',
               backgroundColor: sectionName![index].stock != 0
-                  ? AppColors.secondary
+                  ? AppColors.addToCartButton
                   : sectionName![index].preorderAvailable == 0
                   ? sectionName![index].requestAvailable == 0
                   ? AppColors.primary

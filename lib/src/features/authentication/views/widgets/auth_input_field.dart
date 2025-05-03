@@ -12,7 +12,7 @@ class AuthInputField extends StatelessWidget {
     this.validator,
     this.suffixIcon,
     this.textInputType = TextInputType.text,
-    this.enableTextField = true
+    this.enableTextField = true,
   });
 
   final bool isDark, obscured, enableTextField;
@@ -32,35 +32,26 @@ class AuthInputField extends StatelessWidget {
       keyboardType: textInputType,
       decoration: InputDecoration(
         hintText: hingText,
-        suffix: suffixIcon,
-        //suffixIcon: suffixIcon,
-        contentPadding: const EdgeInsets.only(left: AppSizes.sm),
-        focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: AppColors.primary,
-            )
+        // suffix: suffixIcon,
+        suffixIcon: suffixIcon,
+        //contentPadding: const EdgeInsets.only(left: AppSizes.sm),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: AppColors.primary),
         ),
-        enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: AppColors.darkGrey,
-            )
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: AppColors.lightGrey),
         ),
-        hintStyle: const TextStyle(
-          color: AppColors.lightGrey,
+        disabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: AppColors.lightGrey),
         ),
-        enabled: enableTextField
-        // focusedBorder: OutlineInputBorder(
-        //     borderSide: BorderSide(
-        //         color: isDark ? AppColors.white : AppColors.darkGrey)),
-        // enabledBorder: OutlineInputBorder(
-        //     borderSide: BorderSide(
-        //         color: isDark ? AppColors.lightGrey : AppColors.grey)),
-        // errorBorder: const OutlineInputBorder(
-        //     borderSide: BorderSide(color: AppColors.error)),
-        // focusedErrorBorder: const OutlineInputBorder(
-        //     borderSide: BorderSide(color: AppColors.error)),
+        hintStyle: const TextStyle(color: AppColors.darkGrey),
+        enabled: enableTextField,
+        fillColor: AppColors.white,
+        filled: true,
+        errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(width:1, color: AppColors.error)),
+        focusedErrorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(width:1, color: AppColors.error)),
       ),
     );
   }

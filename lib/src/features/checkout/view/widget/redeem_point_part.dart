@@ -15,7 +15,6 @@ class RedeemPointPart extends StatelessWidget {
     final checkoutController = CheckoutController.instance;
     return AppCardContainer(
         backgroundColor: AppColors.white,
-        applyRadius: false,
         padding: const EdgeInsets.all(AppSizes.md),
         child: Obx( () {
             return Row(

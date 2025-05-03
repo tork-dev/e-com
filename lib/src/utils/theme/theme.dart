@@ -14,7 +14,7 @@ class MyAppTheme {
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'OpenSans',
+    fontFamily: 'WorkSans',
     disabledColor: AppColors.grey,
     brightness: Brightness.light,
     primaryColor: AppColors.primary,
@@ -27,12 +27,11 @@ class MyAppTheme {
     elevatedButtonTheme: AppElevatedButtonTheme.lightElevatedButtonTheme,
     outlinedButtonTheme: APPOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: AppTextFormFieldTheme.lightInputDecorationTheme,
-    // searchBarTheme: CustomSearchBarTheme.lightSearchBarTheme
   );
 
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Poppins',
+    fontFamily: 'WorkSans',
     disabledColor: AppColors.grey,
     brightness: Brightness.dark,
     primaryColor: AppColors.primary,

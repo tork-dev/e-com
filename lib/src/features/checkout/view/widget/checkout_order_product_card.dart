@@ -21,7 +21,6 @@ class AppCheckoutOrderProductsCard extends StatelessWidget {
         builderFunction: (context, index) {
           return AppCardContainer(
             height: 100,
-              applyRadius: false,
               padding: const EdgeInsets.all(AppSizes.md),
               backgroundColor: AppColors.white,
               child: Row(
@@ -29,7 +28,6 @@ class AppCheckoutOrderProductsCard extends StatelessWidget {
                 children: [
                   AppBannerImage(
                       width: 70,
-                      applyImageRadius: false,
                       isNetworkImage:
                           productsList[index].productThumbnailImage != null,
                       imgUrl: productsList[index].productThumbnailImage ??

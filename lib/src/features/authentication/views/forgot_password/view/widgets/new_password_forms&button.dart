@@ -29,7 +29,7 @@ class NewPasswordFormsAndButton extends StatelessWidget {
             child: Text("Password",
               style: TextStyle(
                 color: AppColors.primary,
-                fontSize: AppSizes.fontSizeSm,
+                fontSize: AppSizes.fontSizeXSm,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -58,7 +58,7 @@ class NewPasswordFormsAndButton extends StatelessWidget {
             child: Text("Retype Password",
               style: TextStyle(
                 color: AppColors.primary,
-                fontSize: AppSizes.fontSizeSm,
+                fontSize: AppSizes.fontSizeXSm,
                 fontWeight: FontWeight.w500,
               ),
             ),

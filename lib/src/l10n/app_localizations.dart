@@ -110,7 +110,7 @@ abstract class AppLocalizations {
   /// No description provided for @emailOrPhoneHintText.
   ///
   /// In en, this message translates to:
-  /// **'01*********'**
+  /// **'Enter your phone number'**
   String get emailOrPhoneHintText;
 
   /// No description provided for @dontHaveAccount.
@@ -119,10 +119,16 @@ abstract class AppLocalizations {
   /// **'Don\'t have an account?'**
   String get dontHaveAccount;
 
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAccount;
+
   /// No description provided for @passwordHintText.
   ///
   /// In en, this message translates to:
-  /// **'........'**
+  /// **'Enter your password'**
   String get passwordHintText;
 
   /// No description provided for @newPassword.
@@ -140,8 +146,14 @@ abstract class AppLocalizations {
   /// No description provided for @confirmPasswordHintText.
   ///
   /// In en, this message translates to:
-  /// **'........'**
+  /// **'Enter confirm password'**
   String get confirmPasswordHintText;
+
+  /// No description provided for @nameHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get nameHintText;
 
   /// No description provided for @createAccount.
   ///
@@ -152,13 +164,13 @@ abstract class AppLocalizations {
   /// No description provided for @loginWithOtp.
   ///
   /// In en, this message translates to:
-  /// **'LOGIN WITH OTP'**
+  /// **'Login with OTP'**
   String get loginWithOtp;
 
   /// No description provided for @loginWithPassword.
   ///
   /// In en, this message translates to:
-  /// **'LOGIN WITH PASSWORD'**
+  /// **'Login with Password'**
   String get loginWithPassword;
 
   /// No description provided for @orLogInWith.
@@ -188,7 +200,7 @@ abstract class AppLocalizations {
   /// No description provided for @sendOtp.
   ///
   /// In en, this message translates to:
-  /// **'SEND OTP'**
+  /// **'Send OTP'**
   String get sendOtp;
 
   /// No description provided for @sendCode.
@@ -200,13 +212,13 @@ abstract class AppLocalizations {
   /// No description provided for @signupWithPassword.
   ///
   /// In en, this message translates to:
-  /// **'SIGN UP WITH PASSWORD '**
+  /// **'Signup with Password'**
   String get signupWithPassword;
 
   /// No description provided for @signupWithOtp.
   ///
   /// In en, this message translates to:
-  /// **'SIGN UP WITH OTP'**
+  /// **'Signup with OTP'**
   String get signupWithOtp;
 
   /// No description provided for @otp.
@@ -254,7 +266,7 @@ abstract class AppLocalizations {
   /// No description provided for @signUp.
   ///
   /// In en, this message translates to:
-  /// **'REGISTER'**
+  /// **'Register'**
   String get signUp;
 
   /// No description provided for @skip.

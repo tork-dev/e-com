@@ -7,7 +7,7 @@
 // import '../../../utils/constants/sizes.dart';
 // import '../../layouts/listview_layout/listview_layout.dart';
 // import 'card_container.dart';
-// import 'course_title_container.dart';
+// import 'product_title_container.dart';
 // import 'product_image.dart';
 //
 // class AppVerticalScrollCard extends StatelessWidget {

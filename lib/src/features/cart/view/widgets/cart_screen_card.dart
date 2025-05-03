@@ -41,8 +41,8 @@ class AppCartProductCard extends StatelessWidget {
                   : AppCardContainer(
                       width: AppHelperFunctions.screenWidth(),
                       backgroundColor: AppColors.white,
-                      applyRadius: false,
-                      padding: const EdgeInsets.all(AppSizes.sm),
+                      borderRadius: AppSizes.borderRadiusMd,
+                      padding: const EdgeInsets.symmetric(horizontal: AppSizes.md, vertical: AppSizes.md),
                       margin:
                           const EdgeInsets.symmetric(horizontal: AppSizes.md),
                       child: Row(
@@ -58,7 +58,7 @@ class AppCartProductCard extends StatelessWidget {
                                         parameters: {'prevRoute' : '/cart'}),
                                     height: 100,
                                     width: 70,
-                                    applyImageRadius: false,
+                                    applyImageRadius: true,
                                     isNetworkImage: cartController
                                             .allCartProducts[0]
                                             .cartItems![index]
@@ -201,7 +201,7 @@ class AppCartProductCard extends StatelessWidget {
                                   AppCardContainer(
                                       height: 25,
                                       width: 25,
-                                      applyRadius: false,
+                                      borderRadius: AppSizes.borderRadiusSm,
                                       borderWidth: 1,
                                       hasBorder: true,
                                       borderColor: AppColors.secondary,

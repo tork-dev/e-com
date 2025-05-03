@@ -13,10 +13,12 @@ class AppCouponField extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
     return AppCardContainer(
-      height: 40,
+      height: 48,
       hasBorder: true,
         padding: EdgeInsets.zero,
-        applyRadius: false,
+        borderRadius: AppSizes.cardRadiusSm,
+        borderColor: AppColors.lightGrey,
+        backgroundColor: AppColors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -38,14 +40,14 @@ class AppCouponField extends StatelessWidget {
                onTap: (){
                  !checkoutController.isCouponApplied.value? checkoutController.onCouponApplied() : checkoutController.onCouponRemove();
                },
-                height: 40,
+                height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                applyRadius: false,
+                 borderRadius: AppSizes.cardRadiusSm,
                 backgroundColor:  checkoutController.isCouponApplied.value? AppColors.primary : AppColors.secondary,
                 child: Center(
                   child: Text(
-                    checkoutController.isCouponApplied.value? "REMOVE" :
-                      "APPLY COUPON",
+                    checkoutController.isCouponApplied.value? "Remove" :
+                      "Apply Coupon",
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!

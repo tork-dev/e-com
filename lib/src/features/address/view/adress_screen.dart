@@ -28,13 +28,13 @@ class AddressScreen extends StatelessWidget {
           onRefresh: controller.onRefresh,
           children:  [
             const AppAllAddressFields(),
-            const Gap(AppSizes.spaceBtwDefaultItems),
+            const Gap(AppSizes.defaultSpace),
             AppButtons.largeFlatFilledButton(
                 backgroundColor: AppColors.secondary,
                 onPressed: (){
                   controller.onPressSave();
                 },
-                buttonText: 'SAVE')
+                buttonText: 'Save')
           ],
         ));
   }

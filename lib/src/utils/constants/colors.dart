@@ -1,13 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
 
 class AppColors {
   // App theme colors
   //static const Color primary = Color(0xFF4b68ff);
   //static const Color secondary = Color(0xFFFFE24B);
   static const Color accent = Color(0xFFb0c7ff);
-  static const Color primary = Color(0xffd02128);
+  static const Color primary = Color(0xffE5456D);
   static const Color secondary = Color(0xff222529);
   static const Color white = Color(0xffffffff);
   static const Color darkGrey = Color(0xff707070);
@@ -21,11 +22,10 @@ class AppColors {
   static const Color backLayoutAppBarTitle = Colors.blueGrey;
   static const Color whitePink = Color(0xffFFF5F9);
   static const Color headerBackground = Color(0xFFF5F5FF);
-
   static Color request = const Color(0xffF78C2C);
 
   // Text colors
-  static const Color textPrimary = Color(0xFF333333);
+  static const Color textPrimary = Color(0xFF2D2B3A);
   static const Color textSecondary = Color(0xFF6C757D);
   static const Color textWhite = Colors.white;
 
@@ -33,14 +33,16 @@ class AppColors {
   static const Color light = Color(0xFFF6F6F6);
   static const Color dark = Color(0xFF272727);
   static const Color primaryBackground = Color(0xFFF3F5FF);
+  static const Color secondaryBackground = Color(0xFFF8F7FC);
 
   // Background Container colors
   static const Color lightContainer = Color(0xFFF6F6F6);
   static Color darkContainer = AppColors.white.withAlpha((0.1 * 255).toInt());
 
   // Button colors
-  static const Color buttonPrimary = Color(0xffd02128);
-  static const Color buttonSecondary = Color(0xFF6C757D);
+  static const Color buttonPrimary = AppColors.primary;
+  static const Color buttonSecondary = AppColors.secondary;
+  // static const Color buttonDisabled = Color(0xFF6C757D);
   static const Color buttonDisabled = Color(0xFFC4C4C4);
 
   // Border colors

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../utils/constants/colors.dart';
+import '../../utils/constants/sizes.dart';
 
 
 
 class ShimmerHelper {
 
   buildBasicShimmer(
-      {double height = double.infinity, double width = double.infinity, double radius = 0.0, isDark}) {
+      {double height = double.infinity, double width = double.infinity, double radius = AppSizes.borderRadiusMd, isDark}) {
     return Shimmer.fromColors(
       baseColor: AppColors.grey,
       highlightColor: AppColors.lightGrey.withAlpha((0.5 * 255).toInt()),

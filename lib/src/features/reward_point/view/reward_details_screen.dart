@@ -150,7 +150,6 @@ class RewardDetailsPage extends StatelessWidget {
                   ),
                   const Gap(AppSizes.md),
                   const AppBannerImage(
-                      applyImageRadius: false,
                       imgUrl: AppImages.rewardLadyImage)
                 ],
               ),
@@ -203,7 +202,6 @@ class RewardDetailsPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
               child: AppCardContainer(
-                applyRadius: false,
                 width: AppHelperFunctions.screenWidth(),
                 backgroundColor: AppColors.addToCartButton,
                 padding: const EdgeInsets.all(AppSizes.md),

@@ -47,9 +47,8 @@ class RewardPointHistoryScreen extends StatelessWidget {
                       return controller.hittingAPi.value
                           ? ShimmerHelper().buildBasicShimmer(height: 100)
                           : AppCardContainer(
-                              applyRadius: false,
                               padding: const EdgeInsets.all(AppSizes.md),
-                              backgroundColor: AppColors.lightGrey,
+                              backgroundColor: AppColors.secondaryBackground,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

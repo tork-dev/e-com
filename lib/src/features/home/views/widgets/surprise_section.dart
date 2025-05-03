@@ -78,26 +78,26 @@ class HomeSurpriseSection extends StatelessWidget {
                                   validator: (value) =>
                                       AppValidator.validatePhoneNumber(value),
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    errorStyle: TextStyle(color: AppColors.white, ),
-                                    contentPadding: EdgeInsets.symmetric(
+                                  decoration: InputDecoration(
+                                    errorStyle: const TextStyle(color: AppColors.white, ),
+                                    contentPadding: const EdgeInsets.symmetric(
                                         horizontal: AppSizes.md,
                                         vertical: AppSizes.spaceBtwDefaultItems),
                                     hintText: '01*********',
                                     fillColor: AppColors.white,
                                     filled: true,
                                     border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        borderSide: BorderSide(width: 0)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        borderSide: BorderSide(width: 0)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        borderSide: BorderSide(width: 0)),
+                                        borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
+                                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
+                                    focusedBorder:  OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
+                                        borderSide: BorderSide(width: 0, color: Colors.transparent)),
+                                    enabledBorder:  OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
+                                        borderSide: BorderSide(width: 0, color: Colors.transparent)),
                                   ),
                                 ),
-                                const Gap(AppSizes.spaceBtwDefaultItems),
+                                const Gap(AppSizes.spaceBtwItems),
                                 AppButtons.largeFlatFilledButton(
                                     onPressed: () {
 

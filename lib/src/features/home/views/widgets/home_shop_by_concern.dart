@@ -43,50 +43,58 @@ class HomeShopByConcern extends StatelessWidget {
                     return homeController.hittingApi.value
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 150, width: 150)
-                        : Column(
-                            children: [
-                              AppBannerImage(
-                                onPress: (){
-                                  shopController.resetAll();
-                                  shopController.goodFor.value = homeController.homeProductResponse.value.skinConcern![index].slug ?? '';
-                                  bottomController.jumpToTab(1);
-                                },
-                                  width: 128,
-                                  height: 160,
-                                  fit: BoxFit.cover,
-                                  applyImageRadius: false,
-                                  isNetworkImage: homeController
-                                          .homeProductResponse
-                                          .value
-                                          .skinConcern![index]
-                                          .banner !=
-                                      null,
-                                  imgUrl: homeController.homeProductResponse
-                                          .value.skinConcern![index].banner ??
-                                      'assets/images/demo/Acne.png'),
-                              AppCardContainer(
-                                onTap: (){
-                                  shopController.resetAll();
-                                  shopController.goodFor.value = homeController.homeProductResponse.value.skinConcern![index].slug ?? '';
-                                  bottomController.jumpToTab(1);
-                                },
-                                  width: 128,
-                                  backgroundColor: AppColors.lightGrey,
-                                  applyRadius: false,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: AppSizes.sm,
-                                      vertical: AppSizes.spaceBtwDefaultItems),
-                                  child: Center(
-                                      child: Text(
-                                    homeController.homeProductResponse.value
-                                            .skinConcern![index].title ??
-                                        'Acne',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                    overflow: TextOverflow.ellipsis,
-                                  )))
-                            ],
-                          );
+                        : AppCardContainer(
+                      borderRadius: AppSizes.borderRadiusSm,
+                          child: Column(
+                              children: [
+                                AppBannerImage(
+                                  applyOnlyRadius: true,
+                                  topRightRadius: AppSizes.borderRadiusMd,
+                                  topLeftRadius: AppSizes.borderRadiusMd,
+                                  onPress: (){
+                                    shopController.resetAll();
+                                    shopController.goodFor.value = homeController.homeProductResponse.value.skinConcern![index].slug ?? '';
+                                    bottomController.jumpToTab(1);
+                                  },
+                                    width: 128,
+                                    height: 160,
+                                    fit: BoxFit.cover,
+                                    isNetworkImage: homeController
+                                            .homeProductResponse
+                                            .value
+                                            .skinConcern![index]
+                                            .banner !=
+                                        null,
+                                    imgUrl: homeController.homeProductResponse
+                                            .value.skinConcern![index].banner ??
+                                        'assets/images/demo/Acne.png'),
+                                AppCardContainer(
+                                  onTap: (){
+                                    shopController.resetAll();
+                                    shopController.goodFor.value = homeController.homeProductResponse.value.skinConcern![index].slug ?? '';
+                                    bottomController.jumpToTab(1);
+                                  },
+                                    applyOnlyRadius: true,
+                                    bottomLeftRadius: AppSizes.borderRadiusMd,
+                                    bottomRightRadius: AppSizes.borderRadiusMd,
+                                    width: 128,
+                                    backgroundColor: AppColors.lightGrey,
+                                    applyRadius: false,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: AppSizes.sm,
+                                        vertical: AppSizes.spaceBtwDefaultItems),
+                                    child: Center(
+                                        child: Text(
+                                      homeController.homeProductResponse.value
+                                              .skinConcern![index].title ??
+                                          'Acne',
+                                      style:
+                                          Theme.of(context).textTheme.labelLarge,
+                                      overflow: TextOverflow.ellipsis,
+                                    )))
+                              ],
+                            ),
+                        );
                   });
             }),
           )

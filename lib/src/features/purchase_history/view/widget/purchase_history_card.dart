@@ -27,7 +27,6 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                     null
                 ? ShimmerHelper().buildBasicShimmer(height: 125)
                 : AppCardContainer(
-                    applyRadius: false,
                     onTap: () {
                       Get.toNamed(
                           '/order/${purchaseHistoryController.purchaseHistoryList.value.data![index].id!}');
@@ -100,13 +99,13 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                               },
                               child: AppCardContainer(
                                 padding: const EdgeInsets.all(AppSizes.sm),
-                                applyRadius: false,
+                                borderRadius: AppSizes.cardRadiusXs,
                                 backgroundColor: AppColors.black,
                                 child: Text(
                                   'Re-order',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .labelLarge!
+                                      .labelMedium!
                                       .apply(color: AppColors.white),
                                 ),
                               ),

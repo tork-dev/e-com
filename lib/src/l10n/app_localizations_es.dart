@@ -21,6 +21,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dontHaveAccount => 'Don\'t have an account?';
 
   @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
   String get passwordHintText => '........';
 
   @override
@@ -31,6 +34,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get confirmPasswordHintText => '........';
+
+  @override
+  String get nameHintText => 'Enter your name';
 
   @override
   String get createAccount => 'Create Account';

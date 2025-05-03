@@ -33,14 +33,14 @@ class AppAllAddressFields extends StatelessWidget {
             fieldTitle: 'Name*',
             hintText: 'Enter name',
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           AppAddressTextField(
             controller: addressController.phoneController,
             fieldTitle: 'Phone*',
             hintText: 'Enter phone',
             textInputType: TextInputType.number,
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           AppAddressTextField(
             validator: (value) => AppValidator.validateEmail(value),
             controller: addressController.emailController,
@@ -48,14 +48,14 @@ class AppAllAddressFields extends StatelessWidget {
             hintText: 'Enter email',
             textInputType: TextInputType.emailAddress,
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           AppAddressTextField(
             controller: addressController.addressController,
             verticalPadding: 20,
             fieldTitle: 'Address*',
             hintText: 'Enter address',
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -130,24 +130,21 @@ class AppAllAddressFields extends StatelessWidget {
                       hintStyle: TextStyle(
                           color: AppColors.grey, fontWeight: FontWeight.w400),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.zero,
                           borderSide:
-                          BorderSide(color: AppColors.grey, width: 2)),
+                          BorderSide(color: AppColors.lightGrey, width: 1)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.zero,
                           borderSide:
-                          BorderSide(color: AppColors.grey, width: 2)),
+                          BorderSide(color: AppColors.lightGrey, width: 1)),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.zero,
                           borderSide:
-                          BorderSide(color: AppColors.grey, width: 2)),
+                          BorderSide(color: AppColors.lightGrey, width: 1)),
                     ),
                   );
                 },
               )
             ],
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -241,17 +238,14 @@ class AppAllAddressFields extends StatelessWidget {
                           hintStyle: TextStyle(
                               color: AppColors.grey, fontWeight: FontWeight.w400),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
                               borderSide:
-                              BorderSide(color: AppColors.grey, width: 2)),
+                              BorderSide(color: AppColors.lightGrey, width: 1)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
                               borderSide:
-                              BorderSide(color: AppColors.grey, width: 2)),
+                              BorderSide(color: AppColors.lightGrey, width: 1)),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
                               borderSide:
-                              BorderSide(color: AppColors.grey, width: 2)),
+                              BorderSide(color: AppColors.lightGrey, width: 1)),
                         ),
                       );
                     },
@@ -260,7 +254,7 @@ class AppAllAddressFields extends StatelessWidget {
               )
             ],
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -330,17 +324,14 @@ class AppAllAddressFields extends StatelessWidget {
                         hintStyle: TextStyle(
                             color: AppColors.grey, fontWeight: FontWeight.w400),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
                             borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                            BorderSide(color: AppColors.lightGrey, width: 1)),
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
                             borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                            BorderSide(color: AppColors.lightGrey, width: 1)),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
                             borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                            BorderSide(color: AppColors.lightGrey, width: 1)),
                       ),
                     );
                   },
