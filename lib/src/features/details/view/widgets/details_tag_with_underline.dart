@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 class AppDetailsTagUnderlineWidget extends StatelessWidget {
   const AppDetailsTagUnderlineWidget(
@@ -23,12 +25,11 @@ class AppDetailsTagUnderlineWidget extends StatelessWidget {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
+        Icon(Icons.verified_outlined, color: AppColors.darkGrey, size: 18,),
+        SizedBox(width: AppSizes.xs,),
         Text(
           title,
-          style: const TextStyle(
-              color: AppColors.darkGrey,
-              fontSize: 14,
-              fontWeight: FontWeight.w600),
+          style:Theme.of(context).textTheme.titleMedium?.apply(color: AppColors.darkGrey)
         ),
         ...List.generate(types.length, (index) {
           return InkWell(
@@ -44,11 +45,8 @@ class AppDetailsTagUnderlineWidget extends StatelessWidget {
             },
             child: Text(
                 "${types[index].name!.substring(0, 1).toUpperCase()}${types[index].name!.substring(1)},  ",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: haveColor? AppColors.primary : AppColors.secondary,
-                    fontWeight: FontWeight.w600,
-                    decoration: haveUnderLine? TextDecoration.underline : null)),
+                style: Theme.of(context).textTheme.labelLarge
+                )
           );
         }),
       ],

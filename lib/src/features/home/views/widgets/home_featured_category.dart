@@ -13,6 +13,7 @@ import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../../utils/constants/colors.dart';
@@ -41,54 +42,14 @@ class AppFeatureCategories extends StatelessWidget {
                       ? ShimmerHelper()
                           .buildBasicShimmer(height: 80, width: 80, radius: AppSizes.borderRadiusMd)
                       : SizedBox(
-                          width: 90,
+                          width: 92,
                           child: Column(
                             children: [
                               AppBannerImage(
                                 onPress: () {
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug ==
-                                      'AiSuggestion()') {
-                                    if (AppLocalStorage().readData(
-                                            LocalStorageKeys.isLoggedIn) ==
-                                        true) {
-                                      Get.offAll(
-                                          () => const SkinCareHistoryOne());
-                                    } else {
-                                      Get.to(() => const LogIn());
-                                    }
-                                  }
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug! ==
-                                      'BeautyTips()') {
-                                    Get.offAll(() => const BeautyTipsScreen());
-                                    return;
-                                  }
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug! ==
-                                      'FeedList()') {
-                                    Get.offAll(() => const CommunityScreen());
-                                    return;
-                                  }
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug! ==
-                                      'Appointment()') {
-                                    Get.offAll(() => const AppointmentScreen());
-                                    return;
-                                  }
-                                  categoryPassingController.updateCategory(
-                                      homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug!);
-                                  // categoryPassingController.getShopData();
-                                  // categoryPassingController.getSubCategory();
-                                  bottomController.jumpToTab(1);
+                                  RoutingHelper.urlRouting(homeController.homeFeaturedCategoryResponse[index].url);
                                 },
-                                backgroundColor: AppColors.accent,
+                                backgroundColor: AppColors.lightGrey,
                                 height: 80,
                                 width: 80,
                                 imgBoarderRadius: AppSizes.borderRadiusMd,

@@ -104,6 +104,7 @@ class HomeController extends GetxController {
   void fetchFeaturedCategories() async {
     homeFeaturedCategoryResponse.value =
         await HomeRepositories().getHomeFeaturedCategories();
+    homeFeaturedCategoryResponse.value = homeFeaturedCategoryResponse.where((item) => item.isMobile ==1 ,).toList();
   }
 
   Future<AddToCartResponse> getAddToCartResponse(

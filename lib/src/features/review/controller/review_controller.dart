@@ -65,10 +65,10 @@ class ReviewController extends GetxController {
               comment: commentController.text.toString(),
               guestUserName: nameController.text.toString());
       if (reviewSubmitResponse.value.result == true) {
-        EventLogger().logReviewEvent(
-            itemId: productId,
-            rating: givenRating.value.toString(),
-            feedback: commentController.text.toString());
+        // EventLogger().logReviewEvent(
+        //     itemId: productId,
+        //     rating: givenRating.value.toString(),
+        //     feedback: commentController.text.toString());
       }
       apiHitting.value = false;
       givenRating.value = 1;

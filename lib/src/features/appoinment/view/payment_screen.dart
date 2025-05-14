@@ -58,7 +58,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
         title: Text('Pay with ${widget.screenName}',
           style: const TextStyle(color: AppColors.primary),),
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
         showCustomLeading: true,
         leadingOnPress: () {
           Log.d('working');

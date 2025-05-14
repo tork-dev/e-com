@@ -19,10 +19,12 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NotificationController());
     return AppLayoutWithBackButton(
-      title: const Text('Notification'),
+      title: Text('Notification', style: TextStyle(color: AppColors.white),),
       centerTitle: true,
+      leadingIconColor: AppColors.white,
+      backgroundColor: AppColors.primary,
       body: AppLayoutWithRefresher(onRefresh: controller.onRefresh, children: [
-        const Gap(AppSizes.md),
+        const Gap(AppSizes.lg),
         Obx(() {
           return AppListViewLayout(
             itemCount: controller.hittingApi.value

@@ -7,13 +7,22 @@ class HeaderLogoPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 70,
-      width: 70,
-      child: Image(
-        image: AssetImage(AppImages.lightAppLogo),
-        width: AppSizes.imageThumbSize,
-      ),
+    return Column(
+      children: [
+        const SizedBox(
+          height: 80,
+          width: 80,
+          child: Image(
+            image: AssetImage(AppImages.lightAppLogo),
+            width: AppSizes.imageThumbSize,
+          ),
+        ),
+        SizedBox(
+          width: 250,
+            child: Text(
+              textAlign: TextAlign.center,
+              "Your reliable care partner for authentic beauty", style: Theme.of(context).textTheme.titleLarge,))
+      ],
     );
   }
 }

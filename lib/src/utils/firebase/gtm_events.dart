@@ -22,14 +22,12 @@ class EventLogger {
   }
 
   void logProductDetailsViewEvent(String itemId) async {
-    logEvent('product_details_view', {
-      // 'gaip_user_id': gaipUserId!,
-      'member_id': memberId!,
-      'item_id': itemId,
-    });
+    // logEvent('product_details_view', {
+    //   'member_id': memberId!,
+    //   'item_id': itemId,
+    // });
 
     gtm.push('product_details_view', parameters: {
-      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
     });
@@ -43,48 +41,54 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
-    // GigalogyRepository().sendDetailsEvent(itemId);
   }
 
-  void logPurchaseEvent(items, dynamic itemPrice) async {
-    logEvent('purchase', {
-      // 'user_id': gaipUserId!,
-      'member_id': memberId!,
-      'items': items,
-    });
+  void logPurchaseEvent(List<Map<String, dynamic>> items, dynamic itemPrice, String orderId) async {
+    // Firebase Analytics
+    // logEvent('purchase', {
+    //   'transaction_id': orderId,
+    //   'value': itemPrice.toDouble(),
+    //   'currency': 'BDT',
+    //   'member_id': memberId.toString(),
+    //   'items': items, // must be a List of Maps
+    // });
 
+    // Google Tag Manager
     gtm.push('purchase', parameters: {
-      // 'user_id': gaipUserId,
+      'transaction_id': orderId,
+      'value': itemPrice.toDouble(),
+      'currency': 'BDT',
       'member_id': memberId,
       'items': items,
     });
 
+    // Facebook App Events
     facebookAppEvents.logEvent(
       name: 'Purchase',
       valueToSum: itemPrice.toDouble(),
       parameters: {
         'advertiser_tracking_enabled': true,
-        'Content_ID': items,
+        'Content_ID': items.map((e) => e['item_id']).join(','), // or item_name
         'Content_Type': 'product',
         'Currency': 'BDT',
         'ValueToSum': itemPrice,
         'Member_ID': memberId
       },
     );
-
-    // GigalogyRepository().sendPurchaseDataEvent(items: jsonDecode(items));
   }
 
   void logAddToWishlistEvent(String itemId, dynamic itemPrice) async {
-    logEvent('add_to_wishlist', {
-      // 'user_id': gaipUserId!,
-      'member_id': memberId!,
-      'item_id': itemId,
-    });
+    // logEvent('add_to_wishlist', {
+    //   'member_id': memberId!,
+    //   'item_id': itemId,
+    //   'value': itemPrice.toDouble(),
+    //   'currency': 'BDT',
+    // });
     gtm.push('add_to_wishlist', parameters: {
-      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
+      'value': itemPrice.toDouble(),
+      'currency': 'BDT',
     });
 
     facebookAppEvents.logEvent(
@@ -99,21 +103,22 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
-    // GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
   }
 
   void logAddToCartEvent(String itemId, dynamic itemPrice) async {
     Log.i(memberId.toString());
-    logEvent('add_to_cart', {
-      // 'user_id': gaipUserId!,
-      'member': memberId!,
-      'item_id': itemId,
-    });
+    // logEvent('add_to_cart', {
+    //   'member': memberId!,
+    //   'item_id': itemId,
+    //   'value': itemPrice.toDouble(),
+    //   'currency': 'BDT',
+    // });
 
     gtm.push('add_to_cart', parameters: {
-      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
+      'value': itemPrice.toDouble(),
+      'currency': 'BDT',
     });
 
     facebookAppEvents.logEvent(
@@ -128,27 +133,22 @@ class EventLogger {
         'Member_ID': memberId
       },
     );
-   // GigalogyRepository().sendChoosingDataEvent(itemSlug: itemId);
   }
 
   void logUserDataEvent() async {
     logEvent('user_data_update', {
-      // 'user_id': gaipUserId!,
       'member': memberId!,
     });
-    // GigalogyRepository().sendUserDataEvent();
   }
 
   void logSearchEvent(String searchValue) {
-    logEvent('Search', {
-      'SearchValue': searchValue,
-      // 'user_id': gaipUserId!,
-      'member_id': memberId!
-    });
+    // logEvent('Search', {
+    //   'SearchValue': searchValue,
+    //   'member_id': memberId!
+    // });
 
     gtm.push('Search', parameters: {
       'item_id': searchValue,
-      // 'user_id': gaipUserId,
       'member_id': memberId
     });
 
@@ -164,18 +164,18 @@ class EventLogger {
   }
 
   void initialCheckoutEvent(String cartId, dynamic subtotalPrice) {
-    logEvent('Search', {
-      'cart_id': cartId,
-      // 'user_id': gaipUserId!,
-      'member_id': memberId!,
-      'subtotal': subtotalPrice
-    });
+    // logEvent('Search', {
+    //   'cart_id': cartId,
+    //   'member_id': memberId!,
+    //   'value': double.parse(subtotalPrice.toString()),
+    //   'currency': 'BDT',
+    // });
 
     gtm.push('Search', parameters: {
       'cart_id': cartId,
-      // 'user_id': gaipUserId,
       'member_id': memberId,
-      'subtotal': subtotalPrice
+      'value': double.parse(subtotalPrice.toString()),
+      'currency': 'BDT',
     });
 
     facebookAppEvents.logEvent(
@@ -192,18 +192,17 @@ class EventLogger {
     );
   }
 
-  void logReviewEvent(
-      {required String itemId,
-      required String rating,
-      required String feedback}) {
-    // GigalogyRepository().sendChoosingDataEvent(
-    //     itemSlug: itemId, rating: rating, feedBack: feedback);
-  }
+  // void logReviewEvent(
+  //     {required String itemId,
+  //     required String rating,
+  //     required String feedback}) {
+  //
+  // }
 
   void logLoginEvent(String loginMethod) {
-    logEvent('login', {
-      "method": loginMethod
-    });
+    // logEvent('login', {
+    //   "method": loginMethod
+    // });
 
     gtm.push('login', parameters: {
       "method": loginMethod
@@ -219,9 +218,9 @@ class EventLogger {
   }
 
   void logSignUpEvent(String loginMethod) {
-    logEvent('login', {
-      "method": loginMethod
-    });
+    // logEvent('login', {
+    //   "method": loginMethod
+    // });
 
     gtm.push('login', parameters: {
       "method": loginMethod
@@ -237,10 +236,10 @@ class EventLogger {
   }
 
   void shareEvent(String itemId) {
-    logEvent('share', {
-      "content_type": "product",
-      "item_id": itemId,
-    });
+    // logEvent('share', {
+    //   "content_type": "product",
+    //   "item_id": itemId,
+    // });
 
     gtm.push('share', parameters: {
       "content_type": "product",
@@ -260,16 +259,18 @@ class EventLogger {
 
   void logRemoveFromCartEvent(String itemId, dynamic itemPrice) async {
     Log.i(memberId.toString());
-    logEvent('remove_from_cart', {
-      // 'user_id': gaipUserId!,
-      'member': memberId!,
-      'item_id': itemId,
-    });
+    // logEvent('remove_from_cart', {
+    //   'member': memberId!,
+    //   'item_id': itemId,
+    //   'value': itemPrice.toDouble(),
+    //   'currency': 'BDT',
+    // });
 
     gtm.push('remove_from_cart', parameters: {
-      // 'user_id': gaipUserId,
       'member_id': memberId,
       'item_id': itemId,
+      'value': itemPrice.toDouble(),
+      'currency': 'BDT',
     });
 
     facebookAppEvents.logEvent(
@@ -287,17 +288,19 @@ class EventLogger {
   }
 
 
-  void logViewCartEvent(String items) async {
-    logEvent('view_cart', {
-      // 'user_id': gaipUserId!,
-      'member_id': memberId!,
-      'items': items,
-    });
+  void logViewCartEvent(String items, dynamic totalValue) async {
+    // logEvent('view_cart', {
+    //   'member_id': memberId!,
+    //   'items': items,
+    //   'value': totalValue.toDouble(),
+    //   'currency': 'BDT'
+    // });
 
     gtm.push('view_cart', parameters: {
-      // 'user_id': gaipUserId,
       'member_id': memberId,
       'items': items,
+      'value': totalValue.toDouble(),
+      'currency': 'BDT'
     });
 
     facebookAppEvents.logEvent(
@@ -307,6 +310,7 @@ class EventLogger {
         'Content_ID': items,
         'Content_Type': 'product',
         'Currency': 'BDT',
+        'ValueToSum': totalValue,
         'Member_ID': memberId
       },
     );

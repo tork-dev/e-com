@@ -35,22 +35,27 @@ class AuthInputField extends StatelessWidget {
         // suffix: suffixIcon,
         suffixIcon: suffixIcon,
         //contentPadding: const EdgeInsets.only(left: AppSizes.sm),
-        focusedBorder: const OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
           borderSide: BorderSide(width: 1, color: AppColors.primary),
         ),
-        enabledBorder: const OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
           borderSide: BorderSide(width: 1, color: AppColors.lightGrey),
         ),
-        disabledBorder: const OutlineInputBorder(
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
           borderSide: BorderSide(width: 1, color: AppColors.lightGrey),
         ),
         hintStyle: const TextStyle(color: AppColors.darkGrey),
         enabled: enableTextField,
         fillColor: AppColors.white,
         filled: true,
-        errorBorder: const OutlineInputBorder(
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
             borderSide: BorderSide(width:1, color: AppColors.error)),
-        focusedErrorBorder: const OutlineInputBorder(
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
             borderSide: BorderSide(width:1, color: AppColors.error)),
       ),
     );

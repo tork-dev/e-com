@@ -43,7 +43,6 @@ class HomeSurpriseSection extends StatelessWidget {
                     Center(
                         child: AppCardContainer(
                             padding: const EdgeInsets.symmetric(horizontal: 40),
-                            applyRadius: false,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,

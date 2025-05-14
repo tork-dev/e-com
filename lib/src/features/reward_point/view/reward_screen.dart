@@ -17,14 +17,16 @@ class RewardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final rewardController = Get.put(RewardController());
     return AppLayoutWithBackButton(
-        leadingIconColor: AppColors.darkGrey,
+        leadingIconColor: AppColors.white,
+        backgroundColor: AppColors.primary,
         padding: AppSizes.md,
         title:
-            const Text('Rewards', style: TextStyle(color: AppColors.secondary)),
+            const Text('Rewards', style: TextStyle(color: AppColors.white)),
         centerTitle: true,
         body: AppLayoutWithRefresher(
             onRefresh: rewardController.onRefresh,
             children:  const [
+              Gap(AppSizes.lg),
               RewardTopCard(),
               Gap(AppSizes.spaceBtwItems),
               RewardInstructionCardList(),

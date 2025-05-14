@@ -167,7 +167,7 @@ class AppHelperFunctions {
                         height: 40,
                         width: 100,
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(color: rightButtonColor),
+                        decoration: BoxDecoration(color: rightButtonColor, borderRadius: BorderRadius.circular(AppSizes.xs)),
                         child: Text(
                           rightButtonName,
                           style: Theme.of(context)

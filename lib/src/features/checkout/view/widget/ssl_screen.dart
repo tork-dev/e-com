@@ -70,7 +70,7 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
         showCustomLeading: true,
         backToHome: true,
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
         title: const Text(
           'Pay with Sslcommerz',
           style: TextStyle(color: AppColors.primary),

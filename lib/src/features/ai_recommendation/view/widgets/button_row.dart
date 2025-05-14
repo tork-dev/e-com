@@ -35,7 +35,7 @@ class ButtonRow extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.arrow_back_ios,
+                      Icons.arrow_back_ios_new_rounded,
                       size: 16,
                       color: AppColors.secondary,
                     ),

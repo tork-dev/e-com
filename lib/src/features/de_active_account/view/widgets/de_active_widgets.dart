@@ -106,6 +106,7 @@ class DeActiveWidgets {
         ? const Center(child: CircularProgressIndicator())
         : ListView(
             children: [
+              Gap(AppSizes.lg),
               buildWidgetForTextContent(
                   title: '1. Account Deletion',
                   subtitle:

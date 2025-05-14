@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import '../../utils/constants/sizes.dart';
+import '../../utils/logging/logger.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url, title;
+  final double? bodyPadding;
 
-  const WebViewScreen({super.key, required this.url, required this.title});
+  const WebViewScreen({
+    super.key,
+    required this.url,
+    required this.title,
+    this.bodyPadding,
+  });
 
   @override
   State<WebViewScreen> createState() => _WebViewScreenState();
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
+  bool isLoading = true;
+
+
   @override
   Widget build(BuildContext context) {
-    WebViewController controllers = WebViewController()
+
+    WebViewController controllers =
+    WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
+      ..setBackgroundColor(Colors.transparent)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-          },
+          onProgress: (int progress) {},
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
@@ -36,13 +48,23 @@ class _WebViewScreenState extends State<WebViewScreen> {
       )
       ..loadRequest(Uri.parse(widget.url));
     return AppLayoutWithBackButton(
-      title: Text(widget.title, style: const TextStyle(color: AppColors.secondary),),
-        centerTitle: true,
-        leadingIconColor: AppColors.darkGrey,
-        padding: AppSizes.defaultSpace,
-        body: SafeArea(
-            child: WebViewWidget(
-      controller: controllers,
-    )));
+      title: Text(
+        widget.title,
+        style: const TextStyle(color: AppColors.secondary),
+      ),
+      bodyBackgroundColor: AppColors.white,
+      centerTitle: true,
+      leadingIconColor: AppColors.darkGrey,
+      padding:
+      widget.bodyPadding != null
+          ? widget.bodyPadding!
+          : AppSizes.defaultSpace,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: WebViewWidget(controller: controllers),
+        ),
+      ),
+    );
   }
 }

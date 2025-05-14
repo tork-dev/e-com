@@ -37,7 +37,7 @@ class RecommendedProducts extends StatelessWidget {
       centerTitle: true,
       leadingIconColor: AppColors.darkGrey,
       showBackButton: false,
-      customLeadingIcon: Icons.arrow_back,
+      customLeadingIcon: Icons.arrow_back_ios_new_rounded,
       showCustomLeading: true,
       leadingOnPress: () {
         Get.offAll(() => const HelloConvexAppBar());

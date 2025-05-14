@@ -55,11 +55,15 @@ class AppOrderStatusScreen extends StatelessWidget {
             Log.d(items.toString());
 
             EventLogger().logPurchaseEvent(
-                jsonEncode(items),
-                double.parse(controller
-                    .purchaseHistoryDetails.value.data![0].grandTotal!
+              items, // pass directly, not jsonEncode
+              double.parse(
+                controller.purchaseHistoryDetails.value.data![0].grandTotal!
                     .replaceAll('৳', '')
-                    .replaceAll(',', '')));
+                    .replaceAll(',', '')
+                    .trim(),
+              ),
+                orderId.toString()
+            );
           }
           return controller.purchaseHistoryDetails.value.data == null
               ? AppListViewLayout(

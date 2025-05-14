@@ -57,7 +57,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
           appBar: CustomAppBar(
             title: title,
             showBackArrow: false,
-            leadingIcon: Icons.menu,
+            leadingIcon: Icons.menu_rounded,
             leadingOnPress: () => globalKey.currentState!.openDrawer(),
             centerTitle: centerTitle,
             backgroundColor: backgroundColor,

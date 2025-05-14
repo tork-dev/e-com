@@ -61,7 +61,7 @@ class _BkashScreenState extends State<BkashScreen> {
         showCustomLeading: true,
         backToHome: true,
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
       title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
         leadingOnPress: (){
           Log.d('working');

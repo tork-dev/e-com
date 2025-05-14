@@ -14,6 +14,7 @@ import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dar
 import 'package:kirei/src/features/reward_point/view/reward_details_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
+import 'features/ai_recommendation/view/kaira_chat_bot.dart';
 import 'features/ai_recommendation/view/recommended_products.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
@@ -99,7 +100,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/beauty-tips', page: () => const BeautyTipsScreen()),
         GetPage(
             name: '/personal-recommendation',
-            page: () => const SkinCareHistoryOne()),
+            page: () => const AppKairaChatBot()),
         GetPage(name: "/community", page: () => const CommunityScreen()),
         GetPage(name: '/consult-doctor', page: () => const AppointmentScreen()),
         GetPage(name: '/orders-details', page: () => const PurchaseHistory()),

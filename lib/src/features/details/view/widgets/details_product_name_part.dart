@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
@@ -33,167 +34,256 @@ class AppDetailsProductNamePart extends StatelessWidget {
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Text(
-                        detailsController
-                            .productDetails.value.detailedProducts!.name!,
-                        style: Theme.of(context).textTheme.titleMedium),
+                      detailsController
+                          .productDetails
+                          .value
+                          .detailedProducts!
+                          .name!,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: (){
-                              Get.to(() => ReviewScreen(
-                                  productId: detailsController
-                                      .productDetails.value.detailedProducts!.slug!));
-                            },
-                            child: SizedBox(
-                              child: Row(
-                                children: [
-                                  RatingBar(
-                                    itemSize: 18.0,
-                                    ignoreGestures: true,
-                                    initialRating: double.parse(detailsController
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.to(
+                              () => ReviewScreen(
+                                productId:
+                                    detailsController
+                                        .productDetails
+                                        .value
+                                        .detailedProducts!
+                                        .slug!,
+                              ),
+                            );
+                          },
+                          child: SizedBox(
+                            child: Row(
+                              children: [
+                                RatingBar(
+                                  itemSize: 18.0,
+                                  ignoreGestures: true,
+                                  initialRating: double.parse(
+                                    detailsController
                                         .productDetails
                                         .value
                                         .detailedProducts!
                                         .ratings
-                                        .toString()),
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: false,
-                                    itemCount: 5,
-                                    ratingWidget: RatingWidget(
-                                      full: const Icon(Icons.star,
-                                          color: Color(0xffffe234)),
-                                      empty: const Icon(Icons.star,
-                                          color:
-                                              Color.fromRGBO(224, 224, 225, 1)),
-                                      half: const Icon(Icons.star,
-                                          color: Color.fromRGBO(192, 53, 50, 1)),
+                                        .toString(),
+                                  ),
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: false,
+                                  itemCount: 5,
+                                  ratingWidget: RatingWidget(
+                                    full: const Icon(
+                                      Icons.star,
+                                      color: Color(0xffffe234),
                                     ),
-                                    itemPadding:
-                                        const EdgeInsets.only(right: 1.0),
-                                    onRatingUpdate: (double value) {},
+                                    empty: const Icon(
+                                      Icons.star,
+                                      color: Color.fromRGBO(224, 224, 225, 1),
+                                    ),
+                                    half: const Icon(
+                                      Icons.star,
+                                      color: Color.fromRGBO(192, 53, 50, 1),
+                                    ),
                                   ),
-                                  Text(
-                                    ' (${detailsController.productDetails.value.detailedProducts!.reviews})',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .apply(color: AppColors.darkGrey),
+                                  itemPadding: const EdgeInsets.only(
+                                    right: 1.0,
                                   ),
-                                ],
-                              ),
+                                  onRatingUpdate: (double value) {},
+                                ),
+                                Text(
+                                  ' (${detailsController.productDetails.value.detailedProducts!.reviews})',
+                                  style: Theme.of(context).textTheme.titleSmall!
+                                      .apply(color: AppColors.darkGrey),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            child: Row(
-                              children: [
-                                InkWell(
-                                    onTap: () async {
-                                      final String link = detailsController
+                        ),
+                        SizedBox(
+                          child: Row(
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  final String link =
+                                      detailsController
                                           .productDetails
                                           .value
                                           .detailedProducts!
                                           .productLink!;
-                                      final result = await Share.share(link);
-                                      if(result.status == ShareResultStatus.success){
-                                        EventLogger().shareEvent(detailsController.productDetails.value.detailedProducts!.slug!);
-                                      }
-
-                                    },
-                                    child: const Icon(Icons.share)),
-                                const Gap(AppSizes.defaultSpace),
-                                InkWell(onTap: () {
+                                  final result = await Share.share(link);
+                                  if (result.status ==
+                                      ShareResultStatus.success) {
+                                    EventLogger().shareEvent(
+                                      detailsController
+                                          .productDetails
+                                          .value
+                                          .detailedProducts!
+                                          .slug!,
+                                    );
+                                  }
+                                },
+                                child: const Icon(Icons.share),
+                              ),
+                              const Gap(AppSizes.defaultSpace),
+                              InkWell(
+                                onTap: () {
                                   if (AppLocalStorage().readData(
-                                          LocalStorageKeys.isLoggedIn) ==
+                                        LocalStorageKeys.isLoggedIn,
+                                      ) ==
                                       true) {
-                                    detailsController.checkWishList.value
+                                    detailsController
+                                                .checkWishList
+                                                .value
                                                 .isInWishlist ==
                                             false
-                                        ? detailsController
-                                            .getWishListAdd()
-                                            .then((value) => {
-                                                  EventLogger()
-                                                      .logAddToWishlistEvent(
-                                                          '${detailsController.productDetails.value.detailedProducts!.slug}',
-                                                          detailsController
-                                                              .productDetails
-                                                              .value
-                                                              .detailedProducts!
-                                                              .salePrice),
-                                                  detailsController
-                                                      .checkWishListAdd(),
-                                                  AppHelperFunctions.showToast(
-                                                      detailsController
-                                                          .addToWishlist
-                                                          .value
-                                                          .message!),
-                                                })
+                                        ? detailsController.getWishListAdd().then(
+                                          (value) => {
+                                            EventLogger().logAddToWishlistEvent(
+                                              '${detailsController.productDetails.value.detailedProducts!.slug}',
+                                              detailsController
+                                                  .productDetails
+                                                  .value
+                                                  .detailedProducts!
+                                                  .salePrice,
+                                            ),
+                                            detailsController
+                                                .checkWishListAdd(),
+                                            AppHelperFunctions.showToast(
+                                              detailsController
+                                                  .addToWishlist
+                                                  .value
+                                                  .message!,
+                                            ),
+                                          },
+                                        )
                                         : detailsController
                                             .wishListRemove()
-                                            .then((value) => {
+                                            .then(
+                                              (value) => {
+                                                detailsController
+                                                    .checkWishListAdd(),
+                                                AppHelperFunctions.showToast(
                                                   detailsController
-                                                      .checkWishListAdd(),
-                                                  AppHelperFunctions.showToast(
-                                                      detailsController
-                                                          .removeFromWishList
-                                                          .value
-                                                          .message!),
-                                                });
+                                                      .removeFromWishList
+                                                      .value
+                                                      .message!,
+                                                ),
+                                              },
+                                            );
                                   } else {
                                     Get.to(() => const LogIn());
                                   }
-                                }, child: Obx(() {
-                                  return Icon(detailsController.checkWishList
-                                              .value.isInWishlist ==
-                                          true
-                                      ? Icons.favorite
-                                      : Icons.favorite_border);
-                                }))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                                },
+                                child: Obx(() {
+                                  return Icon(
+                                    detailsController
+                                                .checkWishList
+                                                .value
+                                                .isInWishlist ==
+                                            true
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                  );
+                                }),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
-                    : detailsController.productDetails.value.detailedProducts!
-                            .productBrands!.isNotEmpty
-                        ? Row(
-                            children: [
-                              Text(
-                                'Brand: ',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .apply(color: AppColors.darkGrey),
-                              ),
-                              const Gap(AppSizes.spaceBtwSections),
-                              Text(
-                                  detailsController
-                                          .productDetails
-                                          .value
-                                          .detailedProducts
-                                          ?.productBrands?[0]
-                                          .name ??
-                                      '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .apply(color: AppColors.darkGrey))
-                            ],
-                          )
-                        : const SizedBox()
+                    : detailsController
+                        .productDetails
+                        .value
+                        .detailedProducts!
+                        .productBrands!
+                        .isNotEmpty
+                    ? Row(
+                      children: [
+                        Text(
+                          'Brand: ',
+                          style: Theme.of(context).textTheme.bodyMedium!.apply(
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                        const Gap(AppSizes.sm),
+                        Text(
+                          detailsController
+                                  .productDetails
+                                  .value
+                                  .detailedProducts
+                                  ?.productBrands?[0]
+                                  .name ??
+                              '',
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ],
+                    )
+                    : const SizedBox(),
+                const Gap(AppSizes.lg),
+                detailsController.productDetails.value.detailedProducts == null
+                    ? ShimmerHelper().buildBasicShimmer(height: 30)
+                    : detailsController
+                        .productDetails
+                        .value
+                        .detailedProducts!
+                        .productBrands!
+                        .isNotEmpty
+                    ? SizedBox(
+                      height: 40,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        children: [
+                          AppCardContainer(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSizes.spaceBtwDefaultItems,
+                              vertical: AppSizes.sm,
+                            ),
+                            backgroundColor: AppColors.primary.withAlpha(21),
+                            child: Row(
+                              children: [
+                                Icon(Icons.info_outline),
+                                Gap(AppSizes.sm),
+                                Text(
+                                  'What if You’re Not Happy?',
+                                  style:
+                                      Theme.of(context).textTheme.labelLarge!,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Gap(AppSizes.spaceBtwItems),
+                          AppCardContainer(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSizes.spaceBtwDefaultItems,
+                              vertical: AppSizes.sm,
+                            ),
+                            backgroundColor: AppColors.lightGrey,
+                            child: Text(
+                              '100% Authentic',
+                              style: Theme.of(context).textTheme.labelLarge!,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    : const SizedBox(),
               ],
             ),
           ),
-          const Gap(AppSizes.spaceBtwDefaultItems),
-          AppDividersStyle.fullFlatAppDivider,
-          const Gap(AppSizes.spaceBtwDefaultItems),
+          const Gap(AppSizes.lg),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -202,130 +292,134 @@ class AppDetailsProductNamePart extends StatelessWidget {
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Row(
-                        children: [
-                          Text(
-                            'Price: ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .apply(color: AppColors.darkGrey),
+                      children: [
+                        Text(
+                          'Price: ',
+                          style: Theme.of(context).textTheme.bodyMedium!.apply(
+                            color: AppColors.darkGrey,
                           ),
-                          const Gap(AppSizes.spaceBtwSections),
-                          Visibility(
-                            visible: detailsController.productDetails.value
-                                    .detailedProducts!.price !=
-                                detailsController.productDetails.value
-                                    .detailedProducts!.salePrice,
-                            child: Row(
-                              children: [
-                                Text(
-                                  '৳${detailsController.productDetails.value.detailedProducts!.price}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .apply(
-                                          color: AppColors.darkGrey,
-                                          decoration:
-                                              TextDecoration.lineThrough),
+                        ),
+                        const Gap(AppSizes.sm),
+                        Visibility(
+                          visible:
+                              detailsController
+                                  .productDetails
+                                  .value
+                                  .detailedProducts!
+                                  .price !=
+                              detailsController
+                                  .productDetails
+                                  .value
+                                  .detailedProducts!
+                                  .salePrice,
+                          child: Row(
+                            children: [
+                              Text(
+                                '৳${detailsController.productDetails.value.detailedProducts!.price}',
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.titleLarge!.apply(
+                                  color: AppColors.darkGrey,
+                                  decoration: TextDecoration.lineThrough,
                                 ),
-                                const Gap(AppSizes.spaceBtwSmallItem)
-                              ],
-                            ),
+                              ),
+                              const Gap(AppSizes.spaceBtwSmallItem),
+                            ],
                           ),
-                          Text(
-                              '৳${detailsController.productDetails.value.detailedProducts!.salePrice}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .apply(color: AppColors.dark)),
-                        ],
-                      ),
+                        ),
+                        Text(
+                          '৳${detailsController.productDetails.value.detailedProducts!.salePrice}',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleLarge!.apply(color: AppColors.dark),
+                        ),
+                      ],
+                    ),
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Row(
-                        children: [
-                          Text(
-                            'Quantity: ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .apply(color: AppColors.darkGrey),
+                      children: [
+                        Text(
+                          'Quantity: ',
+                          style: Theme.of(context).textTheme.bodyMedium!.apply(
+                            color: AppColors.darkGrey,
                           ),
-                          const Gap(AppSizes.spaceBtwSections),
-                          SizedBox(
-                            width: 100,
-                            // height: 40,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InkWell(
-                                    onTap: () =>
-                                        detailsController.onRemoveButtonTap(),
-                                    child: const Icon(
-                                      Icons.remove,
-                                      size: 30,
-                                    )),
-                                AppCardContainer(
-                                    height: 30,
-                                    width: 30,
-                                    hasBorder: true,
-                                    borderWidth: 1,
-                                    applyRadius: false,
-                                    child: Center(
-                                      child: Text(
-                                          '${detailsController.productCount.value}'),
-                                    )),
-                                InkWell(
-                                  onTap: () =>
-                                      detailsController.onAddButtonTap(),
-                                  child: const Icon(
-                                    Icons.add,
-                                    size: 30,
+                        ),
+                        const Gap(AppSizes.sm),
+                        SizedBox(
+                          width: 100,
+                          // height: 40,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap:
+                                    () => detailsController.onRemoveButtonTap(),
+                                child: const Icon(Icons.remove, size: 30),
+                              ),
+                              AppCardContainer(
+                                height: 30,
+                                width: 30,
+                                hasBorder: true,
+                                borderWidth: 1,
+                                applyRadius: false,
+                                child: Center(
+                                  child: Text(
+                                    '${detailsController.productCount.value}',
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => detailsController.onAddButtonTap(),
+                                child: const Icon(Icons.add, size: 30),
+                              ),
+                            ],
                           ),
-                          Gap(AppHelperFunctions.screenWidth() * 0.1),
-                          Text(
-                              detailsController
+                        ),
+                        Gap(AppHelperFunctions.screenWidth() * 0.1),
+                        Text(
+                          detailsController
+                                      .productDetails
+                                      .value
+                                      .detailedProducts!
+                                      .preorderAvailable ==
+                                  0
+                              ? detailsController
                                           .productDetails
                                           .value
                                           .detailedProducts!
-                                          .preorderAvailable ==
+                                          .stock !=
                                       0
-                                  ? detailsController.productDetails.value
-                                              .detailedProducts!.stock !=
-                                          0
-                                      ? 'In Stock'
-                                      : 'Stock Out'
-                                  : 'Coming soon',
-                              style:
-                                  Theme.of(context).textTheme.titleLarge!.apply(
-                                        color: detailsController
-                                                    .productDetails
-                                                    .value
-                                                    .detailedProducts!
-                                                    .preorderAvailable ==
-                                                0
-                                            ? detailsController
-                                                        .productDetails
-                                                        .value
-                                                        .detailedProducts!
-                                                        .stock !=
-                                                    0
-                                                ? Colors.green
-                                                : AppColors.primary
-                                            : Colors.orange,
-                                      )),
-                        ],
-                      ),
+                                  ? 'In Stock'
+                                  : 'Stock Out'
+                              : 'Coming soon',
+                          style: Theme.of(context).textTheme.titleLarge!.apply(
+                            color:
+                                detailsController
+                                            .productDetails
+                                            .value
+                                            .detailedProducts!
+                                            .preorderAvailable ==
+                                        0
+                                    ? detailsController
+                                                .productDetails
+                                                .value
+                                                .detailedProducts!
+                                                .stock !=
+                                            0
+                                        ? Colors.green
+                                        : AppColors.primary
+                                    : Colors.orange,
+                          ),
+                        ),
+                      ],
+                    ),
               ],
             ),
           ),
           const Gap(AppSizes.spaceBtwDefaultItems),
-          AppDividersStyle.fullFlatAppDivider
+          AppDividersStyle.fullFlatAppDivider,
         ],
       );
     });

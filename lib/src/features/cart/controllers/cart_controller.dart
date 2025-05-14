@@ -103,7 +103,7 @@ class CartController extends GetxController {
     }).toList();
 
 
-    EventLogger().logViewCartEvent(jsonEncode(items));
+    EventLogger().logViewCartEvent(jsonEncode(items), cartItemTotalPrice.value);
   }
 
   Future<CartDeleteResponse> getCartDelete(int cartId) async {

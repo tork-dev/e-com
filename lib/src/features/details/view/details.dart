@@ -51,7 +51,7 @@ class DetailsPage extends StatelessWidget {
         padding: 0,
         showBackButton: false,
         showCustomLeading: true,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_outlined,
         leadingOnPress: () {
         Get.back();
           if (controller.productSlugList.length > 1) {
@@ -158,9 +158,9 @@ class DetailsPage extends StatelessWidget {
                   title: 'questions about this products',
                 ),
                 AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppRecommendedAndRelatedProducts()
+                const Gap(AppSizes.lg),
+                const AppRecommendedAndRelatedProducts(),
+                const Gap(AppSizes.lg),
               ]),
         ));
   }
