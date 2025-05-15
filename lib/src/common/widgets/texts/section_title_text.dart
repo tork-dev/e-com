@@ -45,7 +45,7 @@ class AppSectionTitleText extends StatelessWidget {
               visible: showCountDown,
               child: AppCardContainer(
                 backgroundColor: AppColors.primary,
-                borderRadius: AppSizes.borderRadiusSm,
+                borderRadius: AppSizes.borderRadiusMd,
                 padding:
                 const EdgeInsets.symmetric(vertical: AppSizes.sm, horizontal: AppSizes.md),
                 child: TimerCountdown(
@@ -57,24 +57,25 @@ class AppSectionTitleText extends StatelessWidget {
                       .titleLarge!
                       .copyWith(
                       fontSize: AppSizes.fontSizeMSm,
-                      color: AppColors.textWhite),
+                      color: AppColors.textWhite, height: 1),
                   timeTextStyle: Theme.of(context)
                       .textTheme
                       .titleLarge!
                       .copyWith(
                       fontSize: AppSizes.fontSizeMSm,
-                      color: AppColors.textWhite),
+                      color: AppColors.textWhite, height: .5),
                   colonsTextStyle: Theme.of(context)
                       .textTheme
-                      .labelSmall!
+                      .titleLarge!
                       .copyWith(
-                      fontSize: 0,
-                      color: AppColors.textPrimary),
-                  daysDescription: 'Day',
-                  hoursDescription: 'Hour',
-                  minutesDescription: 'Min',
-                  secondsDescription: 'Sec',
-                  spacerWidth: 5,
+                      fontSize: AppSizes.fontSizeMSm,
+                      color: AppColors.textWhite),
+                  enableDescriptions: true,
+                  daysDescription: 'Days',
+                  hoursDescription: 'Hours',
+                  minutesDescription: 'Mins',
+                  secondsDescription: 'Secs',
+                  spacerWidth: AppSizes.sm,
                   endTime: DateTime.parse("2026-10-26"),
                   onEnd: () {
                     print("Timer finished");
@@ -84,7 +85,7 @@ class AppSectionTitleText extends StatelessWidget {
             ),
           ],
         ),
-        const Gap(AppSizes.sm)
+        const Gap(AppSizes.spaceBtwItems)
       ],
     );
   }

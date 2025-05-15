@@ -30,7 +30,6 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
           onRefresh: controller.onRefresh,
           children: [
             AppCardContainer(
-              applyRadius: false,
               backgroundColor: AppColors.addToCartButton,
               child: Stack(
                 alignment: Alignment.center,
@@ -47,10 +46,6 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
                               controller.kireiTubeDetailsResponse.value.data!
                                   .prevVideo!.slug!;
                               controller.onRefresh();
-                              // if(controller.kireiTubeDetailsResponse.value.data!.prevVideo!.orientation == "landscape"){
-                              //   Get.to(()=> const KireiTubeDetailsScreen());
-                              // }else{
-                              // }
                                 Get.to(()=> const KireiTubeShortsDetailsScreen());
                             }else{
                               AppHelperFunctions.showToast("No Previous video found");
@@ -70,10 +65,6 @@ class KireiTubeShortsDetailsScreen extends StatelessWidget {
                                   .nextVideo!.slug!;
 
                               controller.onRefresh();
-                              // if(controller.kireiTubeDetailsResponse.value.data!.nextVideo!.orientation == "landscape"){
-                              //   Get.to(()=> const KireiTubeDetailsScreen());
-                              // }else{
-                              // }
                                 Get.to(()=> const KireiTubeShortsDetailsScreen());
                             }else{
                               AppHelperFunctions.showToast("No Next video found");

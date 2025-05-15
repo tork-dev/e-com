@@ -66,7 +66,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: AppSizes.sm, vertical: 0),
                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.zero,
+                                borderRadius: BorderRadius.all(Radius.circular(AppSizes.sm)),
                                 borderSide: BorderSide(
                                     width: 1, color: AppColors.lightGrey))),
                         onSelected: (value) {
@@ -100,7 +100,8 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             return Obx(() {
                               return ChoiceChip(
                                 backgroundColor: AppColors.white,
-                                shape: const ContinuousRectangleBorder(
+                                shape: const BeveledRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(AppSizes.xs)),
                                     side: BorderSide(
                                         width: 1, color: AppColors.lightGrey)),
                                 elevation: 0,

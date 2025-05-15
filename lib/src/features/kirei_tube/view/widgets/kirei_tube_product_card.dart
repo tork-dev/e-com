@@ -33,7 +33,6 @@ class KireiTubeProductCard extends StatelessWidget {
                 ? ShimmerHelper().buildBasicShimmer(height: 100)
                 : AppCardContainer(
                     padding: const EdgeInsets.all(AppSizes.md),
-                    applyRadius: false,
                     backgroundColor: AppColors.lightGrey,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,9 +40,8 @@ class KireiTubeProductCard extends StatelessWidget {
                         AppBannerImage(
                             onPress: () => Get.toNamed(
                                 '/product/${kireiTubeDetailsController.kireiTubeDetailsResponse.value.data!.products![index].slug}'),
-                            height: 100,
-                            width: 100,
-                            applyImageRadius: false,
+                            height: 80,
+                            width: 80,
                             backgroundColor: AppColors.white,
                             isNetworkImage: true,
                             imgUrl: kireiTubeDetailsController
@@ -54,7 +52,7 @@ class KireiTubeProductCard extends StatelessWidget {
                                 .pictures![0]
                                 .url),
                         SizedBox(
-                            width: 200,
+                            width: 220,
                             child: Column(
                               children: [
                                 InkWell(

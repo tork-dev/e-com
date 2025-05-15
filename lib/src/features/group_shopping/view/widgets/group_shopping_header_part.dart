@@ -30,7 +30,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
       children: [
         AppBannerImage(
           width: AppHelperFunctions.screenWidth(),
-          applyImageRadius: false,
+          applyImageRadius: true,
           imgUrl: AppImages.groupShoppingBg,
         ),
         Padding(
@@ -55,7 +55,7 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                 ),
                 const Gap(AppSizes.md),
                 SizedBox(
-                  width: 125,
+                  width: 150,
                   child: AppButtons.largeFlatFilledButton(
                       verticallyPadding: AppSizes.sm,
                       onPressed: () {
@@ -106,7 +106,6 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                           padding:
                                               const EdgeInsets.all(AppSizes.sm),
                                           backgroundColor: AppColors.white,
-                                          applyRadius: false,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -123,32 +122,12 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                                     ),
                                                   ),
                                                   AppCardContainer(
-                                                      applyRadius: false,
-                                                      backgroundColor:
-                                                          const Color(
-                                                              0xffE4F7E8),
+                                                      backgroundColor: AppColors.primary,
+                                                      borderRadius: AppSizes.cardRadiusXs,
                                                       padding:
-                                                          const EdgeInsets.all(
-                                                              AppSizes.xs),
-                                                      child: RichText(
-                                                        text: TextSpan(
-                                                            text: 'Required: ',
-                                                            style: const TextStyle(
-                                                                fontSize: 8,
-                                                                color: AppColors
-                                                                    .secondary),
-                                                            children: [
-                                                              TextSpan(
-                                                                  text:
-                                                                      '${product.groupMemberQuantity} Members',
-                                                                  style: const TextStyle(
-                                                                      color: AppColors
-                                                                          .primary,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold))
-                                                            ]),
-                                                      ))
+                                                          const EdgeInsets.symmetric(
+                                                              vertical: AppSizes.xs, horizontal: AppSizes.sm),
+                                                      child: Text("Required: ${product.groupMemberQuantity} Members", style: Theme.of(context).textTheme.labelSmall?.apply(color: AppColors.white),))
                                                 ],
                                               ),
                                               AppButtons.largeFlatFilledButton(

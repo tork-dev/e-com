@@ -21,7 +21,6 @@ class VideoHorizontalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCardContainer(
         onTap: onTap,
-        applyRadius: false,
         padding: const EdgeInsets.all(AppSizes.sm),
         backgroundColor: AppColors.lightGrey,
         child: Row(
@@ -33,7 +32,6 @@ class VideoHorizontalCard extends StatelessWidget {
                 backgroundColor: AppColors.addToCartButton,
                 fit: BoxFit.fitHeight,
                 isNetworkImage: true,
-                applyImageRadius: false,
                 imgUrl: imgUrl ?? ''),
             const Gap(AppSizes.spaceBtwDefaultItems),
             Column(

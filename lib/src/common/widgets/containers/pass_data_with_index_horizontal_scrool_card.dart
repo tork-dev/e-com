@@ -68,12 +68,12 @@ class AppPassDataHorizontalProductCard extends StatelessWidget {
       imgUrl: imgUrl,
       isStockAvailable: isStockAvailable,
       buttonName: isStockAvailable
-          ? 'ADD TO CART'
+          ? 'Add to cart'
           : preOrderAvailable == 0
               ? requestAvailable == 0
-                  ? 'OUT OF STOCK'
-                  : "REQUEST STOCK"
-              : 'PREORDER NOW',
+                  ? 'Out of stock'
+                  : "Request stock"
+              : 'Preorder now',
       backgroundColor: isStockAvailable
           ? AppColors.secondary
           : preOrderAvailable == 0

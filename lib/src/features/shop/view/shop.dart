@@ -39,6 +39,7 @@ class ShopScreen extends StatelessWidget {
               shopDataController.getShopData();
               shopDataController.categoryRouteList.add('/shop?${shopDataController.queryStringValue.value}');
               Log.d('length of routes: ${shopDataController.categoryRouteList}');
+              return null;
             },
             prevRoute: '/shop?${shopDataController.queryStringValue.value}',
           );

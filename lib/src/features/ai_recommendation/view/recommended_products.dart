@@ -150,12 +150,12 @@ class RecommendedProducts extends StatelessWidget {
                                 price: product.price ?? 0,
                                 buttonName:
                                     product.stock != 0
-                                        ? "ADD TO CART"
+                                        ? "Add To cart"
                                         : product.preorderAvailable != 0
-                                        ? "PREORDER NOW"
+                                        ? "Preorder now"
                                         : product.requestAvailable != 0
-                                        ? "REQUEST STOCK"
-                                        : "OUT OF STOCK",
+                                        ? "Request stock"
+                                        : "Out of stock",
                                 backgroundColor:
                                     product.stock != 0
                                         ? AppColors.addToCartButton

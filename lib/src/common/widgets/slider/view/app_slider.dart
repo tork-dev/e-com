@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart' as cw;
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
@@ -19,64 +21,67 @@ class CustomSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeController controller = HomeController.instance;
     return AppCardContainer(
-      height: 185,
       child: Obx(() {
         return controller.homeSliders.isEmpty
-            ? ShimmerHelper().buildBasicShimmer()
+            ? ShimmerHelper().buildBasicShimmer(height: 190)
             : InkWell(
-                child: Stack(
-                  //crossAxisAlignment: CrossAxisAlignment.center,
+                child: Column(
                   children: [
-                    Positioned.fill(
-                      child: InkWell(
-                        onTap: () => RoutingHelper.urlRouting(
-                            controller.homeSlidersLink[
-                                controller.carouselCurrentIndex.value]),
-                        child: cw.CarouselSlider(
-                            items: controller.homeSliders
-                                .map((dynamic url) => AppBannerImage(
-                                    width: AppHelperFunctions.screenWidth(),
-                                    isNetworkImage: true,
-                                    fit: BoxFit.cover,
-                                    imgUrl: url))
-                                .toList(),
-                            options: cw.CarouselOptions(
-                              //aspectRatio: 3.37,
-                              viewportFraction: 1,
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              reverse: false,
-                              autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 5),
-                              autoPlayAnimationDuration:
-                                  const Duration(milliseconds: 1000),
-                              autoPlayCurve: Curves.easeInCubic,
-                              enlargeCenterPage: true,
-                              scrollDirection: Axis.horizontal,
-                              onPageChanged: (index, _) =>
-                                  controller.updateCurrentIndex(index),
-                            )),
-                      ),
+                    InkWell(
+                      onTap: () => RoutingHelper.urlRouting(
+                          controller.homeSlidersLink[
+                              controller.carouselCurrentIndex.value]),
+                      child: cw.CarouselSlider(
+                          items: controller.homeSliders
+                              .map((dynamic url) => AppBannerImage(
+                                  width: AppHelperFunctions.screenWidth(),
+                                  isNetworkImage: true,
+                                  fit: BoxFit.cover,
+                                  imgUrl: url))
+                              .toList(),
+                          options: cw.CarouselOptions(
+                            //aspectRatio: 3.37,
+                            viewportFraction: 1,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 5),
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 1000),
+                            autoPlayCurve: Curves.easeInCubic,
+                            enlargeCenterPage: true,
+                            scrollDirection: Axis.horizontal,
+                            onPageChanged: (index, _) =>
+                                controller.updateCurrentIndex(index),
+                          )),
                     ),
-                    Obx(() => Positioned.fill(
-                          bottom: 10,
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: AnimatedSmoothIndicator(
-                              activeIndex:
-                                  controller.carouselCurrentIndex.value,
-                              count: controller.homeSliders.length,
-                              effect: const WormEffect(
-                                  activeDotColor: AppColors.primary,
-                                  dotColor: AppColors.lightGrey,
-                                  dotHeight: 12,
-                                dotWidth: 12
-                              ),
+                    Gap(AppSizes.spaceBtwItems),
+                    Obx(() => Align(
+                      alignment: Alignment.bottomCenter,
+                      child:
+                      AnimatedSmoothIndicator(
+                        activeIndex: controller.carouselCurrentIndex.value,
+                        count:  controller.homeSliders.length,
+                        axisDirection: Axis.horizontal,
+                        effect:  CustomizableEffect(
+                          activeColorOverride: (index) => AppColors.primary,
+                            dotDecoration: DotDecoration(
+                              height: 12,
+                              width: 12,
+                              dotBorder: DotBorder(padding: 3, color: AppColors.lightGrey, width: 1),
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.transparent,
                             ),
-                          ),
-                        ))
-
-                    //SmoothPageIndicator(controller: controller.pageController, count: items.length)
+                            activeDotDecoration: DotDecoration(
+                              height: 12,
+                              width: 12,
+                              dotBorder: DotBorder(padding: 3, color: AppColors.primary, width: 1),
+                              borderRadius: BorderRadius.circular(100),
+                              color: AppColors.primary,
+                            ))
+                      )
+                    ))
                   ],
                 ),
               );

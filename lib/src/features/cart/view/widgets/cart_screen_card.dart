@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -64,7 +65,7 @@ class AppCartProductCard extends StatelessWidget {
                                             .cartItems![index]
                                             .productThumbnailImage !=
                                         null,
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                     imgUrl: cartController
                                             .allCartProducts[0]
                                             .cartItems![index]
@@ -158,8 +159,8 @@ class AppCartProductCard extends StatelessWidget {
                                                       rightButtonColor:
                                                           AppColors.primary);
                                                 },
-                                                child: const Icon(Icons
-                                                    .delete_forever_outlined))
+                                                child: const Icon(CupertinoIcons
+                                                    .delete, color: AppColors.error,))
                                           ],
                                         )
                                       ],

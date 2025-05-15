@@ -22,203 +22,266 @@ import 'widgets/home_appbar_title.dart';
 import 'widgets/home_shop_by_concern.dart';
 import 'widgets/surprise_section.dart';
 
-
 class HomeThree extends StatelessWidget {
   const HomeThree({super.key});
-
 
   @override
   Widget build(BuildContext context) {
     HomeController controller = Get.put(HomeController());
-    GetShopDataController getShopDataController =
-    Get.put(GetShopDataController());
+    GetShopDataController getShopDataController = Get.put(
+      GetShopDataController(),
+    );
     ConvexBottomNavController convexBottomNavController =
         ConvexBottomNavController.instance;
     return AppLayoutWithDrawer(
-        backToHome: true,
-        inHome: true,
-        globalKey: controller.homeKey,
-        title: const AppHomeAppBarTitle(),
-        leadingIconColor: AppColors.darkerGrey,
-        backgroundColor: AppColors.white,
-        padding: 0,
-        body: AppLayoutWithRefresher(
-            onRefresh: controller.onRefresh,
-            children: [
-              const Gap(AppSizes.spaceBtwItems),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSearchWidget(
-                    builder: (BuildContext context, TextEditingController controller, FocusNode focusNode) =>
-                        HomeSearchDecoration(
-                            categoryController: getShopDataController,
-                            bottomController: convexBottomNavController,
-                            controller: controller,
-                            focusNode: focusNode),
-                  prevRoute: '/home',
-                ),
+      backToHome: true,
+      inHome: true,
+      globalKey: controller.homeKey,
+      title: const AppHomeAppBarTitle(),
+      leadingIconColor: AppColors.darkerGrey,
+      backgroundColor: AppColors.white,
+      padding: 0,
+      body: AppLayoutWithRefresher(
+        onRefresh: controller.onRefresh,
+        children: [
+          const Gap(AppSizes.spaceBtwItems),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppSearchWidget(
+              builder:
+                  (
+                    BuildContext context,
+                    TextEditingController controller,
+                    FocusNode focusNode,
+                  ) => HomeSearchDecoration(
+                    categoryController: getShopDataController,
+                    bottomController: convexBottomNavController,
+                    controller: controller,
+                    focusNode: focusNode,
+                  ),
+              prevRoute: '/home',
+            ),
+          ),
+          const Gap(AppSizes.spaceBtwItems),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: CustomSlider(),
+          ),
+          const Gap(AppSizes.spaceBtwSections),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppFeatureCategories(),
+          ),
+          Obx(() {
+            return Visibility(
+              visible:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.features
+                      ?.skinConcern ??
+                  false,
+              child: const HomeShopByConcern(),
+            );
+          }),
+          const Gap(AppSizes.spaceBtwSections),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppSectionTitleText(
+              sectionTitle: 'Flash sales',
+              haveTxtButton: false,
+              showCountDown: true,
+            ),
+          ),
+          Obx(() {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppHorizontalScrollProductCard(
+                sectionName:
+                    controller.homeProductResponse.value.featuredProducts,
               ),
-              const Gap(AppSizes.spaceBtwItems),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: CustomSlider(),
+            );
+          }),
+          const Gap(AppSizes.spaceBtwSections),
+          Obx(() {
+            return HomeImageTitleAndButtonSection(
+              sectionName:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.recommendation,
+              showTheSection:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.features
+                      ?.recommendation ??
+                  false,
+            );
+          }),
+          const Gap(AppSizes.spaceBtwSections),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppSectionTitleText(
+              sectionTitle: 'Best Selling Products',
+              haveTxtButton: false,
+            ),
+          ),
+          Obx(() {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppHorizontalScrollProductCard(
+                sectionName:
+                    controller.homeProductResponse.value.bestsellingProducts,
               ),
-              const Gap(AppSizes.spaceBtwItems),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppFeatureCategories(),
-              ),
-              Obx(() {
-                return HomeImageTitleAndButtonSection(
-                  sectionName: controller.homeProductResponse.value.homepageSettings?.recommendation,
-                  showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.recommendation ?? false,
-                );
-              }
-              ),
-              Obx(() {
-                  return Visibility(
-                    visible: controller.homeProductResponse.value.homepageSettings?.features?.skinConcern ?? false,
-                      child: const HomeShopByConcern());
-                }
-              ),
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'Flash sales',
-                  haveTxtButton: false,
-                  showCountDown: true,
-                ),
-              ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName: controller.recommendedProductsForYouResponse.value.data),
-                );
-              }),
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'Best Selling Products',
-                  haveTxtButton: false,
-                ),
-              ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName: controller
-                          .homeProductResponse.value.bestsellingProducts),
-                );
-              }),
+            );
+          }),
 
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'Recommended For You',
-                  haveTxtButton: false,
-                ),
+          const Gap(AppSizes.spaceBtwSections),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppSectionTitleText(
+              sectionTitle: 'Recommended For You',
+              haveTxtButton: false,
+            ),
+          ),
+          Obx(() {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppHorizontalScrollProductCard(
+                sectionName:
+                    controller.recommendedProductsForYouResponse.value.data,
               ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName: controller.recommendedProductsForYouResponse.value.data),
-                );
-              }),
-              const HomeSurpriseSection(),
+            );
+          }),
+          const HomeSurpriseSection(),
 
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'Hot Deals',
-                  haveTxtButton: false,
-                ),
+          // const Gap(AppSizes.spaceBtwSections),
+          // const Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+          //   child: AppSectionTitleText(
+          //     sectionTitle: 'Hot Deals',
+          //     haveTxtButton: false,
+          //   ),
+          // ),
+          // Obx(() {
+          //   return Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+          //     child: AppHorizontalScrollProductCard(
+          //         sectionName:
+          //         controller.homeProductResponse.value.featuredProducts),
+          //   );
+          // }),
+          const Gap(AppSizes.spaceBtwSections),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppSectionTitleText(
+              sectionTitle: 'New Arrivals',
+              haveTxtButton: false,
+            ),
+          ),
+          Obx(() {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppHorizontalScrollProductCard(
+                sectionName: controller.homeProductResponse.value.newProducts,
               ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName:
-                      controller.homeProductResponse.value.featuredProducts),
-                );
-              }),
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'New Arrivals',
-                  haveTxtButton: false,
-                ),
-              ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName:
-                      controller.homeProductResponse.value.newProducts),
-                );
-              }),
-              Obx(() {
-                return HomeImageTitleAndButtonSection(
-                  showBg: false,
-                  fit: BoxFit.cover,
-                  sectionName: controller.homeProductResponse.value.homepageSettings?.groupShopping,
-                  showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false,
-                );
-              }
-              ),
+            );
+          }),
+          Gap(AppSizes.spaceBtwSections),
+          Obx(() {
+            return HomeImageTitleAndButtonSection(
+              showBg: false,
+              fit: BoxFit.cover,
+              sectionName:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.groupShopping,
+              showTheSection:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.features
+                      ?.groupShopping ??
+                  false,
+            );
+          }),
 
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'International Brands',
-                  haveTxtButton: false,
-                ),
+          const Gap(AppSizes.spaceBtwSections),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppSectionTitleText(
+              sectionTitle: 'International Brands',
+              haveTxtButton: false,
+            ),
+          ),
+          Obx(() {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppHorizontalScrollProductCard(
+                sectionName:
+                    controller.homeProductResponse.value.internationalBrands,
               ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName: controller.homeProductResponse.value.internationalBrands),
-                );
-              }),
-              const Gap(AppSizes.spaceBtwSections),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                  sectionTitle: 'Trending Products',
-                  haveTxtButton: false,
-                ),
+            );
+          }),
+          const Gap(AppSizes.spaceBtwSections),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+            child: AppSectionTitleText(
+              sectionTitle: 'Trending Products',
+              haveTxtButton: false,
+            ),
+          ),
+          Obx(() {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppHorizontalScrollProductCard(
+                sectionName: controller.trendingProductsResponse.value.data,
               ),
-              Obx(() {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                      sectionName: controller
-                          .trendingProductsResponse.value.data),
-                );
-              }),
-               Obx(() {
-                   return Visibility(
-                     visible: controller.homeProductResponse.value.homepageSettings?.features?.reviews ?? false,
-                       child: const HomeReviewSection());
-                 }
-               ),
-              Obx(() {
-                return HomeImageTitleAndButtonSection(
-                  bgUrl: AppImages.kireiTubeBg,
-                  sectionName: controller.homeProductResponse.value.homepageSettings?.kireitube,
-                  showTheSection: controller.homeProductResponse.value.homepageSettings?.features?.kireitube ?? false,
-                );
-              }
-              ),
-              const Gap(100),
-            ]));
+            );
+          }),
+          Gap(AppSizes.spaceBtwSections),
+          Obx(() {
+            return Visibility(
+              visible:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.features
+                      ?.reviews ??
+                  false,
+              child: const HomeReviewSection(),
+            );
+          }),
+          Obx(() {
+            return HomeImageTitleAndButtonSection(
+              bgUrl: AppImages.kireiTubeBg,
+              sectionName:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.kireitube,
+              showTheSection:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.features
+                      ?.kireitube ??
+                  false,
+            );
+          }),
+          const Gap(100),
+        ],
+      ),
+    );
   }
 }

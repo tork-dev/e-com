@@ -153,12 +153,12 @@ class AppBottomButton extends StatelessWidget {
                           detailsController.productDetails.value
                                       .detailedProducts?.preorderAvailable !=
                                   0
-                              ? 'PREORDER NOW'
+                              ? 'Preorder Now'
                               : detailsController.productDetails.value
                                           .detailedProducts?.requestAvailable !=
                                       0
-                                  ? 'REQUEST FOR STOCK'
-                                  : 'OUT OF STOCK',
+                                  ? 'Request Stock'
+                                  : 'Out of Stock',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!

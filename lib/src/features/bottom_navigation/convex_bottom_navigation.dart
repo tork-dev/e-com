@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -89,7 +90,7 @@ class HelloConvexAppBar extends StatelessWidget {
               color: AppColors.white,
               items: [
                 const TabItem(
-                  icon: Icons.home_outlined,
+                  icon: CupertinoIcons.house,
                   title: 'Home',
                 ),
                 const TabItem(icon: Icons.storefront_outlined, title: 'Shop'),
@@ -105,13 +106,13 @@ class HelloConvexAppBar extends StatelessWidget {
                       badgeColor: AppColors.black,
                       padding: EdgeInsets.all(6),
                     ),
-                    child: const Icon(Icons.shopping_bag_outlined,
+                    child: const Icon(CupertinoIcons.bag,
                         color: AppColors.white),
                   ),
                   title: 'Cart',
                 ),
                 const TabItem(
-                  icon: Icons.account_circle_rounded,
+                  icon: CupertinoIcons.profile_circled,
                   title: 'Profile',
                 ),
               ],

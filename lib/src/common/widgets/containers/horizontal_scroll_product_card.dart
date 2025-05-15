@@ -92,12 +92,12 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
               imgUrl: sectionName?[index].pictures?[0].url ?? '',
               isStockAvailable: sectionName![index].stock != 0,
               buttonName: sectionName![index].stock != 0
-                  ? 'Add To Cart'
+                  ? 'Add to cart'
                   : sectionName![index].preorderAvailable == 0
                   ? sectionName![index].requestAvailable == 0
-                  ? 'Out Of Stock'
-                  : "Request Stock"
-                  : 'Preorder Now',
+                  ? 'Out of stock'
+                  : "Request stock"
+                  : 'Preorder now',
               backgroundColor: sectionName![index].stock != 0
                   ? AppColors.addToCartButton
                   : sectionName![index].preorderAvailable == 0

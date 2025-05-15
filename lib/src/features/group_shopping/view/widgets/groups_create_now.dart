@@ -65,7 +65,6 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                         : AppCardContainer(
                         applyShadow: true,
                         width: 221,
-                        applyRadius: false,
                         backgroundColor: AppColors.white,
                         padding: const EdgeInsets.all(AppSizes.sm),
                         child: Column(
@@ -86,90 +85,79 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                       ?.thumbnailImage ??
                                       '',
                                   isNetworkImage: true,
-                                  applyImageRadius: false,
                                 ),
-                                AppCardContainer(
-                                    // width: 140,
-                                    applyRadius: false,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    backgroundColor:
-                                    const Color(0xffE4F7E8),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Text(
-                                          "Duration: ",
-                                          style: TextStyle(
-                                              color:
-                                              AppColors.primary,
-                                              fontSize: 10,
-                                              fontWeight:
-                                              FontWeight.bold),
-                                        ),
-                                        SlideCountdown(
-                                          duration: Duration(
-                                              days: groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![index]
-                                                  .expiredAt!
-                                                  .day - DateTime.now().day,
-                                              hours: groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![index]
-                                                  .expiredAt!
-                                                  .hour - DateTime.now().hour,
-                                              minutes:
-                                              groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![
-                                              index]
-                                                  .expiredAt!
-                                                  .minute - DateTime.now().minute,
-                                              seconds:
-                                              groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![
-                                              index]
-                                                  .expiredAt!
-                                                  .second - DateTime.now().second),
-                                          decoration:
-                                          const BoxDecoration(
-                                            color: Colors.transparent,
+                                Positioned(
+                                  top: 4,
+                                  child: AppCardContainer(
+                                      padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm, vertical: AppSizes.xs),
+                                      backgroundColor: AppColors.primary,
+                                      borderRadius: AppSizes.cardRadiusXs,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                           Text(
+                                            "Duration: ",
+                                            style: Theme.of(context).textTheme.labelSmall?.apply(color: AppColors.white),
                                           ),
-                                          durationTitle:
-                                          const DurationTitle(
-                                              days: "d ",
-                                              hours: "h ",
-                                              minutes: "m ",
-                                              seconds: "s"),
-                                          separatorPadding:
-                                          EdgeInsets.zero,
-                                          separatorType:
-                                          SeparatorType.title,
-                                          style: const TextStyle(
-                                              color:
-                                              AppColors.primary,
-                                              fontSize: 10),
-                                          separatorStyle:
-                                          const TextStyle(
-                                              color: AppColors
-                                                  .primary),
-                                          padding: EdgeInsets.zero,
-                                          shouldShowMinutes:
-                                              (duration) => true
-                                          // duration.inDays ==
-                                          //     0,
-                                        ),
-                                      ],
-                                    )),
+                                          SlideCountdown(
+                                            duration: Duration(
+                                                days: groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![index]
+                                                    .expiredAt!
+                                                    .day - DateTime.now().day,
+                                                hours: groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![index]
+                                                    .expiredAt!
+                                                    .hour - DateTime.now().hour,
+                                                minutes:
+                                                groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![
+                                                index]
+                                                    .expiredAt!
+                                                    .minute - DateTime.now().minute,
+                                                seconds:
+                                                groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![
+                                                index]
+                                                    .expiredAt!
+                                                    .second - DateTime.now().second),
+                                            decoration:
+                                            const BoxDecoration(
+                                              color: Colors.transparent,
+                                            ),
+                                            durationTitle:
+                                             DurationTitle(
+                                                days: "d ",
+                                                hours: "h ",
+                                                minutes: "m ",
+                                                seconds: "s"),
+                                            separatorPadding:
+                                            EdgeInsets.zero,
+                                            separatorType:
+                                            SeparatorType.title,
+                                            style: Theme.of(context).textTheme.labelSmall!.apply(color: AppColors.white),
+                                            separatorStyle: Theme.of(context).textTheme.labelSmall!.apply(color: AppColors.white),
+                                            padding: EdgeInsets.zero,
+                                            shouldShowMinutes:
+                                                (duration) => true
+                                            // duration.inDays ==
+                                            //     0,
+                                          ),
+                                        ],
+                                      )),
+                                ),
                               ],
                             ),
                             const Gap(AppSizes.spaceBtwDefaultItems),
@@ -330,7 +318,8 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                   .justCreated![index].totalUserQuantity!.toDouble()),
                               padding: EdgeInsets.zero,
                               backgroundColor: AppColors.lightGrey,
-                              progressColor: AppColors.success,
+                              progressColor: AppColors.primary,
+                              barRadius: Radius.circular(AppSizes.cardRadiusXs),
                             ),
                             const Gap(AppSizes.sm),
                             SizedBox(

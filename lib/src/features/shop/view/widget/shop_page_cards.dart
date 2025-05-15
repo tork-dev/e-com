@@ -157,9 +157,9 @@ class AppShopGridScrollCard extends StatelessWidget {
                                             ? shopController.allProducts[index]
                                                         .requestAvailable !=
                                                     0
-                                                ? "REQUEST FOR STOCK"
-                                                : "OUT OF STOCK"
-                                            : "PREORDER NOW",
+                                                ? "Request stock"
+                                                : "Out of stock"
+                                            : "Preorder Now",
                                 backgroundColor:
                                     shopController.allProducts[index].stock != 0
                                         ? AppColors.secondary
