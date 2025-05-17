@@ -10,6 +10,8 @@ import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
 import 'package:kirei/src/features/group_shopping/controller/group_shopping_controller.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:slide_countdown/slide_countdown.dart';
@@ -329,27 +331,40 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                   AppColors.secondary,
                                   verticallyPadding: AppSizes.sm,
                                   onPressed: () {
-                                    groupShoppingController.groupShoppingGroup
-                                        .value.justCreated?[index].isPurchased == true
-                                        ? AppHelperFunctions.showToast(
-                                        "You already a member of this group")
-                                        :
-                                    Get.toNamed(
-                                        '/group-shopping/${groupShoppingController
-                                            .groupShoppingGroup.value
-                                            .justCreated![index].token}',
-                                        parameters: {
-                                          'productId':
-                                          "${groupShoppingController
+                                    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+                                      groupShoppingController.groupShoppingGroup
+                                          .value.justCreated?[index]
+                                          .isPurchased == true
+                                          ? AppHelperFunctions.showToast(
+                                          "You already a member of this group")
+                                          :
+                                      Get.toNamed(
+                                          '/group-shopping/${groupShoppingController
                                               .groupShoppingGroup.value
-                                              .justCreated![index].product!.id}",
-                                          'group_price' : '${groupShoppingController
-                                              .groupShoppingGroup.value
-                                              .justCreated![index].groupPurchasePrice}',
-                                          'shipping_charge' : '${groupShoppingController
-                                              .groupShoppingGroup.value
-                                              .justCreated![index].groupShippingCharge}',
-                                        });
+                                              .justCreated![index].token}',
+                                          parameters: {
+                                            'productId':
+                                            "${groupShoppingController
+                                                .groupShoppingGroup.value
+                                                .justCreated![index].product!
+                                                .id}",
+                                            'group_price': '${groupShoppingController
+                                                .groupShoppingGroup.value
+                                                .justCreated![index]
+                                                .groupPurchasePrice}',
+                                            'shipping_charge': '${groupShoppingController
+                                                .groupShoppingGroup.value
+                                                .justCreated![index]
+                                                .groupShippingCharge}',
+                                          });
+                                    }else {
+                                      Get.toNamed(
+                                        '/login',
+                                        arguments: {
+                                          "prevRoute": '/group-shopping',
+                                        },
+                                      );
+                                    }
                                   },
                                   buttonText: groupShoppingController
                                       .groupShoppingGroup.value

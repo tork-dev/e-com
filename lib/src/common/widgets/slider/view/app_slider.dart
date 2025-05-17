@@ -25,7 +25,7 @@ class CustomSlider extends StatelessWidget {
         return controller.homeSliders.isEmpty
             ? ShimmerHelper().buildBasicShimmer(height: 190)
             : InkWell(
-                child: Column(
+                child: Stack(
                   children: [
                     InkWell(
                       onTap: () => RoutingHelper.urlRouting(
@@ -56,31 +56,33 @@ class CustomSlider extends StatelessWidget {
                                 controller.updateCurrentIndex(index),
                           )),
                     ),
-                    Gap(AppSizes.spaceBtwItems),
-                    Obx(() => Align(
-                      alignment: Alignment.bottomCenter,
-                      child:
-                      AnimatedSmoothIndicator(
-                        activeIndex: controller.carouselCurrentIndex.value,
-                        count:  controller.homeSliders.length,
-                        axisDirection: Axis.horizontal,
-                        effect:  CustomizableEffect(
-                          activeColorOverride: (index) => AppColors.primary,
-                            dotDecoration: DotDecoration(
-                              height: 12,
-                              width: 12,
-                              dotBorder: DotBorder(padding: 3, color: AppColors.lightGrey, width: 1),
-                              borderRadius: BorderRadius.circular(100),
-                              color: Colors.transparent,
-                            ),
-                            activeDotDecoration: DotDecoration(
-                              height: 12,
-                              width: 12,
-                              dotBorder: DotBorder(padding: 3, color: AppColors.primary, width: 1),
-                              borderRadius: BorderRadius.circular(100),
-                              color: AppColors.primary,
-                            ))
-                      )
+                    Obx(() => Positioned.fill(
+                      bottom: 10,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child:
+                        AnimatedSmoothIndicator(
+                          activeIndex: controller.carouselCurrentIndex.value,
+                          count:  controller.homeSliders.length,
+                          axisDirection: Axis.horizontal,
+                          effect:  CustomizableEffect(
+                            activeColorOverride: (index) => AppColors.primary,
+                              dotDecoration: DotDecoration(
+                                height: 12,
+                                width: 12,
+                                dotBorder: DotBorder(padding: 3, color: AppColors.lightGrey, width: 1),
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.transparent,
+                              ),
+                              activeDotDecoration: DotDecoration(
+                                height: 12,
+                                width: 12,
+                                dotBorder: DotBorder(padding: 3, color: AppColors.primary, width: 1),
+                                borderRadius: BorderRadius.circular(100),
+                                color: AppColors.primary,
+                              ))
+                        )
+                      ),
                     ))
                   ],
                 ),

@@ -93,7 +93,6 @@ class GroupShoppingController extends GetxController {
   }
 
   Future<void> createGroup(productId) async {
-    // addressController.validateForm();
     checkoutResponse.value = await GroupShoppingRepo().createAGroup(
         AppApiEndPoints.createGroup,
         productId,

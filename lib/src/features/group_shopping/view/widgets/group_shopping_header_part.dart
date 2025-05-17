@@ -150,57 +150,6 @@ class GroupShoppingHeaderPart extends StatelessWidget {
                                                             'CREATE GROUP',
                                                             'buttonWork': 'createGroup',
                                                           })
-
-                                                      // print(product.groupToken);
-                                                      // product.groupToken ==
-                                                      //         null
-                                                      //     ? showDialog(
-                                                      //         context: context,
-                                                      //         builder:
-                                                      //             (context) =>
-                                                      //                 Dialog(
-                                                      //                   backgroundColor:
-                                                      //                       AppColors
-                                                      //                           .white,
-                                                      //                   shape:
-                                                      //                       const RoundedRectangleBorder(
-                                                      //                     borderRadius:
-                                                      //                         BorderRadius.zero,
-                                                      //                   ),
-                                                      //                   insetPadding: const EdgeInsets
-                                                      //                       .all(
-                                                      //                       AppSizes
-                                                      //                           .md),
-                                                      //                   child:
-                                                      //                       Stack(
-                                                      //                     children: [
-                                                      //                       Padding(
-                                                      //                         padding:
-                                                      //                             const EdgeInsets.all(AppSizes.md),
-                                                      //                         child:
-                                                      //                             ListView(
-                                                      //                           children: [
-                                                      //                             const AppSectionTitleText(
-                                                      //                               sectionTitle: 'Create Group',
-                                                      //                               haveTxtButton: false,
-                                                      //                             ),
-                                                      //                             const Gap(AppSizes.spaceBtwDefaultItems),
-                                                      //                             GroupCheckoutAlert(
-                                                      //                               buttonName: 'Create group',
-                                                      //                               buttonWork: () {
-                                                      //                                 groupShoppingController.createGroup(groupShoppingController.groupShoppingProduct.value.data![index].id);
-                                                      //                               },
-                                                      //                             ),
-                                                      //                           ],
-                                                      //                         ),
-                                                      //                       ),
-                                                      //                       Positioned(
-                                                      //                           right: 10,
-                                                      //                           top: 10,
-                                                      //                           child: AppCardContainer(onTap: () => Get.back(), height: 44, width: 44, backgroundColor: AppColors.white, applyRadius: false, child: const Icon(Icons.clear)))
-                                                      //                     ],
-                                                      //                   ),
-                                                      //                 ))
                                                           : showDialog(
                                                         context: context,
                                                         builder:
