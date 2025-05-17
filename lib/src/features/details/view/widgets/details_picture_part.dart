@@ -122,62 +122,91 @@ class AppDetailsPicturePart extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Visibility(
-                              visible: true,
-                              child: AppCardContainer(
-                                 width: AppHelperFunctions.screenWidth() * .65,
-                                // backgroundColor: AppColors.primary.withAlpha(240),
-                                borderRadius: AppSizes.borderRadiusSm,
-                                gradient: LinearGradient(
-                                  colors: [AppColors.primary, Colors.red],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                padding:
-                                const EdgeInsets.symmetric(vertical: AppSizes.sm, horizontal: AppSizes.md),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Flash Sale \nEnd's in",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!.copyWith(color: AppColors.white, height: 1)),
-                                    Gap(AppSizes.xs),
-                                    Image.asset("assets/images/icons/flash.png", height: 24, width: 24,),
-                                    TimerCountdown(
-                                      format: CountDownTimerFormat
-                                          .daysHoursMinutesSeconds,
-                                      descriptionTextStyle: Theme.of(
-                                          context)
-                                          .textTheme
-                                          .bodyMedium?.apply(color: AppColors.white,),
-                                      timeTextStyle: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!.copyWith(color: AppColors.white, height: .5),
-                                      colonsTextStyle: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall!
-                                          .copyWith(
-                                          fontSize: 0,
-                                          color: AppColors.textPrimary),
-                                      daysDescription: 'Day',
-                                      hoursDescription: 'Hour',
-                                      minutesDescription: 'Min',
-                                      secondsDescription: 'Sec',
-                                      spacerWidth: 5,
-                                      endTime: DateTime.parse("2026-10-26"),
-                                      onEnd: () {
-                                        print("Timer finished");
-                                      },
-
-                                    ),
-                                  ],
-                                ),
+                          bottom: 0,
+                          right: 0,
+                          child: Visibility(
+                            visible:
+                                detailsController
+                                    .productDetails
+                                    .value
+                                    .detailedProducts
+                                    ?.isHot ==
+                                1,
+                            child: AppCardContainer(
+                              width: AppHelperFunctions.screenWidth() * .65,
+                              // backgroundColor: AppColors.primary.withAlpha(240),
+                              borderRadius: AppSizes.borderRadiusSm,
+                              gradient: LinearGradient(
+                                colors: [AppColors.primary, Colors.red],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                               ),
-                            ))
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppSizes.sm,
+                                horizontal: AppSizes.md,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Flash Sale \nEnd's in",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.copyWith(
+                                      color: AppColors.white,
+                                      height: 1,
+                                    ),
+                                  ),
+                                  Gap(AppSizes.xs),
+                                  Image.asset(
+                                    "assets/images/icons/flash.png",
+                                    height: 24,
+                                    width: 24,
+                                  ),
+                                  TimerCountdown(
+                                    format:
+                                        CountDownTimerFormat
+                                            .daysHoursMinutesSeconds,
+                                    descriptionTextStyle: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.apply(color: AppColors.white),
+                                    timeTextStyle: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.copyWith(
+                                      color: AppColors.white,
+                                      height: .5,
+                                    ),
+                                    colonsTextStyle: Theme.of(
+                                      context,
+                                    ).textTheme.labelSmall!.copyWith(
+                                      fontSize: 0,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                    daysDescription: 'Day',
+                                    hoursDescription: 'Hour',
+                                    minutesDescription: 'Min',
+                                    secondsDescription: 'Sec',
+                                    spacerWidth: 5,
+                                    endTime:
+                                        detailsController
+                                            .productDetails
+                                            .value
+                                            .detailedProducts
+                                            ?.flashSaleEndDate ??
+                                        DateTime.now().add(
+                                          const Duration(days: 1),
+                                        ),
+                                    onEnd: () {
+                                      print("Timer finished");
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

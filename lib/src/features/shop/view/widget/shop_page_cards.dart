@@ -57,10 +57,10 @@ class AppShopGridScrollCard extends StatelessWidget {
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 150, width: 150)
                         : shopController.allProducts.isEmpty
-                            ? const AppCardContainer(
+                            ?  AppCardContainer(
                                 height: 350,
                                 backgroundColor: AppColors.addToCartButton,
-                                child: Text('No Product Found'),
+                                child: Text('No Product Found', style: Theme.of(context).textTheme.titleLarge,),
                               )
                             : AppVerticalProductCard(
                                 imgHeight: 150,

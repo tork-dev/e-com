@@ -8,17 +8,20 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import '../containers/card_container.dart';
 
 class AppSectionTitleText extends StatelessWidget {
-  const AppSectionTitleText(
-      {required this.sectionTitle,
-      this.buttonTxt = 'See all',
-      this.haveTxtButton = true,
-        this.showCountDown = false,
-      this.onTapSeeAll,
-      super.key});
+  const AppSectionTitleText({
+    required this.sectionTitle,
+    this.buttonTxt = 'See all',
+    this.flashTime,
+    this.haveTxtButton = true,
+    this.showCountDown = false,
+    this.onTapSeeAll,
+    super.key,
+  });
 
   final String sectionTitle, buttonTxt;
   final bool haveTxtButton, showCountDown;
   final VoidCallback? onTapSeeAll;
+  final DateTime? flashTime;
 
   @override
   Widget build(BuildContext context) {
@@ -34,49 +37,53 @@ class AppSectionTitleText extends StatelessWidget {
             Visibility(
               visible: haveTxtButton,
               child: InkWell(
-                  onTap: onTapSeeAll,
-                  child: Text(buttonTxt,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .apply(color: AppColors.darkGrey))),
+                onTap: onTapSeeAll,
+                child: Text(
+                  buttonTxt,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge!.apply(color: AppColors.darkGrey),
+                ),
+              ),
             ),
             Visibility(
               visible: showCountDown,
               child: AppCardContainer(
                 backgroundColor: AppColors.primary,
                 borderRadius: AppSizes.borderRadiusMd,
-                padding:
-                const EdgeInsets.symmetric(vertical: AppSizes.sm, horizontal: AppSizes.md),
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSizes.sm,
+                  horizontal: AppSizes.md,
+                ),
                 child: TimerCountdown(
-                  format: CountDownTimerFormat
-                      .daysHoursMinutesSeconds,
+                  format: CountDownTimerFormat.daysHoursMinutesSeconds,
                   descriptionTextStyle: Theme.of(
-                      context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(
-                      fontSize: AppSizes.fontSizeMSm,
-                      color: AppColors.textWhite, height: 1),
-                  timeTextStyle: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(
-                      fontSize: AppSizes.fontSizeMSm,
-                      color: AppColors.textWhite, height: .5),
-                  colonsTextStyle: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(
-                      fontSize: AppSizes.fontSizeMSm,
-                      color: AppColors.textWhite),
+                    context,
+                  ).textTheme.titleLarge!.copyWith(
+                    fontSize: AppSizes.fontSizeMSm,
+                    color: AppColors.textWhite,
+                    height: 1,
+                  ),
+                  timeTextStyle: Theme.of(
+                    context,
+                  ).textTheme.titleLarge!.copyWith(
+                    fontSize: AppSizes.fontSizeMSm,
+                    color: AppColors.textWhite,
+                    height: .5,
+                  ),
+                  colonsTextStyle: Theme.of(
+                    context,
+                  ).textTheme.titleLarge!.copyWith(
+                    fontSize: AppSizes.fontSizeMSm,
+                    color: AppColors.textWhite,
+                  ),
                   enableDescriptions: true,
                   daysDescription: 'Days',
                   hoursDescription: 'Hours',
                   minutesDescription: 'Mins',
                   secondsDescription: 'Secs',
                   spacerWidth: AppSizes.sm,
-                  endTime: DateTime.parse("2026-10-26"),
+                  endTime: flashTime?? DateTime.now().add(const Duration(days: 1)),
                   onEnd: () {
                     print("Timer finished");
                   },
@@ -85,7 +92,7 @@ class AppSectionTitleText extends StatelessWidget {
             ),
           ],
         ),
-        const Gap(AppSizes.spaceBtwItems)
+        const Gap(AppSizes.spaceBtwItems),
       ],
     );
   }

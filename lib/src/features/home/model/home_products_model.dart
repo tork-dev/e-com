@@ -5,6 +5,7 @@ class HomeProductResponse {
   List<Product>? bestsellingProducts;
   List<Product>? featuredProducts;
   List<Product>? internationalBrands;
+  List<dynamic>? trending;
   bool? success;
   int? status;
   List<Slider>? sliders;
@@ -17,6 +18,7 @@ class HomeProductResponse {
     this.bestsellingProducts,
     this.featuredProducts,
     this.internationalBrands,
+    this.trending,
     this.success,
     this.status,
     this.sliders,
@@ -27,13 +29,12 @@ class HomeProductResponse {
 
   factory HomeProductResponse.fromJson(String str) => HomeProductResponse.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory HomeProductResponse.fromMap(Map<String, dynamic> json) => HomeProductResponse(
     newProducts: json["new_products"] == null ? [] : List<Product>.from(json["new_products"]!.map((x) => Product.fromMap(x))),
     bestsellingProducts: json["bestselling_products"] == null ? [] : List<Product>.from(json["bestselling_products"]!.map((x) => Product.fromMap(x))),
     featuredProducts: json["featured_products"] == null ? [] : List<Product>.from(json["featured_products"]!.map((x) => Product.fromMap(x))),
     internationalBrands: json["international_brands"] == null ? [] : List<Product>.from(json["international_brands"]!.map((x) => Product.fromMap(x))),
+    trending: json["trending"] == null ? [] : List<dynamic>.from(json["trending"]!.map((x) => x)),
     success: json["success"],
     status: json["status"],
     sliders: json["sliders"] == null ? [] : List<Slider>.from(json["sliders"]!.map((x) => Slider.fromMap(x))),
@@ -41,19 +42,6 @@ class HomeProductResponse {
     skinConcern: json["skin_concern"] == null ? [] : List<SkinConcern>.from(json["skin_concern"]!.map((x) => SkinConcern.fromMap(x))),
     homepageSettings: json["homepage_settings"] == null ? null : HomepageSettings.fromMap(json["homepage_settings"]),
   );
-
-  Map<String, dynamic> toMap() => {
-    "new_products": newProducts == null ? [] : List<dynamic>.from(newProducts!.map((x) => x.toMap())),
-    "bestselling_products": bestsellingProducts == null ? [] : List<dynamic>.from(bestsellingProducts!.map((x) => x.toMap())),
-    "featured_products": featuredProducts == null ? [] : List<dynamic>.from(featuredProducts!.map((x) => x.toMap())),
-    "international_brands": internationalBrands == null ? [] : List<dynamic>.from(internationalBrands!.map((x) => x.toMap())),
-    "success": success,
-    "status": status,
-    "sliders": sliders == null ? [] : List<dynamic>.from(sliders!.map((x) => x.toMap())),
-    "reviews": reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x.toMap())),
-    "skin_concern": skinConcern == null ? [] : List<dynamic>.from(skinConcern!.map((x) => x.toMap())),
-    "homepage_settings": homepageSettings?.toMap(),
-  };
 }
 
 class Product {
@@ -65,6 +53,8 @@ class Product {
   int? discount;
   String? sku;
   int? stock;
+  dynamic maxQty;
+  DateTime? scheduledPriceEndDate;
   String? shortDescription;
   String? description;
   String? guide;
@@ -80,7 +70,10 @@ class Product {
   int? saleCount;
   int? last30DaySaleCount;
   int? groupMemberQuantity;
-  double? ratings;
+  int? groupPurchasePrice;
+  int? groupDuration;
+  dynamic groupToken;
+  dynamic ratings;
   int? reviews;
   int? isHot;
   bool? isSale;
@@ -106,6 +99,8 @@ class Product {
   String? metaDescription;
   String? metaTags;
   String? productLink;
+  DateTime? flashSaleStartDate;
+  DateTime? flashSaleEndDate;
 
   Product({
     this.id,
@@ -116,6 +111,8 @@ class Product {
     this.discount,
     this.sku,
     this.stock,
+    this.maxQty,
+    this.scheduledPriceEndDate,
     this.shortDescription,
     this.description,
     this.guide,
@@ -131,6 +128,9 @@ class Product {
     this.saleCount,
     this.last30DaySaleCount,
     this.groupMemberQuantity,
+    this.groupPurchasePrice,
+    this.groupDuration,
+    this.groupToken,
     this.ratings,
     this.reviews,
     this.isHot,
@@ -157,11 +157,12 @@ class Product {
     this.metaDescription,
     this.metaTags,
     this.productLink,
+    this.flashSaleEndDate,
+    this.flashSaleStartDate
   });
 
   factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
     id: json["id"],
@@ -172,6 +173,8 @@ class Product {
     discount: json["discount"],
     sku: json["sku"],
     stock: json["stock"],
+    maxQty: json["max_qty"],
+    scheduledPriceEndDate: json["scheduled_price_end_date"] == null ? null : DateTime.parse(json["scheduled_price_end_date"]),
     shortDescription: json["short_description"],
     description: json["description"],
     guide: json["guide"],
@@ -187,7 +190,10 @@ class Product {
     saleCount: json["sale_count"],
     last30DaySaleCount: json["last_30_day_sale_count"],
     groupMemberQuantity: json["group_member_quantity"],
-    ratings: json["ratings"]?.toDouble(),
+    groupPurchasePrice: json["group_purchase_price"],
+    groupDuration: json["group_duration"],
+    groupToken: json["group_token"],
+    ratings: json["ratings"],
     reviews: json["reviews"],
     isHot: json["is_hot"],
     isSale: json["is_sale"],
@@ -213,59 +219,9 @@ class Product {
     metaDescription: json["meta_description"],
     metaTags: json["meta_tags"],
     productLink: json["product_link"],
+    flashSaleStartDate: json["hot_deals_start_datetime"] == null ? null : DateTime.parse(json["hot_deals_start_datetime"]),
+    flashSaleEndDate: json["hot_deals_end_datetime"] == null ? null : DateTime.parse(json["hot_deals_end_datetime"]),
   );
-
-  Map<String, dynamic> toMap() => {
-    "id": id,
-    "name": name,
-    "slug": slug,
-    "price": price,
-    "sale_price": salePrice,
-    "discount": discount,
-    "sku": sku,
-    "stock": stock,
-    "short_description": shortDescription,
-    "description": description,
-    "guide": guide,
-    "skin_types": skinTypes == null ? [] : List<dynamic>.from(skinTypes!.map((x) => x.toMap())),
-    "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x.toMap())),
-    "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x.toMap())),
-    "preorder_available": preorderAvailable,
-    "request_available": requestAvailable,
-    "preorder_delivery_date": preorderDeliveryDate,
-    "preorder_amount": preorderAmount,
-    "preorder_start_date": preorderStartDate,
-    "preorder_end_date": preorderEndDate,
-    "sale_count": saleCount,
-    "last_30_day_sale_count": last30DaySaleCount,
-    "group_member_quantity": groupMemberQuantity,
-    "ratings": ratings,
-    "reviews": reviews,
-    "is_hot": isHot,
-    "is_sale": isSale,
-    "is_new": isNew,
-    "is_out_of_stock": isOutOfStock,
-    "release_date": releaseDate,
-    "developer": developer,
-    "publisher": publisher,
-    "game_mode": gameMode,
-    "rated": rated,
-    "until": until,
-    "product_categories": productCategories == null ? [] : List<dynamic>.from(productCategories!.map((x) => x.toMap())),
-    "product_brands": productBrands == null ? [] : List<dynamic>.from(productBrands!.map((x) => x.toMap())),
-    "product_tags": productTags == null ? [] : List<dynamic>.from(productTags!.map((x) => x.toMap())),
-    "only_tags": onlyTags,
-    "pictures": pictures == null ? [] : List<dynamic>.from(pictures!.map((x) => x.toMap())),
-    "large_pictures": largePictures == null ? [] : List<dynamic>.from(largePictures!.map((x) => x.toMap())),
-    "small_pictures": smallPictures == null ? [] : List<dynamic>.from(smallPictures!.map((x) => x.toMap())),
-    "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
-    "is_coupon_applicable": isCouponApplicable,
-    "meta_image": metaImage,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "meta_tags": metaTags,
-    "product_link": productLink,
-  };
 }
 
 class GoodFor {
@@ -567,6 +523,7 @@ class GroupShopping {
   String? bannerWeb;
   String? btnName;
   String? route;
+  String? isActive;
 
   GroupShopping({
     this.title,
@@ -575,6 +532,7 @@ class GroupShopping {
     this.bannerWeb,
     this.btnName,
     this.route,
+    this.isActive,
   });
 
   factory GroupShopping.fromJson(String str) => GroupShopping.fromMap(json.decode(str));
@@ -588,6 +546,7 @@ class GroupShopping {
     bannerWeb: json["banner_web"],
     btnName: json["btn_name"],
     route: json["route"],
+    isActive: json["is_active"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -597,6 +556,7 @@ class GroupShopping {
     "banner_web": bannerWeb,
     "btn_name": btnName,
     "route": route,
+    "is_active": isActive,
   };
 }
 
@@ -605,12 +565,14 @@ class SurprizeGift {
   String? description;
   dynamic banner;
   String? btnName;
+  String? isActive;
 
   SurprizeGift({
     this.title,
     this.description,
     this.banner,
     this.btnName,
+    this.isActive,
   });
 
   factory SurprizeGift.fromJson(String str) => SurprizeGift.fromMap(json.decode(str));
@@ -622,6 +584,7 @@ class SurprizeGift {
     description: json["description"],
     banner: json["banner"],
     btnName: json["btn_name"],
+    isActive: json["is_active"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -629,17 +592,18 @@ class SurprizeGift {
     "description": description,
     "banner": banner,
     "btn_name": btnName,
+    "is_active": isActive,
   };
 }
 
 class Review {
   int? id;
-  dynamic userId;
+  int? userId;
   String? userName;
-  dynamic avatar;
+  String? avatar;
   int? rating;
   String? comment;
-  List<String>? images;
+  List<dynamic>? images;
   List<dynamic>? replies;
   String? time;
 
@@ -666,7 +630,7 @@ class Review {
     avatar: json["avatar"],
     rating: json["rating"],
     comment: json["comment"],
-    images: json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
+    images: json["images"] == null ? [] : List<dynamic>.from(json["images"]!.map((x) => x)),
     replies: json["replies"] == null ? [] : List<dynamic>.from(json["replies"]!.map((x) => x)),
     time: json["time"],
   );
@@ -688,7 +652,7 @@ class SkinConcern {
   int? id;
   String? title;
   String? slug;
-  dynamic banner;
+  String? banner;
 
   SkinConcern({
     this.id,

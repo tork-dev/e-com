@@ -13,6 +13,7 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
+import 'package:kirei/src/utils/popups/custom_loader.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../model/resend_code_model.dart';
@@ -58,7 +59,7 @@ class LogInPageController extends GetxController {
     try {
       /// Validate Form
       if (!logInFormKey.currentState!.validate()) return;
-
+      CustomLoader.showLoaderDialog(Get.overlayContext!);
       ///Check Internet
       // if (!isConnected) return;
 
@@ -83,6 +84,7 @@ class LogInPageController extends GetxController {
       /// Error
       AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
     } finally {
+      CustomLoader.hideLoader(Get.overlayContext!);
       //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
         if (loginResponse.value.result == true) {
@@ -133,6 +135,7 @@ class LogInPageController extends GetxController {
   /// Google SignIn with Api
   Future<UserCredential?> onPressedGoogleLogin() async {
     try {
+      CustomLoader.showLoaderDialog(Get.context!);
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
@@ -186,6 +189,8 @@ class LogInPageController extends GetxController {
     } on Exception catch (e) {
       AppHelperFunctions.showSimpleSnackBar(e.toString());
       // TODO
+    }finally{
+      CustomLoader.hideLoader(Get.context!);
     }
     return null;
   }

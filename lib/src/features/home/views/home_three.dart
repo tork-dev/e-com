@@ -18,6 +18,7 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import 'widgets/home_appbar_title.dart';
 import 'widgets/home_shop_by_concern.dart';
 import 'widgets/surprise_section.dart';
@@ -86,12 +87,16 @@ class HomeThree extends StatelessWidget {
             );
           }),
           const Gap(AppSizes.spaceBtwSections),
-          const Padding(
+           Padding(
             padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppSectionTitleText(
-              sectionTitle: 'Flash sales',
-              haveTxtButton: false,
-              showCountDown: true,
+            child: Obx(() {
+                return AppSectionTitleText(
+                  sectionTitle: 'Flash sales',
+                  flashTime: controller.homeProductResponse.value.featuredProducts?[0].flashSaleEndDate,
+                  haveTxtButton: false,
+                  showCountDown: true,
+                );
+              }
             ),
           ),
           Obx(() {

@@ -77,6 +77,7 @@ class Datum {
   String? metaDescription;
   String? metaTags;
   String? productLink;
+  String? saleEndTime;
 
   Datum({
     this.id,
@@ -126,6 +127,7 @@ class Datum {
     this.metaDescription,
     this.metaTags,
     this.productLink,
+    this.saleEndTime
   });
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
@@ -180,57 +182,9 @@ class Datum {
     metaDescription: json["meta_description"],
     metaTags: json["meta_tags"],
     productLink: json["product_link"],
+    saleEndTime: json["scheduled_price_end_date"],
   );
 
-  // Map<String, dynamic> toJson() => {
-  //   "id": id,
-  //   "name": name,
-  //   "slug": slug,
-  //   "price": price,
-  //   "sale_price": salePrice,
-  //   "discount": discount,
-  //   "sku": sku,
-  //   "stock": stock,
-  //   "short_description": shortDescription,
-  //   "description": description,
-  //   "guide": guide,
-  //   "skin_types": skinTypes == null ? [] : List<dynamic>.from(skinTypes!.map((x) => x.toJson())),
-  //   "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x.toJson())),
-  //   "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x.toJson())),
-  //   "preorder_available": preorderAvailable,
-  //   "request_available": requestAvailable,
-  //   "preorder_delivery_date": preorderDeliveryDateValues.reverse[preorderDeliveryDate],
-  //   "preorder_amount": preorderAmount,
-  //   "preorder_start_date": preorderStartDateValues.reverse[preorderStartDate],
-  //   "preorder_end_date": preorderEndDateValues.reverse[preorderEndDate],
-  //   "sale_count": saleCount,
-  //   "ratings": ratings,
-  //   "reviews": reviews,
-  //   "is_hot": isHot,
-  //   "is_sale": isSale,
-  //   "is_new": isNew,
-  //   "is_out_of_stock": isOutOfStock,
-  //   "release_date": releaseDate,
-  //   "developer": developer,
-  //   "publisher": publisher,
-  //   "game_mode": gameMode,
-  //   "rated": rated,
-  //   "until": until,
-  //   "product_categories": productCategories == null ? [] : List<dynamic>.from(productCategories!.map((x) => x.toJson())),
-  //   "product_brands": productBrands == null ? [] : List<dynamic>.from(productBrands!.map((x) => x.toJson())),
-  //   "product_tags": productTags == null ? [] : List<dynamic>.from(productTags!.map((x) => x.toJson())),
-  //   "only_tags": onlyTags,
-  //   "pictures": pictures == null ? [] : List<dynamic>.from(pictures!.map((x) => x.toJson())),
-  //   "large_pictures": largePictures == null ? [] : List<dynamic>.from(largePictures!.map((x) => x.toJson())),
-  //   "small_pictures": smallPictures == null ? [] : List<dynamic>.from(smallPictures!.map((x) => x.toJson())),
-  //   "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
-  //   "is_coupon_applicable": isCouponApplicable,
-  //   "meta_image": metaImage,
-  //   "meta_title": metaTitle,
-  //   "meta_description": metaDescription,
-  //   "meta_tags": metaTags,
-  //   "product_link": productLink,
-  // };
 }
 
 class GoodFor {

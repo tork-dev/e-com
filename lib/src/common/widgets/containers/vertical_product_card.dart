@@ -56,6 +56,7 @@ class AppVerticalProductCard extends StatelessWidget {
         backgroundColor: AppColors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             AppProductImage(
               imgHeight:  imgHeight ?? height! * 0.6,

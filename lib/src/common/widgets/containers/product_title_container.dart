@@ -74,6 +74,7 @@ class AppCourseTitleContainer extends StatelessWidget {
                       //print(rating);
                     },
                   ),
+                  Gap(AppSizes.xs),
                   Text(
                     "($reviews)",
                     textAlign: TextAlign.left,
