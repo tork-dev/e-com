@@ -127,9 +127,6 @@ class AppCourseTitleContainer extends StatelessWidget {
                 onTap: onCartPress,
                 child: AppCardContainer(
                   applyRadius: true,
-                  // hasBorder: true,
-                  // borderWidth: 1,
-                  // borderColor: AppColors.dark,
                   borderRadius: AppSizes.borderRadiusSm,
                   padding: EdgeInsets.symmetric(horizontal: AppSizes.spaceBtwDefaultItems, vertical: AppSizes.xs),
                   backgroundColor: buttonBackgroundColor,

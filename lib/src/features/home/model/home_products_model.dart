@@ -5,7 +5,7 @@ class HomeProductResponse {
   List<Product>? bestsellingProducts;
   List<Product>? featuredProducts;
   List<Product>? internationalBrands;
-  List<dynamic>? trending;
+  List<Trending>? trending;
   bool? success;
   int? status;
   List<Slider>? sliders;
@@ -34,7 +34,7 @@ class HomeProductResponse {
     bestsellingProducts: json["bestselling_products"] == null ? [] : List<Product>.from(json["bestselling_products"]!.map((x) => Product.fromMap(x))),
     featuredProducts: json["featured_products"] == null ? [] : List<Product>.from(json["featured_products"]!.map((x) => Product.fromMap(x))),
     internationalBrands: json["international_brands"] == null ? [] : List<Product>.from(json["international_brands"]!.map((x) => Product.fromMap(x))),
-    trending: json["trending"] == null ? [] : List<dynamic>.from(json["trending"]!.map((x) => x)),
+    trending: json["trending"] == null ? [] : List<Trending>.from(json["trending"]!.map((x) => Trending.fromMap(x))),
     success: json["success"],
     status: json["status"],
     sliders: json["sliders"] == null ? [] : List<Slider>.from(json["sliders"]!.map((x) => Slider.fromMap(x))),
@@ -702,4 +702,28 @@ class Slider {
     "photo": photo,
     "link": link,
   };
+}
+
+
+class Trending {
+  String? categoryName;
+  String? categorySlug;
+  String? categoryBanner;
+  List<Product>? trendingProducts;
+
+  Trending({
+    this.categoryName,
+    this.categorySlug,
+    this.categoryBanner,
+    this.trendingProducts,
+});
+
+  factory Trending.fromJson(String str) => Trending.fromMap(json.decode(str));
+
+  factory Trending.fromMap(Map<String, dynamic> json) => Trending(
+    categoryName: json["category_name"],
+    categorySlug: json["category_slug"],
+    categoryBanner: json["category_banner"],
+    trendingProducts: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
+  );
 }

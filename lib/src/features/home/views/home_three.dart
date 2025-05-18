@@ -14,6 +14,7 @@ import 'package:kirei/src/common/widgets/search_bar/search_widget.dart';
 import 'package:kirei/src/features/home/views/widgets/home_new_sections.dart';
 import 'package:kirei/src/features/home/views/widgets/home_review_section.dart';
 import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dart';
+import 'package:kirei/src/features/home/views/widgets/home_trending_section.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
@@ -236,21 +237,22 @@ class HomeThree extends StatelessWidget {
             );
           }),
           const Gap(AppSizes.spaceBtwSections),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppSectionTitleText(
-              sectionTitle: 'Trending Products',
-              haveTxtButton: false,
-            ),
-          ),
-          Obx(() {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              child: AppHorizontalScrollProductCard(
-                sectionName: controller.trendingProductsResponse.value.data,
-              ),
-            );
-          }),
+          // const Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
+          //   child: AppSectionTitleText(
+          //     sectionTitle: 'Trending Products',
+          //     haveTxtButton: false,
+          //   ),
+          // ),
+          // Obx(() {
+          //   return Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+          //     child: AppHorizontalScrollProductCard(
+          //       sectionName: controller.trendingProductsResponse.value.data,
+          //     ),
+          //   );
+          // }),
+          HomeTrendingSection(),
           Gap(AppSizes.spaceBtwSections),
           Obx(() {
             return Visibility(
