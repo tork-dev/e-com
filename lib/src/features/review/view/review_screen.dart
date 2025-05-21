@@ -9,6 +9,8 @@ import 'package:kirei/src/features/review/view/widgets/review_cards.dart';
 import 'package:kirei/src/features/review/view/widgets/review_post_card.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 class ReviewScreen extends StatelessWidget {
   final String productId;
@@ -32,15 +34,18 @@ class ReviewScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
               child: AppLayoutWithRefresher(
                   onRefresh: controller.onRefresh,
-                  children: const [
+                  children:  [
                     SizedBox(
-                      height: 500,
+                      height: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true? 500 : double.infinity,
                         child: AppReviewCards()),
                   ]),
             ),
-            const Positioned(
-                bottom: 0,
-                child: AppReviewPostCard()),
+            Visibility(
+              visible: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true,
+              child: const Positioned(
+                  bottom: 0,
+                  child: AppReviewPostCard()),
+            ),
 
           ],
         ));

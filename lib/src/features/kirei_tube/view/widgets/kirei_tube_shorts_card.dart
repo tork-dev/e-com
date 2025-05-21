@@ -32,7 +32,6 @@ class KireiTubeShortsCard extends StatelessWidget {
                     // width: double.infinity,
                     backgroundColor: AppColors.addToCartButton,
                     fit: BoxFit.fitHeight,
-                    applyImageRadius: false,
                     isNetworkImage: true,
                     imgUrl: shortsBanner),
               ),

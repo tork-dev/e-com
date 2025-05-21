@@ -51,7 +51,7 @@ class KireiTubeHome extends StatelessWidget {
                             haveTxtButton: false,
                           ),
                           AppGridViewLayout(
-                              mobileAspect: .94,
+                              cardHeight: 170,
                               itemCount: controller.kireiTubeHomeResponse.value
                                       .videos?.data?.length ??
                                   4,
@@ -111,7 +111,6 @@ class KireiTubeHome extends StatelessWidget {
                           const Gap(AppSizes.spaceBtwSections),
                           AppCardContainer(
                               width: AppHelperFunctions.screenWidth(),
-                              applyRadius: false,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: AppSizes.md,
                                   vertical: AppSizes.defaultSpace),
@@ -138,6 +137,7 @@ class KireiTubeHome extends StatelessWidget {
                                           isScrollVertically: false,
                                           builderFunction: (context, index) =>
                                               KireiTubeShortsCard(
+
                                                 onShortsPress: () {
                                                   Log.d(controller
                                                       .kireiTubeHomeResponse
@@ -212,7 +212,7 @@ class KireiTubeHome extends StatelessWidget {
                           GetBuilder<KireiTubeController>(
                               builder: (controller) {
                             return AppGridViewLayout(
-                                mobileAspect: .94,
+                                cardHeight: 185,
                                 itemCount: controller.kireiTubeHomeResponse
                                         .value.playlists?.length ??
                                     4,

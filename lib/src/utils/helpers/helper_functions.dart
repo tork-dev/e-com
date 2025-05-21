@@ -12,6 +12,7 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/view/otp.dart';
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import '../constants/colors.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
@@ -630,4 +631,79 @@ class AppHelperFunctions {
 
     return deviceInfoHeaders;
   }
+
+
+  void showKireiReturnPolicyAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.cardRadiusSm),
+          ),
+          contentPadding: const EdgeInsets.all(AppSizes.defaultSpace),
+          content: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                right: 0,
+                child: AppCardContainer(
+                  onTap: ()=> Get.back(),
+                  backgroundColor: AppColors.primary.withAlpha(197),
+                    padding: EdgeInsets.all(AppSizes.sm),
+                    child: Icon(Icons.clear, size: 20, color: AppColors.white)),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Center(
+                    child: Image.asset(
+                      'assets/images/icons/return_image.png', // Make sure this is your image path
+                      height: 80,
+                    ),
+                  ),
+                  const Gap(AppSizes.spaceBtwItems),
+                   Text(
+                    "Easy Returns with Kirei",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const Gap(AppSizes.spaceBtwDefaultItems),
+                  Text(
+                    "🛡️ 100% Satisfaction Promise",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const Gap(AppSizes.spaceBtwItems),
+                   Text(
+                    "At Kirei, we care about your happiness with every purchase. "
+                        "If something doesn’t feel right, simply return the item to the delivery person on the spot.",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const Gap(AppSizes.spaceBtwDefaultItems),
+                  Text(
+                    "No return fees. No extra costs. You’ll get a full refund (if paid) or an exchange (if available) within 5 working days. "
+                        "Just make sure to check and return the product while the delivery person is still present.",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const Gap(AppSizes.defaultSpace),
+                  OutlinedButton.icon(
+                    onPressed: () {
+                      RoutingHelper.urlRouting("${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/return-refund");
+                    },
+                    icon: const Icon(Icons.info_outline),
+                    label: const Text("Learn More"),
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+
 }

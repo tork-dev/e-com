@@ -27,7 +27,7 @@ class KireiTubeListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCardContainer(
       backgroundColor: AppColors.white,
-      applyRadius: false,
+      applyRadius: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,7 +40,7 @@ class KireiTubeListCard extends StatelessWidget {
                 children: [
                   AppBannerImage(
                     width: double.infinity,
-                    applyImageRadius: false,
+                    applyImageRadius: true,
                     height: double.infinity,
                     fit: BoxFit.fitHeight,
                     backgroundColor: AppColors.darkerGrey,

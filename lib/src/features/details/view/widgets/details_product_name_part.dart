@@ -247,6 +247,9 @@ class AppDetailsProductNamePart extends StatelessWidget {
                         shrinkWrap: true,
                         children: [
                           AppCardContainer(
+                            onTap: () {
+                              AppHelperFunctions().showKireiReturnPolicyAlert(context);
+                            },
                             padding: EdgeInsets.symmetric(
                               horizontal: AppSizes.spaceBtwDefaultItems,
                               vertical: AppSizes.sm,
@@ -257,7 +260,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                 Icon(Icons.info_outline),
                                 Gap(AppSizes.sm),
                                 Text(
-                                  'What if You’re Not Happy?',
+                                  'Concerned About the Results?',
                                   style:
                                       Theme.of(context).textTheme.labelLarge!,
                                 ),

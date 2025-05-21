@@ -24,6 +24,7 @@ class AppReviewPostCard extends StatelessWidget {
             backgroundColor: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Center(
                   child:

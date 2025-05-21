@@ -63,7 +63,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                                 child: Text('No Product Found', style: Theme.of(context).textTheme.titleLarge,),
                               )
                             : AppVerticalProductCard(
-                                imgHeight: 150,
+                                imgHeight: 180,
                                 imgWidth: double.infinity,
                                 onTap: () {
                                   Get.toNamed(

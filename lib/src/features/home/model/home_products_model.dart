@@ -710,12 +710,14 @@ class Trending {
   String? categorySlug;
   String? categoryBanner;
   List<Product>? trendingProducts;
+  String? categoryUrl;
 
   Trending({
     this.categoryName,
     this.categorySlug,
     this.categoryBanner,
     this.trendingProducts,
+    this.categoryUrl
 });
 
   factory Trending.fromJson(String str) => Trending.fromMap(json.decode(str));
@@ -724,6 +726,7 @@ class Trending {
     categoryName: json["category_name"],
     categorySlug: json["category_slug"],
     categoryBanner: json["category_banner"],
+    categoryUrl: json["category_url"],
     trendingProducts: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
   );
 }

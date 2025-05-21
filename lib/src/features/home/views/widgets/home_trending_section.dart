@@ -8,6 +8,7 @@ import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import '../../../../common/widgets/texts/section_title_text.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../controller/home_controller.dart';
@@ -37,7 +38,7 @@ class HomeTrendingSection extends StatelessWidget {
                     children: [
                       AppSectionTitleText(
                         sectionTitle:
-                            '${homeController.homeProductResponse.value.trending![index1].categoryName} Trending',
+                            'Trending ${homeController.homeProductResponse.value.trending![index1].categoryName}',
                         haveTxtButton: false,
                       ),
                       AppListViewLayout(
@@ -219,7 +220,7 @@ class HomeTrendingSection extends StatelessWidget {
                                               borderRadius: AppSizes.borderRadiusSm,
                                               padding: EdgeInsets.symmetric(
                                                 horizontal:
-                                                    AppSizes.spaceBtwDefaultItems,
+                                                    AppSizes.sm,
                                                 vertical: AppSizes.xs,
                                               ),
                                               backgroundColor:
@@ -247,7 +248,9 @@ class HomeTrendingSection extends StatelessWidget {
                       SizedBox(
                         width: 150,
                         child: AppButtons.largeFlatFilledButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            RoutingHelper.urlRouting(homeController.homeProductResponse.value.trending?[0].categoryUrl);
+                          },
                           buttonText: "View more",
                           backgroundColor: AppColors.secondary,
                         ),

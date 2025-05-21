@@ -23,10 +23,13 @@ class KireiTubeVideosTab extends StatefulWidget {
 class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
   final kireiTubeController = KireiTubeController.instance;
 
+  bool isLoading = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isLoading = true;
     if (kireiTubeController.tabController.index != 3) {
       if (kireiTubeController.tabController.index == 1) {
         kireiTubeController.selectedOrientation.value = 'videos';
@@ -37,6 +40,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
     } else {
       kireiTubeController.getKireitubePlaylist();
     }
+    isLoading = false;
   }
 
   @override
@@ -159,17 +163,16 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
             ),
             const Gap(AppSizes.md),
             GetBuilder<KireiTubeController>(builder: (controller) {
-              return AppGridViewLayout(
-                  mobileAspect:
-                      kireiTubeController.tabController.index == 2 ? 9/16 : kireiTubeController.tabController.index == 1? 1:1,
+              return isLoading? ShimmerHelper().buildHomeProductGridShimmer(itemCount: 10):
+                AppGridViewLayout(
+                  cardHeight:
+                      kireiTubeController.tabController.index == 2 ? 350 : kireiTubeController.tabController.index == 1? 170:185,
                   itemCount: controller.hittingApi.value
                       ? 10
                       : kireiTubeController.tabController.index == 3
                           ? controller.videoPlaylist.value.data!.length
                           : controller.videosList.value.data!.length,
                   builderFunction: (BuildContext context, int index) {
-                    Log.d(kireiTubeController.tabController.index.toString());
-                    Log.d(controller.videosList.value.data!.length.toString());
                     return controller
                           .hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
