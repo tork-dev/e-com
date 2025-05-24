@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/repositories/search_repositories.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
+import '../../../features/home/model/search_model.dart';
 import '../containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 
@@ -17,6 +20,7 @@ class AppSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Timer? _debounce;
     return TypeAheadField(
       direction: VerticalDirection.down,
       itemBuilder: (context, dataItem) {
@@ -79,11 +83,20 @@ class AppSearchWidget extends StatelessWidget {
       },
       onSelected: (value) async {},
       suggestionsCallback: (value) async {
+        if (_debounce?.isActive ?? false) _debounce?.cancel();
+
+        final completer = Completer<List<Product>?>();
+
         if (value != '') {
-          var suggestions = await SearchRepositories().getSearchResponse(value);
-          return suggestions.products;
+          _debounce = Timer(Duration(milliseconds: 400), () async {
+            var suggestions = await SearchRepositories().getSearchResponse(value);
+            completer.complete(suggestions.products);
+          });
+        } else {
+          completer.complete(null);
         }
-        return null;
+
+        return completer.future;
       },
       loadingBuilder: (context) {
         return const AppCardContainer(
