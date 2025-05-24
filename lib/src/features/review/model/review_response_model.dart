@@ -165,6 +165,7 @@ class ReviewResponse {
   ReviewResponse({this.data, this.links, this.meta, this.success, this.result, this.status, this.canReview, this.loggerReview});
 
   factory ReviewResponse.fromJson(Map<String, dynamic> json) {
+    final loggerData = json['logger_review'];
     return ReviewResponse(
       data: (json['data'] as List?)?.map((i) => Review.fromJson(i)).toList() ?? [],
       links: json['links'] != null ? PaginationLinks.fromJson(json['links']) : null,
@@ -173,8 +174,9 @@ class ReviewResponse {
       result: json['result'],
       status: json['status'],
       canReview: json['can_review'],
-      // loggerReview: (json['logger_review'] as List?)?.map((i) => Review.fromJson(i)).toList() ?? [],
-      loggerReview: json['logger_review'] != null ? Review.fromJson(json['logger_review']) : null,
+      loggerReview: (loggerData is List && loggerData.isEmpty)
+          ? null
+          : Review.fromJson(loggerData),
     );
   }
 

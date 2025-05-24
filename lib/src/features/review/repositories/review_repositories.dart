@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -21,6 +22,7 @@ class ReviewRepositories{
         "type": "app"
       },
     );
+    debugPrint("Review Response: ${response.body}");
     return ReviewResponse.fromJson(jsonDecode(response.body));
   }
 
