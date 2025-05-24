@@ -20,10 +20,10 @@ class AppReviewCards extends StatelessWidget {
     return Obx(() {
       return AppListViewLayout(
         itemCount: reviewController.apiHitting.value
-            ? 5
+            ? 10
             : reviewController.reviewResponse.value.data!.length,
         builderFunction: (context, index) => reviewController.apiHitting.value
-            ? ShimmerHelper().buildBasicShimmer(height: 70)
+            ? ShimmerHelper().buildBasicShimmer(height: 70.00)
             : Column(
                 children: [
                   Row(

@@ -2,24 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/sizes.dart';
+import '../../utils/helpers/helper_functions.dart';
 
 
 
 class ShimmerHelper {
 
-  buildBasicShimmer(
-      {double height = double.infinity, double width = double.infinity, double radius = AppSizes.borderRadiusMd, isDark}) {
+  buildBasicShimmer({
+    double? height,
+    double? width,
+    double radius = AppSizes.borderRadiusMd,
+    isDark,
+  }) {
     return Shimmer.fromColors(
       baseColor: AppColors.grey,
       highlightColor: AppColors.lightGrey.withAlpha((0.5 * 255).toInt()),
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
-          color: Colors.white,
+      child: SizedBox(
+        height: height ?? AppHelperFunctions.screenHeight(),
+        width: width ?? AppHelperFunctions.screenWidth(),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius),
+            color: Colors.white,
+          ),
         ),
-
       ),
     );
   }

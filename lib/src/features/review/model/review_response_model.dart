@@ -8,6 +8,7 @@ class Review {
   List<String>? images;
   List<dynamic>? replies;
   String? time;
+  int? isApproved;
 
   Review({
     this.id,
@@ -19,6 +20,7 @@ class Review {
     this.images,
     this.replies,
     this.time,
+    this.isApproved
   });
 
   factory Review.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class Review {
       images: json['images'] != null ? List<String>.from(json['images']) : [],
       replies: json['replies'] != null ? List<dynamic>.from(json['replies']) : [],
       time: json['time'],
+      isApproved: json['is_approved'],
     );
   }
 
@@ -156,8 +159,10 @@ class ReviewResponse {
   bool? success;
   bool? result;
   int? status;
+  bool? canReview;
+  Review? loggerReview;
 
-  ReviewResponse({this.data, this.links, this.meta, this.success, this.result, this.status});
+  ReviewResponse({this.data, this.links, this.meta, this.success, this.result, this.status, this.canReview, this.loggerReview});
 
   factory ReviewResponse.fromJson(Map<String, dynamic> json) {
     return ReviewResponse(
@@ -167,17 +172,10 @@ class ReviewResponse {
       success: json['success'],
       result: json['result'],
       status: json['status'],
+      canReview: json['can_review'],
+      // loggerReview: (json['logger_review'] as List?)?.map((i) => Review.fromJson(i)).toList() ?? [],
+      loggerReview: json['logger_review'] != null ? Review.fromJson(json['logger_review']) : null,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'data': data?.map((i) => i.toJson()).toList(),
-      'links': links?.toJson(),
-      'meta': meta?.toJson(),
-      'success': success,
-      'result': result,
-      'status': status,
-    };
-  }
 }

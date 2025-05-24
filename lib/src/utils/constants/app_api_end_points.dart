@@ -93,7 +93,7 @@ class AppApiEndPoints {
 
   ///Product Review
   static String productReview = "$baseUrl/reviews/product";
-  static String submitReview = "$baseUrl/reviews/submit";
+  static String submitReview = "$baseUrl/new-reviews/submit";
 
 
   ///Product Questions

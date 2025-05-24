@@ -16,6 +16,7 @@ class ReviewRepositories{
     final response = await http.get(
       url,
       headers: {
+        "Authorization": "Bearer $accessToke",
         "Content-Type": "application/json",
         "type": "app"
       },
@@ -29,7 +30,6 @@ class ReviewRepositories{
     required guestUserName,}) async {
     var postBody = jsonEncode({
       "product_id": productId,
-      "user_id": userId,
       "rating": "$rating",
       "comment": comment,
       "name": "$guestUserName",

@@ -18,8 +18,10 @@ class AppReviewPostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = ReviewController.instance;
     return Obx(() {
-        return controller.apiHitting.value? ShimmerHelper().buildBasicShimmer(height: 150) : AppCardContainer(
-           width: AppHelperFunctions.screenWidth(),
+      return controller.apiHitting.value
+          ? ShimmerHelper().buildBasicShimmer(height: 150)
+          : AppCardContainer(
+            width: AppHelperFunctions.screenWidth(),
             padding: const EdgeInsets.all(AppSizes.sm),
             backgroundColor: Colors.white,
             child: Column(
@@ -27,24 +29,22 @@ class AppReviewPostCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Center(
-                  child:
-                      RatingBar.builder(
-                        itemSize: 20.0,
-                        initialRating: controller.givenRating.value,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: false,
-                        itemCount: 5,
-                        glowColor: Colors.amber,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) {
-                          return const Icon(Icons.star, color: Colors.amber);
-                        },
-                        onRatingUpdate: (rating) {
-                          controller.givenRating.value = rating;
-                        },
-                      )
-
+                  child: RatingBar.builder(
+                    itemSize: 20.0,
+                    initialRating: controller.givenRating.value,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: false,
+                    itemCount: 5,
+                    glowColor: Colors.amber,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) {
+                      return const Icon(Icons.star, color: Colors.amber);
+                    },
+                    onRatingUpdate: (rating) {
+                      controller.givenRating.value = rating;
+                    },
+                  ),
                 ),
                 const Gap(AppSizes.sm),
                 const Text('Enter Name*'),
@@ -56,26 +56,29 @@ class AppReviewPostCard extends StatelessWidget {
                     cursorColor: AppColors.primary,
                     controller: controller.nameController,
                     decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Color.fromRGBO(251, 251, 251, 1),
-                        hintText: "Type your name here",
-                        hintStyle:
-                            TextStyle(fontSize: 14.0, color: AppColors.lightGrey),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.lightGrey, width: 0.5),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(35.0),
-                          ),
+                      filled: true,
+                      fillColor: Color.fromRGBO(251, 251, 251, 1),
+                      hintText: "Type your name here",
+                      hintStyle: TextStyle(
+                        fontSize: 14.0,
+                        color: AppColors.lightGrey,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.lightGrey,
+                          width: 0.5,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.lightGrey, width: 0.5),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(35.0),
-                          ),
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.lightGrey,
+                          width: 0.5,
                         ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
                   ),
                 ),
                 const Gap(AppSizes.sm),
@@ -93,42 +96,52 @@ class AppReviewPostCard extends StatelessWidget {
                         expands: true,
                         maxLines: null,
                         decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Color.fromRGBO(251, 251, 251, 1),
-                            //isCollapsed: userName == true ? true : false,
-                            isCollapsed:  true,
-                            hintText: 'Type your review here...',
-                            hintStyle:
-                            TextStyle(fontSize: 14.0, color: AppColors.lightGrey),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: AppColors.lightGrey, width: 0.5),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(35.0),
-                              ),
+                          filled: true,
+                          fillColor: Color.fromRGBO(251, 251, 251, 1),
+                          //isCollapsed: userName == true ? true : false,
+                          isCollapsed: true,
+                          hintText: 'Type your review here...',
+                          hintStyle: TextStyle(
+                            fontSize: 14.0,
+                            color: AppColors.lightGrey,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppColors.lightGrey,
+                              width: 0.5,
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: AppColors.lightGrey, width: 0.5),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(35.0),
-                              ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(35.0),
                             ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 8)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppColors.lightGrey,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(35.0),
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 8,
+                          ),
+                        ),
                       ),
                     ),
                     AppButtons.smallRoundButton(
-                        onPressed: (){
-                          Log.d(controller.submitReview().toString());
-                        },
-                        buttonColor: AppColors.primary,
-                        buttonChild: const Icon(Icons.send))
+                      onPressed: () {
+                        Log.d(controller.submitReview().toString());
+                      },
+                      buttonColor: AppColors.primary,
+                      buttonChild: const Icon(Icons.send),
+                    ),
                   ],
                 ),
               ],
-            )
-        );
-      }
-    );
+            ),
+          );
+    });
   }
 }
