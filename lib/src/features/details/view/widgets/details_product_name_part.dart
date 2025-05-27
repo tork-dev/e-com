@@ -295,46 +295,102 @@ class AppDetailsProductNamePart extends StatelessWidget {
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Price: ',
-                          style: Theme.of(context).textTheme.bodyMedium!.apply(
-                            color: AppColors.darkGrey,
-                          ),
-                        ),
-                        const Gap(AppSizes.sm),
-                        Visibility(
-                          visible:
-                              detailsController
-                                  .productDetails
-                                  .value
-                                  .detailedProducts!
-                                  .price !=
-                              detailsController
-                                  .productDetails
-                                  .value
-                                  .detailedProducts!
-                                  .salePrice,
-                          child: Row(
-                            children: [
-                              Text(
-                                '৳${detailsController.productDetails.value.detailedProducts!.price}',
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.titleLarge!.apply(
-                                  color: AppColors.darkGrey,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
+                        Row(
+                          children: [
+                            Text(
+                              'Price: ',
+                              style: Theme.of(context).textTheme.bodyMedium!.apply(
+                                color: AppColors.darkGrey,
                               ),
-                              const Gap(AppSizes.spaceBtwSmallItem),
-                            ],
-                          ),
+                            ),
+                            const Gap(AppSizes.sm),
+                            Visibility(
+                              visible:
+                                  detailsController
+                                      .productDetails
+                                      .value
+                                      .detailedProducts!
+                                      .price !=
+                                  detailsController
+                                      .productDetails
+                                      .value
+                                      .detailedProducts!
+                                      .salePrice,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '৳${detailsController.productDetails.value.detailedProducts!.price}',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleLarge!.apply(
+                                      color: AppColors.darkGrey,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ),
+                                  const Gap(AppSizes.spaceBtwSmallItem),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              '৳${detailsController.productDetails.value.detailedProducts!.salePrice}',
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleLarge!.apply(color: AppColors.dark),
+                            ),
+                          ],
                         ),
-                        Text(
-                          '৳${detailsController.productDetails.value.detailedProducts!.salePrice}',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.titleLarge!.apply(color: AppColors.dark),
+                        Visibility(
+                          visible: detailsController.productDetails.value.detailedProducts!.isHot == 1,
+                          child: AppCardContainer(
+                            margin: EdgeInsets.zero,
+                            backgroundColor: AppColors.primary,
+                            borderRadius: AppSizes.borderRadiusMd,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: AppSizes.xs,
+                              horizontal: AppSizes.sm,
+                            ),
+                            child: Row(
+                              children: [
+                                Text("Sale\nEnd's in", style: Theme.of(context).textTheme.bodyMedium!.apply(color: AppColors.textWhite), textAlign: TextAlign.center,),
+                                const Gap(AppSizes.sm),
+                                TimerCountdown(
+                                  format: CountDownTimerFormat.daysHoursMinutes,
+                                  descriptionTextStyle: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium!.copyWith(
+                                    fontSize: AppSizes.fontSizeMSm,
+                                    color: AppColors.textWhite,
+                                    height: 1,
+                                  ),
+                                  timeTextStyle: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium!.copyWith(
+                                    fontSize: AppSizes.fontSizeMSm,
+                                    color: AppColors.textWhite,
+                                    height: 1,
+                                  ),
+                                  colonsTextStyle: Theme.of(
+                                    context,
+                                  ).textTheme.labelSmall!.copyWith(
+                                    fontSize: 0,
+                                    color: AppColors.textWhite,
+                                  ),
+                                  enableDescriptions: true,
+                                  daysDescription: 'Day',
+                                  hoursDescription: 'Hour',
+                                  minutesDescription: 'Min',
+                                  secondsDescription: 'Sec',
+                                  spacerWidth: 1,
+                                  endTime: detailsController.productDetails.value.detailedProducts!.flashSaleEndDate ?? DateTime.now().add(const Duration(days: 1)),
+                                  onEnd: () {
+                                    print("Timer finished");
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
