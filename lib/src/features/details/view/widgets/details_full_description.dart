@@ -30,7 +30,7 @@ class AppDetailsFullDescription extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
               child: ShimmerHelper().buildBasicShimmer(height: 50))
           : ExpansionTile(
-              title: Text(descriptionTitle.toUpperCase(), style: Theme.of(context).textTheme.titleMedium,),
+              title: Text(descriptionTitle.toUpperCase(), style: Theme.of(context).textTheme.titleLarge,),
               children: [
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),

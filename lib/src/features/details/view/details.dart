@@ -124,7 +124,7 @@ class DetailsPage extends StatelessWidget {
                 const AppDetailsCategoriesPart(),
                 Obx( () {
                     return AppDetailsFullDescription(
-                      descriptionTitle: 'description',
+                      descriptionTitle: 'Description',
                       description:
                           "${controller.productDetails.value.detailedProducts?.description}",
                     );

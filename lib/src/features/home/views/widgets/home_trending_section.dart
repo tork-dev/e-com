@@ -167,19 +167,19 @@ class HomeTrendingSection extends StatelessWidget {
                                                     homeController
                                                         .homeProductResponse
                                                         .value
-                                                        .trending?[0]
-                                                        .trendingProducts?[0]
+                                                        .trending?[index1]
+                                                        .trendingProducts?[index2]
                                                         .salePrice !=
                                                     homeController
                                                         .homeProductResponse
                                                         .value
-                                                        .trending?[0]
-                                                        .trendingProducts?[0]
+                                                        .trending?[index1]
+                                                        .trendingProducts?[index2]
                                                         .price,
                                                 child: Row(
                                                   children: [
                                                     Text(
-                                                      "৳${homeController.homeProductResponse.value.trending?[0].trendingProducts?[0].price}",
+                                                      "৳${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].price}",
                                                       textAlign: TextAlign.left,
                                                       overflow:
                                                           TextOverflow.ellipsis,
@@ -200,7 +200,7 @@ class HomeTrendingSection extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                "৳${homeController.homeProductResponse.value.trending?[0].trendingProducts?[0].salePrice}",
+                                                "৳${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].salePrice}",
                                                 textAlign: TextAlign.left,
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
@@ -249,7 +249,7 @@ class HomeTrendingSection extends StatelessWidget {
                         width: 150,
                         child: AppButtons.largeFlatFilledButton(
                           onPressed: () {
-                            RoutingHelper.urlRouting(homeController.homeProductResponse.value.trending?[0].categoryUrl);
+                            RoutingHelper.urlRouting(homeController.homeProductResponse.value.trending?[1].categoryUrl);
                           },
                           buttonText: "View more",
                           backgroundColor: AppColors.secondary,
