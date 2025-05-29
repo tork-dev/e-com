@@ -53,7 +53,7 @@ class AppDrawer extends StatelessWidget {
           const AppDrawerHeaderPart(),
           AppCardContainer(
             onTap: ()=> AppHelperFunctions().openWhatsApp("8801779991110"),
-            margin: EdgeInsets.all(AppSizes.sm),
+            margin: EdgeInsets.symmetric(horizontal: AppSizes.sm, vertical: AppSizes.md),
             padding: EdgeInsets.all(AppSizes.md),
             hasBorder: true,
             backgroundColor: AppColors.white.withAlpha(13),
