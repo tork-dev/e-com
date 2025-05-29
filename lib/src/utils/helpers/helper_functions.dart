@@ -13,6 +13,7 @@ import 'package:kirei/src/features/authentication/views/forgot_password/view/otp
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants/colors.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
@@ -703,6 +704,15 @@ class AppHelperFunctions {
         );
       },
     );
+  }
+
+  void openWhatsApp(String phoneNumber) async {
+    final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");
+    if (await canLaunchUrl(whatsappUri)) {
+      await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
+    } else {
+      throw "Could not launch WhatsApp";
+    }
   }
 
 

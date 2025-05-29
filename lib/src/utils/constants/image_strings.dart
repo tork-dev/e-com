@@ -18,6 +18,7 @@ class AppImages {
   static const String appleLogo = "assets/images/logos/apple_logo.png";
   static const String instagram = "assets/images/logos/instagram.png";
   static const String youtube = "assets/images/logos/youtube.png";
+  static const String whatsapp = "assets/images/icons/whatsapp.png";
 
   /// placeholder
   static const String placeholder = "assets/images/placeholder.png";
