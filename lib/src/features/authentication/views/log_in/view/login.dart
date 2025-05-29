@@ -90,7 +90,7 @@ class LogIn extends StatelessWidget {
                                                 .readData(LocalStorageKeys.googleLogin) == true,
                                             child: AppButtons.largeFlatOutlineButtonWithIcon(
                                               onPressed: () {
-                                                logInController.onPressedFacebookLogin();
+                                                logInController.onPressedGoogleLogin();
                                               },
                                               verticallyPadding: 14,
                                               imgUrl: AppImages.google,
@@ -117,7 +117,7 @@ class LogIn extends StatelessWidget {
                                                   .readData(LocalStorageKeys.appleLogin) == true,
                                           child: AppButtons.largeFlatOutlineButtonWithIcon(
                                             onPressed: () {
-                                              logInController.onPressedFacebookLogin();
+                                              logInController.onPressAppleLogin();
                                             },
                                             verticallyPadding: 14,
                                             imgUrl: AppImages.appleLogo,

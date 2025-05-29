@@ -268,17 +268,17 @@ class AppDetailsProductNamePart extends StatelessWidget {
                             ),
                           ),
                           const Gap(AppSizes.spaceBtwItems),
-                          AppCardContainer(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppSizes.spaceBtwDefaultItems,
-                              vertical: AppSizes.sm,
-                            ),
-                            backgroundColor: AppColors.lightGrey,
-                            child: Text(
-                              '100% Authentic',
-                              style: Theme.of(context).textTheme.labelLarge!,
-                            ),
-                          ),
+                          // AppCardContainer(
+                          //   padding: EdgeInsets.symmetric(
+                          //     horizontal: AppSizes.spaceBtwDefaultItems,
+                          //     vertical: AppSizes.sm,
+                          //   ),
+                          //   backgroundColor: AppColors.lightGrey,
+                          //   child: Text(
+                          //     '100% Authentic',
+                          //     style: Theme.of(context).textTheme.labelLarge!,
+                          //   ),
+                          // ),
                         ],
                       ),
                     )

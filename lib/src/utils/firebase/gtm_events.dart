@@ -78,12 +78,7 @@ class EventLogger {
   }
 
   void logAddToWishlistEvent(String itemId, dynamic itemPrice) async {
-    // logEvent('add_to_wishlist', {
-    //   'member_id': memberId!,
-    //   'item_id': itemId,
-    //   'value': itemPrice.toDouble(),
-    //   'currency': 'BDT',
-    // });
+
     gtm.push('add_to_wishlist', parameters: {
       'member_id': memberId,
       'item_id': itemId,
@@ -147,7 +142,7 @@ class EventLogger {
     //   'member_id': memberId!
     // });
 
-    gtm.push('Search', parameters: {
+    gtm.push('search', parameters: {
       'item_id': searchValue,
       'member_id': memberId
     });
@@ -171,7 +166,7 @@ class EventLogger {
     //   'currency': 'BDT',
     // });
 
-    gtm.push('Search', parameters: {
+    gtm.push('initial_checkout', parameters: {
       'cart_id': cartId,
       'member_id': memberId,
       'value': double.parse(subtotalPrice.toString()),

@@ -60,13 +60,6 @@ class LogInPageController extends GetxController {
       /// Validate Form
       if (!logInFormKey.currentState!.validate()) return;
       CustomLoader.showLoaderDialog(Get.overlayContext!);
-      ///Check Internet
-      // if (!isConnected) return;
-
-      /// Start Loading
-      // FullScreenLoader.openLoadingDialog(
-      //     AppLocalizations.of(Get.overlayContext!)!.processing,
-      //     AppImages.loading);
 
       ///Api Calling
       loginResponse.value = await LoginRepository().getLoginResponse(
@@ -133,7 +126,8 @@ class LogInPageController extends GetxController {
   }
 
   /// Google SignIn with Api
-  Future<UserCredential?> onPressedGoogleLogin() async {
+  Future<void> onPressedGoogleLogin() async {
+    Log.d(previousRoute.value);
     try {
       CustomLoader.showLoaderDialog(Get.context!);
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -143,7 +137,11 @@ class LogInPageController extends GetxController {
       loginResponse.value = await AuthRepository().getSocialLoginResponse(
           "google", googleUser?.displayName, googleUser?.email, googleUser?.id,
           accessToken: googleAuth?.accessToken);
-
+    } on Exception catch (e) {
+      AppHelperFunctions.showSimpleSnackBar(e.toString());
+      // TODO
+    }finally{
+      CustomLoader.hideLoader(Get.context!);
       if (loginResponse.value.result == false) {
         AppHelperFunctions.showToast('${loginResponse.value.message}');
       } else {
@@ -186,18 +184,13 @@ class LogInPageController extends GetxController {
         EventLogger().logLoginEvent('Google');
       }
       GoogleSignIn().disconnect();
-    } on Exception catch (e) {
-      AppHelperFunctions.showSimpleSnackBar(e.toString());
-      // TODO
-    }finally{
-      CustomLoader.hideLoader(Get.context!);
     }
-    return null;
   }
 
 ////////////////////////facebook login //////////////////////
-  Future<UserCredential?> onPressedFacebookLogin() async {
+  Future<void> onPressedFacebookLogin() async {
     try {
+      CustomLoader.showLoaderDialog(Get.context!);
       final LoginResult result = await FacebookAuth.instance.login();
 
       if (result.status == LoginStatus.success) {
@@ -209,43 +202,6 @@ class LogInPageController extends GetxController {
             userData["email"].toString(),
             userData["id"].toString(),
             accessToken: accessToken?.tokenString);
-        if (loginResponse.value.result == true) {
-          EventLogger().logLoginEvent('Facebook');
-          AuthHelper().setUserData(loginResponse.value);
-          if (previousRoute .value == 'cart') {
-            final cartController = CartController.instance;
-            EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-                double.parse(Get.parameters['sale_price']!));
-
-            if (Get.parameters['request_available'] != '0') {
-              cartController
-                  .getRequestResponse(
-                  productId: int.parse(Get.parameters['product_id']!))
-                  .then((value) => AppHelperFunctions.showToast(
-                  cartController.requestStockResponse.value.message!));
-
-              // AwesomeNotificationController.showNotification();
-            } else {
-              cartController
-                  .getAddToCartResponse(
-                  int.parse(Get.parameters['product_id']!),
-                  1,
-                  int.parse(Get.parameters['preorder_available']!))
-                  .then((value) => {
-                if (cartController.addToCartResponse.value.result ==
-                    true)
-                  {
-                    cartController.cartCount.value = cartController
-                        .addToCartResponse.value.cartQuantity ??
-                        0,
-                  },
-                AppHelperFunctions.showToast(
-                    cartController.addToCartResponse.value.message!)
-              });
-            }
-          }
-          Get.offAllNamed(previousRoute.value);
-        }
         AppHelperFunctions.showToast(loginResponse.value.message!);
       } else {
         AppHelperFunctions.showToast(result.message!);
@@ -254,8 +210,46 @@ class LogInPageController extends GetxController {
       Log.e(e.toString());
       AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
       // TODO
+    }finally{
+      CustomLoader.hideLoader(Get.context!);
+      if (loginResponse.value.result == true) {
+        EventLogger().logLoginEvent('Facebook');
+        AuthHelper().setUserData(loginResponse.value);
+        if (previousRoute .value == 'cart') {
+          final cartController = CartController.instance;
+          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+              double.parse(Get.parameters['sale_price']!));
+
+          if (Get.parameters['request_available'] != '0') {
+            cartController
+                .getRequestResponse(
+                productId: int.parse(Get.parameters['product_id']!))
+                .then((value) => AppHelperFunctions.showToast(
+                cartController.requestStockResponse.value.message!));
+
+            // AwesomeNotificationController.showNotification();
+          } else {
+            cartController
+                .getAddToCartResponse(
+                int.parse(Get.parameters['product_id']!),
+                1,
+                int.parse(Get.parameters['preorder_available']!))
+                .then((value) => {
+              if (cartController.addToCartResponse.value.result ==
+                  true)
+                {
+                  cartController.cartCount.value = cartController
+                      .addToCartResponse.value.cartQuantity ??
+                      0,
+                },
+              AppHelperFunctions.showToast(
+                  cartController.addToCartResponse.value.message!)
+            });
+          }
+        }
+        Get.offAllNamed(previousRoute.value);
+      }
     }
-    return null;
   }
 
   /// Login with OTP
@@ -299,8 +293,9 @@ class LogInPageController extends GetxController {
   }
 
   ///////////////////////// Apple Log In /////////////////////////////////////////
-  Future<UserCredential?> onPressAppleLogin() async {
+  Future<void> onPressAppleLogin() async {
     try {
+      CustomLoader.showLoaderDialog(Get.context!);
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -314,6 +309,12 @@ class LogInPageController extends GetxController {
           credential.email,
           credential.authorizationCode,
           accessToken: credential.identityToken);
+    } on Exception catch (e) {
+      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
+      Log.d("error is ....... $e");
+      // TODO
+    }finally{
+      CustomLoader.hideLoader(Get.context!);
 
       if (loginResponse.value.result == true) {
         EventLogger().logLoginEvent('Apple');
@@ -353,12 +354,7 @@ class LogInPageController extends GetxController {
         Get.offAllNamed(previousRoute.value);
       }
       AppHelperFunctions.showToast(loginResponse.value.message!);
-    } on Exception catch (e) {
-      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
-      Log.d("error is ....... $e");
-      // TODO
     }
-    return null;
   }
 
 // Future<UserCredential> onPressAppleLogin() async {
