@@ -92,25 +92,14 @@ class HomeReviewSection extends StatelessWidget {
                                       .reviews![index]
                                       .avatar ?? ''),
                               const Gap(AppSizes.sm),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    homeController.homeProductResponse.value
-                                        .reviews![index].userName ??
-                                        '',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge,
-                                  ),
-                                  Text(
-                                    "${homeController.homeProductResponse.value.reviews![index].time}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium,
-                                  )
-                                ],
-                              )
+                              Text(
+                                homeController.homeProductResponse.value
+                                    .reviews![index].userName ??
+                                    '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge,
+                              ),
                             ],
                           ),
                         ],

@@ -27,6 +27,7 @@ class HomeTrendingSection extends StatelessWidget {
     final homeController = HomeController.instance;
     final cartController = CartController.instance;
     return AppCardContainer(
+      padding: EdgeInsets.symmetric(vertical: AppSizes.md),
       backgroundColor: AppColors.contentInversePrimary.withAlpha(28),
       child: Obx( () {
           return homeController.hittingApi.value? ShimmerHelper().buildListShimmer(itemCount: 3, itemHeight: 150):
@@ -34,7 +35,7 @@ class HomeTrendingSection extends StatelessWidget {
             itemCount: homeController.homeProductResponse.value.trending!.length,
             builderFunction:
                 (context, index1) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md,),
                   child: Visibility(
                     visible:
                         homeController

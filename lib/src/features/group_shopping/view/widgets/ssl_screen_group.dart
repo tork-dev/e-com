@@ -36,6 +36,7 @@ class _GroupSslCommerzScreenState extends State<GroupSslCommerzScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageFinished: (String url) {
+            print("Url $url");
             Log.i('navigation finished $url');
             if (url.contains("result=true&message=Successfully%20Paid")) {
               AppHelperFunctions.showToast('Successfully Paid');

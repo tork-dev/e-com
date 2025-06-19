@@ -45,13 +45,16 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
         NavigationDelegate(
           onPageFinished: (String url) {
             Log.d(url);
-            if (url.contains("status=success")) {
-              AppHelperFunctions.showToast('Order Successful');
-              navigateToOrderSuccess('Order Successful', true);
-            } else if (url.contains("status=failure") ||
-                url.contains("status=DECLINED")) {
+            print("Url : $url");
+            Log.i('navigation finished $url');
+            if (url.contains("result=true&payment_status=paid&message=Successfully%20Ordered")) {
+              AppHelperFunctions.showToast('Successfully Paid');
+              navigateToOrderSuccess('Successfully Ordered', true);
+            } else if (url.contains("result=false&payment_status=invalid&message=Payment%20Cancelled")) {
               AppHelperFunctions.showToast("Payment Cancelled");
               navigateToOrderSuccess("Payment Cancelled", false);
+            }else if(url.contains("result=false&payment_status=invalid&message=Payment%20Failed")){
+              navigateToOrderSuccess("Payment Failed", false);
             }
           },
           onWebResourceError: (error) {
