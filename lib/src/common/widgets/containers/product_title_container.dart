@@ -45,7 +45,7 @@ class AppCourseTitleContainer extends StatelessWidget {
                 height: 45,
                 child: Text(
                   productName,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -87,7 +87,7 @@ class AppCourseTitleContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
+              Row (
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Visibility(
@@ -130,6 +130,9 @@ class AppCourseTitleContainer extends StatelessWidget {
                   borderRadius: AppSizes.borderRadiusSm,
                   padding: EdgeInsets.symmetric(horizontal: AppSizes.spaceBtwDefaultItems, vertical: AppSizes.xs),
                   backgroundColor: buttonBackgroundColor,
+                  hasBorder: true,
+                  borderColor: buttonBackgroundColor,
+                  borderWidth: 1,
                   child: Text(buttonName,
                       style: Theme.of(context)
                           .textTheme

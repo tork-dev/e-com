@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../styles/skeleton_style.dart';
 import 'card_container.dart';
@@ -29,6 +30,7 @@ class AppBannerImage extends StatelessWidget {
     this.topRightRadius = 0,
     this.bottomLeftRadius = 0,
     this.bottomRightRadius = 0,
+    this.errorImage = AppImages.placeholder,
     super.key,
   });
 
@@ -45,6 +47,7 @@ class AppBannerImage extends StatelessWidget {
       bottomRightRadius;
   final VoidCallback? onPress;
   final Color? borderColor, backgroundColor;
+  final String errorImage;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +86,7 @@ class AppBannerImage extends StatelessWidget {
                     placeholder:
                         (context, url) => ShimmerHelper().buildBasicShimmer(),
                     errorWidget:
-                        (context, url, error) => const Icon(Icons.error),
+                        (context, url, error) => Image.asset(errorImage),
                   )
                   : !isFileImage
                   ? Image(

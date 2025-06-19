@@ -34,7 +34,7 @@ class Review {
       images: json['images'] != null ? List<String>.from(json['images']) : [],
       replies: json['replies'] != null ? List<dynamic>.from(json['replies']) : [],
       time: json['time'],
-      isApproved: json['is_approved'],
+      isApproved: json['approval'],
     );
   }
 

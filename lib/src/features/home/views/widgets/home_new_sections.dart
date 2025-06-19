@@ -43,6 +43,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                 ? ShimmerHelper().buildBasicShimmer(height: 250)
                 : AppCardContainer(
                     height: 216,
+                    backgroundColor: AppColors.contentInversePrimary,
                     child: Stack(
                       children: [
                         Visibility(

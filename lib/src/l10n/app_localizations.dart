@@ -224,7 +224,7 @@ abstract class AppLocalizations {
   /// No description provided for @otp.
   ///
   /// In en, this message translates to:
-  /// **'12345'**
+  /// **'Enter your OTP'**
   String get otp;
 
   /// No description provided for @verifyYourself.

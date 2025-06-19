@@ -20,7 +20,7 @@
   "sendCode" : "Send Code",
   "signupWithPassword" : "Signup with Password",
   "signupWithOtp" : "Signup with OTP",
-  "otp" : "12345",
+  "otp" : "Enter your OTP",
   "verifyYourself" : "Verify your Phone Number",
   "verifyYourselfSubtext" : "Please enter the verification code that was sent to your phone recently.",
   "verify" : "Confirm",

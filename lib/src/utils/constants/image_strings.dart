@@ -63,4 +63,5 @@ class AppImages {
   static const String aiRecommendationBg = "assets/images/background/ai_recommendation_bg.png";
   static const String kireiTubeBg = "assets/images/background/kireitube_bg.png";
   static const String rewardRedeemPointBg = "assets/images/background/reward_redeem_guidline_bg.png";
+  static const String skinCareFlowerBg = "assets/images/background/skin_care_flower_bg.png";
 }

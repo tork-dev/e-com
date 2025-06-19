@@ -10,6 +10,7 @@ class AppColors {
   static const Color accent = Color(0xFFb0c7ff);
   static const Color primary = Color(0xffE5456D);
   static const Color secondary = Color(0xff222529);
+  static const Color contentInversePrimary = Color(0xffE1DCFA);
   static const Color white = Color(0xffffffff);
   static const Color darkGrey = Color(0xff707070);
   static const Color signUpWithPassword = Color(0xff254849);

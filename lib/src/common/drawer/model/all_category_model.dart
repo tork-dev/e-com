@@ -11,6 +11,7 @@ class AllCategory {
   int? isFeatured;
   bool? disabled;
   int? counts;
+  String? url;
 
   AllCategory({
     this.id,
@@ -23,6 +24,7 @@ class AllCategory {
     this.isFeatured,
     this.disabled,
     this.counts,
+    this.url
   });
 
   factory AllCategory.fromRawJson(String str) => AllCategory.fromJson(json.decode(str));
@@ -40,6 +42,7 @@ class AllCategory {
     isFeatured: json["is_featured"],
     disabled: json["disabled"],
     counts: json["counts"],
+    url: json["url"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -53,6 +56,7 @@ class AllCategory {
     "is_featured": isFeatured,
     "disabled": disabled,
     "counts": counts,
+    "url": url
   };
 }
 
@@ -66,6 +70,7 @@ class Child {
   String? slug;
   bool? disabled;
   int? counts;
+  String? url;
   List<Child>? children;
 
   Child({
@@ -79,6 +84,7 @@ class Child {
     this.disabled,
     this.counts,
     this.children,
+    this.url
   });
 
   factory Child.fromRawJson(String str) => Child.fromJson(json.decode(str));
@@ -95,6 +101,7 @@ class Child {
     slug: json["slug"],
     disabled: json["disabled"],
     counts: json["counts"],
+    url: json["url"],
     children: json["children"] == null ? [] : List<Child>.from(json["children"]!.map((x) => Child.fromJson(x))),
   );
 
@@ -108,6 +115,7 @@ class Child {
     "slug": slug,
     "disabled": disabled,
     "counts": counts,
+    "url": url,
     "children": children == null ? [] : List<dynamic>.from(children!.map((x) => x.toJson())),
   };
 }

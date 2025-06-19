@@ -72,7 +72,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signupWithOtp => 'Signup with OTP';
 
   @override
-  String get otp => '12345';
+  String get otp => 'Enter your OTP';
 
   @override
   String get verifyYourself => 'Verify your Phone Number';
