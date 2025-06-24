@@ -483,6 +483,7 @@ class Features {
   bool? kireitube;
   bool? skinConcern;
   bool? reviews;
+  bool? flashSale;
 
   Features({
     this.recommendation,
@@ -491,6 +492,7 @@ class Features {
     this.kireitube,
     this.skinConcern,
     this.reviews,
+    this.flashSale,
   });
 
   factory Features.fromJson(String str) => Features.fromMap(json.decode(str));
@@ -504,6 +506,7 @@ class Features {
     kireitube: json["kireitube"],
     skinConcern: json["skin_concern"],
     reviews: json["reviews"],
+    flashSale: json["hot_deals"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -513,6 +516,7 @@ class Features {
     "kireitube": kireitube,
     "skin_concern": skinConcern,
     "reviews": reviews,
+    "hot_deals" : flashSale,
   };
 }
 

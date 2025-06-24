@@ -60,6 +60,27 @@ class HomeController extends GetxController {
   Rx<SurprizeGiftResponse> surpriseGiftResponse = SurprizeGiftResponse().obs;
 
   //Rx<DeviceTokenUpdateResponse> trendingProductsResponse = DetailsProductsResponse().obs;
+  // ✅ Computed Getters
+  bool get showSurprise =>
+      homeProductResponse.value.homepageSettings?.features?.surprizeGift ?? false;
+
+  bool get showReviews =>
+      homeProductResponse.value.homepageSettings?.features?.reviews ?? false;
+
+  bool get showRecommendation =>
+      homeProductResponse.value.homepageSettings?.features?.recommendation ?? false;
+
+  bool get showGroupShopping =>
+      homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false;
+
+  bool get showSkinConcern =>
+      homeProductResponse.value.homepageSettings?.features?.skinConcern ?? false;
+  bool get showKireiTube =>
+      homeProductResponse.value.homepageSettings?.features?.kireitube ?? false;
+  bool get showFlashSale =>
+      homeProductResponse.value.homepageSettings?.features?.flashSale ?? false;
+
+
 
   @override
   void onInit() {
