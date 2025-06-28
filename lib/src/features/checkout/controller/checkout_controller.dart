@@ -308,11 +308,11 @@ class CheckoutController extends GetxController {
           return Dialog(
               backgroundColor: AppColors.white,
               insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
               ),
               child: AppCardContainer(
-                applyRadius: false,
+                borderRadius: AppSizes.cardRadiusMd,
                 padding: const EdgeInsets.all(AppSizes.defaultSpace),
                 child: Obx(() {
                     return Column(
@@ -324,7 +324,7 @@ class CheckoutController extends GetxController {
                           children: [
                             Text('Redeem Your Points', style: Theme.of(context).textTheme.headlineSmall,),
                             AppCardContainer(
-                                applyRadius: false,
+                                applyRadius: true,
                                 onTap: ()=> Get.back(),
                                 height: 44,
                                 width: 44,
@@ -415,16 +415,14 @@ class CheckoutController extends GetxController {
                           } : null,
                         ),
 
-                        const Gap(AppSizes.md),
-                        SizedBox(
-                          width: 150,
-                          child: AppButtons.largeFlatFilledButton(
-                              onPressed: (){
-                                onRedeemPoint();
-                              },
-                              backgroundColor: AppColors.addToCartButton,
-                              buttonText: 'Redeem Points'.toUpperCase()),
-                        )
+                        const Gap(AppSizes.defaultSpace),
+
+                        AppButtons.largeFlatFilledButton(
+                            onPressed: (){
+                              onRedeemPoint();
+                            },
+                            backgroundColor: AppColors.addToCartButton,
+                            buttonText: 'Redeem Points'.toUpperCase())
                       ],
                     );
                   }

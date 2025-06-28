@@ -85,38 +85,38 @@ class LogInPageController extends GetxController {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
           //await getUserDataByToken();
 
-          if (previousRoute.value == 'cart') {
-            final cartController = CartController.instance;
-            EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-                double.parse(Get.parameters['sale_price']!));
-
-            if (Get.parameters['request_available'] != '0') {
-              cartController
-                  .getRequestResponse(
-                      productId: int.parse(Get.parameters['product_id']!))
-                  .then((value) => AppHelperFunctions.showToast(
-                      cartController.requestStockResponse.value.message!));
-
-              // AwesomeNotificationController.showNotification();
-            } else {
-              cartController
-                  .getAddToCartResponse(
-                      int.parse(Get.parameters['product_id']!),
-                      1,
-                      int.parse(Get.parameters['preorder_available']!))
-                  .then((value) => {
-                        if (cartController.addToCartResponse.value.result ==
-                            true)
-                          {
-                            cartController.cartCount.value = cartController
-                                    .addToCartResponse.value.cartQuantity ??
-                                0,
-                          },
-                        AppHelperFunctions.showToast(
-                            cartController.addToCartResponse.value.message!)
-                      });
-            }
-          }
+          // if (previousRoute.value == 'cart') {
+          //   final cartController = CartController.instance;
+          //   EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+          //       double.parse(Get.parameters['sale_price']!));
+          //
+          //   if (Get.parameters['request_available'] != '0') {
+          //     cartController
+          //         .getRequestResponse(
+          //             productId: int.parse(Get.parameters['product_id']!))
+          //         .then((value) => AppHelperFunctions.showToast(
+          //             cartController.requestStockResponse.value.message!));
+          //
+          //     // AwesomeNotificationController.showNotification();
+          //   } else {
+          //     cartController
+          //         .getAddToCartResponse(
+          //             int.parse(Get.parameters['product_id']!),
+          //             1,
+          //             int.parse(Get.parameters['preorder_available']!))
+          //         .then((value) => {
+          //               if (cartController.addToCartResponse.value.result ==
+          //                   true)
+          //                 {
+          //                   cartController.cartCount.value = cartController
+          //                           .addToCartResponse.value.cartQuantity ??
+          //                       0,
+          //                 },
+          //               AppHelperFunctions.showToast(
+          //                   cartController.addToCartResponse.value.message!)
+          //             });
+          //   }
+          // }
           Get.offAllNamed(previousRoute.value);
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
@@ -149,37 +149,37 @@ class LogInPageController extends GetxController {
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
 
         AuthHelper().setUserData(loginResponse.value);
-        if (previousRoute.value == 'cart') {
-          final cartController = CartController.instance;
-          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-              double.parse(Get.parameters['sale_price']!));
-
-          if (Get.parameters['request_available'] != '0') {
-            cartController
-                .getRequestResponse(
-                productId: int.parse(Get.parameters['product_id']!))
-                .then((value) => AppHelperFunctions.showToast(
-                cartController.requestStockResponse.value.message!));
-
-          } else {
-            cartController
-                .getAddToCartResponse(
-                int.parse(Get.parameters['product_id']!),
-                1,
-                int.parse(Get.parameters['preorder_available']!))
-                .then((value) => {
-              if (cartController.addToCartResponse.value.result ==
-                  true)
-                {
-                  cartController.cartCount.value = cartController
-                      .addToCartResponse.value.cartQuantity ??
-                      0,
-                },
-              AppHelperFunctions.showToast(
-                  cartController.addToCartResponse.value.message!)
-            });
-          }
-        }
+        // if (previousRoute.value == 'cart') {
+        //   final cartController = CartController.instance;
+        //   EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+        //       double.parse(Get.parameters['sale_price']!));
+        //
+        //   if (Get.parameters['request_available'] != '0') {
+        //     cartController
+        //         .getRequestResponse(
+        //         productId: int.parse(Get.parameters['product_id']!))
+        //         .then((value) => AppHelperFunctions.showToast(
+        //         cartController.requestStockResponse.value.message!));
+        //
+        //   } else {
+        //     cartController
+        //         .getAddToCartResponse(
+        //         int.parse(Get.parameters['product_id']!),
+        //         1,
+        //         int.parse(Get.parameters['preorder_available']!))
+        //         .then((value) => {
+        //       if (cartController.addToCartResponse.value.result ==
+        //           true)
+        //         {
+        //           cartController.cartCount.value = cartController
+        //               .addToCartResponse.value.cartQuantity ??
+        //               0,
+        //         },
+        //       AppHelperFunctions.showToast(
+        //           cartController.addToCartResponse.value.message!)
+        //     });
+        //   }
+        // }
         Get.offAllNamed(previousRoute.value);
         EventLogger().logLoginEvent('Google');
       }
@@ -215,38 +215,38 @@ class LogInPageController extends GetxController {
       if (loginResponse.value.result == true) {
         EventLogger().logLoginEvent('Facebook');
         AuthHelper().setUserData(loginResponse.value);
-        if (previousRoute .value == 'cart') {
-          final cartController = CartController.instance;
-          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-              double.parse(Get.parameters['sale_price']!));
-
-          if (Get.parameters['request_available'] != '0') {
-            cartController
-                .getRequestResponse(
-                productId: int.parse(Get.parameters['product_id']!))
-                .then((value) => AppHelperFunctions.showToast(
-                cartController.requestStockResponse.value.message!));
-
-            // AwesomeNotificationController.showNotification();
-          } else {
-            cartController
-                .getAddToCartResponse(
-                int.parse(Get.parameters['product_id']!),
-                1,
-                int.parse(Get.parameters['preorder_available']!))
-                .then((value) => {
-              if (cartController.addToCartResponse.value.result ==
-                  true)
-                {
-                  cartController.cartCount.value = cartController
-                      .addToCartResponse.value.cartQuantity ??
-                      0,
-                },
-              AppHelperFunctions.showToast(
-                  cartController.addToCartResponse.value.message!)
-            });
-          }
-        }
+        // if (previousRoute .value == 'cart') {
+        //   final cartController = CartController.instance;
+        //   EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+        //       double.parse(Get.parameters['sale_price']!));
+        //
+        //   if (Get.parameters['request_available'] != '0') {
+        //     cartController
+        //         .getRequestResponse(
+        //         productId: int.parse(Get.parameters['product_id']!))
+        //         .then((value) => AppHelperFunctions.showToast(
+        //         cartController.requestStockResponse.value.message!));
+        //
+        //     // AwesomeNotificationController.showNotification();
+        //   } else {
+        //     cartController
+        //         .getAddToCartResponse(
+        //         int.parse(Get.parameters['product_id']!),
+        //         1,
+        //         int.parse(Get.parameters['preorder_available']!))
+        //         .then((value) => {
+        //       if (cartController.addToCartResponse.value.result ==
+        //           true)
+        //         {
+        //           cartController.cartCount.value = cartController
+        //               .addToCartResponse.value.cartQuantity ??
+        //               0,
+        //         },
+        //       AppHelperFunctions.showToast(
+        //           cartController.addToCartResponse.value.message!)
+        //     });
+        //   }
+        // }
         Get.offAllNamed(previousRoute.value);
       }
     }
@@ -319,38 +319,38 @@ class LogInPageController extends GetxController {
       if (loginResponse.value.result == true) {
         EventLogger().logLoginEvent('Apple');
         AuthHelper().setUserData(loginResponse.value);
-        if (previousRoute.value == 'cart') {
-          final cartController = CartController.instance;
-          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-              double.parse(Get.parameters['sale_price']!));
-
-          if (Get.parameters['request_available'] != '0') {
-            cartController
-                .getRequestResponse(
-                productId: int.parse(Get.parameters['product_id']!))
-                .then((value) => AppHelperFunctions.showToast(
-                cartController.requestStockResponse.value.message!));
-
-            // AwesomeNotificationController.showNotification();
-          } else {
-            cartController
-                .getAddToCartResponse(
-                int.parse(Get.parameters['product_id']!),
-                1,
-                int.parse(Get.parameters['preorder_available']!))
-                .then((value) => {
-              if (cartController.addToCartResponse.value.result ==
-                  true)
-                {
-                  cartController.cartCount.value = cartController
-                      .addToCartResponse.value.cartQuantity ??
-                      0,
-                },
-              AppHelperFunctions.showToast(
-                  cartController.addToCartResponse.value.message!)
-            });
-          }
-        }
+        // if (previousRoute.value == 'cart') {
+        //   final cartController = CartController.instance;
+        //   EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+        //       double.parse(Get.parameters['sale_price']!));
+        //
+        //   if (Get.parameters['request_available'] != '0') {
+        //     cartController
+        //         .getRequestResponse(
+        //         productId: int.parse(Get.parameters['product_id']!))
+        //         .then((value) => AppHelperFunctions.showToast(
+        //         cartController.requestStockResponse.value.message!));
+        //
+        //     // AwesomeNotificationController.showNotification();
+        //   } else {
+        //     cartController
+        //         .getAddToCartResponse(
+        //         int.parse(Get.parameters['product_id']!),
+        //         1,
+        //         int.parse(Get.parameters['preorder_available']!))
+        //         .then((value) => {
+        //       if (cartController.addToCartResponse.value.result ==
+        //           true)
+        //         {
+        //           cartController.cartCount.value = cartController
+        //               .addToCartResponse.value.cartQuantity ??
+        //               0,
+        //         },
+        //       AppHelperFunctions.showToast(
+        //           cartController.addToCartResponse.value.message!)
+        //     });
+        //   }
+        // }
         Get.offAllNamed(previousRoute.value);
       }
       AppHelperFunctions.showToast(loginResponse.value.message!);

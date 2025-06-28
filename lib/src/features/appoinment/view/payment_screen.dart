@@ -44,7 +44,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
           onWebResourceError: (error) {
             Log.d(error.toString());
             AppHelperFunctions.showToast('Something went wrong');
-            Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+            Get.offAllNamed("/home");
           },
         ),
       )
@@ -62,7 +62,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
         showCustomLeading: true,
         leadingOnPress: () {
           Log.d('working');
-          Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
+          Get.offAllNamed("/home");
         },
         padding: AppSizes.defaultSpace,
         body: buildBody());
@@ -95,11 +95,11 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
       if (responseJSON["result"] == true) {
         AppHelperFunctions.showToast('Payment Successful');
         // handle success
-        Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+        Get.offAllNamed("/home");
       } else if (responseJSON["result"] == false) {
         AppHelperFunctions.showToast('Payment cancelled');
         // handle failure
-        Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+        Get.offAllNamed("/home");
       }
     });
   }

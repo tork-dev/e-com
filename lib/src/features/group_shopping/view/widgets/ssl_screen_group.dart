@@ -71,7 +71,7 @@ class _GroupSslCommerzScreenState extends State<GroupSslCommerzScreen> {
         ),
         leadingOnPress: () {
           Log.d('working');
-          Get.offAll(() => const HelloConvexAppBar());
+          Get.offAllNamed("/home");
         },
         body: buildBody());
   }

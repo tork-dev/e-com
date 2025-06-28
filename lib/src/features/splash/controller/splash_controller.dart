@@ -32,7 +32,7 @@ class SplashController extends GetxController {
         AppLocalStorage().readData(LocalStorageKeys.isNotFirstTime) ?? false;
     Future.delayed(const Duration(seconds: 3), () {
       isNotFirst == true ?
-      Get.offAll(() =>  const HelloConvexAppBar())
+      Get.offAllNamed("/home")
           : Get.offAll(() => const OnBoarding());
     });
   }

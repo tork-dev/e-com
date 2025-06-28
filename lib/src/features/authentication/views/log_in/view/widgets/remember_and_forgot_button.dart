@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../../l10n/app_localizations.dart';
 import '../../../../../../utils/constants/colors.dart';
+import '../../../forgot_password/view/forgot.dart';
 import '../../controllers/login_controller.dart';
 
 class RememberAndForgotButton extends StatelessWidget {
@@ -33,7 +34,7 @@ class RememberAndForgotButton extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            // Get.to(const ForgotPassword());
+            Get.to(const ForgotPassword());
           },
           child: Text(
             AppLocalizations.of(context)!.forgotPassword,

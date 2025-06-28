@@ -41,9 +41,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
         canPop: !backToHome,
         onPopInvokedWithResult: (bool didPop, Object? result) async {
           !inHome
-              ? Get.offAll(() => const HelloConvexAppBar(
-                    pageIndex: 0,
-                  ))
+              ? Get.offAllNamed("/home")
               : null;
         },
 

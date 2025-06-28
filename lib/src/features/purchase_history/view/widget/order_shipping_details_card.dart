@@ -204,7 +204,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                             .then((value) => {
                                   AppHelperFunctions.showToast(listController
                                       .reOrderResponse.value.message!),
-                                  Get.offAll(()=> const HelloConvexAppBar(pageIndex: 2,))
+                                  Get.offAllNamed("/cart")
                                 });
                       },
                       buttonText: 'Re-Order'),

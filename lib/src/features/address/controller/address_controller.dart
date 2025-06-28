@@ -8,7 +8,6 @@ import 'package:kirei/src/features/address/model/area_response.dart';
 import 'package:kirei/src/features/address/model/zone_response.dart';
 import 'package:kirei/src/features/address/repositories/address_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-
 import '../../../utils/logging/logger.dart';
 
 class AddressController extends GetxController {

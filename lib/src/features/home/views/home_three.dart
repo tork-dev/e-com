@@ -31,12 +31,10 @@ class HomeThree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeController controller = Get.put(HomeController());
-    GetShopDataController getShopDataController = Get.put(
-      GetShopDataController(),
-    );
-    ConvexBottomNavController convexBottomNavController =
-        ConvexBottomNavController.instance;
+    HomeController controller = HomeController.instance;
+    GetShopDataController getShopDataController = GetShopDataController.instance;
+    ConvexBottomNavController convexBottomNavController = ConvexBottomNavController.instance;
+    print("HomeController exists: ${Get.isRegistered<HomeController>()}");
     return AppLayoutWithDrawer(
       backToHome: true,
       inHome: true,
@@ -78,14 +76,7 @@ class HomeThree extends StatelessWidget {
           ),
           Obx(() {
             return Visibility(
-              visible:
-                  controller
-                      .homeProductResponse
-                      .value
-                      .homepageSettings
-                      ?.features
-                      ?.skinConcern ??
-                  false,
+              visible: controller.showSkinConcern,
               child: const HomeShopByConcern(),
             );
           }),
@@ -101,13 +92,7 @@ class HomeThree extends StatelessWidget {
                       .homepageSettings
                       ?.recommendation,
               showTheSection:
-                  controller
-                      .homeProductResponse
-                      .value
-                      .homepageSettings
-                      ?.features
-                      ?.recommendation ??
-                  false,
+                  controller.showRecommendation,
             );
           }),
           const Gap(AppSizes.spaceBtwSections),
@@ -127,13 +112,7 @@ class HomeThree extends StatelessWidget {
                       .homepageSettings
                       ?.groupShopping,
               showTheSection:
-                  controller
-                      .homeProductResponse
-                      .value
-                      .homepageSettings
-                      ?.features
-                      ?.groupShopping ??
-                  false,
+                  controller.showGroupShopping,
             );
           }),
 
@@ -143,14 +122,7 @@ class HomeThree extends StatelessWidget {
           Gap(AppSizes.spaceBtwSections),
           Obx(() {
             return Visibility(
-              visible:
-                  controller
-                      .homeProductResponse
-                      .value
-                      .homepageSettings
-                      ?.features
-                      ?.reviews ??
-                  false,
+              visible:controller.showReviews,
               child: const HomeReviewSection(),
             );
           }),
@@ -164,14 +136,7 @@ class HomeThree extends StatelessWidget {
                       .value
                       .homepageSettings
                       ?.kireitube,
-              showTheSection:
-                  controller
-                      .homeProductResponse
-                      .value
-                      .homepageSettings
-                      ?.features
-                      ?.kireitube ??
-                  false,
+              showTheSection: controller.showKireiTube,
             );
           }),
           const Gap(100),

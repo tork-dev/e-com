@@ -32,7 +32,7 @@ class OnBoardingController extends GetxController{
       spinnerActive.value = true;
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isNotFirstTime, true);
       CommonController().showPopUp();
-      Get.offAll(const HelloConvexAppBar());
+      Get.offAllNamed("/home");
     }else{
       int page = currentPageIndex.value +1;
       pageController.jumpToPage(page);
@@ -44,6 +44,6 @@ class OnBoardingController extends GetxController{
     spinnerActive.value = true;
     AppLocalStorage().saveDataIfNull(LocalStorageKeys.isNotFirstTime, true);
     CommonController().showPopUp();
-    Get.offAll(const HelloConvexAppBar());
+    Get.offAllNamed("/home");
   }
 }

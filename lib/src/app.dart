@@ -19,6 +19,7 @@ import 'features/ai_recommendation/view/recommended_products.dart';
 import 'features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'features/appoinment/view/appointment_screen.dart';
 import 'features/group_shopping/view/group_shopping_payment_screen.dart';
+import 'features/home/bindings/home_bindings.dart';
 import 'features/kirei_tube/view/kirei_tube_screen.dart';
 import 'features/kirei_tube/view/kirei_tube_shorts_screen.dart';
 import 'features/personalization/view/account_details.dart';
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/register', page: () => const SignUp()),
         GetPage(
             name: '/home',
+            binding: HomeBinding(),
             page: () => const HelloConvexAppBar(
                   pageIndex: 0,
                 )),

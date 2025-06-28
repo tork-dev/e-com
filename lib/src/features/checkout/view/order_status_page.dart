@@ -185,9 +185,7 @@ class AppOrderStatusScreen extends StatelessWidget {
                         width: 200,
                         child: AppButtons.largeFlatFilledButton(
                             onPressed: () {
-                              Get.offAll(() => const HelloConvexAppBar(
-                                    pageIndex: 0,
-                                  ));
+                              Get.offAllNamed("/home");
                             },
                             buttonText: 'Home',
                             backgroundColor: AppColors.secondary))

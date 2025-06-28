@@ -87,7 +87,7 @@ class AppDrawer extends StatelessWidget {
           ),
           AppDrawerCard(
             title: 'HOME',
-            onPress: () => Get.offAll(() => const HelloConvexAppBar()),
+            onPress: () => Get.offAllNamed("/home"),
           ),
           AppDrawerCard(
             title: 'new arrivals'.toUpperCase(),
@@ -645,7 +645,7 @@ class AppDrawer extends StatelessWidget {
                   title: 'logout'.toUpperCase(),
                   onPress: () {
                     AuthHelper().clearUserData();
-                    Get.offAll(() => const HelloConvexAppBar());
+                    Get.offAllNamed("/home");
                   },
                 ),
               ],

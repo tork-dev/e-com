@@ -18,7 +18,7 @@ class HomeSearchDecoration extends StatelessWidget {
     required this.focusNode,
   });
 
-  final GetShopDataController categoryController;
+  final dynamic categoryController;
   final ConvexBottomNavController bottomController;
   final dynamic controller, focusNode;
 

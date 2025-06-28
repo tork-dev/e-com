@@ -54,11 +54,12 @@ class DeActiveWidgets {
             onPressed: () {
               AuthHelper().clearUserData();
               Navigator.of(Get.context!, rootNavigator: true).pop();
-              Navigator.pushAndRemoveUntil(
-                Get.context!,
-                MaterialPageRoute(builder: (_) => const HelloConvexAppBar(pageIndex: 0,)),
-                (route) => false,
-              );
+              Get.offAllNamed("/home");
+              // Navigator.pushAndRemoveUntil(
+              //   Get.context!,
+              //   MaterialPageRouteNamed(builder: (_) => const HelloConvexAppBar(pageIndex: 0,)),
+              //   (route) => false,
+              // );
             },
           ),
         ],

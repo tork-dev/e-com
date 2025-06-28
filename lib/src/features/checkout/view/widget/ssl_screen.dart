@@ -80,7 +80,7 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
         ),
         leadingOnPress: () {
           Log.d('working');
-          Get.offAll(() => const HelloConvexAppBar());
+          Get.offAllNamed("/home");
         },
         body: buildBody());
   }

@@ -64,7 +64,7 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
       title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
         leadingOnPress: (){
           Log.d('working');
-        Get.offAll(()=> const HelloConvexAppBar());
+        Get.offAllNamed("/home");
         },
         padding: 0,
         body: buildBody());

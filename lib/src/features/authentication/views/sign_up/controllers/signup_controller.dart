@@ -98,7 +98,7 @@ class SignUpPageController extends GetxController {
       if(signupFormKey.currentState!.validate()){
         if(signupList[0].result==true){
           AppHelperFunctions.showToast(signupList[0].message.toString());
-          Get.offAll(const HelloConvexAppBar());
+          Get.offAllNamed("/home");
           EventLogger().logSignUpEvent('email and password');
         } else{
           AppHelperFunctions.showToast(signupList[0].message.toString());

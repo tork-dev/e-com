@@ -7,7 +7,6 @@ import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../../details/model/products_model.dart';
@@ -25,7 +24,7 @@ class HomeController extends GetxController {
   HomeController({this.callApis = true});
 
   ///Controller
-  GetShopDataController categoryController = Get.put(GetShopDataController());
+  GetShopDataController categoryController =GetShopDataController.instance;
 
   ///TextEditingController
   TextEditingController emailController = TextEditingController();
@@ -94,6 +93,13 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    emailController.dispose();
+    surprisePhoneController.dispose();
+    super.onClose();
+  }
+
   Future<void> onRefresh() async {
   CachingUtility.clearCache(CachingKeys.allCategoryCachedData);
   CachingUtility.clearCache(CachingKeys.allCategoryNewCachedData);
@@ -102,27 +108,29 @@ class HomeController extends GetxController {
   await getData();
   }
 
-  Future<void> getData() async{
+  Future<void> getData() async {
     homeSlidersLink.clear();
     homeSliders.clear();
-    getProductData();
-    fetchFeaturedCategories();
-    // getRecommendedProducts();
-    getRecommendedProductsForYou();
-    getTrendingProducts();
-  }
 
-  Future<void> getProductData() async {
     hittingApi.value = true;
-    homeProductResponse.value = await HomeRepositories.getHomeProducts();
-    fetchCarouselImages();
-    // homeProductResponse.value.bestsellingProducts[0].id
-    Log.d(
-        homeProductResponse.value.sliders![0].link.toString());
+
+    await Future.wait([
+      getProductData(),
+      fetchFeaturedCategories(),
+      // getRecommendedProducts(),
+      getRecommendedProductsForYou(),
+      getTrendingProducts(),
+    ]);
+
     hittingApi.value = false;
   }
 
-  void fetchFeaturedCategories() async {
+  Future<void> getProductData() async {
+    homeProductResponse.value = await HomeRepositories.getHomeProducts();
+    fetchCarouselImages();
+  }
+
+  Future<void> fetchFeaturedCategories() async {
     homeFeaturedCategoryResponse.value =
         await HomeRepositories().getHomeFeaturedCategories();
   }
@@ -169,7 +177,7 @@ class HomeController extends GetxController {
     });
   }
 
-  Future<void> getSurpriseTap() async {
+  Future<void> submitSurprisePhone() async {
     if (!surprisePhoneKey.currentState!.validate()) return;
     surpriseGiftResponse.value = await HomeRepositories()
         .getSurprizResponse(surprisePhoneController.text.toString());

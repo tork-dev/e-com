@@ -92,7 +92,7 @@ class AppDetailsPicturePart extends StatelessWidget {
                           height: double.infinity,
                           width: double.infinity,
                           child: InstaImageViewer(
-                            backgroundColor: Colors.red,
+                            backgroundColor: Colors.transparent,
                             imageUrl:
                                 detailsController
                                     .productDetails

@@ -25,9 +25,7 @@ class PurchaseHistory extends StatelessWidget {
             Get.back();
           });
         } else {
-          Get.offAll(() => const HelloConvexAppBar(
-                pageIndex: 0,
-              ));
+          Get.offAllNamed("/home");
         }
       },
       child: AppLayoutWithBackButton(
@@ -37,9 +35,7 @@ class PurchaseHistory extends StatelessWidget {
         showCustomLeading: true,
         centerTitle: true,
         leadingOnPress: () => backToHome
-            ? Get.offAll(() => const HelloConvexAppBar(
-                  pageIndex: 0,
-                ))
+            ? Get.offAllNamed("/home")
             : Get.back(),
         title: const Text(
           'Purchase History',

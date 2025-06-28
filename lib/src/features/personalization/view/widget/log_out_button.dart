@@ -25,7 +25,7 @@ class ProfileLogOutButton extends StatelessWidget {
                 },
                 onLeftPress: () {
                   AuthHelper().clearUserData();
-                  Get.offAll(() => const HelloConvexAppBar());
+                  Get.offAllNamed("/Home");
                 },
                 rightButtonTextColor: AppColors.secondary,
                 rightButtonColor: Colors.transparent);

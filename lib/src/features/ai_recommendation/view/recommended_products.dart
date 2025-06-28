@@ -40,7 +40,7 @@ class RecommendedProducts extends StatelessWidget {
       customLeadingIcon: Icons.arrow_back_ios_new_rounded,
       showCustomLeading: true,
       leadingOnPress: () {
-        Get.offAll(() => const HelloConvexAppBar());
+        Get.offAllNamed("/home");
       },
       body: Obx(() {
         // Displaying shimmer while loading data

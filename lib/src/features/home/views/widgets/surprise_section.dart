@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -18,11 +19,11 @@ class HomeSurpriseSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
     return Obx(() {
+      final surprise = homeController.homeProductResponse.value.homepageSettings?.surprizeGift;
       return Visibility(
         visible: homeController.hittingApi.value
             ? true
-            : homeController.homeProductResponse.value.homepageSettings
-                    ?.features?.surprizeGift ?? false,
+            : homeController.showSurprise,
         child: Column(
           children: [
             const Gap(AppSizes.spaceBtwSections),
@@ -47,9 +48,7 @@ class HomeSurpriseSection extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  homeController.homeProductResponse.value
-                                          .homepageSettings?.surprizeGift?.title ??
+                                Text(surprise?.title ??
                                       'Get surprise gift',
                                   style: Theme.of(context)
                                       .textTheme
@@ -57,13 +56,7 @@ class HomeSurpriseSection extends StatelessWidget {
                                       .apply(color: AppColors.white),
                                 ),
                                 const Gap(AppSizes.sm),
-                                HtmlWidget(
-                                  homeController
-                                          .homeProductResponse
-                                          .value
-                                          .homepageSettings
-                                          ?.surprizeGift!
-                                          .description ??
+                                HtmlWidget(surprise?.description ??
                                       '',
                                   textStyle: Theme.of(context)
                                       .textTheme
@@ -74,6 +67,11 @@ class HomeSurpriseSection extends StatelessWidget {
                                 TextFormField(
                                   controller: homeController.surprisePhoneController,
                                   cursorColor: AppColors.primary,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    LengthLimitingTextInputFormatter(11),
+                                  ],
                                   validator: (value) =>
                                       AppValidator.validatePhoneNumber(value),
                                   keyboardType: TextInputType.number,
@@ -98,10 +96,7 @@ class HomeSurpriseSection extends StatelessWidget {
                                 ),
                                 const Gap(AppSizes.spaceBtwItems),
                                 AppButtons.largeFlatFilledButton(
-                                    onPressed: () {
-
-                                      homeController.getSurpriseTap();
-                                    },
+                                    onPressed: () => homeController.submitSurprisePhone(),
                                     backgroundColor: AppColors.secondary,
                                     buttonText: 'Submit')
                               ],

@@ -99,9 +99,7 @@ class OtpController extends GetxController {
               signUpController.isSignupOtp.value != true) {
             Get.to(() => const NewPassword());
           } else {
-            Get.offAll(() => const HelloConvexAppBar(
-                  pageIndex: 0,
-                ));
+            Get.offAllNamed("/home");
             EventLogger().logLoginEvent('Otp');
           }
         } else {

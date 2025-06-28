@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/cart/view/cart.dart';
+import 'package:kirei/src/features/home/bindings/home_bindings.dart';
 import 'package:kirei/src/features/home/views/home_three.dart';
 import 'package:kirei/src/features/personalization/view/profile.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
@@ -17,6 +18,7 @@ import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/logging/logger.dart';
+import '../home/controller/home_controller.dart';
 
 class HelloConvexAppBar extends StatelessWidget {
   final int pageIndex;
@@ -118,6 +120,10 @@ class HelloConvexAppBar extends StatelessWidget {
               ],
               initialActiveIndex: controller.pageIndex.value,
               onTap: (index) {
+
+                if(index == 0){
+                  Get.put(HomeController());
+                }
                 if (index == 3) {
                   if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) !=
                       true) {
@@ -125,6 +131,7 @@ class HelloConvexAppBar extends StatelessWidget {
                     return;
                   }
                 }
+                print("Tapped");
                 controller.jumpToTab(index);
               },
             ),
