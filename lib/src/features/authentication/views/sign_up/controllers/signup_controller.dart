@@ -4,6 +4,7 @@ import 'package:kirei/src/features/authentication/views/sign_up/model/signup_res
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
+import '../../../../../utils/helpers/network_manager.dart';
 import '../../../../bottom_navigation/convex_bottom_navigation.dart';
 import '../../forgot_password/view/otp.dart';
 import '../repository/signup_repository.dart';
@@ -37,7 +38,7 @@ class SignUpPageController extends GetxController {
   Future<void> sendOtpSignUp(
 
       ) async {
-    // final isConnected = await NetworkManager.instance.isConnected();
+    final isConnected = await NetworkManager.instance.isConnected();
     try {
       /// Validate Form
       if (!signupFormKey.currentState!.validate()) return;

@@ -85,71 +85,71 @@ class AddressController extends GetxController {
         await AddressRepositories().getAreas(selectedZoneId);
   }
 
-  void validateForm(){
-    if (nameController.text == "") {
-      AppHelperFunctions.showToast('Name is required');
-      return;
+  bool validateForm(){
+    if(!addressFormKey.currentState!.validate()) {
+      return false;
     }
 
-    if (phoneController.text == "") {
+    if (nameController.text == "") {
+      AppHelperFunctions.showToast('Name is required');
+      return false;
+    }
+
+    if (phoneController.text == "" ) {
       AppHelperFunctions.showToast('Phone is required');
-      return;
+      return false;
     } else if (phoneController.text.length > 11) {
       AppHelperFunctions.showToast('Invalid Phone');
-      return;
+      return false;
     } else if (phoneController.text.length < 11) {
       AppHelperFunctions.showToast('Invalid Phone');
-      return;
+      return false;
     } else if (!phoneController.text.startsWith("0")) {
       AppHelperFunctions.showToast('Invalid Phone');
-      return;
+      return false;
     }
 
     if (addressController.text == "") {
       AppHelperFunctions.showToast('Address is required');
-      return;
+      return false;
     } else if (addressController.value.text.length < 10) {
       AppHelperFunctions.showToast('Address have to be minimum 10 character');
-      return;
+      return false;
     }
 
     if (selectedCityController.text == "") {
       AppHelperFunctions.showToast('City is required');
-      return;
+      return false;
     }
 
     if (selectedAreaController.text == "") {
       AppHelperFunctions.showToast('Zone is required');
-      return;
+      return false;
     }
-
-    if (emailController.text.toString().isNotEmpty) {
-      if (!addressFormKey.currentState!.validate()) {
-        return;
-      }
-    }
+    return true;
   }
 
   Future<void> onPressSave() async {
-    validateForm();
-    createOrUpdateAddress.value =
-        await AddressRepositories().getAddressAddResponse(
-      name: nameController.value.text,
-      phone: phoneController.text,
-      email: emailController.text,
-      address: addressController.value.text,
-      city: selectedCityId.value.toString(),
-      zone: selectedZoneId.toString(),
-      area: selectedAreaId.toString(),
-    );
+    if(validateForm()) {
+      createOrUpdateAddress.value =
+      await AddressRepositories().getAddressAddResponse(
+        name: nameController.value.text,
+        phone: phoneController.text,
+        email: emailController.text,
+        address: addressController.value.text,
+        city: selectedCityId.value.toString(),
+        zone: selectedZoneId.toString(),
+        area: selectedAreaId.toString(),
+      );
 
-    if (createOrUpdateAddress.value.result == false) {
+      if (createOrUpdateAddress.value.result == false) {
+        AppHelperFunctions.showToast(createOrUpdateAddress.value.message!);
+        return;
+      }
       AppHelperFunctions.showToast(createOrUpdateAddress.value.message!);
-      return;
-    }
-    AppHelperFunctions.showToast(createOrUpdateAddress.value.message!);
-    if (createOrUpdateAddress.value.result == true) {
-      Get.back();
+      if (createOrUpdateAddress.value.result == true) {
+        Get.back();
+      }
     }
   }
 

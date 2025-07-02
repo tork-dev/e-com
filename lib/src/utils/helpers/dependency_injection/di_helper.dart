@@ -22,13 +22,14 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/features/splash/controller/splash_controller.dart';
 import '../../../features/spinner_wheel/controller/spinner_controller.dart';
+import '../network_manager.dart';
 
 class DependencyInjection extends Bindings {
 
   @override
   void dependencies() {
     Get.lazyPut<OnBoardingController>(()=>OnBoardingController());
-    // Get.lazyPut<NetworkManager>(()=>NetworkManager());
+    Get.lazyPut<NetworkManager>(()=>NetworkManager());
     Get.put(CommonController());
     Get.lazyPut<SplashController>(()=>SplashController());
     Get.lazyPut<SpinnerController>(()=>SpinnerController());
