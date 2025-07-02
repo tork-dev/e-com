@@ -54,6 +54,7 @@ class AppImages {
   //Profile
   static const String user = "assets/images/content/user.png";
   static const String profileIcon = "assets/images/icons/profile.png";
+  static const String demoPerson = "assets/images/icons/demo-person.png";
   static const String avatarIcon = "assets/images/icons/avatar.jpg";
 
   // -- Background images

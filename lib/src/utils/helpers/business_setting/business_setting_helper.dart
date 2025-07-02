@@ -127,8 +127,8 @@ class BusinessSettingHelper extends GetxController {
                 return Stack(
                   children: [
                     Dialog(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
+                      shape:  RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
                       ),
                       child: PopScope(
                         canPop: !updateRequired,

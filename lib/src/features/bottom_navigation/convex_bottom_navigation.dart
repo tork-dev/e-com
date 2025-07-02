@@ -131,7 +131,6 @@ class HelloConvexAppBar extends StatelessWidget {
                     return;
                   }
                 }
-                print("Tapped");
                 controller.jumpToTab(index);
               },
             ),

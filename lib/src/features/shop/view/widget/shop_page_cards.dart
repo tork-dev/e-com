@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
@@ -73,7 +71,7 @@ class AppShopGridScrollCard extends StatelessWidget {
                                             '/shop?${shopController.queryStringValue.value}'
                                       });
                                   EventLogger().logProductDetailsViewEvent(
-                                      shopController.allProducts[index].slug!);
+                                      shopController.allProducts[index].slug!, shopController.allProducts[index].salePrice!);
                                 },
                                 onCartTap: () {
                                   if (AppLocalStorage().readData(

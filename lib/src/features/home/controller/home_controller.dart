@@ -93,12 +93,12 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    emailController.dispose();
-    surprisePhoneController.dispose();
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   emailController.dispose();
+  //   surprisePhoneController.dispose();
+  //   super.onClose();
+  // }
 
   Future<void> onRefresh() async {
   CachingUtility.clearCache(CachingKeys.allCategoryCachedData);

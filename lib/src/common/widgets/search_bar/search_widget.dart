@@ -34,7 +34,7 @@ class AppSearchWidget extends StatelessWidget {
                 onTap: () {
                   Get.toNamed('/product/${dataItem.slug ?? ''}',
                       parameters: {'prevRoute': prevRoute});
-                  EventLogger().logProductDetailsViewEvent('${dataItem.slug}');
+                  EventLogger().logProductDetailsViewEvent('${dataItem.slug}', dataItem.salePrice! as double);
                 },
                 contentPadding: const EdgeInsets.all(AppSizes.sm),
                 dense: true,

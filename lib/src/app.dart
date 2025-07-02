@@ -29,6 +29,7 @@ import 'features/reward_point/view/point_history_screen.dart';
 import 'features/reward_point/view/point_level_screen.dart';
 import 'features/reward_point/view/point_redemption_screen.dart';
 import 'features/reward_point/view/reward_screen.dart';
+import 'features/shop/view/hot_deals_screen.dart';
 import 'features/splash/view/splash_screen.dart';
 import './utils/theme/theme.dart';
 import './utils/constants/text_strings.dart';
@@ -182,6 +183,8 @@ class MyApp extends StatelessWidget {
             page: () => const KireiTubeShortsDetailsScreen()),
         GetPage(
             name: '/wishlist', page: () => const WishlistScreen()),
+        GetPage(
+            name: '/hot-deals', page: () => const HotDealsScreen()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],
     );

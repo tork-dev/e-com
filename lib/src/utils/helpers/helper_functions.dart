@@ -201,8 +201,8 @@ class AppHelperFunctions {
       context: Get.context!,
       builder: (BuildContext context) {
         return Dialog(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
           ),
           insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
           backgroundColor: AppColors.popUpBackground,
@@ -214,7 +214,7 @@ class AppHelperFunctions {
                   Visibility(
                     visible: imgUrl != null,
                     child: AppBannerImage(
-                        applyImageRadius: false,
+                        applyImageRadius: true,
                         height: 180,
                         width: double.infinity,
                         fit: BoxFit.cover,
@@ -264,7 +264,8 @@ class AppHelperFunctions {
                             children: [
                               AppCardContainer(
                                   onTap: onLeftPress,
-                                  applyRadius: false,
+                                  applyRadius: true,
+                                  borderRadius: AppSizes.cardRadiusXs,
                                   height: 40,
                                   width: 120,
                                   hasBorder: true,
@@ -278,7 +279,8 @@ class AppHelperFunctions {
                               const Gap(AppSizes.sm),
                               AppCardContainer(
                                   onTap: onRightPress,
-                                  applyRadius: false,
+                                  applyRadius: true,
+                                  borderRadius: AppSizes.cardRadiusXs,
                                   height: 40,
                                   width: 120,
                                   backgroundColor: AppColors.primary,
@@ -305,8 +307,9 @@ class AppHelperFunctions {
                 top: AppSizes.md,
                 child: AppCardContainer(
                     onTap: onLeftPress,
-                    applyRadius: false,
-                    backgroundColor: AppColors.grey,
+                    applyRadius: true,
+                    borderRadius: AppSizes.cardRadiusXs,
+                    backgroundColor: AppColors.whitePink,
                     height: 40,
                     width: 40,
                     child: const Icon(Icons.clear)),

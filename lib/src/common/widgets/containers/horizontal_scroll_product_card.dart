@@ -39,7 +39,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
               onTap: () {
                 Get.toNamed('/product/${sectionName![index].slug}', parameters: {'prevRoute' : '/home'});
                 EventLogger().logProductDetailsViewEvent(
-                    '${sectionName![index].slug}');
+                    '${sectionName![index].slug}', sectionName![index].salePrice);
               },
               onCartTap: () {
                 if (AppLocalStorage()

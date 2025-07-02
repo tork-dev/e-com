@@ -73,8 +73,8 @@ class HomeReviewSection extends StatelessWidget {
                           Row(
                             children: [
                               AppBannerImage(
-                                  width: 48,
-                                  height: 48,
+                                  width: 50,
+                                  height: 50,
                                   isNetworkImage: true,
                                   hasBorder: homeController
                                       .homeProductResponse
@@ -85,7 +85,7 @@ class HomeReviewSection extends StatelessWidget {
                                   borderWidth: 1,
                                   boarderRadius: 100,
                                   imgBoarderRadius: 100,
-                                  errorImage: AppImages.avatarIcon,
+                                  errorImage: AppImages.demoPerson,
                                   imgUrl: homeController
                                       .homeProductResponse
                                       .value
@@ -98,7 +98,7 @@ class HomeReviewSection extends StatelessWidget {
                                     '',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .titleLarge,
+                                    .titleLarge?.apply(color: AppColors.darkerGrey),
                               ),
                             ],
                           ),

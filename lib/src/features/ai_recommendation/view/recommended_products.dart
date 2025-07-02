@@ -94,7 +94,7 @@ class RecommendedProducts extends StatelessWidget {
                                   );
 
                                   EventLogger().logProductDetailsViewEvent(
-                                    '${product.slug}',
+                                    '${product.slug}', product.salePrice! as double
                                   );
                                 },
                                 onCartTap: () {

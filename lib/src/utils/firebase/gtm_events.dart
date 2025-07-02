@@ -21,7 +21,7 @@ class EventLogger {
     _analytics.logEvent(name: name, parameters: parameters);
   }
 
-  void logProductDetailsViewEvent(String itemId) async {
+  void logProductDetailsViewEvent(String itemId, double price) async {
     // logEvent('product_details_view', {
     //   'member_id': memberId!,
     //   'item_id': itemId,
@@ -30,6 +30,7 @@ class EventLogger {
     gtm.push('product_details_view', parameters: {
       'member_id': memberId,
       'item_id': itemId,
+      'value' : '$price'
     });
 
     facebookAppEvents.logEvent(
@@ -38,6 +39,8 @@ class EventLogger {
         'advertiser_tracking_enabled': true,
         'Content_ID': itemId,
         'Content_Type': 'product',
+        'Currency' : 'BDT',
+        'ValueToSum': '$price',
         'Member_ID': memberId
       },
     );
@@ -143,7 +146,7 @@ class EventLogger {
     // });
 
     gtm.push('search', parameters: {
-      'item_id': searchValue,
+      'search_value': searchValue,
       'member_id': memberId
     });
 
@@ -204,7 +207,7 @@ class EventLogger {
     });
 
     facebookAppEvents.logEvent(
-      name: 'login',
+      name: 'Login',
       parameters: {
         'advertiser_tracking_enabled': true,
         "method": loginMethod
@@ -242,7 +245,7 @@ class EventLogger {
     });
 
     facebookAppEvents.logEvent(
-      name: 'share',
+      name: 'Share',
       parameters: {
         'advertiser_tracking_enabled': true,
         "content_type": "product",
@@ -269,7 +272,7 @@ class EventLogger {
     });
 
     facebookAppEvents.logEvent(
-      name: 'remove_from_cart',
+      name: 'RemoveFromCart',
       valueToSum: itemPrice.toDouble(),
       parameters: {
         'advertiser_tracking_enabled': true,
@@ -299,7 +302,7 @@ class EventLogger {
     });
 
     facebookAppEvents.logEvent(
-      name: 'view_cart',
+      name: 'ViewCart',
       parameters: {
         'advertiser_tracking_enabled': true,
         'Content_ID': items,

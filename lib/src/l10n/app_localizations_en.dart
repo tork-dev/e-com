@@ -78,7 +78,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get verifyYourself => 'Verify your Phone Number';
 
   @override
-  String get verifyYourselfSubtext => 'Please enter the verification code that was sent to your phone recently.';
+  String get verifyYourselfSubtext =>
+      'Please enter the verification code that was sent to your phone recently.';
 
   @override
   String get verify => 'Confirm';

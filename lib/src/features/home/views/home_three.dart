@@ -31,7 +31,7 @@ class HomeThree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeController controller = HomeController.instance;
+    HomeController controller = Get.put(HomeController());
     GetShopDataController getShopDataController = GetShopDataController.instance;
     ConvexBottomNavController convexBottomNavController = ConvexBottomNavController.instance;
     print("HomeController exists: ${Get.isRegistered<HomeController>()}");

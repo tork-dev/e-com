@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
+import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
+import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:kirei/src/common/widgets/appbar/appbar_bottom.dart';
+import 'package:kirei/src/common/widgets/search_bar/app_bar_search.dart';
+import 'package:kirei/src/features/shop/controller/shop_controller.dart';
+import 'package:kirei/src/features/shop/view/widget/shop_page_cards.dart';
+import 'package:kirei/src/features/shop/view/widget/sort_alert_box.dart';
+import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:slide_countdown/slide_countdown.dart';
+import '../../../common/widgets/containers/card_container.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/logging/logger.dart';
+import '../controller/get_shop_data_controller.dart';
+
+class HotDealsScreen extends StatelessWidget {
+  const HotDealsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final shopDataController = Get.put(GetShopDataController());
+    final shopController = Get.put(ShopController());
+    shopDataController.sortKey.value = 'hot';
+    shopDataController.getShopData();
+    return AppLayoutWithBackButton(
+        padding: 0,
+        backgroundColor: AppColors.primary,
+        leadingIconColor: AppColors.white,
+        bodyBackgroundColor: AppColors.secondaryBackground,
+        title: Obx(() {
+          return AppBarSearch(
+            focusOn: shopDataController.searchOn.value,
+            onSubmit: (txt) {
+              shopDataController.search.value = txt;
+              shopDataController.isFromSearch.value = true;
+              shopDataController.allProducts.clear();
+              shopDataController.getShopData();
+              shopDataController.categoryRouteList.add('/shop?${shopDataController.queryStringValue.value}');
+              Log.d('length of routes: ${shopDataController.categoryRouteList}');
+              return null;
+            },
+            prevRoute: '/shop?${shopDataController.queryStringValue.value}',
+          );
+        }),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AppLayoutWithRefresher(
+              onRefresh: shopController.onRefresh,
+              scrollController: shopDataController.scrollController,
+              children: [
+                const Gap(AppSizes.defaultSpace),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    children: [
+                      // Text("Hot-Deals", style: Theme.of(context).textTheme.headlineMedium,),
+                      SlideCountdownSeparated(
+                        style: Theme.of(context).textTheme.headlineMedium!.apply(color: AppColors.white),
+                        duration: Duration(days: 2),
+                        padding: EdgeInsets.all(AppSizes.md),
+                        separatorStyle: Theme.of(context).textTheme.titleMedium!,
+                        separatorPadding: EdgeInsets.all(AppSizes.sm),
+                        decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(AppSizes.cardRadiusXs)),
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(AppSizes.defaultSpace),
+                const AppShopGridScrollCard()]),
+        ));
+  }
+}
