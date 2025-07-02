@@ -18,15 +18,15 @@ dependencies:
 
 
   #Utility Packages
-  http: ^1.3.0
-  dotted_border: ^3.0.1
+  http: ^1.4.0
+  dotted_border: ^3.1.0
   intl: any
-  logger: ^2.5.0
+  logger: ^2.6.0
   url_launcher: ^6.3.1
   connectivity_plus: ^6.1.3
-  carousel_slider: ^5.0.0
+  carousel_slider: ^5.1.1
   smooth_page_indicator: ^1.2.1
-  webview_flutter: ^4.11.0
+  webview_flutter: ^4.13.0
   fluttertoast: ^8.2.12
   flutter_dotenv: ^5.2.1
   shimmer: ^3.0.0
@@ -42,23 +42,23 @@ dependencies:
   font_awesome_flutter: ^10.8.0
   percent_indicator: ^4.2.5
   image_picker: ^1.1.2
-  share_plus: ^10.1.4
+  share_plus: ^11.0.0
   insta_image_viewer: ^1.0.4
-  flutter_facebook_auth: ^7.1.1
+  flutter_facebook_auth: ^7.1.2
   sign_in_with_apple: ^7.0.1
   flutter_fortune_wheel: ^1.3.2
-  like_button: ^2.0.5
+  like_button: ^2.1.0
   comment_box: ^0.0.18
-  flutter_local_notifications: ^19.1.0
+  flutter_local_notifications: ^19.3.0
   gtm: ^1.0.2
-  facebook_app_events: ^0.19.6
+  facebook_app_events: ^0.20.1
   clipboard: ^0.1.3
   youtube_player_iframe: ^5.2.1
-  device_info_plus: ^11.3.3
+  device_info_plus: ^11.5.0
   slide_countdown: ^2.0.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  build_runner: ^2.4.15
+  build_runner: ^2.5.4
 
 
   # Icons
@@ -74,13 +74,13 @@ dependencies:
     sdk: flutter
 
   # Firebase
-  firebase_core: ^3.13.0
-  google_sign_in: ^6.3.0
-  firebase_auth: ^5.5.2
-  firebase_messaging: ^15.2.5
-  firebase_analytics: ^11.4.5
+  firebase_core: ^3.15.0
+  google_sign_in: ^7.1.0
+  firebase_auth: ^5.6.1
+  firebase_messaging: ^15.2.8
+  firebase_analytics: ^11.5.1
   app_links: ^6.4.0
-  firebase_crashlytics: ^4.3.5
+  firebase_crashlytics: ^4.3.8
   flutter_timer_countdown: ^1.0.7
 
 
@@ -103,7 +103,7 @@ dev_dependencies:
     sdk: flutter
 
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 
 flutter:
