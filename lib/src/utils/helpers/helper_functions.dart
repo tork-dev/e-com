@@ -650,7 +650,7 @@ class AppHelperFunctions {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSizes.cardRadiusSm),
           ),
-          //contentPadding: const EdgeInsets.all(AppSizes.defaultSpace),
+          contentPadding: EdgeInsets.zero,
           content: Stack(
             children: [
               Positioned(
@@ -662,54 +662,55 @@ class AppHelperFunctions {
                   onTap: () {
                     Navigator.of(context).pop(); // Close the dialog
                   },
-                  backgroundColor: AppColors.whitePink,
+                  // backgroundColor: AppColors.whitePink,
                   padding: EdgeInsets.all(AppSizes.sm),
                   child: Icon(Icons.clear, size: 20, color: AppColors.black),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Center(
-                  //   child: Image.asset(
-                  //     'assets/images/icons/return_image.png', // Make sure this is your image path
-                  //     height: 80,
-                  //   ),
-                  // ),
-                  const Gap(AppSizes.spaceBtwItems),
-                   Text(
-                    "Easy Returns with Kirei",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const Gap(AppSizes.spaceBtwDefaultItems),
-                  Text(
-                    "🛡️ 100% Satisfaction Promise",
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const Gap(AppSizes.spaceBtwItems),
-                   Text(
-                    "At Kirei, we care about your happiness with every purchase. "
-                        "If something doesn’t feel right, simply return the item to the delivery person on the spot.",
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const Gap(AppSizes.spaceBtwDefaultItems),
-                  Text(
-                    "No return fees. No extra costs. You’ll get a full refund (if paid) or an exchange (if available) within 5 working days. "
-                        "Just make sure to check and return the product while the delivery person is still present.",
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const Gap(AppSizes.defaultSpace),
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      RoutingHelper.urlRouting("${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/return-refund");
-                    },
-                    icon: const Icon(Icons.info_outline),
-                    label: const Text("Learn More"),
-                  )
-                ],
+              Container(
+                margin: EdgeInsets.all(AppSizes.md),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Center(
+                    //   child: Image.asset(
+                    //     'assets/images/icons/return_image.png', // Make sure this is your image path
+                    //     height: 80,
+                    //   ),
+                    // ),
+                    const Gap(AppSizes.spaceBtwSections),
+                     Text(
+                      "Easy Returns with Kirei",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const Gap(AppSizes.sm),
+                    Text(
+                      "🛡️ 100% Satisfaction Promise",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const Gap(AppSizes.spaceBtwItems),
+                     Text(
+                      "Your happiness matters to us at Kirei. If the product isn’t right, you can hand it back to the delivery person immediately.",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const Gap(AppSizes.spaceBtwItems),
+                    Text(
+                      "No return charges, no extra fees. Just ensure the return is made while the delivery agent is still there.",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const Gap(AppSizes.defaultSpace),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        RoutingHelper.urlRouting("${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/return-refund");
+                      },
+                      icon: const Icon(Icons.info_outline),
+                      label: const Text("Learn More"),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

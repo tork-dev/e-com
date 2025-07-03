@@ -52,12 +52,12 @@ class ReviewScreen extends StatelessWidget {
               child:
                   controller.reviewResponse.value.canReview ?? true
                       ? AppReviewPostCard()
-                      : UserReview(
+                      : controller.reviewResponse.value.loggerReview != null?   UserReview(
                         reviewerName: "${controller.reviewResponse.value.loggerReview?.userName}",
                         reviewText: "${controller.reviewResponse.value.loggerReview?.comment}",
                         rating: controller.reviewResponse.value.loggerReview?.rating?.toDouble() ?? 0,
                         status: controller.reviewResponse.value.loggerReview?.isApproved ?? 0,
-                      ),
+                      ) : SizedBox(),
             );
           }),
         ],

@@ -17,73 +17,89 @@ class AppReviewCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reviewController = ReviewController.instance;
+
     return Obx(() {
+      final isLoading = reviewController.apiHitting.value;
+      final reviewList = reviewController.reviewResponse.value.data;
+
+      if (isLoading) {
+        // show shimmer
+        return AppListViewLayout(
+          itemCount: 10,
+          builderFunction: (context, index) =>
+              ShimmerHelper().buildBasicShimmer(height: 70.0),
+        );
+      }
+
+      if (reviewList == null || reviewList.isEmpty) {
+        // show "No reviews" message
+        return const Center(
+          child: Text("No reviews"),
+        );
+      }
+
+      // otherwise show the reviews
       return AppListViewLayout(
-        itemCount: reviewController.apiHitting.value
-            ? 10
-            : reviewController.reviewResponse.value.data!.length,
-        builderFunction: (context, index) => reviewController.apiHitting.value
-            ? ShimmerHelper().buildBasicShimmer(height: 70.00)
-            : Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                           AppBannerImage(
-                              applyPadding: true,
-                              backgroundColor: AppColors.grey,
-                              applyImageRadius: true,
-                              boarderRadius: 100,
-                              height: 50,
-                              width: 50,
-                              isNetworkImage: reviewController.reviewResponse.value.data![index].avatar != null,
-                              imgUrl: reviewController.reviewResponse.value.data![index].avatar ?? AppImages.profileIcon),
-                          const Gap(AppSizes.sm),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(reviewController.reviewResponse.value.data![index].userName ?? 'Guest',
-                                  style:
-                                      Theme.of(context).textTheme.bodyLarge!),
-                              Text(
-                                reviewController.reviewResponse.value.data![index].time!,
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      RatingBar(
-                        itemSize: 14.0,
-                        ignoreGestures: true,
-                        initialRating: reviewController.reviewResponse.value.data![index].rating!.toDouble(),
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        ratingWidget: RatingWidget(
-                          full:
-                              const Icon(Icons.star, color: AppColors.warning),
-                          empty: const Icon(Icons.star, color: Colors.grey),
-                          half:
-                              const Icon(Icons.star, color: AppColors.warning),
+        itemCount: reviewList.length,
+        builderFunction: (context, index) => Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    AppBannerImage(
+                      applyPadding: true,
+                      backgroundColor: AppColors.grey,
+                      applyImageRadius: true,
+                      boarderRadius: 100,
+                      height: 50,
+                      width: 50,
+                      isNetworkImage: reviewList[index].avatar != null,
+                      imgUrl:
+                      reviewList[index].avatar ?? AppImages.profileIcon,
+                    ),
+                    const Gap(AppSizes.sm),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          reviewList[index].userName ?? 'Guest',
+                          style: Theme.of(context).textTheme.bodyLarge!,
                         ),
-                        itemPadding: const EdgeInsets.only(right: 1.0),
-                        onRatingUpdate: (rating) {
-                          //print(rating);
-                        },
-                      ),
-                    ],
+                        Text(
+                          reviewList[index].time ?? '',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                RatingBar(
+                  itemSize: 14.0,
+                  ignoreGestures: true,
+                  initialRating: reviewList[index].rating?.toDouble() ?? 0.0,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  ratingWidget: RatingWidget(
+                    full: const Icon(Icons.star, color: AppColors.warning),
+                    empty: const Icon(Icons.star, color: Colors.grey),
+                    half: const Icon(Icons.star, color: AppColors.warning),
                   ),
-                   Padding(
-                    padding: const EdgeInsets.only(left: 40),
-                    child: AppReviewDescriptionPart(index: index,),
-                  ),
-                ],
-              ),
+                  itemPadding: const EdgeInsets.only(right: 1.0),
+                  onRatingUpdate: (rating) {},
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 40),
+              child: AppReviewDescriptionPart(index: index),
+            ),
+          ],
+        ),
       );
     });
   }
+
 }
