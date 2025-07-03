@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
+import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/appbar/appbar_bottom.dart';
 import 'package:kirei/src/common/widgets/search_bar/app_bar_search.dart';
 import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/features/shop/view/widget/shop_page_cards.dart';
 import 'package:kirei/src/features/shop/view/widget/sort_alert_box.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 import '../../../common/widgets/containers/card_container.dart';
 import '../../../utils/constants/sizes.dart';
@@ -57,14 +59,30 @@ class HotDealsScreen extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: [
-                      // Text("Hot-Deals", style: Theme.of(context).textTheme.headlineMedium,),
-                      SlideCountdownSeparated(
-                        style: Theme.of(context).textTheme.headlineMedium!.apply(color: AppColors.white),
-                        duration: Duration(days: 2),
+                      AppCardContainer(
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: AppColors.borderPrimary,
                         padding: EdgeInsets.all(AppSizes.md),
-                        separatorStyle: Theme.of(context).textTheme.titleMedium!,
-                        separatorPadding: EdgeInsets.all(AppSizes.sm),
-                        decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(AppSizes.cardRadiusXs)),
+                        child: Column(
+                          children: [
+                            Text("Sale ends in", style: Theme.of(context).textTheme.headlineMedium),
+                            Gap(AppSizes.sm),
+                            Obx(() {
+                                return shopDataController.allProducts.isEmpty ?
+                                ShimmerHelper().buildBasicShimmer(height: 50) :
+                                  SlideCountdownSeparated(
+                                  style: Theme.of(context).textTheme.headlineMedium!.apply(color: AppColors.white),
+                                  duration: AppHelperFunctions().getRemainingDuration(shopDataController.allProducts[0].flashSaleEndDate!),
+                                  padding: EdgeInsets.all(AppSizes.md),
+                                  separatorStyle: Theme.of(context).textTheme.titleMedium!,
+                                  separatorPadding: EdgeInsets.all(AppSizes.sm),
+                                  decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(AppSizes.cardRadiusXs)),
+                                );
+                              }
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

@@ -24,7 +24,7 @@ class FlashSaleSection extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                 child: AppSectionTitleText(
-                    sectionTitle: 'Flash sales',
+                    sectionTitle: 'Hot Deals',
                     flashTime: homeProductResponse.value.featuredProducts?[0].flashSaleEndDate,
                     haveTxtButton: false,
                     showCountDown: true,

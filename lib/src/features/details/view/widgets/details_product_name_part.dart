@@ -233,14 +233,8 @@ class AppDetailsProductNamePart extends StatelessWidget {
                     : const SizedBox(),
                 const Gap(AppSizes.lg),
                 detailsController.productDetails.value.detailedProducts == null
-                    ? ShimmerHelper().buildBasicShimmer(height: 30)
-                    : detailsController
-                        .productDetails
-                        .value
-                        .detailedProducts!
-                        .productBrands!
-                        .isNotEmpty
-                    ? SizedBox(
+                    ? ShimmerHelper().buildBasicShimmer(height: 30) :
+                  SizedBox(
                       height: 40,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
@@ -257,7 +251,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                             backgroundColor: AppColors.primary.withAlpha(21),
                             child: Row(
                               children: [
-                                Icon(Icons.info_outline),
+                                Icon(Icons.touch_app_outlined, color: AppColors.black),
                                 Gap(AppSizes.sm),
                                 Text(
                                   'Concerned About the Results?',
@@ -282,7 +276,6 @@ class AppDetailsProductNamePart extends StatelessWidget {
                         ],
                       ),
                     )
-                    : const SizedBox(),
               ],
             ),
           ),
@@ -342,7 +335,8 @@ class AppDetailsProductNamePart extends StatelessWidget {
                           ],
                         ),
                         Visibility(
-                          visible: detailsController.productDetails.value.detailedProducts!.isHot == 1,
+                          // visible: detailsController.productDetails.value.detailedProducts!.isHot == 1,
+                          visible: false,
                           child: AppCardContainer(
                             margin: EdgeInsets.zero,
                             backgroundColor: AppColors.primary,

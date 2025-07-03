@@ -43,7 +43,7 @@ class HomeShopByConcern extends StatelessWidget {
             items: List.generate(
               homeController.hittingApi.value
                   ? 5
-                  : homeController.homeProductResponse.value.reviews!.length,
+                  : homeController.homeProductResponse.value.skinConcern!.length,
               (index) {
                 return AppCardContainer(
                   borderRadius: AppSizes.borderRadiusSm,

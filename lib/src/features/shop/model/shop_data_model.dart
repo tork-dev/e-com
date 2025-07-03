@@ -59,6 +59,8 @@ class Product {
   double? ratings;
   int? reviews;
   int? isHot;
+  DateTime? flashSaleStartDate;
+  DateTime? flashSaleEndDate;
   bool? isSale;
   int? isNew;
   dynamic isOutOfStock;
@@ -108,6 +110,8 @@ class Product {
     this.ratings,
     this.reviews,
     this.isHot,
+    this.flashSaleStartDate,
+    this.flashSaleEndDate,
     this.isSale,
     this.isNew,
     this.isOutOfStock,
@@ -159,6 +163,8 @@ class Product {
       ratings: json['ratings']?.toDouble(),
       reviews: json['reviews'],
       isHot: json['is_hot'],
+      flashSaleStartDate: json["hot_deals_start_datetime"] == null ? null : DateTime.parse(json["hot_deals_start_datetime"]),
+      flashSaleEndDate: json["hot_deals_end_datetime"] == null ? null : DateTime.parse(json["hot_deals_end_datetime"]),
       isSale: json['is_sale'],
       isNew: json['is_new'],
       isOutOfStock: json['is_out_of_stock'],

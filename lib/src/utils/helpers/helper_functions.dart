@@ -512,6 +512,10 @@ class AppHelperFunctions {
       {String format = 'dd MMM yyyy'}) {
     return DateFormat(format).format(date);
   }
+  Duration getRemainingDuration(DateTime futureDateString) {
+    DateTime futureDate = futureDateString;
+    return futureDate.difference(DateTime.now());
+  }
 
   static List<T> removeDuplicates<T>(List<T> list) {
     return list.toSet().toList();
@@ -646,28 +650,33 @@ class AppHelperFunctions {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSizes.cardRadiusSm),
           ),
-          contentPadding: const EdgeInsets.all(AppSizes.defaultSpace),
+          //contentPadding: const EdgeInsets.all(AppSizes.defaultSpace),
           content: Stack(
             children: [
               Positioned(
                 top: 0,
                 right: 0,
                 child: AppCardContainer(
-                  onTap: ()=> Get.back(),
-                  backgroundColor: AppColors.primary.withAlpha(197),
-                    padding: EdgeInsets.all(AppSizes.sm),
-                    child: Icon(Icons.clear, size: 20, color: AppColors.white)),
+                  height: 48,
+                  width: 48,
+                  onTap: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  backgroundColor: AppColors.whitePink,
+                  padding: EdgeInsets.all(AppSizes.sm),
+                  child: Icon(Icons.clear, size: 20, color: AppColors.black),
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Center(
-                    child: Image.asset(
-                      'assets/images/icons/return_image.png', // Make sure this is your image path
-                      height: 80,
-                    ),
-                  ),
+                  // Center(
+                  //   child: Image.asset(
+                  //     'assets/images/icons/return_image.png', // Make sure this is your image path
+                  //     height: 80,
+                  //   ),
+                  // ),
                   const Gap(AppSizes.spaceBtwItems),
                    Text(
                     "Easy Returns with Kirei",

@@ -77,9 +77,9 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                               },
                               padding: const EdgeInsets.all(AppSizes.sm),
                               borderRadius: AppSizes.cardRadiusXs,
-                              backgroundColor: AppColors.primary,
+                              backgroundColor: AppColors.success,
                               child: Text(
-                                'Authenticate',
+                                'Verify product',
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelMedium!
