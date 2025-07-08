@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.thetork.kirei"
     compileSdk 35
-    ndkVersion "25.1.8937393"
+    ndkVersion "29.0.13599879"  // Make sure this matches your installed NDK version
 
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -47,6 +47,10 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+
+//        ndk {
+//            abiFilters "armeabi-v7a", "arm64-v8a", "x86_64"
+//        }
     }
 
     signingConfigs {
@@ -60,10 +64,15 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true  // Enables code shrinking
-            shrinkResources true  // Removes unused resources
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+
+            // Disable native debug symbols stripping temporarily to fix build failure
+//            ndk {
+//                debugSymbolLevel 'NONE'
+//            }
         }
     }
 }

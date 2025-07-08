@@ -21,6 +21,7 @@ import '../../../common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/logging/logger.dart';
+import '../../../utils/popups/custom_loader.dart';
 import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
@@ -143,7 +144,7 @@ class CheckoutController extends GetxController {
   Future<void> onPressProceedToCheckout() async {
 
     if (!await validateCheckoutDetails()) return;
-    AppHelperFunctions.showLoaderDialog(Get.overlayContext!);
+    CustomLoader.showLoaderDialog(Get.overlayContext!);
 
     Map<String, dynamic> requestBody = await prepareRequestBody();
 
@@ -151,7 +152,7 @@ class CheckoutController extends GetxController {
       orderCreateResponse.value = await CheckoutRepositories()
           .getOrderCreateResponseFromCod(requestBody: requestBody);
 
-      Get.back(); // Hide loader
+      CustomLoader.hideLoader(Get.overlayContext!);; // Hide loader
 
       // Handle different payment methods
       if (selectedPaymentMethod.value == 1) {
@@ -194,7 +195,7 @@ class CheckoutController extends GetxController {
       }
 
     } catch (e) {
-      Get.back(); // Ensure the loader is closed in case of an error
+      CustomLoader.hideLoader(Get.overlayContext!);; // Ensure the loader is closed in case of an error
       Log.d('Error in onPressProceed: $e');
       AppHelperFunctions.showToast('An error occurred. Please try again.');
     }

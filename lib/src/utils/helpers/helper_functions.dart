@@ -451,9 +451,9 @@ class AppHelperFunctions {
       barrierDismissible: false,
       // Prevents closing the dialog by tapping outside
       builder: (BuildContext context) {
-        return const Dialog(
+        return  Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
+            borderRadius: BorderRadius.circular(AppSizes.cardRadiusSm),
           ),
           child: Padding(
             padding: EdgeInsets.all(20.0),
