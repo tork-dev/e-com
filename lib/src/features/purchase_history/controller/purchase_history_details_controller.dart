@@ -21,6 +21,8 @@ class PurchaseHistoryDetailsController extends GetxController {
   Rx<PurchaseHistoryItemsResponse> purchaseHistoryItemDetails =
       PurchaseHistoryItemsResponse().obs;
 
+  RxInt isAuthentic = 1.obs;
+
   Rx<CityResponse> cityList = CityResponse().obs;
   Rx<ZoneResponse> zoneList = ZoneResponse().obs;
   Rx<AreaResponse> areaList = AreaResponse().obs;

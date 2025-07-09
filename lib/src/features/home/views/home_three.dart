@@ -123,6 +123,7 @@ class HomeThree extends StatelessWidget {
               largeButton: false,
               visibleInputField: false,
               controller: controller.surprisePhoneController,
+              backgroundColor: AppColors.whitePink,
               visibleSection: controller.homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false,
               imageUrl: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner ?? '	https://v2.kireibd.com/_next/image?url=%2Fimages%2Fflash-sale%2F31.png&w=750&q=75',
               title: controller.homeProductResponse.value.homepageSettings?.groupShopping?.title ?? 'Save More with Group Shopping!',

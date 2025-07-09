@@ -14,13 +14,13 @@ import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/validators/validation.dart';
 
 class HomeSurpriseSection extends StatelessWidget {
-  const HomeSurpriseSection({super.key, required this.imageUrl, required this.title, required this.description, required this.buttonName, required this.largeButton, required this.onPressed, this.controller, required this.visibleSection, required this.visibleInputField});
+  const HomeSurpriseSection({super.key, required this.imageUrl, required this.title, required this.description, required this.buttonName, required this.largeButton, required this.onPressed, this.controller, required this.visibleSection, required this.visibleInputField, this.backgroundColor = AppColors.contentInversePrimary});
 
   final String imageUrl, title, description, buttonName;
   final bool largeButton, visibleSection, visibleInputField;
   final VoidCallback onPressed;
   final TextEditingController? controller;
-  final Color backgroundColor = AppColors.contentInversePrimary;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {

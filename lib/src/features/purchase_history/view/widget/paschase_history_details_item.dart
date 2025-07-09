@@ -74,11 +74,11 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                             ),
                             AppCardContainer(
                               onTap: (){
-                                showFeedbackDialog(context);
+                                showFeedbackDialog(context, detailsItemController);
                               },
                               padding: const EdgeInsets.all(AppSizes.sm),
                               borderRadius: AppSizes.cardRadiusXs,
-                              backgroundColor: AppColors.success,
+                              backgroundColor: AppColors.greenButton,
                               child: Text(
                                 'Verify product',
                                 style: Theme.of(context)
@@ -101,130 +101,130 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
 }
 
 
-void showProductAuthenticityDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (_) => Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      backgroundColor: const Color(0xFFFFF8F0), // Light cream tone
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Title
-              Text(
-                "Was your product authentic?",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF3C2A1E),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                "Your feedback helps others shop safely.",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 24),
+// void showProductAuthenticityDialog(BuildContext context) {
+//   showDialog(
+//     context: context,
+//     barrierDismissible: false,
+//     builder: (_) => Dialog(
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+//       backgroundColor: const Color(0xFFFFF8F0), // Light cream tone
+//       child: Padding(
+//         padding: const EdgeInsets.all(AppSizes.defaultSpace),
+//         child: SingleChildScrollView(
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               // Title
+//               Text(
+//                 "Was your product authentic?",
+//                 textAlign: TextAlign.center,
+//                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+//                   fontWeight: FontWeight.bold,
+//                   color: const Color(0xFF3C2A1E),
+//                 ),
+//               ),
+//               const SizedBox(height: 8),
+//               Text(
+//                 "Your feedback helps others shop safely.",
+//                 textAlign: TextAlign.center,
+//                 style: Theme.of(context).textTheme.bodyMedium,
+//               ),
+//               const SizedBox(height: 24),
+//
+//               // Authentic Button
+//
+//               AppCardContainer(
+//                 width: double.infinity,
+//                 padding: EdgeInsets.all(AppSizes.md),
+//                 backgroundColor: Color(0xFFF3E8D4),
+//                   hasBorder: true,
+//                   borderColor: AppColors.primary,
+//                   borderWidth: 1,
+//                   child: Text("Yes, it felt 100% authentic", style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600), textAlign: TextAlign.center,)),
+//
+//               const Gap(AppSizes.spaceBtwDefaultItems),
+//
+//               AppCardContainer(
+//                   width: double.infinity,
+//                   padding: EdgeInsets.all(AppSizes.md),
+//                   hasBorder: true,
+//                   borderColor: Color(0xFF995A3C),
+//                   borderWidth: 1,
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       Icon(Icons.warning_amber_rounded, color: Color(0xFF995A3C), size: AppSizes.iconMd,),
+//                       Gap(AppSizes.sm),
+//                       Text("No, I have concerns", style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xFF995A3C), fontWeight: FontWeight.w600), textAlign: TextAlign.center,),
+//                     ],
+//                   )),
+//
+//               const Gap(AppSizes.md),
+//
+//               // Feedback TextField
+//               Container(
+//                 padding: const EdgeInsets.all(12),
+//                 decoration: BoxDecoration(
+//                   color: const Color(0xFFFDF3E2),
+//                   borderRadius: BorderRadius.circular(12),
+//                 ),
+//                 child: TextField(
+//                   maxLines: 3,
+//                   decoration: const InputDecoration.collapsed(
+//                     hintText: "Tell us what you liked or what seemed off\nIt matched what I’ve used before / Packaging looked different…",
+//                   ),
+//                 ),
+//               ),
+//
+//               const SizedBox(height: 16),
+//
+//               // Image + Stars
+//               Row(
+//                 children: [
+//                   IconButton(
+//                     onPressed: () {},
+//                     icon: const Icon(Icons.photo_camera),
+//                   ),
+//                   const Text("Want to show your product?"),
+//                 ],
+//               ),
+//               const SizedBox(height: 4),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: List.generate(
+//                   5,
+//                       (index) => const Icon(Icons.star, color: Colors.amber, size: 28),
+//                 ),
+//               ),
+//
+//               const SizedBox(height: 24),
+//
+//               // Submit Button
+//               SizedBox(
+//                 width: double.infinity,
+//                 child: ElevatedButton(
+//                   onPressed: () {
+//                     Navigator.pop(context); // Close dialog
+//                   },
+//                   style: ElevatedButton.styleFrom(
+//                     backgroundColor: const Color(0xFF702D3A),
+//                     minimumSize: const Size.fromHeight(48),
+//                     shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(12),
+//                     ),
+//                   ),
+//                   child: const Text("Submit report", style: TextStyle(fontSize: 16)),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     ),
+//   );
+// }
 
-              // Authentic Button
-              
-              AppCardContainer(
-                width: double.infinity,
-                padding: EdgeInsets.all(AppSizes.md),
-                backgroundColor: Color(0xFFF3E8D4),
-                  hasBorder: true,
-                  borderColor: AppColors.primary,
-                  borderWidth: 1,
-                  child: Text("Yes, it felt 100% authentic", style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600), textAlign: TextAlign.center,)),
-
-              const Gap(AppSizes.spaceBtwDefaultItems),
-
-              AppCardContainer(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(AppSizes.md),
-                  hasBorder: true,
-                  borderColor: Color(0xFF995A3C),
-                  borderWidth: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.warning_amber_rounded, color: Color(0xFF995A3C), size: AppSizes.iconMd,),
-                      Gap(AppSizes.sm),
-                      Text("No, I have concerns", style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xFF995A3C), fontWeight: FontWeight.w600), textAlign: TextAlign.center,),
-                    ],
-                  )),
-
-              const Gap(AppSizes.md),
-
-              // Feedback TextField
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFDF3E2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: TextField(
-                  maxLines: 3,
-                  decoration: const InputDecoration.collapsed(
-                    hintText: "Tell us what you liked or what seemed off\nIt matched what I’ve used before / Packaging looked different…",
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              // Image + Stars
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.photo_camera),
-                  ),
-                  const Text("Want to show your product?"),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  5,
-                      (index) => const Icon(Icons.star, color: Colors.amber, size: 28),
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              // Submit Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context); // Close dialog
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF702D3A),
-                    minimumSize: const Size.fromHeight(48),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text("Submit report", style: TextStyle(fontSize: 16)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-void showFeedbackDialog(BuildContext context) {
+void showFeedbackDialog(BuildContext context,  PurchaseHistoryDetailsController controller) {
   showDialog(
     context: context,
     builder: (_) => Dialog(
@@ -252,38 +252,47 @@ void showFeedbackDialog(BuildContext context) {
               const Gap(AppSizes.md),
 
               // Authenticity Button
-              AppCardContainer(
-                  padding: const EdgeInsets.all(AppSizes.md),
-                  hasBorder: true,
-                  borderColor: AppColors.primary,
-                  backgroundColor: AppColors.whitePink,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.check_circle, color: AppColors.primary, size: AppSizes.iconMd,),
-                  Gap(AppSizes.sm),
-                  Text(
-                    "Yes, it's 100% authentic",
-                    style: TextStyle(color: AppColors.primary),
-                  ),
-                ],
-              )),
-              const Gap(AppSizes.spaceBtwDefaultItems),
-              AppCardContainer(
-                  padding: const EdgeInsets.all(AppSizes.md),
-                  hasBorder: true,
-                  borderColor: AppColors.lightGrey,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              Obx( () {
+                  return AppCardContainer(
+                    onTap: ()=> controller.isAuthentic.value = 1,
+                      padding: const EdgeInsets.all(AppSizes.md),
+                      hasBorder: true,
+                      borderColor: controller.isAuthentic.value == 1? AppColors.primary : AppColors.lightGrey,
+                      backgroundColor: controller.isAuthentic.value == 1? AppColors.whitePink : null,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.warning_amber_rounded, color: AppColors.warning, size: AppSizes.iconMd,),
+                      Icon(Icons.check_circle, color: controller.isAuthentic.value == 1? AppColors.primary: AppColors.textPrimary, size: AppSizes.iconMd,),
                       Gap(AppSizes.sm),
                       Text(
-                        "No, I have concerns",
-                        style: TextStyle(color: AppColors.textPrimary),
+                        "Yes, it's 100% authentic",
+                        style: TextStyle(color: controller.isAuthentic.value == 1? AppColors.primary : AppColors.textPrimary),
                       ),
                     ],
-                  )),
+                  ));
+                }
+              ),
+              const Gap(AppSizes.spaceBtwDefaultItems),
+              Obx( () {
+                  return AppCardContainer(
+                      onTap: ()=> controller.isAuthentic.value = 0,
+                      padding: const EdgeInsets.all(AppSizes.md),
+                      hasBorder: true,
+                      borderColor: controller.isAuthentic.value == 0? AppColors.warning : AppColors.lightGrey,
+                      backgroundColor: controller.isAuthentic.value == 0? AppColors.whitePink : null,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.warning_amber_rounded, color: controller.isAuthentic.value == 0? AppColors.primary: AppColors.textPrimary, size: AppSizes.iconMd,),
+                          Gap(AppSizes.sm),
+                          Text(
+                            "No, I have concerns",
+                            style: TextStyle(color: controller.isAuthentic.value == 0? AppColors.primary : AppColors.textPrimary),
+                          ),
+                        ],
+                      ));
+                }
+              ),
 
               const Gap(AppSizes.md),
 
