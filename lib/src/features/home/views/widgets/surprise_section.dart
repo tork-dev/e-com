@@ -9,105 +9,124 @@ import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/validators/validation.dart';
 
 class HomeSurpriseSection extends StatelessWidget {
-  const HomeSurpriseSection({super.key});
+  const HomeSurpriseSection({super.key, required this.imageUrl, required this.title, required this.description, required this.buttonName, required this.largeButton, required this.onPressed, this.controller, required this.visibleSection, required this.visibleInputField});
+
+  final String imageUrl, title, description, buttonName;
+  final bool largeButton, visibleSection, visibleInputField;
+  final VoidCallback onPressed;
+  final TextEditingController? controller;
+  final Color backgroundColor = AppColors.contentInversePrimary;
 
   @override
   Widget build(BuildContext context) {
-    final homeController = HomeController.instance;
-    return Obx(() {
-      final surprise = homeController.homeProductResponse.value.homepageSettings?.surprizeGift;
-      return Visibility(
-        visible: homeController.hittingApi.value
-            ? true
-            : homeController.showSurprise,
-        child: Column(
-          children: [
-            const Gap(AppSizes.spaceBtwSections),
-            Form(
-              key: homeController.surprisePhoneKey,
-              child: SizedBox(
-                height: 400,
-                child: Stack(
+    return Visibility(
+        visible: visibleSection,
+        child: AppCardContainer(
+          padding: EdgeInsets.symmetric(
+            vertical: AppSizes.defaultSpace,
+            horizontal: AppHelperFunctions.screenWidth() * .1,
+          ),
+          margin: EdgeInsets.symmetric(horizontal: AppSizes.md),
+          backgroundColor: backgroundColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AppBannerImage(
+                width: AppHelperFunctions.screenWidth() * .7,
+                isNetworkImage: true,
+                imgUrl: imageUrl
+              ),
+              Gap(AppSizes.spaceBtwItems),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.headlineMedium!,
+                ),
+              ),
+              const Gap(AppSizes.sm),
+              Align(
+                alignment: Alignment.centerRight,
+                child: HtmlWidget(
+                   description,
+                  textStyle: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+              Visibility(
+                visible: visibleInputField,
+                child: Column(
                   children: [
-                    const AppBannerImage(
-                      width: double.infinity,
-                      applyImageRadius: false,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                      isNetworkImage: false,
-                      imgUrl: AppImages.surprisingSectionBg,
+                    const Gap(AppSizes.spaceBtwItems),
+                    TextFormField(
+                      controller: controller,
+                      cursorColor: AppColors.primary,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(11),
+                      ],
+                      validator: (value) => AppValidator.validatePhoneNumber(value),
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        errorStyle: const TextStyle(color: AppColors.white),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: AppSizes.md,
+                          vertical: AppSizes.spaceBtwDefaultItems,
+                        ),
+                        hintText: '01*********',
+                        fillColor: AppColors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppSizes.borderRadiusMd,
+                          ),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            color: Colors.transparent,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppSizes.borderRadiusMd,
+                          ),
+                          borderSide: BorderSide(width: 0, color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppSizes.borderRadiusMd,
+                          ),
+                          borderSide: BorderSide(width: 0, color: Colors.transparent),
+                        ),
+                      ),
                     ),
-                    Center(
-                        child: AppCardContainer(
-                            padding: const EdgeInsets.symmetric(horizontal: 40),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(surprise?.title ??
-                                      'Get surprise gift',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium!
-                                      .apply(color: AppColors.white),
-                                ),
-                                const Gap(AppSizes.sm),
-                                HtmlWidget(surprise?.description ??
-                                      '',
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .apply(color: AppColors.white),
-                                ),
-                                const Gap(AppSizes.spaceBtwSections),
-                                TextFormField(
-                                  controller: homeController.surprisePhoneController,
-                                  cursorColor: AppColors.primary,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    LengthLimitingTextInputFormatter(11),
-                                  ],
-                                  validator: (value) =>
-                                      AppValidator.validatePhoneNumber(value),
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    errorStyle: const TextStyle(color: AppColors.white, ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: AppSizes.md,
-                                        vertical: AppSizes.spaceBtwDefaultItems),
-                                    hintText: '01*********',
-                                    fillColor: AppColors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
-                                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
-                                    focusedBorder:  OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
-                                        borderSide: BorderSide(width: 0, color: Colors.transparent)),
-                                    enabledBorder:  OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
-                                        borderSide: BorderSide(width: 0, color: Colors.transparent)),
-                                  ),
-                                ),
-                                const Gap(AppSizes.spaceBtwItems),
-                                AppButtons.largeFlatFilledButton(
-                                    onPressed: () => homeController.submitSurprisePhone(),
-                                    backgroundColor: AppColors.secondary,
-                                    buttonText: 'Submit')
-                              ],
-                            ))),
                   ],
                 ),
               ),
-            ),
-          ],
+              const Gap(AppSizes.spaceBtwItems),
+              largeButton?
+              AppButtons.largeFlatFilledButton(
+                onPressed: () => onPressed(),
+                backgroundColor: AppColors.secondary,
+                buttonText: buttonName,
+              ):
+              Align(
+                alignment: Alignment.centerLeft,
+                child: AppButtons.wrapButton(
+                  onPressed: () => onPressed(),
+                  backgroundColor: AppColors.secondary,
+                  buttonText: buttonName,
+                ),
+              ),
+
+
+            ],
+          ),
         ),
-      );
-    });
+    );
   }
 }

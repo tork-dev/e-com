@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
+import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_details_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
@@ -227,6 +228,7 @@ void showFeedbackDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (_) => Dialog(
+      insetPadding: EdgeInsets.all(AppSizes.md),
       backgroundColor: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd)),
       child: Padding(
@@ -305,70 +307,13 @@ void showFeedbackDialog(BuildContext context) {
 
               const SizedBox(height: 20),
 
-              // Rating
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Rate Your Satisfaction",
-                    style: Theme.of(context).textTheme.bodyMedium),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(
-                  5,
-                      (index) => const Icon(Icons.star, color: Colors.amber),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Upload Section
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Upload Photo (Optional)",
-                    style: Theme.of(context).textTheme.bodyMedium),
-              ),
-              const SizedBox(height: 8),
-              DottedBorder(
-                // borderType: BorderType.RRect,
-                // radius: const Radius.circular(12),
-                // dashPattern: [6, 4],
-                // color: Colors.grey,
-                child: Container(
-                  height: 80,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: RichText(
-                    text: TextSpan(
-                      text: "Tap to ",
-                      style: Theme.of(context).textTheme.bodySmall,
-                      children: [
-                        TextSpan(
-                          text: "upload photo",
-                          style: TextStyle(color: Colors.blue[700]),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
               // Submit Button
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1A1A2E),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text("Submit Feedback"),
-                ),
+                child: AppButtons.largeFlatFilledButton(
+                    onPressed: (){},
+                    backgroundColor: AppColors.secondary,
+                    buttonText: "Submit"),
               ),
             ],
           ),

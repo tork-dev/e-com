@@ -68,15 +68,15 @@ class CustomSlider extends StatelessWidget {
                           effect:  CustomizableEffect(
                             activeColorOverride: (index) => AppColors.primary,
                               dotDecoration: DotDecoration(
-                                height: 12,
-                                width: 12,
+                                height: 8,
+                                width: 8,
                                 dotBorder: DotBorder(padding: 3, color: AppColors.lightGrey, width: 1),
                                 borderRadius: BorderRadius.circular(100),
                                 color: Colors.transparent,
                               ),
                               activeDotDecoration: DotDecoration(
-                                height: 12,
-                                width: 12,
+                                height: 8,
+                                width: 8,
                                 dotBorder: DotBorder(padding: 3, color: AppColors.primary, width: 1),
                                 borderRadius: BorderRadius.circular(100),
                                 color: AppColors.primary,

@@ -114,6 +114,7 @@ flutter:
   # Local Assets
   assets:
     - assets/images/placeholder.png
+    - assets/images/placeholder.jpg
     - assets/images/logos/
     - assets/images/icons/
     - assets/images/banners/

@@ -21,7 +21,7 @@ class AppImages {
   static const String whatsapp = "assets/images/icons/whatsapp.png";
 
   /// placeholder
-  static const String placeholder = "assets/images/placeholder.png";
+  static const String placeholder = "assets/images/placeholder.jpg";
 
   // --Icons
   static const String forwardArrowIcon = "assets/images/icons/forward_arrow.png";

@@ -30,7 +30,7 @@ class AppBannerImage extends StatelessWidget {
     this.topRightRadius = 0,
     this.bottomLeftRadius = 0,
     this.bottomRightRadius = 0,
-    this.errorImage = AppImages.lightAppLogo,
+    this.errorImage = AppImages.placeholder,
     super.key,
   });
 

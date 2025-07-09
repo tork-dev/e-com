@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/widgets/slider/view/app_slider.dart';
@@ -17,6 +18,10 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/popups/loaders.dart';
+import '../../../utils/helpers/routing_helper.dart';
 import 'widgets/best_sellling_product_section.dart';
 import 'widgets/flash_sale_section.dart';
 import 'widgets/home_appbar_title.dart';
@@ -97,8 +102,37 @@ class HomeThree extends StatelessWidget {
           }),
           const Gap(AppSizes.spaceBtwSections),
           BestSellingProductSection(homeProductResponse: controller.homeProductResponse),
+          Obx(() {
+              return  HomeSurpriseSection(
+                onPressed: ()=> controller.submitSurprisePhone(),
+                largeButton: true,
+                visibleInputField: true,
+                controller: controller.surprisePhoneController,
+                visibleSection: controller.homeProductResponse.value.homepageSettings?.features?.surprizeGift ?? false,
+                imageUrl: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner ?? '	https://v2.kireibd.com/_next/image?url=%2Fimages%2Fflash-sale%2F31.png&w=750&q=75',
+                title: controller.homeProductResponse.value.homepageSettings?.surprizeGift?.title ?? 'Surprise Gift',
+                description: controller.homeProductResponse.value.homepageSettings?.surprizeGift?.description ?? 'Get a surprise gift',
+                buttonName: controller.homeProductResponse.value.homepageSettings?.surprizeGift?.btnName ?? 'Submit',
+              );
+            }
+          ),
+          const Gap(AppSizes.spaceBtwSections),
+          Obx(() {
+            return  HomeSurpriseSection(
+              onPressed: (){ RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.groupShopping?.route ?? '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/group-shopping');},
+              largeButton: false,
+              visibleInputField: false,
+              controller: controller.surprisePhoneController,
+              visibleSection: controller.homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false,
+              imageUrl: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner ?? '	https://v2.kireibd.com/_next/image?url=%2Fimages%2Fflash-sale%2F31.png&w=750&q=75',
+              title: controller.homeProductResponse.value.homepageSettings?.groupShopping?.title ?? 'Save More with Group Shopping!',
+              description: controller.homeProductResponse.value.homepageSettings?.groupShopping?.description ?? 'Save More with Group Shopping!',
+              buttonName: controller.homeProductResponse.value.homepageSettings?.groupShopping?.btnName ?? 'Submit',
+            );
+          }
+          ),
+          const Gap(AppSizes.spaceBtwSections),
           RecommendedSection(recommendedProductsResponse: controller.recommendedProductsForYouResponse),
-          const HomeSurpriseSection(),
           const Gap(AppSizes.spaceBtwSections),
           NewArrivalsSection(homeProductResponse: controller.homeProductResponse),
           Obx(() {

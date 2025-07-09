@@ -2,11 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
+import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
 class AppButtons {
+
+
+
+  static AppCardContainer wrapButton({
+    required VoidCallback onPressed,
+    required String buttonText,
+    bool applyRadius = true,
+    Color? backgroundColor = AppColors.buttonPrimary,
+    Color? buttonTextColor = AppColors.white,
+    double buttonRadius = AppSizes.buttonRadius,
+    double verticallyPadding = 16,
+    double horizontalPadding = 16,
+  }){
+    return AppCardContainer(
+        onTap: onPressed,
+        padding: EdgeInsets.symmetric(
+          vertical: verticallyPadding,
+          horizontal: horizontalPadding,
+        ),
+        backgroundColor: backgroundColor,
+        applyRadius: applyRadius,
+        borderRadius: buttonRadius,
+        child: Text(buttonText, style: TextStyle(color: buttonTextColor),));
+  }
+
   static ElevatedButton smallRoundButton({
     required VoidCallback onPressed,
     required Color buttonColor,
