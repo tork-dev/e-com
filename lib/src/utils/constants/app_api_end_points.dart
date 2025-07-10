@@ -152,6 +152,12 @@ class AppApiEndPoints {
   /// User Notification
   static String userNotificationList = "$baseUrl/user-notifications";
 
+  /// Submit feedback
+  static String submitFeedback = "$baseUrl/product-authentic-reviews/submit";
+
+
+
+
   // ///Gigalogy
   // static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
   // static String detailsPageEvent = "$gialogyBaseUrl/items/browse";

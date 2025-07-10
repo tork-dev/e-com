@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/purchase_history/model/purchase_history_details_model.dart';
 import 'package:kirei/src/features/purchase_history/repositories/purchase_history_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import 'package:kirei/src/utils/popups/custom_loader.dart';
 import '../../../utils/logging/logger.dart';
 import '../../address/model/address_city_model.dart';
 import '../../address/model/address_create_model.dart';
@@ -22,6 +23,7 @@ class PurchaseHistoryDetailsController extends GetxController {
       PurchaseHistoryItemsResponse().obs;
 
   RxInt isAuthentic = 1.obs;
+  TextEditingController noteController = TextEditingController();
 
   Rx<CityResponse> cityList = CityResponse().obs;
   Rx<ZoneResponse> zoneList = ZoneResponse().obs;
@@ -42,7 +44,7 @@ class PurchaseHistoryDetailsController extends GetxController {
   TextEditingController selectedAreaName = TextEditingController();
 
 
-  Future onRefresh(orderId) async {
+  Future onRefresh(int orderId) async {
      await getPurchaseHistoryDetails(orderId);
      await getPurchaseHistoryItemDetails(orderId);
     setAddress();
@@ -76,18 +78,18 @@ class PurchaseHistoryDetailsController extends GetxController {
     await AddressRepositories().getAreas(selectedZoneId);
   }
 
-  Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails(orderId) async {
+  Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails(int orderId) async {
     return purchaseHistoryDetails.value =
         await PurchaseHistoryRepositories().getPurchaseHistoryDetails(orderId);
   }
 
-  Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails(orderId) async {
+  Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails(int orderId) async {
     return purchaseHistoryItemDetails.value =
     await PurchaseHistoryRepositories().getPurchaseHistoryItemDetails(orderId);
   }
 
 
-  Future<void> processOrderAddressUpdate(orderId)async{
+  Future<void> processOrderAddressUpdate(int orderId)async{
 
     try{
       if (nameController.text == "") {
@@ -145,6 +147,36 @@ class PurchaseHistoryDetailsController extends GetxController {
     } catch(e){
       Log.d("e is ${e.toString()}");
     }
+  }
+
+
+  Future<void> submitFeedback({
+    required int index,
+  }) async {
+    try{
+      if(isAuthentic.value == 0 && noteController.text.isEmpty){
+        AppHelperFunctions.showToast("Note is required");
+        return;
+      }
+      CustomLoader.showLoaderDialog(Get.overlayContext!);
+      await PurchaseHistoryRepositories().submitFeedback(
+        productID: purchaseHistoryItemDetails.value.data![index].productId!,
+        orderId: int.parse(Get.parameters['id']!),
+        isAuthentic: isAuthentic.value,
+        note: noteController.text.toString(),
+      );
+      purchaseHistoryItemDetails.value.data![index].isAuthenticReview = true;
+      AppHelperFunctions.showToast("Submitted successfully");
+      noteController.clear();
+      isAuthentic.value = 1;
+      Get.back();
+    }catch(e){
+      throw Exception(e);
+    }finally{
+      update();
+      CustomLoader.hideLoader(Get.overlayContext!);
+    }
+
   }
 
 }

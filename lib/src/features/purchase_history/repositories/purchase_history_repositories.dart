@@ -9,20 +9,20 @@ import '../model/product_history_items_model.dart';
 import '../model/purchase_history_model.dart';
 
 class PurchaseHistoryRepositories {
-
   final int userId = AppLocalStorage().readData(LocalStorageKeys.userId);
-  final String version =
-      AppLocalStorage().readData(LocalStorageKeys.appVersion);
-  final dynamic accessToken =
-      AppLocalStorage().readData(LocalStorageKeys.accessToken);
-
+  final String version = AppLocalStorage().readData(
+    LocalStorageKeys.appVersion,
+  );
+  final dynamic accessToken = AppLocalStorage().readData(
+    LocalStorageKeys.accessToken,
+  );
 
   ///Get Order History list
   Future<PurchaseHistoryResponse> getPurchaseHistoryList() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.purchaseHistory),
-        headers: {
-          "Authorization": "Bearer $accessToken",
-        },);
+    final response = await http.get(
+      Uri.parse(AppApiEndPoints.purchaseHistory),
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
 
     if (response.statusCode == 200) {
       return PurchaseHistoryResponse.fromJson(response.body);
@@ -32,11 +32,13 @@ class PurchaseHistoryRepositories {
   }
 
   /// Get Purchase Details
-  Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails(int id) async {
-    final response = await http.get(Uri.parse('${AppApiEndPoints.purchaseHistoryDetails}/$id'),
-      headers: {
-        "Authorization": "Bearer $accessToken",
-      },);
+  Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails(
+    int id,
+  ) async {
+    final response = await http.get(
+      Uri.parse('${AppApiEndPoints.purchaseHistoryDetails}/$id'),
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       return PurchaseHistoryDetailsResponse.fromJson(responseBody);
@@ -46,11 +48,13 @@ class PurchaseHistoryRepositories {
   }
 
   /// Get Purchase items Details
-  Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails(int id) async {
-    final response = await http.get(Uri.parse('${AppApiEndPoints.purchaseHistoryItem}/$id'),
-      headers: {
-        "Authorization": "Bearer $accessToken",
-      },);
+  Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails(
+    int id,
+  ) async {
+    final response = await http.get(
+      Uri.parse('${AppApiEndPoints.purchaseHistoryItem}/$id'),
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       return PurchaseHistoryItemsResponse.fromJson(responseBody);
@@ -59,20 +63,19 @@ class PurchaseHistoryRepositories {
     }
   }
 
-
   /// Re-Order Purchase Item
-  Future<ReOrderResponse> getReOrder(int id) async{
-    final response = await http.get(Uri.parse('${AppApiEndPoints.reOrder}/$id'), headers: {
-      "Authorization": "Bearer $accessToken",
-    });
-    if(response.statusCode == 200){
+  Future<ReOrderResponse> getReOrder(int id) async {
+    final response = await http.get(
+      Uri.parse('${AppApiEndPoints.reOrder}/$id'),
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+    if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       return ReOrderResponse.fromJson(responseBody);
-    }else{
+    } else {
       throw Error();
     }
   }
-
 
   // Future<dynamic> getReOrder({@required int id = 0}) async {
   //   Uri url = Uri.parse("${ENDP.RE_ORDER}"+id.toString());
@@ -86,6 +89,25 @@ class PurchaseHistoryRepositories {
   //   return jsonDecode(response.body);
   // }
 
-
-
+  Future<void> submitFeedback({
+    required int productID,
+    required int orderId,
+    required int isAuthentic,
+    String? note,
+  }) async {
+    print("calling from repo");
+    final response = await http.post(
+      Uri.parse(AppApiEndPoints.submitFeedback),
+      headers: {
+        "Authorization": "Bearer $accessToken",
+        "Content-Type": "application/json"
+      },
+      body: jsonEncode({
+        "product_id": productID,
+        "order_id": orderId.toString(),
+        "is_authentic": isAuthentic,
+        "description": note,
+      }),
+    );
+  }
 }

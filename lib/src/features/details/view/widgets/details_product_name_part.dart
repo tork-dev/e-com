@@ -254,7 +254,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                 Icon(Icons.touch_app_outlined, color: AppColors.black),
                                 Gap(AppSizes.sm),
                                 Text(
-                                  'Concerned About the Results?',
+                                  'Concerned About the Product?',
                                   style:
                                       Theme.of(context).textTheme.labelLarge!,
                                 ),
