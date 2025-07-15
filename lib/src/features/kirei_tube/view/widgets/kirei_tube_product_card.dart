@@ -217,7 +217,7 @@ class KireiTubeProductCard extends StatelessWidget {
                                                         1
                                                     ? AppColors.request
                                                     : AppColors.primary,
-                                        applyRadius: false,
+                                        applyRadius: true,
                                         child:
                                             // Icon(Icons.shopping_bag_outlined)
                                             Text(

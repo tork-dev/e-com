@@ -18,7 +18,9 @@ import 'package:kirei/src/features/questions/view/question_screen.dart';
 import 'package:kirei/src/features/review/view/review_screen.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/logging/logger.dart';
 import 'widgets/details_picture_part.dart';
@@ -72,7 +74,10 @@ class DetailsPage extends StatelessWidget {
           // }
         },
         backgroundColor: AppColors.primary,
-        bottomNav: const AppBottomButton(),
+        bottomNav: Padding(
+          padding:  EdgeInsets.only(bottom: AppDeviceUtils.getBottomNavigationBarHeight()),
+          child: const AppBottomButton(),
+        ),
         title: Obx(() {
           Log.d('print product id ${Get.parameters['slug']}');
           return AppBarSearch(

@@ -136,22 +136,22 @@ class HomeThree extends StatelessWidget {
           RecommendedSection(recommendedProductsResponse: controller.recommendedProductsForYouResponse),
           const Gap(AppSizes.spaceBtwSections),
           NewArrivalsSection(homeProductResponse: controller.homeProductResponse),
-          Obx(() {
-            return HomeImageTitleAndButtonSection(
-              showBg: false,
-              fit: BoxFit.cover,
-              sectionName:
-                  controller
-                      .homeProductResponse
-                      .value
-                      .homepageSettings
-                      ?.groupShopping,
-              showTheSection:
-                  controller.showGroupShopping,
-            );
-          }),
-
-          const Gap(AppSizes.spaceBtwSections),
+          // Obx(() {
+          //   return HomeImageTitleAndButtonSection(
+          //     showBg: false,
+          //     fit: BoxFit.cover,
+          //     sectionName:
+          //         controller
+          //             .homeProductResponse
+          //             .value
+          //             .homepageSettings
+          //             ?.groupShopping,
+          //     showTheSection:
+          //         controller.showGroupShopping,
+          //   );
+          // }),
+          //
+          // const Gap(AppSizes.spaceBtwSections),
           InternationalBrandsSection(homeProductResponse: controller.homeProductResponse),
           HomeTrendingSection(),
           Gap(AppSizes.spaceBtwSections),
