@@ -75,7 +75,7 @@ class DetailsPage extends StatelessWidget {
         },
         backgroundColor: AppColors.primary,
         bottomNav: Padding(
-          padding:  EdgeInsets.only(bottom: AppDeviceUtils.getBottomNavigationBarHeight()),
+          padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: const AppBottomButton(),
         ),
         title: Obx(() {

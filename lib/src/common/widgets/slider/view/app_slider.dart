@@ -21,9 +21,10 @@ class CustomSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeController controller = HomeController.instance;
     return AppCardContainer(
+      height: 180,
       child: Obx(() {
         return controller.homeSliders.isEmpty
-            ? ShimmerHelper().buildBasicShimmer(height: 190)
+            ? ShimmerHelper().buildBasicShimmer()
             : InkWell(
                 child: Stack(
                   children: [
@@ -40,7 +41,8 @@ class CustomSlider extends StatelessWidget {
                                   imgUrl: url))
                               .toList(),
                           options: cw.CarouselOptions(
-                            //aspectRatio: 3.37,
+                            height: 180,
+                            // aspectRatio: 3 / 1,
                             viewportFraction: 1,
                             initialPage: 0,
                             enableInfiniteScroll: true,
@@ -68,15 +70,15 @@ class CustomSlider extends StatelessWidget {
                           effect:  CustomizableEffect(
                             activeColorOverride: (index) => AppColors.primary,
                               dotDecoration: DotDecoration(
-                                height: 8,
-                                width: 8,
+                                height: 4,
+                                width: 4,
                                 dotBorder: DotBorder(padding: 3, color: AppColors.lightGrey, width: 1),
                                 borderRadius: BorderRadius.circular(100),
                                 color: Colors.transparent,
                               ),
                               activeDotDecoration: DotDecoration(
-                                height: 8,
-                                width: 8,
+                                height: 6,
+                                width: 6,
                                 dotBorder: DotBorder(padding: 3, color: AppColors.primary, width: 1),
                                 borderRadius: BorderRadius.circular(100),
                                 color: AppColors.primary,

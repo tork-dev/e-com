@@ -155,7 +155,10 @@ class AppApiEndPoints {
   /// Submit feedback
   static String submitFeedback = "$baseUrl/product-authentic-reviews/submit";
 
-
+  ///Blogs
+  static String blogs = "$baseUrl/blogs";
+  static String blogCategories = "$baseUrl/blog/categories";
+  static String blogTags = "$baseUrl/trending/tags";
 
 
   // ///Gigalogy

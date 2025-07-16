@@ -7,6 +7,7 @@ import 'package:kirei/main.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/authentication/views/sign_up/view/signup.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
+import 'package:kirei/src/features/blogs/view/blogs.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
@@ -185,6 +186,8 @@ class MyApp extends StatelessWidget {
             name: '/wishlist', page: () => const WishlistScreen()),
         GetPage(
             name: '/hot-deals', page: () => const HotDealsScreen()),
+        GetPage(
+            name: '/blogs', page: () => const Blogs()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],
     );

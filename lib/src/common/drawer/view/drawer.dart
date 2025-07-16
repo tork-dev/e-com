@@ -11,6 +11,7 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
+import 'package:kirei/src/features/blogs/view/blogs.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
@@ -51,10 +52,13 @@ class AppDrawer extends StatelessWidget {
       applyRadius: false,
       child: ListView(
         children: [
-          const AppDrawerHeaderPart(),
+          // const AppDrawerHeaderPart(),
           AppCardContainer(
-            onTap: ()=> AppHelperFunctions().openWhatsApp("8801779991110"),
-            margin: EdgeInsets.symmetric(horizontal: AppSizes.sm, vertical: AppSizes.md),
+            onTap: () => AppHelperFunctions().openWhatsApp("8801779991110"),
+            margin: EdgeInsets.symmetric(
+              horizontal: AppSizes.sm,
+              vertical: AppSizes.md,
+            ),
             padding: EdgeInsets.all(AppSizes.md),
             hasBorder: true,
             backgroundColor: AppColors.white.withAlpha(13),
@@ -85,10 +89,7 @@ class AppDrawer extends StatelessWidget {
               ],
             ),
           ),
-          AppDrawerCard(
-            title: 'HOME',
-            onPress: () => Get.offAllNamed("/home"),
-          ),
+          AppDrawerCard(title: 'HOME', onPress: () => Get.offAllNamed("/home")),
           AppDrawerCard(
             title: 'new arrivals'.toUpperCase(),
             onPress: () {
@@ -129,29 +130,9 @@ class AppDrawer extends StatelessWidget {
                             backgroundColor: AppColors.white.withAlpha(13),
                             title: InkWell(
                               onTap: () {
-                                RoutingHelper.urlRouting(drawerController.allCategories[index].url);
-                                // if (drawerController
-                                //         .allNewCategories[index]
-                                //         .name!
-                                //         .toUpperCase() ==
-                                //     "J-BEAUTY") {
-                                //   return;
-                                // }
-                                // shopController.resetAll();
-                                // if (isFromOtherPage) {
-                                //   Get.to(
-                                //     () => const HelloConvexAppBar(pageIndex: 1),
-                                //   );
-                                // }
-                                // shopController.updateCategory(
-                                //   drawerController
-                                //       .allNewCategories[index]
-                                //       .slug!,
-                                // );
-                                // bottomController.jumpToTab(1);
-                                // if (bottomController.pageIndex.value == 1) {
-                                //   Get.back();
-                                // }
+                                RoutingHelper.urlRouting(
+                                  drawerController.allCategories[index].url,
+                                );
                               },
                               child: Text(
                                 drawerController.allNewCategories[index].name!
@@ -187,25 +168,9 @@ class AppDrawer extends StatelessWidget {
                                           ),
                                           title: GestureDetector(
                                             onTap: () {
-                                              RoutingHelper.urlRouting(category.url);
-                                              // shopController.resetAll();
-                                              // if (isFromOtherPage) {
-                                              //   Get.to(
-                                              //     () => const HelloConvexAppBar(
-                                              //       pageIndex: 1,
-                                              //     ),
-                                              //   );
-                                              // }
-                                              // shopController.updateCategory(
-                                              //   category.slug!,
-                                              // );
-                                              // bottomController.jumpToTab(1);
-                                              // if (bottomController
-                                              //         .pageIndex
-                                              //         .value ==
-                                              //     1) {
-                                              //   Get.back();
-                                              // }
+                                              RoutingHelper.urlRouting(
+                                                category.url,
+                                              );
                                             },
                                             child: Text(
                                               category.counts != null
@@ -286,41 +251,10 @@ class AppDrawer extends StatelessWidget {
                                                                         ),
                                                                     child: AppDrawerCard(
                                                                       onPress: () {
-                                                                        RoutingHelper.urlRouting(childValue.url);
-                                                                        // shopController
-                                                                        //     .resetAll();
-                                                                        // if (child.name ==
-                                                                        //     'By Category') {
-                                                                        //   shopController.updateCategory(
-                                                                        //     childValue.slug ??
-                                                                        //         '',
-                                                                        //   );
-                                                                        // } else if (child.name ==
-                                                                        //     'By Skin Concern') {
-                                                                        //   shopController
-                                                                        //       .goodFor
-                                                                        //       .value = childValue.slug ??
-                                                                        //       '';
-                                                                        // } else if (childValue.name ==
-                                                                        //     'By Brand') {
-                                                                        //   shopController
-                                                                        //       .brand
-                                                                        //       .value = childValue.slug ??
-                                                                        //       '';
-                                                                        // } else {
-                                                                        //   shopController
-                                                                        //       .skinType
-                                                                        //       .value = childValue.slug ??
-                                                                        //       '';
-                                                                        // }
-                                                                        // bottomController
-                                                                        //     .jumpToTab(
-                                                                        //       1,
-                                                                        //     );
-                                                                        // if (bottomController.pageIndex.value ==
-                                                                        //     1) {
-                                                                        //   Get.back();
-                                                                        // }
+                                                                        RoutingHelper.urlRouting(
+                                                                          childValue
+                                                                              .url,
+                                                                        );
                                                                       },
                                                                       title:
                                                                           childValue.counts !=
@@ -333,40 +267,9 @@ class AppDrawer extends StatelessWidget {
                                                           )
                                                           : AppDrawerCard(
                                                             onPress: () {
-                                                              RoutingHelper.urlRouting(child.url);
-                                                              // shopController
-                                                              //     .resetAll();
-                                                              // if (isFromOtherPage) {
-                                                              //   Get.to(
-                                                              //     () => const HelloConvexAppBar(
-                                                              //       pageIndex:
-                                                              //           1,
-                                                              //     ),
-                                                              //   );
-                                                              // }
-                                                              // if (category
-                                                              //         .name ==
-                                                              //     "By Brand") {
-                                                              //   // shopController.updateCategory();
-                                                              //   shopController
-                                                              //           .brand
-                                                              //           .value =
-                                                              //       child.slug!;
-                                                              // } else {
-                                                              //   shopController
-                                                              //       .updateCategory(
-                                                              //         child
-                                                              //             .slug!,
-                                                              //       );
-                                                              // }
-                                                              // bottomController
-                                                              //     .jumpToTab(1);
-                                                              // if (bottomController
-                                                              //         .pageIndex
-                                                              //         .value ==
-                                                              //     1) {
-                                                              //   Get.back();
-                                                              // }
+                                                              RoutingHelper.urlRouting(
+                                                                child.url,
+                                                              );
                                                             },
                                                             title:
                                                                 child.counts !=
@@ -385,26 +288,9 @@ class AppDrawer extends StatelessWidget {
                                         child: AppDrawerCard(
                                           title: category.name!,
                                           onPress: () {
-
-                                            RoutingHelper.urlRouting(category.url);
-                                            // shopController.resetAll();
-                                            // if (isFromOtherPage) {
-                                            //   Get.to(
-                                            //     () => const HelloConvexAppBar(
-                                            //       pageIndex: 1,
-                                            //     ),
-                                            //   );
-                                            // }
-                                            // shopController.updateCategory(
-                                            //   category.slug!,
-                                            // );
-                                            // bottomController.jumpToTab(1);
-                                            // if (bottomController
-                                            //         .pageIndex
-                                            //         .value ==
-                                            //     1) {
-                                            //   Get.back();
-                                            // }
+                                            RoutingHelper.urlRouting(
+                                              category.url,
+                                            );
                                           },
                                         ),
                                       );
@@ -415,7 +301,9 @@ class AppDrawer extends StatelessWidget {
                                 drawerController.allNewCategories[index].name!
                                     .toUpperCase(),
                             onPress: () {
-                              RoutingHelper.urlRouting(drawerController.allCategories[index].url);
+                              RoutingHelper.urlRouting(
+                                drawerController.allCategories[index].url,
+                              );
                               // shopController.updateCategory(
                               //   drawerController.allNewCategories[index].slug!,
                               // );
@@ -473,12 +361,8 @@ class AppDrawer extends StatelessWidget {
           AppDrawerCard(
             title: 'blog'.toUpperCase(),
             onPress: () {
-              Get.to(
-                () => WebViewScreen(
-                  url: "$baseUrlWeb/blogs?type=app",
-                  title: 'Blogs',
-                ),
-              );
+              Get.back();
+              Get.to(() => Blogs());
             },
           ),
           ExpansionTile(
