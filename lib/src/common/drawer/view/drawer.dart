@@ -131,7 +131,7 @@ class AppDrawer extends StatelessWidget {
                             title: InkWell(
                               onTap: () {
                                 RoutingHelper.urlRouting(
-                                  drawerController.allCategories[index].url,
+                                  drawerController.allNewCategories[index].url,
                                 );
                               },
                               child: Text(
@@ -302,15 +302,8 @@ class AppDrawer extends StatelessWidget {
                                     .toUpperCase(),
                             onPress: () {
                               RoutingHelper.urlRouting(
-                                drawerController.allCategories[index].url,
+                                drawerController.allNewCategories[index].url,
                               );
-                              // shopController.updateCategory(
-                              //   drawerController.allNewCategories[index].slug!,
-                              // );
-                              // bottomController.jumpToTab(1);
-                              // if (bottomController.pageIndex.value == 1) {
-                              //   Get.back();
-                              // }
                             },
                           ),
             );
