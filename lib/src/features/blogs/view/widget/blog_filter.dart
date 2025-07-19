@@ -107,10 +107,10 @@ class BlogFilterPart extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Tags",
+                                                      "Categories",
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headlineLarge,
+                                                          .headlineSmall,
                                                     ),
                                                     const Gap(AppSizes.sm),
                                                     Wrap(
@@ -120,61 +120,29 @@ class BlogFilterPart extends StatelessWidget {
                                                           !.map<Widget>((item) {
                                                         return Obx(() {
                                                           return ChoiceChip(
-                                                            onSelected:
-                                                                (isSelected) {
-                                                              if (blogController
-                                                                  .selectedTagsList
-                                                                  .contains(
-                                                                      item.name)) {
-                                                                blogController
-                                                                    .selectedTagsList
-                                                                    .remove(
-                                                                        item.name); // Remove if already selected
-                                                              } else {
-                                                                blogController
-                                                                    .selectedTagsList
-                                                                    .add(
-                                                                        item.name); // Add if not selected
+                                                            onSelected: (isSelected) {
+                                                              if (isSelected) {
+                                                                blogController.selectedCategories.value = item.name!;
                                                               }
                                                             },
-                                                            selectedColor:
-                                                                AppColors
-                                                                    .primary,
+                                                            selectedColor: AppColors.primary,
                                                             backgroundColor: AppColors.lightGrey,
-                                                            disabledColor: AppColors
-                                                                .lightGrey,
+                                                            disabledColor: AppColors.lightGrey,
                                                             label: Text(
                                                               item.name!,
-                                                              // Display the label of each topic
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .titleSmall!
-                                                                  .apply(
-                                                                    color: blogController.selectedTagsList.contains(item.name)
-                                                                        ? AppColors
-                                                                        .textWhite
-                                                                        : AppColors
-                                                                        .textPrimary,
-                                                                  ),
+                                                              style: Theme.of(context).textTheme.titleSmall!.apply(
+                                                                color: blogController.selectedCategories.value == item.name
+                                                                    ? AppColors.textWhite
+                                                                    : AppColors.textPrimary,
+                                                              ),
                                                             ),
-                                                            selected: blogController
-                                                                .selectedTagsList
-                                                                .contains(item.name),
-                                                            // Check if this chip is selected based on its value
-                                                            showCheckmark:
-                                                                false,
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20),
-                                                              side:
-                                                                  const BorderSide(
+                                                            selected: blogController.selectedCategories.value == item.name,
+                                                            showCheckmark: false,
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(20),
+                                                              side: const BorderSide(
                                                                 width: 0,
-                                                                color: Colors
-                                                                    .transparent,
+                                                                color: Colors.transparent,
                                                               ),
                                                             ),
                                                           );

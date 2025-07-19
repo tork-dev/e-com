@@ -234,48 +234,53 @@ class AppDetailsProductNamePart extends StatelessWidget {
                 const Gap(AppSizes.lg),
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30) :
-                  SizedBox(
-                      height: 40,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        children: [
-                          AppCardContainer(
-                            onTap: () {
-                              AppHelperFunctions().showKireiReturnPolicyAlert(context);
-                            },
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppSizes.spaceBtwDefaultItems,
-                              vertical: AppSizes.sm,
-                            ),
-                            backgroundColor: AppColors.primary.withAlpha(21),
-                            child: Row(
-                              children: [
-                                Icon(Icons.touch_app_outlined, color: AppColors.black),
-                                Gap(AppSizes.sm),
-                                Text(
-                                  'Concerned About the Product?',
-                                  style:
-                                      Theme.of(context).textTheme.labelLarge!,
-                                ),
-                              ],
-                            ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: AppSizes.spaceBtwItems,
+                    children: [
+                      Visibility(
+                        visible: detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount! > 1,
+                        child: AppCardContainer(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.spaceBtwDefaultItems,
+                            vertical: AppSizes.sm,
                           ),
-                          const Gap(AppSizes.spaceBtwItems),
-                          // AppCardContainer(
-                          //   padding: EdgeInsets.symmetric(
-                          //     horizontal: AppSizes.spaceBtwDefaultItems,
-                          //     vertical: AppSizes.sm,
-                          //   ),
-                          //   backgroundColor: AppColors.lightGrey,
-                          //   child: Text(
-                          //     '100% Authentic',
-                          //     style: Theme.of(context).textTheme.labelLarge!,
-                          //   ),
-                          // ),
-                        ],
+                          borderRadius: AppSizes.cardRadiusXs,
+                          backgroundColor: AppColors.lightGrey,
+                          child: Text(
+                            '${detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount}+ Confirm Authenticity',
+                            style: Theme.of(context).textTheme.labelLarge!,
+                          ),
+                        ),
                       ),
-                    )
+
+                      AppCardContainer(
+                        onTap: () {
+                          AppHelperFunctions().showKireiReturnPolicyAlert(context);
+                        },
+                        borderRadius: AppSizes.cardRadiusXs,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSizes.spaceBtwDefaultItems,
+                          vertical: AppSizes.sm,
+                        ),
+                        backgroundColor: AppColors.primary.withAlpha(21),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.touch_app_outlined, color: AppColors.black),
+                            Gap(AppSizes.sm),
+                            Text(
+                              'Concerned About the Product?',
+                              style:
+                                  Theme.of(context).textTheme.labelLarge!,
+                            ),
+                          ],
+                        ),
+                      ),
+
+
+                    ],
+                  )
               ],
             ),
           ),
@@ -379,7 +384,6 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                   spacerWidth: 1,
                                   endTime: detailsController.productDetails.value.detailedProducts!.flashSaleEndDate ?? DateTime.now().add(const Duration(days: 1)),
                                   onEnd: () {
-                                    print("Timer finished");
                                   },
                                 ),
                               ],

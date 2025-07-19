@@ -86,7 +86,7 @@ class AppBannerImage extends StatelessWidget {
                     placeholder:
                         (context, url) => ShimmerHelper().buildBasicShimmer(),
                     errorWidget:
-                        (context, url, error) => Image.asset(errorImage),
+                        (context, url, error) => Image.asset(errorImage, fit: BoxFit.cover,),
                   )
                   : !isFileImage
                   ? Image(

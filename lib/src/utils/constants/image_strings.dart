@@ -58,7 +58,7 @@ class AppImages {
   static const String avatarIcon = "assets/images/icons/avatar.jpg";
 
   // -- Background images
-  static const String surprisingSectionBg = "assets/images/background/surprising_section_bg.png";
+  static const String surprisingSectionBg = "assets/images/banners/surprise_gift.png";
   static const String groupShoppingBg = "assets/images/background/group_shopping_bg.png";
   static const String influencerBg = "assets/images/background/influencer_bg.png";
   static const String aiRecommendationBg = "assets/images/background/ai_recommendation_bg.png";

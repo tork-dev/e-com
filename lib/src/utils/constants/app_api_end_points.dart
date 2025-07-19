@@ -157,6 +157,7 @@ class AppApiEndPoints {
 
   ///Blogs
   static String blogs = "$baseUrl/blogs";
+  static String blogDetails = "$baseUrl/blog";
   static String blogCategories = "$baseUrl/blog/categories";
   static String blogTags = "$baseUrl/trending/tags";
 

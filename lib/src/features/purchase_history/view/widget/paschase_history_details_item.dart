@@ -80,14 +80,20 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              GetBuilder<PurchaseHistoryDetailsController>(builder: (controller){
+                              GetBuilder<PurchaseHistoryDetailsController>(
+                                builder: (controller) {
                                   return Visibility(
                                     visible:
                                         !controller
                                             .purchaseHistoryItemDetails
                                             .value
                                             .data![index]
-                                            .isAuthenticReview!,
+                                            .isAuthenticReview! ||
+                                        controller
+                                            .purchaseHistoryItemDetails
+                                            .value
+                                            .data![index]
+                                            .canUpdateReview!,
                                     child: AppCardContainer(
                                       onTap: () {
                                         showFeedbackDialog(
@@ -96,11 +102,17 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                                           controller: detailsItemController,
                                         );
                                       },
-                                      padding: const EdgeInsets.all(AppSizes.sm),
+                                      padding: const EdgeInsets.all(
+                                        AppSizes.sm,
+                                      ),
                                       borderRadius: AppSizes.cardRadiusXs,
                                       backgroundColor: AppColors.greenButton,
                                       child: Text(
-                                        'Verify product',
+                                        !controller
+                                            .purchaseHistoryItemDetails
+                                            .value
+                                            .data![index]
+                                            .canUpdateReview!? 'Verify product' : 'Update Verify',
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelMedium!
@@ -108,7 +120,7 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                                       ),
                                     ),
                                   );
-                                }
+                                },
                               ),
                             ],
                           ),
@@ -291,9 +303,7 @@ void showFeedbackDialog({
                     width: double.infinity,
                     child: AppButtons.largeFlatFilledButton(
                       onPressed: () {
-                        controller.submitFeedback(
-                          index: index,
-                        );
+                        controller.submitFeedback(index: index);
                       },
                       backgroundColor: AppColors.secondary,
                       buttonText: "Submit",

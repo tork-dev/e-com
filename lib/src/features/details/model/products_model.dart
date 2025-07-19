@@ -79,6 +79,7 @@ class Datum {
   String? productLink;
   String? saleEndTime;
 
+
   Datum({
     this.id,
     this.name,
@@ -127,7 +128,8 @@ class Datum {
     this.metaDescription,
     this.metaTags,
     this.productLink,
-    this.saleEndTime
+    this.saleEndTime,
+
   });
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
@@ -183,6 +185,7 @@ class Datum {
     metaTags: json["meta_tags"],
     productLink: json["product_link"],
     saleEndTime: json["scheduled_price_end_date"],
+
   );
 
 }

@@ -11,6 +11,7 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../controller/blogs_controller.dart';
+import '../blogs_details.dart';
 import 'blog_filter.dart';
 
 class MobileBlogs extends StatelessWidget {
@@ -43,9 +44,6 @@ class MobileBlogs extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                               horizontal: AppSizes.md,
                             ),
-                            // child: AppNoDataContainer(
-                            //   noDataText: "No Blogs Available Right Now",
-                            // ),
                             child: Text("No Blogs Found"),
                           )
                           : AppListViewLayout(
@@ -79,9 +77,8 @@ class MobileBlogs extends StatelessWidget {
                                   horizontal: AppSizes.md,
                                 ),
                                 onTap: () {
-                                  // Get.to(() => BlogsDetails(
-                                  //       slug: blogItem.slug!,
-                                  //     ));
+                                  blogsController.getBlogDetails(slug: blogItem.slug!);
+                                  Get.to(() => BlogsDetails());
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
