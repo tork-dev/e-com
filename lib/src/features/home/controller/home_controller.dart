@@ -117,9 +117,7 @@ class HomeController extends GetxController {
     await Future.wait([
       getProductData(),
       fetchFeaturedCategories(),
-      // getRecommendedProducts(),
       getRecommendedProductsForYou(),
-      getTrendingProducts(),
     ]);
 
     hittingApi.value = false;
@@ -147,26 +145,18 @@ class HomeController extends GetxController {
         await CartRepositories().getRequestStock(productId: productId);
   }
 
-  Future<DetailsProductsResponse> getRecommendedProducts() async {
-    return recommendedProductsResponse.value =
-        await DetailsRepositories.getRecommendedProduct();
-  }
 
   Future<void> getRecommendedProductsForYou() async {
     recommendedProductsForYouResponse.value =
         await HomeRepositories.getRecommendedProductForYou();
   }
 
-  Future<DetailsProductsResponse> getTrendingProducts() async {
-    return trendingProductsResponse.value =
-        await HomeRepositories.getTrendingProduct();
-  }
 
   void updateCurrentIndex(int index) {
     carouselCurrentIndex.value = index;
   }
 
-  fetchCarouselImages() {
+  void fetchCarouselImages() {
     var carouselResponse = homeProductResponse.value.sliders;
     debugPrint('sliders $carouselResponse');
     carouselResponse?.forEach((slider) {
