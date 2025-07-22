@@ -200,7 +200,7 @@ class AppAllAddressFields extends StatelessWidget {
                       areaSuggestion.unfocus();
                       areaSuggestion.refresh();
                       addressController.getAreaList(zone.id!);
-                      Log.d(zone.id);
+                      Log.d(zone.id.toString());
                       Log.d(addressController.selectedZoneName.value);
                       Log.d(addressController.selectedZoneController.text);
                     },

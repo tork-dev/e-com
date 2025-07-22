@@ -7,7 +7,7 @@ import '../model/questions_model.dart';
 class QuestionRepositories{
   static Future<QuestionsResponse> getQuestionResponse({required int productId, page = 1}) async {
     Uri url =
-    Uri.parse("${AppApiEndPoints.productQuestions}$productId");
+    Uri.parse("${AppApiEndPoints.productQuestions}$productId?source=app");
     final response = await http.get(
       url,
       headers: {
@@ -23,7 +23,7 @@ class QuestionRepositories{
     required String question,
   }) async {
     var postBody = jsonEncode(
-        {"product_id": productId, "name": name, "text": question});
+        {"source" : "app", "product_id": productId, "name": name, "text": question});
 
     Uri url = Uri.parse(AppApiEndPoints.submitQuestion);
     final response = await http.post(url,

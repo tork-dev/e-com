@@ -20,17 +20,17 @@ class AppSearchController extends GetxController{
   final ImagePicker _picker = ImagePicker();
   XFile? _file;
 
-  chooseAndUploadImage() async {
-    // var status = await Permission.photos.request();
-    _file = await _picker.pickImage(source: ImageSource.gallery);
-
-    //return;
-    String base64Image = FileHelper.getBase64FormatedFile(_file!.path);
-    String fileName = _file!.path.split("/").last;
-    await SearchRepositories().getImageSearch(
-        image: base64Image,
-        filename: fileName
-    );
+  // chooseAndUploadImage() async {
+  //   // var status = await Permission.photos.request();
+  //   _file = await _picker.pickImage(source: ImageSource.gallery);
+  //
+  //   //return;
+  //   String base64Image = FileHelper.getBase64FormatedFile(_file!.path);
+  //   String fileName = _file!.path.split("/").last;
+  //   await SearchRepositories().getImageSearch(
+  //       image: base64Image,
+  //       filename: fileName
+  //   );
 
   }
 
@@ -41,31 +41,30 @@ class AppSearchController extends GetxController{
 
 
 
-  Future<void> searchByImage() async {
-    _file = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (_file != null) {
-     // isLoading(true);
-      shopDataController.hittingApi.value = true;
-      bottomController.jumpToTab(1);
-      File imageFile = File(_file!.path);
-      Uint8List imageBytes = await imageFile.readAsBytes();
-      String imageName = _file!.path.split("/").last;
-
-      try {
-        shopDataController.shopPageProduct.value = await SearchRepositories().getSearchByImage(
-          imageBytes: imageBytes,
-          imageName: imageName,
-        );
-        shopDataController.allProducts.addAll(shopDataController.shopPageProduct.value.data!);
-        Log.d('Image search successful');
-        shopDataController.hittingApi.value = false;
-
-      } catch (e) {
-        Log.d('Image search failed: $e');
-      } finally {
-        //isLoading(false);
-      }
-    }
-  }
-}
+  // Future<void> searchByImage() async {
+  //   _file = await _picker.pickImage(source: ImageSource.gallery);
+  //
+  //   if (_file != null) {
+  //    // isLoading(true);
+  //     shopDataController.hittingApi.value = true;
+  //     bottomController.jumpToTab(1);
+  //     File imageFile = File(_file!.path);
+  //     Uint8List imageBytes = await imageFile.readAsBytes();
+  //     String imageName = _file!.path.split("/").last;
+  //
+  //     try {
+  //       shopDataController.shopPageProduct.value = await SearchRepositories().getSearchByImage(
+  //         imageBytes: imageBytes,
+  //         imageName: imageName,
+  //       );
+  //       shopDataController.allProducts.addAll(shopDataController.shopPageProduct.value.data!);
+  //       Log.d('Image search successful');
+  //       shopDataController.hittingApi.value = false;
+  //
+  //     } catch (e) {
+  //       Log.d('Image search failed: $e');
+  //     } finally {
+  //       //isLoading(false);
+  //     }
+  //   }
+  // }

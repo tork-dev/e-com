@@ -13,13 +13,12 @@ class ReviewRepositories{
   final accessToke = AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
   Future<ReviewResponse> getReviewResponse({required String productId, required int pageNumber}) async {
-    Uri url = Uri.parse("${AppApiEndPoints.productReview}/$productId?page=$pageNumber");
+    Uri url = Uri.parse("${AppApiEndPoints.productReview}/$productId?page=$pageNumber&source=app");
     final response = await http.get(
       url,
       headers: {
         "Authorization": "Bearer $accessToke",
         "Content-Type": "application/json",
-        "type": "app"
       },
     );
     debugPrint("Review Response: ${response.body}");
@@ -31,6 +30,7 @@ class ReviewRepositories{
     required String comment,
     required guestUserName,}) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "product_id": productId,
       "rating": "$rating",
       "comment": comment,

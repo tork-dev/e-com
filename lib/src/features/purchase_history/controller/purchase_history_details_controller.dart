@@ -150,33 +150,5 @@ class PurchaseHistoryDetailsController extends GetxController {
   }
 
 
-  Future<void> submitFeedback({
-    required int index,
-  }) async {
-    try{
-      if(isAuthentic.value == 0 && noteController.text.isEmpty){
-        AppHelperFunctions.showToast("Note is required");
-        return;
-      }
-      CustomLoader.showLoaderDialog(Get.overlayContext!);
-      await PurchaseHistoryRepositories().submitFeedback(
-        productID: purchaseHistoryItemDetails.value.data![index].productId!,
-        orderId: int.parse(Get.parameters['id']!),
-        isAuthentic: isAuthentic.value,
-        note: noteController.text.toString(),
-      );
-      purchaseHistoryItemDetails.value.data![index].isAuthenticReview = true;
-      AppHelperFunctions.showToast("Submitted successfully");
-      noteController.clear();
-      isAuthentic.value = 1;
-      Get.back();
-    }catch(e){
-      throw Exception(e);
-    }finally{
-      update();
-      CustomLoader.hideLoader(Get.overlayContext!);
-    }
-
-  }
 
 }

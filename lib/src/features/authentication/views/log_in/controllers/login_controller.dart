@@ -14,6 +14,7 @@ import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:kirei/src/utils/popups/custom_loader.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import '../../../../home/repositories/home_repositories.dart';
 import '../../../model/resend_code_model.dart';
 import '../../forgot_password/view/otp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -116,6 +117,7 @@ class LogInPageController extends GetxController {
           //   }
           // }
           Get.offAllNamed(previousRoute.value);
+          HomeRepositories().getDeviceTokenUpdateResponse();
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
         }
@@ -231,6 +233,7 @@ class LogInPageController extends GetxController {
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
         AuthHelper().setUserData(loginResponse.value);
 
+        HomeRepositories().getDeviceTokenUpdateResponse();
         Get.offAllNamed(previousRoute.value);
         EventLogger().logLoginEvent('Google');
       }
@@ -300,6 +303,7 @@ class LogInPageController extends GetxController {
         //     });
         //   }
         // }
+        HomeRepositories().getDeviceTokenUpdateResponse();
         Get.offAllNamed(previousRoute.value);
       }
     }
@@ -404,6 +408,7 @@ class LogInPageController extends GetxController {
         //     });
         //   }
         // }
+        HomeRepositories().getDeviceTokenUpdateResponse();
         Get.offAllNamed(previousRoute.value);
       }
       AppHelperFunctions.showToast(loginResponse.value.message!);

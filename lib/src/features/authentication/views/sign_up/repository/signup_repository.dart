@@ -18,6 +18,7 @@ class SignupRepository{
        String registerBy,
       ) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "name": name,
       "email_or_phone": emailOrPhone,
       "password": password,
@@ -30,7 +31,6 @@ class SignupRepository{
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
-          //"App-Language": app_language.$,
         },
         body: postBody);
     Log.d("Request data: $postBody");
@@ -42,8 +42,8 @@ class SignupRepository{
        String phone
       ) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "email": phone,
-      //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
     Log.d(postBody);
     Uri url = Uri.parse(AppApiEndPoints.signupOtp);
@@ -60,7 +60,7 @@ class SignupRepository{
   Future<AppLoginResponse> getSignUpOtpConfirmCodeResponse(
        String phone,  String verificationCode) async {
     var postBody =
-    jsonEncode({"email": phone, "otp_code": verificationCode});
+    jsonEncode({"source" : "app", "email": phone, "otp_code": verificationCode});
 
     Uri url = Uri.parse(AppApiEndPoints.verifySignUpOtp);
     final response = await http.post(url,
@@ -77,8 +77,8 @@ class SignupRepository{
       String phone
       ) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "email": phone,
-      //"version": "${Provider.of<VersionChange>(context, listen: false).latestVersion}",
     });
     Uri url = Uri.parse(AppApiEndPoints.signupOtp);
     final response = await http.post(url,

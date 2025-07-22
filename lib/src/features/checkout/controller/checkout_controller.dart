@@ -295,6 +295,7 @@ class CheckoutController extends GetxController {
       "coupon_code": couponCode,
       "redeem_point" : redeemedPoint.value,
       'app_info': await AppHelperFunctions.appInfo(),
+      "source" : "app",
     };
 
     return requestBody;

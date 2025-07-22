@@ -100,7 +100,7 @@ class HomeThree extends StatelessWidget {
                   controller.showRecommendation,
             );
           }),
-          const Gap(AppSizes.spaceBtwSections),
+          const Gap(AppSizes.md),
           BestSellingProductSection(homeProductResponse: controller.homeProductResponse),
           Obx(() {
               return  HomeSurpriseSection(
@@ -134,27 +134,9 @@ class HomeThree extends StatelessWidget {
           }
           ),
           const Gap(AppSizes.spaceBtwSections),
-          RecommendedSection(recommendedProductsResponse: controller.recommendedProductsForYouResponse),
-          const Gap(AppSizes.spaceBtwSections),
-          NewArrivalsSection(homeProductResponse: controller.homeProductResponse),
-          // Obx(() {
-          //   return HomeImageTitleAndButtonSection(
-          //     showBg: false,
-          //     fit: BoxFit.cover,
-          //     sectionName:
-          //         controller
-          //             .homeProductResponse
-          //             .value
-          //             .homepageSettings
-          //             ?.groupShopping,
-          //     showTheSection:
-          //         controller.showGroupShopping,
-          //   );
-          // }),
-          //
-          // const Gap(AppSizes.spaceBtwSections),
           InternationalBrandsSection(homeProductResponse: controller.homeProductResponse),
           HomeTrendingSection(),
+          RecommendedSection(recommendedProductsResponse: controller.recommendedProductsForYouResponse),
           Gap(AppSizes.spaceBtwSections),
           Obx(() {
             return Visibility(
@@ -162,7 +144,8 @@ class HomeThree extends StatelessWidget {
               child: const HomeReviewSection(),
             );
           }),
-          Gap(AppSizes.spaceBtwSections),
+          const Gap(AppSizes.spaceBtwSections),
+          NewArrivalsSection(homeProductResponse: controller.homeProductResponse),
           Obx(() {
             return HomeImageTitleAndButtonSection(
               bgUrl: AppImages.kireiTubeBg,

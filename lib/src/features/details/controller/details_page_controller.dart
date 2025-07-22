@@ -65,8 +65,8 @@ class DetailsPageController extends GetxController {
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
       await checkWishListAdd();
     }
-    await getRelatedProducts();
-    await getRecommendedProducts();
+    getRelatedProducts();
+    getRecommendedProducts();
   }
 
   void getLargePicture(index) {

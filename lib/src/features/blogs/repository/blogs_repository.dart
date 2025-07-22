@@ -15,7 +15,8 @@ class BlogsRepository {
       'search': search,
       'blog_category_title': categoryTitle,
       'tags': tags,
-      'page' : pageNumber
+      'page' : pageNumber,
+      "source" : "app",
     };
 
     String queryString = parameters.entries
@@ -37,7 +38,7 @@ class BlogsRepository {
   }
 
   Future<BlogDetailsResponseModel> getBlogsDetailsResponse({required String slug}) async {
-    Uri url = Uri.parse("${AppApiEndPoints.blogDetails}/$slug");
+    Uri url = Uri.parse("${AppApiEndPoints.blogDetails}/$slug?source=app");
     final response = await http.get(url,
       headers: {
         "Accept": "*/*",

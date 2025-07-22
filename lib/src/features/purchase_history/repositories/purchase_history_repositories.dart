@@ -20,7 +20,7 @@ class PurchaseHistoryRepositories {
   ///Get Order History list
   Future<PurchaseHistoryResponse> getPurchaseHistoryList() async {
     final response = await http.get(
-      Uri.parse(AppApiEndPoints.purchaseHistory),
+      Uri.parse("${AppApiEndPoints.purchaseHistory}?source=app"),
       headers: {"Authorization": "Bearer $accessToken"},
     );
 
@@ -36,7 +36,7 @@ class PurchaseHistoryRepositories {
     int id,
   ) async {
     final response = await http.get(
-      Uri.parse('${AppApiEndPoints.purchaseHistoryDetails}/$id'),
+      Uri.parse('${AppApiEndPoints.purchaseHistoryDetails}/$id?source=app'),
       headers: {"Authorization": "Bearer $accessToken"},
     );
     if (response.statusCode == 200) {
@@ -52,7 +52,7 @@ class PurchaseHistoryRepositories {
     int id,
   ) async {
     final response = await http.get(
-      Uri.parse('${AppApiEndPoints.purchaseHistoryItem}/$id'),
+      Uri.parse('${AppApiEndPoints.purchaseHistoryItem}/$id?source=app'),
       headers: {"Authorization": "Bearer $accessToken"},
     );
     if (response.statusCode == 200) {
@@ -66,7 +66,7 @@ class PurchaseHistoryRepositories {
   /// Re-Order Purchase Item
   Future<ReOrderResponse> getReOrder(int id) async {
     final response = await http.get(
-      Uri.parse('${AppApiEndPoints.reOrder}/$id'),
+      Uri.parse('${AppApiEndPoints.reOrder}/$id?source=app'),
       headers: {"Authorization": "Bearer $accessToken"},
     );
     if (response.statusCode == 200) {
@@ -89,25 +89,5 @@ class PurchaseHistoryRepositories {
   //   return jsonDecode(response.body);
   // }
 
-  Future<void> submitFeedback({
-    required int productID,
-    required int orderId,
-    required int isAuthentic,
-    String? note,
-  }) async {
-    print("calling from repo");
-    final response = await http.post(
-      Uri.parse(AppApiEndPoints.submitFeedback),
-      headers: {
-        "Authorization": "Bearer $accessToken",
-        "Content-Type": "application/json"
-      },
-      body: jsonEncode({
-        "product_id": productID,
-        "order_id": orderId.toString(),
-        "is_authentic": isAuthentic,
-        "description": note,
-      }),
-    );
-  }
+
 }

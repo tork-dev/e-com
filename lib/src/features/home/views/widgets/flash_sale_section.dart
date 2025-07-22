@@ -17,31 +17,39 @@ class FlashSaleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-        return Visibility(
-          visible: homeProductResponse.value.homepageSettings?.features?.flashSale ?? false,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-                child: AppSectionTitleText(
-                    sectionTitle: 'Hot Deals',
-                    flashTime: homeProductResponse.value.featuredProducts?[0].flashSaleEndDate ?? DateTime.now(),
-                    haveTxtButton: false,
-                    showCountDown: true,
-                  )
+      final isFlashSaleEnabled =
+          homeProductResponse.value.homepageSettings?.features?.flashSale ?? false;
+
+      final featuredProducts = homeProductResponse.value.featuredProducts;
+
+      // Check if the list has at least one item
+      final hasValidProduct = featuredProducts != null && featuredProducts.isNotEmpty;
+
+      return Visibility(
+        visible: isFlashSaleEnabled && hasValidProduct,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppSectionTitleText(
+                sectionTitle: 'Hot Deals',
+                flashTime: hasValidProduct
+                    ? featuredProducts[0].flashSaleEndDate ?? DateTime.now()
+                    : DateTime.now(), // fallback
+                haveTxtButton: false,
+                showCountDown: true,
               ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-                  child: AppHorizontalScrollProductCard(
-                    sectionName:
-                    homeProductResponse.value.featuredProducts,
-                  ),
-                ),
-              const Gap(AppSizes.spaceBtwSections),
-            ],
-          ),
-        );
-      }
-    );
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+              child: AppHorizontalScrollProductCard(
+                sectionName: featuredProducts,
+              ),
+            ),
+            const Gap(AppSizes.spaceBtwSections),
+          ],
+        ),
+      );
+    });
   }
 }

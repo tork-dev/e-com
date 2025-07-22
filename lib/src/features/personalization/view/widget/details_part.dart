@@ -6,6 +6,7 @@ import 'package:kirei/src/features/de_active_account/view/de_active_account.dart
 import 'package:kirei/src/features/personalization/view/account_details.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/reward_point/view/reward_screen.dart';
+import 'package:kirei/src/features/verify_product/view/product_verify_screen.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../notification/view/notification_screen.dart';
@@ -22,6 +23,11 @@ class DetailsCardPart extends StatelessWidget {
           onTap: ()=> Get.to(()=> const PurchaseHistory()),
             cardText: 'Orders',
            ),
+        const Gap(AppSizes.spaceBtwDefaultItems),
+        DetailsCard(
+          onTap: ()=> Get.to(()=> const ProductVerifyScreen()),
+          cardText: 'Verify Product',
+        ),
         const Gap(AppSizes.spaceBtwDefaultItems),
         DetailsCard(
             cardText: 'Account Details',

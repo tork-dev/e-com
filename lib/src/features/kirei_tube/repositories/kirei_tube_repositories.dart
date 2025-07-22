@@ -11,7 +11,7 @@ import '../model/playlist_details_response.dart';
 
 class KireiTubeRepositories {
   Future<KireiTubeHomeResponse> getKireiHome(String? searchName) async {
-    final response = await http.get(Uri.parse('${AppApiEndPoints.kireiTubeHome}?search=$searchName'));
+    final response = await http.get(Uri.parse('${AppApiEndPoints.kireiTubeHome}?search=$searchName&source=app'));
 
     Log.d(response.body.toString());
 
@@ -26,6 +26,7 @@ class KireiTubeRepositories {
       {String? searchName, int? isPopular, String? orientation, String? orderBy}) async {
     Map<String, dynamic> parameters = {
       "is_popular": isPopular,
+      "source" : "app",
     };
     if(searchName != ''){
       parameters["search"] = searchName;
@@ -58,6 +59,7 @@ class KireiTubeRepositories {
       required String searchName,
       required String orderBy}) async {
     Map<String, dynamic> parameters = {
+      "source" : "app",
       "is_popular": isPopular,
       "title": searchName,
       "order_by": orderBy
@@ -82,7 +84,7 @@ class KireiTubeRepositories {
 
   Future<KireiTubeDetailsResponse> getKireiDetailsData(String videoSlug) async {
     final response = await http
-        .get(Uri.parse('${AppApiEndPoints.kireiTubeVideos}/$videoSlug'));
+        .get(Uri.parse('${AppApiEndPoints.kireiTubeVideos}/$videoSlug?source=app'));
 
     Log.d(response.body.toString());
 
@@ -96,7 +98,7 @@ class KireiTubeRepositories {
   Future<KireiTubePlaylistDetailsResponse> getKireiPlaylistDetails(
       String playlistSlug) async {
     final response = await http.get(
-        Uri.parse('${AppApiEndPoints.kireiPlaylistDetails}/$playlistSlug'));
+        Uri.parse('${AppApiEndPoints.kireiPlaylistDetails}/$playlistSlug?source=app'));
 
     Log.d(response.body.toString());
 

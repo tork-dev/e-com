@@ -12,7 +12,7 @@ import '../model/skin_type_model.dart';
 class ShopRepositories{
   Future<ShopPageResponse> getFilteredProducts({required String queryString}) async {
     debugPrint("queryString $queryString");
-    Uri url = Uri.parse("${AppApiEndPoints.shopProducts}$queryString");
+    Uri url = Uri.parse("${AppApiEndPoints.shopProducts}$queryString&source=app");
     final response = await http.get(url);
     var responseBody = jsonDecode(response.body);
 
@@ -21,7 +21,7 @@ class ShopRepositories{
 
   ///Shop Page Skin Type
   Future<SkinTypesResponse> getFilterPageSkinTypes() async {
-    Uri url = Uri.parse(AppApiEndPoints.shopSkinTypes);
+    Uri url = Uri.parse("${AppApiEndPoints.shopSkinTypes}?source=app");
     final skinTypesCachedData = CachingUtility.getData(CachingKeys.skinTypesCachedData);
     if (skinTypesCachedData != null) {
       return skinTypesResponseFromJson(skinTypesCachedData);
@@ -34,7 +34,7 @@ class ShopRepositories{
 
   ///Sub Categories
   Future<List<ProductSubCategoryItem>> getSubCategories(String slug) async {
-    final response = await http.get(Uri.parse('${AppApiEndPoints.subCategory}/$slug'));
+    final response = await http.get(Uri.parse('${AppApiEndPoints.subCategory}/$slug?source=app'));
 
     if (response.statusCode == 200) {
       List<dynamic> jsonData = json.decode(response.body);

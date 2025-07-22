@@ -3,19 +3,21 @@ import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/details/model/products_model.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../model/product_details_model.dart';
 
-class DetailsRepositories{
-
+class DetailsRepositories {
   static final userId = AppLocalStorage().readData(LocalStorageKeys.userId);
-  static final gaipUserId = AppLocalStorage().readData(LocalStorageKeys.gaipUserId);
-
+  static final gaipUserId = AppLocalStorage().readData(
+    LocalStorageKeys.gaipUserId,
+  );
 
   static Future<ProductDetailsResponse> getProductDetails(String slug) async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.productDetails+slug), headers: {
-
-    });
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.productDetails + slug}?source=app"),
+      headers: {},
+    );
     var responseBody = jsonDecode(response.body.toString());
     if (responseBody["result"] == true) {
       return ProductDetailsResponse.fromJson(responseBody);
@@ -25,9 +27,12 @@ class DetailsRepositories{
   }
 
   static Future<DetailsProductsResponse> getRelatedProducts(String slug) async {
-    final response = await http.get(Uri.parse("${AppApiEndPoints.relatedProduct}$slug?gaip_user_id=$gaipUserId"), headers: {
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.relatedProduct}/$slug?source=app"),
+    );
 
-    });
+    Log.d("related product response ${response.body}");
+
     var responseBody = jsonDecode(response.body.toString());
     if (responseBody["result"] == true) {
       return DetailsProductsResponse.fromJson(responseBody);
@@ -37,9 +42,10 @@ class DetailsRepositories{
   }
 
   static Future<DetailsProductsResponse> getRecommendedProduct() async {
-    final response = await http.get(Uri.parse("${AppApiEndPoints.recommendedProduct}$gaipUserId"), headers: {
-
-    });
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.recommendedProduct}?source=app"),
+      headers: {},
+    );
     var responseBody = jsonDecode(response.body.toString());
     if (responseBody["result"] == true) {
       return DetailsProductsResponse.fromJson(responseBody);

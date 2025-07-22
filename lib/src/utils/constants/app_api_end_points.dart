@@ -40,10 +40,11 @@ class AppApiEndPoints {
 
   ///Details
   static String productDetails = "$baseUrl/products/details/";
-  static String relatedProduct = "$baseUrl/gigalogy/related-products/";
-  static String recommendedProduct = "$baseUrl/gigalogy/users/search/recommend?gaip_user_id=";
-  static String recommendedProductForUser = "$baseUrl/gigalogy/users/recommend?gaip_user_id=";
-  static String trendingProduct = "$baseUrl/gigalogy/items/trending?gaip_user_id=";
+  static String relatedProduct = "$baseUrl/gigalogy/related-products";
+  static String recommendedProduct = "$baseUrl/gigalogy/users/search/recommend";
+
+  static String recommendedProductForUser = "$baseUrl/gigalogy/users/recommend";
+  // static String trendingProduct = "$baseUrl/gigalogy/items/trending";
 
 
   ///Carts
@@ -154,6 +155,7 @@ class AppApiEndPoints {
 
   /// Submit feedback
   static String submitFeedback = "$baseUrl/product-authentic-reviews/submit";
+  static String productVerifyList = "$baseUrl/authentic-user-order-history";
 
   ///Blogs
   static String blogs = "$baseUrl/blogs";

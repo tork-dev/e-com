@@ -20,7 +20,7 @@ class CheckoutRepositories {
 
 
   Future<CheckoutSummaryResponse> getCartSummaryResponse() async {
-    Uri url = Uri.parse(AppApiEndPoints.checkoutSummary);
+    Uri url = Uri.parse("${AppApiEndPoints.checkoutSummary}?source=app");
     final response = await http.get(
       url,
       headers: {
@@ -33,7 +33,7 @@ class CheckoutRepositories {
 
 
   Future<List<PaymentMethodResponse>> getPaymentMethods() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.paymentTypes));
+    final response = await http.get(Uri.parse("${AppApiEndPoints.paymentTypes}?source=app"));
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
@@ -47,6 +47,7 @@ class CheckoutRepositories {
       {required String couponCode}) async {
     var postBody =
     jsonEncode({
+      "source" : "app",
       "coupon_code": couponCode,
       'app_info': await AppHelperFunctions.appInfo(),
     });
@@ -66,7 +67,7 @@ class CheckoutRepositories {
   }
 
   Future<CouponRemoveResponse> getCouponRemoveResponse() async {
-    var postBody = jsonEncode({"user_id": userid, 'app_info': await AppHelperFunctions.appInfo(),});
+    var postBody = jsonEncode({"source" : "app", "user_id": userid, 'app_info': await AppHelperFunctions.appInfo(),});
 
     Uri url = Uri.parse(AppApiEndPoints.couponRemove);
     final response = await http.post(url,

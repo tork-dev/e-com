@@ -21,7 +21,7 @@ class HomeRepositories {
       return HomeProductResponse.fromJson(homeCachedData);
     }
 
-    final response = await http.get(Uri.parse(AppApiEndPoints.homeProducts));
+    final response = await http.get(Uri.parse("${AppApiEndPoints.homeProducts}?source=app"));
     if (response.statusCode == 200) {
       await CachingUtility.saveData(CachingKeys.homePageCachedData, response.body);
       return HomeProductResponse.fromJson(response.body);
@@ -35,28 +35,17 @@ class HomeRepositories {
     if (featuredCategoryCachedData != null) {
       return featuredCategoryListFromJson(featuredCategoryCachedData);
     }
-    Uri url = Uri.parse(AppApiEndPoints.homeFeaturedCategory);
+    Uri url = Uri.parse("${AppApiEndPoints.homeFeaturedCategory}?source=app");
     final response = await http.get(url);
     await CachingUtility.saveData(CachingKeys.featuredCategoryCachedData, response.body);
     return featuredCategoryListFromJson(response.body);
   }
 
 
-  static Future<DetailsProductsResponse> getTrendingProduct() async {
-    final response = await http.get(
-        Uri.parse("${AppApiEndPoints.trendingProduct}${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}"),
-        headers: {});
-    var responseBody = jsonDecode(response.body.toString());
-    if (responseBody["result"] == true) {
-      return DetailsProductsResponse.fromJson(responseBody);
-    } else {
-      throw Exception('Failed to load data: ${response.statusCode}');
-    }
-  }
-
   Future<DeviceTokenUpdateResponse> getDeviceTokenUpdateResponse() async {
     Log.d('sending fcm ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}');
     var postBody = jsonEncode({
+      "source" : "app",
       "device_token": AppLocalStorage().readData(LocalStorageKeys.fcmToken)
     });
     Uri url = Uri.parse(AppApiEndPoints.deviceToken);
@@ -74,7 +63,7 @@ class HomeRepositories {
   }
 
   Future<SurprizeGiftResponse> getSurprizResponse(String phone) async {
-    Uri url = Uri.parse(AppApiEndPoints.surpriseGift);
+    Uri url = Uri.parse("${AppApiEndPoints.surpriseGift}?source=app");
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +76,7 @@ class HomeRepositories {
 
   static Future<DetailsProductsResponse> getRecommendedProductForYou() async {
     final response = await http.get(
-        Uri.parse("${AppApiEndPoints.recommendedProductForUser}${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}"),
+        Uri.parse("${AppApiEndPoints.recommendedProductForUser}?source=app"),
         headers: {});
     var responseBody = jsonDecode(response.body.toString());
     if (responseBody["result"] == true) {

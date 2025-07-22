@@ -13,7 +13,7 @@ class ForgotPasswordRepository{
 
   Future<ForgotPasswordResponse> getForgetPasswordResponse(
        String emailOrPhone) async {
-    var postBody = jsonEncode({"email": emailOrPhone});
+    var postBody = jsonEncode({"source" : "app","email": emailOrPhone});
 
     Uri url = Uri.parse(
       AppApiEndPoints.forgetPasswordOtpSend
@@ -32,7 +32,7 @@ class ForgotPasswordRepository{
   Future<ForgetPasswordConfirmResponse> getPasswordConfirmResponse(
       String verificationCode,  String phone) async {
     var postBody =
-    jsonEncode({"otp_code": verificationCode, "email": phone});
+    jsonEncode({"source" : "app", "otp_code": verificationCode, "email": phone});
 
     Uri url = Uri.parse(AppApiEndPoints.forgetConfirmPassword
     );
@@ -50,7 +50,7 @@ class ForgotPasswordRepository{
 
   Future<SendOtpCodeResponse> getResendForgetPasswordResponse(
       String emailOrPhone) async {
-    var postBody = jsonEncode({"email": emailOrPhone});
+    var postBody = jsonEncode({"source" : "app", "email": emailOrPhone});
 
     Uri url = Uri.parse(
         AppApiEndPoints.forgetPasswordOtpSend

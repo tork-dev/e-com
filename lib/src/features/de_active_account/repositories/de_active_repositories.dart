@@ -13,7 +13,11 @@ class DeActiveRepo{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}",
-        });
+        },
+        body: jsonEncode({
+          "source" : "app"
+        })
+    );
 
     if(response.statusCode == 200){
       var responseBody = jsonDecode(response.body);

@@ -83,7 +83,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                           : HtmlWidget(
                             sectionName?.description ?? '',
                           ),
-                    const Gap(AppSizes.defaultSpace),
+                    const Gap(AppSizes.md),
                     homeController.hittingApi.value
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 40, width: 150)

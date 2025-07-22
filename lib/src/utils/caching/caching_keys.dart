@@ -5,4 +5,5 @@ class CachingKeys{
   static const String allCategoryCachedData = 'all_category';
   static const String skinTypesCachedData = 'skin_types';
   static const String kireitubeHomeCachedData = 'kirei_tube_home';
+  static const String businessSettingsCachedData = 'business_settings';
 }

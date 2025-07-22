@@ -86,10 +86,6 @@ class HomeController extends GetxController {
     if (callApis == true) {
       getData();
     }
-    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
-      HomeRepositories().getDeviceTokenUpdateResponse();
-    }
-
     super.onInit();
   }
 
