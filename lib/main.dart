@@ -8,7 +8,7 @@ import 'package:kirei/src/app.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kirei/src/utils/caching/caching_utility.dart';
-import 'package:kirei/src/utils/firebase/awesome_notification.dart';
+import 'package:kirei/src/utils/firebase/notification_service.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/deep_link_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';

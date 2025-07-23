@@ -87,14 +87,6 @@ dependencies:
 
 
 
-#  cloud_firestore: ^4.15.10
-
-
-  # Awesome plugins
-#  awesome_notifications_core: ^0.8.0
-#  awesome_notifications: ^0.8.0
-#  awesome_notifications_fcm: ^0.8.0
-
 
 
 dev_dependencies:
