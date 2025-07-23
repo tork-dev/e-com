@@ -239,17 +239,27 @@ class AppDetailsProductNamePart extends StatelessWidget {
                     spacing: AppSizes.spaceBtwItems,
                     children: [
                       Visibility(
-                        visible: detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount! > 1,
+                        visible: detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount! > 0,
                         child: AppCardContainer(
+                          onTap: (){
+                            AppHelperFunctions().showKireiAuthenticity(context, detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount ?? 0);
+                          },
                           padding: EdgeInsets.symmetric(
                             horizontal: AppSizes.spaceBtwDefaultItems,
                             vertical: AppSizes.sm,
                           ),
                           borderRadius: AppSizes.cardRadiusXs,
                           backgroundColor: AppColors.lightGrey,
-                          child: Text(
-                            '${detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount}+ Confirm Authenticity',
-                            style: Theme.of(context).textTheme.labelLarge!,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.verified_user_outlined, color: AppColors.black),
+                              Gap(AppSizes.sm),
+                              Text(
+                                '${detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount}+  Confirm Authenticity',
+                                style: Theme.of(context).textTheme.labelLarge!,
+                              ),
+                            ],
                           ),
                         ),
                       ),

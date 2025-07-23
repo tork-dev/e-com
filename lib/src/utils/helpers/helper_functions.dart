@@ -719,6 +719,68 @@ class AppHelperFunctions {
     );
   }
 
+  void showKireiAuthenticity(BuildContext context, int confirmUser) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          insetPadding: EdgeInsets.all(AppSizes.md),
+          backgroundColor: AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.cardRadiusSm),
+          ),
+          contentPadding: EdgeInsets.zero,
+          content: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                right: 0,
+                child: AppCardContainer(
+                  height: 48,
+                  width: 48,
+                  onTap: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  // backgroundColor: AppColors.whitePink,
+                  padding: EdgeInsets.all(AppSizes.sm),
+                  child: Icon(Icons.clear, size: 20, color: AppColors.black),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(AppSizes.md),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Gap(AppSizes.spaceBtwSections),
+                    Text(
+                      "Authenticated by $confirmUser+ Real Customers",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const Gap(AppSizes.spaceBtwItems),
+                    Text(
+                      "This product’s authenticity has been confirmed by real customers who purchased it through Kirei. After using the product, they verified its originality based on their personal experience. This ensures that what you're seeing is trusted by real users—just like you.",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const Gap(AppSizes.spaceBtwItems),
+                    Text(
+                      "Our goal is to create a transparent shopping experience where you can shop with confidence. By allowing only verified buyers to authenticate products, we build a trustworthy community that prioritizes quality, safety, and satisfaction.",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const Gap(AppSizes.spaceBtwItems),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void openWhatsApp(String phoneNumber) async {
     final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");
     if (await canLaunchUrl(whatsappUri)) {
