@@ -42,7 +42,7 @@ class HomeSearchDecoration extends StatelessWidget {
                 Icons.search,
                 color: AppColors.grey,
               ),
-              hintText: 'Search with AI (EX: Facewash for acne)',
+              hintText: 'Search for product',
               hintStyle: Theme.of(context).textTheme.bodySmall,
               // suffixIcon: InkWell(
               //     onTap: () {

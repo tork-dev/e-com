@@ -15,6 +15,7 @@ class ProductVerifyRepository{
       "Authorization": "Bearer $accessToken",
       "Content-Type": "application/json"
     });
+    print('uri $uri response ${response.body}');
     if (response.statusCode == 200) {
       return ProductVerifyListResponse.fromJson(response.body);
     } else {

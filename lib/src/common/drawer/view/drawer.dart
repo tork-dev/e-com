@@ -332,18 +332,6 @@ class AppDrawer extends StatelessWidget {
             onPress: () => Get.offAll(() => const BeautyTipsScreen()),
           ),
           AppDrawerCard(
-            title: 'AI Suggestion'.toUpperCase(),
-            onPress: () {
-              if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
-                  true) {
-                Get.to(() => const SkinCareHistoryOne());
-              } else {
-                AppHelperFunctions.showToast('Please login first');
-                Get.toNamed('/login/personal-recommendation');
-              }
-            },
-          ),
-          AppDrawerCard(
             title: 'kirei community'.toUpperCase(),
             onPress: () => Get.toNamed("/community"),
           ),
