@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class SearchRepositories {
   Future<ProductMiniResponse> getSearchResponse(String searchKey) async {
     final response = await http.get(Uri.parse(
-        "${AppApiEndPoints.shopProducts}search=$searchKey?source=app"));
+        "${AppApiEndPoints.shopProducts}search=$searchKey&source=app"));
     if (response.statusCode == 200) {
       return productMiniResponseFromJson(response.body);
     } else {

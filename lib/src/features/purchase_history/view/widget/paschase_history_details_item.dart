@@ -33,6 +33,11 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                   null
               ? ShimmerHelper().buildBasicShimmer(height: 100)
               : AppCardContainer(
+            onTap: (){
+              // Get.toNamed('/product/${detailsItemController.purchaseHistoryItemDetails.value.data![index].productSlug}',
+              //     parameters: {'prevRoute': prevRoute});
+              // Get.toNamed("/");
+            },
                 hasBorder: true,
                 padding: const EdgeInsets.all(AppSizes.md),
                 borderRadius: 12,

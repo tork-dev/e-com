@@ -42,6 +42,8 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                     '${sectionName![index].slug}', sectionName![index].salePrice);
               },
               onCartTap: () {
+                print("product id: ${sectionName![index].id}");
+                print("product id: ${sectionName![index].slug}");
                 if (AppLocalStorage()
                     .readData(LocalStorageKeys.isLoggedIn) !=
                     null) {

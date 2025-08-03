@@ -75,7 +75,7 @@ class AddressRepositories{
 
     Log.d("Request Body: $postBody");
 
-    Uri url = Uri.parse("${AppApiEndPoints.shippingAddressCreateOrUpdate}source=app");
+    Uri url = Uri.parse("${AppApiEndPoints.shippingAddressCreateOrUpdate}?source=app");
 
     final response = await http.post(
       url,
@@ -99,7 +99,7 @@ class AddressRepositories{
   }
 
   Future<AddressResponse> getAddressList() async {
-    Uri url = Uri.parse("${AppApiEndPoints.shippingAddress}source=app");
+    Uri url = Uri.parse("${AppApiEndPoints.shippingAddress}?source=app");
     final response = await http.get(
       url,
       headers: {
