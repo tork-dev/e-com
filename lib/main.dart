@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,20 +17,12 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'src/utils/helpers/app_life_cycle_helper.dart';
 
-// @pragma('vm:entry-point') // Required for background execution
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   print('Handling a background message ${message.data}');
-//   print('Handling a background message ${message.data["show_notification"].runtimeType}');
-//
-//   if(message.data["show_notification"] == "false"){
-//     await Hive.initFlutter(); // Initialize Hive
-//     await Hive.openBox('cacheBox'); // Open Hive Box for caching
-//     CachingUtility.clearAll();
-//   }else {
-//     NotificationServices().showNotification(message);
-//   }
-//   // Add custom handling for background messages if needed
-// }
+// Background message handler must be a top-level function
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // await Firebase.initializeApp();
+  // await NotificationServices().showNotification(message);
+}
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -44,7 +37,6 @@ void main() async {
 
   // Initialize local storage
   await GetStorage.init();
-
   await Hive.initFlutter(); // Initialize Hive
   await Hive.openBox('cacheBox'); // Open Hive Box for caching
   CachingUtility.clearAll();
@@ -69,7 +61,7 @@ void main() async {
   } catch (e) {
       debugPrint("Firebase initialization error: $e");
   }
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Set system UI overlay style
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -78,17 +70,18 @@ void main() async {
   ));
 
   // Initialize notification services
+  // Initialize notification services
   final notificationServices = NotificationServices();
-  notificationServices.requestNotificationPermission();
+  await notificationServices.requestNotificationPermission();
   notificationServices.firebaseInit();
 
-  // Fetch and store FCM token
+  // Get and store FCM token
   try {
     final fcmToken = await notificationServices.getDeviceToken();
     AppLocalStorage().saveData(LocalStorageKeys.fcmToken, fcmToken);
-      debugPrint('Device Token: $fcmToken');
+    debugPrint('Device Token: $fcmToken');
   } catch (e) {
-      debugPrint("Error fetching FCM token: $e");
+    debugPrint("Error fetching FCM token: $e");
   }
 
   Get.put(DeepLinkController());
