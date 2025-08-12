@@ -17,7 +17,7 @@ class SignUpFormsAndButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final signUpController = SignUpPageController.instance;
+    final signUpController = Get.put(SignUpPageController());
     final isDark = AppHelperFunctions.isDarkMode(context);
     return Form(
       key: signUpController.signupFormKey,
