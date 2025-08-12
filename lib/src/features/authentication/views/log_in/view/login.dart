@@ -153,6 +153,7 @@ class LogIn extends StatelessWidget {
                                         ));
                                   }
                                 )),
+                            const Gap(AppSizes.spaceBtwSections),
                           ],
                         ),
                           ListView(
@@ -239,6 +240,7 @@ class LogIn extends StatelessWidget {
                                           ));
                                     }
                                   )),
+                              const Gap(AppSizes.spaceBtwSections),
                             ],
                           ),
                       ]
