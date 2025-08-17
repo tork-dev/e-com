@@ -30,12 +30,12 @@ class CommunityController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    onRefresh();
+    getCommunityResponse();
+    addItems();
   }
 
   Future<void> onRefresh() async {
-    Log.d('refresh');
-    // pageNumber.value = 1;
+    communityPostList.clear();
     getCommunityResponse();
     addItems();
   }

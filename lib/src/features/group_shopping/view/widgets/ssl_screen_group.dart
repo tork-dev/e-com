@@ -5,7 +5,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../utils/logging/logger.dart';
-import '../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../../bottom_navigation/convex_bottom_navigation.dart';
 import 'group_order_status_page.dart';
 
 class GroupSslCommerzScreen extends StatefulWidget {
@@ -36,6 +36,7 @@ class _GroupSslCommerzScreenState extends State<GroupSslCommerzScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageFinished: (String url) {
+            print("Url $url");
             Log.i('navigation finished $url');
             if (url.contains("result=true&message=Successfully%20Paid")) {
               AppHelperFunctions.showToast('Successfully Paid');
@@ -63,14 +64,14 @@ class _GroupSslCommerzScreenState extends State<GroupSslCommerzScreen> {
         showCustomLeading: true,
         backToHome: true,
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
         title: const Text(
           'Pay with Sslcommerz',
           style: TextStyle(color: AppColors.primary),
         ),
         leadingOnPress: () {
           Log.d('working');
-          Get.offAll(() => const HelloConvexAppBar());
+          Get.offAllNamed("/home");
         },
         body: buildBody());
   }

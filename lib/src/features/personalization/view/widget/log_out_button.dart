@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/helpers/helper_functions.dart';
@@ -25,7 +25,7 @@ class ProfileLogOutButton extends StatelessWidget {
                 },
                 onLeftPress: () {
                   AuthHelper().clearUserData();
-                  Get.offAll(() => const HelloConvexAppBar());
+                  Get.offAllNamed("/home");
                 },
                 rightButtonTextColor: AppColors.secondary,
                 rightButtonColor: Colors.transparent);
@@ -47,12 +47,12 @@ class ProfileLogOutButton extends StatelessWidget {
                       size: 14,
                     ),
                   )),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.all(6.0),
                 child: Text(
                   "Logout",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: AppColors.secondary, fontSize: 18),
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               )
             ],

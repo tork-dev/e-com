@@ -15,13 +15,18 @@ class AppCourseTitleContainer extends StatelessWidget {
     required this.ratings,
     required this.reviews,
     required this.salePrice,
+    required this.onCartPress,
+    required this.buttonBackgroundColor,
+    required this.buttonTextColor,
+    required this.buttonName,
     required this.price});
 
   final double? height, width;
-  final String productName;
+  final String productName, buttonName;
   final double ratings;
   final int reviews, salePrice, price;
-  final VoidCallback onTap;
+  final VoidCallback onTap, onCartPress;
+  final Color buttonBackgroundColor, buttonTextColor;
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -36,11 +41,14 @@ class AppCourseTitleContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                productName,
-                style: Theme.of(context).textTheme.labelLarge,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              SizedBox(
+                height: 45,
+                child: Text(
+                  productName,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               //Gap(AppSizes.spaceBtwRowItem),
               Row(
@@ -66,6 +74,7 @@ class AppCourseTitleContainer extends StatelessWidget {
                       //print(rating);
                     },
                   ),
+                  Gap(AppSizes.xs),
                   Text(
                     "($reviews)",
                     textAlign: TextAlign.left,
@@ -78,7 +87,7 @@ class AppCourseTitleContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
+              Row (
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Visibility(
@@ -112,7 +121,26 @@ class AppCourseTitleContainer extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                 ],
-              )
+              ),
+              const Gap(AppSizes.sm),
+              InkWell(
+                onTap: onCartPress,
+                child: AppCardContainer(
+                  applyRadius: true,
+                  borderRadius: AppSizes.borderRadiusSm,
+                  padding: EdgeInsets.symmetric(horizontal: AppSizes.spaceBtwDefaultItems, vertical: AppSizes.xs),
+                  backgroundColor: buttonBackgroundColor,
+                  hasBorder: true,
+                  borderColor: buttonBackgroundColor,
+                  borderWidth: 1,
+                  child: Text(buttonName,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .apply(color: buttonTextColor)
+                  ),
+                ),
+              ),
             ],
           )),
     );

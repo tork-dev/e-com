@@ -1,36 +1,71 @@
-// import 'dart:async';
-// import 'package:app_links/app_links.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:kirei/src/utils/helpers/routing_helper.dart';
-//
-// class DeepLinkHelper {
-//   final AppLinks _appLinks = AppLinks();
-//   StreamSubscription<Uri>? _linkSubscription;
-//
-//   void deepLinkController() {
-//     print('initial deep link');
-//     _linkSubscription = _appLinks.uriLinkStream.listen((Uri? uri) {
-//       if (uri != null) {
-//         print('Received deep link: $uri');
-//         // handleDeepLink(uri);
-//         RoutingHelper.urlRouting(uri.toString());
-//       }
-//     }, onError: (Object err) {
-//       print('Failed to receive deep link: $err');
-//     });
-//   }
-//
-//   void handleDeepLink(Uri uri) {
-//     // Example: handle deep link and navigate to the correct page
-//     if (uri.path == '/book/hello-world') {
-//       Get.toNamed('/register');
-//     } else {
-//       print('Unknown deep link: $uri');
-//     }
-//   }
-//
-//   void dispose() {
-//     _linkSubscription?.cancel();
-//   }
-// }
+import 'dart:async';
+import 'package:app_links/app_links.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
+
+import '../logging/logger.dart';
+
+class DeepLinkController extends GetxController {
+  late final AppLinks _appLinks;
+  late final StreamSubscription<Uri> _uriLinkSubscription;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _appLinks = AppLinks();
+    _initDeepLinkHandling();
+  }
+
+  void _initDeepLinkHandling() async {
+    try {
+      // Handle initial deep link when app is launched from a terminated state
+      final Uri? initialLink = await _appLinks.getInitialLink();
+      print("initial url $initialLink");
+      if (initialLink != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Future.delayed(const Duration(seconds: 3), () {
+            handleDeepLink(initialLink);
+          });
+        });
+      }
+
+      // Listen for future deep link events while app is running
+      _uriLinkSubscription = _appLinks.uriLinkStream.listen(
+            (Uri uri) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(const Duration(seconds: 3), () {
+                  handleDeepLink(uri);
+                });
+              });
+        },
+        onError: (err) {
+          Log.e("Deep link stream error: $err");
+        },
+      );
+    } catch (e) {
+      print("Deep link setup error: $e");
+    }
+  }
+
+  void handleDeepLink(Uri uri) {
+    try {
+      print("Handling URI Path: ${uri.path}");
+      if (uri.path.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          RoutingHelper.urlRouting(uri.toString());
+        });
+      }
+    } catch (e) {
+      print("Error handling deep link: $e");
+    }
+  }
+
+
+
+  @override
+  void onClose() {
+    _uriLinkSubscription.cancel();
+    super.onClose();
+  }
+}

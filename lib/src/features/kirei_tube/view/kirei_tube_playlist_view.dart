@@ -20,131 +20,155 @@ class KireiTubePlaylistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppLayoutWithBackButton(
-        title: const Text('Playlist'),
-        body: SingleChildScrollView(
-          child:
-              GetBuilder<KireiTubeController>(builder: (kireiTubeController) {
+      title: const Text('Playlist'),
+      body: SingleChildScrollView(
+        child: GetBuilder<KireiTubeController>(
+          builder: (kireiTubeController) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 kireiTubeController.hittingApi.value
                     ? ShimmerHelper().buildBasicShimmer(
-                        height: 215, width: AppHelperFunctions.screenWidth())
+                      height: 215,
+                      width: AppHelperFunctions.screenWidth(),
+                    )
                     : AppBannerImage(
-                        height: 215,
-                        width: AppHelperFunctions.screenWidth(),
-                        applyImageRadius: false,
-                        isNetworkImage: true,
-                        fit: BoxFit.cover,
-                        imgUrl: kireiTubeController
-                            .playlistDetails.value.data?[0].banner),
+                      height: 215,
+                      width: AppHelperFunctions.screenWidth(),
+                      isNetworkImage: true,
+                      fit: BoxFit.cover,
+                      imgUrl:
+                          kireiTubeController
+                              .playlistDetails
+                              .value
+                              .data?[0]
+                              .banner,
+                    ),
                 const Gap(AppSizes.spaceBtwDefaultItems),
                 kireiTubeController.hittingApi.value
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Text(
-                        '${kireiTubeController.playlistDetails.value.data?[0].title}',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      '${kireiTubeController.playlistDetails.value.data?[0].title}',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                 const Gap(AppSizes.sm),
                 Row(
                   children: [
                     const AppBannerImage(
                       height: AppSizes.iconLg,
                       width: AppSizes.iconLg,
-                      imgBoarderRadius: 100,
-                      boarderRadius: 100,
                       fit: BoxFit.contain,
                       backgroundColor: AppColors.lightGrey,
                       imgUrl: AppImages.lightAppLogo,
+                      imgBoarderRadius: 100,
+                      boarderRadius: 100,
                     ),
                     const Gap(AppSizes.spaceBtwDefaultItems),
                     Text(
                       'by KireiBD',
                       style: Theme.of(context).textTheme.bodyLarge,
-                    )
+                    ),
                   ],
                 ),
                 const Gap(AppSizes.spaceBtwItems),
                 kireiTubeController.hittingApi.value
                     ? ShimmerHelper().buildBasicShimmer(height: 40, width: 150)
                     : AppCardContainer(
-                        applyRadius: false,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppSizes.md, vertical: 6),
-                        backgroundColor: AppColors.addToCartButton,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Playlist',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .apply(color: AppColors.white),
-                            ),
-                            const Gap(AppSizes.spaceBtwDefaultItems),
-                            Text(
-                                '${kireiTubeController.playlistDetails.value.data?[0].videos?.length} Video',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .apply(color: AppColors.white)),
-                          ],
-                        )),
+                      borderRadius: AppSizes.cardRadiusXs,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.md,
+                        vertical: 6,
+                      ),
+                      backgroundColor: AppColors.addToCartButton,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Playlist',
+                            style: Theme.of(context).textTheme.bodyMedium!
+                                .apply(color: AppColors.white),
+                          ),
+                          const Gap(AppSizes.spaceBtwDefaultItems),
+                          Text(
+                            '${kireiTubeController.playlistDetails.value.data?[0].videos?.length} Video',
+                            style: Theme.of(context).textTheme.bodyMedium!
+                                .apply(color: AppColors.white),
+                          ),
+                        ],
+                      ),
+                    ),
                 const Gap(AppSizes.spaceBtwSections),
                 AppListViewLayout(
-                    itemCount: kireiTubeController.hittingApi.value
-                        ? 5
-                        : kireiTubeController
-                            .playlistDetails.value.data![0].videos!.length,
-                    builderFunction: (context, index) => kireiTubeController
-                            .hittingApi.value
-                        ? ShimmerHelper().buildBasicShimmer(height: 150)
-                        : VideoHorizontalCard(
-                            onTap: () {
-                              if (kireiTubeController
+                  itemCount:
+                      kireiTubeController.hittingApi.value
+                          ? 5
+                          : kireiTubeController
+                              .playlistDetails
+                              .value
+                              .data![0]
+                              .videos!
+                              .length,
+                  builderFunction:
+                      (context, index) =>
+                          kireiTubeController.hittingApi.value
+                              ? ShimmerHelper().buildBasicShimmer(height: 150)
+                              : VideoHorizontalCard(
+                                onTap: () {
+                                  Get.toNamed(
+                                    '/kirei-tube/${kireiTubeController.playlistDetails.value.data![0].videos![index].slug}',
+                                  );
+                                  Get.to(
+                                    () => const KireiTubeShortsDetailsScreen(),
+                                    arguments: {
+                                      "id":
+                                          kireiTubeController
+                                              .playlistDetails
+                                              .value
+                                              .data![0]
+                                              .videos![index]
+                                              .slug,
+                                      "orientation":
+                                          kireiTubeController
+                                              .playlistDetails
+                                              .value
+                                              .data![0]
+                                              .videos![index]
+                                              .orientation,
+                                    },
+                                  );
+                                },
+                                imgUrl:
+                                    kireiTubeController
+                                        .playlistDetails
+                                        .value
+                                        .data![0]
+                                        .videos![index]
+                                        .banner,
+                                title:
+                                    kireiTubeController
+                                        .playlistDetails
+                                        .value
+                                        .data![0]
+                                        .videos![index]
+                                        .title,
+                                createdAt:
+                                    AppHelperFunctions.formatTimestampWithAgo(
+                                      kireiTubeController
                                           .playlistDetails
                                           .value
                                           .data![0]
                                           .videos![index]
-                                          .orientation ==
-                                      "portrait" ||
-                                  kireiTubeController
-                                          .playlistDetails
-                                          .value
-                                          .data![0]
-                                          .videos![index]
-                                          .orientation ==
-                                      "shorts") {
-                                Get.to(
-                                    () => const KireiTubeShortsDetailsScreen(),
-                                    arguments: {
-                                      "id": kireiTubeController.playlistDetails
-                                          .value.data![0].videos![index].slug
-                                    });
-                              } else {
-                                Get.to(
-                                    () => const KireiTubeShortsDetailsScreen(),
-                                    arguments: {
-                                      "id": kireiTubeController.playlistDetails
-                                          .value.data![0].videos![index].slug
-                                    });
-                              }
-                            },
-                            imgUrl: kireiTubeController.playlistDetails.value
-                                .data![0].videos![index].banner,
-                            title: kireiTubeController.playlistDetails.value
-                                .data![0].videos![index].title,
-                            createdAt:
-                                AppHelperFunctions.formatTimestampWithAgo(
-                                    kireiTubeController.playlistDetails.value
-                                        .data![0].videos![index].createdAt),
-                          ))
+                                          .createdAt,
+                                    ),
+                              ),
+                ),
               ],
             );
-          }),
-        ));
+          },
+        ),
+      ),
+    );
   }
 }

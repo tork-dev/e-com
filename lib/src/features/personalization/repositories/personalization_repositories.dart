@@ -12,6 +12,7 @@ class PersonalizationRepositories {
   Future<ProfileUpdateResponse> getProfileUpdateResponse(
       String name, String password, String currentPassword) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "name": name,
       "password": password,
       "current_password": currentPassword
@@ -36,7 +37,7 @@ class PersonalizationRepositories {
   Future<ProfileUpdateImageResponse> getProfileImageUpdateResponse(
       {required String image, required String filename}) async {
 
-    var postBody = jsonEncode( {"image": image, "filename": filename});
+    var postBody = jsonEncode( {"source" : "app", "image": image, "filename": filename});
 
     Uri url = Uri.parse(AppApiEndPoints.updateProfileImage);
     final response = await http.post(url,

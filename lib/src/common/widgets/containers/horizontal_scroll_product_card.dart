@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
+import '../../../features/ai_recommendation/model/products_response.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
@@ -22,7 +24,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     return SizedBox(
-        height: sectionName == null ? 170 : 270,
+        height: sectionName == null ? 170 : 285,
         child: AppListViewLayout(
             isScrollVertically: false,
             itemCount: sectionName == null ? 5 : sectionName!.length,
@@ -37,46 +39,29 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
               onTap: () {
                 Get.toNamed('/product/${sectionName![index].slug}', parameters: {'prevRoute' : '/home'});
                 EventLogger().logProductDetailsViewEvent(
-                    '${sectionName![index].slug}');
-                // AppHelperFunctions.showSpinnerCoupon(
-                //     title: "You just won 18% off",
-                //     couponCode: "SPIN18XQM",
-                //     expireMessage: "valid for 7 days",
-                //     onCouponPress: () {
-                //       // FlutterClipboard.copy(spinController
-                //       //     .selectedCouponResponse
-                //       //     .value
-                //       //     .data
-                //       //     ?.couponCode ??
-                //       //     '')
-                //       //     .then((value) =>
-                //       //     AppHelperFunctions
-                //       //         .showToast(
-                //       //         'Coupon copied'));
-                //     },
-                //     subTitle: 'Apply this coupon on checkout',
-                //     imgUrl: "https://appbeta1.kireibd.com/storage/all/sales.png");
+                    '${sectionName![index].slug}', sectionName![index].salePrice);
               },
               onCartTap: () {
+                print("product id: ${sectionName![index].id}");
+                print("product id: ${sectionName![index].slug}");
                 if (AppLocalStorage()
                     .readData(LocalStorageKeys.isLoggedIn) !=
                     null) {
 
+                    Log.d("${sectionName![index].requestAvailable}");
                   if (sectionName![index].requestAvailable != 0) {
                     cartController
                         .getRequestResponse(
-                        productId: sectionName![index].id)
+                        productId: sectionName![index].id!)
                         .then((value) =>
                         AppHelperFunctions.showToast(
                             cartController
                                 .requestStockResponse.value.message!));
-
-                    // AwesomeNotificationController.showNotification();
                     return;
                   }
 
                   cartController
-                      .getAddToCartResponse(sectionName![index].id, 1,
+                      .getAddToCartResponse(sectionName![index].id!, 1,
                       sectionName![index].preorderAvailable)
                       .then((value) =>
                   {
@@ -91,32 +76,34 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                 } else {
                   Get.toNamed('/login/cart', parameters: {
                     'product_id': sectionName![index].id.toString(),
-                    'product_slug' : sectionName![index].slug,
+                    'product_slug' : sectionName![index].slug!,
                     'sale_price' : sectionName![index].salePrice.toString(),
                     'request_available': sectionName![index].requestAvailable.toString(),
                     'preorder_available' : sectionName![index].preorderAvailable.toString()
                   });
                 }
 
-                EventLogger().logAddToCartEvent('${sectionName![index].slug}',
-                    sectionName![index].salePrice!);
+                // EventLogger().logAddToCartEvent('${sectionName![index].slug}',
+                //     sectionName![index].salePrice!);
               },
               productName: sectionName![index].name!,
               ratings: sectionName![index].ratings!.toDouble(),
               reviews: sectionName![index].reviews!,
               salePrice: sectionName![index].salePrice!,
               price: sectionName![index].price!,
-              imgUrl: sectionName![index].pictures![0].url!,
+              imgUrl: sectionName?[index].pictures?.isNotEmpty == true
+                  ? sectionName![index].pictures!.first.url ?? ''
+                  : '',
               isStockAvailable: sectionName![index].stock != 0,
               buttonName: sectionName![index].stock != 0
-                  ? 'ADD TO CART'
+                  ? 'Add to cart'
                   : sectionName![index].preorderAvailable == 0
                   ? sectionName![index].requestAvailable == 0
-                  ? 'OUT OF STOCK'
-                  : "REQUEST FOR STOCK"
-                  : 'PREORDER NOW',
+                  ? 'Out of stock'
+                  : "Request stock"
+                  : 'Preorder now',
               backgroundColor: sectionName![index].stock != 0
-                  ? AppColors.secondary
+                  ? AppColors.addToCartButton
                   : sectionName![index].preorderAvailable == 0
                   ? sectionName![index].requestAvailable == 0
                   ? AppColors.primary

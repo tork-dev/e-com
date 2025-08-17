@@ -18,12 +18,13 @@ class AppLayoutWithBackButton extends StatelessWidget {
     this.customLeadingIcon,
     this.leadingIconColor,
     this.bottomNav,
-    this.leadingOnPress,
+    VoidCallback? leadingOnPress,
     this.backToHome = false,
     this.canPop = true,
     this.showCustomLeading = false,
     super.key,
-  });
+  }): leadingOnPress = leadingOnPress ?? _defaultLeadingOnPress;
+  static void _defaultLeadingOnPress() => Get.offAllNamed('/home');
 
   final Widget? title, body, bottomNav;
   final bool centerTitle;

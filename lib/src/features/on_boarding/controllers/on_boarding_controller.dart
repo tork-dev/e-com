@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/controller/common_controller.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 
@@ -32,7 +32,7 @@ class OnBoardingController extends GetxController{
       spinnerActive.value = true;
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isNotFirstTime, true);
       CommonController().showPopUp();
-      Get.offAll(const HelloConvexAppBar());
+      Get.offAllNamed("/home");
     }else{
       int page = currentPageIndex.value +1;
       pageController.jumpToPage(page);
@@ -44,6 +44,6 @@ class OnBoardingController extends GetxController{
     spinnerActive.value = true;
     AppLocalStorage().saveDataIfNull(LocalStorageKeys.isNotFirstTime, true);
     CommonController().showPopUp();
-    Get.offAll(const HelloConvexAppBar());
+    Get.offAllNamed("/home");
   }
 }

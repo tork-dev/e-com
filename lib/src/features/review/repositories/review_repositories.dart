@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -12,14 +13,15 @@ class ReviewRepositories{
   final accessToke = AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
   Future<ReviewResponse> getReviewResponse({required String productId, required int pageNumber}) async {
-    Uri url = Uri.parse("${AppApiEndPoints.productReview}/$productId?page=$pageNumber");
+    Uri url = Uri.parse("${AppApiEndPoints.productReview}/$productId?page=$pageNumber&source=app");
     final response = await http.get(
       url,
       headers: {
+        "Authorization": "Bearer $accessToke",
         "Content-Type": "application/json",
-        "type": "app"
       },
     );
+    debugPrint("Review Response: ${response.body}");
     return ReviewResponse.fromJson(jsonDecode(response.body));
   }
 
@@ -28,8 +30,8 @@ class ReviewRepositories{
     required String comment,
     required guestUserName,}) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "product_id": productId,
-      "user_id": userId,
       "rating": "$rating",
       "comment": comment,
       "name": "$guestUserName",

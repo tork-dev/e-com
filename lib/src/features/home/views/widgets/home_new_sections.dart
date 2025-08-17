@@ -38,11 +38,12 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
         child: AppCardContainer(
             child: Column(
           children: [
-            const Gap(AppSizes.defaultSpace),
+            const Gap(AppSizes.spaceBtwItems),
             homeController.hittingApi.value
                 ? ShimmerHelper().buildBasicShimmer(height: 250)
                 : AppCardContainer(
                     height: 216,
+                    backgroundColor: AppColors.contentInversePrimary,
                     child: Stack(
                       children: [
                         Visibility(
@@ -82,23 +83,26 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                           : HtmlWidget(
                             sectionName?.description ?? '',
                           ),
-                    const Gap(AppSizes.defaultSpace),
+                    const Gap(AppSizes.md),
                     homeController.hittingApi.value
                         ? ShimmerHelper()
                             .buildBasicShimmer(height: 40, width: 150)
                         : AppCardContainer(
                             onTap: () {
                               Log.d(sectionName?.route);
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
                               RoutingHelper.urlRouting(sectionName?.route ??
                                   '$baseUrlWeb/kirei-tube');
+                              });
                             },
                             backgroundColor: AppColors.secondary,
-                            applyRadius: false,
+                        borderRadius: AppSizes.buttonRadius,
+                            applyRadius: true,
                             padding: const EdgeInsets.only(
                                 left: AppSizes.defaultSpace,
                                 right: AppSizes.defaultSpace,
-                                top: AppSizes.spaceBtwDefaultItems,
-                                bottom: AppSizes.spaceBtwDefaultItems),
+                                top: AppSizes.spaceBtwItems,
+                                bottom: AppSizes.spaceBtwItems),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

@@ -18,7 +18,6 @@ class AppPaymentMethodType extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
     return AppCardContainer(
-        applyRadius: false,
         backgroundColor: AppColors.white,
         padding: const EdgeInsets.all(AppSizes.sm),
         child: Column(

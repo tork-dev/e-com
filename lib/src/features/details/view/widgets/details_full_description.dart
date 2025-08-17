@@ -6,8 +6,10 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/device/device_utility.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
+import '../../../../utils/local_storage/local_storage_keys.dart';
+import '../../../../utils/local_storage/storage_utility.dart';
 import '../../../../utils/logging/logger.dart';
-
 
 class AppDetailsFullDescription extends StatelessWidget {
   const AppDetailsFullDescription({
@@ -24,23 +26,40 @@ class AppDetailsFullDescription extends StatelessWidget {
     return Obx(() {
       return detailsController.productDetails.value.detailedProducts == null
           ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-              child: ShimmerHelper().buildBasicShimmer(height: 50))
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+            child: ShimmerHelper().buildBasicShimmer(height: 50),
+          )
           : ExpansionTile(
-              title: Text(descriptionTitle.toUpperCase()),
-              children: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: HtmlWidget(
-                      onTapUrl: (url){
-                        AppDeviceUtils.browseUrl(url);
-                        Log.d(url);
-                        return true;
-                      },
-                        description)),
-                const Gap(AppSizes.spaceBtwDefaultItems)
-              ],
-            );
+            title: Text(
+              descriptionTitle.toUpperCase(),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: HtmlWidget(
+                  onTapUrl: (url) {
+                    Log.d(url);
+                    debugPrint(
+                      AppLocalStorage().readData(LocalStorageKeys.appUrl),
+                    );
+                    if (url.contains(
+                      AppLocalStorage().readData(LocalStorageKeys.appUrl),
+                    )) {
+                      Log.d("true");
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        RoutingHelper.urlRouting(url);
+                      });
+                      return true;
+                    }
+                    return true;
+                  },
+                  description,
+                ),
+              ),
+              const Gap(AppSizes.spaceBtwDefaultItems),
+            ],
+          );
     });
   }
 }

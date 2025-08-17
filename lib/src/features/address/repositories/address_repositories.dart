@@ -20,7 +20,7 @@ class AddressRepositories{
   final deviceOs = Platform.operatingSystem;
 
   Future<CityResponse> getCities() async{
-    final response = await http.get(Uri.parse(AppApiEndPoints.cityAddresses));
+    final response = await http.get(Uri.parse("${AppApiEndPoints.cityAddresses}?source=app"));
 
     if(response.statusCode == 200){
       var responseBody = jsonDecode(response.body);
@@ -31,7 +31,7 @@ class AddressRepositories{
   }
 
   Future<ZoneResponse> getZones(int cityId) async{
-    final response = await http.get(Uri.parse('${AppApiEndPoints.zoneAddresses}/$cityId'));
+    final response = await http.get(Uri.parse('${AppApiEndPoints.zoneAddresses}/$cityId?source=app'));
 
     if(response.statusCode == 200){
       var responseBody = jsonDecode(response.body);
@@ -42,7 +42,7 @@ class AddressRepositories{
   }
 
   Future<AreaResponse> getAreas(int zoneId) async{
-    final response = await http.get(Uri.parse('${AppApiEndPoints.areaAddresses}/$zoneId'));
+    final response = await http.get(Uri.parse('${AppApiEndPoints.areaAddresses}/$zoneId?source=app'));
 
     if(response.statusCode == 200){
       var responseBody = jsonDecode(response.body);
@@ -75,7 +75,7 @@ class AddressRepositories{
 
     Log.d("Request Body: $postBody");
 
-    Uri url = Uri.parse(AppApiEndPoints.shippingAddressCreateOrUpdate);
+    Uri url = Uri.parse("${AppApiEndPoints.shippingAddressCreateOrUpdate}?source=app");
 
     final response = await http.post(
       url,
@@ -99,7 +99,7 @@ class AddressRepositories{
   }
 
   Future<AddressResponse> getAddressList() async {
-    Uri url = Uri.parse(AppApiEndPoints.shippingAddress);
+    Uri url = Uri.parse("${AppApiEndPoints.shippingAddress}?source=app");
     final response = await http.get(
       url,
       headers: {
@@ -121,6 +121,7 @@ class AddressRepositories{
         required int shippingZoneId,
         required String shippingPhone}) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "shipping_name" : shippingName,
       "shipping_address": shippingAddress,
       "shipping_area_id": shippingAreaId,

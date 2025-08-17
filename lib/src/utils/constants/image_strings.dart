@@ -18,9 +18,10 @@ class AppImages {
   static const String appleLogo = "assets/images/logos/apple_logo.png";
   static const String instagram = "assets/images/logos/instagram.png";
   static const String youtube = "assets/images/logos/youtube.png";
+  static const String whatsapp = "assets/images/icons/whatsapp.png";
 
   /// placeholder
-  static const String placeholder = "assets/images/placeholder.png";
+  static const String placeholder = "assets/images/placeholder.jpg";
 
   // --Icons
   static const String forwardArrowIcon = "assets/images/icons/forward_arrow.png";
@@ -53,13 +54,15 @@ class AppImages {
   //Profile
   static const String user = "assets/images/content/user.png";
   static const String profileIcon = "assets/images/icons/profile.png";
+  static const String demoPerson = "assets/images/icons/demo-person.png";
   static const String avatarIcon = "assets/images/icons/avatar.jpg";
 
   // -- Background images
-  static const String surprisingSectionBg = "assets/images/background/surprising_section_bg.png";
+  static const String surprisingSectionBg = "assets/images/banners/surprise_gift.png";
   static const String groupShoppingBg = "assets/images/background/group_shopping_bg.png";
   static const String influencerBg = "assets/images/background/influencer_bg.png";
   static const String aiRecommendationBg = "assets/images/background/ai_recommendation_bg.png";
   static const String kireiTubeBg = "assets/images/background/kireitube_bg.png";
   static const String rewardRedeemPointBg = "assets/images/background/reward_redeem_guidline_bg.png";
+  static const String skinCareFlowerBg = "assets/images/background/skin_care_flower_bg.png";
 }

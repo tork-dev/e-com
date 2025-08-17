@@ -6,10 +6,12 @@ class FeaturedCategory {
   String? banner;
   dynamic isTop;
   dynamic isFeatured;
+  dynamic isMobile;
   String? name;
   String? slug;
   dynamic disabled;
   String? itemType;
+  String? url;
 
   FeaturedCategory(
       {this.id,
@@ -20,7 +22,10 @@ class FeaturedCategory {
         this.name,
         this.slug,
         this.disabled,
-        this.itemType});
+        this.itemType,
+      this.url,
+        this.isMobile
+      });
 
   factory FeaturedCategory.fromJson(Map<String, dynamic> json) {
     return FeaturedCategory(
@@ -33,6 +38,8 @@ class FeaturedCategory {
       name: json['name'],
       slug: json['slug'],
       disabled: json['disabled'],
+      url: json['url'],
+      isMobile: json['is_mobile'],
     );
   }
 

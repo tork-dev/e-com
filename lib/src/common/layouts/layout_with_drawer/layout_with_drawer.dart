@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/view/end_drawer.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import '../../../utils/constants/colors.dart';
 import '../../drawer/view/drawer.dart';
 import '../../widgets/appbar/custom_app_bar.dart';
@@ -41,9 +41,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
         canPop: !backToHome,
         onPopInvokedWithResult: (bool didPop, Object? result) async {
           !inHome
-              ? Get.offAll(() => const HelloConvexAppBar(
-                    pageIndex: 0,
-                  ))
+              ? Get.offAllNamed("/home")
               : null;
         },
 
@@ -57,7 +55,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
           appBar: CustomAppBar(
             title: title,
             showBackArrow: false,
-            leadingIcon: Icons.menu,
+            leadingIcon: Icons.menu_rounded,
             leadingOnPress: () => globalKey.currentState!.openDrawer(),
             centerTitle: centerTitle,
             backgroundColor: backgroundColor,

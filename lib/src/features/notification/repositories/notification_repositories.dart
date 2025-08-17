@@ -10,7 +10,7 @@ class NotificationRepo {
 
   Future<UserNotificationResponse> getNotificationList() async {
     final response = await http
-        .get(Uri.parse(AppApiEndPoints.userNotificationList), headers: {
+        .get(Uri.parse("${AppApiEndPoints.userNotificationList}?source=app"), headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer $accessToken",
     });
@@ -19,7 +19,7 @@ class NotificationRepo {
 
   Future<UserNotificationResponse> getNotificationDetails(int notificationId) async {
     final response = await http
-        .get(Uri.parse("${AppApiEndPoints.userNotificationList}?notification_id=$notificationId"), headers: {
+        .get(Uri.parse("${AppApiEndPoints.userNotificationList}?notification_id=$notificationId&source=app"), headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer $accessToken",
     });

@@ -13,7 +13,7 @@ class LoginRepository{
   //final loginController = LogInPageController.instance;
 
   Future<SendOtpCodeResponse> getLoginOTPResponse( String phone, ) async {
-    var postBody = jsonEncode({"email": phone});
+    var postBody = jsonEncode({"source" : "app", "email": phone});
 
     Uri url = Uri.parse(AppApiEndPoints.loginOtp);
     final response = await http.post(url,
@@ -28,7 +28,7 @@ class LoginRepository{
   Future<AppLoginResponse> getLogInOtpConfirmCodeResponse(
       String phone, String verificationCode) async {
     var postBody =
-    jsonEncode({"email": phone, "otp_code": verificationCode});
+    jsonEncode({"source" : "app", "email": phone, "otp_code": verificationCode});
 
     Uri url = Uri.parse(AppApiEndPoints.verifyLoginOtp);
     final response = await http.post(url,
@@ -43,6 +43,7 @@ class LoginRepository{
   Future<AppLoginResponse> getLoginResponse( String email,
        String password,  bool rememberMe,) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "email": email,
       "password": password,
       "remember_me": rememberMe,
@@ -65,7 +66,7 @@ class LoginRepository{
 
   Future<UserByTokenResponse> getUserByTokenResponse() async {
     final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
-    var postBody = jsonEncode({"access_token": accessToken});
+    var postBody = jsonEncode({"source" : "app", "access_token": accessToken});
     Uri url = Uri.parse(AppApiEndPoints.getUserAccessToken);
     final response = await http.post(url,
         headers: {
@@ -79,7 +80,7 @@ class LoginRepository{
 
 
   Future<SendOtpCodeResponse> getLoginResendOTPResponse(String phone) async {
-    var postBody = jsonEncode({"email": phone});
+    var postBody = jsonEncode({"source" : "app", "email": phone});
 
     Uri url = Uri.parse(AppApiEndPoints.loginOtp);
     final response = await http.post(url,
@@ -94,7 +95,7 @@ class LoginRepository{
 
 
   Future<SocialOptionsResponse> fetchLoginOptions() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.socialOption));
+    final response = await http.get(Uri.parse("${AppApiEndPoints.socialOption}?source=app"));
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
@@ -103,11 +104,5 @@ class LoginRepository{
       throw Exception('Failed to load login options');
     }
   }
-
-
-
-
-
-
 
 }

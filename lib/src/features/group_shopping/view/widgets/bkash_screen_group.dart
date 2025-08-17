@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -60,11 +60,11 @@ class _GroupBkashScreenState extends State<GroupBkashScreen> {
         showCustomLeading: true,
         backToHome: true,
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new,
       title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
         leadingOnPress: (){
           Log.d('working');
-        Get.offAll(()=> const HelloConvexAppBar());
+        Get.offAllNamed("/home");
         },
         padding: 0,
         body: buildBody());

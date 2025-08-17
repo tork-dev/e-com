@@ -26,28 +26,24 @@ class AppEditProfileTextFields extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Name',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .apply(color: AppColors.primary),
+                'Full Name',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
+              Gap(AppSizes.xs),
               AuthInputField(
-                hingText: 'Name',
+                hingText: 'Enter your Name',
                 controller: accountDetailsController.nameController,
                 obscured: false,
                 validator: null,
               ),
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              const Gap(AppSizes.spaceBtwInputFields),
               Text(
                 'Phone',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .apply(color: AppColors.primary),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
+              Gap(AppSizes.xs),
               AuthInputField(
-                hingText: '01*********',
+                hingText: 'Enter your Phone',
                 controller: accountDetailsController.phoneNumberController,
                 obscured: false,
                 validator: null,
@@ -58,16 +54,14 @@ class AppEditProfileTextFields extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Gap(AppSizes.spaceBtwDefaultItems),
+                    const Gap(AppSizes.spaceBtwInputFields),
                     Text(
                       'Current Password',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .apply(color: AppColors.primary),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
+                    Gap(AppSizes.xs),
                     AuthInputField(
-                      hingText: '******',
+                      hingText: 'Enter your password',
                       controller:
                           accountDetailsController.currentPasswordController,
                       obscured: accountDetailsController.visibleCurrentPassword.value,
@@ -78,23 +72,21 @@ class AppEditProfileTextFields extends StatelessWidget {
                           !accountDetailsController.visibleCurrentPassword.value;
                         },
                         child: Icon(accountDetailsController.visibleCurrentPassword.value
-                            ? Icons.remove_red_eye
-                            : Icons.remove_red_eye_outlined),
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility),
                       ),
                     ),
                   ],
                 ),
               ),
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              const Gap(AppSizes.spaceBtwInputFields),
               Text(
                 'New Password',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .apply(color: AppColors.primary),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
+              Gap(AppSizes.xs),
               AuthInputField(
-                hingText: '******',
+                hingText: 'Enter new password',
                 controller: accountDetailsController.newPasswordController,
                 obscured: accountDetailsController.visibleNewPassword.value,
                 validator: (value) => AppValidator.validatePassword(value),
@@ -104,20 +96,18 @@ class AppEditProfileTextFields extends StatelessWidget {
                     !accountDetailsController.visibleNewPassword.value;
                   },
                   child: Icon(accountDetailsController.visibleNewPassword.value
-                      ? Icons.remove_red_eye
-                      : Icons.remove_red_eye_outlined),
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility),
                 ),
               ),
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              const Gap(AppSizes.spaceBtwInputFields),
               Text(
                 'Confirm New Password',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .apply(color: AppColors.primary),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
+              Gap(AppSizes.xs),
               AuthInputField(
-                hingText: '******',
+                hingText: 'Enter confirm password',
                 controller: accountDetailsController.confirmNewPasswordController,
                 obscured: accountDetailsController.visibleConfirmPassword.value,
                 validator: (value) => AppValidator.validateConfirmPassword(
@@ -128,11 +118,11 @@ class AppEditProfileTextFields extends StatelessWidget {
                     !accountDetailsController.visibleConfirmPassword.value;
                   },
                   child: Icon(accountDetailsController.visibleConfirmPassword.value
-                      ? Icons.remove_red_eye
-                      : Icons.remove_red_eye_outlined),
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility),
                 ),
               ),
-              const Gap(AppSizes.spaceBtwDefaultItems),
+              const Gap(AppSizes.spaceBtwInputFields),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/de_active_account/controller/de_active_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
@@ -54,11 +54,12 @@ class DeActiveWidgets {
             onPressed: () {
               AuthHelper().clearUserData();
               Navigator.of(Get.context!, rootNavigator: true).pop();
-              Navigator.pushAndRemoveUntil(
-                Get.context!,
-                MaterialPageRoute(builder: (_) => const HelloConvexAppBar(pageIndex: 0,)),
-                (route) => false,
-              );
+              Get.offAllNamed("/home");
+              // Navigator.pushAndRemoveUntil(
+              //   Get.context!,
+              //   MaterialPageRouteNamed(builder: (_) => const HelloConvexAppBar(pageIndex: 0,)),
+              //   (route) => false,
+              // );
             },
           ),
         ],
@@ -106,6 +107,7 @@ class DeActiveWidgets {
         ? const Center(child: CircularProgressIndicator())
         : ListView(
             children: [
+              Gap(AppSizes.lg),
               buildWidgetForTextContent(
                   title: '1. Account Deletion',
                   subtitle:

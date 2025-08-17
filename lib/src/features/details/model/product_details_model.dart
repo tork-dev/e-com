@@ -73,6 +73,9 @@ class DetailedProduct {
     this.smallPictures,
     this.stockQuantity,
     this.productLink,
+    this.flashSaleStartDate,
+    this.flashSaleEndDate,
+    this.authenticReviewPositiveCount
   });
 
   int? id;
@@ -114,6 +117,9 @@ class DetailedProduct {
   List<Picture>? smallPictures;
   int? stockQuantity;
   String? productLink;
+  DateTime? flashSaleStartDate;
+  DateTime? flashSaleEndDate;
+  int? authenticReviewPositiveCount;
 
   factory DetailedProduct.fromJson(Map<String, dynamic> json) =>
       DetailedProduct(
@@ -166,6 +172,9 @@ class DetailedProduct {
             json["small_pictures"].map((x) => Picture.fromJson(x))),
         stockQuantity: json["stock_quantity"],
         productLink: json["product_link"],
+        authenticReviewPositiveCount: json["authentic_reviews_positive_count"],
+        flashSaleStartDate: json["hot_deals_start_datetime"] == null ? null : DateTime.parse(json["hot_deals_start_datetime"]),
+        flashSaleEndDate: json["hot_deals_end_datetime"] == null ? null : DateTime.parse(json["hot_deals_end_datetime"]),
       );
 
   Map<String, dynamic> toJson() => {

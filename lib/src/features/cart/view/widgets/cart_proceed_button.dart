@@ -32,9 +32,9 @@ class AppCartProceedButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('SubTotal', style: Theme.of(context).textTheme.titleLarge,),
+                  Text('SubTotal', style: Theme.of(context).textTheme.titleMedium,),
                   Obx(() {
-                      return Text('৳${cartController.cartItemTotalPrice}', style: Theme.of(context).textTheme.titleLarge,);
+                      return Text('৳${cartController.cartItemTotalPrice}', style: Theme.of(context).textTheme.titleMedium,);
                     }
                   )
                 ],
@@ -46,7 +46,7 @@ class AppCartProceedButton extends StatelessWidget {
                   cartController.proceedToCheckout();
                   // Get.to(()=> const CheckoutScreen());
                 },
-                buttonText: 'PROCEED TO CHECKOUT', backgroundColor: AppColors.secondary)
+                buttonText: 'Proceed to Checkout', backgroundColor: AppColors.secondary)
           ],
         ));
   }

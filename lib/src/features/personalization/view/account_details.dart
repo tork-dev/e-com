@@ -23,6 +23,7 @@ class AccountDetailsScreen extends StatelessWidget {
         leadingIconColor: AppColors.white,
         centerTitle: true,
         backgroundColor: AppColors.primary,
+        // bodyBackgroundColor: AppColors.secondaryBackground,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

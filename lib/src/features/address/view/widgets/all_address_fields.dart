@@ -13,7 +13,6 @@ import '../../../../utils/validators/validation.dart';
 class AppAllAddressFields extends StatelessWidget {
   const AppAllAddressFields({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final addressController = AddressController.instance;
@@ -33,36 +32,34 @@ class AppAllAddressFields extends StatelessWidget {
             fieldTitle: 'Name*',
             hintText: 'Enter name',
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           AppAddressTextField(
             controller: addressController.phoneController,
             fieldTitle: 'Phone*',
             hintText: 'Enter phone',
             textInputType: TextInputType.number,
+            validator: (value) => AppValidator.validatePhoneNumber(value),
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           AppAddressTextField(
-            validator: (value) => AppValidator.validateEmail(value),
             controller: addressController.emailController,
             fieldTitle: 'Email',
             hintText: 'Enter email',
+            validator: (value) => AppValidator.validateEmail(value),
             textInputType: TextInputType.emailAddress,
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           AppAddressTextField(
             controller: addressController.addressController,
             verticalPadding: 20,
             fieldTitle: 'Address*',
             hintText: 'Enter address',
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'City*',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text('City*', style: Theme.of(context).textTheme.bodySmall),
               const Gap(AppSizes.xs),
               TypeAheadField(
                 focusNode: cityNode,
@@ -70,14 +67,15 @@ class AppAllAddressFields extends StatelessWidget {
                 itemBuilder: (context, dataItem) {
                   return dataItem.name == null
                       ? const AppCardContainer(
-                      height: 50,
-                      child: Center(
-                        child: Text('Loading...'),
-                      ))
+                        height: 50,
+                        child: Center(child: Text('Loading...')),
+                      )
                       : ListTile(
-                      dense: true, title: Text(dataItem.name ?? 'Not found'));
+                        dense: true,
+                        title: Text(dataItem.name ?? 'Not found'),
+                      );
                 },
-                onSelected: (value)  {
+                onSelected: (value) {
                   addressController.selectedCityId.value = value.id!;
                   addressController.selectedCityName.value = value.name!;
                   addressController.selectedCityController.text = value.name!;
@@ -99,23 +97,25 @@ class AppAllAddressFields extends StatelessWidget {
                   if (addressController.cityList.value.cities == null) {
                     await addressController.getCityList();
                   }
-                  return addressController.cityList.value.cities!.where((element) => element.name!
-                      .toLowerCase()
-                      .contains(value.toLowerCase()))
+                  return addressController.cityList.value.cities!
+                      .where(
+                        (element) => element.name!.toLowerCase().contains(
+                          value.toLowerCase(),
+                        ),
+                      )
                       .toList();
                 },
                 loadingBuilder: (context) {
                   return const AppCardContainer(
-                      height: 50,
-                      child: Center(
-                        child: Text('Loading...'),
-                      ));
+                    height: 50,
+                    child: Center(child: Text('Loading...')),
+                  );
                 },
                 builder: (context, controller, focusNode) {
                   return TextFormField(
                     controller: controller,
                     focusNode: focusNode,
-                    onTap: (){
+                    onTap: () {
                       Log.d('city');
                       areaSuggestion.refresh();
                       areaNode.unfocus();
@@ -124,40 +124,47 @@ class AppAllAddressFields extends StatelessWidget {
                     cursorColor: AppColors.primary,
                     decoration: const InputDecoration(
                       suffixIcon: Icon(Icons.arrow_drop_down_rounded),
-                      contentPadding:
-                      EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 0,
+                      ),
                       hintText: 'Select city',
                       hintStyle: TextStyle(
-                          color: AppColors.grey, fontWeight: FontWeight.w400),
+                        color: AppColors.grey,
+                        fontWeight: FontWeight.w400,
+                      ),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.zero,
-                          borderSide:
-                          BorderSide(color: AppColors.grey, width: 2)),
+                        borderSide: BorderSide(
+                          color: AppColors.lightGrey,
+                          width: 1,
+                        ),
+                      ),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.zero,
-                          borderSide:
-                          BorderSide(color: AppColors.grey, width: 2)),
+                        borderSide: BorderSide(
+                          color: AppColors.lightGrey,
+                          width: 1,
+                        ),
+                      ),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.zero,
-                          borderSide:
-                          BorderSide(color: AppColors.grey, width: 2)),
+                        borderSide: BorderSide(
+                          color: AppColors.lightGrey,
+                          width: 1,
+                        ),
+                      ),
                     ),
                   );
                 },
-              )
+              ),
             ],
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Zone*',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text('Zone*', style: Theme.of(context).textTheme.bodySmall),
               const Gap(AppSizes.xs),
               InkWell(
-                onTap: (){
+                onTap: () {
                   Log.d('zone suggession1');
                   zoneSuggestion.refresh();
                   Log.d('zone suggession2');
@@ -170,61 +177,66 @@ class AppAllAddressFields extends StatelessWidget {
                     itemBuilder: (context, dataItem) {
                       return dataItem.name == null
                           ? const AppCardContainer(
-                          height: 50,
-                          child: Center(
-                            child: Text('Loading...'),
-                          ))
+                            height: 50,
+                            child: Center(child: Text('Loading...')),
+                          )
                           : ListTile(dense: true, title: Text(dataItem.name!));
                     },
-                    errorBuilder: (context, error) => const AppCardContainer(
-                        height: 50,
-                        child: Center(
-                          child: Text('errr'),
-                        )),
+                    errorBuilder:
+                        (context, error) => const AppCardContainer(
+                          height: 50,
+                          child: Center(child: Text('errr')),
+                        ),
                     emptyBuilder: (context) => const Text('No items found!'),
                     onSelected: (zone) {
                       addressController.selectedZoneId.value = zone.id!;
                       addressController.selectedZoneName.value = zone.name!;
-                       addressController.selectedZoneController.text = zone.name!;
-                       addressController.selectedAreaController.clear();
+                      addressController.selectedZoneController.text =
+                          zone.name!;
+                      addressController.selectedAreaController.clear();
                       addressController.selectedAreaId.value = 0;
                       addressController.areaList.value.areas?.clear();
                       areaNode.unfocus();
                       areaSuggestion.unfocus();
                       areaSuggestion.refresh();
                       addressController.getAreaList(zone.id!);
-                      Log.d(zone.id);
+                      Log.d(zone.id.toString());
                       Log.d(addressController.selectedZoneName.value);
                       Log.d(addressController.selectedZoneController.text);
                     },
                     controller: addressController.selectedZoneController,
                     suggestionsController: zoneSuggestion,
                     suggestionsCallback: (value) async {
-                      if(addressController.zoneList.value.data == null){
-                        await addressController.getZoneList(addressController.selectedCityId.value);
+                      if (addressController.zoneList.value.data == null) {
+                        await addressController.getZoneList(
+                          addressController.selectedCityId.value,
+                        );
                       }
                       return addressController.zoneList.value.data!.zones!
                           .where((element) {
-                        return element.name!
-                            .toLowerCase()
-                            .contains(value.toLowerCase());
-                      }).toList();
+                            return element.name!.toLowerCase().contains(
+                              value.toLowerCase(),
+                            );
+                          })
+                          .toList();
                     },
                     loadingBuilder: (context) {
                       return const AppCardContainer(
-                          height: 50,
-                          child: Center(
-                            child: Text('Loading...'),
-                          ));
+                        height: 50,
+                        child: Center(child: Text('Loading...')),
+                      );
                     },
                     builder: (context, controller, focusNode) {
                       return TextFormField(
                         controller: controller,
                         focusNode: focusNode,
-                        onTap: (){
+                        onTap: () {
                           Log.d('zone');
-                          Log.d('name : ${addressController.selectedCityName.value}');
-                          if(addressController.selectedCityController.text != addressController.selectedCityName.value){
+                          Log.d(
+                            'name : ${addressController.selectedCityName.value}',
+                          );
+                          if (addressController.selectedCityController.text !=
+                              addressController.selectedCityName.value) {
                             addressController.selectedCityController.clear();
                             addressController.selectedCityName.value = '';
                           }
@@ -235,42 +247,49 @@ class AppAllAddressFields extends StatelessWidget {
                         cursorColor: AppColors.primary,
                         decoration: const InputDecoration(
                           suffixIcon: Icon(Icons.arrow_drop_down_rounded),
-                          contentPadding:
-                          EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 0,
+                          ),
                           hintText: 'Select zone',
                           hintStyle: TextStyle(
-                              color: AppColors.grey, fontWeight: FontWeight.w400),
+                            color: AppColors.grey,
+                            fontWeight: FontWeight.w400,
+                          ),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide:
-                              BorderSide(color: AppColors.grey, width: 2)),
+                            borderSide: BorderSide(
+                              color: AppColors.lightGrey,
+                              width: 1,
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide:
-                              BorderSide(color: AppColors.grey, width: 2)),
+                            borderSide: BorderSide(
+                              color: AppColors.lightGrey,
+                              width: 1,
+                            ),
+                          ),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero,
-                              borderSide:
-                              BorderSide(color: AppColors.grey, width: 2)),
+                            borderSide: BorderSide(
+                              color: AppColors.lightGrey,
+                              width: 1,
+                            ),
+                          ),
                         ),
                       );
                     },
                   ),
                 ),
-              )
+              ),
             ],
           ),
-          const Gap(AppSizes.spaceBtwSmallItem),
+          const Gap(AppSizes.spaceBtwInputFields),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Area',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text('Area', style: Theme.of(context).textTheme.bodySmall),
               const Gap(AppSizes.xs),
               InkWell(
-                onTap: ()=> areaSuggestion.refresh(),
+                onTap: () => areaSuggestion.refresh(),
                 child: TypeAheadField(
                   focusNode: areaNode,
                   hideOnEmpty: true,
@@ -278,11 +297,11 @@ class AppAllAddressFields extends StatelessWidget {
                   itemBuilder: (context, dataItem) {
                     return ListTile(dense: true, title: Text(dataItem.name!));
                   },
-                  errorBuilder: (context, error) => const AppCardContainer(
-                      height: 50,
-                      child: Center(
-                        child: Text('errr'),
-                      )),
+                  errorBuilder:
+                      (context, error) => const AppCardContainer(
+                        height: 50,
+                        child: Center(child: Text('errr')),
+                      ),
                   onSelected: (area) {
                     addressController.selectedAreaId.value = area.id!;
                     addressController.selectedAreaName.value = area.name!;
@@ -291,32 +310,36 @@ class AppAllAddressFields extends StatelessWidget {
                   },
                   controller: addressController.selectedAreaController,
                   suggestionsController: areaSuggestion,
-                  suggestionsCallback: (value) async{
-                    if(addressController.areaList.value.areas == null){
-                      await addressController.getAreaList(addressController.selectedZoneId.value);
+                  suggestionsCallback: (value) async {
+                    if (addressController.areaList.value.areas == null) {
+                      await addressController.getAreaList(
+                        addressController.selectedZoneId.value,
+                      );
                     }
-                    return addressController.areaList.value.areas!.where((element) {
-                      return element.name!
-                          .toLowerCase()
-                          .contains(value.toLowerCase());
+                    return addressController.areaList.value.areas!.where((
+                      element,
+                    ) {
+                      return element.name!.toLowerCase().contains(
+                        value.toLowerCase(),
+                      );
                     }).toList();
                   },
                   loadingBuilder: (context) {
                     return const AppCardContainer(
-                        height: 50,
-                        child: Center(
-                          child: Text('Loading...'),
-                        ));
+                      height: 50,
+                      child: Center(child: Text('Loading...')),
+                    );
                   },
                   builder: (context, controller, focusNode) {
                     return TextFormField(
                       controller: controller,
                       focusNode: focusNode,
-                      onTap: (){
+                      onTap: () {
                         Log.d('area');
                         areaSuggestion.refresh();
                         controller.clear();
-                        if(addressController.selectedZoneName.value != addressController.selectedZoneController.text){
+                        if (addressController.selectedZoneName.value !=
+                            addressController.selectedZoneController.text) {
                           addressController.selectedZoneController.clear();
                           addressController.selectedZoneName.value = '';
                         }
@@ -324,28 +347,38 @@ class AppAllAddressFields extends StatelessWidget {
                       cursorColor: AppColors.primary,
                       decoration: const InputDecoration(
                         suffixIcon: Icon(Icons.arrow_drop_down_rounded),
-                        contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 0,
+                        ),
                         hintText: 'Select area',
                         hintStyle: TextStyle(
-                            color: AppColors.grey, fontWeight: FontWeight.w400),
+                          color: AppColors.grey,
+                          fontWeight: FontWeight.w400,
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                          borderSide: BorderSide(
+                            color: AppColors.lightGrey,
+                            width: 1,
+                          ),
+                        ),
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                          borderSide: BorderSide(
+                            color: AppColors.lightGrey,
+                            width: 1,
+                          ),
+                        ),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide:
-                            BorderSide(color: AppColors.grey, width: 2)),
+                          borderSide: BorderSide(
+                            color: AppColors.lightGrey,
+                            width: 1,
+                          ),
+                        ),
                       ),
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ],

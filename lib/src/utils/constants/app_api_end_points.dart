@@ -4,7 +4,7 @@ class AppApiEndPoints {
   AppApiEndPoints._();
 
   static final String baseUrl = dotenv.env["BASE_URL"]!;
-   static final String gialogyBaseUrl = dotenv.env["GIGALOGY_BASE_URL"]!;
+   // static final String gialogyBaseUrl = dotenv.env["GIGALOGY_BASE_URL"]!;
 
   ///Authentication
   static String logIn = "$baseUrl/auth/login";
@@ -40,10 +40,11 @@ class AppApiEndPoints {
 
   ///Details
   static String productDetails = "$baseUrl/products/details/";
-  static String relatedProduct = "$baseUrl/gigalogy/related-products/";
-  static String recommendedProduct = "$baseUrl/gigalogy/users/search/recommend?gaip_user_id=";
-  static String recommendedProductForUser = "$baseUrl/gigalogy/users/recommend?gaip_user_id=";
-  static String trendingProduct = "$baseUrl/gigalogy/items/trending?gaip_user_id=";
+  static String relatedProduct = "$baseUrl/gigalogy/related-products";
+  static String recommendedProduct = "$baseUrl/gigalogy/users/search/recommend";
+
+  static String recommendedProductForUser = "$baseUrl/gigalogy/users/recommend";
+  // static String trendingProduct = "$baseUrl/gigalogy/items/trending";
 
 
   ///Carts
@@ -93,7 +94,7 @@ class AppApiEndPoints {
 
   ///Product Review
   static String productReview = "$baseUrl/reviews/product";
-  static String submitReview = "$baseUrl/reviews/submit";
+  static String submitReview = "$baseUrl/new-reviews/submit";
 
 
   ///Product Questions
@@ -152,12 +153,23 @@ class AppApiEndPoints {
   /// User Notification
   static String userNotificationList = "$baseUrl/user-notifications";
 
-  ///Gigalogy
-  static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
-  static String detailsPageEvent = "$gialogyBaseUrl/items/browse";
-  static String purchaseEvent = "$gialogyBaseUrl/items/purchase";
-  static String userChoosingEvent = "$gialogyBaseUrl/items/rating";
-  static String userDataEvent= "$gialogyBaseUrl/users";
+  /// Submit feedback
+  static String submitFeedback = "$baseUrl/product-authentic-reviews/submit";
+  static String productVerifyList = "$baseUrl/authentic-user-order-history";
+
+  ///Blogs
+  static String blogs = "$baseUrl/blogs";
+  static String blogDetails = "$baseUrl/blog";
+  static String blogCategories = "$baseUrl/blog/categories";
+  static String blogTags = "$baseUrl/trending/tags";
+
+
+  // ///Gigalogy
+  // static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
+  // static String detailsPageEvent = "$gialogyBaseUrl/items/browse";
+  // static String purchaseEvent = "$gialogyBaseUrl/items/purchase";
+  // static String userChoosingEvent = "$gialogyBaseUrl/items/rating";
+  // static String userDataEvent= "$gialogyBaseUrl/users";
 
 
 

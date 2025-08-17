@@ -8,6 +8,8 @@ import 'package:kirei/src/features/details/controller/details_page_controller.da
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
+import '../../../../common/widgets/texts/expandable_text.dart';
+
 class AppDetailsDescriptionPart extends StatelessWidget {
   const AppDetailsDescriptionPart({super.key});
 
@@ -20,6 +22,7 @@ class AppDetailsDescriptionPart extends StatelessWidget {
         return detailsController.productDetails.value.detailedProducts == null
             ? ShimmerHelper().buildBasicShimmer(height: 50)
             : Visibility(
+          visible: detailsController.productDetails.value.detailedProducts!.shortDescription != "",
                 child: ExpandableNotifier(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -41,7 +44,7 @@ class AppDetailsDescriptionPart extends StatelessWidget {
                                 '')),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Builder(
                             builder: (context) {
@@ -57,7 +60,7 @@ class AppDetailsDescriptionPart extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
-                                          .apply(color: AppColors.darkGrey)),
+                                          .apply(color: AppColors.primary)),
                                   onTap: () {
                                     controller.toggle();
                                   },

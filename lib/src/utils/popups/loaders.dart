@@ -29,7 +29,7 @@ class AppLoaders {
         )));
   }
 
-  static successSnackBar({required title, message = '', duration = 3}) {
+  static void successSnackBar({required String title, String message = '', double duration = 3}) {
     AppHelperFunctions.showSnackBarWithDesign(
         title: title,
         message: message,
@@ -38,7 +38,7 @@ class AppLoaders {
         icon: Icons.check);
   }
 
-  static warningSnackBar({required title, message = '', duration = 3}) {
+  static void warningSnackBar({required String title, String message = '', double duration = 3}) {
     AppHelperFunctions.showSnackBarWithDesign(
         title: title,
         message: message,
@@ -47,7 +47,7 @@ class AppLoaders {
         icon: Icons.warning);
   }
 
-  static errorSnackBar({required title, message = '', duration = 3}) {
+  static void errorSnackBar({required String title, String message = '', double duration = 3}) {
     AppHelperFunctions.showSnackBarWithDesign(
         title: title,
         message: message,

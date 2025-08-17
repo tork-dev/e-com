@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -6,15 +5,16 @@ import 'package:kirei/src/features/authentication/data/repositories/auth_reposit
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/user_by_token_response.dart';
 import 'package:kirei/src/features/authentication/views/log_in/repository/login_repository.dart';
-import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
+import 'package:kirei/src/utils/popups/custom_loader.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import '../../../../home/repositories/home_repositories.dart';
 import '../../../model/resend_code_model.dart';
 import '../../forgot_password/view/otp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -23,14 +23,13 @@ import '../model/social_option_model.dart';
 class LogInPageController extends GetxController {
   static LogInPageController get instance => Get.find();
 
-
   RxString previousRoute = '/home'.obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    if(Get.arguments != null) {
+    if (Get.arguments != null) {
       previousRoute.value = Get.arguments["prevRoute"] ?? '/home';
     }
   }
@@ -58,14 +57,7 @@ class LogInPageController extends GetxController {
     try {
       /// Validate Form
       if (!logInFormKey.currentState!.validate()) return;
-
-      ///Check Internet
-      // if (!isConnected) return;
-
-      /// Start Loading
-      // FullScreenLoader.openLoadingDialog(
-      //     AppLocalizations.of(Get.overlayContext!)!.processing,
-      //     AppImages.loading);
+      CustomLoader.showLoaderDialog(Get.overlayContext!);
 
       ///Api Calling
       loginResponse.value = await LoginRepository().getLoginResponse(
@@ -76,53 +68,26 @@ class LogInPageController extends GetxController {
       Log.i(loginResponse.value.toString());
 
       ///Save
-      AppLocalStorage()
-          .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
+      AppLocalStorage().saveData(
+        LocalStorageKeys.isRememberMe,
+        rememberMe.value,
+      );
       EventLogger().logLoginEvent('email and Password');
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
+      AppLoaders.errorSnackBar(
+        title: 'oh, Snap',
+        message: "Something went wrong, Please try again",
+      );
     } finally {
+      CustomLoader.hideLoader(Get.overlayContext!);
       //FullScreenLoader.stopLoading();
       if (logInFormKey.currentState!.validate()) {
         if (loginResponse.value.result == true) {
           AuthHelper().setUserData(loginResponse.value);
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
-          //await getUserDataByToken();
-
-          if (previousRoute.value == 'cart') {
-            final cartController = CartController.instance;
-            EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-                double.parse(Get.parameters['sale_price']!));
-
-            if (Get.parameters['request_available'] != '0') {
-              cartController
-                  .getRequestResponse(
-                      productId: int.parse(Get.parameters['product_id']!))
-                  .then((value) => AppHelperFunctions.showToast(
-                      cartController.requestStockResponse.value.message!));
-
-              // AwesomeNotificationController.showNotification();
-            } else {
-              cartController
-                  .getAddToCartResponse(
-                      int.parse(Get.parameters['product_id']!),
-                      1,
-                      int.parse(Get.parameters['preorder_available']!))
-                  .then((value) => {
-                        if (cartController.addToCartResponse.value.result ==
-                            true)
-                          {
-                            cartController.cartCount.value = cartController
-                                    .addToCartResponse.value.cartQuantity ??
-                                0,
-                          },
-                        AppHelperFunctions.showToast(
-                            cartController.addToCartResponse.value.message!)
-                      });
-            }
-          }
           Get.offAllNamed(previousRoute.value);
+          HomeRepositories().getDeviceTokenUpdateResponse();
         } else {
           AppHelperFunctions.showToast(loginResponse.value.message.toString());
         }
@@ -131,126 +96,164 @@ class LogInPageController extends GetxController {
   }
 
   /// Google SignIn with Api
-  Future<UserCredential?> onPressedGoogleLogin() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  // Future<void> onPressedGoogleLogin() async {
+  //   final GoogleSignIn signIn = GoogleSignIn.instance;
+  //   Log.d(previousRoute.value);
+  //   try {
+  //     CustomLoader.showLoaderDialog(Get.context!);
+  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //
+  //     final GoogleSignInAuthentication? googleAuth =
+  //         await googleUser?.authentication;
+  //     loginResponse.value = await AuthRepository().getSocialLoginResponse(
+  //         "google", googleUser?.displayName, googleUser?.email, googleUser?.id,
+  //         accessToken: googleAuth?.accessToken);
+  //   } on Exception catch (e) {
+  //     AppHelperFunctions.showSimpleSnackBar(e.toString());
+  //     // TODO
+  //   }finally{
+  //     CustomLoader.hideLoader(Get.context!);
+  //     if (loginResponse.value.result == false) {
+  //       AppHelperFunctions.showToast('${loginResponse.value.message}');
+  //     } else {
+  //       AppHelperFunctions.showToast('${loginResponse.value.message}');
+  //       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
+  //
+  //       AuthHelper().setUserData(loginResponse.value);
+  //       // if (previousRoute.value == 'cart') {
+  //       //   final cartController = CartController.instance;
+  //       //   EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
+  //       //       double.parse(Get.parameters['sale_price']!));
+  //       //
+  //       //   if (Get.parameters['request_available'] != '0') {
+  //       //     cartController
+  //       //         .getRequestResponse(
+  //       //         productId: int.parse(Get.parameters['product_id']!))
+  //       //         .then((value) => AppHelperFunctions.showToast(
+  //       //         cartController.requestStockResponse.value.message!));
+  //       //
+  //       //   } else {
+  //       //     cartController
+  //       //         .getAddToCartResponse(
+  //       //         int.parse(Get.parameters['product_id']!),
+  //       //         1,
+  //       //         int.parse(Get.parameters['preorder_available']!))
+  //       //         .then((value) => {
+  //       //       if (cartController.addToCartResponse.value.result ==
+  //       //           true)
+  //       //         {
+  //       //           cartController.cartCount.value = cartController
+  //       //               .addToCartResponse.value.cartQuantity ??
+  //       //               0,
+  //       //         },
+  //       //       AppHelperFunctions.showToast(
+  //       //           cartController.addToCartResponse.value.message!)
+  //       //     });
+  //       //   }
+  //       // }
+  //       Get.offAllNamed(previousRoute.value);
+  //       EventLogger().logLoginEvent('Google');
+  //     }
+  //     GoogleSignIn().disconnect();
+  //   }
+  // }
 
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+  Future<void> onPressedGoogleLogin() async {
+    final GoogleSignIn signIn = GoogleSignIn.instance;
+
+    try {
+      CustomLoader.showLoaderDialog(Get.context!);
+
+      await signIn.initialize();
+
+      // Listen to auth events and extract the signed-in user
+      final GoogleSignInAccount? googleUser = await signIn.authenticationEvents
+          .map(
+            (event) => switch (event) {
+              GoogleSignInAuthenticationEventSignIn() => event.user,
+              GoogleSignInAuthenticationEventSignOut() => null,
+            },
+          )
+          .firstWhere((user) => user != null);
+
+      if (googleUser == null) {
+        AppHelperFunctions.showSimpleSnackBar(
+          "Google sign-in failed or was cancelled.",
+        );
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Call your backend API
       loginResponse.value = await AuthRepository().getSocialLoginResponse(
-          "google", googleUser?.displayName, googleUser?.email, googleUser?.id,
-          accessToken: googleAuth?.accessToken);
+        "google",
+        googleUser.displayName,
+        googleUser.email,
+        googleUser.id,
+        accessToken: googleAuth.idToken,
+      );
+    } on GoogleSignInException catch (e) {
+      AppHelperFunctions.showSimpleSnackBar(
+        "Google Sign-In error: ${e.code} - ${e.description}",
+      );
+    } catch (e) {
+      AppHelperFunctions.showSimpleSnackBar("Sign-In failed: $e");
+    } finally {
+      CustomLoader.hideLoader(Get.context!);
 
       if (loginResponse.value.result == false) {
         AppHelperFunctions.showToast('${loginResponse.value.message}');
       } else {
         AppHelperFunctions.showToast('${loginResponse.value.message}');
         AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
-
         AuthHelper().setUserData(loginResponse.value);
-        if (previousRoute.value == 'cart') {
-          final cartController = CartController.instance;
-          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-              double.parse(Get.parameters['sale_price']!));
 
-          if (Get.parameters['request_available'] != '0') {
-            cartController
-                .getRequestResponse(
-                productId: int.parse(Get.parameters['product_id']!))
-                .then((value) => AppHelperFunctions.showToast(
-                cartController.requestStockResponse.value.message!));
-
-          } else {
-            cartController
-                .getAddToCartResponse(
-                int.parse(Get.parameters['product_id']!),
-                1,
-                int.parse(Get.parameters['preorder_available']!))
-                .then((value) => {
-              if (cartController.addToCartResponse.value.result ==
-                  true)
-                {
-                  cartController.cartCount.value = cartController
-                      .addToCartResponse.value.cartQuantity ??
-                      0,
-                },
-              AppHelperFunctions.showToast(
-                  cartController.addToCartResponse.value.message!)
-            });
-          }
-        }
+        HomeRepositories().getDeviceTokenUpdateResponse();
         Get.offAllNamed(previousRoute.value);
         EventLogger().logLoginEvent('Google');
       }
-      GoogleSignIn().disconnect();
-    } on Exception catch (e) {
-      AppHelperFunctions.showSimpleSnackBar(e.toString());
-      // TODO
+
+      await signIn.disconnect(); // clean up session
     }
-    return null;
   }
 
-////////////////////////facebook login //////////////////////
-  Future<UserCredential?> onPressedFacebookLogin() async {
+  ////////////////////////facebook login //////////////////////
+  Future<void> onPressedFacebookLogin() async {
     try {
+      CustomLoader.showLoaderDialog(Get.context!);
       final LoginResult result = await FacebookAuth.instance.login();
 
       if (result.status == LoginStatus.success) {
         final AccessToken? accessToken = result.accessToken;
         final userData = await FacebookAuth.instance.getUserData();
         loginResponse.value = await AuthRepository().getSocialLoginResponse(
-            "facebook",
-            userData["name"].toString(),
-            userData["email"].toString(),
-            userData["id"].toString(),
-            accessToken: accessToken?.tokenString);
-        if (loginResponse.value.result == true) {
-          EventLogger().logLoginEvent('Facebook');
-          AuthHelper().setUserData(loginResponse.value);
-          if (previousRoute .value == 'cart') {
-            final cartController = CartController.instance;
-            EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-                double.parse(Get.parameters['sale_price']!));
-
-            if (Get.parameters['request_available'] != '0') {
-              cartController
-                  .getRequestResponse(
-                  productId: int.parse(Get.parameters['product_id']!))
-                  .then((value) => AppHelperFunctions.showToast(
-                  cartController.requestStockResponse.value.message!));
-
-              // AwesomeNotificationController.showNotification();
-            } else {
-              cartController
-                  .getAddToCartResponse(
-                  int.parse(Get.parameters['product_id']!),
-                  1,
-                  int.parse(Get.parameters['preorder_available']!))
-                  .then((value) => {
-                if (cartController.addToCartResponse.value.result ==
-                    true)
-                  {
-                    cartController.cartCount.value = cartController
-                        .addToCartResponse.value.cartQuantity ??
-                        0,
-                  },
-                AppHelperFunctions.showToast(
-                    cartController.addToCartResponse.value.message!)
-              });
-            }
-          }
-          Get.offAllNamed(previousRoute.value);
-        }
+          "facebook",
+          userData["name"].toString(),
+          userData["email"].toString(),
+          userData["id"].toString(),
+          accessToken: accessToken?.tokenString,
+        );
         AppHelperFunctions.showToast(loginResponse.value.message!);
       } else {
         AppHelperFunctions.showToast(result.message!);
       }
     } on Exception catch (e) {
       Log.e(e.toString());
-      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
+      AppHelperFunctions.showSimpleSnackBar(
+        "Something went wrong, Please try again",
+      );
       // TODO
+    } finally {
+      CustomLoader.hideLoader(Get.context!);
+      if (loginResponse.value.result == true) {
+        EventLogger().logLoginEvent('Facebook');
+        AuthHelper().setUserData(loginResponse.value);
+        HomeRepositories().getDeviceTokenUpdateResponse();
+        Get.offAllNamed(previousRoute.value);
+      }
     }
-    return null;
   }
 
   /// Login with OTP
@@ -272,16 +275,21 @@ class LogInPageController extends GetxController {
       );
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
+      AppLoaders.errorSnackBar(
+        title: 'oh, Snap',
+        message: "Something went wrong, Please try again",
+      );
     } finally {
       if (logInFormKey.currentState!.validate()) {
         if (sendOtpResponse.value.result == true) {
           AppHelperFunctions.showToast(
-              sendOtpResponse.value.message.toString());
+            sendOtpResponse.value.message.toString(),
+          );
           Get.to(() => const Otp());
         } else {
           AppHelperFunctions.showToast(
-              sendOtpResponse.value.message.toString());
+            sendOtpResponse.value.message.toString(),
+          );
         }
       }
     }
@@ -294,8 +302,9 @@ class LogInPageController extends GetxController {
   }
 
   ///////////////////////// Apple Log In /////////////////////////////////////////
-  Future<UserCredential?> onPressAppleLogin() async {
+  Future<void> onPressAppleLogin() async {
     try {
+      CustomLoader.showLoaderDialog(Get.context!);
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -304,120 +313,93 @@ class LogInPageController extends GetxController {
       );
       Log.d(credential.toString());
       loginResponse.value = await AuthRepository().getSocialLoginResponse(
-          'apple',
-          credential.givenName,
-          credential.email,
-          credential.authorizationCode,
-          accessToken: credential.identityToken);
+        'apple',
+        credential.givenName,
+        credential.email,
+        credential.authorizationCode,
+        accessToken: credential.identityToken,
+      );
+    } on Exception catch (e) {
+      AppHelperFunctions.showSimpleSnackBar(
+        "Something went wrong, Please try again",
+      );
+      Log.d("error is ....... $e");
+      // TODO
+    } finally {
+      CustomLoader.hideLoader(Get.context!);
 
       if (loginResponse.value.result == true) {
         EventLogger().logLoginEvent('Apple');
         AuthHelper().setUserData(loginResponse.value);
-        if (previousRoute.value == 'cart') {
-          final cartController = CartController.instance;
-          EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-              double.parse(Get.parameters['sale_price']!));
-
-          if (Get.parameters['request_available'] != '0') {
-            cartController
-                .getRequestResponse(
-                productId: int.parse(Get.parameters['product_id']!))
-                .then((value) => AppHelperFunctions.showToast(
-                cartController.requestStockResponse.value.message!));
-
-            // AwesomeNotificationController.showNotification();
-          } else {
-            cartController
-                .getAddToCartResponse(
-                int.parse(Get.parameters['product_id']!),
-                1,
-                int.parse(Get.parameters['preorder_available']!))
-                .then((value) => {
-              if (cartController.addToCartResponse.value.result ==
-                  true)
-                {
-                  cartController.cartCount.value = cartController
-                      .addToCartResponse.value.cartQuantity ??
-                      0,
-                },
-              AppHelperFunctions.showToast(
-                  cartController.addToCartResponse.value.message!)
-            });
-          }
-        }
+        HomeRepositories().getDeviceTokenUpdateResponse();
         Get.offAllNamed(previousRoute.value);
       }
       AppHelperFunctions.showToast(loginResponse.value.message!);
-    } on Exception catch (e) {
-      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
-      Log.d("error is ....... $e");
-      // TODO
     }
-    return null;
   }
 
-// Future<UserCredential> onPressAppleLogin() async {
-//   print('apple');
-//   try {
-//     final rawNonce = generateNonce();
-//     final nonce = sha256ofString(rawNonce);
-//
-//     final appleCredential = await SignInWithApple.getAppleIDCredential(
-//       scopes: [
-//         AppleIDAuthorizationScopes.email,
-//         AppleIDAuthorizationScopes.fullName,
-//       ],
-//       // webAuthenticationOptions: WebAuthenticationOptions(
-//       //   clientId: '6502335026', // Replace with your Client ID
-//       //   redirectUri: Uri.parse(
-//       //     'https://com.thetork.kirei.firebaseapp.com/__/auth/handler', // Replace with your redirect URI
-//       //   ),
-//       // ),
-//       nonce: nonce,
-//     );
-//
-//
-//     final oauthCredential = OAuthProvider("apple.com").credential(
-//       idToken: appleCredential.identityToken,
-//       rawNonce: rawNonce,
-//     );
-//
-//
-//
-//     var loginResponse = await AuthRepository().getSocialLoginResponse(
-//         "apple", appleCredential.givenName, appleCredential.email, appleCredential.authorizationCode,
-//         access_token: appleCredential.identityToken);
-//
-//     if (loginResponse.result == false) {
-//       ToastComponent.showDialog(loginResponse.message, context,
-//           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
-//     } else if(loginResponse.result == true) {
-//       ToastComponent.showDialog(loginResponse.message, context,
-//           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
-//       AuthHelper().setUserData(loginResponse);
-//       Navigator.push(context, MaterialPageRoute(builder: (context) {
-//         return Main();
-//       }));
-//     }
-//     // GoogleSignIn().disconnect();
-//
-//     final userCredential = await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-//     return userCredential;
-//   } catch (e) {
-//     print("Error during Apple Sign-In: $e");
-//     throw e;
-//   }
-// }
-//
-// String generateNonce([int length = 32]) {
-//   final charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
-//   final random = Random.secure();
-//   return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
-// }
-//
-// String sha256ofString(String input) {
-//   final bytes = utf8.encode(input);
-//   final digest = sha256.convert(bytes);
-//   return digest.toString();
-// }
+  // Future<UserCredential> onPressAppleLogin() async {
+  //   print('apple');
+  //   try {
+  //     final rawNonce = generateNonce();
+  //     final nonce = sha256ofString(rawNonce);
+  //
+  //     final appleCredential = await SignInWithApple.getAppleIDCredential(
+  //       scopes: [
+  //         AppleIDAuthorizationScopes.email,
+  //         AppleIDAuthorizationScopes.fullName,
+  //       ],
+  //       // webAuthenticationOptions: WebAuthenticationOptions(
+  //       //   clientId: '6502335026', // Replace with your Client ID
+  //       //   redirectUri: Uri.parse(
+  //       //     'https://com.thetork.kirei.firebaseapp.com/__/auth/handler', // Replace with your redirect URI
+  //       //   ),
+  //       // ),
+  //       nonce: nonce,
+  //     );
+  //
+  //
+  //     final oauthCredential = OAuthProvider("apple.com").credential(
+  //       idToken: appleCredential.identityToken,
+  //       rawNonce: rawNonce,
+  //     );
+  //
+  //
+  //
+  //     var loginResponse = await AuthRepository().getSocialLoginResponse(
+  //         "apple", appleCredential.givenName, appleCredential.email, appleCredential.authorizationCode,
+  //         access_token: appleCredential.identityToken);
+  //
+  //     if (loginResponse.result == false) {
+  //       ToastComponent.showDialog(loginResponse.message, context,
+  //           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+  //     } else if(loginResponse.result == true) {
+  //       ToastComponent.showDialog(loginResponse.message, context,
+  //           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+  //       AuthHelper().setUserData(loginResponse);
+  //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+  //         return Main();
+  //       }));
+  //     }
+  //     // GoogleSignIn().disconnect();
+  //
+  //     final userCredential = await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+  //     return userCredential;
+  //   } catch (e) {
+  //     print("Error during Apple Sign-In: $e");
+  //     throw e;
+  //   }
+  // }
+  //
+  // String generateNonce([int length = 32]) {
+  //   final charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  //   final random = Random.secure();
+  //   return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
+  // }
+  //
+  // String sha256ofString(String input) {
+  //   final bytes = utf8.encode(input);
+  //   final digest = sha256.convert(bytes);
+  //   return digest.toString();
+  // }
 }

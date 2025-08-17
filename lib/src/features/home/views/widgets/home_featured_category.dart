@@ -11,10 +11,14 @@ import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/shop/view/hot_deals_screen.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+import '../../../../common/widgets/texts/section_title_text.dart';
+import '../../../../utils/constants/colors.dart';
 import '../../../ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 
 class AppFeatureCategories extends StatelessWidget {
@@ -27,90 +31,82 @@ class AppFeatureCategories extends StatelessWidget {
     final bottomController = ConvexBottomNavController.instance;
 
     return Obx(() {
-      return SizedBox(
-          height:
-              homeController.homeFeaturedCategoryResponse.isEmpty ? 70 : 105,
-          child: AppListViewLayout(
+      return Column(
+        children: [
+          AppSectionTitleText(
+            sectionTitle: 'Featured categories',
+            haveTxtButton: false,
+            showCountDown: false,
+          ),
+          SizedBox(
+            height:
+                homeController.homeFeaturedCategoryResponse.isEmpty ? 80 : 130,
+            child: AppListViewLayout(
               isScrollVertically: false,
-              itemCount: homeController.homeFeaturedCategoryResponse.isEmpty
-                  ? 5
-                  : homeController.homeFeaturedCategoryResponse.length,
-              builderFunction: (BuildContext context, int index) =>
+              itemCount:
                   homeController.homeFeaturedCategoryResponse.isEmpty
-                      ? ShimmerHelper()
-                          .buildBasicShimmer(height: 60, width: 70, radius: 100)
-                      : SizedBox(
-                          width: 80,
-                          child: Column(
-                            children: [
-                              AppBannerImage(
-                                onPress: () {
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug ==
-                                      'AiSuggestion()') {
-                                    if (AppLocalStorage().readData(
-                                            LocalStorageKeys.isLoggedIn) ==
-                                        true) {
-                                      Get.offAll(
-                                          () => const SkinCareHistoryOne());
-                                    } else {
-                                      Get.to(() => const LogIn());
-                                    }
-                                  }
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug! ==
-                                      'BeautyTips()') {
-                                    Get.offAll(() => const BeautyTipsScreen());
-                                    return;
-                                  }
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug! ==
-                                      'FeedList()') {
-                                    Get.offAll(() => const CommunityScreen());
-                                    return;
-                                  }
-                                  if (homeController
-                                          .homeFeaturedCategoryResponse[index]
-                                          .slug! ==
-                                      'Appointment()') {
-                                    Get.offAll(() => const AppointmentScreen());
-                                    return;
-                                  }
-                                  categoryPassingController.updateCategory(
+                      ? 5
+                      : homeController.homeFeaturedCategoryResponse.length,
+              builderFunction:
+                  (BuildContext context, int index) =>
+                      homeController.homeFeaturedCategoryResponse.isEmpty
+                          ? ShimmerHelper().buildBasicShimmer(
+                            height: 80,
+                            width: 80,
+                            radius: AppSizes.borderRadiusMd,
+                          )
+                          : SizedBox(
+                            width: 92,
+                            child: Column(
+                              children: [
+                                AppBannerImage(
+                                  onPress: () {
+                                    homeController
+                                                .homeFeaturedCategoryResponse[index]
+                                                .slug ==
+                                            "hot-deals"
+                                        ? Get.to(() => HotDealsScreen())
+                                        : WidgetsBinding.instance
+                                            .addPostFrameCallback((_) {
+                                              RoutingHelper.urlRouting(
+                                                homeController
+                                                    .homeFeaturedCategoryResponse[index]
+                                                    .url,
+                                              );
+                                            });
+                                  },
+                                  backgroundColor: AppColors.lightGrey,
+                                  height: 80,
+                                  width: 80,
+                                  imgBoarderRadius: AppSizes.borderRadiusMd,
+                                  fit: BoxFit.cover,
+                                  isNetworkImage:
                                       homeController
                                           .homeFeaturedCategoryResponse[index]
-                                          .slug!);
-                                  // categoryPassingController.getShopData();
-                                  // categoryPassingController.getSubCategory();
-                                  bottomController.jumpToTab(1);
-                                },
-                                height: 60,
-                                width: 60,
-                                imgBoarderRadius: 100,
-                                fit: BoxFit.cover,
-                                isNetworkImage: homeController
-                                        .homeFeaturedCategoryResponse[index]
-                                        .icon !=
-                                    null,
-                                imgUrl: homeController
-                                        .homeFeaturedCategoryResponse[index]
-                                        .icon ??
-                                    AppImages.placeholder,
-                              ),
-                              const Gap(AppSizes.sm),
-                              Text(
-                                homeController
-                                    .homeFeaturedCategoryResponse[index].name!,
-                                style: Theme.of(context).textTheme.labelLarge,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                              )
-                            ],
+                                          .icon !=
+                                      null,
+                                  imgUrl:
+                                      homeController
+                                          .homeFeaturedCategoryResponse[index]
+                                          .icon ??
+                                      AppImages.placeholder,
+                                ),
+                                const Gap(AppSizes.sm),
+                                Text(
+                                  homeController
+                                      .homeFeaturedCategoryResponse[index]
+                                      .name!,
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
-                        )));
+            ),
+          ),
+        ],
+      );
     });
   }
 }

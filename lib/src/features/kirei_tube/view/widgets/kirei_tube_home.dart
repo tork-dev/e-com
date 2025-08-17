@@ -51,7 +51,7 @@ class KireiTubeHome extends StatelessWidget {
                             haveTxtButton: false,
                           ),
                           AppGridViewLayout(
-                              mobileAspect: .94,
+                              cardHeight: 170,
                               itemCount: controller.kireiTubeHomeResponse.value
                                       .videos?.data?.length ??
                                   4,
@@ -59,35 +59,22 @@ class KireiTubeHome extends StatelessWidget {
                                   KireiTubeListCard(
                                     isPlaylist: false,
                                     onTapBanner: () {
-                                      controller
-                                                  .kireiTubeHomeResponse
-                                                  .value
-                                                  .videos!
-                                                  .data![index]
-                                                  .orientation ==
-                                              "portrait"
-                                          ? Get.to(
+                                      Get.to(
                                               () =>
-                                                  const KireiTubeShortsDetailsScreen(),
-                                              arguments: {
-                                                  'id': controller
-                                                      .kireiTubeHomeResponse
-                                                      .value
-                                                      .videos
-                                                      ?.data![index]
-                                                      .slug
-                                                })
-                                          : Get.to(
-                                              () =>
-                                                  const KireiTubeDetailsScreen(),
-                                              arguments: {
-                                                  'id': controller
-                                                      .kireiTubeHomeResponse
-                                                      .value
-                                                      .videos
-                                                      ?.data![index]
-                                                      .slug
-                                                });
+                                          const KireiTubeShortsDetailsScreen(),
+                                          arguments: {
+                                            "id": controller
+                                                .kireiTubeHomeResponse
+                                                .value
+                                                .videos
+                                                ?.data?[index]
+                                                .slug,
+                                            "orientation": controller
+                                                .kireiTubeHomeResponse
+                                                .value
+                                                .videos
+                                                ?.data?[index].orientation
+                                          });
                                     },
                                     kireiTubeBanner: controller
                                         .kireiTubeHomeResponse
@@ -124,7 +111,6 @@ class KireiTubeHome extends StatelessWidget {
                           const Gap(AppSizes.spaceBtwSections),
                           AppCardContainer(
                               width: AppHelperFunctions.screenWidth(),
-                              applyRadius: false,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: AppSizes.md,
                                   vertical: AppSizes.defaultSpace),
@@ -151,6 +137,7 @@ class KireiTubeHome extends StatelessWidget {
                                           isScrollVertically: false,
                                           builderFunction: (context, index) =>
                                               KireiTubeShortsCard(
+
                                                 onShortsPress: () {
                                                   Log.d(controller
                                                       .kireiTubeHomeResponse
@@ -159,6 +146,12 @@ class KireiTubeHome extends StatelessWidget {
                                                       ?.data![index]
                                                       .slug ?? "Slug");
 
+                                                  // Get.toNamed('/kirei-tube/${controller
+                                                  //     .kireiTubeHomeResponse
+                                                  //     .value
+                                                  //     .shorts
+                                                  //     ?.data![index]
+                                                  //     .slug}');
                                                   Get.to(
                                                       () =>
                                                           const KireiTubeShortsDetailsScreen(),
@@ -219,7 +212,7 @@ class KireiTubeHome extends StatelessWidget {
                           GetBuilder<KireiTubeController>(
                               builder: (controller) {
                             return AppGridViewLayout(
-                                mobileAspect: .94,
+                                cardHeight: 185,
                                 itemCount: controller.kireiTubeHomeResponse
                                         .value.playlists?.length ??
                                     4,

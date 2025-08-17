@@ -18,7 +18,9 @@ import 'package:kirei/src/features/questions/view/question_screen.dart';
 import 'package:kirei/src/features/review/view/review_screen.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/logging/logger.dart';
 import 'widgets/details_picture_part.dart';
@@ -30,132 +32,154 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     DetailsPageController controller = Get.put(DetailsPageController());
     GetShopDataController categoryController = Get.put(GetShopDataController());
-    ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
+    ConvexBottomNavController bottomController = Get.put(
+      ConvexBottomNavController(),
+    );
 
-    if (controller.productSlugList[controller.productSlugIndex.value] !=
-        Get.parameters['id']) {
-      controller.productSlugList.add(Get.parameters['id']!);
-      controller.productSlugIndex = controller.productSlugIndex++;
-      controller.onRefresh();
-      Log.d('calling from ui class');
-      Log.d(controller.productSlugList.toString());
+    final slug = Get.parameters['slug'];
+    if (slug != null) {
+      if (controller.productSlugList[controller.productSlugIndex.value] !=
+          slug) {
+        controller.productSlugList.add(slug);
+        controller.productSlugIndex = controller.productSlugIndex++;
+        controller.onRefresh();
+        Log.d('calling from ui class');
+        Log.d(controller.productSlugList.toString());
+      }
+    } else {
+      Log.e('Slug parameter is null. Route might be incorrect.');
+      // Optionally show an error or redirect to a fallback screen
+      // Get.offAllNamed('/shop'); // fallback route if you want
     }
     return AppLayoutWithBackButton(
       canPop: false,
-        padding: 0,
-        showBackButton: false,
-        showCustomLeading: true,
-        customLeadingIcon: Icons.arrow_back,
-        leadingOnPress: () {
+      padding: 0,
+      showBackButton: false,
+      showCustomLeading: true,
+      customLeadingIcon: Icons.arrow_back_ios_new_outlined,
+      leadingOnPress: () {
         Get.back();
-          if (controller.productSlugList.length > 1) {
-            Log.d('Backing to prev product');
-            controller.productSlugList.removeAt(controller.productSlugIndex.value);
-            controller.productSlugIndex.value--; // Correctly decrement index
-            Log.d(controller.productSlugList.toString());
-            controller.onRefresh();
-          }
-          // else {
-          //   if (controller.prevRoute.value != '') {
-          //     Get.back(); // Pop to previous screen
-          //     print(controller.prevRoute);
-          //   }
-          //   else {
-          //     Get.offAllNamed(controller.prevRoute.value); // Fallback to home
-          //   }
-          // }
-        },
-        backgroundColor: AppColors.primary,
-        bottomNav: const AppBottomButton(),
-        title: Obx(() {
-          Log.d('print product id ${Get.parameters['id']}');
-          return AppBarSearch(
-            focusOn: categoryController.searchOn.value,
-            onSubmit: (String txt) {
-              categoryController.search.value = txt;
-              categoryController.isFromSearch.value = true;
-              categoryController.getShopData();
-              Get.back();
-              bottomController.jumpToTab(1);
-              EventLogger().logSearchEvent(txt);
-              return null;
-            },
-            prevRoute: '/shop',
+        if (controller.productSlugList.length > 1) {
+          Log.d('Backing to prev product');
+          controller.productSlugList.removeAt(
+            controller.productSlugIndex.value,
           );
-        }),
-        leadingIconColor: AppColors.white,
-        action: [
-          InkWell(
-            onTap: () {
-              Get.offAllNamed('/home');
-            },
-            child: const Icon(
-              Icons.home_outlined,
-              color: AppColors.white,
-            ),
+          controller.productSlugIndex.value--; // Correctly decrement index
+          Log.d(controller.productSlugList.toString());
+          controller.onRefresh();
+        }
+        // else {
+        //   if (controller.prevRoute.value != '') {
+        //     Get.back(); // Pop to previous screen
+        //     print(controller.prevRoute);
+        //   }
+        //   else {
+        //     Get.offAllNamed(controller.prevRoute.value); // Fallback to home
+        //   }
+        // }
+      },
+      backgroundColor: AppColors.primary,
+      bottomNav: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: const AppBottomButton(),
+      ),
+      title: Obx(() {
+        Log.d('print product id ${Get.parameters['slug']}');
+        return AppBarSearch(
+          focusOn: categoryController.searchOn.value,
+          onSubmit: (String txt) {
+            categoryController.search.value = txt;
+            categoryController.isFromSearch.value = true;
+            categoryController.getShopData();
+            Get.back();
+            bottomController.jumpToTab(1);
+            EventLogger().logSearchEvent(txt);
+            return null;
+          },
+          prevRoute: '/shop',
+        );
+      }),
+      leadingIconColor: AppColors.white,
+      action: [
+        InkWell(
+          onTap: () {
+            Get.offAllNamed('/home');
+          },
+          child: const Icon(Icons.home_outlined, color: AppColors.white),
+        ),
+        const Gap(AppSizes.sm),
+        InkWell(
+          onTap: () {
+            Get.offAllNamed('/cart');
+          },
+          child: const Icon(
+            Icons.shopping_bag_outlined,
+            color: AppColors.white,
           ),
-          const Gap(AppSizes.sm),
-          InkWell(
+        ),
+        const Gap(AppSizes.sm),
+      ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: AppLayoutWithRefresher(
+          onRefresh: controller.onRefresh,
+          children: [
+            const AppDetailsPicturePart(),
+            const Gap(AppSizes.spaceBtwDefaultItems),
+            const AppDetailsProductNamePart(),
+            const Gap(AppSizes.spaceBtwDefaultItems),
+            const AppDetailsDescriptionPart(),
+            AppDividersStyle.fullFlatAppDivider,
+            const Gap(AppSizes.spaceBtwDefaultItems),
+            const AppDetailsCategoriesPart(),
+            Obx(() {
+              return AppDetailsFullDescription(
+                descriptionTitle: 'Description',
+                description:
+                    "${controller.productDetails.value.detailedProducts?.description}",
+              );
+            }),
+            AppDividersStyle.fullFlatAppDivider,
+            Obx(() {
+              return AppDetailsFullDescription(
+                descriptionTitle: 'guide',
+                description:
+                    "${controller.productDetails.value.detailedProducts?.guide}",
+              );
+            }),
+            AppDividersStyle.fullFlatAppDivider,
+            ReviewAndQuestion(
               onTap: () {
-               Get.offAllNamed('/cart');
+                Get.to(
+                  () => ReviewScreen(
+                    productId:
+                        controller.productDetails.value.detailedProducts!.slug!,
+                  ),
+                );
               },
-              child: const Icon(Icons.shopping_bag_outlined,
-                  color: AppColors.white)),
-          const Gap(AppSizes.sm),
-        ],
-        body: Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: AppLayoutWithRefresher(
-              onRefresh: controller.onRefresh,
-              children: [
-                const AppDetailsPicturePart(),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppDetailsProductNamePart(),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppDetailsDescriptionPart(),
-                AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppDetailsCategoriesPart(),
-                Obx( () {
-                    return AppDetailsFullDescription(
-                      descriptionTitle: 'description',
-                      description:
-                          "${controller.productDetails.value.detailedProducts?.description}",
-                    );
-                  }
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                Obx( () {
-                    return AppDetailsFullDescription(
-                      descriptionTitle: 'guide',
-                      description:
-                          "${controller.productDetails.value.detailedProducts?.guide}",
-                    );
-                  }
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                ReviewAndQuestion(
-                  onTap: () {
-                    Get.to(() => ReviewScreen(
-                        productId: controller
-                            .productDetails.value.detailedProducts!.slug!));
-                  },
-                  title: 'Review',
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                ReviewAndQuestion(
-                  onTap: () {
-                    Get.to(() => QuestionScreen(
-                        productId: controller
-                            .productDetails.value.detailedProducts!.id!));
-                  },
-                  title: 'questions about this products',
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppRecommendedAndRelatedProducts()
-              ]),
-        ));
+              title: 'Review',
+            ),
+            AppDividersStyle.fullFlatAppDivider,
+            ReviewAndQuestion(
+              onTap: () {
+                Get.to(
+                  () => QuestionScreen(
+                    productId:
+                        controller.productDetails.value.detailedProducts!.id!,
+                  ),
+                );
+              },
+              title: 'questions about this products',
+            ),
+            AppDividersStyle.fullFlatAppDivider,
+            const Gap(AppSizes.lg),
+            const AppRecommendedAndRelatedProducts(),
+            const Gap(AppSizes.lg),
+          ],
+        ),
+      ),
+    );
   }
 }

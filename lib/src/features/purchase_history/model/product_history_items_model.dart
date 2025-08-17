@@ -43,6 +43,8 @@ class ProductOrder {
   bool? refundButton;
   String? refundLabel;
   int? refundRequestStatus;
+  bool? isAuthenticReview;
+  bool? canUpdateReview;
 
   ProductOrder({
     this.id,
@@ -63,6 +65,8 @@ class ProductOrder {
     this.refundButton,
     this.refundLabel,
     this.refundRequestStatus,
+    this.isAuthenticReview,
+    this.canUpdateReview
   });
 
   factory ProductOrder.fromJson(Map<String, dynamic> json) {
@@ -85,6 +89,8 @@ class ProductOrder {
       refundButton: json['refund_button'],
       refundLabel: json['refund_label'],
       refundRequestStatus: json['refund_request_status'],
+      isAuthenticReview: json['is_authentic_review'],
+      canUpdateReview: json['can_update_authentic_review'],
     );
   }
 
@@ -108,6 +114,8 @@ class ProductOrder {
       'refund_button': refundButton,
       'refund_label': refundLabel,
       'refund_request_status': refundRequestStatus,
+      'is_authentic_review': isAuthenticReview,
+      'can_update_authentic_review': canUpdateReview,
     };
   }
 }

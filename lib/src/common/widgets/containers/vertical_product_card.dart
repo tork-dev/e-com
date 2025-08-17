@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'card_container.dart';
-import 'course_title_container.dart';
+import 'product_title_container.dart';
 import 'product_image.dart';
 
 class AppVerticalProductCard extends StatelessWidget {
@@ -36,7 +36,7 @@ class AppVerticalProductCard extends StatelessWidget {
   final int reviews,
       salePrice,
       price;
-  final Color? backgroundColor, buttonColor;
+  final Color backgroundColor, buttonColor;
   final bool isNetworkImage, isDiscountAvailable, isStockAvailable;
   final int discount;
   final double? height, width, imgHeight, imgWidth;
@@ -46,32 +46,35 @@ class AppVerticalProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCardContainer(
-        height: height ?? 270,
+        height: height ?? 300,
         width: width ?? 150,
-        applyRadius: false,
         padding: padding,
         margin: margin,
+        hasBorder: true,
+        borderWidth: 1,
+        borderColor: AppColors.lightGrey,
         backgroundColor: AppColors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             AppProductImage(
               imgHeight:  imgHeight ?? height! * 0.6,
               imgWidth: imgWidth ?? width,
               onPress: onTap,
-              onCartPress: onCartTap,
               isNetworkImage: isNetworkImage,
               imgUrl: imgUrl,
-              buttonName: buttonName,
-              backgroundColor: backgroundColor,
               fit: BoxFit.cover,
               isDiscountAvailable: isDiscountAvailable,
               isStockAvailable: isStockAvailable,
               discount: discount,
-              buttonColor: buttonColor!,
             ),
             AppCourseTitleContainer(
                 onTap: onTap,
+                onCartPress: onCartTap,
+                buttonBackgroundColor: backgroundColor,
+                buttonName: buttonName,
+                buttonTextColor: buttonColor,
                 productName: productName,
                 ratings: ratings,
                 reviews: reviews,

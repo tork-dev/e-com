@@ -15,7 +15,7 @@ class CommunityRepositories{
   final dynamic accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
   Future<CommunityResponse> getCommunityPost(int pageNumber)async{
-    Uri url = Uri.parse("${AppApiEndPoints.communityPost}?page=$pageNumber");
+    Uri url = Uri.parse("${AppApiEndPoints.communityPost}?page=$pageNumber?source=app");
     final response = await http.get(
       url,
       headers: {
@@ -81,7 +81,7 @@ class CommunityRepositories{
 
   Future<AddCommunityLike> getCommunityLikeCreateResponse(
       String postId) async {
-    var postBody = jsonEncode({"post_id": postId});
+    var postBody = jsonEncode({"source" : "app", "post_id": postId});
 
     Uri url = Uri.parse(AppApiEndPoints.createCommunityLike);
     final response = await http.post(url,
@@ -97,7 +97,7 @@ class CommunityRepositories{
 
 
   Future<CommunityCommentResponse> getCommunityComment(int postId) async {
-    Uri url = Uri.parse("${AppApiEndPoints.communityCommentList}/$postId");
+    Uri url = Uri.parse("${AppApiEndPoints.communityCommentList}/$postId?source=app");
     final response = await http.get(url);
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
@@ -112,6 +112,7 @@ class CommunityRepositories{
       int postId,
       ) async {
     var postBody = jsonEncode({
+      "source" : "app",
       "comment": comment,
       "post_id": postId,
       "customer_id": "${AppLocalStorage().readData(LocalStorageKeys.userId)}",

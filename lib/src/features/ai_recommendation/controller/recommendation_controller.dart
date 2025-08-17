@@ -95,7 +95,6 @@ class RecommendationController extends GetxController{
 
   Map<String, dynamic> formatDataToJson() {
     return {
-      "gaip_user_id": AppLocalStorage().readData(LocalStorageKeys.gaipUserId).toString(),
       "member_id" : AppLocalStorage().readData(LocalStorageKeys.userEmail).toString(),
       "questions": {
         "skincare_history": {

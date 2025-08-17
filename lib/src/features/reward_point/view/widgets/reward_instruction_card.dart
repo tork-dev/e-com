@@ -18,7 +18,6 @@ class RewardInstructionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCardContainer(
-        applyRadius: false,
         width: AppHelperFunctions.screenWidth(),
         hasBorder: true,
         borderColor: AppColors.lightGrey,

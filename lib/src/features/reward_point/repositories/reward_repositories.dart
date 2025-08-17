@@ -8,44 +8,46 @@ import '../model/reward_history_model.dart';
 import '../model/reward_model.dart';
 
 class RewardRepositories {
-
   final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
 
   Future<RewardResponse> getRewardResponse() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.rewardPoint), headers: {
-      'Authorization':
-          'Bearer $accessToken'
-    });
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.rewardPoint}?source=app"),
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return RewardResponse.fromJson(response.body);
-    }else{
+    } else {
       throw 'error';
     }
   }
 
   Future<PointRedemptionResponse> getPointRedeemProducts() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.pointRedeemProducts), headers: {
-      'Authorization':
-      'Bearer $accessToken'
-    });
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.pointRedeemProducts}?source=app"),
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return PointRedemptionResponse.fromJson(response.body);
-    }else{
+    } else {
       throw 'error';
     }
   }
 
-  Future<MemberShipLevelResponse> getMembershipLevel() async{
-    final response = await http.get(Uri.parse(AppApiEndPoints.pointLevel));
+  Future<MemberShipLevelResponse> getMembershipLevel() async {
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.pointLevel}?source=app"),
+    );
     return MemberShipLevelResponse.fromJson(response.body);
   }
 
-  Future<RewardHistoryResponse> getRewardHistory()async{
-    final response = await http.get(Uri.parse(AppApiEndPoints.rewardHistory), headers: {
-      'Authorization': 'Bearer $accessToken'
-    });
+  Future<RewardHistoryResponse> getRewardHistory() async {
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.rewardHistory}?source=app"),
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
     return RewardHistoryResponse.fromJson(response.body);
   }
 }

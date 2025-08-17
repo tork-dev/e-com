@@ -21,6 +21,7 @@ class CartController extends GetxController {
   CartController({this.callingApis = true});
 
   final bool callingApis;
+  RxBool addingToCart = false.obs;
 
   /// Key
   final GlobalKey<ScaffoldState> cartKey = GlobalKey<ScaffoldState>();
@@ -78,10 +79,12 @@ class CartController extends GetxController {
     }
   }
 
-  Future<AddToCartResponse> getAddToCartResponse(
+  Future<void> getAddToCartResponse(
       int id, int quantity, dynamic preorderAvailable) async {
-    return addToCartResponse.value = await CartRepositories()
+    addingToCart.value = true;
+    addToCartResponse.value = await CartRepositories()
         .getCartAddResponse(id, quantity, preorderAvailable);
+    addingToCart.value = false;
   }
 
   Future<ProductRequestResponse> getRequestResponse(
@@ -103,7 +106,7 @@ class CartController extends GetxController {
     }).toList();
 
 
-    EventLogger().logViewCartEvent(jsonEncode(items));
+    EventLogger().logViewCartEvent(jsonEncode(items), cartItemTotalPrice.value);
   }
 
   Future<CartDeleteResponse> getCartDelete(int cartId) async {

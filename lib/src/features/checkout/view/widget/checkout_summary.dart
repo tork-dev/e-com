@@ -19,8 +19,7 @@ class AppCheckoutSummary extends StatelessWidget {
       return checkoutController.checkoutSummary.value.grandTotalValue == null
           ? ShimmerHelper().buildBasicShimmer(height: 150)
           : AppCardContainer(
-              padding: const EdgeInsets.all(AppSizes.sm),
-              applyRadius: false,
+              padding: const EdgeInsets.all(AppSizes.md),
               backgroundColor: AppColors.white,
               child: Column(
                 children: [

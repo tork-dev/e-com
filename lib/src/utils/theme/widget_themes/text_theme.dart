@@ -9,18 +9,18 @@ class AppTextTheme {
   static TextTheme lightTextTheme = TextTheme(
     headlineLarge: const TextStyle().copyWith(fontSize: 32.0, fontWeight: FontWeight.bold, color: AppColors.dark),
     headlineMedium: const TextStyle().copyWith(fontSize: 24.0, fontWeight: FontWeight.w600, color: AppColors.dark),
-    headlineSmall: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w600, color: AppColors.dark),
+    headlineSmall: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w500, color: AppColors.textPrimary, height: 1.25, fontFamily: 'ClashDisplay'),
 
-    titleLarge: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w600, color: AppColors.dark),
-    titleMedium: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w500, color: AppColors.dark),
-    titleSmall: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w400, color: AppColors.dark),
+    titleLarge: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w500, color: AppColors.textPrimary, height: 1.5, fontFamily: "ClashDisplay"),
+    titleMedium: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w500, color: AppColors.textPrimary, height: 1.33, fontFamily: "WorkSans"),
+    titleSmall: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w400, color: AppColors.textPrimary, fontFamily: "WorkSans"),
 
-    bodyLarge: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, color: AppColors.dark),
+    bodyLarge: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, color: AppColors.textPrimary, height: 1.35, fontFamily: "WorkSans"),
     bodyMedium: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.w600, color: AppColors.dark),
-    bodySmall: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, color: AppColors.dark.withAlpha((0.5 * 255).toInt())),
+    bodySmall: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w400, color: AppColors.textPrimary, fontFamily: "WorkSans"),
 
-    labelLarge: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.dark),
-    labelMedium: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.dark.withAlpha((0.5 * 255).toInt())),
+    labelLarge: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, height: 1.5, color: AppColors.textPrimary, fontFamily: "ClashDisplay"),
+    labelMedium: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.normal, color: AppColors.textPrimary, fontFamily: "WorkSans"),
     labelSmall: const TextStyle().copyWith(fontSize: 8.0, fontWeight: FontWeight.w400, color: AppColors.dark.withAlpha((0.5 * 255).toInt())),
   );
 
@@ -38,7 +38,7 @@ class AppTextTheme {
     bodyMedium: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.w600, color: AppColors.light),
     bodySmall: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, color: AppColors.light.withAlpha((0.5 * 255).toInt())),
 
-    labelLarge: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.light),
+    labelLarge: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.normal, color: AppColors.light),
     labelMedium: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.normal, color: AppColors.light.withAlpha((0.5 * 255).toInt())),
     labelSmall: const TextStyle().copyWith(fontSize: 8.0, fontWeight: FontWeight.w400, color: AppColors.dark.withAlpha((0.5 * 255).toInt())),
   );

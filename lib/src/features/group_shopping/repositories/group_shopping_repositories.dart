@@ -13,7 +13,7 @@ class GroupShoppingRepo {
 
   Future<GroupShoppingProductsResponse> getGroupShoppingProducts() async {
     final response =
-        await http.get(Uri.parse(AppApiEndPoints.groupShoppingProducts), headers: {
+        await http.get(Uri.parse("${AppApiEndPoints.groupShoppingProducts}?source=app"), headers: {
           "Authorization": "Bearer $accessToken",
         });
 
@@ -25,7 +25,7 @@ class GroupShoppingRepo {
   }
 
   Future<GroupShoppingGroupsResponse> getGroupShoppingGroups() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.shoppingGroups), headers: {
+    final response = await http.get(Uri.parse("${AppApiEndPoints.shoppingGroups}?source=app"), headers: {
       "Authorization": "Bearer $accessToken",
     });
 
@@ -37,8 +37,8 @@ class GroupShoppingRepo {
   }
 
   Future<GroupShoppingCheckoutResponse> createAGroup(
-      apiEndPoint,
-      productId,
+      String apiEndPoint,
+      int productId,
       String paymentMethod,
       String shippingName,
       String phone,
@@ -53,6 +53,7 @@ class GroupShoppingRepo {
           "Authorization": "Bearer $accessToken",
         },
         body: jsonEncode({
+          "source" : "app",
           "product_id" : productId,
           "payment_method": paymentMethod,
           "shipping_name": shippingName,

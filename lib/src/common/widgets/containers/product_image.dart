@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
@@ -11,15 +12,11 @@ class AppProductImage extends StatelessWidget {
     this.border,
     required this.imgHeight,
     required this.imgWidth,
-    required this.buttonColor,
     required this.onPress,
-    required this.onCartPress,
     required this.imgUrl,
     this.fit = BoxFit.contain,
     this.boarderRadius = AppSizes.md,
     required this.isNetworkImage,
-    required this.buttonName,
-    required this.backgroundColor,
     required this.isDiscountAvailable,
     required this.discount,
     super.key,
@@ -27,15 +24,13 @@ class AppProductImage extends StatelessWidget {
   });
 
   final double? height, width, imgHeight, imgWidth;
-  final String imgUrl, buttonName;
+  final String imgUrl;
   final BoxBorder? border;
-  final Color? backgroundColor;
   final BoxFit? fit;
   final bool isNetworkImage, isDiscountAvailable, isStockAvailable;
   final double? boarderRadius;
-  final VoidCallback onPress, onCartPress;
+  final VoidCallback onPress;
   final int? discount;
-  final Color buttonColor;
 
 
   @override
@@ -58,6 +53,9 @@ class AppProductImage extends StatelessWidget {
                   isNetworkImage: true,
                     imgUrl: imgUrl,
                   fit: BoxFit.cover,
+                  applyOnlyRadius: true,
+                  topRightRadius: AppSizes.borderRadiusMd,
+                  topLeftRadius: AppSizes.borderRadiusMd,
                 ),
                 Visibility(
                   visible: isDiscountAvailable,
@@ -65,8 +63,9 @@ class AppProductImage extends StatelessWidget {
                     left: 10,
                     top: 10,
                     child: AppCardContainer(
-                        height: 32,
-                        width: 32,
+                      borderRadius: AppSizes.borderRadiusSm,
+                        height: 18,
+                        width: 38,
                         backgroundColor: AppColors.primary,
                         child: Center(
                             child: Text(
@@ -81,34 +80,35 @@ class AppProductImage extends StatelessWidget {
               ],
             ),
           ),
+          AppDividersStyle.fullFlatAppDivider
           // const Gap(AppSizes.sm),
-          InkWell(
-            onTap: onCartPress,
-            child: AppCardContainer(
-              applyRadius: false,
-              height: 40,
-              backgroundColor: backgroundColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Visibility(
-                    visible: isStockAvailable,
-                    child: const Icon(
-                      Icons.shopping_bag_outlined,
-                      size: 17,
-                      color: AppColors.white,
-                    ),
-                  ),
-                  Text(' $buttonName',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .apply(color: buttonColor)
-                  )
-                ],
-              ),
-            ),
-          ),
+          // InkWell(
+          //   onTap: onCartPress,
+          //   child: AppCardContainer(
+          //     applyRadius: false,
+          //     height: 40,
+          //     backgroundColor: backgroundColor,
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Visibility(
+          //           visible: isStockAvailable,
+          //           child: const Icon(
+          //             Icons.shopping_bag_outlined,
+          //             size: 17,
+          //             color: AppColors.white,
+          //           ),
+          //         ),
+          //         Text(' $buttonName',
+          //             style: Theme.of(context)
+          //                 .textTheme
+          //                 .bodyMedium!
+          //                 .apply(color: buttonColor)
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

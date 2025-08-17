@@ -26,6 +26,7 @@ class ShopScreen extends StatelessWidget {
         globalKey: shopController.shopKey,
         backgroundColor: AppColors.primary,
         leadingIconColor: AppColors.white,
+        bodyBackgroundColor: AppColors.secondaryBackground,
         hasEndDrawer: true,
         action: const [SizedBox()],
         title: Obx(() {
@@ -38,6 +39,7 @@ class ShopScreen extends StatelessWidget {
               shopDataController.getShopData();
               shopDataController.categoryRouteList.add('/shop?${shopDataController.queryStringValue.value}');
               Log.d('length of routes: ${shopDataController.categoryRouteList}');
+              return null;
             },
             prevRoute: '/shop?${shopDataController.queryStringValue.value}',
           );

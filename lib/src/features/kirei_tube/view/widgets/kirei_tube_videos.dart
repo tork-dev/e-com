@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/kirei_tube/view/kirei_tube_details.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_playlist_view.dart';
 import 'package:kirei/src/features/kirei_tube/view/kirei_tube_shorts_screen.dart';
 import 'package:kirei/src/features/kirei_tube/view/widgets/kirei_tube_shorts_card.dart';
@@ -13,6 +12,7 @@ import '../../../../utils/logging/logger.dart';
 import '../../controller/kirei_tube_controller.dart';
 import 'kirei_tube_list_card.dart';
 
+
 class KireiTubeVideosTab extends StatefulWidget {
   const KireiTubeVideosTab({super.key});
 
@@ -23,10 +23,13 @@ class KireiTubeVideosTab extends StatefulWidget {
 class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
   final kireiTubeController = KireiTubeController.instance;
 
+  bool isLoading = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isLoading = true;
     if (kireiTubeController.tabController.index != 3) {
       if (kireiTubeController.tabController.index == 1) {
         kireiTubeController.selectedOrientation.value = 'videos';
@@ -37,6 +40,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
     } else {
       kireiTubeController.getKireitubePlaylist();
     }
+    isLoading = false;
   }
 
   @override
@@ -66,7 +70,7 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: AppSizes.sm, vertical: 0),
                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.zero,
+                                borderRadius: BorderRadius.all(Radius.circular(AppSizes.sm)),
                                 borderSide: BorderSide(
                                     width: 1, color: AppColors.lightGrey))),
                         onSelected: (value) {
@@ -100,7 +104,8 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             return Obx(() {
                               return ChoiceChip(
                                 backgroundColor: AppColors.white,
-                                shape: const ContinuousRectangleBorder(
+                                shape: const BeveledRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(AppSizes.xs)),
                                     side: BorderSide(
                                         width: 1, color: AppColors.lightGrey)),
                                 elevation: 0,
@@ -158,26 +163,30 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
             ),
             const Gap(AppSizes.md),
             GetBuilder<KireiTubeController>(builder: (controller) {
-              return AppGridViewLayout(
-                  mobileAspect:
-                      kireiTubeController.tabController.index == 2 ? 9/16 : kireiTubeController.tabController.index == 1? 1:1,
+              return isLoading? ShimmerHelper().buildHomeProductGridShimmer(itemCount: 10):
+                AppGridViewLayout(
+                  cardHeight:
+                      kireiTubeController.tabController.index == 2 ? 350 : kireiTubeController.tabController.index == 1? 170:185,
                   itemCount: controller.hittingApi.value
                       ? 10
                       : kireiTubeController.tabController.index == 3
                           ? controller.videoPlaylist.value.data!.length
                           : controller.videosList.value.data!.length,
-                  builderFunction: (context, index) => controller
+                  builderFunction: (BuildContext context, int index) {
+                    return controller
                           .hittingApi.value
                       ? ShimmerHelper().buildBasicShimmer(height: 250)
                       : kireiTubeController.tabController.index == 2
                           ? KireiTubeShortsCard(
                               onShortsPress: () {
-                                Log.d(controller
-                                    .videosList.value.data![index].slug.toString());
+
+                                // Log.d(controller
+                                //     .videosList.value.data![index].slug.toString());
                                 Get.to(() => const KireiTubeShortsDetailsScreen(),
                                     arguments: {
                                       "id": controller
-                                          .videosList.value.data![index].slug
+                                          .videosList.value.data![index].slug,
+                                      "orientation": controller.videosList.value.data![index].orientation
                                     });
                               },
                               hittingApi: controller.hittingApi.value,
@@ -190,26 +199,14 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                             )
                           : KireiTubeListCard(
                               onTapBanner: () {
-                                controller
-                                    .videosList.value.data![index].orientation == "portrait"?
-                                Get.to(
-                                        () =>
-                                    const KireiTubeShortsDetailsScreen(),
-                                    arguments: {
-                                      'id': controller
-                                          .videosList.value.data![index].slug
-                                    }) :
+                                Log.d(controller
+                                    .videosList.value.data![index].slug.toString());
 
-                                Get.to(() => const KireiTubeDetailsScreen(),
-                                    arguments: {
-                                      "id": controller
-                                          .videosList.value.data![index].slug
-                                    });
+                                Get.to(()=>KireiTubeShortsDetailsScreen(), arguments: {"id": controller
+                                    .videosList.value.data![index].slug});
                               },
                               isPlaylist:
-                                  kireiTubeController.tabController.index == 3
-                                      ? true
-                                      : false,
+                                  kireiTubeController.tabController.index == 3,
                               onTapViewPlaylist: () {
                                 kireiTubeController.getKireitubePlaylistDetails(
                                     controller
@@ -229,10 +226,11 @@ class _KireiTubeVideosTabState extends State<KireiTubeVideosTab> {
                                           .data![index].title
                                       : controller
                                           .videosList.value.data?[index].title,
-                              kireiTubePlaylistVideoCount: kireiTubeController
-                                  .videoPlaylist.value.data?[index].videoCount
-                                  .toString(),
-                            ));
+                              kireiTubePlaylistVideoCount: kireiTubeController.tabController.index == 3? kireiTubeController
+                                  .videoPlaylist.value.data![index].videoCount
+                                  .toString() : "0",
+                            );
+    });
             }),
           ],
         ),

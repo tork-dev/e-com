@@ -10,6 +10,8 @@ import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
 import 'package:kirei/src/features/group_shopping/controller/group_shopping_controller.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:slide_countdown/slide_countdown.dart';
@@ -65,7 +67,6 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                         : AppCardContainer(
                         applyShadow: true,
                         width: 221,
-                        applyRadius: false,
                         backgroundColor: AppColors.white,
                         padding: const EdgeInsets.all(AppSizes.sm),
                         child: Column(
@@ -86,90 +87,79 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                       ?.thumbnailImage ??
                                       '',
                                   isNetworkImage: true,
-                                  applyImageRadius: false,
                                 ),
-                                AppCardContainer(
-                                    // width: 140,
-                                    applyRadius: false,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    backgroundColor:
-                                    const Color(0xffE4F7E8),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Text(
-                                          "Duration: ",
-                                          style: TextStyle(
-                                              color:
-                                              AppColors.primary,
-                                              fontSize: 10,
-                                              fontWeight:
-                                              FontWeight.bold),
-                                        ),
-                                        SlideCountdown(
-                                          duration: Duration(
-                                              days: groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![index]
-                                                  .expiredAt!
-                                                  .day - DateTime.now().day,
-                                              hours: groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![index]
-                                                  .expiredAt!
-                                                  .hour - DateTime.now().hour,
-                                              minutes:
-                                              groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![
-                                              index]
-                                                  .expiredAt!
-                                                  .minute - DateTime.now().minute,
-                                              seconds:
-                                              groupShoppingController
-                                                  .groupShoppingGroup
-                                                  .value
-                                                  .justCreated![
-                                              index]
-                                                  .expiredAt!
-                                                  .second - DateTime.now().second),
-                                          decoration:
-                                          const BoxDecoration(
-                                            color: Colors.transparent,
+                                Positioned(
+                                  top: 4,
+                                  child: AppCardContainer(
+                                      padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm, vertical: AppSizes.xs),
+                                      backgroundColor: AppColors.primary,
+                                      borderRadius: AppSizes.cardRadiusXs,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                           Text(
+                                            "Duration: ",
+                                            style: Theme.of(context).textTheme.labelSmall?.apply(color: AppColors.white),
                                           ),
-                                          durationTitle:
-                                          const DurationTitle(
-                                              days: "d ",
-                                              hours: "h ",
-                                              minutes: "m ",
-                                              seconds: "s"),
-                                          separatorPadding:
-                                          EdgeInsets.zero,
-                                          separatorType:
-                                          SeparatorType.title,
-                                          style: const TextStyle(
-                                              color:
-                                              AppColors.primary,
-                                              fontSize: 10),
-                                          separatorStyle:
-                                          const TextStyle(
-                                              color: AppColors
-                                                  .primary),
-                                          padding: EdgeInsets.zero,
-                                          shouldShowMinutes:
-                                              (duration) => true
-                                          // duration.inDays ==
-                                          //     0,
-                                        ),
-                                      ],
-                                    )),
+                                          SlideCountdown(
+                                            duration: Duration(
+                                                days: groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![index]
+                                                    .expiredAt!
+                                                    .day - DateTime.now().day,
+                                                hours: groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![index]
+                                                    .expiredAt!
+                                                    .hour - DateTime.now().hour,
+                                                minutes:
+                                                groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![
+                                                index]
+                                                    .expiredAt!
+                                                    .minute - DateTime.now().minute,
+                                                seconds:
+                                                groupShoppingController
+                                                    .groupShoppingGroup
+                                                    .value
+                                                    .justCreated![
+                                                index]
+                                                    .expiredAt!
+                                                    .second - DateTime.now().second),
+                                            decoration:
+                                            const BoxDecoration(
+                                              color: Colors.transparent,
+                                            ),
+                                            durationTitle:
+                                             DurationTitle(
+                                                days: "d ",
+                                                hours: "h ",
+                                                minutes: "m ",
+                                                seconds: "s"),
+                                            separatorPadding:
+                                            EdgeInsets.zero,
+                                            separatorType:
+                                            SeparatorType.title,
+                                            style: Theme.of(context).textTheme.labelSmall!.apply(color: AppColors.white),
+                                            separatorStyle: Theme.of(context).textTheme.labelSmall!.apply(color: AppColors.white),
+                                            padding: EdgeInsets.zero,
+                                            shouldShowMinutes:
+                                                (duration) => true
+                                            // duration.inDays ==
+                                            //     0,
+                                          ),
+                                        ],
+                                      )),
+                                ),
                               ],
                             ),
                             const Gap(AppSizes.spaceBtwDefaultItems),
@@ -330,7 +320,8 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                   .justCreated![index].totalUserQuantity!.toDouble()),
                               padding: EdgeInsets.zero,
                               backgroundColor: AppColors.lightGrey,
-                              progressColor: AppColors.success,
+                              progressColor: AppColors.primary,
+                              barRadius: Radius.circular(AppSizes.cardRadiusXs),
                             ),
                             const Gap(AppSizes.sm),
                             SizedBox(
@@ -340,27 +331,40 @@ class GroupShoppingCreateNowGroups extends StatelessWidget {
                                   AppColors.secondary,
                                   verticallyPadding: AppSizes.sm,
                                   onPressed: () {
-                                    groupShoppingController.groupShoppingGroup
-                                        .value.justCreated?[index].isPurchased == true
-                                        ? AppHelperFunctions.showToast(
-                                        "You already a member of this group")
-                                        :
-                                    Get.toNamed(
-                                        '/group-shopping/${groupShoppingController
-                                            .groupShoppingGroup.value
-                                            .justCreated![index].token}',
-                                        parameters: {
-                                          'productId':
-                                          "${groupShoppingController
+                                    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+                                      groupShoppingController.groupShoppingGroup
+                                          .value.justCreated?[index]
+                                          .isPurchased == true
+                                          ? AppHelperFunctions.showToast(
+                                          "You already a member of this group")
+                                          :
+                                      Get.toNamed(
+                                          '/group-shopping/${groupShoppingController
                                               .groupShoppingGroup.value
-                                              .justCreated![index].product!.id}",
-                                          'group_price' : '${groupShoppingController
-                                              .groupShoppingGroup.value
-                                              .justCreated![index].groupPurchasePrice}',
-                                          'shipping_charge' : '${groupShoppingController
-                                              .groupShoppingGroup.value
-                                              .justCreated![index].groupShippingCharge}',
-                                        });
+                                              .justCreated![index].token}',
+                                          parameters: {
+                                            'productId':
+                                            "${groupShoppingController
+                                                .groupShoppingGroup.value
+                                                .justCreated![index].product!
+                                                .id}",
+                                            'group_price': '${groupShoppingController
+                                                .groupShoppingGroup.value
+                                                .justCreated![index]
+                                                .groupPurchasePrice}',
+                                            'shipping_charge': '${groupShoppingController
+                                                .groupShoppingGroup.value
+                                                .justCreated![index]
+                                                .groupShippingCharge}',
+                                          });
+                                    }else {
+                                      Get.toNamed(
+                                        '/login',
+                                        arguments: {
+                                          "prevRoute": '/group-shopping',
+                                        },
+                                      );
+                                    }
                                   },
                                   buttonText: groupShoppingController
                                       .groupShoppingGroup.value

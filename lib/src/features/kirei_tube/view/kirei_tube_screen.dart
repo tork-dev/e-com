@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/features/kirei_tube/controller/kirei_tube_controller.dart';
@@ -17,15 +18,15 @@ class KireiTubeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(KireiTubeController());
 
-    return Scaffold(
-      appBar: AppBar(
+    return AppLayoutWithBackButton(
+
         title: const Text(
           'Kirei Tube',
           style: TextStyle(color: AppColors.secondary),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-      ),
+      padding: 0,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverToBoxAdapter(
@@ -164,21 +165,21 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
                     elevation: const WidgetStatePropertyAll(0),
                     backgroundColor:
                         const WidgetStatePropertyAll(AppColors.white),
-                    shape: const WidgetStatePropertyAll(
-                        ContinuousRectangleBorder(
+                    shape: const WidgetStatePropertyAll(BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(AppSizes.cardRadiusXs)),
                       side: BorderSide(
-                          color: AppColors.grey,
+                          color: AppColors.lightGrey,
                           width: 1), // Border color and width
                     )),
                     hintText: 'Search',
                     hintStyle: WidgetStatePropertyAll(Theme.of(context)
                         .textTheme
                         .titleLarge!
-                        .apply(color: AppColors.darkGrey)),
+                        .apply(color: AppColors.lightGrey)),
                     trailing: const [
                       Icon(
                         Icons.search_sharp,
-                        color: AppColors.darkGrey,
+                        color: AppColors.lightGrey,
                       )
                     ],
                   ),

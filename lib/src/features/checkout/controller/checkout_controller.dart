@@ -21,6 +21,7 @@ import '../../../common/widgets/containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/logging/logger.dart';
+import '../../../utils/popups/custom_loader.dart';
 import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
@@ -143,7 +144,7 @@ class CheckoutController extends GetxController {
   Future<void> onPressProceedToCheckout() async {
 
     if (!await validateCheckoutDetails()) return;
-    AppHelperFunctions.showLoaderDialog(Get.overlayContext!); // Make sure overlayContext is not null
+    CustomLoader.showLoaderDialog(Get.overlayContext!);
 
     Map<String, dynamic> requestBody = await prepareRequestBody();
 
@@ -151,7 +152,7 @@ class CheckoutController extends GetxController {
       orderCreateResponse.value = await CheckoutRepositories()
           .getOrderCreateResponseFromCod(requestBody: requestBody);
 
-      Get.back(); // Hide loader
+      CustomLoader.hideLoader(Get.overlayContext!);; // Hide loader
 
       // Handle different payment methods
       if (selectedPaymentMethod.value == 1) {
@@ -184,14 +185,17 @@ class CheckoutController extends GetxController {
       // If no specific payment method, show toast and navigate to Order Status Screen
       AppHelperFunctions.showToast(orderCreateResponse.value.message!);
       Log.d(orderCreateResponse.value.toString());
-      Get.offAll(() => AppOrderStatusScreen(
-        statusString: orderCreateResponse.value.message!,
-        status: orderCreateResponse.value.result ?? false,
-        orderId: orderCreateResponse.value.data!.order!.id!,
-      ));
+      if(orderCreateResponse.value.data!.order!.id != null) {
+        Get.offAll(() =>
+            AppOrderStatusScreen(
+              statusString: orderCreateResponse.value.message!,
+              status: orderCreateResponse.value.result ?? false,
+              orderId: orderCreateResponse.value.data!.order!.id!,
+            ));
+      }
 
     } catch (e) {
-      Get.back(); // Ensure the loader is closed in case of an error
+      CustomLoader.hideLoader(Get.overlayContext!);; // Ensure the loader is closed in case of an error
       Log.d('Error in onPressProceed: $e');
       AppHelperFunctions.showToast('An error occurred. Please try again.');
     }
@@ -291,6 +295,7 @@ class CheckoutController extends GetxController {
       "coupon_code": couponCode,
       "redeem_point" : redeemedPoint.value,
       'app_info': await AppHelperFunctions.appInfo(),
+      "source" : "app",
     };
 
     return requestBody;
@@ -305,11 +310,11 @@ class CheckoutController extends GetxController {
           return Dialog(
               backgroundColor: AppColors.white,
               insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
               ),
               child: AppCardContainer(
-                applyRadius: false,
+                borderRadius: AppSizes.cardRadiusMd,
                 padding: const EdgeInsets.all(AppSizes.defaultSpace),
                 child: Obx(() {
                     return Column(
@@ -321,7 +326,7 @@ class CheckoutController extends GetxController {
                           children: [
                             Text('Redeem Your Points', style: Theme.of(context).textTheme.headlineSmall,),
                             AppCardContainer(
-                                applyRadius: false,
+                                applyRadius: true,
                                 onTap: ()=> Get.back(),
                                 height: 44,
                                 width: 44,
@@ -412,16 +417,14 @@ class CheckoutController extends GetxController {
                           } : null,
                         ),
 
-                        const Gap(AppSizes.md),
-                        SizedBox(
-                          width: 150,
-                          child: AppButtons.largeFlatFilledButton(
-                              onPressed: (){
-                                onRedeemPoint();
-                              },
-                              backgroundColor: AppColors.addToCartButton,
-                              buttonText: 'Redeem Points'.toUpperCase()),
-                        )
+                        const Gap(AppSizes.defaultSpace),
+
+                        AppButtons.largeFlatFilledButton(
+                            onPressed: (){
+                              onRedeemPoint();
+                            },
+                            backgroundColor: AppColors.addToCartButton,
+                            buttonText: 'Redeem Points'.toUpperCase())
                       ],
                     );
                   }

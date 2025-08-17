@@ -42,7 +42,7 @@ class DetailsPageController extends GetxController {
   void onInit() {
     Log.d('prevRoute ${Get.parameters['prevRoute']}' );
     super.onInit();
-    productSlugList.add(Get.parameters['id'] ?? '/home');
+    productSlugList.add(Get.parameters['slug'] ?? '/home');
     prevRoute.value = Get.parameters['prevRoute'] ?? '/home';
 
     Log.d('on init ${productSlugList[productSlugIndex.value]}');
@@ -65,8 +65,8 @@ class DetailsPageController extends GetxController {
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
       await checkWishListAdd();
     }
-    await getRelatedProducts();
-    await getRecommendedProducts();
+    getRelatedProducts();
+    getRecommendedProducts();
   }
 
   void getLargePicture(index) {

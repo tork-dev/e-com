@@ -7,6 +7,7 @@ import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/spinner_wheel/controller/spinner_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
@@ -26,8 +27,8 @@ class AppSpinnerWheelAlert extends StatelessWidget {
       return spinController.couponList.length > 1
           ? SingleChildScrollView(
               child: Dialog(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
+                shape:  RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
                 ),
                 //contentPadding: EdgeInsets.zero,
                 insetPadding: const EdgeInsets.all(AppSizes.md),
@@ -155,22 +156,22 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                 validator: (value) =>
                                     AppValidator.validatePhoneNumber(value),
                                 keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       horizontal: AppSizes.md,
                                       vertical: AppSizes.spaceBtwDefaultItems),
                                   hintText: '01*********',
                                   fillColor: AppColors.white,
                                   filled: true,
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.zero,
-                                      borderSide: BorderSide(width: 0)),
+                                      borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
+                                      borderSide: const BorderSide(width: 0)),
                                   focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.zero,
-                                      borderSide: BorderSide(width: 0)),
+                                      borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
+                                      borderSide: const BorderSide(width: 0)),
                                   enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.zero,
-                                      borderSide: BorderSide(width: 0)),
+                                      borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
+                                      borderSide: const BorderSide(width: 0)),
                                 ),
                               ),
                               const Gap(AppSizes.defaultSpace),
@@ -184,12 +185,23 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                     spinController.isChecked.value =
                                         !spinController.isChecked.value;
                                   },
-                                  title: const Text(
-                                      'I’ve read and agree to the Terms and the Privacy Policy.'),
+                                  title: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text("I’ve read and agree to the Terms and the"),
+                                      InkWell(
+                                        onTap: (){
+                                          AppDeviceUtils.browseUrl("https://kireibd.com/privacy-policy");
+                                        },
+                                          child: const Text(" Privacy Policy.", style: TextStyle(color: AppColors.primary, decoration: TextDecoration.underline, decorationColor: AppColors.primary))),
+
+                                    ],
+                                  ),
                                 );
                               }),
                               const Gap(AppSizes.spaceBtwSections),
                               AppButtons.largeFlatFilledButton(
+                                backgroundColor: !spinController.isChecked.value? AppColors.buttonDisabled : AppColors.buttonPrimary,
                                   onPressed: () {
                                     if (!spinController.phoneKey.currentState!
                                         .validate()) {
@@ -220,8 +232,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                         right: AppSizes.sm,
                         top: AppSizes.sm,
                         child: AppCardContainer(
-                            applyRadius: false,
-                            backgroundColor: AppColors.grey,
+                            backgroundColor: AppColors.primary.withAlpha(51),
                             height: 40,
                             width: 40,
                             child: InkWell(

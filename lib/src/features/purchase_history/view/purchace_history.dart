@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/widget/purchase_history_card.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/constants/sizes.dart';
 
 class PurchaseHistory extends StatelessWidget {
   final bool backToHome;
@@ -23,30 +25,28 @@ class PurchaseHistory extends StatelessWidget {
             Get.back();
           });
         } else {
-          Get.offAll(() => const HelloConvexAppBar(
-                pageIndex: 0,
-              ));
+          Get.offAllNamed("/home");
         }
       },
       child: AppLayoutWithBackButton(
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
-        leadingIconColor: AppColors.darkGrey,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
+        leadingIconColor: AppColors.white,
         showCustomLeading: true,
         centerTitle: true,
         leadingOnPress: () => backToHome
-            ? Get.offAll(() => const HelloConvexAppBar(
-                  pageIndex: 0,
-                ))
+            ? Get.offAllNamed("/home")
             : Get.back(),
         title: const Text(
           'Purchase History',
-          style: TextStyle(color: AppColors.secondary),
+          style: TextStyle(color: AppColors.white),
         ),
+        backgroundColor: AppColors.primary,
         body: Obx(() {
             return AppLayoutWithRefresher(
                 onRefresh: controller.onRefresh,
                 children: [
+                  Gap(AppSizes.lg),
                   !controller.hittingApi.value && controller.purchaseHistoryList.value.data!.isEmpty?
                    Center(
                     child: Text(

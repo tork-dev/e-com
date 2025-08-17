@@ -62,7 +62,8 @@ import 'app_localizations_es.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,17 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('es')
+    Locale('es'),
   ];
 
   /// No description provided for @helloWorld.
@@ -110,7 +113,7 @@ abstract class AppLocalizations {
   /// No description provided for @emailOrPhoneHintText.
   ///
   /// In en, this message translates to:
-  /// **'01*********'**
+  /// **'Enter your phone number'**
   String get emailOrPhoneHintText;
 
   /// No description provided for @dontHaveAccount.
@@ -119,10 +122,16 @@ abstract class AppLocalizations {
   /// **'Don\'t have an account?'**
   String get dontHaveAccount;
 
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAccount;
+
   /// No description provided for @passwordHintText.
   ///
   /// In en, this message translates to:
-  /// **'........'**
+  /// **'Enter your password'**
   String get passwordHintText;
 
   /// No description provided for @newPassword.
@@ -140,8 +149,14 @@ abstract class AppLocalizations {
   /// No description provided for @confirmPasswordHintText.
   ///
   /// In en, this message translates to:
-  /// **'........'**
+  /// **'Enter confirm password'**
   String get confirmPasswordHintText;
+
+  /// No description provided for @nameHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get nameHintText;
 
   /// No description provided for @createAccount.
   ///
@@ -152,13 +167,13 @@ abstract class AppLocalizations {
   /// No description provided for @loginWithOtp.
   ///
   /// In en, this message translates to:
-  /// **'LOGIN WITH OTP'**
+  /// **'Login with OTP'**
   String get loginWithOtp;
 
   /// No description provided for @loginWithPassword.
   ///
   /// In en, this message translates to:
-  /// **'LOGIN WITH PASSWORD'**
+  /// **'Login with Password'**
   String get loginWithPassword;
 
   /// No description provided for @orLogInWith.
@@ -188,7 +203,7 @@ abstract class AppLocalizations {
   /// No description provided for @sendOtp.
   ///
   /// In en, this message translates to:
-  /// **'SEND OTP'**
+  /// **'Send OTP'**
   String get sendOtp;
 
   /// No description provided for @sendCode.
@@ -200,19 +215,19 @@ abstract class AppLocalizations {
   /// No description provided for @signupWithPassword.
   ///
   /// In en, this message translates to:
-  /// **'SIGN UP WITH PASSWORD '**
+  /// **'Signup with Password'**
   String get signupWithPassword;
 
   /// No description provided for @signupWithOtp.
   ///
   /// In en, this message translates to:
-  /// **'SIGN UP WITH OTP'**
+  /// **'Signup with OTP'**
   String get signupWithOtp;
 
   /// No description provided for @otp.
   ///
   /// In en, this message translates to:
-  /// **'12345'**
+  /// **'Enter your OTP'**
   String get otp;
 
   /// No description provided for @verifyYourself.
@@ -254,7 +269,7 @@ abstract class AppLocalizations {
   /// No description provided for @signUp.
   ///
   /// In en, this message translates to:
-  /// **'REGISTER'**
+  /// **'Register'**
   String get signUp;
 
   /// No description provided for @skip.
@@ -384,7 +399,8 @@ abstract class AppLocalizations {
   String get otpTimeTwo;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -393,25 +409,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'es'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'es': return AppLocalizationsEs();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

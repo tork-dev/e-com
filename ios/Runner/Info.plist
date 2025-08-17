@@ -21,7 +21,10 @@
     <key>CFBundleVersion</key>
     <string>$(FLUTTER_BUILD_NUMBER)</string>
 
-    <!-- Facebook Configuration -->
+    <key>FLTEnableImpeller</key>
+    <false/>
+
+    <!-- Facebook SDK -->
     <key>FacebookAppID</key>
     <string>7989294924414445</string>
     <key>FacebookClientToken</key>
@@ -29,7 +32,7 @@
     <key>FacebookDisplayName</key>
     <string>Kirei</string>
 
-    <!-- URL Schemes -->
+    <!-- URL Types (for deep linking, Facebook, Google Sign-In) -->
     <key>CFBundleURLTypes</key>
     <array>
         <!-- Google Sign-In -->
@@ -39,18 +42,27 @@
                 <string>com.googleusercontent.apps.379616346839-diqg4rqlo9g376sc788un3oot4frhoec</string>
             </array>
         </dict>
-        <!-- Facebook URL Schemes -->
+        <!-- Facebook -->
         <dict>
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>fb7989294924414445</string>
             </array>
             <key>CFBundleURLName</key>
-            <string>kireibd.com</string>
+            <string>facebook</string>
+        </dict>
+        <!-- Custom Deep Link Scheme -->
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>kirei</string> <!-- Replace with your desired custom scheme -->
+            </array>
+            <key>CFBundleURLName</key>
+            <string>beta.kireibd.com</string>
         </dict>
     </array>
 
-    <!-- Facebook LSApplicationQueriesSchemes -->
+    <!-- Facebook Query Schemes -->
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>fbapi</string>
@@ -59,12 +71,7 @@
         <string>fbshareextension</string>
     </array>
 
-    <key>LSRequiresIPhoneOS</key>
-    <true/>
-    <key>ITSAppUsesNonExemptEncryption</key>
-    <false/>
-
-    <!-- Permissions Descriptions -->
+    <!-- Privacy Permissions -->
     <key>NSCalendarsUsageDescription</key>
     <string>calendar</string>
     <key>NSCameraUsageDescription</key>
@@ -92,12 +99,13 @@
         <string>remote-notification</string>
     </array>
 
+    <!-- Launch Screens -->
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>
     <key>UIMainStoryboardFile</key>
     <string>Main</string>
 
-    <!-- Supported Orientations -->
+    <!-- Orientation -->
     <key>UISupportedInterfaceOrientations</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>
@@ -119,8 +127,5 @@
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
 
-    <!-- Flutter Deep Linking -->
-    <key>FlutterDeepLinkingEnabled</key>
-    <true/>
 </dict>
 </plist>

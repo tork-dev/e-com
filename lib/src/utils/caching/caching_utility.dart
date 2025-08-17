@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 
+import '../logging/logger.dart';
+
 class CachingUtility {
   static final _box = Hive.box('cacheBox');
 
@@ -21,6 +23,6 @@ class CachingUtility {
   // Clear all cached data
   static Future<void> clearAll() async {
     await _box.clear();
-    print("All cache cleared!");
+    Log.d("All cache cleared!");
   }
 }

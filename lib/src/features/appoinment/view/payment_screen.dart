@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -44,7 +44,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
           onWebResourceError: (error) {
             Log.d(error.toString());
             AppHelperFunctions.showToast('Something went wrong');
-            Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+            Get.offAllNamed("/home");
           },
         ),
       )
@@ -58,11 +58,11 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
         title: Text('Pay with ${widget.screenName}',
           style: const TextStyle(color: AppColors.primary),),
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
         showCustomLeading: true,
         leadingOnPress: () {
           Log.d('working');
-          Get.offAll(() => const HelloConvexAppBar(pageIndex: 0,));
+          Get.offAllNamed("/home");
         },
         padding: AppSizes.defaultSpace,
         body: buildBody());
@@ -95,11 +95,11 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
       if (responseJSON["result"] == true) {
         AppHelperFunctions.showToast('Payment Successful');
         // handle success
-        Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+        Get.offAllNamed("/home");
       } else if (responseJSON["result"] == false) {
         AppHelperFunctions.showToast('Payment cancelled');
         // handle failure
-        Get.offAll(const HelloConvexAppBar(pageIndex: 0,));
+        Get.offAllNamed("/home");
       }
     });
   }

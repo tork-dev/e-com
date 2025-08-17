@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
+import 'package:kirei/src/features/home/bindings/home_bindings.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 
 import '../../utils/logging/logger.dart';
@@ -39,6 +40,9 @@ class ConvexBottomNavController extends GetxController
     tabController.animateTo(index);
     categoryController.categoryRouteList.clear();
 
+    if(pageIndex.value == 0){
+      HomeBinding();
+    }
     if (pageIndex.value == 2) {
       cartController.onRefresh();
     }

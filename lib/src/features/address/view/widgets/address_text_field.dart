@@ -9,8 +9,8 @@ class AppAddressTextField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     this.verticalPadding = 0,
-    this.borderColor = AppColors.grey,
-    this.borderWidth = 2,
+    this.borderColor = AppColors.lightGrey,
+    this.borderWidth = 1,
     this.hasTitle = true,
     this.validator,
     this.textInputType = TextInputType.text,
@@ -43,15 +43,12 @@ class AppAddressTextField extends StatelessWidget {
               hintText: hintText,
               hintStyle:  TextStyle(color: borderColor, fontWeight: FontWeight.w400),
               border:  OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
                 borderSide: BorderSide(color: borderColor, width: borderWidth)
               ),
               focusedBorder:  OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
                   borderSide: BorderSide(color: borderColor, width: borderWidth)
               ),
               enabledBorder:  OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
                   borderSide: BorderSide(color: borderColor, width: borderWidth)
               ),
             ),

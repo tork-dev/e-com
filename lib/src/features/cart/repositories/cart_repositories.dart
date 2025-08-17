@@ -14,8 +14,9 @@ import '../model/checkout_cart_update_model.dart';
 
 class CartRepositories {
   final int userId = AppLocalStorage().readData(LocalStorageKeys.userId);
-  final dynamic accessToken =
-      AppLocalStorage().readData(LocalStorageKeys.accessToken);
+  final dynamic accessToken = AppLocalStorage().readData(
+    LocalStorageKeys.accessToken,
+  );
 
   /// Add To Cart
   Future<AddToCartResponse> getCartAddResponse(
@@ -24,6 +25,7 @@ class CartRepositories {
     dynamic preorderAvailable,
   ) async {
     var postBody = jsonEncode({
+      "source": "app",
       "id": id,
       "user_id": userId,
       "quantity": quantity,
@@ -47,14 +49,17 @@ class CartRepositories {
   /// Get The Cart Products
   Future<List<CartItemGetResponse>> getCartProducts() async {
     var postBody = jsonEncode({
-      "app_info": await AppHelperFunctions.appInfo()
+      "source": "app",
+      "app_info": await AppHelperFunctions.appInfo(),
     });
-    final response = await http.post(Uri.parse(AppApiEndPoints.cartProducts),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $accessToken",
-        },
-        body: postBody);
+    final response = await http.post(
+      Uri.parse(AppApiEndPoints.cartProducts),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: postBody,
+    );
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
@@ -69,11 +74,14 @@ class CartRepositories {
 
   ///Cart Quantity Update
   Future<CartUpdateResponse> getCartQuantityUpdate(
-      productId, int productQuantity) async {
+    productId,
+    int productQuantity,
+  ) async {
     Uri url = Uri.parse(AppApiEndPoints.cartQuantityUpdate);
     Log.d("cart Change Quantity");
 
     var postBody = jsonEncode({
+      "source": "app",
       "id": productId,
       "quantity": productQuantity,
     });
@@ -96,7 +104,9 @@ class CartRepositories {
 
   ///Delete Cart Product
   Future<CartDeleteResponse> getCartDeleteResponse(int cartId) async {
-    Uri url = Uri.parse("${AppApiEndPoints.cartProductsDelete}/$cartId");
+    Uri url = Uri.parse(
+      "${AppApiEndPoints.cartProductsDelete}/$cartId?source=app",
+    );
     final response = await http.delete(
       url,
       headers: {
@@ -112,31 +122,42 @@ class CartRepositories {
     }
   }
 
-  Future<CheckoutCartUpdateResponse> getCartProcessResponse(
-      {required String cartIds, required String cartQuantities}) async {
-    var postBody =
-        jsonEncode({"cart_ids": cartIds, "cart_quantities": cartQuantities});
+  Future<CheckoutCartUpdateResponse> getCartProcessResponse({
+    required String cartIds,
+    required String cartQuantities,
+  }) async {
+    var postBody = jsonEncode({
+      "source": "app",
+      "cart_ids": cartIds,
+      "cart_quantities": cartQuantities,
+    });
     Log.d(postBody);
     Uri url = Uri.parse(AppApiEndPoints.proceedToCheckout);
-    final response = await http.post(url,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $accessToken",
-        },
-        body: postBody);
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: postBody,
+    );
 
     Log.d(url.toString());
     Log.d(response.body.toString());
     return CheckoutCartUpdateResponse.fromJson(jsonDecode(response.body));
   }
 
-  Future<ProductRequestResponse> getRequestStock(
-      {required int productId}) async {
-    final response = await http
-        .post(Uri.parse("${AppApiEndPoints.requestStock}$productId"), headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer $accessToken",
-    });
+  Future<ProductRequestResponse> getRequestStock({
+    required int productId,
+  }) async {
+    final response = await http.post(
+      Uri.parse("${AppApiEndPoints.requestStock}$productId"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: jsonEncode({"source": "app"}),
+    );
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body.toString());
       return ProductRequestResponse.fromJson(responseBody);

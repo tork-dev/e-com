@@ -78,11 +78,11 @@ class AppEndDrawer extends StatelessWidget {
                     haveTxtButton: false,
                   ),
                   Obx(() {
-                    return drawerController.allCategories.isEmpty
+                    return drawerController.allNewCategories.isEmpty
                         ? const Text('No Categories Here')
                         : AppListViewLayout(
                             applyPadding: false,
-                            itemCount: drawerController.allCategories.length,
+                            itemCount: drawerController.allNewCategories.length,
                             physics: const NeverScrollableScrollPhysics(),
                             builderFunction:
                                 (BuildContext context, int index) => Obx(() {
@@ -96,12 +96,12 @@ class AppEndDrawer extends StatelessWidget {
                                   categoryPassingController
                                       .updateSelectedCategoryIndex(
                                     value!,
-                                    drawerController.allCategories[value].slug!,
+                                    drawerController.allNewCategories[value].slug!,
                                   );
                                 },
                                 dense: true,
                                 title: Text(drawerController
-                                    .allCategories[index].name!),
+                                    .allNewCategories[index].name!),
                               );
                             }),
                           );

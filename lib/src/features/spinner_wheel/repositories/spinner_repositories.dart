@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import '../model/spinner_coupon_list_response.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +18,10 @@ class SpinnerRepositories{
         Uri.parse(AppApiEndPoints.spinnerSelectedCoupon),
       headers: {
         "Authorization": "Bearer $accessToken",
-      }
+      },
+      body: jsonEncode({
+        "source" : "app",
+    })
     );
     return SpinnerCouponResponse.fromJson(response.body);
   }

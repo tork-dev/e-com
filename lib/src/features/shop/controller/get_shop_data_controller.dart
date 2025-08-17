@@ -105,7 +105,6 @@ class GetShopDataController extends GetxController {
 
     if (searchName.value != "") parameters['search'] = searchName;
     if (categories.value != "") {
-      // parameters['category'] = categories.toLowerCase().replaceAll(' ', '-');
       parameters['category'] = categories;
     }
     if (sortKey.value != "") {

@@ -7,7 +7,6 @@ import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../../details/model/products_model.dart';
@@ -25,7 +24,7 @@ class HomeController extends GetxController {
   HomeController({this.callApis = true});
 
   ///Controller
-  GetShopDataController categoryController = Get.put(GetShopDataController());
+  GetShopDataController categoryController = GetShopDataController.instance;
 
   ///TextEditingController
   TextEditingController emailController = TextEditingController();
@@ -43,6 +42,7 @@ class HomeController extends GetxController {
   RxList homeSliders = [].obs;
   RxList homeSlidersLink = [].obs;
   RxBool hittingApi = false.obs;
+  RxBool addingToCart = false.obs;
 
   /// Model Class Instance
   Rx<HomeProductResponse> homeProductResponse = HomeProductResponse().obs;
@@ -60,67 +60,99 @@ class HomeController extends GetxController {
   Rx<SurprizeGiftResponse> surpriseGiftResponse = SurprizeGiftResponse().obs;
 
   //Rx<DeviceTokenUpdateResponse> trendingProductsResponse = DetailsProductsResponse().obs;
+  // ✅ Computed Getters
+  bool get showSurprise =>
+      homeProductResponse.value.homepageSettings?.features?.surprizeGift ??
+      false;
+
+  bool get showReviews =>
+      homeProductResponse.value.homepageSettings?.features?.reviews ?? false;
+
+  bool get showRecommendation =>
+      homeProductResponse.value.homepageSettings?.features?.recommendation ??
+      false;
+
+  bool get showGroupShopping =>
+      homeProductResponse.value.homepageSettings?.features?.groupShopping ??
+      false;
+
+  bool get showSkinConcern =>
+      homeProductResponse.value.homepageSettings?.features?.skinConcern ??
+      false;
+
+  bool get showKireiTube =>
+      homeProductResponse.value.homepageSettings?.features?.kireitube ?? false;
+
+  bool get showFlashSale =>
+      homeProductResponse.value.homepageSettings?.features?.flashSale ?? false;
 
   @override
   void onInit() {
     if (callApis == true) {
       getData();
     }
-    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
-      HomeRepositories().getDeviceTokenUpdateResponse();
-    }
-
     super.onInit();
   }
 
+  // @override
+  // void onClose() {
+  //   emailController.dispose();
+  //   surprisePhoneController.dispose();
+  //   super.onClose();
+  // }
+
   Future<void> onRefresh() async {
-  CachingUtility.clearCache(CachingKeys.allCategoryCachedData);
-  CachingUtility.clearCache(CachingKeys.allCategoryNewCachedData);
-  CachingUtility.clearCache(CachingKeys.featuredCategoryCachedData);
-  CachingUtility.clearCache(CachingKeys.homePageCachedData);
-  await getData();
+    CachingUtility.clearCache(CachingKeys.allCategoryCachedData);
+    CachingUtility.clearCache(CachingKeys.allCategoryNewCachedData);
+    CachingUtility.clearCache(CachingKeys.featuredCategoryCachedData);
+    CachingUtility.clearCache(CachingKeys.homePageCachedData);
+    await getData();
   }
 
-  Future<void> getData() async{
+  Future<void> getData() async {
     homeSlidersLink.clear();
     homeSliders.clear();
-    getProductData();
-    fetchFeaturedCategories();
-    // getRecommendedProducts();
-    getRecommendedProductsForYou();
-    getTrendingProducts();
-  }
 
-  Future<void> getProductData() async {
     hittingApi.value = true;
-    homeProductResponse.value = await HomeRepositories.getHomeProducts();
-    fetchCarouselImages();
-    // homeProductResponse.value.bestsellingProducts[0].id
-    Log.d(
-        homeProductResponse.value.sliders![0].link.toString());
+
+    await Future.wait([
+      getProductData(),
+      fetchFeaturedCategories(),
+      getRecommendedProductsForYou(),
+    ]);
+
     hittingApi.value = false;
   }
 
-  void fetchFeaturedCategories() async {
+  Future<void> getProductData() async {
+    homeProductResponse.value = await HomeRepositories.getHomeProducts();
+    fetchCarouselImages();
+  }
+
+  Future<void> fetchFeaturedCategories() async {
     homeFeaturedCategoryResponse.value =
         await HomeRepositories().getHomeFeaturedCategories();
   }
 
-  Future<AddToCartResponse> getAddToCartResponse(
-      int id, int quantity, dynamic preorderAvailable) async {
-    return addToCartResponse.value = await CartRepositories()
-        .getCartAddResponse(id, quantity, preorderAvailable);
+  Future<void> getAddToCartResponse(
+    int id,
+    int quantity,
+    dynamic preorderAvailable,
+  ) async {
+    addingToCart.value = true;
+    addToCartResponse.value = await CartRepositories().getCartAddResponse(
+      id,
+      quantity,
+      preorderAvailable,
+    );
+    addingToCart.value = false;
   }
 
-  Future<ProductRequestResponse> getRequestResponse(
-      {required int productId}) async {
-    return requestStockResponse.value =
-        await CartRepositories().getRequestStock(productId: productId);
-  }
-
-  Future<DetailsProductsResponse> getRecommendedProducts() async {
-    return recommendedProductsResponse.value =
-        await DetailsRepositories.getRecommendedProduct();
+  Future<ProductRequestResponse> getRequestResponse({
+    required int productId,
+  }) async {
+    return requestStockResponse.value = await CartRepositories()
+        .getRequestStock(productId: productId);
   }
 
   Future<void> getRecommendedProductsForYou() async {
@@ -128,16 +160,11 @@ class HomeController extends GetxController {
         await HomeRepositories.getRecommendedProductForYou();
   }
 
-  Future<DetailsProductsResponse> getTrendingProducts() async {
-    return trendingProductsResponse.value =
-        await HomeRepositories.getTrendingProduct();
-  }
-
   void updateCurrentIndex(int index) {
     carouselCurrentIndex.value = index;
   }
 
-  fetchCarouselImages() {
+  void fetchCarouselImages() {
     var carouselResponse = homeProductResponse.value.sliders;
     debugPrint('sliders $carouselResponse');
     carouselResponse?.forEach((slider) {
@@ -148,10 +175,11 @@ class HomeController extends GetxController {
     });
   }
 
-  Future<void> getSurpriseTap() async {
+  Future<void> submitSurprisePhone() async {
     if (!surprisePhoneKey.currentState!.validate()) return;
-    surpriseGiftResponse.value = await HomeRepositories()
-        .getSurprizResponse(surprisePhoneController.text.toString());
+    surpriseGiftResponse.value = await HomeRepositories().getSurprizResponse(
+      surprisePhoneController.text.toString(),
+    );
     AppHelperFunctions.showToast(surpriseGiftResponse.value.message!);
     surprisePhoneController.clear();
   }

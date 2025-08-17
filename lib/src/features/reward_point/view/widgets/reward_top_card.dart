@@ -29,7 +29,6 @@ class RewardTopCard extends StatelessWidget {
           width: AppHelperFunctions.screenWidth(),
           hasBorder: true,
           borderColor: AppColors.lightGrey,
-          applyRadius: false,
           padding: const EdgeInsets.all(AppSizes.md),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

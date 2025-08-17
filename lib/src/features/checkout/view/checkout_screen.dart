@@ -37,7 +37,7 @@ class CheckoutScreen extends StatelessWidget {
     return AppLayoutWithBackButton(
       padding: 0,
       backgroundColor: AppColors.white,
-      bodyBackgroundColor: AppColors.lightGrey,
+      bodyBackgroundColor: AppColors.secondaryBackground,
       leadingIconColor: AppColors.darkGrey,
       title: const Text(
         'Checkout',
@@ -48,6 +48,7 @@ class CheckoutScreen extends StatelessWidget {
         onPressed: () {
           controller.onPressProceedToCheckout();
         },
+        applyRadius: false,
         buttonText: 'PLACE MY ORDER',
       ),
       body: Obx(() {
@@ -86,13 +87,14 @@ class CheckoutScreen extends StatelessWidget {
                         AppAddressTextField(
                           hintText: 'Notes about your order',
                           controller: controller.notesController,
-                          borderColor: AppColors.secondary,
+                          borderColor: AppColors.darkGrey,
                           verticalPadding: AppSizes.md,
                           borderWidth: 1,
                           hasTitle: false,
                         ),
                         const Gap(AppSizes.spaceBtwDefaultItems),
                         const AppPaymentMethodType(),
+                        const Gap(AppSizes.defaultSpace),
                       ],
                     ),
                   ),

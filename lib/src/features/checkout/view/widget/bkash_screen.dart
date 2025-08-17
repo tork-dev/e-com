@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 import '../../../../utils/logging/logger.dart';
 import '../order_status_page.dart';
 
@@ -42,7 +43,19 @@ class _BkashScreenState extends State<BkashScreen> {
         ..setNavigationDelegate(
           NavigationDelegate(
             onPageFinished: (String url) {
-              readResponse();
+              // readResponse();
+
+              print("Url : $url");
+              Log.i('navigation finished $url');
+              if (url.contains("result=true&payment_status=paid&message=Successfully%20Ordered")) {
+                AppHelperFunctions.showToast('Successfully Paid');
+                navigateToOrderSuccess('Successfully Ordered', true);
+              } else if (url.contains("result=false&payment_status=invalid&message=Payment%20Cancelled") ) {
+                AppHelperFunctions.showToast("Payment Cancelled");
+                navigateToOrderSuccess("Payment Cancelled", false);
+              }else if(url.contains("result=false&payment_status=invalid&message=Payment%20Failed")){
+                navigateToOrderSuccess("Payment Failed", false);
+              }
             },
             onWebResourceError: (error) {
               Log.d(error.toString());
@@ -61,11 +74,11 @@ class _BkashScreenState extends State<BkashScreen> {
         showCustomLeading: true,
         backToHome: true,
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
       title: const Text('Pay with Bkash', style: TextStyle(color: AppColors.primary),),
         leadingOnPress: (){
           Log.d('working');
-        Get.offAll(()=> const HelloConvexAppBar());
+          Get.offAllNamed("/home");
         },
         padding: 0,
         body: buildBody());

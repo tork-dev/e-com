@@ -14,7 +14,7 @@ class WishlistRepositories {
 
   Future<WishListAddResponse> addToWishList({required int productId}) async {
     Uri url = Uri.parse(
-        "${AppApiEndPoints.addWishlistProduct}$productId");
+        "${AppApiEndPoints.addWishlistProduct}$productId?source=app");
 
     Log.d(url.toString());
     final response = await http.get(
@@ -30,7 +30,7 @@ class WishlistRepositories {
   Future<WishListAddResponse> isProductInUserWishList(
       {required int productId}) async {
     Uri url = Uri.parse(
-        "${AppApiEndPoints.checkWishlistProduct}$productId");
+        "${AppApiEndPoints.checkWishlistProduct}$productId?source=app");
     final response = await http.get(
       url,
       headers: {
@@ -42,7 +42,7 @@ class WishlistRepositories {
   }
 
   Future<WishlistResponse> getWishlistProduct() async {
-    final response = await http.get(Uri.parse(AppApiEndPoints.wishlistProducts),
+    final response = await http.get(Uri.parse("${AppApiEndPoints.wishlistProducts}?source=app"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $accessToken",
@@ -57,7 +57,7 @@ class WishlistRepositories {
   }
 
   Future<WishlistRemoveResponse> deleteFromWishlist(int id) async {
-    final response = await http.delete(Uri.parse('${AppApiEndPoints.wishlistProducts}/$id'),
+    final response = await http.delete(Uri.parse('${AppApiEndPoints.wishlistProducts}/$id?source=app'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $accessToken",
@@ -72,7 +72,7 @@ class WishlistRepositories {
 
 
   Future<WishListAddResponse> removeResponse(int id) async {
-    final response = await http.get(Uri.parse('${AppApiEndPoints.removeWishlistProduct}$id'),
+    final response = await http.get(Uri.parse('${AppApiEndPoints.removeWishlistProduct}$id?source=app'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $accessToken",

@@ -29,7 +29,7 @@ class CustomTabBar extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: showBackArrow
             ? IconButton(
-            onPressed: () => Get.back, icon: const Icon(Icons.arrow_back))
+            onPressed: () => Get.back, icon: const Icon(Icons.arrow_back_ios_new_rounded))
             : IconButton(onPressed: leadingOnPress, icon: Icon(leadingIcon)),
         title: title,
         actions: actions,

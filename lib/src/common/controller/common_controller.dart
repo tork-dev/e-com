@@ -12,12 +12,12 @@ class CommonController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // Initialize GAIP User ID Controller if not already initialized
-      Log.d('calling gaip user id before');
-    if (AppLocalStorage().readData(LocalStorageKeys.gaipUserId) == null) {
-      Log.d('calling gaip user id');
-      GaipUserIdController().getGaipUserId();
-    }
+    AppLocalStorage().saveData(LocalStorageKeys.facebookLogin, false);
+    AppLocalStorage().saveData(LocalStorageKeys.googleLogin, false);
+    AppLocalStorage().saveData(LocalStorageKeys.appleLogin, false);
+    AppLocalStorage().saveData(LocalStorageKeys.facebookLogin, false);
+    AppLocalStorage().saveData(LocalStorageKeys.facebookLogin, false);
+
     showPopUp();
   }
 

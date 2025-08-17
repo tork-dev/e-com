@@ -21,7 +21,7 @@ class AppSortAlertDialog extends StatelessWidget {
         bottom: 2.0,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSizes.borderRadiusSm), // Customize border radius here
+        borderRadius: BorderRadius.circular(AppSizes.cardRadiusSm), // Customize border radius here
       ),
       backgroundColor: AppColors.white,
       content: AppCardContainer(

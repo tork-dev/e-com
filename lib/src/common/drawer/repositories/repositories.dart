@@ -33,7 +33,7 @@ class DrawerRepositories{
 
   Future<List<AllCategory>> getAllCategories() async {
     final allCategoriesCachedData = CachingUtility.getData(
-        CachingKeys.allCategoryNewCachedData);
+        CachingKeys.allCategoryCachedData);
 
     if (allCategoriesCachedData != null) {
       // ✅ Decode the cached JSON string
@@ -49,7 +49,7 @@ class DrawerRepositories{
     if (response.statusCode == 200) {
       // ✅ Save the response as a string
       await CachingUtility.saveData(
-          CachingKeys.allCategoryNewCachedData, response.body);
+          CachingKeys.allCategoryCachedData, response.body);
 
       final List<dynamic> jsonResponse = json.decode(response.body);
       return jsonResponse

@@ -15,7 +15,6 @@ class RedeemPointPart extends StatelessWidget {
     final checkoutController = CheckoutController.instance;
     return AppCardContainer(
         backgroundColor: AppColors.white,
-        applyRadius: false,
         padding: const EdgeInsets.all(AppSizes.md),
         child: Obx( () {
             return Row(
@@ -39,6 +38,7 @@ class RedeemPointPart extends StatelessWidget {
                     onTap: () {
                       checkoutController.rewardBalance.value > 99
                           ? checkoutController.pointRedeemAlert()
+                          // checkoutController.pointRedeemAlert();
                           : AppHelperFunctions.showToast(
                               'You have not enough points');
                     },

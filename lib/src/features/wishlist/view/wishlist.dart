@@ -17,17 +17,19 @@ class WishlistScreen extends StatelessWidget {
     final controller = Get.put(WishlistController());
     return AppLayoutWithBackButton(
       centerTitle: true,
+        backgroundColor: AppColors.primary,
         title: const Text(
           'My WishList',
-          style: TextStyle(color: AppColors.secondary),
+          style: TextStyle(color: AppColors.white),
         ),
-        leadingIconColor: AppColors.darkGrey,
+        leadingIconColor: AppColors.white,
         padding: 0,
         body: Stack(
           children: [
             AppLayoutWithRefresher(
               onRefresh: controller.onRefresh,
               children: [
+                Gap(AppSizes.lg),
                 Obx(() {
                   return Padding(
                     padding: const EdgeInsets.symmetric(

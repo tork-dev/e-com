@@ -10,7 +10,7 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/firebase/gtm_events.dart';
 import '../../../utils/helpers/helper_functions.dart';
-import '../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../bottom_navigation/convex_bottom_navigation.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../controller/recommendation_controller.dart';
 
@@ -37,10 +37,10 @@ class RecommendedProducts extends StatelessWidget {
       centerTitle: true,
       leadingIconColor: AppColors.darkGrey,
       showBackButton: false,
-      customLeadingIcon: Icons.arrow_back,
+      customLeadingIcon: Icons.arrow_back_ios_new_rounded,
       showCustomLeading: true,
       leadingOnPress: () {
-        Get.offAll(() => const HelloConvexAppBar());
+        Get.offAllNamed("/home");
       },
       body: Obx(() {
         // Displaying shimmer while loading data
@@ -94,7 +94,7 @@ class RecommendedProducts extends StatelessWidget {
                                   );
 
                                   EventLogger().logProductDetailsViewEvent(
-                                    '${product.slug}',
+                                    '${product.slug}', product.salePrice! as double
                                   );
                                 },
                                 onCartTap: () {
@@ -150,12 +150,12 @@ class RecommendedProducts extends StatelessWidget {
                                 price: product.price ?? 0,
                                 buttonName:
                                     product.stock != 0
-                                        ? "ADD TO CART"
+                                        ? "Add To cart"
                                         : product.preorderAvailable != 0
-                                        ? "PREORDER NOW"
+                                        ? "Preorder now"
                                         : product.requestAvailable != 0
-                                        ? "REQUEST STOCK"
-                                        : "OUT OF STOCK",
+                                        ? "Request stock"
+                                        : "Out of stock",
                                 backgroundColor:
                                     product.stock != 0
                                         ? AppColors.addToCartButton

@@ -15,7 +15,8 @@ import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../../../utils/firebase/gtm_events.dart';
 import '../../../../../utils/helpers/auth_helper.dart';
-import '../../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../../../bottom_navigation/convex_bottom_navigation.dart';
+import '../../../../home/repositories/home_repositories.dart';
 import '../../../model/resend_code_model.dart';
 
 class OtpController extends GetxController {
@@ -99,9 +100,8 @@ class OtpController extends GetxController {
               signUpController.isSignupOtp.value != true) {
             Get.to(() => const NewPassword());
           } else {
-            Get.offAll(() => const HelloConvexAppBar(
-                  pageIndex: 0,
-                ));
+            HomeRepositories().getDeviceTokenUpdateResponse();
+            Get.offAllNamed("/home");
             EventLogger().logLoginEvent('Otp');
           }
         } else {

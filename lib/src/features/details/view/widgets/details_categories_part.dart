@@ -17,6 +17,7 @@ class AppDetailsCategoriesPart extends StatelessWidget {
     DetailsPageController controller = DetailsPageController.instance;
     return Obx(() {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           controller.productDetails.value.detailedProducts == null
               ? Padding(padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),child: ShimmerHelper().buildBasicShimmer(height: 50))
@@ -24,21 +25,21 @@ class AppDetailsCategoriesPart extends StatelessWidget {
                   visible: controller.productDetails.value.detailedProducts!
                       .skinTypes!.isNotEmpty,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: AppDetailsTagBorderWidget(
-                          onTap: () {
-                          },
+                        padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+
+                        child: AppDetailsTagUnderlineWidget(
+                          onTap: () {},
                           title: 'Skin Types: ',
+                          haveColor: true,
+                          haveUnderLine: false,
                           types: controller.productDetails.value
                               .detailedProducts!.skinTypes!,
                         ),
                       ),
-                      const Gap(AppSizes.spaceBtwDefaultItems),
-                      AppDividersStyle.fullFlatAppDivider,
-                      const Gap(AppSizes.spaceBtwDefaultItems),
+                      const Gap(AppSizes.lg),
                     ],
                   ),
                 ),
@@ -61,9 +62,7 @@ class AppDetailsCategoriesPart extends StatelessWidget {
                               .detailedProducts!.keyIngredients!,
                         ),
                       ),
-                      const Gap(AppSizes.spaceBtwDefaultItems),
-                      AppDividersStyle.fullFlatAppDivider,
-                      const Gap(AppSizes.spaceBtwDefaultItems),
+                      const Gap(AppSizes.lg)
                     ],
                   ),
                 ),
@@ -76,17 +75,17 @@ class AppDetailsCategoriesPart extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: AppDetailsTagBorderWidget(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+                  child: AppDetailsTagUnderlineWidget(
                     onTap: () {},
                     title: 'Good For: ',
+                    haveColor: true,
+                    haveUnderLine: false,
                     types: controller.productDetails.value
                         .detailedProducts!.goodFor!,
                   ),
                 ),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwDefaultItems),
+                const Gap(AppSizes.lg)
               ],
             ),
           ),
@@ -109,9 +108,7 @@ class AppDetailsCategoriesPart extends StatelessWidget {
                         .detailedProducts!.productCategories!,
                   ),
                 ),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwDefaultItems),
+                const Gap(AppSizes.lg)
               ],
             ),
           ),

@@ -30,7 +30,7 @@ class CartScreen extends StatelessWidget {
         title: const Text('Shopping Cart',
             style: TextStyle(color: AppColors.white)),
         centerTitle: true,
-        bodyBackgroundColor: AppColors.lightGrey,
+        bodyBackgroundColor: AppColors.secondaryBackground,
         backgroundColor: AppColors.primary,
         padding: 0,
         body: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/bottom_navigation/convex-bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -27,7 +27,6 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                     null
                 ? ShimmerHelper().buildBasicShimmer(height: 125)
                 : AppCardContainer(
-                    applyRadius: false,
                     onTap: () {
                       Get.toNamed(
                           '/order/${purchaseHistoryController.purchaseHistoryList.value.data![index].id!}');
@@ -54,8 +53,8 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                                 ),
                                 const Gap(AppSizes.sm),
                                 // PaymentStatusIndicator(
-                                //   paymentStatus:
-                                // )
+                                //   paymentStatus: "pending"
+                                // ),
                               ],
                             ),
                             const Gap(AppSizes.xs),
@@ -77,39 +76,45 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                             Text(
                                 '${purchaseHistoryController.purchaseHistoryList.value.data![index].date}'),
                             const Gap(AppSizes.xs),
-                            InkWell(
-                              onTap: () {
-                                purchaseHistoryController
-                                    .getReorderResponse(
-                                        purchaseHistoryController
-                                            .purchaseHistoryList
-                                            .value
-                                            .data![index]
-                                            .id!)
-                                    .then((value) => {
-                                          AppHelperFunctions.showToast(
-                                              purchaseHistoryController
-                                                  .reOrderResponse
-                                                  .value
-                                                  .message!),
-                                          Get.offAll(
-                                              () => const HelloConvexAppBar(
-                                                    pageIndex: 2,
-                                                  ))
-                                        });
-                              },
-                              child: AppCardContainer(
-                                padding: const EdgeInsets.all(AppSizes.sm),
-                                applyRadius: false,
-                                backgroundColor: AppColors.black,
-                                child: Text(
-                                  'Re-order',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge!
-                                      .apply(color: AppColors.white),
+                            Row(
+                              spacing: AppSizes.sm,
+                              children: [
+
+                                InkWell(
+                                  onTap: () {
+                                    purchaseHistoryController
+                                        .getReorderResponse(
+                                            purchaseHistoryController
+                                                .purchaseHistoryList
+                                                .value
+                                                .data![index]
+                                                .id!)
+                                        .then((value) => {
+                                              AppHelperFunctions.showToast(
+                                                  purchaseHistoryController
+                                                      .reOrderResponse
+                                                      .value
+                                                      .message!),
+                                              Get.offAll(
+                                                  () => const HelloConvexAppBar(
+                                                        pageIndex: 2,
+                                                      ))
+                                            });
+                                  },
+                                  child: AppCardContainer(
+                                    padding: const EdgeInsets.all(AppSizes.sm),
+                                    borderRadius: AppSizes.cardRadiusXs,
+                                    backgroundColor: AppColors.black,
+                                    child: Text(
+                                      'Re-order',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium!
+                                          .apply(color: AppColors.white),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             )
                           ],
                         )

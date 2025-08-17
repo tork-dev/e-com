@@ -27,7 +27,6 @@ class KipCardWidget extends StatelessWidget {
         width: AppHelperFunctions.screenWidth(),
         padding: const EdgeInsets.all(AppSizes.md),
         backgroundColor: cardColor,
-        applyRadius: false,
         child: Column(
           children: [
             AppCardContainer(

@@ -19,22 +19,24 @@ class AddressScreen extends StatelessWidget {
     return AppLayoutWithBackButton(
       title: const Text(
         'Address of user',
-        style: TextStyle(color: AppColors.secondary),
+        style: TextStyle(color: AppColors.white),
       ),
         centerTitle: true,
-        leadingIconColor: AppColors.darkGrey,
+        leadingIconColor: AppColors.white,
+        backgroundColor: AppColors.primary,
         padding: AppSizes.defaultSpace,
         body: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
           children:  [
+            Gap(AppSizes.lg),
             const AppAllAddressFields(),
-            const Gap(AppSizes.spaceBtwDefaultItems),
+            const Gap(AppSizes.defaultSpace),
             AppButtons.largeFlatFilledButton(
                 backgroundColor: AppColors.secondary,
                 onPressed: (){
                   controller.onPressSave();
                 },
-                buttonText: 'SAVE')
+                buttonText: 'Save')
           ],
         ));
   }

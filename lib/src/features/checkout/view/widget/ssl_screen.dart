@@ -5,7 +5,7 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../utils/logging/logger.dart';
-import '../../../bottom_navigation/convex-bottom_navigation.dart';
+import '../../../bottom_navigation/convex_bottom_navigation.dart';
 import '../order_status_page.dart';
 
 class SslCommerzScreen extends StatefulWidget {
@@ -45,13 +45,16 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
         NavigationDelegate(
           onPageFinished: (String url) {
             Log.d(url);
-            if (url.contains("status=success")) {
-              AppHelperFunctions.showToast('Order Successful');
-              navigateToOrderSuccess('Order Successful', true);
-            } else if (url.contains("status=failure") ||
-                url.contains("status=DECLINED")) {
+            print("Url : $url");
+            Log.i('navigation finished $url');
+            if (url.contains("result=true&payment_status=paid&message=Successfully%20Ordered")) {
+              AppHelperFunctions.showToast('Successfully Paid');
+              navigateToOrderSuccess('Successfully Ordered', true);
+            } else if (url.contains("result=false&payment_status=invalid&message=Payment%20Cancelled")) {
               AppHelperFunctions.showToast("Payment Cancelled");
               navigateToOrderSuccess("Payment Cancelled", false);
+            }else if(url.contains("result=false&payment_status=invalid&message=Payment%20Failed")){
+              navigateToOrderSuccess("Payment Failed", false);
             }
           },
           onWebResourceError: (error) {
@@ -70,14 +73,14 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
         showCustomLeading: true,
         backToHome: true,
         showBackButton: false,
-        customLeadingIcon: Icons.arrow_back,
+        customLeadingIcon: Icons.arrow_back_ios_new_rounded,
         title: const Text(
           'Pay with Sslcommerz',
           style: TextStyle(color: AppColors.primary),
         ),
         leadingOnPress: () {
           Log.d('working');
-          Get.offAll(() => const HelloConvexAppBar());
+          Get.offAllNamed("/home");
         },
         body: buildBody());
   }
