@@ -110,10 +110,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/orders-details', page: () => const PurchaseHistory()),
         GetPage(name: '/order/:id', page: () => const PurchaseHistoryDetails()),
         GetPage(
-            name: '/blogs',
-            page: () => WebViewScreen(
-                url: '$baseUrlWeb/blogs?type=app', title: 'Bogs')),
-        GetPage(
             name: '/about-us',
             page: () => WebViewScreen(
                 url: '$baseUrlWeb/about-us?type=app', title: 'Who We Are?')),
@@ -125,11 +121,6 @@ class MyApp extends StatelessWidget {
             name: '/contact-us',
             page: () => WebViewScreen(
                 url: '$baseUrlWeb/contact-us?type=app', title: 'Contact Us')),
-        GetPage(
-            name: '/testimonials',
-            page: () => WebViewScreen(
-                url: '$baseUrlWeb/testimonials?type=app',
-                title: 'Testimonials')),
         GetPage(
             name: '/testimonials',
             page: () => WebViewScreen(
@@ -150,11 +141,6 @@ class MyApp extends StatelessWidget {
             page: () => WebViewScreen(
                 url: '$baseUrlWeb/return-refund?type=app',
                 title: 'Returns & Refunds')),
-        GetPage(
-            name: '/responsible-disclosure',
-            page: () => WebViewScreen(
-                url: '$baseUrlWeb/responsible-disclosure?type=app',
-                title: 'Responsible Disclosure')),
         GetPage(
             name: '/responsible-disclosure',
             page: () => WebViewScreen(

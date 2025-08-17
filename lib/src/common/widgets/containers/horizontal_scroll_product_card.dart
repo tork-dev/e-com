@@ -83,8 +83,8 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                   });
                 }
 
-                EventLogger().logAddToCartEvent('${sectionName![index].slug}',
-                    sectionName![index].salePrice!);
+                // EventLogger().logAddToCartEvent('${sectionName![index].slug}',
+                //     sectionName![index].salePrice!);
               },
               productName: sectionName![index].name!,
               ratings: sectionName![index].ratings!.toDouble(),

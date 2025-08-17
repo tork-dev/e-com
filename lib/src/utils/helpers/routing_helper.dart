@@ -4,7 +4,7 @@ import '../local_storage/storage_utility.dart';
 import '../logging/logger.dart';
 
 class RoutingHelper {
-  static urlRouting(String? url) {
+  static void urlRouting(String? url) {
     String baseUrl = AppLocalStorage().readData(LocalStorageKeys.appUrl);
     print("url to route $url");
     Log.d(baseUrl);

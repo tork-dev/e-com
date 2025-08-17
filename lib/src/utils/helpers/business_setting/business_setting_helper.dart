@@ -26,6 +26,7 @@ class BusinessSettingHelper extends GetxController {
   RxString iosAppVersion = ''.obs;
   RxBool isAndroidUpdateRequired = false.obs;
   RxBool isIosUpdateRequired = false.obs;
+  RxBool isInMaintenanceMode = false.obs;
 
   Future<void> setBusinessSettingData() async {
     OnBoardingController onBoardingController = OnBoardingController.instance;
@@ -106,6 +107,11 @@ class BusinessSettingHelper extends GetxController {
               LocalStorageKeys.doctorAppointmentFee,
               element.value.toString(),
             );
+          }
+        case 'maintenance_mode':
+          {
+            bool isEnabled = element.value.toString() == "1";
+            AppLocalStorage().saveData(LocalStorageKeys.isInMaintenanceMode, isEnabled);
           }
           break;
         default:
