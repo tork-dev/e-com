@@ -12,7 +12,7 @@ import '../logging/logger.dart';
 class NotificationServices {
   final FirebaseMessaging messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   // Android channel ID & name
   static const String channelId = 'high_importance_channel';
@@ -20,11 +20,14 @@ class NotificationServices {
 
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings androidSettings =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-    const DarwinInitializationSettings iosSettings = DarwinInitializationSettings();
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const DarwinInitializationSettings iosSettings =
+        DarwinInitializationSettings();
 
-    const InitializationSettings initSettings =
-    InitializationSettings(android: androidSettings, iOS: iosSettings);
+    const InitializationSettings initSettings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
+    );
 
     await _flutterLocalNotificationsPlugin.initialize(
       initSettings,
@@ -50,7 +53,8 @@ class NotificationServices {
 
     await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.createNotificationChannel(channel);
   }
 
@@ -121,8 +125,10 @@ class NotificationServices {
       presentSound: true,
     );
 
-    final notificationDetails =
-    NotificationDetails(android: androidDetails, iOS: iosDetails);
+    final notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
 
     // Use a unique notification ID (e.g., current timestamp)
     int notificationId = DateTime.now().millisecondsSinceEpoch ~/ 1000;
@@ -138,7 +144,9 @@ class NotificationServices {
 
   void handleMessageFromData(Map<String, dynamic> data) {
     if (data.containsKey('route')) {
-      RoutingHelper.urlRouting(data['route']);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        RoutingHelper.urlRouting(data['route']);
+      });
     }
   }
 
@@ -164,7 +172,8 @@ class NotificationServices {
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       Log.d('User granted notification permission');
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
       Log.d('User granted provisional notification permission');
     } else {
       Log.d('User denied notification permission');

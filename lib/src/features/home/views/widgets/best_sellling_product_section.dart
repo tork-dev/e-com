@@ -30,7 +30,7 @@ class BestSellingProductSection extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
             child: AppHorizontalScrollProductCard(
-              sectionName:homeProductResponse.value.bestsellingProducts,
+              sectionName: homeProductResponse.value.bestsellingProducts,
             ),
           );
         }),

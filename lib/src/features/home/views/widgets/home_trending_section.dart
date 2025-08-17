@@ -321,7 +321,9 @@ class HomeTrendingSection extends StatelessWidget {
                           width: 150,
                           child: AppButtons.largeFlatFilledButton(
                             onPressed: () {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
                               RoutingHelper.urlRouting(homeController.homeProductResponse.value.trending?[1].categoryUrl);
+                              });
                             },
                             buttonText: "View more",
                             backgroundColor: AppColors.secondary,

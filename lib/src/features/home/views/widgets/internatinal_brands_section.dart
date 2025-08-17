@@ -7,7 +7,6 @@ import '../../../../common/widgets/texts/section_title_text.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../model/home_products_model.dart';
 
-
 class InternationalBrandsSection extends StatelessWidget {
   const InternationalBrandsSection({
     super.key,
@@ -31,8 +30,7 @@ class InternationalBrandsSection extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
             child: AppHorizontalScrollProductCard(
-              sectionName:
-              homeProductResponse.value.internationalBrands,
+              sectionName: homeProductResponse.value.internationalBrands,
             ),
           );
         }),

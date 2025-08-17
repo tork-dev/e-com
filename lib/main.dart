@@ -20,14 +20,14 @@ import 'src/utils/helpers/app_life_cycle_helper.dart';
 // Background message handler must be a top-level function
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // await Firebase.initializeApp();
-  // await NotificationServices().showNotification(message);
+  await Firebase.initializeApp();
+  await NotificationServices().initializeLocalNotifications();
+  await NotificationServices().showNotification(message);
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   AppLifecycleObserver lifecycleObserver = AppLifecycleObserver();
   WidgetsBinding.instance.addObserver(lifecycleObserver);
@@ -57,17 +57,19 @@ void main() async {
 
   // Initialize Firebase
   try {
-    await Firebase.initializeApp(name: 'KireiBD');
+    await Firebase.initializeApp();
   } catch (e) {
-      debugPrint("Firebase initialization error: $e");
+    debugPrint("Firebase initialization error: $e");
   }
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Set system UI overlay style
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
 
   // Initialize notification services
   // Initialize notification services

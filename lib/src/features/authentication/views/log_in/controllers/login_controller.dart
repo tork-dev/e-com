@@ -23,14 +23,13 @@ import '../model/social_option_model.dart';
 class LogInPageController extends GetxController {
   static LogInPageController get instance => Get.find();
 
-
   RxString previousRoute = '/home'.obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    if(Get.arguments != null) {
+    if (Get.arguments != null) {
       previousRoute.value = Get.arguments["prevRoute"] ?? '/home';
     }
   }
@@ -69,12 +68,17 @@ class LogInPageController extends GetxController {
       Log.i(loginResponse.value.toString());
 
       ///Save
-      AppLocalStorage()
-          .saveData(LocalStorageKeys.isRememberMe, rememberMe.value);
+      AppLocalStorage().saveData(
+        LocalStorageKeys.isRememberMe,
+        rememberMe.value,
+      );
       EventLogger().logLoginEvent('email and Password');
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
+      AppLoaders.errorSnackBar(
+        title: 'oh, Snap',
+        message: "Something went wrong, Please try again",
+      );
     } finally {
       CustomLoader.hideLoader(Get.overlayContext!);
       //FullScreenLoader.stopLoading();
@@ -164,18 +168,23 @@ class LogInPageController extends GetxController {
 
       // Listen to auth events and extract the signed-in user
       final GoogleSignInAccount? googleUser = await signIn.authenticationEvents
-          .map((event) => switch (event) {
-        GoogleSignInAuthenticationEventSignIn() => event.user,
-        GoogleSignInAuthenticationEventSignOut() => null,
-      })
+          .map(
+            (event) => switch (event) {
+              GoogleSignInAuthenticationEventSignIn() => event.user,
+              GoogleSignInAuthenticationEventSignOut() => null,
+            },
+          )
           .firstWhere((user) => user != null);
 
       if (googleUser == null) {
-        AppHelperFunctions.showSimpleSnackBar("Google sign-in failed or was cancelled.");
+        AppHelperFunctions.showSimpleSnackBar(
+          "Google sign-in failed or was cancelled.",
+        );
         return;
       }
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       // Call your backend API
       loginResponse.value = await AuthRepository().getSocialLoginResponse(
@@ -186,7 +195,9 @@ class LogInPageController extends GetxController {
         accessToken: googleAuth.idToken,
       );
     } on GoogleSignInException catch (e) {
-      AppHelperFunctions.showSimpleSnackBar("Google Sign-In error: ${e.code} - ${e.description}");
+      AppHelperFunctions.showSimpleSnackBar(
+        "Google Sign-In error: ${e.code} - ${e.description}",
+      );
     } catch (e) {
       AppHelperFunctions.showSimpleSnackBar("Sign-In failed: $e");
     } finally {
@@ -208,8 +219,7 @@ class LogInPageController extends GetxController {
     }
   }
 
-
-////////////////////////facebook login //////////////////////
+  ////////////////////////facebook login //////////////////////
   Future<void> onPressedFacebookLogin() async {
     try {
       CustomLoader.showLoaderDialog(Get.context!);
@@ -219,20 +229,23 @@ class LogInPageController extends GetxController {
         final AccessToken? accessToken = result.accessToken;
         final userData = await FacebookAuth.instance.getUserData();
         loginResponse.value = await AuthRepository().getSocialLoginResponse(
-            "facebook",
-            userData["name"].toString(),
-            userData["email"].toString(),
-            userData["id"].toString(),
-            accessToken: accessToken?.tokenString);
+          "facebook",
+          userData["name"].toString(),
+          userData["email"].toString(),
+          userData["id"].toString(),
+          accessToken: accessToken?.tokenString,
+        );
         AppHelperFunctions.showToast(loginResponse.value.message!);
       } else {
         AppHelperFunctions.showToast(result.message!);
       }
     } on Exception catch (e) {
       Log.e(e.toString());
-      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
+      AppHelperFunctions.showSimpleSnackBar(
+        "Something went wrong, Please try again",
+      );
       // TODO
-    }finally{
+    } finally {
       CustomLoader.hideLoader(Get.context!);
       if (loginResponse.value.result == true) {
         EventLogger().logLoginEvent('Facebook');
@@ -262,16 +275,21 @@ class LogInPageController extends GetxController {
       );
     } catch (e) {
       /// Error
-      AppLoaders.errorSnackBar(title: 'oh, Snap', message: "Something went wrong, Please try again");
+      AppLoaders.errorSnackBar(
+        title: 'oh, Snap',
+        message: "Something went wrong, Please try again",
+      );
     } finally {
       if (logInFormKey.currentState!.validate()) {
         if (sendOtpResponse.value.result == true) {
           AppHelperFunctions.showToast(
-              sendOtpResponse.value.message.toString());
+            sendOtpResponse.value.message.toString(),
+          );
           Get.to(() => const Otp());
         } else {
           AppHelperFunctions.showToast(
-              sendOtpResponse.value.message.toString());
+            sendOtpResponse.value.message.toString(),
+          );
         }
       }
     }
@@ -295,16 +313,19 @@ class LogInPageController extends GetxController {
       );
       Log.d(credential.toString());
       loginResponse.value = await AuthRepository().getSocialLoginResponse(
-          'apple',
-          credential.givenName,
-          credential.email,
-          credential.authorizationCode,
-          accessToken: credential.identityToken);
+        'apple',
+        credential.givenName,
+        credential.email,
+        credential.authorizationCode,
+        accessToken: credential.identityToken,
+      );
     } on Exception catch (e) {
-      AppHelperFunctions.showSimpleSnackBar("Something went wrong, Please try again");
+      AppHelperFunctions.showSimpleSnackBar(
+        "Something went wrong, Please try again",
+      );
       Log.d("error is ....... $e");
       // TODO
-    }finally{
+    } finally {
       CustomLoader.hideLoader(Get.context!);
 
       if (loginResponse.value.result == true) {
@@ -317,68 +338,68 @@ class LogInPageController extends GetxController {
     }
   }
 
-// Future<UserCredential> onPressAppleLogin() async {
-//   print('apple');
-//   try {
-//     final rawNonce = generateNonce();
-//     final nonce = sha256ofString(rawNonce);
-//
-//     final appleCredential = await SignInWithApple.getAppleIDCredential(
-//       scopes: [
-//         AppleIDAuthorizationScopes.email,
-//         AppleIDAuthorizationScopes.fullName,
-//       ],
-//       // webAuthenticationOptions: WebAuthenticationOptions(
-//       //   clientId: '6502335026', // Replace with your Client ID
-//       //   redirectUri: Uri.parse(
-//       //     'https://com.thetork.kirei.firebaseapp.com/__/auth/handler', // Replace with your redirect URI
-//       //   ),
-//       // ),
-//       nonce: nonce,
-//     );
-//
-//
-//     final oauthCredential = OAuthProvider("apple.com").credential(
-//       idToken: appleCredential.identityToken,
-//       rawNonce: rawNonce,
-//     );
-//
-//
-//
-//     var loginResponse = await AuthRepository().getSocialLoginResponse(
-//         "apple", appleCredential.givenName, appleCredential.email, appleCredential.authorizationCode,
-//         access_token: appleCredential.identityToken);
-//
-//     if (loginResponse.result == false) {
-//       ToastComponent.showDialog(loginResponse.message, context,
-//           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
-//     } else if(loginResponse.result == true) {
-//       ToastComponent.showDialog(loginResponse.message, context,
-//           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
-//       AuthHelper().setUserData(loginResponse);
-//       Navigator.push(context, MaterialPageRoute(builder: (context) {
-//         return Main();
-//       }));
-//     }
-//     // GoogleSignIn().disconnect();
-//
-//     final userCredential = await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-//     return userCredential;
-//   } catch (e) {
-//     print("Error during Apple Sign-In: $e");
-//     throw e;
-//   }
-// }
-//
-// String generateNonce([int length = 32]) {
-//   final charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
-//   final random = Random.secure();
-//   return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
-// }
-//
-// String sha256ofString(String input) {
-//   final bytes = utf8.encode(input);
-//   final digest = sha256.convert(bytes);
-//   return digest.toString();
-// }
+  // Future<UserCredential> onPressAppleLogin() async {
+  //   print('apple');
+  //   try {
+  //     final rawNonce = generateNonce();
+  //     final nonce = sha256ofString(rawNonce);
+  //
+  //     final appleCredential = await SignInWithApple.getAppleIDCredential(
+  //       scopes: [
+  //         AppleIDAuthorizationScopes.email,
+  //         AppleIDAuthorizationScopes.fullName,
+  //       ],
+  //       // webAuthenticationOptions: WebAuthenticationOptions(
+  //       //   clientId: '6502335026', // Replace with your Client ID
+  //       //   redirectUri: Uri.parse(
+  //       //     'https://com.thetork.kirei.firebaseapp.com/__/auth/handler', // Replace with your redirect URI
+  //       //   ),
+  //       // ),
+  //       nonce: nonce,
+  //     );
+  //
+  //
+  //     final oauthCredential = OAuthProvider("apple.com").credential(
+  //       idToken: appleCredential.identityToken,
+  //       rawNonce: rawNonce,
+  //     );
+  //
+  //
+  //
+  //     var loginResponse = await AuthRepository().getSocialLoginResponse(
+  //         "apple", appleCredential.givenName, appleCredential.email, appleCredential.authorizationCode,
+  //         access_token: appleCredential.identityToken);
+  //
+  //     if (loginResponse.result == false) {
+  //       ToastComponent.showDialog(loginResponse.message, context,
+  //           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+  //     } else if(loginResponse.result == true) {
+  //       ToastComponent.showDialog(loginResponse.message, context,
+  //           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+  //       AuthHelper().setUserData(loginResponse);
+  //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+  //         return Main();
+  //       }));
+  //     }
+  //     // GoogleSignIn().disconnect();
+  //
+  //     final userCredential = await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+  //     return userCredential;
+  //   } catch (e) {
+  //     print("Error during Apple Sign-In: $e");
+  //     throw e;
+  //   }
+  // }
+  //
+  // String generateNonce([int length = 32]) {
+  //   final charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  //   final random = Random.secure();
+  //   return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
+  // }
+  //
+  // String sha256ofString(String input) {
+  //   final bytes = utf8.encode(input);
+  //   final digest = sha256.convert(bytes);
+  //   return digest.toString();
+  // }
 }

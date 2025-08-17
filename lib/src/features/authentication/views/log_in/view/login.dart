@@ -24,8 +24,7 @@ class LogIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logInController =
-        Get.put(LogInPageController());
+    final logInController = Get.put(LogInPageController());
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: AppLayoutWithBackButton(
@@ -53,200 +52,269 @@ class LogIn extends StatelessWidget {
                   length: 2,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                  spacing: AppSizes.defaultSpace,
-                  children: [
-                    TabBar(
-                      indicatorColor: AppColors.primary,
-                      labelColor: AppColors.primary,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelStyle: Theme.of(context).textTheme.titleSmall,
-                      tabs: const [
-                        Tab(text: 'Login'),
-                        Tab(text: 'Register'),
-                      ],
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          ListView(
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
+                    spacing: AppSizes.defaultSpace,
+                    children: [
+                      TabBar(
+                        indicatorColor: AppColors.primary,
+                        labelColor: AppColors.primary,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelStyle: Theme.of(context).textTheme.titleSmall,
+                        tabs: const [Tab(text: 'Login'), Tab(text: 'Register')],
+                      ),
+                      Expanded(
+                        child: TabBarView(
                           children: [
-                            const LogInFormsAndButton(),
-                            const Gap(AppSizes.spaceBtwItems),
-                            Obx(() {
-                              return logInController.hittingApi.value
-                                  ? AppListViewLayout(
-                                      itemCount: 3,
-                                      builderFunction: (context, index) {
-                                        return ShimmerHelper()
-                                            .buildBasicShimmer(height: 50);
-                                      })
-                                  : Column(
-                                spacing: AppSizes.spaceBtwItems,
-                                      children: [
-                                        Visibility(
-                                            visible: AppLocalStorage()
-                                                .readData(LocalStorageKeys.googleLogin) == true,
-                                            child: AppButtons.largeFlatOutlineButtonWithIcon(
-                                              onPressed: () {
-                                                logInController.onPressedGoogleLogin();
-                                              },
-                                              verticallyPadding: 14,
-                                              imgUrl: AppImages.google,
-                                              buttonText:
-                                              'Login with Google',
-                                            )
-                                        ),
-                                        Visibility(
-                                          visible: AppLocalStorage()
-                                              .readData(LocalStorageKeys.facebookLogin) == true,
-                                          child: AppButtons.largeFlatOutlineButtonWithIcon(
-                                              onPressed: () {
-                                                logInController.onPressedFacebookLogin();
-                                              },
-                                              verticallyPadding: 14,
-                                              imgUrl: AppImages.facebook,
-                                              buttonText:
-                                                  'Login with Facebook',
+                            ListView(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              children: [
+                                const LogInFormsAndButton(),
+                                const Gap(AppSizes.spaceBtwItems),
+                                Obx(() {
+                                  return logInController.hittingApi.value
+                                      ? AppListViewLayout(
+                                        itemCount: 3,
+                                        builderFunction: (context, index) {
+                                          return ShimmerHelper()
+                                              .buildBasicShimmer(height: 50);
+                                        },
+                                      )
+                                      : Column(
+                                        spacing: AppSizes.spaceBtwItems,
+                                        children: [
+                                          Visibility(
+                                            visible:
+                                                AppLocalStorage().readData(
+                                                  LocalStorageKeys.googleLogin,
+                                                ) ==
+                                                true,
+                                            child:
+                                                AppButtons.largeFlatOutlineButtonWithIcon(
+                                                  onPressed: () {
+                                                    logInController
+                                                        .onPressedGoogleLogin();
+                                                  },
+                                                  verticallyPadding: 14,
+                                                  imgUrl: AppImages.google,
+                                                  buttonText:
+                                                      'Login with Google',
+                                                ),
                                           ),
-                                        ),
-                                        Visibility(
-                                          visible: !Platform.isAndroid &&
-                                              AppLocalStorage()
-                                                  .readData(LocalStorageKeys.appleLogin) == true,
-                                          child: AppButtons.largeFlatOutlineButtonWithIcon(
-                                            onPressed: () {
-                                              logInController.onPressAppleLogin();
-                                            },
-                                            verticallyPadding: 14,
-                                            imgUrl: AppImages.appleLogo,
-                                            buttonText:
-                                            'Login with Apple',
+                                          Visibility(
+                                            visible:
+                                                AppLocalStorage().readData(
+                                                  LocalStorageKeys
+                                                      .facebookLogin,
+                                                ) ==
+                                                true,
+                                            child:
+                                                AppButtons.largeFlatOutlineButtonWithIcon(
+                                                  onPressed: () {
+                                                    logInController
+                                                        .onPressedFacebookLogin();
+                                                  },
+                                                  verticallyPadding: 14,
+                                                  imgUrl: AppImages.facebook,
+                                                  buttonText:
+                                                      'Login with Facebook',
+                                                ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                            }),
-                            Gap(AppSizes.sm),
-                            Center(
-                                child: Builder(
-                                  builder: (context) {
-                                    return InkWell(
-                                        onTap: () {
-                                          // Get.to(const SignUp());
-                                          DefaultTabController.of(context).animateTo(1);
-                                        },
-                                        child: RichText(
-                                          text: TextSpan(text: AppLocalizations.of(context)!.dontHaveAccount,
-                                          style: Theme.of(context).textTheme.titleMedium,
-                                          children:[
-                                            TextSpan(
-                                              text: " ${AppLocalizations.of(context)!.signUp}",
-                                              style: Theme.of(context).textTheme.titleLarge?.apply(
-                                                color: AppColors.primary,
-                                                decoration: TextDecoration.underline,
-                                                decorationColor: AppColors.primary,
-                                            ))
-                                          ]
-                                          )
-                                        ));
-                                  }
-                                )),
-                            const Gap(AppSizes.spaceBtwSections),
-                          ],
-                        ),
-                          ListView(
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            children: [
-                              const SignUpFormsAndButton(),
-                              const Gap(AppSizes.spaceBtwItems),
-                              Obx(() {
-                                return logInController.hittingApi.value
-                                    ? AppListViewLayout(
-                                    itemCount: 3,
-                                    builderFunction: (context, index) {
-                                      return ShimmerHelper()
-                                          .buildBasicShimmer(height: 50);
-                                    })
-                                    : Column(
-                                  spacing: AppSizes.spaceBtwItems,
-                                  children: [
-                                    Visibility(
-                                        visible: AppLocalStorage()
-                                            .readData(LocalStorageKeys.googleLogin) == true,
-                                        child: AppButtons.largeFlatOutlineButtonWithIcon(
-                                          onPressed: () {
-                                            logInController.onPressedFacebookLogin();
-                                          },
-                                          verticallyPadding: 14,
-                                          imgUrl: AppImages.google,
-                                          buttonText:
-                                          'Signup with Google',
-                                        )
-                                    ),
-                                    Visibility(
-                                      visible: AppLocalStorage()
-                                          .readData(LocalStorageKeys.facebookLogin) == true,
-                                      child: AppButtons.largeFlatOutlineButtonWithIcon(
-                                        onPressed: () {
-                                          logInController.onPressedFacebookLogin();
-                                        },
-                                        verticallyPadding: 14,
-                                        imgUrl: AppImages.facebook,
-                                        buttonText:
-                                        'Signup with Facebook',
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: !Platform.isAndroid &&
-                                          AppLocalStorage()
-                                              .readData(LocalStorageKeys.appleLogin) == true,
-                                      child: AppButtons.largeFlatOutlineButtonWithIcon(
-                                        onPressed: () {
-                                          logInController.onPressedFacebookLogin();
-                                        },
-                                        verticallyPadding: 14,
-                                        imgUrl: AppImages.appleLogo,
-                                        buttonText:
-                                        'Signup with Apple',
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }),
-                              Center(
+                                          Visibility(
+                                            visible:
+                                                !Platform.isAndroid &&
+                                                AppLocalStorage().readData(
+                                                      LocalStorageKeys
+                                                          .appleLogin,
+                                                    ) ==
+                                                    true,
+                                            child:
+                                                AppButtons.largeFlatOutlineButtonWithIcon(
+                                                  onPressed: () {
+                                                    logInController
+                                                        .onPressAppleLogin();
+                                                  },
+                                                  verticallyPadding: 14,
+                                                  imgUrl: AppImages.appleLogo,
+                                                  buttonText:
+                                                      'Login with Apple',
+                                                ),
+                                          ),
+                                        ],
+                                      );
+                                }),
+                                Gap(AppSizes.sm),
+                                Center(
                                   child: Builder(
                                     builder: (context) {
                                       return InkWell(
-                                          onTap: () {
-                                            DefaultTabController.of(context).animateTo(0);
-                                            // Get.to(const LogIn());
-                                          },
-                                          child: RichText(
-                                              text: TextSpan(text: AppLocalizations.of(context)!.alreadyHaveAccount,
-                                                  style: Theme.of(context).textTheme.titleMedium,
-                                                  children:[
-                                                    TextSpan(
-                                                        text: " ${AppLocalizations.of(context)!.login}",
-                                                        style: Theme.of(context).textTheme.titleLarge?.apply(
-                                                          color: AppColors.primary,
-                                                          decoration: TextDecoration.underline,
-                                                          decorationColor: AppColors.primary,
-                                                        ))
-                                                  ]
-                                              )
-                                          ));
-                                    }
-                                  )),
-                              const Gap(AppSizes.spaceBtwSections),
-                            ],
-                          ),
-                      ]
-                      ),)
-                  ],
-                ),),
+                                        onTap: () {
+                                          // Get.to(const SignUp());
+                                          DefaultTabController.of(
+                                            context,
+                                          ).animateTo(1);
+                                        },
+                                        child: RichText(
+                                          text: TextSpan(
+                                            text:
+                                                AppLocalizations.of(
+                                                  context,
+                                                )!.dontHaveAccount,
+                                            style:
+                                                Theme.of(
+                                                  context,
+                                                ).textTheme.titleMedium,
+                                            children: [
+                                              TextSpan(
+                                                text:
+                                                    " ${AppLocalizations.of(context)!.signUp}",
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.titleLarge?.apply(
+                                                  color: AppColors.primary,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  decorationColor:
+                                                      AppColors.primary,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const Gap(AppSizes.spaceBtwSections),
+                              ],
+                            ),
+                            ListView(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              children: [
+                                const SignUpFormsAndButton(),
+                                const Gap(AppSizes.spaceBtwItems),
+                                Obx(() {
+                                  return logInController.hittingApi.value
+                                      ? AppListViewLayout(
+                                        itemCount: 3,
+                                        builderFunction: (context, index) {
+                                          return ShimmerHelper()
+                                              .buildBasicShimmer(height: 50);
+                                        },
+                                      )
+                                      : Column(
+                                        spacing: AppSizes.spaceBtwItems,
+                                        children: [
+                                          Visibility(
+                                            visible:
+                                                AppLocalStorage().readData(
+                                                  LocalStorageKeys.googleLogin,
+                                                ) ==
+                                                true,
+                                            child:
+                                                AppButtons.largeFlatOutlineButtonWithIcon(
+                                                  onPressed: () {
+                                                    logInController
+                                                        .onPressedFacebookLogin();
+                                                  },
+                                                  verticallyPadding: 14,
+                                                  imgUrl: AppImages.google,
+                                                  buttonText:
+                                                      'Signup with Google',
+                                                ),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                AppLocalStorage().readData(
+                                                  LocalStorageKeys
+                                                      .facebookLogin,
+                                                ) ==
+                                                true,
+                                            child:
+                                                AppButtons.largeFlatOutlineButtonWithIcon(
+                                                  onPressed: () {
+                                                    logInController
+                                                        .onPressedFacebookLogin();
+                                                  },
+                                                  verticallyPadding: 14,
+                                                  imgUrl: AppImages.facebook,
+                                                  buttonText:
+                                                      'Signup with Facebook',
+                                                ),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                !Platform.isAndroid &&
+                                                AppLocalStorage().readData(
+                                                      LocalStorageKeys
+                                                          .appleLogin,
+                                                    ) ==
+                                                    true,
+                                            child:
+                                                AppButtons.largeFlatOutlineButtonWithIcon(
+                                                  onPressed: () {
+                                                    logInController
+                                                        .onPressedFacebookLogin();
+                                                  },
+                                                  verticallyPadding: 14,
+                                                  imgUrl: AppImages.appleLogo,
+                                                  buttonText:
+                                                      'Signup with Apple',
+                                                ),
+                                          ),
+                                        ],
+                                      );
+                                }),
+                                Center(
+                                  child: Builder(
+                                    builder: (context) {
+                                      return InkWell(
+                                        onTap: () {
+                                          DefaultTabController.of(
+                                            context,
+                                          ).animateTo(0);
+                                          // Get.to(const LogIn());
+                                        },
+                                        child: RichText(
+                                          text: TextSpan(
+                                            text:
+                                                AppLocalizations.of(
+                                                  context,
+                                                )!.alreadyHaveAccount,
+                                            style:
+                                                Theme.of(
+                                                  context,
+                                                ).textTheme.titleMedium,
+                                            children: [
+                                              TextSpan(
+                                                text:
+                                                    " ${AppLocalizations.of(context)!.login}",
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.titleLarge?.apply(
+                                                  color: AppColors.primary,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  decorationColor:
+                                                      AppColors.primary,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const Gap(AppSizes.spaceBtwSections),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

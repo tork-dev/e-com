@@ -32,11 +32,14 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     DetailsPageController controller = Get.put(DetailsPageController());
     GetShopDataController categoryController = Get.put(GetShopDataController());
-    ConvexBottomNavController bottomController = Get.put(ConvexBottomNavController());
+    ConvexBottomNavController bottomController = Get.put(
+      ConvexBottomNavController(),
+    );
 
     final slug = Get.parameters['slug'];
     if (slug != null) {
-      if (controller.productSlugList[controller.productSlugIndex.value] != slug) {
+      if (controller.productSlugList[controller.productSlugIndex.value] !=
+          slug) {
         controller.productSlugList.add(slug);
         controller.productSlugIndex = controller.productSlugIndex++;
         controller.onRefresh();
@@ -50,123 +53,133 @@ class DetailsPage extends StatelessWidget {
     }
     return AppLayoutWithBackButton(
       canPop: false,
-        padding: 0,
-        showBackButton: false,
-        showCustomLeading: true,
-        customLeadingIcon: Icons.arrow_back_ios_new_outlined,
-        leadingOnPress: () {
+      padding: 0,
+      showBackButton: false,
+      showCustomLeading: true,
+      customLeadingIcon: Icons.arrow_back_ios_new_outlined,
+      leadingOnPress: () {
         Get.back();
-          if (controller.productSlugList.length > 1) {
-            Log.d('Backing to prev product');
-            controller.productSlugList.removeAt(controller.productSlugIndex.value);
-            controller.productSlugIndex.value--; // Correctly decrement index
-            Log.d(controller.productSlugList.toString());
-            controller.onRefresh();
-          }
-          // else {
-          //   if (controller.prevRoute.value != '') {
-          //     Get.back(); // Pop to previous screen
-          //     print(controller.prevRoute);
-          //   }
-          //   else {
-          //     Get.offAllNamed(controller.prevRoute.value); // Fallback to home
-          //   }
-          // }
-        },
-        backgroundColor: AppColors.primary,
-        bottomNav: Padding(
-          padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: const AppBottomButton(),
-        ),
-        title: Obx(() {
-          Log.d('print product id ${Get.parameters['slug']}');
-          return AppBarSearch(
-            focusOn: categoryController.searchOn.value,
-            onSubmit: (String txt) {
-              categoryController.search.value = txt;
-              categoryController.isFromSearch.value = true;
-              categoryController.getShopData();
-              Get.back();
-              bottomController.jumpToTab(1);
-              EventLogger().logSearchEvent(txt);
-              return null;
-            },
-            prevRoute: '/shop',
+        if (controller.productSlugList.length > 1) {
+          Log.d('Backing to prev product');
+          controller.productSlugList.removeAt(
+            controller.productSlugIndex.value,
           );
-        }),
-        leadingIconColor: AppColors.white,
-        action: [
-          InkWell(
-            onTap: () {
-              Get.offAllNamed('/home');
-            },
-            child: const Icon(
-              Icons.home_outlined,
-              color: AppColors.white,
-            ),
+          controller.productSlugIndex.value--; // Correctly decrement index
+          Log.d(controller.productSlugList.toString());
+          controller.onRefresh();
+        }
+        // else {
+        //   if (controller.prevRoute.value != '') {
+        //     Get.back(); // Pop to previous screen
+        //     print(controller.prevRoute);
+        //   }
+        //   else {
+        //     Get.offAllNamed(controller.prevRoute.value); // Fallback to home
+        //   }
+        // }
+      },
+      backgroundColor: AppColors.primary,
+      bottomNav: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: const AppBottomButton(),
+      ),
+      title: Obx(() {
+        Log.d('print product id ${Get.parameters['slug']}');
+        return AppBarSearch(
+          focusOn: categoryController.searchOn.value,
+          onSubmit: (String txt) {
+            categoryController.search.value = txt;
+            categoryController.isFromSearch.value = true;
+            categoryController.getShopData();
+            Get.back();
+            bottomController.jumpToTab(1);
+            EventLogger().logSearchEvent(txt);
+            return null;
+          },
+          prevRoute: '/shop',
+        );
+      }),
+      leadingIconColor: AppColors.white,
+      action: [
+        InkWell(
+          onTap: () {
+            Get.offAllNamed('/home');
+          },
+          child: const Icon(Icons.home_outlined, color: AppColors.white),
+        ),
+        const Gap(AppSizes.sm),
+        InkWell(
+          onTap: () {
+            Get.offAllNamed('/cart');
+          },
+          child: const Icon(
+            Icons.shopping_bag_outlined,
+            color: AppColors.white,
           ),
-          const Gap(AppSizes.sm),
-          InkWell(
+        ),
+        const Gap(AppSizes.sm),
+      ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: AppLayoutWithRefresher(
+          onRefresh: controller.onRefresh,
+          children: [
+            const AppDetailsPicturePart(),
+            const Gap(AppSizes.spaceBtwDefaultItems),
+            const AppDetailsProductNamePart(),
+            const Gap(AppSizes.spaceBtwDefaultItems),
+            const AppDetailsDescriptionPart(),
+            AppDividersStyle.fullFlatAppDivider,
+            const Gap(AppSizes.spaceBtwDefaultItems),
+            const AppDetailsCategoriesPart(),
+            Obx(() {
+              return AppDetailsFullDescription(
+                descriptionTitle: 'Description',
+                description:
+                    "${controller.productDetails.value.detailedProducts?.description}",
+              );
+            }),
+            AppDividersStyle.fullFlatAppDivider,
+            Obx(() {
+              return AppDetailsFullDescription(
+                descriptionTitle: 'guide',
+                description:
+                    "${controller.productDetails.value.detailedProducts?.guide}",
+              );
+            }),
+            AppDividersStyle.fullFlatAppDivider,
+            ReviewAndQuestion(
               onTap: () {
-               Get.offAllNamed('/cart');
+                Get.to(
+                  () => ReviewScreen(
+                    productId:
+                        controller.productDetails.value.detailedProducts!.slug!,
+                  ),
+                );
               },
-              child: const Icon(Icons.shopping_bag_outlined,
-                  color: AppColors.white)),
-          const Gap(AppSizes.sm),
-        ],
-        body: Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: AppLayoutWithRefresher(
-              onRefresh: controller.onRefresh,
-              children: [
-                const AppDetailsPicturePart(),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppDetailsProductNamePart(),
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppDetailsDescriptionPart(),
-                AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.spaceBtwDefaultItems),
-                const AppDetailsCategoriesPart(),
-                Obx( () {
-                    return AppDetailsFullDescription(
-                      descriptionTitle: 'Description',
-                      description:
-                          "${controller.productDetails.value.detailedProducts?.description}",
-                    );
-                  }
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                Obx( () {
-                    return AppDetailsFullDescription(
-                      descriptionTitle: 'guide',
-                      description:
-                          "${controller.productDetails.value.detailedProducts?.guide}",
-                    );
-                  }
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                ReviewAndQuestion(
-                  onTap: () {
-                    Get.to(() => ReviewScreen(
-                        productId: controller
-                            .productDetails.value.detailedProducts!.slug!));
-                  },
-                  title: 'Review',
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                ReviewAndQuestion(
-                  onTap: () {
-                    Get.to(() => QuestionScreen(
-                        productId: controller
-                            .productDetails.value.detailedProducts!.id!));
-                  },
-                  title: 'questions about this products',
-                ),
-                AppDividersStyle.fullFlatAppDivider,
-                const Gap(AppSizes.lg),
-                const AppRecommendedAndRelatedProducts(),
-                const Gap(AppSizes.lg),
-              ]),
-        ));
+              title: 'Review',
+            ),
+            AppDividersStyle.fullFlatAppDivider,
+            ReviewAndQuestion(
+              onTap: () {
+                Get.to(
+                  () => QuestionScreen(
+                    productId:
+                        controller.productDetails.value.detailedProducts!.id!,
+                  ),
+                );
+              },
+              title: 'questions about this products',
+            ),
+            AppDividersStyle.fullFlatAppDivider,
+            const Gap(AppSizes.lg),
+            const AppRecommendedAndRelatedProducts(),
+            const Gap(AppSizes.lg),
+          ],
+        ),
+      ),
+    );
   }
 }

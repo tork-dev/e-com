@@ -39,8 +39,10 @@ class BusinessSettingHelper extends GetxController {
         case 'facebook_login':
           {
             bool isEnabled = element.value.toString() == "1";
-            AppLocalStorage()
-                .saveData(LocalStorageKeys.facebookLogin, isEnabled);
+            AppLocalStorage().saveData(
+              LocalStorageKeys.facebookLogin,
+              isEnabled,
+            );
           }
           break;
         case 'google_login':
@@ -58,8 +60,10 @@ class BusinessSettingHelper extends GetxController {
         case 'doctor_appointment':
           {
             bool isEnabled = element.value.toString() == "1";
-            AppLocalStorage()
-                .saveData(LocalStorageKeys.activeDoctorAppointment, isEnabled);
+            AppLocalStorage().saveData(
+              LocalStorageKeys.activeDoctorAppointment,
+              isEnabled,
+            );
           }
           break;
         case 'spinner_status':
@@ -90,12 +94,18 @@ class BusinessSettingHelper extends GetxController {
           break;
         case 'doctor_appointment_banner':
           {
-            AppLocalStorage().saveData(LocalStorageKeys.doctorAppointmentBanner, element.value.toString());
+            AppLocalStorage().saveData(
+              LocalStorageKeys.doctorAppointmentBanner,
+              element.value.toString(),
+            );
           }
           break;
         case 'doctor_appointment_fee':
           {
-            AppLocalStorage().saveData(LocalStorageKeys.doctorAppointmentFee, element.value.toString());
+            AppLocalStorage().saveData(
+              LocalStorageKeys.doctorAppointmentFee,
+              element.value.toString(),
+            );
           }
           break;
         default:
@@ -106,95 +116,104 @@ class BusinessSettingHelper extends GetxController {
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
-    bool updateAvailable = AppHelperFunctions().isVersionLessThan(version,
-        Platform.isAndroid ? androidAppVersion.value : iosAppVersion.value);
-    bool updateRequired = Platform.isAndroid
-        ? isAndroidUpdateRequired.value
-        : isIosUpdateRequired.value;
+    bool updateAvailable = AppHelperFunctions().isVersionLessThan(
+      version,
+      Platform.isAndroid ? androidAppVersion.value : iosAppVersion.value,
+    );
+    bool updateRequired =
+        Platform.isAndroid
+            ? isAndroidUpdateRequired.value
+            : isIosUpdateRequired.value;
 
     debugPrint(
-        'update required ${AppHelperFunctions().isVersionLessThan(version, Platform.isAndroid ? androidAppVersion.value : iosAppVersion.value)}');
+      'update required ${AppHelperFunctions().isVersionLessThan(version, Platform.isAndroid ? androidAppVersion.value : iosAppVersion.value)}',
+    );
     debugPrint('Device OS ${Platform.operatingSystem}');
     debugPrint('Device android version ${Platform.operatingSystemVersion}');
 
     if (updateAvailable) {
       Future.delayed(
-          const Duration(seconds: 10),
-          () => showDialog(
-              barrierDismissible: !updateRequired,
-              context: Get.overlayContext!,
-              builder: (context) {
-                return Stack(
-                  children: [
-                    Dialog(
-                      shape:  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
-                      ),
-                      child: PopScope(
-                        canPop: !updateRequired,
-                        child: Stack(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(AppSizes.defaultSpace),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
+        const Duration(seconds: 10),
+        () => showDialog(
+          barrierDismissible: !updateRequired,
+          context: Get.overlayContext!,
+          builder: (context) {
+            return Stack(
+              children: [
+                Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
+                  ),
+                  child: PopScope(
+                    canPop: !updateRequired,
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(AppSizes.defaultSpace),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.update),
+                              const Gap(AppSizes.md),
+                              Text(
+                                'Update Available',
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
+                              ),
+                              const Gap(AppSizes.md),
+                              Text(
+                                'New version is available. Please update your app.',
+                                style: Theme.of(context).textTheme.titleLarge,
+                                textAlign: TextAlign.center,
+                              ),
+                              const Gap(AppSizes.md),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.update),
-                                  const Gap(AppSizes.md),
-                                  Text(
-                                    'Update Available',
-                                    style:
-                                        Theme.of(context).textTheme.headlineMedium,
+                                  SizedBox(
+                                    width: 120,
+                                    child: AppButtons.largeFlatFilledButton(
+                                      backgroundColor:
+                                          AppColors.addToCartButton,
+                                      onPressed: () {
+                                        AppDeviceUtils.browseUrl(
+                                          Platform.isAndroid
+                                              ? 'https://play.google.com/store/apps/details?id=com.thetork.kirei&hl=en&gl=US'
+                                              : 'https://apps.apple.com/us/app/kirei/id6502335026?platform=iphone',
+                                        );
+                                      },
+                                      buttonText: 'Update',
+                                    ),
                                   ),
-                                  const Gap(AppSizes.md),
-                                  Text(
-                                    'New version is available. Please update your app.',
-                                    style: Theme.of(context).textTheme.titleLarge,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const Gap(AppSizes.md),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 120,
-                                        child: AppButtons.largeFlatFilledButton(
-                                            backgroundColor:
-                                                AppColors.addToCartButton,
-                                            onPressed: () {
-                                              AppDeviceUtils.browseUrl(Platform
-                                                      .isAndroid
-                                                  ? 'https://play.google.com/store/apps/details?id=com.thetork.kirei&hl=en&gl=US'
-                                                  : 'https://apps.apple.com/us/app/kirei/id6502335026?platform=iphone');
-                                            },
-                                            buttonText: 'Update'),
-                                      ),
-                                    ],
-                                  )
                                 ],
                               ),
-                            ),
-                            Visibility(
-                              visible: !updateRequired,
-                              child: Positioned(
-                                right: AppSizes.md,
-                                top: AppSizes.md,
-                                child: AppCardContainer(
-                                    onTap: ()=> Get.back(),
-                                    applyRadius: false,
-                                    backgroundColor: AppColors.grey,
-                                    height: 40,
-                                    width: 40,
-                                    child: const Icon(Icons.clear)),
-                              ),
-                            )
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
+                        Visibility(
+                          visible: !updateRequired,
+                          child: Positioned(
+                            right: AppSizes.md,
+                            top: AppSizes.md,
+                            child: AppCardContainer(
+                              onTap: () => Get.back(),
+                              applyRadius: false,
+                              backgroundColor: AppColors.grey,
+                              height: 40,
+                              width: 40,
+                              child: const Icon(Icons.clear),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              }));
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      );
       return;
     }
 
@@ -202,8 +221,10 @@ class BusinessSettingHelper extends GetxController {
         isSpinnerActive.value &&
         onBoardingController.spinnerActive.value) {
       Get.put(SpinnerController());
-      Future.delayed(const Duration(seconds: 10),
-          () => AppHelperFunctions().showAlertForFirstTime());
+      Future.delayed(
+        const Duration(seconds: 10),
+        () => AppHelperFunctions().showAlertForFirstTime(),
+      );
       return;
     }
 
@@ -221,9 +242,10 @@ class BusinessSettingHelper extends GetxController {
   // Function to display popups sequentially with a delay
   Future<void> showPopupsSequentially(List<PopupDatum> popups) async {
     // Filter popups for 'all' or 'app' sources
-    List<PopupDatum> filteredPopups = popups.where((element) {
-      return element.source == 'all' || element.source == 'app';
-    }).toList();
+    List<PopupDatum> filteredPopups =
+        popups.where((element) {
+          return element.source == 'all' || element.source == 'app';
+        }).toList();
 
     // Iterate over each filtered popup
     for (var popup in filteredPopups) {
@@ -243,7 +265,9 @@ class BusinessSettingHelper extends GetxController {
       leftButtonName: 'Cancel',
       rightButtonName: popup.buttonName,
       onRightPress: () {
-        RoutingHelper.urlRouting(popup.route);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          RoutingHelper.urlRouting(popup.route);
+        });
         completer.complete(); // Complete when "OK" is pressed
       },
       onLeftPress: () {

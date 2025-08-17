@@ -37,8 +37,10 @@ class HomeThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeController controller = Get.put(HomeController());
-    GetShopDataController getShopDataController = GetShopDataController.instance;
-    ConvexBottomNavController convexBottomNavController = ConvexBottomNavController.instance;
+    GetShopDataController getShopDataController =
+        GetShopDataController.instance;
+    ConvexBottomNavController convexBottomNavController =
+        ConvexBottomNavController.instance;
     print("HomeController exists: ${Get.isRegistered<HomeController>()}");
     return AppLayoutWithDrawer(
       backToHome: true,
@@ -86,7 +88,7 @@ class HomeThree extends StatelessWidget {
             );
           }),
           const Gap(AppSizes.spaceBtwSections),
-          FlashSaleSection(homeProductResponse: controller.homeProductResponse,),
+          FlashSaleSection(homeProductResponse: controller.homeProductResponse),
           Obx(() {
             return HomeImageTitleAndButtonSection(
               bgUrl: AppImages.skinCareFlowerBg,
@@ -96,56 +98,137 @@ class HomeThree extends StatelessWidget {
                       .value
                       .homepageSettings
                       ?.recommendation,
-              showTheSection:
-                  controller.showRecommendation,
+              showTheSection: controller.showRecommendation,
             );
           }),
           const Gap(AppSizes.md),
-          BestSellingProductSection(homeProductResponse: controller.homeProductResponse),
-          Obx(() {
-              return  HomeSurpriseSection(
-                onPressed: ()=> controller.submitSurprisePhone(),
-                largeButton: true,
-                visibleInputField: true,
-                networkImage: false,
-                controller: controller.surprisePhoneController,
-                visibleSection: controller.homeProductResponse.value.homepageSettings?.features?.surprizeGift ?? false,
-                imageUrl: AppImages.surprisingSectionBg,
-                title: controller.homeProductResponse.value.homepageSettings?.surprizeGift?.title ?? 'Surprise Gift',
-                description: controller.homeProductResponse.value.homepageSettings?.surprizeGift?.description ?? 'Get a surprise gift',
-                buttonName: controller.homeProductResponse.value.homepageSettings?.surprizeGift?.btnName ?? 'Submit',
-              );
-            }
+          BestSellingProductSection(
+            homeProductResponse: controller.homeProductResponse,
           ),
+          Obx(() {
+            return HomeSurpriseSection(
+              onPressed: () => controller.submitSurprisePhone(),
+              largeButton: true,
+              visibleInputField: true,
+              networkImage: false,
+              controller: controller.surprisePhoneController,
+              visibleSection:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.features
+                      ?.surprizeGift ??
+                  false,
+              imageUrl: AppImages.surprisingSectionBg,
+              title:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.surprizeGift
+                      ?.title ??
+                  'Surprise Gift',
+              description:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.surprizeGift
+                      ?.description ??
+                  'Get a surprise gift',
+              buttonName:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.surprizeGift
+                      ?.btnName ??
+                  'Submit',
+            );
+          }),
           const Gap(AppSizes.spaceBtwSections),
           Obx(() {
-            return  HomeSurpriseSection(
-              onPressed: (){ RoutingHelper.urlRouting(controller.homeProductResponse.value.homepageSettings?.groupShopping?.route ?? '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/group-shopping');},
+            return HomeSurpriseSection(
+              onPressed: () {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  RoutingHelper.urlRouting(
+                    controller
+                            .homeProductResponse
+                            .value
+                            .homepageSettings
+                            ?.groupShopping
+                            ?.route ??
+                        '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/group-shopping',
+                  );
+                });
+              },
               largeButton: false,
               visibleInputField: false,
               controller: controller.surprisePhoneController,
               backgroundColor: AppColors.whitePink,
-              visibleSection: controller.homeProductResponse.value.homepageSettings?.features?.groupShopping ?? false,
-              imageUrl: controller.homeProductResponse.value.homepageSettings?.groupShopping?.banner ?? '	https://v2.kireibd.com/_next/image?url=%2Fimages%2Fflash-sale%2F31.png&w=750&q=75',
-              title: controller.homeProductResponse.value.homepageSettings?.groupShopping?.title ?? 'Save More with Group Shopping!',
-              description: controller.homeProductResponse.value.homepageSettings?.groupShopping?.description ?? 'Save More with Group Shopping!',
-              buttonName: controller.homeProductResponse.value.homepageSettings?.groupShopping?.btnName ?? 'Submit',
+              visibleSection:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.features
+                      ?.groupShopping ??
+                  false,
+              imageUrl:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.groupShopping
+                      ?.banner ??
+                  '	https://v2.kireibd.com/_next/image?url=%2Fimages%2Fflash-sale%2F31.png&w=750&q=75',
+              title:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.groupShopping
+                      ?.title ??
+                  'Save More with Group Shopping!',
+              description:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.groupShopping
+                      ?.description ??
+                  'Save More with Group Shopping!',
+              buttonName:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.groupShopping
+                      ?.btnName ??
+                  'Submit',
             );
-          }
-          ),
+          }),
           const Gap(AppSizes.spaceBtwSections),
-          InternationalBrandsSection(homeProductResponse: controller.homeProductResponse),
+          InternationalBrandsSection(
+            homeProductResponse: controller.homeProductResponse,
+          ),
           HomeTrendingSection(),
-          RecommendedSection(recommendedProductsResponse: controller.recommendedProductsForYouResponse),
+          RecommendedSection(
+            recommendedProductsResponse:
+                controller.recommendedProductsForYouResponse,
+          ),
           Gap(AppSizes.spaceBtwSections),
           Obx(() {
             return Visibility(
-              visible:controller.showReviews,
+              visible: controller.showReviews,
               child: const HomeReviewSection(),
             );
           }),
           const Gap(AppSizes.spaceBtwSections),
-          NewArrivalsSection(homeProductResponse: controller.homeProductResponse),
+          NewArrivalsSection(
+            homeProductResponse: controller.homeProductResponse,
+          ),
           Obx(() {
             return HomeImageTitleAndButtonSection(
               bgUrl: AppImages.kireiTubeBg,
@@ -164,12 +247,3 @@ class HomeThree extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-

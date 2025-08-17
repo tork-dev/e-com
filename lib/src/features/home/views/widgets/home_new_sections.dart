@@ -90,8 +90,10 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                         : AppCardContainer(
                             onTap: () {
                               Log.d(sectionName?.route);
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
                               RoutingHelper.urlRouting(sectionName?.route ??
                                   '$baseUrlWeb/kirei-tube');
+                              });
                             },
                             backgroundColor: AppColors.secondary,
                         borderRadius: AppSizes.buttonRadius,

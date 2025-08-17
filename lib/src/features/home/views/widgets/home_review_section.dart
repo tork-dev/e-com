@@ -69,7 +69,6 @@ class HomeReviewSection extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-
                           Row(
                             children: [
                               AppBannerImage(
@@ -85,7 +84,7 @@ class HomeReviewSection extends StatelessWidget {
                                   borderWidth: 1,
                                   boarderRadius: 100,
                                   imgBoarderRadius: 100,
-                                  errorImage: AppImages.demoPerson,
+                                  errorImage: AppImages.avatarIcon,
                                   imgUrl: homeController
                                       .homeProductResponse
                                       .value

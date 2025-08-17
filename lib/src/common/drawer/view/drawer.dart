@@ -130,9 +130,15 @@ class AppDrawer extends StatelessWidget {
                             backgroundColor: AppColors.white.withAlpha(13),
                             title: InkWell(
                               onTap: () {
-                                RoutingHelper.urlRouting(
-                                  drawerController.allNewCategories[index].url,
-                                );
+                                WidgetsBinding.instance.addPostFrameCallback((
+                                  _,
+                                ) {
+                                  RoutingHelper.urlRouting(
+                                    drawerController
+                                        .allNewCategories[index]
+                                        .url,
+                                  );
+                                });
                               },
                               child: Text(
                                 drawerController.allNewCategories[index].name!
@@ -168,9 +174,12 @@ class AppDrawer extends StatelessWidget {
                                           ),
                                           title: GestureDetector(
                                             onTap: () {
-                                              RoutingHelper.urlRouting(
-                                                category.url,
-                                              );
+                                              WidgetsBinding.instance
+                                                  .addPostFrameCallback((_) {
+                                                    RoutingHelper.urlRouting(
+                                                      category.url,
+                                                    );
+                                                  });
                                             },
                                             child: Text(
                                               category.counts != null
@@ -251,10 +260,13 @@ class AppDrawer extends StatelessWidget {
                                                                         ),
                                                                     child: AppDrawerCard(
                                                                       onPress: () {
-                                                                        RoutingHelper.urlRouting(
-                                                                          childValue
-                                                                              .url,
-                                                                        );
+                                                                        WidgetsBinding.instance.addPostFrameCallback((
+                                                                          _,
+                                                                        ) {
+                                                                          RoutingHelper.urlRouting(
+                                                                            childValue.url,
+                                                                          );
+                                                                        });
                                                                       },
                                                                       title:
                                                                           childValue.counts !=
@@ -267,9 +279,15 @@ class AppDrawer extends StatelessWidget {
                                                           )
                                                           : AppDrawerCard(
                                                             onPress: () {
-                                                              RoutingHelper.urlRouting(
-                                                                child.url,
-                                                              );
+                                                              WidgetsBinding
+                                                                  .instance
+                                                                  .addPostFrameCallback((
+                                                                    _,
+                                                                  ) {
+                                                                    RoutingHelper.urlRouting(
+                                                                      child.url,
+                                                                    );
+                                                                  });
                                                             },
                                                             title:
                                                                 child.counts !=
@@ -288,9 +306,12 @@ class AppDrawer extends StatelessWidget {
                                         child: AppDrawerCard(
                                           title: category.name!,
                                           onPress: () {
-                                            RoutingHelper.urlRouting(
-                                              category.url,
-                                            );
+                                            WidgetsBinding.instance
+                                                .addPostFrameCallback((_) {
+                                                  RoutingHelper.urlRouting(
+                                                    category.url,
+                                                  );
+                                                });
                                           },
                                         ),
                                       );
@@ -301,9 +322,11 @@ class AppDrawer extends StatelessWidget {
                                 drawerController.allNewCategories[index].name!
                                     .toUpperCase(),
                             onPress: () {
-                              RoutingHelper.urlRouting(
-                                drawerController.allNewCategories[index].url,
-                              );
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                RoutingHelper.urlRouting(
+                                  drawerController.allNewCategories[index].url,
+                                );
+                              });
                             },
                           ),
             );

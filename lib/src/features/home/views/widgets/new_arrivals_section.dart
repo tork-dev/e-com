@@ -8,10 +8,7 @@ import '../../../../utils/constants/sizes.dart';
 import '../../model/home_products_model.dart';
 
 class NewArrivalsSection extends StatelessWidget {
-  const NewArrivalsSection({
-    super.key,
-    required this.homeProductResponse,
-  });
+  const NewArrivalsSection({super.key, required this.homeProductResponse});
 
   final Rx<HomeProductResponse> homeProductResponse;
 

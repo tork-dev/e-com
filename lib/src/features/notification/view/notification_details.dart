@@ -19,75 +19,138 @@ class NotificationDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detailsController =
-        Get.put(NotificationDetailsController(notificationId: notificationId));
+    final detailsController = Get.put(
+      NotificationDetailsController(notificationId: notificationId),
+    );
     return AppLayoutWithBackButton(
-        title: const Text('Notification Details'),
-        body: Obx(() {
-          Log.i(detailsController.hittingApi.value.toString());
-          return detailsController.hittingApi.value
-              ? ShimmerHelper().buildListShimmer(itemCount: 10, itemHeight: 70.00)
-              : ListView(
-                  children: [
-                    const Gap(AppSizes.md),
-                    Text(
+      title: const Text('Notification Details'),
+      body: Obx(() {
+        Log.i(detailsController.hittingApi.value.toString());
+        return detailsController.hittingApi.value
+            ? ShimmerHelper().buildListShimmer(itemCount: 10, itemHeight: 70.00)
+            : ListView(
+              children: [
+                const Gap(AppSizes.md),
+                Text(
+                  detailsController
+                          .userNotification
+                          .value
+                          .data!
+                          .data![0]
+                          .title ??
+                      '',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Gap(AppSizes.xs),
+                Text(
+                  detailsController
+                          .userNotification
+                          .value
+                          .data!
+                          .data![0]
+                          .description ??
+                      '',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const Gap(AppSizes.spaceBtwItems),
+                Visibility(
+                  visible:
                       detailsController
-                              .userNotification.value.data!.data![0].title ??
-                          '',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const Gap(AppSizes.xs),
-                    Text(
-                      detailsController.userNotification.value.data!.data![0]
-                              .description ??
-                          '',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const Gap(AppSizes.spaceBtwItems),
-                    Visibility(
-                      visible: detailsController.userNotification.value.data!.data![0].image != null,
-                      child: AppBannerImage(
-                        isNetworkImage: true,
-                        imgUrl: detailsController.userNotification.value.data!.data![0].image,
-                      ),
-                    ),
+                          .userNotification
+                          .value
+                          .data!
+                          .data![0]
+                          .image !=
+                      null,
+                  child: AppBannerImage(
+                    isNetworkImage: true,
+                    imgUrl:
+                        detailsController
+                            .userNotification
+                            .value
+                            .data!
+                            .data![0]
+                            .image,
+                  ),
+                ),
 
-                    const Gap(AppSizes.spaceBtwItems),
-                    Text(
-                      AppHelperFunctions.formatTimestampWithAgo(
+                const Gap(AppSizes.spaceBtwItems),
+                Text(
+                  AppHelperFunctions.formatTimestampWithAgo(
+                    detailsController
+                        .userNotification
+                        .value
+                        .data!
+                        .data![0]
+                        .createdAt,
+                  ),
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+
+                const Gap(AppSizes.appBarHeight),
+
+                Visibility(
+                  visible:
+                      detailsController
+                          .userNotification
+                          .value
+                          .data
+                          ?.data?[0]
+                          .route !=
+                      null,
+                  child: AppCardContainer(
+                    onTap:
+                        () => WidgetsBinding.instance.addPostFrameCallback((_) {
+                          RoutingHelper.urlRouting(
+                            detailsController
+                                .userNotification
+                                .value
+                                .data
+                                ?.data?[0]
+                                .route,
+                          );
+                        }),
+                    backgroundColor: AppColors.primary,
+                    width: 150,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppSizes.sm,
+                      horizontal: AppSizes.spaceBtwItems,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
                           detailsController
-                              .userNotification.value.data!.data![0].createdAt),
-                      style: Theme.of(context).textTheme.labelMedium,
+                                  .userNotification
+                                  .value
+                                  .data
+                                  ?.data?[0]
+                                  .btnName ??
+                              'View details ',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyLarge!.apply(color: AppColors.white),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward,
+                          size: 18,
+                          color: AppColors.white,
+                        ),
+                      ],
                     ),
+                  ),
 
-                    const Gap(AppSizes.appBarHeight),
+                  // child: TextButton(onPressed: (){
+                  //   RoutingHelper.urlRouting(detailsController.userNotification.value.data?.data?[0].route);
+                  // }, child:
 
-                    Visibility(
-                      visible: detailsController.userNotification.value.data?.data?[0].route != null,
-                      child: AppCardContainer(
-                        onTap: ()=>  RoutingHelper.urlRouting(detailsController.userNotification.value.data?.data?[0].route),
-                        backgroundColor: AppColors.primary,
-                        width: 150,
-                        padding: const EdgeInsets.symmetric(vertical: AppSizes.sm, horizontal: AppSizes.spaceBtwItems),
-                        child:  Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(detailsController.userNotification.value.data?.data?[0].btnName ?? 'View details ', style: Theme.of(context).textTheme.bodyLarge!.apply(color: AppColors.white),),
-                            const Icon(Icons.arrow_forward, size: 18, color: AppColors.white,)
-                          ],
-                        )
-                      ),
-
-                      // child: TextButton(onPressed: (){
-                      //   RoutingHelper.urlRouting(detailsController.userNotification.value.data?.data?[0].route);
-                      // }, child:
-
-                      // ),
-                    )
-                  ],
-                );
-        }));
+                  // ),
+                ),
+              ],
+            );
+      }),
+    );
   }
 }

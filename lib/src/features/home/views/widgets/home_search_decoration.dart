@@ -8,7 +8,6 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/logging/logger.dart';
 import '../../../bottom_navigation/convex_controller.dart';
 
-
 class HomeSearchDecoration extends StatelessWidget {
   const HomeSearchDecoration({
     super.key,
@@ -28,43 +27,39 @@ class HomeSearchDecoration extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: TextFormField(
-          controller: controller,
-          focusNode: focusNode,
-          onFieldSubmitted: (txt) {
-            categoryController.search.value = txt;
-            categoryController.isFromSearch.value = true;
-            categoryController.getShopData();
-            bottomController.jumpToTab(1);
-          },
-          decoration: InputDecoration(
-              focusColor: AppColors.grey,
-              prefixIcon: const Icon(
-                Icons.search,
-                color: AppColors.grey,
-              ),
-              hintText: 'Search for product',
-              hintStyle: Theme.of(context).textTheme.bodySmall,
-              // suffixIcon: InkWell(
-              //     onTap: () {
-              //       Log.d('clicked');
-              //       searchController.searchByImage();
-              //     },
-              //     child: const Icon(Icons.camera_alt)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: AppColors.grey),
-                  borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)),
-              border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: AppColors.grey,
-                    width: 0,
-                  ),
-                  borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: AppColors.grey,
-                    width: 0,
-                  ),
-                  borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)))),
+        controller: controller,
+        focusNode: focusNode,
+        onFieldSubmitted: (txt) {
+          categoryController.search.value = txt;
+          categoryController.isFromSearch.value = true;
+          categoryController.getShopData();
+          bottomController.jumpToTab(1);
+        },
+        decoration: InputDecoration(
+          focusColor: AppColors.grey,
+          prefixIcon: const Icon(Icons.search, color: AppColors.grey),
+          hintText: 'Search for product',
+          hintStyle: Theme.of(context).textTheme.bodySmall,
+          // suffixIcon: InkWell(
+          //     onTap: () {
+          //       Log.d('clicked');
+          //       searchController.searchByImage();
+          //     },
+          //     child: const Icon(Icons.camera_alt)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.grey),
+            borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
+          ),
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.grey, width: 0),
+            borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.grey, width: 0),
+            borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
+          ),
+        ),
+      ),
     );
   }
 }

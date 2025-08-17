@@ -52,7 +52,9 @@ class DeepLinkController extends GetxController {
     try {
       print("Handling URI Path: ${uri.path}");
       if (uri.path.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           RoutingHelper.urlRouting(uri.toString());
+        });
       }
     } catch (e) {
       print("Error handling deep link: $e");

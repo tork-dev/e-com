@@ -5,7 +5,11 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
 
 class ReviewAndQuestion extends StatelessWidget {
-  const ReviewAndQuestion({super.key, required this.title, required this.onTap});
+  const ReviewAndQuestion({
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
 
   final String title;
   final VoidCallback onTap;
@@ -23,8 +27,11 @@ class ReviewAndQuestion extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title.toUpperCase(), style: Theme.of(context).textTheme.titleMedium,),
-              const Icon(CupertinoIcons.forward, color: AppColors.secondary,)
+              Text(
+                title.toUpperCase(),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const Icon(CupertinoIcons.forward, color: AppColors.secondary),
             ],
           ),
         ),
@@ -32,5 +39,3 @@ class ReviewAndQuestion extends StatelessWidget {
     );
   }
 }
-
-

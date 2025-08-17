@@ -11,12 +11,19 @@ import '../containers/card_container.dart';
 import '../../../utils/constants/colors.dart';
 
 class AppSearchWidget extends StatelessWidget {
-  final Widget Function(BuildContext context, TextEditingController controller,
-      FocusNode focusNode) builder;
+  final Widget Function(
+    BuildContext context,
+    TextEditingController controller,
+    FocusNode focusNode,
+  )
+  builder;
   final String prevRoute;
 
-  const AppSearchWidget(
-      {super.key, required this.builder, required this.prevRoute});
+  const AppSearchWidget({
+    super.key,
+    required this.builder,
+    required this.prevRoute,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,60 +33,67 @@ class AppSearchWidget extends StatelessWidget {
       itemBuilder: (context, dataItem) {
         return dataItem.name == null
             ? const AppCardContainer(
-                height: 50,
-                child: Center(
-                  child: Text('No item found'),
-                ))
+              height: 50,
+              child: Center(child: Text('No item found')),
+            )
             : ListTile(
-                onTap: () {
-                  Get.toNamed('/product/${dataItem.slug ?? ''}',
-                      parameters: {'prevRoute': prevRoute});
-                  EventLogger().logProductDetailsViewEvent('${dataItem.slug}', dataItem.salePrice! as double);
-                },
-                contentPadding: const EdgeInsets.all(AppSizes.sm),
-                dense: true,
-                leading: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: Image.network(
-                    dataItem.pictures?[0].url ?? '',
-                    fit: BoxFit.cover,
-                  ),
+              onTap: () {
+                Get.toNamed(
+                  '/product/${dataItem.slug ?? ''}',
+                  parameters: {'prevRoute': prevRoute},
+                );
+                EventLogger().logProductDetailsViewEvent(
+                  '${dataItem.slug}',
+                  dataItem.salePrice! as double,
+                );
+              },
+              contentPadding: const EdgeInsets.all(AppSizes.sm),
+              dense: true,
+              leading: SizedBox(
+                height: 40,
+                width: 40,
+                child: Image.network(
+                  dataItem.pictures?[0].url ?? '',
+                  fit: BoxFit.cover,
                 ),
-                title: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: dataItem.name,
-                        style: const TextStyle(color: AppColors.secondary),
-                      ),
-                    ],
-                  ),
+              ),
+              title: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: dataItem.name,
+                      style: const TextStyle(color: AppColors.secondary),
+                    ),
+                  ],
                 ),
-                subtitle: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: dataItem.salePrice != dataItem.price
-                            ? "৳${dataItem.price.toString()}"
-                            : '',
-                        style: TextStyle(
-                          color: AppColors.darkGrey,
-                          decoration: dataItem.salePrice != dataItem.price
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none,
-                        ),
+              ),
+              subtitle: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:
+                          dataItem.salePrice != dataItem.price
+                              ? "৳${dataItem.price.toString()}"
+                              : '',
+                      style: TextStyle(
+                        color: AppColors.darkGrey,
+                        decoration:
+                            dataItem.salePrice != dataItem.price
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
                       ),
-                      TextSpan(
-                        text: dataItem.salePrice != dataItem.price
-                            ? ' ৳${dataItem.salePrice.toString()}'
-                            : "৳${dataItem.price}",
-                        style: const TextStyle(color: AppColors.secondary),
-                      ),
-                    ],
-                  ),
+                    ),
+                    TextSpan(
+                      text:
+                          dataItem.salePrice != dataItem.price
+                              ? ' ৳${dataItem.salePrice.toString()}'
+                              : "৳${dataItem.price}",
+                      style: const TextStyle(color: AppColors.secondary),
+                    ),
+                  ],
                 ),
-              );
+              ),
+            );
       },
       onSelected: (value) async {},
       suggestionsCallback: (value) async {
@@ -89,7 +103,9 @@ class AppSearchWidget extends StatelessWidget {
 
         if (value != '') {
           _debounce = Timer(Duration(milliseconds: 400), () async {
-            var suggestions = await SearchRepositories().getSearchResponse(value);
+            var suggestions = await SearchRepositories().getSearchResponse(
+              value,
+            );
             completer.complete(suggestions.products);
           });
         } else {
@@ -100,20 +116,18 @@ class AppSearchWidget extends StatelessWidget {
       },
       loadingBuilder: (context) {
         return const AppCardContainer(
-            height: 50,
-            applyRadius: false,
-            child: Center(
-              child: Text('Loading...'),
-            ));
+          height: 50,
+          applyRadius: false,
+          child: Center(child: Text('Loading...')),
+        );
       },
       builder: builder,
       errorBuilder: (context, data) {
         return const AppCardContainer(
-            height: 50,
-            applyRadius: false,
-            child: Center(
-              child: Text('Something went wrong'),
-            ));
+          height: 50,
+          applyRadius: false,
+          child: Center(child: Text('Something went wrong')),
+        );
       },
     );
   }

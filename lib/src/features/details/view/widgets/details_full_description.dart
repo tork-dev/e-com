@@ -11,7 +11,6 @@ import '../../../../utils/local_storage/local_storage_keys.dart';
 import '../../../../utils/local_storage/storage_utility.dart';
 import '../../../../utils/logging/logger.dart';
 
-
 class AppDetailsFullDescription extends StatelessWidget {
   const AppDetailsFullDescription({
     super.key,
@@ -27,28 +26,40 @@ class AppDetailsFullDescription extends StatelessWidget {
     return Obx(() {
       return detailsController.productDetails.value.detailedProducts == null
           ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-              child: ShimmerHelper().buildBasicShimmer(height: 50))
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+            child: ShimmerHelper().buildBasicShimmer(height: 50),
+          )
           : ExpansionTile(
-              title: Text(descriptionTitle.toUpperCase(), style: Theme.of(context).textTheme.titleLarge,),
-              children: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: HtmlWidget(
-                      onTapUrl: (url){
-                        Log.d(url);
-                        debugPrint(AppLocalStorage().readData(LocalStorageKeys.appUrl));
-                        if(url.contains(AppLocalStorage().readData(LocalStorageKeys.appUrl))){
-                          Log.d("true");
-                          return RoutingHelper.urlRouting(url);
-                        }
-                        // AppDeviceUtils.browseUrl(url);
-                        return true;
-                      },
-                        description)),
-                const Gap(AppSizes.spaceBtwDefaultItems)
-              ],
-            );
+            title: Text(
+              descriptionTitle.toUpperCase(),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: HtmlWidget(
+                  onTapUrl: (url) {
+                    Log.d(url);
+                    debugPrint(
+                      AppLocalStorage().readData(LocalStorageKeys.appUrl),
+                    );
+                    if (url.contains(
+                      AppLocalStorage().readData(LocalStorageKeys.appUrl),
+                    )) {
+                      Log.d("true");
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        RoutingHelper.urlRouting(url);
+                      });
+                      return true;
+                    }
+                    return true;
+                  },
+                  description,
+                ),
+              ),
+              const Gap(AppSizes.spaceBtwDefaultItems),
+            ],
+          );
     });
   }
 }
