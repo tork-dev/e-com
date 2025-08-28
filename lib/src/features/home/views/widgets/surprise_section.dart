@@ -50,9 +50,10 @@ class HomeSurpriseSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             AppBannerImage(
-              width: AppHelperFunctions.screenWidth() * .7,
+              height: 250,
               isNetworkImage: networkImage,
               imgUrl: imageUrl,
+              errorImage: AppImages.surprisingSectionBg,
             ),
             Gap(AppSizes.spaceBtwItems),
             Align(

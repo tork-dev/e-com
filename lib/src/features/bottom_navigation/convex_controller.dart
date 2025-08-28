@@ -29,10 +29,6 @@ class ConvexBottomNavController extends GetxController
     tabController = TabController(length: 4, vsync: this);
     pageIndex.value = pageIndexInit;
     jumpToTab(pageIndexInit);
-    // if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-    //   await logInPageController.getUserDataByToken();
-    //   AuthHelper().saveUserDataByToken(logInPageController.userDataByToken);
-    // }
   }
 
   void jumpToTab(int index) {

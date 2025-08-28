@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/address/controller/address_controller.dart';
 import 'package:kirei/src/features/address/view/widgets/address_text_field.dart';
+import 'package:kirei/src/features/checkout/controller/checkout_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
 import '../../../../utils/constants/colors.dart';
@@ -11,7 +12,8 @@ import '../../../../utils/logging/logger.dart';
 import '../../../../utils/validators/validation.dart';
 
 class AppAllAddressFields extends StatelessWidget {
-  const AppAllAddressFields({super.key});
+  final bool isCallSummary;
+  const AppAllAddressFields({super.key, this.isCallSummary = false});
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +93,9 @@ class AppAllAddressFields extends StatelessWidget {
                   areaSuggestion.unfocus();
                   zoneSuggestion.refresh();
                   addressController.getZoneList(value.id!);
+                  if(isCallSummary){
+                    CheckoutController.instance.getCheckoutSummary();
+                  }
                 },
                 controller: addressController.selectedCityController,
                 suggestionsCallback: (value) async {

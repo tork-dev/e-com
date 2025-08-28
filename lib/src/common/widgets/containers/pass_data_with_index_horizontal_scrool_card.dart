@@ -51,8 +51,8 @@ class AppPassDataHorizontalProductCard extends StatelessWidget {
           homeController
               .getAddToCartResponse(productId, 1, preOrderAvailable)
               .then((value) => {
-                    cartController.cartCount.value =
-                        homeController.addToCartResponse.value.cartQuantity!,
+                    // cartController.cartCount.value =
+                    //     homeController.addToCartResponse.value.cartQuantity!,
                     AppHelperFunctions.showToast(
                         homeController.addToCartResponse.value.message!)
                   });

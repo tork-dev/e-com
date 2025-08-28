@@ -50,11 +50,11 @@ class GetShopDataController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final uri = Uri.parse(Get.currentRoute);
-    getValuesFromUrl(uri);
+    getValuesFromUrl(Get.currentRoute);
   }
 
-  getValuesFromUrl(Uri uri){
+  void getValuesFromUrl(String url){
+    Uri uri = Uri.parse(url);
     Log.d('this is the url ${uri.path}');
     if (uri.queryParameters.containsKey('type')) {
       type.value = uri.queryParameters['type'] ?? '';

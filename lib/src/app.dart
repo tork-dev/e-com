@@ -162,9 +162,9 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/group-shopping/:id',
             page: () => const GroupShoppingPaymentScreen()),
-        GetPage(
-            name: '/recommended-products',
-            page: () => const RecommendedProducts()),
+        // GetPage(
+        //     name: '/recommended-products',
+        //     page: () => const RecommendedProducts()),
         GetPage(
             name: '/kirei-tube/:id',
             page: () => const KireiTubeShortsDetailsScreen()),

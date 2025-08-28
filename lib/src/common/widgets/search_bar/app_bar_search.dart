@@ -10,7 +10,6 @@ class AppBarSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // final ValueNotifier<FocusNode?> currentFocusNode = ValueNotifier<FocusNode?>(focusOn);
     return AppSearchWidget(
       builder: (context, controller, focusNode)=>
       TextFormField(

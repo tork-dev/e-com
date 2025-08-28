@@ -66,7 +66,14 @@ class AppFeatureCategories extends StatelessWidget {
                                                 .slug ==
                                             "hot-deals"
                                         ? Get.to(() => HotDealsScreen())
-                                        : WidgetsBinding.instance
+                                        : homeController.homeFeaturedCategoryResponse[index].url!.contains("/shop")?
+                                        {
+                                          categoryPassingController.resetAll(),
+                                          categoryPassingController.getValuesFromUrl(homeController.homeFeaturedCategoryResponse[index].url!),
+                                          bottomController.jumpToTab(1)
+                                        }
+                                        :
+                                    WidgetsBinding.instance
                                             .addPostFrameCallback((_) {
                                               RoutingHelper.urlRouting(
                                                 homeController

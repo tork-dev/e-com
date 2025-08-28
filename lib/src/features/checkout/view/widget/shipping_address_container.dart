@@ -67,7 +67,7 @@ class AppShippingAddressContainer extends StatelessWidget {
                         const AppCardContainer(
                           applyRadius: true,
                           padding: EdgeInsets.all(8.0),
-                          child: AppAllAddressFields(),
+                          child: AppAllAddressFields(isCallSummary: true,),
                         ),
                       ],
                     ),

@@ -146,6 +146,7 @@ class AppCartProductCard extends StatelessWidget {
                                                                 .id!,
                                                           )
                                                           .then((value) {
+                                                            Get.back();
                                                             EventLogger().logRemoveFromCartEvent(
                                                               cartController
                                                                   .allCartProducts[0]
@@ -165,7 +166,7 @@ class AppCartProductCard extends StatelessWidget {
                                                                         .cartProductDeleteResponse
                                                                         .value
                                                                         .cartQuantity!,
-                                                                Get.back(),
+
                                                                 AppHelperFunctions.showToast(
                                                                   cartController
                                                                       .cartProductDeleteResponse

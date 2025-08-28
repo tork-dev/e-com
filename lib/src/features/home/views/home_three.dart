@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/widgets/slider/view/app_slider.dart';
@@ -20,7 +19,6 @@ import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import 'package:kirei/src/utils/popups/loaders.dart';
 import '../../../utils/helpers/routing_helper.dart';
 import 'widgets/best_sellling_product_section.dart';
 import 'widgets/flash_sale_section.dart';
@@ -110,7 +108,7 @@ class HomeThree extends StatelessWidget {
               onPressed: () => controller.submitSurprisePhone(),
               largeButton: true,
               visibleInputField: true,
-              networkImage: false,
+              networkImage: true,
               controller: controller.surprisePhoneController,
               visibleSection:
                   controller
@@ -120,7 +118,12 @@ class HomeThree extends StatelessWidget {
                       ?.features
                       ?.surprizeGift ??
                   false,
-              imageUrl: AppImages.surprisingSectionBg,
+              imageUrl: controller
+                  .homeProductResponse
+                  .value
+                  .homepageSettings
+                  ?.surprizeGift
+                  ?.banner ?? "",
               title:
                   controller
                       .homeProductResponse
@@ -182,7 +185,7 @@ class HomeThree extends StatelessWidget {
                       .homepageSettings
                       ?.groupShopping
                       ?.banner ??
-                  '	https://v2.kireibd.com/_next/image?url=%2Fimages%2Fflash-sale%2F31.png&w=750&q=75',
+                  '',
               title:
                   controller
                       .homeProductResponse

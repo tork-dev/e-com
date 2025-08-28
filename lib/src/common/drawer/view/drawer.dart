@@ -8,7 +8,6 @@ import 'package:kirei/src/common/drawer/view/widgets/drawer_bottom_button.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/blogs/view/blogs.dart';
@@ -21,7 +20,6 @@ import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../features/authentication/views/log_in/view/login.dart';
@@ -29,7 +27,6 @@ import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/auth_helper.dart';
 import 'widgets/common_drawer_card.dart';
-import 'widgets/header_part.dart';
 
 class AppDrawer extends StatelessWidget {
   final bool isFromOtherPage;
@@ -130,15 +127,18 @@ class AppDrawer extends StatelessWidget {
                             backgroundColor: AppColors.white.withAlpha(13),
                             title: InkWell(
                               onTap: () {
-                                WidgetsBinding.instance.addPostFrameCallback((
-                                  _,
-                                ) {
-                                  RoutingHelper.urlRouting(
-                                    drawerController
-                                        .allNewCategories[index]
-                                        .url,
-                                  );
-                                });
+                                shopController.getValuesFromUrl(drawerController
+                                    .allNewCategories[index]
+                                    .url!);
+
+                                  if(bottomController.pageIndex.value == 1){
+                                    Get.back();
+                                    shopController.allProducts.clear();
+                                    shopController.getShopData();
+                                    return;
+                                  }
+
+                                  bottomController.jumpToTab(1);
                               },
                               child: Text(
                                 drawerController.allNewCategories[index].name!
@@ -174,12 +174,14 @@ class AppDrawer extends StatelessWidget {
                                           ),
                                           title: GestureDetector(
                                             onTap: () {
-                                              WidgetsBinding.instance
-                                                  .addPostFrameCallback((_) {
-                                                    RoutingHelper.urlRouting(
-                                                      category.url,
-                                                    );
-                                                  });
+                                              shopController.getValuesFromUrl(category.url!);
+                                              if(bottomController.pageIndex.value == 1){
+                                                Get.back();
+                                                shopController.allProducts.clear();
+                                                shopController.getShopData();
+                                                return;
+                                              }
+                                              bottomController.jumpToTab(1);
                                             },
                                             child: Text(
                                               category.counts != null
@@ -260,13 +262,14 @@ class AppDrawer extends StatelessWidget {
                                                                         ),
                                                                     child: AppDrawerCard(
                                                                       onPress: () {
-                                                                        WidgetsBinding.instance.addPostFrameCallback((
-                                                                          _,
-                                                                        ) {
-                                                                          RoutingHelper.urlRouting(
-                                                                            childValue.url,
-                                                                          );
-                                                                        });
+                                                                              shopController.getValuesFromUrl(childValue.url!);
+                                                                              if(bottomController.pageIndex.value == 1){
+                                                                                Get.back();
+                                                                                shopController.allProducts.clear();
+                                                                                shopController.getShopData();
+                                                                                return;
+                                                                              }
+                                                                              bottomController.jumpToTab(1);
                                                                       },
                                                                       title:
                                                                           childValue.counts !=
@@ -284,9 +287,14 @@ class AppDrawer extends StatelessWidget {
                                                                   .addPostFrameCallback((
                                                                     _,
                                                                   ) {
-                                                                    RoutingHelper.urlRouting(
-                                                                      child.url,
-                                                                    );
+                                                                shopController.getValuesFromUrl(child.url!);
+                                                                if(bottomController.pageIndex.value == 1){
+                                                                  Get.back();
+                                                                  shopController.allProducts.clear();
+                                                                  shopController.getShopData();
+                                                                  return;
+                                                                }
+                                                                bottomController.jumpToTab(1);
                                                                   });
                                                             },
                                                             title:
@@ -308,9 +316,14 @@ class AppDrawer extends StatelessWidget {
                                           onPress: () {
                                             WidgetsBinding.instance
                                                 .addPostFrameCallback((_) {
-                                                  RoutingHelper.urlRouting(
-                                                    category.url,
-                                                  );
+                                                  shopController.getValuesFromUrl(category.url!);
+                                                  if(bottomController.pageIndex.value == 1){
+                                                    Get.back();
+                                                    shopController.allProducts.clear();
+                                                    shopController.getShopData();
+                                                    return;
+                                                  }
+                                                  bottomController.jumpToTab(1);
                                                 });
                                           },
                                         ),
@@ -323,9 +336,14 @@ class AppDrawer extends StatelessWidget {
                                     .toUpperCase(),
                             onPress: () {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                RoutingHelper.urlRouting(
-                                  drawerController.allNewCategories[index].url,
-                                );
+                                shopController.getValuesFromUrl(drawerController.allNewCategories[index].url!);
+                                if(bottomController.pageIndex.value == 1){
+                                  Get.back();
+                                  shopController.allProducts.clear();
+                                  shopController.getShopData();
+                                  return;
+                                }
+                                bottomController.jumpToTab(1);
                               });
                             },
                           ),

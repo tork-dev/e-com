@@ -8,10 +8,13 @@ import 'package:kirei/src/features/address/model/area_response.dart';
 import 'package:kirei/src/features/address/model/zone_response.dart';
 import 'package:kirei/src/features/address/repositories/address_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import '../../../utils/local_storage/local_storage_keys.dart';
+import '../../../utils/local_storage/storage_utility.dart';
 import '../../../utils/logging/logger.dart';
 
 class AddressController extends GetxController {
   static AddressController get instance => Get.find();
+
 
   Rx<CityResponse> cityList = CityResponse().obs;
   Rx<ZoneResponse> zoneList = ZoneResponse().obs;
@@ -44,12 +47,16 @@ class AddressController extends GetxController {
   }
 
   Future<void> onRefresh() async {
-    await getShippingAddress();
-    if (shippingAddress.value.data != null) {
-      setAddress();
-    }
-    getCityList();
-    Log.d('refresh');
+      if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null ||
+          AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true) {
+        await getShippingAddress();
+
+        if (shippingAddress.value.data != null) {
+          setAddress();
+        }
+        getCityList();
+        Log.d('refresh');
+      }
   }
 
   Future<void> getShippingAddress() async {
@@ -57,6 +64,8 @@ class AddressController extends GetxController {
     shippingAddress.value = await AddressRepositories().getAddressList();
     hittingApi.value = false;
   }
+
+  bool get hasData => shippingAddress.value.data != null;
 
   void setAddress() {
     nameController.text = shippingAddress.value.data![0].name!;

@@ -19,8 +19,8 @@ class CheckoutRepositories {
   final userid = AppLocalStorage().readData(LocalStorageKeys.userId);
 
 
-  Future<CheckoutSummaryResponse> getCartSummaryResponse() async {
-    Uri url = Uri.parse("${AppApiEndPoints.checkoutSummary}?source=app");
+  Future<CheckoutSummaryResponse> getCartSummaryResponse(int cityID) async {
+    Uri url = Uri.parse("${AppApiEndPoints.checkoutSummary}?city_id=$cityID&source=app");
     final response = await http.get(
       url,
       headers: {

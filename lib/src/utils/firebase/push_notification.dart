@@ -1,179 +1,156 @@
+// import 'dart:async';
+// import 'dart:ui';
 //
-// import 'dart:io';
-// import 'dart:math';
-//
-// import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_background_service/flutter_background_service.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:kirei/src/utils/helpers/routing_helper.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 //
-// import '../../../main.dart';
-// import '../local_storage/local_storage_keys.dart';
-// import '../local_storage/storage_utility.dart';
+// class NotificationServiceTwo {
+//   // this will be used as notification channel id
+//   static const notificationChannelId = 'my_foreground';
 //
-// @pragma('vm:entry-point')
-// void notificationResponse(NotificationResponse notificationResponse) {
-//   print('This is action id: ${notificationResponse.actionId}');
-//   print('This is payload: ${notificationResponse.payload}');
+// // this will be used for notification id, So you can update your custom notification with this id.
+//   static const notificationId = 888;
 //
-//   // Handle the action based on the actionId
-//   switch (notificationResponse.actionId) {
-//     case 'action_1':
-//     // Perform specific logic for action 1
-//       print('Action 1 triggered');
-//       // Navigate to a specific screen or perform an action
-//       break;
-//     case 'action_2':
-//     // Perform specific logic for action 2
-//       print('Action 2 triggered');
-//       // Navigate to a different screen or perform another action
-//       break;
-//     default:
-//       print('Unknown action triggered');
-//       break;
-//   }
+//   Future<void> initializeService() async {
+//     final service = FlutterBackgroundService();
 //
-//   // If there is payload data, you can parse and use it here
-//   if (notificationResponse.payload != null) {
-//     final payloadData = notificationResponse.payload;
-//     // Handle the payload data
-//   }
-// }
-//
-//
-//
-// class PushNotificationService {
-//
-//   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-//   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-//
-//   void notificationController(){
-//     initNotifications();
-//     firebaseMessage();
-//     //handelBackAndTerminateState();
-//   }
-//
-//
-//   Future<void> initNotifications() async{
-//
-//     await _firebaseMessaging.requestPermission(
-//         alert: true,
-//         sound: true,
-//         announcement: true,
-//         badge: true,
-//         carPlay: true,
-//         criticalAlert: true,
-//         provisional: true,
-//     );
-//
-//     final fCMToken = await _firebaseMessaging.getToken();
-//
-//     print("FCM TOKEN is : ${fCMToken}");
-//     await AppLocalStorage().saveData(LocalStorageKeys.fcmToken, fCMToken);
-//     print("local fcm : ${AppLocalStorage().readData(LocalStorageKeys.fcmToken)}");
-//     // initPushNotifications();
-//   }
-//
-//   void firebaseMessage(){
-//     FirebaseMessaging.onMessage.listen((message) {
-//       print(message.data);
-//       print(message.notification!.title);
-//       print(message.notification!.body);
-//       if (Platform.isAndroid) {
-//         initLocalNotification(message);
-//         showNotification(message);
-//       }else{
-//         showNotification(message);
-//       }
-//     });
-//   }
-//
-//   Future<void> initLocalNotification(RemoteMessage message)async{
-//
-//     AndroidInitializationSettings androidInitializationSettings = const AndroidInitializationSettings('@drawable/ic_notification');
-//     DarwinInitializationSettings darwinInitializationSettings = const DarwinInitializationSettings();
-//
-//     InitializationSettings initializationSettings = InitializationSettings(
-//       android: androidInitializationSettings,
-//       iOS: darwinInitializationSettings
-//     );
-//
-//    await _flutterLocalNotificationsPlugin.initialize(
-//       initializationSettings,
-//       // onDidReceiveNotificationResponse: (payload){
-//       //  handelMessage(message);
-//       // }
-//      onDidReceiveNotificationResponse: notificationResponse
-//     );
-//
-//
-//   }
-//
-//   Future<void> showNotification(RemoteMessage message)async{
-//
-//     AndroidNotificationChannel channel = AndroidNotificationChannel(
-//         message.notification!.android!.channelId!,
-//         'Kirei',
-//         importance: Importance.max
-//     );
-//
-//     AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
-//         channel.id.toString(),
-//         channel.name.toString(),
-//       channelDescription: 'Your channel description',
-//       importance: Importance.high,
-//       priority: Priority.high,
-//       ongoing: true,
-//       styleInformation: const BigTextStyleInformation(''),
-//       ticker: 'ticker',
+//     const AndroidNotificationChannel channel = AndroidNotificationChannel(
+//       notificationChannelId, // id
+//       'MY FOREGROUND SERVICE', // title
+//       description:
+//       'This channel is used for important notifications.', // description
+//       importance: Importance.high, // importance must be at low or higher level
 //       playSound: true,
-//       icon: '@drawable/ic_notification',
-//
-//       actions: <AndroidNotificationAction>[
-//         AndroidNotificationAction(message.data['action_id'], 'Action 1', showsUserInterface: true),
-//         AndroidNotificationAction('action_2', 'Action 2', showsUserInterface: true),
-//       ],
+//       showBadge: true,
 //     );
 //
-//     const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
-//       presentAlert: true,
-//       presentBadge: true,
-//       presentSound: true
+//     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
+//
+//     await flutterLocalNotificationsPlugin
+//         .resolvePlatformSpecificImplementation<
+//         AndroidFlutterLocalNotificationsPlugin>()
+//         ?.createNotificationChannel(channel);
+//
+//     await service.configure(
+//         androidConfiguration: AndroidConfiguration(
+//           // this will be executed when app is in foreground or background in separated isolate
+//           onStart: onStart,
+//
+//           // auto start service
+//           autoStart: true,
+//           isForegroundMode: true,
+//
+//           notificationChannelId: notificationChannelId,
+//           // this must match with notification channel you created above.
+//           initialNotificationTitle: 'AWESOME SERVICE',
+//           initialNotificationContent: 'Initializing',
+//           foregroundServiceNotificationId: notificationId,
+//         ),
+//         iosConfiguration: IosConfiguration(
+//           autoStart: true,
+//           // this will be executed when app is in foreground in separated isolate
+//           onForeground: onStart,
+//           // you have to enable background fetch capability on xcode project
+//           onBackground: onIosBackground,
+//
+//         )
 //     );
-//
-//     NotificationDetails notificationDetails = NotificationDetails(
-//       android: androidNotificationDetails,
-//       iOS: darwinNotificationDetails,
-//     );
-//
-//     Future.delayed(Duration.zero, (){
-//       _flutterLocalNotificationsPlugin.show(
-//           0,
-//           message.notification!.title,
-//           message.notification!.body,
-//           notificationDetails,
-//         payload: '{"route": "${message.data['route']}"}',
-//       );
-//     });
-//
-//
 //   }
 //
-//   void handelMessage(RemoteMessage? message ){
-//     RoutingHelper.urlRouting(message!.data['route']);
+//   @pragma('vm:entry-point')
+//   Future<bool> onIosBackground(ServiceInstance service) async {
+//     WidgetsFlutterBinding.ensureInitialized();
+//     DartPluginRegistrant.ensureInitialized();
+//
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     await preferences.reload();
+//     final log = preferences.getStringList('log') ?? <String>[];
+//     log.add(DateTime.now().toIso8601String());
+//     await preferences.setStringList('log', log);
+//     return true;
 //   }
 //
-//   Future handelBackAndTerminateState() async{
-//     RemoteMessage? initialMessage = await  _firebaseMessaging.getInitialMessage();
-//     if(initialMessage!= null){
-//       handelMessage(initialMessage);
+//   @pragma('vm:entry-point')
+//   void onStart(ServiceInstance service) async {
+//     // Only available for flutter 3.0.0 and later
+//     DartPluginRegistrant.ensureInitialized();
+//
+//     // For flutter prior to version 3.0.0
+//     // We have to register the plugin manually
+//
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     await preferences.setString("hello", "world");
+//
+//     /// OPTIONAL when use custom notification
+//     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
+//
+//     if (service is AndroidServiceInstance) {
+//       service.on('setAsForeground').listen((event) {
+//         service.setAsForegroundService();
+//       });
+//
+//       service.on('setAsBackground').listen((event) {
+//         service.setAsBackgroundService();
+//       });
 //     }
 //
-//     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-//       handelMessage(message);
+//     service.on('stopService').listen((event) {
+//       service.stopSelf();
 //     });
-//
 //   }
 //
+//   // bring to foreground
+//   Timer.periodic(Duration(seconds: 1), (timer) async {
+//   if (service is AndroidServiceInstance) {
+//   if (await service.isForegroundService()) {
+//   /// OPTIONAL for use custom notification
+//   /// the notification id must be equals with AndroidConfiguration when you call configure() method.
+//   flutterLocalNotificationsPlugin.show(
+//   888,
+//   'COOL SERVICE',
+//   'Awesome ${DateTime.now()}',
+//   const NotificationDetails(
+//   android: AndroidNotificationDetails(
+//   'my_foreground',
+//   'MY FOREGROUND SERVICE',
+//   icon: 'ic_bg_service_small',
+//   ongoing: true,
+//   ),
+//   ),
+//   );
 //
+//   // if you don't using custom notification, uncomment this
+//   service.setForegroundNotificationInfo(
+//   title: "My App Service",
+//   content: "Updated at ${DateTime.now()}",
+//   );
+//   }
+//   }
+//
+//   /// you can see this log in logcat
+//   debugPrint('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
+//
+//   // test using external plugin
+//   final deviceInfo = DeviceInfoPlugin();
+//   String? device;
+//   if (Platform.isAndroid) {
+//   final androidInfo = await deviceInfo.androidInfo;
+//   device = androidInfo.model;
+//   } else if (Platform.isIOS) {
+//   final iosInfo = await deviceInfo.iosInfo;
+//   device = iosInfo.model;
+//   }
+//
+//   service.invoke(
+//   'update',
+//   {
+//   "current_date": DateTime.now().toIso8601String(),
+//   "device": device,
+//   },
+//   );
+//   });
 // }

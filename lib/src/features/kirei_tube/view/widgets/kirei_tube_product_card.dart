@@ -151,8 +151,6 @@ class KireiTubeProductCard extends StatelessWidget {
                                                           .requestStockResponse
                                                           .value
                                                           .message!));
-
-                                              // AwesomeNotificationController.showNotification();
                                               return;
                                             }
 
@@ -170,20 +168,7 @@ class KireiTubeProductCard extends StatelessWidget {
                                                         .value
                                                         .data
                                                         ?.products![index]
-                                                        .preorderAvailable)
-                                                .then((value) => {
-                                                      cartController.cartCount
-                                                          .value = cartController
-                                                              .addToCartResponse
-                                                              .value
-                                                              .cartQuantity ??
-                                                          0,
-                                                      AppHelperFunctions.showToast(
-                                                          cartController
-                                                              .addToCartResponse
-                                                              .value
-                                                              .message!)
-                                                    });
+                                                        .preorderAvailable);
                                           } else {
                                             Get.to(() => const LogIn());
                                           }

@@ -22,6 +22,7 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/logging/logger.dart';
 import '../../../utils/popups/custom_loader.dart';
+import '../../address/model/address_model.dart';
 import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
@@ -60,11 +61,25 @@ class CheckoutController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    onRefresh();
+
+    // Reactively run APIs once shippingAddress is loaded
+    ever(addressController.shippingAddress, (AddressResponse? addr) {
+      if (addr != null) {
+        _executeCheckoutApis();
+      }
+    });
   }
 
   Future<void> onRefresh() async {
-    Log.d('refresh');
+    if (addressController.hasData) {
+      await _executeCheckoutApis();
+    }
+  }
+
+  Future<void> _executeCheckoutApis() async {
+    // Optional delay
+    await Future.delayed(const Duration(seconds: 1));
+
     await getCheckoutSummary();
     await getPaymentMethods();
     AppHelperFunctions.showToast('Cart Updated');
@@ -91,8 +106,9 @@ class CheckoutController extends GetxController {
   }
 
   Future<void> getCheckoutSummary() async {
+    print("called");
     checkoutSummary.value =
-        await CheckoutRepositories().getCartSummaryResponse();
+        await CheckoutRepositories().getCartSummaryResponse(addressController.selectedCityId.value);
     couponController.text = checkoutSummary.value.couponCode ?? '';
     isCouponApplied.value = checkoutSummary.value.couponApplied!;
     grandTotal.value = checkoutSummary.value.grandTotalValue;

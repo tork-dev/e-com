@@ -10,7 +10,7 @@ class RoutingHelper {
     Log.d(baseUrl);
     if (url != null) {
       if (url.contains(baseUrl)) {
-        String route = url.replaceFirst(baseUrl, '');
+        String route = url.replaceFirst(baseUrl, '/');
         if ((route.startsWith('/account') ||
                 route.startsWith('/wishlist') ||
                 route.startsWith("/account-details") ||
@@ -42,6 +42,7 @@ class RoutingHelper {
         } else if (route.startsWith('/product')) {
           Get.offNamed(route);
         } else {
+          print("route $route");
           Get.toNamed(route);
         }
       }

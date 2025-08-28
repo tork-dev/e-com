@@ -64,10 +64,10 @@ class HelloConvexAppBar extends StatelessWidget {
               Log.d('back press in category');
               controller.categoryController.allProducts.clear();
 
-              controller.categoryController.getValuesFromUrl(Uri.parse(
+              controller.categoryController.getValuesFromUrl(
                   controller.categoryController.categoryRouteList[(
                       controller.categoryController.categoryRouteList.length -
-                          1) - 1]));
+                          1) - 1]);
 
               Log.d(controller.categoryController.categoryRouteList[(
                   controller.categoryController.categoryRouteList.length -
