@@ -22,7 +22,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.thetork.kirei"
-    compileSdk 35
+    compileSdk 36
     // ✳️ Avoid specifying NDK version unless required
      ndkVersion "29.0.13599879"
 
@@ -34,7 +34,7 @@ android {
 
     defaultConfig {
         applicationId "com.thetork.kirei"
-        minSdkVersion 23
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -56,16 +56,6 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            // ✅ Workaround to avoid symbol strip crash
-//            packagingOptions {
-//                doNotStrip "**/*.so"
-//            }
-
-//            ndk {
-//                debugSymbolLevel 'none'
-//            }
-//            ndk { debugSymbolLevel 'FULL' }
         }
     }
 }
@@ -75,7 +65,6 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.stripe:stripe-android:17.1.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
     implementation 'com.google.android.gms:play-services-tagmanager:18.1.0'
@@ -85,4 +74,5 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
     implementation 'androidx.window:window:1.0.0'
     implementation 'androidx.window:window-java:1.0.0'
+    implementation "com.google.android.material:material:1.12.0"
 }
