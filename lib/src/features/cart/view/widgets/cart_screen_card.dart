@@ -136,56 +136,7 @@ class AppCartProductCard extends StatelessWidget {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  AppHelperFunctions.showAlert(
-                                                    onRightPress: () {
-                                                      cartController
-                                                          .getCartDelete(
-                                                            cartController
-                                                                .allCartProducts[0]
-                                                                .cartItems![index]
-                                                                .id!,
-                                                          )
-                                                          .then((value) {
-                                                            Get.back();
-                                                            EventLogger().logRemoveFromCartEvent(
-                                                              cartController
-                                                                  .allCartProducts[0]
-                                                                  .cartItems![index]
-                                                                  .slug!,
-                                                              cartController
-                                                                  .allCartProducts[0]
-                                                                  .cartItems![index]
-                                                                  .price,
-                                                            );
-                                                            cartController.onRefresh().then(
-                                                              (value) => {
-                                                                cartController
-                                                                        .cartCount
-                                                                        .value =
-                                                                    cartController
-                                                                        .cartProductDeleteResponse
-                                                                        .value
-                                                                        .cartQuantity!,
-
-                                                                AppHelperFunctions.showToast(
-                                                                  cartController
-                                                                      .cartProductDeleteResponse
-                                                                      .value
-                                                                      .message!,
-                                                                ),
-                                                              },
-                                                            );
-                                                          });
-                                                    },
-                                                    onLeftPress:
-                                                        () => Get.back(),
-                                                    message:
-                                                        'Are you sure to remove this item?',
-                                                    leftButtonName: 'Cancel',
-                                                    rightButtonName: 'Delete',
-                                                    rightButtonColor:
-                                                        AppColors.primary,
-                                                  );
+                                                  cartController.deleteCartProduct(index);
                                                 },
                                                 child: const Icon(
                                                   CupertinoIcons.delete,
@@ -209,34 +160,26 @@ class AppCartProductCard extends StatelessWidget {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        cartController
-                                            .getCartUpdateQuantity(
-                                              cartController
-                                                  .allCartProducts[0]
-                                                  .cartItems![index]
-                                                  .id!,
-                                              cartController
-                                                      .allCartProducts[0]
-                                                      .cartItems![index]
-                                                      .quantity! +
-                                                  1,
-                                            )
-                                            .then(
-                                              (value) =>
-                                                  cartController.onRefresh(),
-                                            )
-                                            .then(
-                                              (value) => {
-                                                AppHelperFunctions.showToast(
-                                                  cartController
-                                                      .cartUpdateResponse
-                                                      .value
-                                                      .message!,
-                                                ),
-                                              },
-                                            );
+                                        cartController.addQuantity(index);
                                       },
-                                      child: const Icon(Icons.add),
+                                      child:
+                                          !cartController.quantityUpdateApiIDs
+                                                  .contains(
+                                                    cartController
+                                                        .allCartProducts[0]
+                                                        .cartItems![index]
+                                                        .id,
+                                                  )
+                                              ? Icon(Icons.add)
+                                              : SizedBox(
+                                                height: 16,
+                                                width: 16,
+                                                child:
+                                                    const CircularProgressIndicator(
+                                                      color: AppColors.primary,
+                                                      strokeWidth: 1,
+                                                    ),
+                                              ),
                                     ),
                                     AppCardContainer(
                                       height: 25,
@@ -257,47 +200,26 @@ class AppCartProductCard extends StatelessWidget {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        if (cartController
-                                                .allCartProducts[0]
-                                                .cartItems![index]
-                                                .quantity! >
-                                            cartController
-                                                .allCartProducts[0]
-                                                .cartItems![index]
-                                                .lowerLimit!) {
-                                          cartController
-                                              .getCartUpdateQuantity(
-                                                cartController
-                                                    .allCartProducts[0]
-                                                    .cartItems![index]
-                                                    .id!,
-                                                cartController
+                                        cartController.removeQuantity(index);
+                                      },
+                                      child:
+                                          !cartController.quantityUpdateApiIDs
+                                                  .contains(
+                                                    cartController
                                                         .allCartProducts[0]
                                                         .cartItems![index]
-                                                        .quantity! -
-                                                    1,
-                                              )
-                                              .then(
-                                                (value) =>
-                                                    cartController.onRefresh(),
-                                              )
-                                              .then(
-                                                (value) => {
-                                                  AppHelperFunctions.showToast(
-                                                    cartController
-                                                        .cartUpdateResponse
-                                                        .value
-                                                        .message!,
-                                                  ),
-                                                },
-                                              );
-                                        } else {
-                                          AppHelperFunctions.showToast(
-                                            'Cannot order less than ${cartController.allCartProducts[0].cartItems![index].lowerLimit}',
-                                          );
-                                        }
-                                      },
-                                      child: const Icon(Icons.remove),
+                                                        .id,
+                                                  )
+                                              ? Icon(Icons.remove)
+                                              : SizedBox(
+                                                height: 16,
+                                                width: 16,
+                                                child:
+                                                    const CircularProgressIndicator(
+                                                      color: AppColors.primary,
+                                                      strokeWidth: 1,
+                                                    ),
+                                              ),
                                     ),
                                   ],
                                 ),

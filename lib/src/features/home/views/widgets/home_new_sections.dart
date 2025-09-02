@@ -7,6 +7,7 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
+import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -89,7 +90,12 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
                             .buildBasicShimmer(height: 40, width: 150)
                         : AppCardContainer(
                             onTap: () {
-                              Log.d(sectionName?.route);
+                              if(bgUrl == AppImages.skinCareFlowerBg){
+                                Get.to(()=> WebViewScreen(
+                                  bodyPadding: 0,
+                                  url: sectionName?.route, title: 'Chat',));
+                                return;
+                              }
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                               RoutingHelper.urlRouting(sectionName?.route ??
                                   '$baseUrlWeb/kirei-tube');

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 
 class MaintenanceScreen extends StatelessWidget {
   const MaintenanceScreen({super.key});
@@ -7,10 +8,8 @@ class MaintenanceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          "🚧 App is under maintenance.\nPlease try again later.",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        child: AppBannerImage(
+          imgUrl: "assets/images/background/maintenance_background.png",
         ),
       ),
     );

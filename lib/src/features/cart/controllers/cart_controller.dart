@@ -6,6 +6,7 @@ import 'package:kirei/src/features/checkout/view/checkout_screen.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
+import '../../../utils/constants/colors.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 import '../../home/model/request_stock_model.dart';
@@ -23,6 +24,9 @@ class CartController extends GetxController {
   final bool callingApis;
   RxSet<int> addingToCartIds = <int>{}.obs;
 
+  // bool callingQuantityUpdateApi;
+  RxSet<int> quantityUpdateApiIDs = <int>{}.obs;
+
   /// Key
   final GlobalKey<ScaffoldState> cartKey = GlobalKey<ScaffoldState>();
   RxList<CartItemGetResponse> allCartProducts = <CartItemGetResponse>[].obs;
@@ -35,8 +39,6 @@ class CartController extends GetxController {
       CheckoutCartUpdateResponse().obs;
   RxBool hittingApi = false.obs;
 
-
-
   RxInt cartCount = 0.obs;
   final RxInt cartItemTotalPrice = 0.obs;
 
@@ -45,7 +47,7 @@ class CartController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if(callingApis) {
+    if (callingApis) {
       if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
         getAllCartProducts().then((value) => updateQuantity());
       }
@@ -54,8 +56,9 @@ class CartController extends GetxController {
 
   Future<void> onRefresh() async {
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      getAllCartProducts()
-          .then((value) => {updateTotalPrice(), updateQuantity()});
+      getAllCartProducts().then(
+        (value) => {updateTotalPrice(), updateQuantity()},
+      );
     }
   }
 
@@ -69,6 +72,81 @@ class CartController extends GetxController {
     }
   }
 
+  void addQuantity(int index) {
+    final item = allCartProducts[0].cartItems![index];
+    if (item.quantity! < item.upperLimit!) {
+      final newQuantity = item.quantity! + 1;
+      quantityUpdateApiIDs.add(item.id!);
+      update();
+
+      getCartUpdateQuantity(item.id!, newQuantity).then((value) {
+        // ✅ Update only this item's quantity locally
+        allCartProducts[0].cartItems![index].quantity = newQuantity;
+
+        // ✅ Force refresh so UI rebuilds
+        allCartProducts.refresh();
+
+        AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
+
+        quantityUpdateApiIDs.remove(item.id);
+        cartCount.value = cartCount.value + 1;
+        updateTotalPrice();
+      });
+      update();
+    } else {
+      AppHelperFunctions.showToast('Cannot order more than ${item.upperLimit}');
+    }
+  }
+
+  void removeQuantity(int index) {
+    final item = allCartProducts[0].cartItems![index];
+    if (item.quantity! > item.lowerLimit!) {
+      final newQuantity = item.quantity! - 1;
+      quantityUpdateApiIDs.add(item.id!);
+      update();
+
+      getCartUpdateQuantity(item.id!, newQuantity).then((value) {
+        // ✅ Update only this item's quantity locally
+        allCartProducts[0].cartItems![index].quantity = newQuantity;
+
+        // ✅ Force refresh so UI rebuilds
+        allCartProducts.refresh();
+
+        AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
+
+        cartCount.value = cartCount.value - 1;
+        quantityUpdateApiIDs.remove(item.id);
+        updateTotalPrice();
+      });
+      update();
+    } else {
+      AppHelperFunctions.showToast('Cannot order less than ${item.lowerLimit}');
+    }
+  }
+
+  void deleteCartProduct(int index) {
+    final item = allCartProducts[0].cartItems![index];
+    AppHelperFunctions.showAlert(
+      onRightPress: () {
+        getCartDelete(allCartProducts[0].cartItems![index].id!).then((value) {
+          Get.back();
+          allCartProducts.remove(
+            allCartProducts.firstWhere(
+              (element) => element.cartItems![index].id == item.id,
+            ),
+          );
+          updateTotalPrice();
+          updateQuantity();
+        });
+      },
+      onLeftPress: () => Get.back(),
+      message: 'Are you sure to remove this item?',
+      leftButtonName: 'Cancel',
+      rightButtonName: 'Delete',
+      rightButtonColor: AppColors.primary,
+    );
+  }
+
   void updateTotalPrice() {
     int totalPrice = 0;
     if (allCartProducts.isNotEmpty) {
@@ -80,48 +158,57 @@ class CartController extends GetxController {
   }
 
   Future<void> getAddToCartResponse(
-      int id, int quantity, dynamic preorderAvailable) async {
+    int id,
+    int quantity,
+    dynamic preorderAvailable,
+  ) async {
     addingToCartIds.add(id);
     update();
-    addToCartResponse.value = await CartRepositories()
-        .getCartAddResponse(id, quantity, preorderAvailable);
+    addToCartResponse.value = await CartRepositories().getCartAddResponse(
+      id,
+      quantity,
+      preorderAvailable,
+    );
     AppHelperFunctions.showToast(addToCartResponse.value.message!);
-    if(addToCartResponse.value.result == true) {
+    if (addToCartResponse.value.result == true) {
       cartCount.value = int.parse(addToCartResponse.value.cartQuantity!);
     }
     addingToCartIds.remove(id);
     update();
   }
 
-  Future<ProductRequestResponse> getRequestResponse(
-      {required int productId}) async {
-    return requestStockResponse.value =
-        await CartRepositories().getRequestStock(productId: productId);
+  Future<ProductRequestResponse> getRequestResponse({
+    required int productId,
+  }) async {
+    return requestStockResponse.value = await CartRepositories()
+        .getRequestStock(productId: productId);
   }
 
   Future<void> getAllCartProducts() async {
     hittingApi.value = true;
     allCartProducts.value = await CartRepositories().getCartProducts();
     hittingApi.value = false;
-    final List<Map<String, dynamic>> items = allCartProducts[0].cartItems!.map((item) {
-      return {
-        'item_id': item.productId,
-        'price': item.price,
-        'quantity': item.quantity,
-      };
-    }).toList();
-
+    final List<Map<String, dynamic>> items =
+        allCartProducts[0].cartItems!.map((item) {
+          return {
+            'item_id': item.productId,
+            'price': item.price,
+            'quantity': item.quantity,
+          };
+        }).toList();
 
     EventLogger().logViewCartEvent(jsonEncode(items), cartItemTotalPrice.value);
   }
 
   Future<CartDeleteResponse> getCartDelete(int cartId) async {
-    return cartProductDeleteResponse.value =
-        await CartRepositories().getCartDeleteResponse(cartId);
+    return cartProductDeleteResponse.value = await CartRepositories()
+        .getCartDeleteResponse(cartId);
   }
 
   Future<CartUpdateResponse> getCartUpdateQuantity(
-      int productId, int productQuantity) async {
+    int productId,
+    int productQuantity,
+  ) async {
     return cartUpdateResponse.value = await CartRepositories()
         .getCartQuantityUpdate(productId, productQuantity);
   }
@@ -142,8 +229,10 @@ class CartController extends GetxController {
       }
 
       Log.i(cartIds.toString());
-      EventLogger()
-          .initialCheckoutEvent(productIds.toString(), cartItemTotalPrice.toString());
+      EventLogger().initialCheckoutEvent(
+        productIds.toString(),
+        cartItemTotalPrice.toString(),
+      );
 
       if (cartIds.isEmpty) {
         return;
@@ -155,17 +244,21 @@ class CartController extends GetxController {
 
       checkoutCartUpdateResponse.value = await CartRepositories()
           .getCartProcessResponse(
-              cartIds: cartIdsString, cartQuantities: cartQuantitiesString);
+            cartIds: cartIdsString,
+            cartQuantities: cartQuantitiesString,
+          );
 
       if (checkoutCartUpdateResponse.value.result == false) {
         AppHelperFunctions.showToast(checkoutCartUpdateResponse.value.message!);
       } else {
         Log.i('All products: $allCartProducts');
-        Get.to(() => CheckoutScreen(
-              allProductResponse: allCartProducts,
-              productIdsString: productIdsString,
-              productQuantitiesString: cartQuantitiesString,
-        ));
+        Get.to(
+          () => CheckoutScreen(
+            allProductResponse: allCartProducts,
+            productIdsString: productIdsString,
+            productQuantitiesString: cartQuantitiesString,
+          ),
+        );
       }
     }
   }

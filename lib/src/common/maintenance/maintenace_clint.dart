@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 class MaintenanceHttpClient extends http.BaseClient {
@@ -16,7 +17,7 @@ class MaintenanceHttpClient extends http.BaseClient {
     try {
       final data = jsonDecode(res.body);
 
-      if (res.statusCode == 404 || AppLocalStorage().readData('isInMaintenanceMode') == true) {
+      if (res.statusCode == 404 || AppLocalStorage().readData(LocalStorageKeys.isInMaintenanceMode) == true) {
         Get.offAllNamed('/maintenance');
       }
     } catch (_) {
