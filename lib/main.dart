@@ -22,7 +22,7 @@ import 'src/utils/helpers/app_life_cycle_helper.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   await NotificationServices().initializeLocalNotifications();
-  await NotificationServices().showNotification(message);
+  // await NotificationServices().showNotification(message);
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

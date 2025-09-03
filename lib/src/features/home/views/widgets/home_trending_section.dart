@@ -328,17 +328,52 @@ class HomeTrendingSection extends StatelessWidget {
                                                         product.salePrice!,
                                                       );
                                                 },
-                                                child: AppCardContainer(
-                                                  applyRadius: true,
-                                                  borderRadius:
-                                                      AppSizes.borderRadiusSm,
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: AppSizes.sm,
-                                                    vertical: AppSizes.sm,
-                                                  ),
-                                                  hasBorder: true,
-                                                  borderWidth: 1,
-                                                  backgroundColor:
+                                                child: Obx(() {
+                                                  return AppCardContainer(
+                                                    applyRadius: true,
+                                                    borderRadius:
+                                                        AppSizes.borderRadiusSm,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          horizontal:
+                                                              AppSizes.sm,
+                                                          vertical: AppSizes.sm,
+                                                        ),
+                                                    hasBorder: true,
+                                                    borderWidth: 1,
+                                                    backgroundColor:
+                                                        homeController
+                                                                    .homeProductResponse
+                                                                    .value
+                                                                    .trending?[index1]
+                                                                    .trendingProducts?[index2]
+                                                                    .stock !=
+                                                                0
+                                                            ? AppColors
+                                                                .addToCartButton
+                                                            : homeController
+                                                                    .homeProductResponse
+                                                                    .value
+                                                                    .trending?[index1]
+                                                                    .trendingProducts?[index2]
+                                                                    .preorderAvailable ==
+                                                                0
+                                                            ? homeController
+                                                                        .homeProductResponse
+                                                                        .value
+                                                                        .trending![index1]
+                                                                        .trendingProducts![index2]
+                                                                        .requestAvailable ==
+                                                                    0
+                                                                ? AppColors
+                                                                    .primary
+                                                                : AppColors
+                                                                    .request
+                                                            : AppColors
+                                                                .preorder,
+                                                    borderColor:
+                                                        AppColors.borderPrimary,
+                                                    child: Text(
                                                       homeController
                                                                   .homeProductResponse
                                                                   .value
@@ -346,8 +381,18 @@ class HomeTrendingSection extends StatelessWidget {
                                                                   .trendingProducts?[index2]
                                                                   .stock !=
                                                               0
-                                                          ? AppColors
-                                                              .addToCartButton
+                                                          ? cartController
+                                                                  .addingToCartIds
+                                                                  .contains(
+                                                                    homeController
+                                                                        .homeProductResponse
+                                                                        .value
+                                                                        .trending?[index1]
+                                                                        .trendingProducts?[index2]
+                                                                        .id,
+                                                                  )
+                                                              ? "Adding..."
+                                                              : 'Add to cart'
                                                           : homeController
                                                                   .homeProductResponse
                                                                   .value
@@ -362,59 +407,19 @@ class HomeTrendingSection extends StatelessWidget {
                                                                       .trendingProducts![index2]
                                                                       .requestAvailable ==
                                                                   0
-                                                              ? AppColors
-                                                                  .primary
-                                                              : AppColors
-                                                                  .request
-                                                          : AppColors.preorder,
-                                                  borderColor:
-                                                      AppColors.borderPrimary,
-                                                  child: Text(
-                                                    homeController
-                                                                .homeProductResponse
-                                                                .value
-                                                                .trending?[index1]
-                                                                .trendingProducts?[index2]
-                                                                .stock !=
-                                                            0
-                                                        ? cartController
-                                                                .addingToCartIds
-                                                                .contains(
-                                                                  homeController
-                                                                      .homeProductResponse
-                                                                      .value
-                                                                      .trending?[index1]
-                                                                      .trendingProducts?[index2]
-                                                                      .id,
-                                                                )
-                                                            ? "Adding..."
-                                                            : 'Add to cart'
-                                                        : homeController
-                                                                .homeProductResponse
-                                                                .value
-                                                                .trending?[index1]
-                                                                .trendingProducts?[index2]
-                                                                .preorderAvailable ==
-                                                            0
-                                                        ? homeController
-                                                                    .homeProductResponse
-                                                                    .value
-                                                                    .trending![index1]
-                                                                    .trendingProducts![index2]
-                                                                    .requestAvailable ==
-                                                                0
-                                                            ? 'Out of stock'
-                                                            : "Request stock"
-                                                        : 'Preorder now',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium!
-                                                        .apply(
-                                                          color:
-                                                              AppColors.white,
-                                                        ),
-                                                  ),
-                                                ),
+                                                              ? 'Out of stock'
+                                                              : "Request stock"
+                                                          : 'Preorder now',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium!
+                                                          .apply(
+                                                            color:
+                                                                AppColors.white,
+                                                          ),
+                                                    ),
+                                                  );
+                                                }),
                                               ),
                                             ],
                                           ),
@@ -432,13 +437,13 @@ class HomeTrendingSection extends StatelessWidget {
                             child: AppButtons.largeFlatFilledButton(
                               onPressed: () {
                                 categoryPassingController.getValuesFromUrl(
-                                      homeController
-                                          .homeProductResponse
-                                          .value
-                                          .trending![index1]
-                                          .categoryUrl!);
+                                  homeController
+                                      .homeProductResponse
+                                      .value
+                                      .trending![index1]
+                                      .categoryUrl!,
+                                );
                                 bottomController.jumpToTab(1);
-
                               },
                               buttonText: "View more",
                               backgroundColor: AppColors.secondary,

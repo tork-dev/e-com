@@ -128,13 +128,11 @@ class CartController extends GetxController {
     final item = allCartProducts[0].cartItems![index];
     AppHelperFunctions.showAlert(
       onRightPress: () {
-        getCartDelete(allCartProducts[0].cartItems![index].id!).then((value) {
+        getCartDelete(item.id!).then((value) {
+          allCartProducts[0].cartItems!.removeAt(index); // ✅ remove item only
+          // ✅ Force refresh so UI rebuilds
+          allCartProducts.refresh();
           Get.back();
-          allCartProducts.remove(
-            allCartProducts.firstWhere(
-              (element) => element.cartItems![index].id == item.id,
-            ),
-          );
           updateTotalPrice();
           updateQuantity();
         });
