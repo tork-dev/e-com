@@ -131,6 +131,10 @@ class CartController extends GetxController {
         getCartDelete(item.id!).then((value) {
           allCartProducts[0].cartItems!.removeAt(index); // ✅ remove item only
           // ✅ Force refresh so UI rebuilds
+          if(allCartProducts[0].cartItems!.isEmpty){
+            allCartProducts.clear();
+            cartCount.value = 0;
+          }
           allCartProducts.refresh();
           Get.back();
           updateTotalPrice();
