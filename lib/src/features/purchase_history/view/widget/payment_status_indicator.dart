@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
 
@@ -27,8 +26,8 @@ class PaymentStatusIndicator extends StatelessWidget {
                       "paid" ||
               paymentStatus ==
                       "COD"
-              ? FontAwesomeIcons.check
-              : FontAwesomeIcons.xmark,
+              ? Icons.check
+              : Icons.close,
           size: 15,
           color: AppColors.white,
         ));
