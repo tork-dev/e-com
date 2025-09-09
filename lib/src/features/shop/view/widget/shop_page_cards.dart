@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
+import 'package:kirei/src/features/cart/model/cart_local_model.dart';
+import 'package:kirei/src/features/cart/services/cart_services.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 
 import '../../../../common/layouts/gridview_layout/gridview_layout.dart';
 import '../../../../common/styles/app_dividers.dart';
@@ -84,46 +87,71 @@ class AppShopGridScrollCard extends StatelessWidget {
                                     );
                                   },
                                   onCartTap: () {
-                                    if (AppLocalStorage().readData(
-                                          LocalStorageKeys.isLoggedIn,
-                                        ) !=
-                                        null) {
-                                      EventLogger().logAddToCartEvent(
-                                        shopController.allProducts[index].slug!,
-                                        shopController.allProducts[index].salePrice,
-                                      );
-                                      if (shopController
-                                              .allProducts[index]
-                                              .requestAvailable !=
-                                          0) {
-                                        cartController
-                                            .getRequestResponse(
-                                              productId:
-                                                  shopController
-                                                      .allProducts[index]
-                                                      .id!,
-                                            )
-                                            .then(
-                                              (value) =>
-                                                  AppHelperFunctions.showToast(
-                                                    cartController
-                                                        .requestStockResponse
-                                                        .value
-                                                        .message!,
-                                                  ),
-                                            );
-                                        return;
-                                      }
-                                      cartController
-                                          .getAddToCartResponse(
-                                            shopController.allProducts[index].id!,
-                                            1,
-                                            shopController
-                                                .allProducts[index]
-                                                .preorderAvailable,
-                                          );
-                                    } else {
+                                    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null && shopController
+                                        .allProducts[index]
+                                        .requestAvailable !=
+                                        0) {
                                       Get.to(() => const LogIn());
+                                    }else if (shopController
+                                        .allProducts[index]
+                                        .requestAvailable !=
+                                        0) {
+                                      cartController
+                                          .getRequestResponse(
+                                        productId:
+                                        shopController
+                                            .allProducts[index]
+                                            .id!,
+                                      )
+                                          .then(
+                                            (value) =>
+                                            AppHelperFunctions.showToast(
+                                              cartController
+                                                  .requestStockResponse
+                                                  .value
+                                                  .message!,
+                                            ),
+                                      );
+                                    }else {
+                                      CartService.addCartItem(CartItemLocal(
+                                        productId: shopController
+                                            .allProducts[index].id!,
+                                        productName: shopController
+                                            .allProducts[index].name!,
+                                        price: shopController.allProducts[index]
+                                            .salePrice!,
+                                        productThumbnailImage: shopController
+                                            .allProducts[index].pictures
+                                            ?.isNotEmpty == true
+                                            ? shopController.allProducts[index]
+                                            .pictures!
+                                            .first.url
+                                            : '',
+                                        isPreorder: shopController
+                                            .allProducts[index]
+                                            .preorderAvailable,
+                                      ));
+
+
+                                      if (AppLocalStorage().readData(
+                                        LocalStorageKeys.isLoggedIn,
+                                      ) !=
+                                          null) {
+                                        EventLogger().logAddToCartEvent(
+                                          shopController.allProducts[index]
+                                              .slug!,
+                                          shopController.allProducts[index]
+                                              .salePrice,
+                                        );
+                                        cartController
+                                            .getAddToCartResponse(
+                                          shopController.allProducts[index].id!,
+                                          1,
+                                          shopController
+                                              .allProducts[index]
+                                              .preorderAvailable,
+                                        );
+                                      }
                                     }
                                   },
                                   productName:

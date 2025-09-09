@@ -14,6 +14,7 @@ import 'package:kirei/src/features/checkout/view/widget/payment_method_type.dart
 import 'package:kirei/src/features/checkout/view/widget/redeem_point_part.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../utils/constants/colors.dart';
+import '../../cart/model/cart_local_model.dart';
 import 'widget/checkout_order_product_card.dart';
 import 'widget/shipping_address_container.dart';
 
@@ -24,7 +25,7 @@ class CheckoutScreen extends StatelessWidget {
       required this.productIdsString,
       required this.productQuantitiesString});
 
-  final List<CartItemGetResponse> allProductResponse;
+  final List<CartItemLocal> allProductResponse;
   final String productIdsString;
   final String productQuantitiesString;
 
@@ -72,7 +73,7 @@ class CheckoutScreen extends StatelessWidget {
                           haveTxtButton: false,
                         ),
                         AppCheckoutOrderProductsCard(
-                          productsList: allProductResponse[0].cartItems!,
+                          productsList: allProductResponse,
                         ),
                         const AppCheckoutSummary(),
                         const Gap(AppSizes.spaceBtwDefaultItems),

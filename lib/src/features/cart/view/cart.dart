@@ -32,8 +32,10 @@ class CartScreen extends StatelessWidget {
         bodyBackgroundColor: AppColors.secondaryBackground,
         backgroundColor: AppColors.primary,
         padding: 0,
-        body: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true
-            ? Stack(
+        body:
+        // AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true
+        //     ?
+        Stack(
                 children: [
                   AppLayoutWithRefresher(
                     onRefresh: controller.onRefresh,
@@ -56,15 +58,16 @@ class CartScreen extends StatelessWidget {
                   })
                 ],
               )
-            : Center(
-                child: CartLogOutView(
-                  onTap: () {
-                    Get.to(()=> const LogIn());
-                  },
-                  imgUrl: AppImages.profileIcon,
-                  titleText: 'Please log in to see cart item',
-                  buttonName: 'Login Now',
-                ),
-              ));
+            // : Center(
+            //     child: CartLogOutView(
+            //       onTap: () {
+            //         Get.to(()=> const LogIn());
+            //       },
+            //       imgUrl: AppImages.profileIcon,
+            //       titleText: 'Please log in to see cart item',
+            //       buttonName: 'Login Now',
+            //     ),
+            //   )
+    );
   }
 }

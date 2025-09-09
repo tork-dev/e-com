@@ -23,6 +23,7 @@ import '../../../utils/constants/sizes.dart';
 import '../../../utils/logging/logger.dart';
 import '../../../utils/popups/custom_loader.dart';
 import '../../address/model/address_model.dart';
+import '../../cart/model/cart_local_model.dart';
 import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
@@ -37,7 +38,7 @@ class CheckoutController extends GetxController {
 
   Rx<CheckoutSummaryResponse> checkoutSummary = CheckoutSummaryResponse().obs;
   RxList<PaymentMethodResponse> paymentMethods = <PaymentMethodResponse>[].obs;
-  List<CartItemGetResponse> allCartProducts = <CartItemGetResponse>[].obs;
+  List<CartItemLocal> allCartProducts = <CartItemLocal>[].obs;
   Rx<CouponResponse> couponResponse = CouponResponse().obs;
   Rx<CouponRemoveResponse> couponRemoveResponse = CouponRemoveResponse().obs;
   Rx<OrderCreateResponse> orderCreateResponse = OrderCreateResponse().obs;
@@ -303,7 +304,7 @@ class CheckoutController extends GetxController {
       "shipping_city_id": addressController.selectedCityId.value,
       "shipping_zone_id": addressController.selectedZoneId.value,
       "shipping_area_id": addressController.selectedAreaId.value,
-      "is_preorder": allCartProducts[0].cartItems![0].isPreorder,
+      "is_preorder": allCartProducts[0].isPreorder,
       "payment_type": selectedPaymentMethodName.value,
       "note": notesController.text,
       "type": 'app',

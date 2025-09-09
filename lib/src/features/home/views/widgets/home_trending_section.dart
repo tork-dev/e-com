@@ -267,9 +267,6 @@ class HomeTrendingSection extends StatelessWidget {
                                                                 .isLoggedIn,
                                                           ) !=
                                                       null) {
-                                                    Log.d(
-                                                      "${product?.requestAvailable}",
-                                                    );
                                                     if (product
                                                             ?.requestAvailable !=
                                                         0) {

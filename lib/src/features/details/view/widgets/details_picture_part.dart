@@ -85,7 +85,7 @@ class AppDetailsPicturePart extends StatelessWidget {
                     width: AppHelperFunctions.screenWidth() * .63,
                   )
                   : SizedBox(
-                    width: AppHelperFunctions.screenWidth() * .63,
+                    width: AppHelperFunctions.screenWidth() * .45,
                     child: Stack(
                       children: [
                         SizedBox(

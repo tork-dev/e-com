@@ -282,7 +282,7 @@ class GetShopDataController extends GetxController {
             newMaxScrollExtent - maxScrollExtentBeforeLoad;
         scrollController.jumpTo(currentScrollPosition +
             scrollOffsetDifference); // Maintain position after loading
-      } else if (pageNumber.value >= shopPageProduct.value.meta!.lastPage! &&
+      } else if (pageNumber.value >= shopPageProduct.value.meta?.lastPage &&
           scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
           !isLoadingMore) {

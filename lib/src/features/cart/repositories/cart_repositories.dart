@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/cart/model/card_add_response_model.dart';
 import 'package:kirei/src/features/cart/model/cart_delete_response_model.dart';
 import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
+import 'package:kirei/src/features/cart/model/cart_local_model.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -47,11 +48,12 @@ class CartRepositories {
   }
 
   /// Get The Cart Products
-  Future<List<CartItemGetResponse>> getCartProducts() async {
+  Future<List<CartItemLocal>> getCartProducts() async {
     var postBody = jsonEncode({
       "source": "app",
       "app_info": await AppHelperFunctions.appInfo(),
     });
+
     final response = await http.post(
       Uri.parse(AppApiEndPoints.cartProducts),
       headers: {
@@ -64,13 +66,22 @@ class CartRepositories {
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
       Log.d('cart response : $jsonResponse');
-      return jsonResponse
-          .map((data) => CartItemGetResponse.fromJson(data))
-          .toList();
+
+      List<CartItemLocal> cartItems = [];
+
+      for (var group in jsonResponse) {
+        var items = group['cart_items'] as List<dynamic>;
+        for (var item in items) {
+          cartItems.add(CartItemLocal.fromJson(item));
+        }
+      }
+
+      return cartItems;
     } else {
       throw Exception('Failed to load cart Products data');
     }
   }
+
 
   ///Cart Quantity Update
   Future<CartUpdateResponse> getCartQuantityUpdate(
