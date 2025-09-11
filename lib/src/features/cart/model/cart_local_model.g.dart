@@ -23,7 +23,7 @@ class CartItemLocalAdapter extends TypeAdapter<CartItemLocal> {
       productName: fields[5] as String?,
       productThumbnailImage: fields[6] as String?,
       isPreorder: fields[7] as int?,
-      price: fields[9] as double?,
+      price: fields[9] as dynamic,
       quantity: fields[13] as int?,
       lowerLimit: fields[14] as int?,
       upperLimit: fields[15] as int?,

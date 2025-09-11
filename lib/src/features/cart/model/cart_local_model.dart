@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'cart_local_model.g.dart'; // generated file (build_runner দিয়ে আসবে)
+part 'cart_local_model.g.dart'; // generated file (build_runner)
 
 @HiveType(typeId: 0)
 class CartItemLocal {
@@ -23,7 +23,7 @@ class CartItemLocal {
   int? isPreorder;
 
   @HiveField(9)
-  double? price;
+  dynamic price;
 
   @HiveField(13)
   int? quantity;

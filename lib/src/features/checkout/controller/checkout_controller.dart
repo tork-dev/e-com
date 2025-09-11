@@ -107,7 +107,6 @@ class CheckoutController extends GetxController {
   }
 
   Future<void> getCheckoutSummary() async {
-    print("called");
     checkoutSummary.value =
         await CheckoutRepositories().getCartSummaryResponse(addressController.selectedCityId.value);
     couponController.text = checkoutSummary.value.couponCode ?? '';

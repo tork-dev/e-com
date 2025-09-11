@@ -51,22 +51,18 @@ class CartController extends GetxController {
   void onInit() {
     super.onInit();
     final box = Hive.box<CartItemLocal>('cartBox');
-    if (callingApis) {
-      if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-        getAllCartProducts();
-
-      }
+    if (callingApis &&
+        AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
+      getAllCartProducts();
+    } else {
+      allCartProducts.assignAll(box.values.toList());
     }
-    allCartProducts.assignAll(CartService.getCartItems());
-    // watch changes in realtime
-
     updateTotalPrice();
     updateQuantity();
 
     box.listenable().addListener(() {
       allCartProducts.assignAll(box.values.toList());
     });
-
   }
 
   Future<void> onRefresh() async {
@@ -79,12 +75,13 @@ class CartController extends GetxController {
 
   void updateQuantity() {
     int totalQuantity = 0;
-    if (allCartProducts.isNotEmpty) {
-      for (var item in allCartProducts) {
+    if (CartService.getCartItems().isNotEmpty) {
+      for (var item in CartService.getCartItems()) {
         totalQuantity += item.quantity!;
-        cartCount.value = totalQuantity;
       }
     }
+    print(totalQuantity);
+    cartCount.value = totalQuantity;
   }
 
   void addQuantity(int index) {
@@ -161,7 +158,7 @@ class CartController extends GetxController {
         CartService.removeCartItem(index);
 
         if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-          getCartDelete(item.id!);
+          getCartDelete(item.productId!);
         }
         Get.back();
         updateTotalPrice();
@@ -177,12 +174,12 @@ class CartController extends GetxController {
 
   void updateTotalPrice() {
     double totalPrice = 0;
-    if (allCartProducts.isNotEmpty) {
-      for (var item in allCartProducts) {
+    if (CartService.getCartItems().isNotEmpty) {
+      for (var item in CartService.getCartItems()) {
         totalPrice += item.price! * item.quantity!.toDouble();
-        cartItemTotalPrice.value = totalPrice;
       }
     }
+    cartItemTotalPrice.value = totalPrice;
   }
 
   Future<void> getAddToCartResponse(Product product) async {
@@ -208,11 +205,15 @@ class CartController extends GetxController {
         CartService.removeCartItemWithId(product.id!);
       }
     }
+    updateQuantity();
     updateTotalPrice();
     addingToCartIds.remove(product.id);
     update();
-    AppHelperFunctions.showToast(addToCartResponse.value.message ?? "Added To cart");
+    AppHelperFunctions.showToast(
+      addToCartResponse.value.message ?? "Added To cart",
+    );
   }
+
 
   Future<ProductRequestResponse> getRequestResponse({
     required int productId,
@@ -223,8 +224,7 @@ class CartController extends GetxController {
 
   Future<void> getAllCartProducts() async {
     hittingApi.value = true;
-    allCartProducts.value = await CartRepositories().getCartProducts();
-    CartService.saveCartItems(allCartProducts);
+    CartService.saveCartItems(await CartRepositories().getCartProducts());
     hittingApi.value = false;
     final List<Map<String, dynamic>> items =
         allCartProducts.map((item) {
@@ -300,4 +300,7 @@ class CartController extends GetxController {
       }
     }
   }
+
+
+
 }

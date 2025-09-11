@@ -12,6 +12,7 @@ import '../../../utils/logging/logger.dart';
 import '../../home/model/request_stock_model.dart';
 import '../model/cart_update_response_model.dart';
 import '../model/checkout_cart_update_model.dart';
+import '../services/cart_services.dart';
 
 class CartRepositories {
   final int userId = AppLocalStorage().readData(LocalStorageKeys.userId);
@@ -175,5 +176,30 @@ class CartRepositories {
     } else {
       throw Exception('Failed to load data: ${response.statusCode}');
     }
+  }
+
+  /// Bulk add to cart
+  Future <void> bulkAddToCart() async {
+    print('bulkAddToCart called');
+    List<int> productIds = [];
+    List<int> productQuantities = [];
+    for (var product in CartService.getCartItems()) {
+      productIds.add(product.id!);
+      productQuantities.add(product.quantity!);
+    }
+    var postBody = jsonEncode({
+      "product_ids_arr": productIds,
+      "product_quantities_arr": productQuantities,
+      "app_info": await AppHelperFunctions.appInfo(),
+    });
+    Uri url = Uri.parse(AppApiEndPoints.bulkAddToCart);
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: postBody,
+    );
   }
 }

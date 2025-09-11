@@ -54,6 +54,7 @@ class AppApiEndPoints {
   static String cartQuantityUpdate = "$baseUrl/carts/change-quantity";
   static String proceedToCheckout = "$baseUrl/carts/process";
   static String requestStock = "$baseUrl/add-product-request/";
+  static String bulkAddToCart = "$baseUrl/api/v2/carts/bulk-add";
 
 
   ///Checkout
