@@ -5,6 +5,7 @@ import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
+import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/colors.dart';
@@ -29,14 +30,14 @@ class AppBottomButton extends StatelessWidget {
                   children: [
                     AppCardContainer(
                         onTap: () {
-                          if (AppLocalStorage()
-                                  .readData(LocalStorageKeys.isLoggedIn) !=
-                              true) {
-                            Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
-                            // Get.toNamed(
-                            //     '/login/product/${detailsController.productSlug.value}');
-                            return;
-                          }
+                          // if (AppLocalStorage()
+                          //         .readData(LocalStorageKeys.isLoggedIn) !=
+                          //     true) {
+                          //   Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
+                          //   // Get.toNamed(
+                          //   //     '/login/product/${detailsController.productSlug.value}');
+                          //   return;
+                          // }
 
                           detailsController.onAddToCart().then((value) =>
                               detailsController.isAddedToCart.value = true);
@@ -112,11 +113,7 @@ class AppBottomButton extends StatelessWidget {
                             0
                         ? cartController
                             .getAddToCartResponse(
-                                detailsController
-                                    .productDetails.value.detailedProducts!.id!,
-                                1,
-                                detailsController.productDetails.value
-                                    .detailedProducts!.preorderAvailable)
+                                detailsController.productDetails.value.detailedProducts as Product)
                             .then((value) {
                             AppHelperFunctions.showToast(cartController
                                 .addToCartResponse.value.message!);

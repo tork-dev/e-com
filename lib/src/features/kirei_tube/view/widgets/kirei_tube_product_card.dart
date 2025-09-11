@@ -144,8 +144,8 @@ class KireiTubeProductCard extends StatelessWidget {
                                                               .kireiTubeDetailsResponse
                                                               .value
                                                               .data
-                                                              ?.products![index]
-                                                              .id)
+                                                              !.products![index]
+                                                              .id!)
                                                   .then((value) => AppHelperFunctions
                                                       .showToast(cartController
                                                           .requestStockResponse
@@ -160,15 +160,7 @@ class KireiTubeProductCard extends StatelessWidget {
                                                         .kireiTubeDetailsResponse
                                                         .value
                                                         .data
-                                                        ?.products![index]
-                                                        .id,
-                                                    1,
-                                                    kireiTubeDetailsController
-                                                        .kireiTubeDetailsResponse
-                                                        .value
-                                                        .data
-                                                        ?.products![index]
-                                                        .preorderAvailable);
+                                                        !.products![index]);
                                           } else {
                                             Get.to(() => const LogIn());
                                           }
@@ -181,8 +173,8 @@ class KireiTubeProductCard extends StatelessWidget {
                                                     .kireiTubeDetailsResponse
                                                     .value
                                                     .data
-                                                    ?.products![index]
-                                                    .stock >
+                                                    !.products![index]
+                                                    .stock! >
                                                 0
                                             ? AppColors.addToCartButton
                                             : kireiTubeDetailsController
@@ -210,8 +202,8 @@ class KireiTubeProductCard extends StatelessWidget {
                                                       .kireiTubeDetailsResponse
                                                       .value
                                                       .data
-                                                      ?.products![index]
-                                                      .stock >
+                                                      !.products![index]
+                                                      .stock! >
                                                   0
                                               ? 'Add to cart'
                                               : kireiTubeDetailsController

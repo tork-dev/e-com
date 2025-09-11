@@ -118,12 +118,14 @@ class HomeThree extends StatelessWidget {
                       ?.features
                       ?.surprizeGift ??
                   false,
-              imageUrl: controller
-                  .homeProductResponse
-                  .value
-                  .homepageSettings
-                  ?.surprizeGift
-                  ?.banner ?? "",
+              imageUrl:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.surprizeGift
+                      ?.banner ??
+                  "",
               title:
                   controller
                       .homeProductResponse

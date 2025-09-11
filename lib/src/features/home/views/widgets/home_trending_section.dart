@@ -261,69 +261,74 @@ class HomeTrendingSection extends StatelessWidget {
                                                           .value
                                                           .trending?[index1]
                                                           .trendingProducts?[index2];
-                                                  if (AppLocalStorage()
-                                                          .readData(
-                                                            LocalStorageKeys
-                                                                .isLoggedIn,
-                                                          ) !=
-                                                      null) {
-                                                    if (product
-                                                            ?.requestAvailable !=
-                                                        0) {
-                                                      cartController
-                                                          .getRequestResponse(
-                                                            productId:
-                                                                product!.id!,
-                                                          )
-                                                          .then(
-                                                            (
-                                                              value,
-                                                            ) => AppHelperFunctions.showToast(
-                                                              cartController
-                                                                  .requestStockResponse
-                                                                  .value
-                                                                  .message!,
-                                                            ),
-                                                          );
-                                                      return;
-                                                    }
 
-                                                    cartController
-                                                        .getAddToCartResponse(
-                                                          product!.id!,
-                                                          1,
-                                                          product
-                                                              .preorderAvailable,
-                                                        );
-                                                  } else {
+                                                  if (product!.stock == 0) {
+                                                    AppHelperFunctions.showToast(
+                                                      "Product is not in stock",
+                                                    );
+                                                    return;
+                                                  }
+
+                                                  if (AppLocalStorage().readData(
+                                                    LocalStorageKeys.isLoggedIn,
+                                                  ) ==
+                                                      null &&
+                                                      product.requestAvailable != 0) {
                                                     Get.toNamed(
                                                       '/login/cart',
                                                       parameters: {
                                                         'product_id':
-                                                            product!.id
-                                                                .toString(),
-                                                        'product_slug':
-                                                            product.slug!,
+                                                        product.id.toString(),
+                                                        'product_slug': product.slug!,
                                                         'sale_price':
-                                                            product.salePrice
-                                                                .toString(),
+                                                        product.salePrice.toString(),
                                                         'request_available':
-                                                            product
-                                                                .requestAvailable
-                                                                .toString(),
+                                                        product.requestAvailable
+                                                            .toString(),
                                                         'preorder_available':
-                                                            product
-                                                                .preorderAvailable
-                                                                .toString(),
+                                                        product.preorderAvailable
+                                                            .toString(),
                                                       },
+                                                    );
+                                                  } else if (product.requestAvailable !=
+                                                      0) {
+                                                    cartController
+                                                        .getRequestResponse(
+                                                      productId: product.id!,
+                                                    )
+                                                        .then(
+                                                          (value) => AppHelperFunctions.showToast(
+                                                        cartController
+                                                            .requestStockResponse
+                                                            .value
+                                                            .message!,
+                                                      ),
+                                                    );
+                                                  } else if (product.requestAvailable !=
+                                                      0) {
+                                                    cartController
+                                                        .getRequestResponse(
+                                                      productId: product.id!,
+                                                    )
+                                                        .then(
+                                                          (value) => AppHelperFunctions.showToast(
+                                                        cartController
+                                                            .requestStockResponse
+                                                            .value
+                                                            .message!,
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    cartController.getAddToCartResponse(
+                                                      product,
                                                     );
                                                   }
 
-                                                  EventLogger()
-                                                      .logAddToCartEvent(
-                                                        '${product.slug}',
-                                                        product.salePrice!,
-                                                      );
+                                                  // EventLogger()
+                                                  //     .logAddToCartEvent(
+                                                  //       '${product.slug}',
+                                                  //       product.salePrice!,
+                                                  //     );
                                                 },
                                                 child: Obx(() {
                                                   return AppCardContainer(

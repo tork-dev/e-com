@@ -45,7 +45,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut<UserController>(()=>UserController());
     Get.lazyPut<AccountDetailsController>(()=>AccountDetailsController());
     Get.lazyPut<DetailsPageController>(()=>DetailsPageController());
-    Get.lazyPut<RecommendationController>(()=>RecommendationController());
+    // Get.lazyPut<RecommendationController>(()=>RecommendationController());
     Get.lazyPut<AppointmentController>(()=>AppointmentController());
     Get.lazyPut<CommunityController>(()=>CommunityController());
     Get.lazyPut<GroupShoppingController>(()=>GroupShoppingController());

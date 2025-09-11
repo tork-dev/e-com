@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/details/repositories/details_repositories.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
@@ -15,6 +16,7 @@ class DetailsPageController extends GetxController {
   static DetailsPageController get instance => Get.find();
 
   HomeController homeController = Get.put(HomeController(callApis: false));
+  CartController cartController = Get.put(CartController());
 
   RxList<String> productSlugList = <String>[].obs;
   RxInt productSlugIndex = 0.obs;
@@ -96,11 +98,8 @@ class DetailsPageController extends GetxController {
   }
 
   Future<void> onAddToCart() async {
-    homeController
-        .getAddToCartResponse(
-            productDetails.value.detailedProducts!.id!,
-            productCount.value,
-            productDetails.value.detailedProducts!.preorderAvailable!)
+    cartController.getAddToCartResponse(
+        productDetails.value.detailedProducts!)
         .then((value) => {
               isAddedToCart.value = true,
               AppHelperFunctions.showToast(

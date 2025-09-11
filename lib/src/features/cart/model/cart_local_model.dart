@@ -78,44 +78,32 @@ class CartItemLocal {
       'upper_limit': upperLimit,
     };
   }
-}
-
-@HiveType(typeId: 1)
-class CartItemGetResponse {
-  @HiveField(0)
-  String? name;
-
-  @HiveField(1)
-  int? ownerId;
-
-  @HiveField(2)
-  List<CartItemLocal>? cartItems;
-
-  CartItemGetResponse({
-    this.name,
-    this.ownerId,
-    this.cartItems,
-  });
-
-  /// ✅ From API JSON
-  factory CartItemGetResponse.fromJson(Map<String, dynamic> json) {
-    var list = json['cart_items'] as List?;
-    List<CartItemLocal>? cartItemList =
-    list?.map((i) => CartItemLocal.fromJson(i)).toList();
-
-    return CartItemGetResponse(
-      name: json['name'],
-      ownerId: json['owner_id'],
-      cartItems: cartItemList,
+  // ✅ copyWith helper
+  CartItemLocal copyWith({
+    int? id,
+    String? slug,
+    int? productId,
+    String? productName,
+    String? productThumbnailImage,
+    int? isPreorder,
+    int? quantity,
+    double? price,
+    int? lowerLimit,
+    int? upperLimit,
+  }) {
+    return CartItemLocal(
+      id: id ?? this.id,
+      productId: productId ?? this.productId,
+      productName: productName ?? this.productName,
+      quantity: quantity ?? this.quantity,
+      price: price ?? this.price,
+      lowerLimit: lowerLimit ?? this.lowerLimit,
+      upperLimit: upperLimit ?? this.upperLimit,
+      slug: slug ?? this.slug,
+      productThumbnailImage:
+          productThumbnailImage ?? this.productThumbnailImage,
+      isPreorder: isPreorder ?? this.isPreorder,
     );
   }
-
-  /// ✅ To JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'owner_id': ownerId,
-      'cart_items': cartItems?.map((e) => e.toJson()).toList(),
-    };
-  }
 }
+

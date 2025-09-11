@@ -5,6 +5,7 @@ import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/wishlist/controller/wishlist_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
@@ -17,7 +18,7 @@ class AppWishListProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wishlistController = WishlistController.instance;
-    final cartController = Get.put(HomeController(callApis: false));
+    final cartController = Get.put(CartController());
     return Obx(() {
       return AppListViewLayout(
         itemCount:
@@ -47,7 +48,7 @@ class AppWishListProductCard extends StatelessWidget {
                                   .value
                                   .data![index]
                                   .product!
-                                  .thumbnailImage ??
+                                  .pictures![0].url ??
                               '',
                         ),
                         const Gap(AppSizes.sm),
@@ -69,7 +70,7 @@ class AppWishListProductCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '${wishlistController.wishlistProducts.value.data![index].product!.basePrice}',
+                                    '${wishlistController.wishlistProducts.value.data![index].product!.price}',
                                     style:
                                         Theme.of(context).textTheme.titleSmall,
                                   ),
@@ -135,33 +136,13 @@ class AppWishListProductCard extends StatelessWidget {
                                         .value
                                         .data![index]
                                         .product!
-                                        .id!,
-                                    1,
-                                    wishlistController
-                                        .wishlistProducts
-                                        .value
-                                        .data![index]
-                                        .product!
-                                        .preorderAvailable,
                                   )
                                   .then(
                                     (value) => {
-                                      AppHelperFunctions.showToast(
-                                        cartController
-                                            .addToCartResponse
-                                            .value
-                                            .message!,
-                                      ),
-                                      if (cartController
-                                              .addToCartResponse
-                                              .value
-                                              .result ==
-                                          true)
-                                        {
                                           wishlistController
                                               .isAddedToCart
                                               .value = true,
-                                        },
+
                                     },
                                   );
                             },

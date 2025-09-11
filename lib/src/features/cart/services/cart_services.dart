@@ -13,13 +13,35 @@ class CartService {
 
   /// new item add
   static Future<void> addCartItem(CartItemLocal item) async {
-    await _cartBox.add(item);
+    // check if product already exists in the box
+    final existingIndex = _cartBox.values.toList().indexWhere(
+          (cartItem) => cartItem.productId == item.productId,
+    );
+
+    if (existingIndex != -1) {
+      // product found → update quantity
+      final existingItem = _cartBox.getAt(existingIndex)!;
+      final updatedItem = existingItem.copyWith(
+        quantity: (existingItem.quantity ?? 0) + (item.quantity ?? 1),
+      );
+
+      await _cartBox.putAt(existingIndex, updatedItem);
+    } else {
+      // product not found → add as new item
+      await _cartBox.add(item);
+    }
+
     print(_cartBox.values.toList());
   }
 
   /// remove with index
   static Future<void> removeCartItem(int index) async {
     await _cartBox.deleteAt(index);
+  }
+
+  /// remove with id
+  static Future<void> removeCartItemWithId(int id) async {
+    await _cartBox.deleteAt(id);
   }
 
   /// all cart clear

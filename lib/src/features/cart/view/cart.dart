@@ -23,51 +23,35 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = CartController.instance;
     return AppLayoutWithDrawer(
-        globalKey: controller.cartKey,
-        backToHome: true,
-        inHome: true,
-        title: const Text('Shopping Cart',
-            style: TextStyle(color: AppColors.white)),
-        centerTitle: true,
-        bodyBackgroundColor: AppColors.secondaryBackground,
-        backgroundColor: AppColors.primary,
-        padding: 0,
-        body:
-        // AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true
-        //     ?
-        Stack(
-                children: [
-                  AppLayoutWithRefresher(
-                    onRefresh: controller.onRefresh,
-                    children: const [
-                      Column(
-                        children: [
-                          Gap(AppSizes.md),
-                          AppCartProductCard(),
-                          Gap(200)
-                        ],
-                      )
-                    ],
-                  ),
-                  Obx(() {
-                    return Visibility(
-                      visible: controller.allCartProducts.isNotEmpty,
-                      child: const Positioned(
-                          bottom: 0, child: AppCartProceedButton()),
-                    );
-                  })
-                ],
-              )
-            // : Center(
-            //     child: CartLogOutView(
-            //       onTap: () {
-            //         Get.to(()=> const LogIn());
-            //       },
-            //       imgUrl: AppImages.profileIcon,
-            //       titleText: 'Please log in to see cart item',
-            //       buttonName: 'Login Now',
-            //     ),
-            //   )
+      globalKey: controller.cartKey,
+      backToHome: true,
+      inHome: true,
+      title: const Text(
+        'Shopping Cart',
+        style: TextStyle(color: AppColors.white),
+      ),
+      centerTitle: true,
+      bodyBackgroundColor: AppColors.secondaryBackground,
+      backgroundColor: AppColors.primary,
+      padding: 0,
+      body: Stack(
+        children: [
+          AppLayoutWithRefresher(
+            onRefresh: controller.onRefresh,
+            children: const [
+              Column(
+                children: [Gap(AppSizes.md), AppCartProductCard(), Gap(200)],
+              ),
+            ],
+          ),
+          Obx(() {
+            return Visibility(
+              visible: controller.allCartProducts.isNotEmpty,
+              child: const Positioned(bottom: 0, child: AppCartProceedButton()),
+            );
+          }),
+        ],
+      ),
     );
   }
 }

@@ -47,36 +47,22 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                             );
                           },
                           onCartTap: () {
-                            if (AppLocalStorage().readData(
-                                  LocalStorageKeys.isLoggedIn,
-                                ) !=
-                                null) {
-                              if (sectionName![index].requestAvailable != 0) {
-                                cartController
-                                    .getRequestResponse(
-                                      productId: sectionName![index].id!,
-                                    )
-                                    .then(
-                                      (value) => AppHelperFunctions.showToast(
-                                        cartController
-                                            .requestStockResponse
-                                            .value
-                                            .message!,
-                                      ),
-                                    );
-                                return;
-                              }
-
-                              cartController.getAddToCartResponse(
-                                sectionName![index].id!,
-                                1,
-                                sectionName![index].preorderAvailable,
+                            if (sectionName![index].stock == 0) {
+                              AppHelperFunctions.showToast(
+                                "Product is not in stock",
                               );
-                            } else {
+                              return;
+                            }
+                            if (AppLocalStorage().readData(
+                                      LocalStorageKeys.isLoggedIn,
+                                    ) ==
+                                    null &&
+                                sectionName![index].requestAvailable != 0) {
                               Get.toNamed(
                                 '/login/cart',
                                 parameters: {
-                                  'product_id': sectionName![index].id.toString(),
+                                  'product_id':
+                                      sectionName![index].id.toString(),
                                   'product_slug': sectionName![index].slug!,
                                   'sale_price':
                                       sectionName![index].salePrice.toString(),
@@ -87,6 +73,38 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                                       sectionName![index].preorderAvailable
                                           .toString(),
                                 },
+                              );
+                            } else if (sectionName![index].requestAvailable !=
+                                0) {
+                              cartController
+                                  .getRequestResponse(
+                                    productId: sectionName![index].id!,
+                                  )
+                                  .then(
+                                    (value) => AppHelperFunctions.showToast(
+                                      cartController
+                                          .requestStockResponse
+                                          .value
+                                          .message!,
+                                    ),
+                                  );
+                            } else if (sectionName![index].requestAvailable !=
+                                0) {
+                              cartController
+                                  .getRequestResponse(
+                                    productId: sectionName![index].id!,
+                                  )
+                                  .then(
+                                    (value) => AppHelperFunctions.showToast(
+                                      cartController
+                                          .requestStockResponse
+                                          .value
+                                          .message!,
+                                    ),
+                                  );
+                            } else {
+                              cartController.getAddToCartResponse(
+                                sectionName![index],
                               );
                             }
 
@@ -100,7 +118,8 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                           price: sectionName![index].price!,
                           imgUrl:
                               sectionName?[index].pictures?.isNotEmpty == true
-                                  ? sectionName![index].pictures!.first.url ?? ''
+                                  ? sectionName![index].pictures!.first.url ??
+                                      ''
                                   : '',
                           isStockAvailable: sectionName![index].stock != 0,
                           buttonName:
@@ -124,11 +143,12 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                                       : AppColors.request
                                   : AppColors.preorder,
                           isNetworkImage: true,
-                          isDiscountAvailable: sectionName![index].discount != 0,
+                          isDiscountAvailable:
+                              sectionName![index].discount != 0,
                           discount: sectionName![index].discount!,
                           buttonColor: AppColors.white,
                         );
-                      }
+                      },
                     ),
       ),
     );

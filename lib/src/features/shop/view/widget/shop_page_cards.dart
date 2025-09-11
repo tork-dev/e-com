@@ -6,6 +6,7 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
 import 'package:kirei/src/features/cart/model/cart_local_model.dart';
 import 'package:kirei/src/features/cart/services/cart_services.dart';
+import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -81,81 +82,61 @@ class AppShopGridScrollCard extends StatelessWidget {
                                             '/shop?${shopController.queryStringValue.value}',
                                       },
                                     );
-                                    EventLogger().logProductDetailsViewEvent(
-                                      shopController.allProducts[index].slug!,
-                                      shopController.allProducts[index].salePrice!,
-                                    );
+                                    // EventLogger().logProductDetailsViewEvent(
+                                    //   shopController.allProducts[index].slug!,
+                                    //   shopController
+                                    //       .allProducts[index]
+                                    //       .salePrice!,
+                                    // );
                                   },
                                   onCartTap: () {
-                                    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null && shopController
-                                        .allProducts[index]
-                                        .requestAvailable !=
+                                    if (shopController
+                                            .allProducts[index]
+                                            .stock ==
                                         0) {
+                                      AppHelperFunctions.showToast(
+                                        "Product is not in stock",
+                                      );
+                                      return;
+                                    }
+                                    if (AppLocalStorage().readData(
+                                              LocalStorageKeys.isLoggedIn,
+                                            ) ==
+                                            null &&
+                                        shopController
+                                                .allProducts[index]
+                                                .requestAvailable !=
+                                            0) {
                                       Get.to(() => const LogIn());
-                                    }else if (shopController
-                                        .allProducts[index]
-                                        .requestAvailable !=
+                                    } else if (shopController
+                                            .allProducts[index]
+                                            .requestAvailable !=
                                         0) {
                                       cartController
                                           .getRequestResponse(
-                                        productId:
-                                        shopController
-                                            .allProducts[index]
-                                            .id!,
-                                      )
+                                            productId:
+                                                shopController
+                                                    .allProducts[index]
+                                                    .id!,
+                                          )
                                           .then(
                                             (value) =>
-                                            AppHelperFunctions.showToast(
-                                              cartController
-                                                  .requestStockResponse
-                                                  .value
-                                                  .message!,
-                                            ),
+                                                AppHelperFunctions.showToast(
+                                                  cartController
+                                                      .requestStockResponse
+                                                      .value
+                                                      .message!,
+                                                ),
+                                          );
+                                    } else {
+                                      cartController.getAddToCartResponse(
+                                        shopController.allProducts[index],
                                       );
-                                    }else {
-                                      CartService.addCartItem(CartItemLocal(
-                                        productId: shopController
-                                            .allProducts[index].id!,
-                                        productName: shopController
-                                            .allProducts[index].name!,
-                                        price: shopController.allProducts[index]
-                                            .salePrice!,
-                                        productThumbnailImage: shopController
-                                            .allProducts[index].pictures
-                                            ?.isNotEmpty == true
-                                            ? shopController.allProducts[index]
-                                            .pictures!
-                                            .first.url
-                                            : '',
-                                        isPreorder: shopController
-                                            .allProducts[index]
-                                            .preorderAvailable,
-                                      ));
-
-
-                                      if (AppLocalStorage().readData(
-                                        LocalStorageKeys.isLoggedIn,
-                                      ) !=
-                                          null) {
-                                        EventLogger().logAddToCartEvent(
-                                          shopController.allProducts[index]
-                                              .slug!,
-                                          shopController.allProducts[index]
-                                              .salePrice,
-                                        );
-                                        cartController
-                                            .getAddToCartResponse(
-                                          shopController.allProducts[index].id!,
-                                          1,
-                                          shopController
-                                              .allProducts[index]
-                                              .preorderAvailable,
-                                        );
-                                      }
                                     }
                                   },
                                   productName:
-                                      shopController.allProducts[index].name ?? '',
+                                      shopController.allProducts[index].name ??
+                                      '',
                                   ratings:
                                       shopController.allProducts[index].ratings!
                                           .toDouble(),
@@ -174,10 +155,14 @@ class AppShopGridScrollCard extends StatelessWidget {
                                           : '',
 
                                   reviews:
-                                      shopController.allProducts[index].reviews ??
+                                      shopController
+                                          .allProducts[index]
+                                          .reviews ??
                                       0,
                                   salePrice:
-                                      shopController.allProducts[index].salePrice
+                                      shopController
+                                          .allProducts[index]
+                                          .salePrice
                                           ?.toInt() ??
                                       0,
                                   price:
@@ -185,8 +170,16 @@ class AppShopGridScrollCard extends StatelessWidget {
                                           ?.toInt() ??
                                       0,
                                   buttonName:
-                                      shopController.allProducts[index].stock != 0
-                                          ? cartController.addingToCartIds.contains(shopController.allProducts[index].id)? "Adding..." : 'Add to cart'
+                                      shopController.allProducts[index].stock !=
+                                              0
+                                          ? cartController.addingToCartIds
+                                                  .contains(
+                                                    shopController
+                                                        .allProducts[index]
+                                                        .id,
+                                                  )
+                                              ? "Adding..."
+                                              : 'Add to cart'
                                           : shopController
                                                   .allProducts[index]
                                                   .preorderAvailable ==
@@ -199,7 +192,8 @@ class AppShopGridScrollCard extends StatelessWidget {
                                               : "Out of stock"
                                           : "Preorder Now",
                                   backgroundColor:
-                                      shopController.allProducts[index].stock != 0
+                                      shopController.allProducts[index].stock !=
+                                              0
                                           ? AppColors.secondary
                                           : shopController
                                                   .allProducts[index]
@@ -213,17 +207,22 @@ class AppShopGridScrollCard extends StatelessWidget {
                                               : AppColors.primary
                                           : AppColors.preorder,
                                   isDiscountAvailable:
-                                      shopController.allProducts[index].salePrice !=
+                                      shopController
+                                          .allProducts[index]
+                                          .salePrice !=
                                       shopController.allProducts[index].price,
                                   isNetworkImage: true,
                                   discount:
-                                      shopController.allProducts[index].discount!
+                                      shopController
+                                          .allProducts[index]
+                                          .discount!
                                           .toInt(),
                                   isStockAvailable:
-                                      shopController.allProducts[index].stock != 0,
+                                      shopController.allProducts[index].stock !=
+                                      0,
                                   buttonColor: AppColors.white,
                                 );
-                              }
+                              },
                             ),
               ),
             ],

@@ -44,7 +44,6 @@ void main() async {
 
   // Adapter register (from generated file)
   Hive.registerAdapter(CartItemLocalAdapter());
-  Hive.registerAdapter(CartItemGetResponseAdapter());
   // Open Cart box
   await Hive.openBox<CartItemLocal>('cartBox');
 

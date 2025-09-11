@@ -133,20 +133,20 @@ class HomeController extends GetxController {
     homeFeaturedCategoryResponse.value =
         await HomeRepositories().getHomeFeaturedCategories();
   }
-
-  Future<void> getAddToCartResponse(
-    int id,
-    int quantity,
-    dynamic preorderAvailable,
-  ) async {
-    addingToCart.value = true;
-    addToCartResponse.value = await CartRepositories().getCartAddResponse(
-      id,
-      quantity,
-      preorderAvailable,
-    );
-    addingToCart.value = false;
-  }
+  //
+  // Future<void> getAddToCartResponse(
+  //   int id,
+  //   int quantity,
+  //   dynamic preorderAvailable,
+  // ) async {
+  //   addingToCart.value = true;
+  //   addToCartResponse.value = await CartRepositories().getCartAddResponse(
+  //     id,
+  //     quantity,
+  //     preorderAvailable,
+  //   );
+  //   addingToCart.value = false;
+  // }
 
   Future<ProductRequestResponse> getRequestResponse({
     required int productId,
