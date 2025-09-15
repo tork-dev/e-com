@@ -14,26 +14,49 @@ import '../../../utils/logging/logger.dart';
 import '../model/coupon_apply_model.dart';
 
 class CheckoutRepositories {
-
   final accessToken = AppLocalStorage().readData(LocalStorageKeys.accessToken);
-  final userid = AppLocalStorage().readData(LocalStorageKeys.userId);
 
+  // Future<CheckoutSummaryResponse> getCartSummaryResponse(int cityID) async {
+  //   Uri url = Uri.parse("${AppApiEndPoints.checkoutSummary}?city_id=$cityID&source=app");
+  //   final response = await http.get(
+  //     url,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": "Bearer $accessToken",
+  //     },
+  //   );
+  //   return CheckoutSummaryResponse.fromJson(jsonDecode(response.body));
+  // }
 
-  Future<CheckoutSummaryResponse> getCartSummaryResponse(int cityID) async {
-    Uri url = Uri.parse("${AppApiEndPoints.checkoutSummary}?city_id=$cityID&source=app");
-    final response = await http.get(
+  Future<CheckoutSummaryResponse> getCartSummaryResponse({
+    int? cityID,
+    String? couponCode,
+    required List<int> cartProductIds,
+    required List<int> cartQuantities,
+  }) async {
+    var postBody = jsonEncode({
+      "product_ids_arr": cartProductIds,
+      "product_quantities_arr": cartQuantities,
+      "coupon_code": couponCode,
+      "city_id": cityID,
+      "app_info": await AppHelperFunctions.appInfo(),
+    });
+    Uri url = Uri.parse(AppApiEndPoints.checkoutSummary);
+    final response = await http.post(
       url,
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $accessToken",
       },
+      body: postBody,
     );
     return CheckoutSummaryResponse.fromJson(jsonDecode(response.body));
   }
 
-
   Future<List<PaymentMethodResponse>> getPaymentMethods() async {
-    final response = await http.get(Uri.parse("${AppApiEndPoints.paymentTypes}?source=app"));
+    final response = await http.get(
+      Uri.parse("${AppApiEndPoints.paymentTypes}?source=app"),
+    );
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
@@ -43,23 +66,25 @@ class CheckoutRepositories {
     }
   }
 
-  Future<CouponResponse> getCouponApplyResponse(
-      {required String couponCode}) async {
-    var postBody =
-    jsonEncode({
-      "source" : "app",
+  Future<CouponResponse> getCouponApplyResponse({
+    required String couponCode,
+  }) async {
+    var postBody = jsonEncode({
+      "source": "app",
       "coupon_code": couponCode,
       'app_info': await AppHelperFunctions.appInfo(),
     });
     Log.d(postBody);
 
     Uri url = Uri.parse(AppApiEndPoints.couponAdd);
-    final response = await http.post(url,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $accessToken",
-        },
-        body: postBody);
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: postBody,
+    );
 
     Log.d(response.body.toString());
 
@@ -67,15 +92,20 @@ class CheckoutRepositories {
   }
 
   Future<CouponRemoveResponse> getCouponRemoveResponse() async {
-    var postBody = jsonEncode({"source" : "app", "user_id": userid, 'app_info': await AppHelperFunctions.appInfo(),});
+    var postBody = jsonEncode({
+      "source": "app",
+      'app_info': await AppHelperFunctions.appInfo(),
+    });
 
     Uri url = Uri.parse(AppApiEndPoints.couponRemove);
-    final response = await http.post(url,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $accessToken",
-        },
-        body: postBody);
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: postBody,
+    );
     return CouponRemoveResponse.fromJson(jsonDecode(response.body));
   }
 
@@ -93,14 +123,16 @@ class CheckoutRepositories {
   //   return couponRemoveResponseFromJson(response.body);
   // }
 
-  Future<OrderCreateResponse> getOrderCreateResponseFromCod({required Map<String, dynamic> requestBody}) async {
+  Future<OrderCreateResponse> getOrderCreateResponseFromCod({
+    required Map<String, dynamic> requestBody,
+  }) async {
     var postBody = jsonEncode(requestBody);
     Uri url = Uri.parse(AppApiEndPoints.placeOrder);
     final response = await http.post(
       url,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer $accessToken"
+        "Authorization": "Bearer $accessToken",
       },
       body: postBody,
     );
@@ -111,7 +143,9 @@ class CheckoutRepositories {
     } else {
       Log.d('Request failed with status: ${response.statusCode}');
       Log.d('Response body: ${response.body}');
-      throw Exception('Failed to create order. Status code: ${response.statusCode}');
+      throw Exception(
+        'Failed to create order. Status code: ${response.statusCode}',
+      );
     }
   }
 }

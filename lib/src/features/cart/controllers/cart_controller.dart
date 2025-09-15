@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:kirei/src/features/cart/model/checkout_cart_update_model.dart';
 import 'package:kirei/src/features/cart/services/cart_services.dart';
+import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
+import 'package:kirei/src/features/checkout/repositories/checkout_repositories.dart';
 import 'package:kirei/src/features/checkout/view/checkout_screen.dart';
 import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
@@ -38,8 +39,8 @@ class CartController extends GetxController {
   Rx<AddToCartResponse> addToCartResponse = AddToCartResponse().obs;
   Rx<ProductRequestResponse> requestStockResponse =
       ProductRequestResponse().obs;
-  Rx<CheckoutCartUpdateResponse> checkoutCartUpdateResponse =
-      CheckoutCartUpdateResponse().obs;
+  Rx<CheckoutSummaryResponse> cartSummaryResponse =
+      CheckoutSummaryResponse().obs;
   RxBool hittingApi = false.obs;
 
   RxInt cartCount = 0.obs;
@@ -53,7 +54,7 @@ class CartController extends GetxController {
     final box = Hive.box<CartItemLocal>('cartBox');
     if (callingApis &&
         AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      getAllCartProducts();
+      CartRepositories().bulkAddToCart().then((value)=> getAllCartProducts());
     } else {
       allCartProducts.assignAll(box.values.toList());
     }
@@ -192,6 +193,7 @@ class CartController extends GetxController {
         productName: product.name!,
         price: product.price!.toDouble(),
         quantity: 1,
+        isPreorder: product.preorderAvailable
       ),
     );
 
@@ -251,51 +253,40 @@ class CartController extends GetxController {
         .getCartQuantityUpdate(productId, productQuantity);
   }
 
-  Future<void> proceedToCheckout() async {
-    List cartIds = [];
-    List productIds = [];
-    List cartQuantities = [];
+  Future<void> getCheckoutSummary() async {
+    List<int> productIds = [];
+    List<int> cartQuantities = [];
 
     if (allCartProducts.isNotEmpty) {
       if (allCartProducts.isNotEmpty) {
         for (var item in allCartProducts) {
           isPreOrderAvailable.value = item.isPreorder!;
-          cartIds.add(item.id);
-          productIds.add(item.productId);
-          cartQuantities.add(item.quantity);
+          productIds.add(item.productId!);
+          cartQuantities.add(item.quantity!);
         }
       }
 
-      Log.i(cartIds.toString());
+      Log.i(productIds.toString());
       EventLogger().initialCheckoutEvent(
         productIds.toString(),
         cartItemTotalPrice.toString(),
       );
 
-      if (cartIds.isEmpty) {
+      if (productIds.isEmpty) {
         return;
       }
+      cartSummaryResponse.value = await CheckoutRepositories()
+          .getCartSummaryResponse(
+        cartProductIds: productIds,
+        cartQuantities: cartQuantities
+      );
 
-      String cartIdsString = cartIds.join(',').toString();
-      String cartQuantitiesString = cartQuantities.join(',').toString();
-      var productIdsString = productIds.join(',').toString();
-
-      checkoutCartUpdateResponse.value = await CartRepositories()
-          .getCartProcessResponse(
-            cartIds: cartIdsString,
-            cartQuantities: cartQuantitiesString,
-          );
-
-      if (checkoutCartUpdateResponse.value.result == false) {
-        AppHelperFunctions.showToast(checkoutCartUpdateResponse.value.message!);
+      if (cartSummaryResponse.value.result == false) {
+        AppHelperFunctions.showToast(cartSummaryResponse.value.message!);
       } else {
         Log.i('All products: $allCartProducts');
         Get.to(
-          () => CheckoutScreen(
-            allProductResponse: allCartProducts,
-            productIdsString: productIdsString,
-            productQuantitiesString: cartQuantitiesString,
-          ),
+          () => CheckoutScreen(),
         );
       }
     }

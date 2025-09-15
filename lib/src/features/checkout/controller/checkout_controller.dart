@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/model/coupon_apply_model.dart';
@@ -29,14 +30,11 @@ import '../view/widget/ssl_screen.dart';
 class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();
 
-  CheckoutController(
-      {required this.allCartProducts,
-      required this.productIdsString,
-      required this.productQuantitiesString});
 
   final addressController = Get.put(AddressController());
+  final cartController = CartController.instance;
 
-  Rx<CheckoutSummaryResponse> checkoutSummary = CheckoutSummaryResponse().obs;
+  // Rx<CheckoutSummaryResponse> checkoutSummary = CheckoutSummaryResponse().obs;
   RxList<PaymentMethodResponse> paymentMethods = <PaymentMethodResponse>[].obs;
   List<CartItemLocal> allCartProducts = <CartItemLocal>[].obs;
   Rx<CouponResponse> couponResponse = CouponResponse().obs;
@@ -49,8 +47,6 @@ class CheckoutController extends GetxController {
   RxInt selectedPaymentMethod = 0.obs;
   RxString selectedPaymentMethodName = 'cash_on_delivery'.obs;
   RxBool isTermsChecked = false.obs;
-  String productIdsString;
-  String productQuantitiesString;
   RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
   RxInt rewardBalance = 0.obs;
@@ -81,7 +77,7 @@ class CheckoutController extends GetxController {
     // Optional delay
     await Future.delayed(const Duration(seconds: 1));
 
-    await getCheckoutSummary();
+    // await getCheckoutSummary();
     await getPaymentMethods();
     AppHelperFunctions.showToast('Cart Updated');
     addressAvailabilityCheck();
@@ -106,13 +102,13 @@ class CheckoutController extends GetxController {
     }
   }
 
-  Future<void> getCheckoutSummary() async {
-    checkoutSummary.value =
-        await CheckoutRepositories().getCartSummaryResponse(addressController.selectedCityId.value);
-    couponController.text = checkoutSummary.value.couponCode ?? '';
-    isCouponApplied.value = checkoutSummary.value.couponApplied!;
-    grandTotal.value = checkoutSummary.value.grandTotalValue;
-  }
+  // Future<void> getCheckoutSummary() async {
+  //   checkoutSummary.value =
+  //       await CheckoutRepositories().getCartSummaryResponse(addressController.selectedCityId.value);
+  //   couponController.text = checkoutSummary.value.data?.couponCode ?? '';
+  //   isCouponApplied.value = checkoutSummary.value.data!.couponApplied!;
+  //   grandTotal.value = checkoutSummary.value.data!.grandTotalValue;
+  // }
 
   Future<List<PaymentMethodResponse>> getPaymentMethods() async {
     return paymentMethods.value =
@@ -132,7 +128,7 @@ class CheckoutController extends GetxController {
     }
     await getCouponAppliedResponse();
     if (couponResponse.value.result == true) {
-      getCheckoutSummary();
+      cartController.getCheckoutSummary();
       isCouponApplied.value = true;
     }else{
       couponController.clear();
@@ -150,7 +146,7 @@ class CheckoutController extends GetxController {
     await getCouponRemoveResponse();
     if (couponRemoveResponse.value.result == true) {
       isCouponApplied.value = false;
-      getCheckoutSummary();
+      cartController.getCheckoutSummary();
       couponController.clear();
     }
     AppHelperFunctions.showToast(couponRemoveResponse.value.message!);
@@ -230,9 +226,9 @@ class CheckoutController extends GetxController {
     }
 
     if (selectedPaymentMethodName.value == "bkash" &&
-            checkoutSummary.value.grandTotalValue! < 1 ||
+            cartController.cartSummaryResponse.value.data?.grandTotalValue! < 1 ||
         selectedPaymentMethodName.value == "ssl" &&
-            checkoutSummary.value.grandTotalValue! < 10.00) {
+            cartController.cartSummaryResponse.value.data?.grandTotalValue! < 10.00) {
       AppHelperFunctions.showToast(
           'Minimum amount not reached. Please select cash on delivery');
       return false;
@@ -283,20 +279,20 @@ class CheckoutController extends GetxController {
   }
 
   Future<Map<String, dynamic>> prepareRequestBody() async {
-    List<String> productIdsStringsArr = productIdsString.split(',');
-    List<int> productIds = productIdsStringsArr.map(int.parse).toList();
+    // List<String> productIdsStringsArr = productIdsString.split(',');
+    // List<int> productIds = productIdsStringsArr.map(int.parse).toList();
+    //
+    // // List<String> productQuantitiesStrings = productQuantitiesString.split(',');
+    // List<int> productQuantities =
+    //     productQuantitiesStrings.map(int.parse).toList();
 
-    List<String> productQuantitiesStrings = productQuantitiesString.split(',');
-    List<int> productQuantities =
-        productQuantitiesStrings.map(int.parse).toList();
-
-    String productIdsJsonArray = "[${productIds.join(',')}]";
-    String productQuantitiesJsonArray = "[${productQuantities.join(',')}]";
+    // String productIdsJsonArray = "[${productIds.join(',')}]";
+    // String productQuantitiesJsonArray = "[${productQuantities.join(',')}]";
     var couponCode = couponController.text.toString();
 
     Map<String, dynamic> requestBody = {
-      "product_ids_arr": productIdsJsonArray,
-      "product_quantities_arr": productQuantitiesJsonArray,
+      // "product_ids_arr": productIdsJsonArray,
+      // "product_quantities_arr": productQuantitiesJsonArray,
       "shipping_address": addressController.addressController.text,
       "shipping_name": addressController.nameController.text,
       "shipping_phone": addressController.phoneController.text,

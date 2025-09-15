@@ -94,7 +94,7 @@ class AppAllAddressFields extends StatelessWidget {
                   zoneSuggestion.refresh();
                   addressController.getZoneList(value.id!);
                   if(isCallSummary){
-                    CheckoutController.instance.getCheckoutSummary();
+                    CheckoutController.instance.cartController.getCheckoutSummary();
                   }
                 },
                 controller: addressController.selectedCityController,

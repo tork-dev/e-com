@@ -16,7 +16,7 @@ class AppCheckoutSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
     return Obx(() {
-      return checkoutController.checkoutSummary.value.grandTotalValue == null
+      return checkoutController.cartController.cartSummaryResponse.value.data?.grandTotalValue == null
           ? ShimmerHelper().buildBasicShimmer(height: 150)
           : AppCardContainer(
               padding: const EdgeInsets.all(AppSizes.md),
@@ -26,17 +26,17 @@ class AppCheckoutSummary extends StatelessWidget {
                   AppSummaryTextWidget(
                       title: 'Subtotal',
                       amount:
-                          '${checkoutController.checkoutSummary.value.subTotal}'),
+                          '${checkoutController.cartController.cartSummaryResponse.value.data?.subTotal}'),
                   const Gap(AppSizes.sm),
                   AppSummaryTextWidget(
                       title: 'Shipping Cost',
                       amount:
-                          '${checkoutController.checkoutSummary.value.shippingCost}'),
+                          '${checkoutController.cartController.cartSummaryResponse.value.data?.shippingCost}'),
                   const Gap(AppSizes.sm),
                   AppSummaryTextWidget(
                       title: 'Discount',
                       amount:
-                          '${checkoutController.checkoutSummary.value.discount}'),
+                          '${checkoutController.cartController.cartSummaryResponse.value.data?.discount}'),
                   const Gap(AppSizes.sm),
                   Visibility(
                     visible: checkoutController.redeemedPoint > 99,

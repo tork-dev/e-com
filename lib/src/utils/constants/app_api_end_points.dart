@@ -54,11 +54,12 @@ class AppApiEndPoints {
   static String cartQuantityUpdate = "$baseUrl/carts/change-quantity";
   static String proceedToCheckout = "$baseUrl/carts/process";
   static String requestStock = "$baseUrl/add-product-request/";
-  static String bulkAddToCart = "$baseUrl/api/v2/carts/bulk-add";
+  static String bulkAddToCart = "$baseUrl/carts/bulk-add";
 
 
   ///Checkout
-  static String checkoutSummary = "$baseUrl/cart-summary";
+  // static String checkoutSummary = "$baseUrl/cart-summary";
+  static String checkoutSummary = "$baseUrl/checkout-summary";
   static String paymentTypes = "$baseUrl/payment-types";
   static String couponAdd = "$baseUrl/coupon-apply/on-cart";
   static String couponRemove = "$baseUrl/coupon-remove";
