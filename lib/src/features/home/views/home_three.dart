@@ -39,7 +39,6 @@ class HomeThree extends StatelessWidget {
         GetShopDataController.instance;
     ConvexBottomNavController convexBottomNavController =
         ConvexBottomNavController.instance;
-    print("HomeController exists: ${Get.isRegistered<HomeController>()}");
     return AppLayoutWithDrawer(
       backToHome: true,
       inHome: true,

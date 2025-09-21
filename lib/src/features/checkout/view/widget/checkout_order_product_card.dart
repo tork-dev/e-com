@@ -25,39 +25,40 @@ class AppCheckoutOrderProductsCard extends StatelessWidget {
               padding: const EdgeInsets.all(AppSizes.md),
               backgroundColor: AppColors.white,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppBannerImage(
-                      width: 70,
-                      isNetworkImage:
-                          productsList[index].productThumbnailImage != null,
-                      imgUrl: productsList[index].productThumbnailImage ??
-                          AppImages.placeholder),
-                  const Gap(AppSizes.spaceBtwDefaultItems),
-                  SizedBox(
-                    width: AppHelperFunctions.screenWidth() * .5,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${productsList[index].productName}',
-                          style:
-                              const TextStyle(overflow: TextOverflow.ellipsis),
-                        ),
-                        const Gap(AppSizes.sm),
-                        Row(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      AppBannerImage(
+                          width: 70,
+                          isNetworkImage:
+                              productsList[index].productThumbnailImage != null,
+                          imgUrl: productsList[index].productThumbnailImage ??
+                              AppImages.placeholder),
+                      const Gap(AppSizes.spaceBtwDefaultItems),
+                      SizedBox(
+                        width: AppHelperFunctions.screenWidth() * .45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              '${productsList[index].productName}',
+                              style:
+                                  const TextStyle(overflow: TextOverflow.ellipsis),
+                            ),
+                            const Gap(AppSizes.sm),
                             Text(
                               '${productsList[index].quantity} x ৳${productsList[index].price}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
                                   .apply(color: AppColors.darkGrey),
-                            ),
+                            )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
                     '৳${productsList[index].price}',

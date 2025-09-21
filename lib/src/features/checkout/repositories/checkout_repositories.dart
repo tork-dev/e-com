@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/model/coupon_remove_model.dart';
 import 'package:kirei/src/features/checkout/model/order_create_model.dart';
@@ -11,6 +13,7 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/logging/logger.dart';
+import '../../authentication/model/login_model.dart';
 import '../model/coupon_apply_model.dart';
 
 class CheckoutRepositories {
@@ -140,6 +143,55 @@ class CheckoutRepositories {
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       return OrderCreateResponse.fromJson(responseBody);
+    } else {
+      Log.d('Request failed with status: ${response.statusCode}');
+      Log.d('Response body: ${response.body}');
+      throw Exception(
+        'Failed to create order. Status code: ${response.statusCode}',
+      );
+    }
+  }
+  Future<OrderCreateResponse> sendCheckoutOtp(String phone) async{
+    var postBody = jsonEncode({
+      "email": phone,
+    });
+    Uri url = Uri.parse(AppApiEndPoints.sendCheckoutOtp);
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: postBody,
+    );
+    if (response.statusCode == 200) {
+      var responseBody = jsonDecode(response.body);
+      return OrderCreateResponse.fromJson(responseBody);
+    } else {
+      Log.d('Request failed with status: ${response.statusCode}');
+      Log.d('Response body: ${response.body}');
+      throw Exception(
+        'Failed to create order. Status code: ${response.statusCode}',
+      );
+
+    }
+  }
+  Future<AppLoginResponse> verifyCheckoutOtp({required String phone, required String name, required String otp}) async{
+    var postBody = jsonEncode({
+      "email": phone,
+      "name": name,
+      "otp_code": otp,
+    });
+    Uri url = Uri.parse(AppApiEndPoints.verifyCheckoutOtp);
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: postBody,
+    );
+    if (response.statusCode == 200) {
+      var responseBody = jsonDecode(response.body);
+      return AppLoginResponse.fromJson(responseBody);
     } else {
       Log.d('Request failed with status: ${response.statusCode}');
       Log.d('Response body: ${response.body}');

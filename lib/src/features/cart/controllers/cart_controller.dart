@@ -87,6 +87,7 @@ class CartController extends GetxController {
 
   void addQuantity(int index) {
     final item = allCartProducts[index];
+    print("Upper limit ${item.quantity}");
     if (item.quantity! < item.upperLimit!) {
       final newQuantity = item.quantity! + 1;
       quantityUpdateApiIDs.add(item.productId!);
@@ -98,7 +99,10 @@ class CartController extends GetxController {
           productThumbnailImage: item.productThumbnailImage,
           productName: item.productName,
           price: item.price,
-          quantity: newQuantity,
+          quantity: 1,
+          lowerLimit: item.lowerLimit,
+          upperLimit: item.upperLimit,
+          isPreorder: item.isPreorder
         ),
       );
 
@@ -115,8 +119,6 @@ class CartController extends GetxController {
         allCartProducts.refresh();
 
         AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
-
-        quantityUpdateApiIDs.remove(item.productId);
         cartCount.value = cartCount.value + 1;
         updateTotalPrice();
       });
@@ -128,12 +130,12 @@ class CartController extends GetxController {
 
   void removeQuantity(int index) {
     final item = allCartProducts[index];
+    print(item.quantity);
     if (item.quantity! > item.lowerLimit!) {
       final newQuantity = item.quantity! - 1;
-      quantityUpdateApiIDs.add(item.id!);
       update();
 
-      getCartUpdateQuantity(item.id!, newQuantity).then((value) {
+      getCartUpdateQuantity(item.productId!, newQuantity).then((value) {
         // ✅ Update only this item's quantity locally
         allCartProducts[index].quantity = newQuantity;
 
@@ -143,7 +145,6 @@ class CartController extends GetxController {
         AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
 
         cartCount.value = cartCount.value - 1;
-        quantityUpdateApiIDs.remove(item.id);
         updateTotalPrice();
       });
       update();
@@ -186,6 +187,14 @@ class CartController extends GetxController {
   Future<void> getAddToCartResponse(Product product) async {
     addingToCartIds.add(product.id!);
     update();
+    print("productId: ${product.id}, "
+        "productThumbnailImage: ${product.pictures![0].url}, "
+        "productName: ${product.name!},"
+        "price: ${product.price!.toDouble()},"
+        "quantity: 1,"
+        "lowerLimit: 1,"
+        "upperLimit: ${product.maxQty ?? product.stock},"
+        "isPreorder: ${product.preorderAvailable}");
     CartService.addCartItem(
       CartItemLocal(
         productId: product.id,
@@ -193,6 +202,8 @@ class CartController extends GetxController {
         productName: product.name!,
         price: product.price!.toDouble(),
         quantity: 1,
+        lowerLimit: 1,
+        upperLimit: product.maxQty ?? product.stock,
         isPreorder: product.preorderAvailable
       ),
     );

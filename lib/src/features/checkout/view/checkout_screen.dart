@@ -14,6 +14,8 @@ import 'package:kirei/src/features/checkout/view/widget/coupon_field.dart';
 import 'package:kirei/src/features/checkout/view/widget/payment_method_type.dart';
 import 'package:kirei/src/features/checkout/view/widget/redeem_point_part.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/colors.dart';
 import '../../cart/model/cart_local_model.dart';
 import 'widget/checkout_order_product_card.dart';
@@ -37,7 +39,11 @@ class CheckoutScreen extends StatelessWidget {
       centerTitle: true,
       bottomNav: AppButtons.largeFlatFilledButton(
         onPressed: () {
-          controller.onPressProceedToCheckout();
+          if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
+            controller.onPressProceedToCheckout();
+          }else {
+            controller.sendCheckoutOtp();
+          }
         },
         applyRadius: false,
         buttonText: 'PLACE MY ORDER',

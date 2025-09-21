@@ -64,6 +64,8 @@ class AppApiEndPoints {
   static String couponAdd = "$baseUrl/coupon-apply/on-cart";
   static String couponRemove = "$baseUrl/coupon-remove";
   static String placeOrder = "$baseUrl/credential/order-store/v2";
+  static String sendCheckoutOtp = "$baseUrl/send-checkout-otp";
+  static String verifyCheckoutOtp = "$baseUrl/verify-checkout-otp";
 
 
   ///Purchase History

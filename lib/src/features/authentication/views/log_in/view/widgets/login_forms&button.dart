@@ -24,88 +24,96 @@ class LogInFormsAndButton extends StatelessWidget {
     final isDark = AppHelperFunctions.isDarkMode(context);
     return Form(
       key: loginController.logInFormKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Phone", style: Theme.of(context).textTheme.titleMedium),
-          Gap(AppSizes.xs),
-          AuthInputField(
-            isDark: isDark,
-            controller: loginController.emailController,
-            validator: (value) => AppValidator.validateEmailOrPhone(value),
-            hingText: AppLocalizations.of(context)!.emailOrPhoneHintText,
-            obscured: false,
-          ),
-          const Gap(AppSizes.spaceBtwInputFields),
-          Obx(
-            () => Visibility(
-              visible: loginController.loginWithPassword.value,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Password",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Gap(AppSizes.xs),
-                  AuthInputField(
-                    isDark: isDark,
-                    controller: loginController.passwordController,
-                    validator: (value) => AppValidator.validatePassword(value),
-                    hingText: AppLocalizations.of(context)!.passwordHintText,
-                    suffixIcon: InkWell(
-                      onTap: () {
-                        loginController.passwordObscured.value =
-                            !loginController.passwordObscured.value;
-                      },
-                      child: Icon(
-                        loginController.passwordObscured.value
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility,
-                        color: AppColors.grey,
-                      ),
+      child: AutofillGroup(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Phone", style: Theme.of(context).textTheme.titleMedium),
+            Gap(AppSizes.xs),
+            AuthInputField(
+              isDark: isDark,
+              controller: loginController.emailController,
+              autofillHints: [
+                AutofillHints.telephoneNumber,
+                AutofillHints.username,
+              ],
+              validator: (value) => AppValidator.validateEmailOrPhone(value),
+              hingText: AppLocalizations.of(context)!.emailOrPhoneHintText,
+              obscured: false,
+            ),
+            const Gap(AppSizes.spaceBtwInputFields),
+            Obx(
+              () => Visibility(
+                visible: loginController.loginWithPassword.value,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Password",
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    obscured: loginController.passwordObscured.value,
-                  ),
-                  const Gap(AppSizes.spaceBtwSmallItem),
-                  const RememberAndForgotButton(),
-                  const Gap(AppSizes.spaceBtwItems),
-                ],
+                    Gap(AppSizes.xs),
+                    AuthInputField(
+                      isDark: isDark,
+                      controller: loginController.passwordController,
+                      validator:
+                          (value) => AppValidator.validatePassword(value),
+                      autofillHints: [AutofillHints.password],
+                      hingText: AppLocalizations.of(context)!.passwordHintText,
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          loginController.passwordObscured.value =
+                              !loginController.passwordObscured.value;
+                        },
+                        child: Icon(
+                          loginController.passwordObscured.value
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility,
+                          color: AppColors.grey,
+                        ),
+                      ),
+                      obscured: loginController.passwordObscured.value,
+                    ),
+                    const Gap(AppSizes.spaceBtwSmallItem),
+                    const RememberAndForgotButton(),
+                    const Gap(AppSizes.spaceBtwItems),
+                  ],
+                ),
               ),
             ),
-          ),
-          Obx(
-            () => AppButtons.largeFlatFilledButton(
-              onPressed:
-                  () =>
-                      loginController.loginWithPassword.value
-                          ? loginController.emailPasswordLogIn()
-                          : loginController.sendCode(),
-              buttonText:
-                  loginController.loginWithPassword.value
-                      ? AppLocalizations.of(context)!.login
-                      : AppLocalizations.of(context)!.sendOtp,
-              backgroundColor: AppColors.primary,
+            Obx(
+              () => AppButtons.largeFlatFilledButton(
+                onPressed:
+                    () =>
+                        loginController.loginWithPassword.value
+                            ? loginController.emailPasswordLogIn()
+                            : loginController.sendCode(),
+                buttonText:
+                    loginController.loginWithPassword.value
+                        ? AppLocalizations.of(context)!.login
+                        : AppLocalizations.of(context)!.sendOtp,
+                backgroundColor: AppColors.primary,
+              ),
             ),
-          ),
-          const Gap(AppSizes.spaceBtwSections),
-          OtherLogInOrSignUpOption(title: "Or Login With",),
-          const Gap(AppSizes.sm),
-          Obx(
-            () => AppButtons.largeFlatFilledButton(
-              onPressed: () {
-                loginController.loginWithPassword.value =
-                    !loginController.loginWithPassword.value;
-              },
-              buttonText:
-                  loginController.loginWithPassword.value
-                      ? AppLocalizations.of(context)!.loginWithOtp
-                      : AppLocalizations.of(context)!.loginWithPassword,
-              backgroundColor: AppColors.buttonSecondary,
+            const Gap(AppSizes.spaceBtwSections),
+            OtherLogInOrSignUpOption(title: "Or Login With"),
+            const Gap(AppSizes.sm),
+            Obx(
+              () => AppButtons.largeFlatFilledButton(
+                onPressed: () {
+                  loginController.loginWithPassword.value =
+                      !loginController.loginWithPassword.value;
+                },
+                buttonText:
+                    loginController.loginWithPassword.value
+                        ? AppLocalizations.of(context)!.loginWithOtp
+                        : AppLocalizations.of(context)!.loginWithPassword,
+                backgroundColor: AppColors.buttonSecondary,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

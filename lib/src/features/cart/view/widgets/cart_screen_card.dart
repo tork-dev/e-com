@@ -93,7 +93,6 @@ class AppCartProductCard extends StatelessWidget {
                                           AppHelperFunctions.screenWidth() *
                                           0.49,
                                       height: 100,
-                                      //backgroundColor: AppColors.secondary,
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
