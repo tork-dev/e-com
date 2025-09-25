@@ -55,6 +55,15 @@ class AppHelperFunctions {
     }
   }
 
+  static String formatPrice(num price) {
+    final formatter = NumberFormat.currency(
+      locale: 'en_BD',   // Bangladesh locale
+      symbol: '৳',       // Currency symbol
+      decimalDigits: 2,  // Always show 2 decimal places
+    );
+    return formatter.format(price);
+  }
+
   static void showToast(String message) {
     Fluttertoast.showToast(
       msg: message,

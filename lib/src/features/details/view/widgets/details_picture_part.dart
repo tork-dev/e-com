@@ -85,7 +85,7 @@ class AppDetailsPicturePart extends StatelessWidget {
                     width: AppHelperFunctions.screenWidth() * .63,
                   )
                   : SizedBox(
-                    width: AppHelperFunctions.screenWidth() * .45,
+                    width: AppHelperFunctions.screenWidth() * .63,
                     child: Stack(
                       children: [
                         SizedBox(
@@ -134,7 +134,6 @@ class AppDetailsPicturePart extends StatelessWidget {
                                 1,
                             child: AppCardContainer(
                               width: AppHelperFunctions.screenWidth() * .63,
-                              // backgroundColor: AppColors.primary.withAlpha(240),
                               borderRadius: AppSizes.borderRadiusSm,
                               gradient: LinearGradient(
                                 colors: [AppColors.primary, Colors.red],

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/authentication/views/widgets/auth_input_field.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/cart/services/cart_services.dart';
+import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/model/coupon_apply_model.dart';
 import 'package:kirei/src/features/checkout/model/coupon_remove_model.dart';
 import 'package:kirei/src/features/checkout/model/order_create_model.dart';
@@ -28,7 +29,6 @@ import '../view/widget/ssl_screen.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();
-
 
   final addressController = Get.put(AddressController());
   final cartController = CartController.instance;
@@ -83,13 +83,14 @@ class CheckoutController extends GetxController {
     }
   }
 
-
   Future<void> getUserRewardBalance() async {
     final response = await http.get(
-        Uri.parse(AppApiEndPoints.rewardPointBalance), headers: {
-      'Authorization': "Bearer ${AppLocalStorage().readData(
-          LocalStorageKeys.accessToken)}"
-    });
+      Uri.parse(AppApiEndPoints.rewardPointBalance),
+      headers: {
+        'Authorization':
+            "Bearer ${AppLocalStorage().readData(LocalStorageKeys.accessToken)}",
+      },
+    );
     rewardBalance.value = int.parse(response.body);
     Log.d('this is balance : ${response.body}');
   }
@@ -114,46 +115,45 @@ class CheckoutController extends GetxController {
   Future<List<PaymentMethodResponse>> getPaymentMethods() async {
     print("payment methods");
     return paymentMethods.value =
-    await CheckoutRepositories().getPaymentMethods();
+        await CheckoutRepositories().getPaymentMethods();
   }
 
-  /// Coupon Apply
-  Future<CouponResponse> getCouponAppliedResponse() async {
-    return couponResponse.value = await CheckoutRepositories()
-        .getCouponApplyResponse(couponCode: couponController.text.toString());
-  }
+  // /// Coupon Apply
+  // Future<CouponResponse> getCouponAppliedResponse() async {
+  //   return couponResponse.value = await CheckoutRepositories()
+  //       .getCouponApplyResponse(couponCode: couponController.text.toString());
+  // }
 
   Future<void> onCouponApplied() async {
     if (couponController.text == '') {
       AppHelperFunctions.showToast('Please enter a coupon code');
       return;
     }
-    await getCouponAppliedResponse();
-    if (couponResponse.value.result == true) {
-      cartController.getCheckoutSummary();
-      isCouponApplied.value = true;
-    } else {
-      couponController.clear();
-    }
-    AppHelperFunctions.showToast(couponResponse.value.message!);
+    bool? result = await cartController.getCheckoutSummary(
+      couponCode: couponController.text.toString(),
+    );
+    isCouponApplied.value = result!;
+    AppHelperFunctions.showToast(
+      result ? "Coupon Applied" : "Coupon Not Applied",
+    );
   }
 
-  /// Coupon Remove
-  Future<CouponRemoveResponse> getCouponRemoveResponse() async {
-    return couponRemoveResponse.value =
-    await CheckoutRepositories().getCouponRemoveResponse();
-  }
+  // /// Coupon Remove
+  // Future<CouponRemoveResponse> getCouponRemoveResponse() async {
+  //   return couponRemoveResponse.value =
+  //   await CheckoutRepositories().getCouponRemoveResponse();
+  // }
 
   Future<void> onCouponRemove() async {
-    await getCouponRemoveResponse();
-    if (couponRemoveResponse.value.result == true) {
-      isCouponApplied.value = false;
-      cartController.getCheckoutSummary();
+    bool? result = await cartController.getCheckoutSummary();
+    isCouponApplied.value = !result!;
+    if (result) {
       couponController.clear();
     }
-    AppHelperFunctions.showToast(couponRemoveResponse.value.message!);
+    AppHelperFunctions.showToast(
+      result ? "Coupon Removed" : "Something went wrong",
+    );
   }
-
 
   /// Crete Order Method
   Future<void> onPressProceedToCheckout() async {
@@ -173,11 +173,12 @@ class CheckoutController extends GetxController {
       // Handle different payment methods
       if (selectedPaymentMethod.value == 1) {
         if (orderCreateResponse.value.data?.paymentUrl != null) {
-          Get.offAll(() =>
-              BkashScreen(
-                bkashInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
-                orderId: orderCreateResponse.value.data!.order!.id!,
-              ));
+          Get.offAll(
+            () => BkashScreen(
+              bkashInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
+              orderId: orderCreateResponse.value.data!.order!.id!,
+            ),
+          );
         } else {
           throw Exception('Bkash payment URL is missing');
         }
@@ -186,15 +187,15 @@ class CheckoutController extends GetxController {
 
       if (selectedPaymentMethod.value == 2) {
         if (orderCreateResponse.value.data?.paymentUrl != null) {
-          Get.offAll(() =>
-              SslCommerzScreen(
-                orderId: orderCreateResponse.value.data!.order!.id!,
-                sslInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
-                amount: orderCreateResponse.value.data!.order!.grandTotal!,
-                paymentMethodKey: 'ssl',
-                paymentType: orderCreateResponse.value.data!.order!
-                    .paymentType!,
-              ));
+          Get.offAll(
+            () => SslCommerzScreen(
+              orderId: orderCreateResponse.value.data!.order!.id!,
+              sslInitialUrl: orderCreateResponse.value.data!.paymentUrl!,
+              amount: orderCreateResponse.value.data!.order!.grandTotal!,
+              paymentMethodKey: 'ssl',
+              paymentType: orderCreateResponse.value.data!.order!.paymentType!,
+            ),
+          );
         } else {
           throw Exception('SslCommerz payment URL is missing');
         }
@@ -205,20 +206,22 @@ class CheckoutController extends GetxController {
       AppHelperFunctions.showToast(orderCreateResponse.value.message!);
       Log.d(orderCreateResponse.value.toString());
       if (orderCreateResponse.value.data!.order!.id != null) {
-        Get.offAll(() =>
-            AppOrderStatusScreen(
-              statusString: orderCreateResponse.value.message!,
-              status: orderCreateResponse.value.result ?? false,
-              orderId: orderCreateResponse.value.data!.order!.id!,
-            ));
+        Get.offAll(
+          () => AppOrderStatusScreen(
+            statusString: orderCreateResponse.value.message!,
+            status: orderCreateResponse.value.result ?? false,
+            orderId: orderCreateResponse.value.data!.order!.id!,
+          ),
+        );
       }
     } catch (e) {
-      CustomLoader.hideLoader(Get.overlayContext!); // Ensure the loader is closed in case of an error
+      CustomLoader.hideLoader(
+        Get.overlayContext!,
+      ); // Ensure the loader is closed in case of an error
       Log.d('Error in onPressProceed: $e');
       AppHelperFunctions.showToast('An error occurred. Please try again.');
     }
   }
-
 
   bool validateCheckoutDetails() {
     // if (checkoutSummary.value.grandTotalValue == 0.00) {
@@ -232,12 +235,14 @@ class CheckoutController extends GetxController {
     }
 
     if (selectedPaymentMethodName.value == "bkash" &&
-        cartController.cartSummaryResponse.value.data?.grandTotalValue! < 1 ||
+            cartController.cartSummaryResponse.value.data?.grandTotalValue! <
+                1 ||
         selectedPaymentMethodName.value == "ssl" &&
             cartController.cartSummaryResponse.value.data?.grandTotalValue! <
                 10.00) {
       AppHelperFunctions.showToast(
-          'Minimum amount not reached. Please select cash on delivery');
+        'Minimum amount not reached. Please select cash on delivery',
+      );
       return false;
     }
 
@@ -286,6 +291,7 @@ class CheckoutController extends GetxController {
   }
 
   RxInt isPreOrderAvailable = 0.obs;
+
   Future<Map<String, dynamic>> prepareRequestBody() async {
     List<int> productIds = [];
     List<int> cartQuantities = [];
@@ -325,168 +331,173 @@ class CheckoutController extends GetxController {
     return requestBody;
   }
 
-
   void pointRedeemAlert() {
     showDialog(
-        context: Get.context!,
-        useSafeArea: true,
-        builder: (BuildContext context) {
-          return Dialog(
-              backgroundColor: AppColors.white,
-              insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
-              ),
-              child: AppCardContainer(
-                borderRadius: AppSizes.cardRadiusMd,
-                padding: const EdgeInsets.all(AppSizes.defaultSpace),
-                child: Obx(() {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
+      context: Get.context!,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: AppColors.white,
+          insetPadding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
+          ),
+          child: AppCardContainer(
+            borderRadius: AppSizes.cardRadiusMd,
+            padding: const EdgeInsets.all(AppSizes.defaultSpace),
+            child: Obx(() {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Redeem Your Points', style: Theme
-                              .of(context)
-                              .textTheme
-                              .headlineSmall,),
-                          AppCardContainer(
-                              applyRadius: true,
-                              onTap: () => Get.back(),
-                              height: 44,
-                              width: 44,
-                              backgroundColor: AppColors.grey,
-                              child: const Icon(Icons.clear))
-                        ],
+                      Text(
+                        'Redeem Your Points',
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                      const Gap(AppSizes.defaultSpace),
-                      RadioListTile<int>(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity.compact,
-                        dense: true,
-                        activeColor: AppColors.primary,
-                        title: Text(
-                          '100 points',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
-                        ),
-                        value: 100,
-                        groupValue: redeemPoint.value,
-                        onChanged: (value) {
-                          redeemPoint.value = value!; // Update selected value
-                        },
+                      AppCardContainer(
+                        applyRadius: true,
+                        onTap: () => Get.back(),
+                        height: 44,
+                        width: 44,
+                        backgroundColor: AppColors.grey,
+                        child: const Icon(Icons.clear),
                       ),
-
-                      RadioListTile<int>(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity.compact,
-                        dense: true,
-                        activeColor: AppColors.primary,
-                        title: Text(
-                          '150 points',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
-                        ),
-                        value: 150,
-                        groupValue: redeemPoint.value,
-                        onChanged: rewardBalance > 149 ? (value) {
-                          redeemPoint.value = value!; // Update selected value
-                        } : null,
-                      ),
-                      RadioListTile<int>(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity.compact,
-                        dense: true,
-                        activeColor: AppColors.primary,
-                        title: Text(
-                          '200 points',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
-                        ),
-                        value: 200,
-                        groupValue: redeemPoint.value,
-                        onChanged: rewardBalance > 199 ? (value) {
-                          redeemPoint.value = value!; // Update selected value
-                        } : null,
-                      ),
-                      RadioListTile<int>(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity.compact,
-                        dense: true,
-                        activeColor: AppColors.primary,
-                        title: Text(
-                          '250 points',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
-                        ),
-                        value: 250,
-                        groupValue: redeemPoint.value,
-                        onChanged: rewardBalance > 249 ? (value) {
-                          redeemPoint.value = value!; // Update selected value
-                        } : null,
-                      ),
-                      RadioListTile<int>(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity.compact,
-                        dense: true,
-                        activeColor: AppColors.primary,
-                        title: Text(
-                          '300 points',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
-                        ),
-                        value: 300,
-                        groupValue: redeemPoint.value,
-                        onChanged: rewardBalance > 299 ? (value) {
-                          redeemPoint.value = value!; // Update selected value
-                        } : null,
-                      ),
-
-                      const Gap(AppSizes.defaultSpace),
-
-                      AppButtons.largeFlatFilledButton(
-                          onPressed: () {
-                            onRedeemPoint();
-                          },
-                          backgroundColor: AppColors.addToCartButton,
-                          buttonText: 'Redeem Points'.toUpperCase())
                     ],
-                  );
-                }
-                ),
-              )
-          );
-        });
-  }
+                  ),
+                  const Gap(AppSizes.defaultSpace),
+                  RadioListTile<int>(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    dense: true,
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '100 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: 100,
+                    groupValue: redeemPoint.value,
+                    onChanged: (value) {
+                      redeemPoint.value = value!; // Update selected value
+                    },
+                  ),
 
+                  RadioListTile<int>(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    dense: true,
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '150 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: 150,
+                    groupValue: redeemPoint.value,
+                    onChanged:
+                        rewardBalance > 149
+                            ? (value) {
+                              redeemPoint.value =
+                                  value!; // Update selected value
+                            }
+                            : null,
+                  ),
+                  RadioListTile<int>(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    dense: true,
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '200 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: 200,
+                    groupValue: redeemPoint.value,
+                    onChanged:
+                        rewardBalance > 199
+                            ? (value) {
+                              redeemPoint.value =
+                                  value!; // Update selected value
+                            }
+                            : null,
+                  ),
+                  RadioListTile<int>(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    dense: true,
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '250 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: 250,
+                    groupValue: redeemPoint.value,
+                    onChanged:
+                        rewardBalance > 249
+                            ? (value) {
+                              redeemPoint.value =
+                                  value!; // Update selected value
+                            }
+                            : null,
+                  ),
+                  RadioListTile<int>(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    dense: true,
+                    activeColor: AppColors.primary,
+                    title: Text(
+                      '300 points',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    value: 300,
+                    groupValue: redeemPoint.value,
+                    onChanged:
+                        rewardBalance > 299
+                            ? (value) {
+                              redeemPoint.value =
+                                  value!; // Update selected value
+                            }
+                            : null,
+                  ),
+
+                  const Gap(AppSizes.defaultSpace),
+
+                  AppButtons.largeFlatFilledButton(
+                    onPressed: () {
+                      onRedeemPoint();
+                    },
+                    backgroundColor: AppColors.addToCartButton,
+                    buttonText: 'Redeem Points'.toUpperCase(),
+                  ),
+                ],
+              );
+            }),
+          ),
+        );
+      },
+    );
+  }
 
   void onRedeemPoint() {
     redeemedPoint.value = redeemPoint.value;
-    grandTotal.value = grandTotal.value - redeemedPoint.value;
+    cartController.cartSummaryResponse.value.data!.grandTotalValue =
+        cartController.cartSummaryResponse.value.data!.grandTotalValue -
+        redeemedPoint.value;
     Get.back();
   }
 
   Future<void> sendCheckoutOtp() async {
     if (!validateCheckoutDetails()) return;
     CustomLoader.showLoaderDialog(Get.overlayContext!);
-    final response = await CheckoutRepositories().sendCheckoutOtp(addressController.phoneController.text);
+    final response = await CheckoutRepositories().sendCheckoutOtp(
+      addressController.phoneController.text,
+    );
     CustomLoader.hideLoader(Get.overlayContext!);
     if (response.result == true) {
       showOtpDialog(Get.context!);
@@ -508,7 +519,6 @@ class CheckoutController extends GetxController {
     }
   }
 
-
   void showOtpDialog(BuildContext context) {
     final TextEditingController otpController = TextEditingController();
     showDialog(
@@ -517,33 +527,31 @@ class CheckoutController extends GetxController {
         return Dialog(
           backgroundColor: AppColors.white,
           insetPadding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(AppSizes.md),
             child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 AuthInputField(
-                hingText: "Otp Code",
-                controller: otpController,
-                obscured: false),
-            const Gap(AppSizes.lg),
-            AppButtons.largeFlatFilledButton(
-              buttonRadius: AppSizes.cardRadiusMd,
-              backgroundColor: AppColors.secondary,
-              onPressed: () {
-                verifyCheckoutOtp(otpController.text.toString());
-              },
-              buttonText: 'Confirm OTP',
+                  hingText: "Otp Code",
+                  controller: otpController,
+                  obscured: false,
+                ),
+                const Gap(AppSizes.lg),
+                AppButtons.largeFlatFilledButton(
+                  buttonRadius: AppSizes.cardRadiusMd,
+                  backgroundColor: AppColors.secondary,
+                  onPressed: () {
+                    verifyCheckoutOtp(otpController.text.toString());
+                  },
+                  buttonText: 'Confirm OTP',
+                ),
+              ],
             ),
-            ],
           ),
-        ),);
+        );
       },
     );
   }
-
-
 }

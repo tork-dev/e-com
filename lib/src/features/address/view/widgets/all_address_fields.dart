@@ -98,8 +98,12 @@ class AppAllAddressFields extends StatelessWidget {
                     areaSuggestion.unfocus();
                     zoneSuggestion.refresh();
                     addressController.getZoneList(value.id!);
+                    print("City changed");
                     if(isCallSummary){
-                      CheckoutController.instance.cartController.getCheckoutSummary();
+                    print("City changed summary call");
+                      CheckoutController.instance.cartController.getCheckoutSummary(
+                        cityId: value.id
+                      );
                     }
                   },
                   controller: addressController.selectedCityController,

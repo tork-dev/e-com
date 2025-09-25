@@ -275,7 +275,7 @@ class CartController extends GetxController {
         .getCartQuantityUpdate(productId, productQuantity);
   }
 
-  Future<void> getCheckoutSummary() async {
+  Future<bool?> getCheckoutSummary({String? couponCode, int? cityId}) async {
     List<int> productIds = [];
     List<int> cartQuantities = [];
 
@@ -295,23 +295,19 @@ class CartController extends GetxController {
       );
 
       if (productIds.isEmpty) {
-        return;
+        return false;
       }
       cartSummaryResponse.value = await CheckoutRepositories()
           .getCartSummaryResponse(
+        couponCode: couponCode,
+        cityID: cityId,
         cartProductIds: productIds,
         cartQuantities: cartQuantities
       );
-
-      if (cartSummaryResponse.value.result == false) {
-        AppHelperFunctions.showToast(cartSummaryResponse.value.message!);
-      } else {
-        Log.i('All products: $allCartProducts');
-        Get.to(
-          () => CheckoutScreen(),
-        );
-      }
+      // AppHelperFunctions.showToast(cartSummaryResponse.value.message!);
+      return cartSummaryResponse.value.result;
     }
+    return false;
   }
 
 

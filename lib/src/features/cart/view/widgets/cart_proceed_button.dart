@@ -9,6 +9,8 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
+import '../../../checkout/view/checkout_screen.dart';
+
 class AppCartProceedButton extends StatelessWidget {
   const AppCartProceedButton({super.key});
 
@@ -42,9 +44,12 @@ class AppCartProceedButton extends StatelessWidget {
              ),
             const Gap(AppSizes.spaceBtwDefaultItems),
             AppButtons.largeFlatFilledButton(
-                onPressed: (){
-                  cartController.getCheckoutSummary();
-                  // Get.to(()=> const CheckoutScreen());
+                onPressed: () async{
+                  bool? result = await cartController.getCheckoutSummary();
+                  if (result == true) {
+                    Get.to(() => CheckoutScreen());
+                  }
+
                 },
                 buttonText: 'Proceed to Checkout', backgroundColor: AppColors.secondary)
           ],
