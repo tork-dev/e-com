@@ -18,12 +18,12 @@ class AppCartProceedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     return AppCardContainer(
-      height: 150,
+      // height: 150,
       width: AppHelperFunctions.screenWidth(),
       backgroundColor: AppColors.white,
         applyRadius: false,
         padding: const EdgeInsets.all(16),
-        margin: EdgeInsets.only(bottom: AppDeviceUtils.getBottomNavigationBarHeight() - 16),
+        // margin: EdgeInsets.only(bottom: AppDeviceUtils.getBottomNavigationBarHeight() - 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -90,49 +90,49 @@ class AppShopGridScrollCard extends StatelessWidget {
                                     // );
                                   },
                                   onCartTap: () {
-                                    if (shopController
-                                            .allProducts[index]
-                                            .stock ==
-                                        0) {
-                                      AppHelperFunctions.showToast(
-                                        "Product is not in stock",
-                                      );
-                                      return;
-                                    }
-                                    if (AppLocalStorage().readData(
-                                              LocalStorageKeys.isLoggedIn,
-                                            ) ==
-                                            null &&
-                                        shopController
-                                                .allProducts[index]
-                                                .requestAvailable !=
-                                            0) {
-                                      Get.to(() => const LogIn());
-                                    } else if (shopController
-                                            .allProducts[index]
-                                            .requestAvailable !=
-                                        0) {
-                                      cartController
-                                          .getRequestResponse(
-                                            productId:
-                                                shopController
-                                                    .allProducts[index]
-                                                    .id!,
-                                          )
-                                          .then(
-                                            (value) =>
-                                                AppHelperFunctions.showToast(
-                                                  cartController
-                                                      .requestStockResponse
-                                                      .value
-                                                      .message!,
-                                                ),
-                                          );
-                                    } else {
+                                    // if (shopController
+                                    //         .allProducts[index]
+                                    //         .stock ==
+                                    //     0) {
+                                    //   AppHelperFunctions.showToast(
+                                    //     "Product is not in stock",
+                                    //   );
+                                    //   return;
+                                    // }
+                                    // if (AppLocalStorage().readData(
+                                    //           LocalStorageKeys.isLoggedIn,
+                                    //         ) ==
+                                    //         null &&
+                                    //     shopController
+                                    //             .allProducts[index]
+                                    //             .requestAvailable !=
+                                    //         0) {
+                                    //   Get.to(() => const LogIn());
+                                    // } else if (shopController
+                                    //         .allProducts[index]
+                                    //         .requestAvailable !=
+                                    //     0) {
+                                    //   cartController
+                                    //       .getRequestResponse(
+                                    //         productId:
+                                    //             shopController
+                                    //                 .allProducts[index]
+                                    //                 .id!,
+                                    //       )
+                                    //       .then(
+                                    //         (value) =>
+                                    //             AppHelperFunctions.showToast(
+                                    //               cartController
+                                    //                   .requestStockResponse
+                                    //                   .value
+                                    //                   .message!,
+                                    //             ),
+                                    //       );
+                                    // } else {
                                       cartController.getAddToCartResponse(
                                         shopController.allProducts[index],
                                       );
-                                    }
+                                    // }
                                   },
                                   productName:
                                       shopController.allProducts[index].name ??

@@ -5,6 +5,7 @@ import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/google_nav_bar.dart';
 import 'package:kirei/src/features/purchase_history/controller/purchase_history_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -96,7 +97,7 @@ class AppPurchaseHistoryCard extends StatelessWidget {
                                                       .value
                                                       .message!),
                                               Get.offAll(
-                                                  () => const HelloConvexAppBar(
+                                                  () => const GoogleNavBar(
                                                         pageIndex: 2,
                                                       ))
                                             });

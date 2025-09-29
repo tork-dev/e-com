@@ -44,7 +44,6 @@ class HomeSurpriseSection extends StatelessWidget {
           vertical: AppSizes.defaultSpace,
           horizontal: AppHelperFunctions.screenWidth() * .1,
         ),
-        margin: EdgeInsets.symmetric(horizontal: AppSizes.md),
         backgroundColor: backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +59,7 @@ class HomeSurpriseSection extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.headlineMedium!,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w500),
               ),
             ),
             const Gap(AppSizes.sm),

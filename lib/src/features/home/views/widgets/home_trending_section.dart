@@ -40,342 +40,306 @@ class HomeTrendingSection extends StatelessWidget {
               itemCount:
                   homeController.homeProductResponse.value.trending!.length,
               builderFunction:
-                  (context, index1) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSizes.md,
-                    ),
-                    child: Visibility(
-                      visible:
-                          homeController
-                              .homeProductResponse
-                              .value
-                              .trending![index1]
-                              .trendingProducts!
-                              .isNotEmpty,
-                      child: Column(
-                        children: [
-                          AppSectionTitleText(
-                            sectionTitle:
-                                'Trending ${homeController.homeProductResponse.value.trending![index1].categoryName}',
-                            haveTxtButton: false,
-                          ),
-                          AppListViewLayout(
-                            itemCount:
-                                homeController
-                                    .homeProductResponse
-                                    .value
-                                    .trending![index1]
-                                    .trendingProducts!
-                                    .length,
-                            builderFunction: (context, index2) {
-                              return AppCardContainer(
-                                onTap: () {
-                                  Get.toNamed(
-                                    "/product/${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].slug}",
-                                  );
-                                },
-                                borderWidth: 1,
-                                borderColor: AppColors.lightGrey,
-                                hasBorder: true,
-                                padding: EdgeInsets.all(AppSizes.sm),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppBannerImage(
-                                      height: 110,
-                                      width: 100,
-                                      isNetworkImage: true,
-                                      imgUrl:
-                                          homeController
-                                              .homeProductResponse
-                                              .value
-                                              .trending?[index1]
-                                              .trendingProducts?[index2]
-                                              .smallPictures?[0]
-                                              .url,
-                                    ),
-                                    SizedBox(width: AppSizes.spaceBtwItems),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 48,
-                                            child: Text(
-                                              "${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].name}",
-                                              style:
-                                                  Theme.of(
-                                                    context,
-                                                  ).textTheme.titleLarge,
-                                              maxLines: 2,
+                  (context, index1) => Visibility(
+                    visible:
+                        homeController
+                            .homeProductResponse
+                            .value
+                            .trending![index1]
+                            .trendingProducts!
+                            .isNotEmpty,
+                    child: Column(
+                      children: [
+                        AppSectionTitleText(
+                          sectionTitle:
+                              'Trending ${homeController.homeProductResponse.value.trending![index1].categoryName}',
+                          haveTxtButton: false,
+                        ),
+                        AppListViewLayout(
+                          itemCount:
+                              homeController
+                                  .homeProductResponse
+                                  .value
+                                  .trending![index1]
+                                  .trendingProducts!
+                                  .length,
+                          builderFunction: (context, index2) {
+                            return AppCardContainer(
+                              onTap: () {
+                                Get.toNamed(
+                                  "/product/${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].slug}",
+                                );
+                              },
+                              borderWidth: 1,
+                              borderColor: AppColors.lightGrey,
+                              hasBorder: true,
+                              padding: EdgeInsets.all(AppSizes.sm),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppBannerImage(
+                                    height: 110,
+                                    width: 100,
+                                    isNetworkImage: true,
+                                    imgUrl:
+                                        homeController
+                                            .homeProductResponse
+                                            .value
+                                            .trending?[index1]
+                                            .trendingProducts?[index2]
+                                            .smallPictures?[0]
+                                            .url,
+                                  ),
+                                  SizedBox(width: AppSizes.spaceBtwItems),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 48,
+                                          child: Text(
+                                            "${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].name}",
+                                            style:
+                                                Theme.of(
+                                                  context,
+                                                ).textTheme.titleLarge,
+                                            maxLines: 2,
 
-                                              overflow: TextOverflow.ellipsis,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        Gap(AppSizes.sm),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RatingBar(
+                                              itemSize: 12.0,
+                                              ignoreGestures: true,
+                                              initialRating:
+                                                  homeController
+                                                      .homeProductResponse
+                                                      .value
+                                                      .trending?[index1]
+                                                      .trendingProducts?[index2]
+                                                      .ratings
+                                                      .toDouble()!,
+                                              direction: Axis.horizontal,
+                                              allowHalfRating: false,
+                                              itemCount: 5,
+                                              ratingWidget: RatingWidget(
+                                                full: const Icon(
+                                                  Icons.star,
+                                                  color: Color.fromRGBO(
+                                                    192,
+                                                    53,
+                                                    50,
+                                                    1,
+                                                  ),
+                                                ),
+                                                empty: const Icon(
+                                                  Icons.star,
+                                                  color: Color.fromRGBO(
+                                                    224,
+                                                    224,
+                                                    225,
+                                                    1,
+                                                  ),
+                                                ),
+                                                half: const Icon(
+                                                  Icons.star,
+                                                  color: Color.fromRGBO(
+                                                    192,
+                                                    53,
+                                                    50,
+                                                    1,
+                                                  ),
+                                                ),
+                                              ),
+                                              itemPadding:
+                                                  const EdgeInsets.only(
+                                                    right: 1.0,
+                                                  ),
+                                              onRatingUpdate: (rating) {
+                                                //print(rating);
+                                              },
                                             ),
-                                          ),
-                                          Gap(AppSizes.sm),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              RatingBar(
-                                                itemSize: 12.0,
-                                                ignoreGestures: true,
-                                                initialRating:
-                                                    homeController
-                                                        .homeProductResponse
-                                                        .value
-                                                        .trending?[index1]
-                                                        .trendingProducts?[index2]
-                                                        .ratings
-                                                        .toDouble()!,
-                                                direction: Axis.horizontal,
-                                                allowHalfRating: false,
-                                                itemCount: 5,
-                                                ratingWidget: RatingWidget(
-                                                  full: const Icon(
-                                                    Icons.star,
-                                                    color: Color.fromRGBO(
-                                                      192,
-                                                      53,
-                                                      50,
-                                                      1,
-                                                    ),
-                                                  ),
-                                                  empty: const Icon(
-                                                    Icons.star,
-                                                    color: Color.fromRGBO(
-                                                      224,
-                                                      224,
-                                                      225,
-                                                      1,
-                                                    ),
-                                                  ),
-                                                  half: const Icon(
-                                                    Icons.star,
-                                                    color: Color.fromRGBO(
-                                                      192,
-                                                      53,
-                                                      50,
-                                                      1,
-                                                    ),
-                                                  ),
-                                                ),
-                                                itemPadding:
-                                                    const EdgeInsets.only(
-                                                      right: 1.0,
-                                                    ),
-                                                onRatingUpdate: (rating) {
-                                                  //print(rating);
-                                                },
+                                            Gap(AppSizes.xs),
+                                            Text(
+                                              "(${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].reviews})",
+                                              textAlign: TextAlign.left,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                color: AppColors.primary,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
                                               ),
-                                              Gap(AppSizes.xs),
-                                              Text(
-                                                "(${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].reviews})",
-                                                textAlign: TextAlign.left,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: const TextStyle(
-                                                  color: AppColors.primary,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Gap(AppSizes.xs),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Visibility(
-                                                    visible:
-                                                        homeController
-                                                            .homeProductResponse
-                                                            .value
-                                                            .trending?[index1]
-                                                            .trendingProducts?[index2]
-                                                            .salePrice !=
-                                                        homeController
-                                                            .homeProductResponse
-                                                            .value
-                                                            .trending?[index1]
-                                                            .trendingProducts?[index2]
-                                                            .price,
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          "৳${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].price}",
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
-                                                          maxLines: 1,
-                                                          style: Theme.of(
-                                                                context,
-                                                              )
-                                                              .textTheme
-                                                              .bodyLarge
-                                                              ?.copyWith(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .lineThrough,
-                                                                color:
-                                                                    AppColors
-                                                                        .darkGrey,
-                                                              ),
-                                                        ),
-                                                        const Gap(AppSizes.sm),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "৳${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].salePrice}",
-                                                    textAlign: TextAlign.left,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge
-                                                        ?.apply(
-                                                          color:
-                                                              AppColors.primary,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const Gap(AppSizes.sm),
-                                              InkWell(
-                                                onTap: () {
-                                                  final product =
+                                            ),
+                                          ],
+                                        ),
+                                        Gap(AppSizes.xs),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Visibility(
+                                                  visible:
                                                       homeController
                                                           .homeProductResponse
                                                           .value
                                                           .trending?[index1]
-                                                          .trendingProducts?[index2];
-
-                                                  if (product!.stock == 0) {
-                                                    AppHelperFunctions.showToast(
-                                                      "Product is not in stock",
-                                                    );
-                                                    return;
-                                                  }
-
-                                                  if (AppLocalStorage().readData(
-                                                    LocalStorageKeys.isLoggedIn,
-                                                  ) ==
-                                                      null &&
-                                                      product.requestAvailable != 0) {
-                                                    Get.toNamed(
-                                                      '/login/cart',
-                                                      parameters: {
-                                                        'product_id':
-                                                        product.id.toString(),
-                                                        'product_slug': product.slug!,
-                                                        'sale_price':
-                                                        product.salePrice.toString(),
-                                                        'request_available':
-                                                        product.requestAvailable
-                                                            .toString(),
-                                                        'preorder_available':
-                                                        product.preorderAvailable
-                                                            .toString(),
-                                                      },
-                                                    );
-                                                  } else if (product.requestAvailable !=
-                                                      0) {
-                                                    cartController
-                                                        .getRequestResponse(
-                                                      productId: product.id!,
-                                                    )
-                                                        .then(
-                                                          (value) => AppHelperFunctions.showToast(
-                                                        cartController
-                                                            .requestStockResponse
-                                                            .value
-                                                            .message!,
+                                                          .trendingProducts?[index2]
+                                                          .salePrice !=
+                                                      homeController
+                                                          .homeProductResponse
+                                                          .value
+                                                          .trending?[index1]
+                                                          .trendingProducts?[index2]
+                                                          .price,
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        "৳${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].price}",
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        overflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                        maxLines: 1,
+                                                        style: Theme.of(
+                                                              context,
+                                                            )
+                                                            .textTheme
+                                                            .bodyLarge
+                                                            ?.copyWith(
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .lineThrough,
+                                                              color:
+                                                                  AppColors
+                                                                      .darkGrey,
+                                                            ),
                                                       ),
-                                                    );
-                                                  } else if (product.requestAvailable !=
-                                                      0) {
-                                                    cartController
-                                                        .getRequestResponse(
-                                                      productId: product.id!,
-                                                    )
-                                                        .then(
-                                                          (value) => AppHelperFunctions.showToast(
-                                                        cartController
-                                                            .requestStockResponse
-                                                            .value
-                                                            .message!,
+                                                      const Gap(AppSizes.sm),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "৳${homeController.homeProductResponse.value.trending?[index1].trendingProducts?[index2].salePrice}",
+                                                  textAlign: TextAlign.left,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.apply(
+                                                        color:
+                                                            AppColors.primary,
                                                       ),
-                                                    );
-                                                  } else {
-                                                    cartController.getAddToCartResponse(
-                                                      product,
-                                                    );
-                                                  }
+                                                ),
+                                              ],
+                                            ),
+                                            const Gap(AppSizes.sm),
+                                            InkWell(
+                                              onTap: () {
+                                                final product =
+                                                    homeController
+                                                        .homeProductResponse
+                                                        .value
+                                                        .trending?[index1]
+                                                        .trendingProducts?[index2];
 
-                                                  // EventLogger()
-                                                  //     .logAddToCartEvent(
-                                                  //       '${product.slug}',
-                                                  //       product.salePrice!,
-                                                  //     );
-                                                },
-                                                child: Obx(() {
-                                                  return AppCardContainer(
-                                                    applyRadius: true,
-                                                    borderRadius:
-                                                        AppSizes.borderRadiusSm,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                          horizontal:
-                                                              AppSizes.sm,
-                                                          vertical: AppSizes.sm,
-                                                        ),
-                                                    hasBorder: true,
-                                                    borderWidth: 1,
-                                                    backgroundColor:
-                                                        homeController
-                                                                    .homeProductResponse
-                                                                    .value
-                                                                    .trending?[index1]
-                                                                    .trendingProducts?[index2]
-                                                                    .stock !=
-                                                                0
-                                                            ? AppColors
-                                                                .addToCartButton
-                                                            : homeController
-                                                                    .homeProductResponse
-                                                                    .value
-                                                                    .trending?[index1]
-                                                                    .trendingProducts?[index2]
-                                                                    .preorderAvailable ==
-                                                                0
-                                                            ? homeController
-                                                                        .homeProductResponse
-                                                                        .value
-                                                                        .trending![index1]
-                                                                        .trendingProducts![index2]
-                                                                        .requestAvailable ==
-                                                                    0
-                                                                ? AppColors
-                                                                    .primary
-                                                                : AppColors
-                                                                    .request
-                                                            : AppColors
-                                                                .preorder,
-                                                    borderColor:
-                                                        AppColors.borderPrimary,
-                                                    child: Text(
+                                                if (product!.stock == 0) {
+                                                  AppHelperFunctions.showToast(
+                                                    "Product is not in stock",
+                                                  );
+                                                  return;
+                                                }
+
+                                                if (AppLocalStorage().readData(
+                                                  LocalStorageKeys.isLoggedIn,
+                                                ) ==
+                                                    null &&
+                                                    product.requestAvailable != 0) {
+                                                  Get.toNamed(
+                                                    '/login/cart',
+                                                    parameters: {
+                                                      'product_id':
+                                                      product.id.toString(),
+                                                      'product_slug': product.slug!,
+                                                      'sale_price':
+                                                      product.salePrice.toString(),
+                                                      'request_available':
+                                                      product.requestAvailable
+                                                          .toString(),
+                                                      'preorder_available':
+                                                      product.preorderAvailable
+                                                          .toString(),
+                                                    },
+                                                  );
+                                                } else if (product.requestAvailable !=
+                                                    0) {
+                                                  cartController
+                                                      .getRequestResponse(
+                                                    productId: product.id!,
+                                                  )
+                                                      .then(
+                                                        (value) => AppHelperFunctions.showToast(
+                                                      cartController
+                                                          .requestStockResponse
+                                                          .value
+                                                          .message!,
+                                                    ),
+                                                  );
+                                                } else if (product.requestAvailable !=
+                                                    0) {
+                                                  cartController
+                                                      .getRequestResponse(
+                                                    productId: product.id!,
+                                                  )
+                                                      .then(
+                                                        (value) => AppHelperFunctions.showToast(
+                                                      cartController
+                                                          .requestStockResponse
+                                                          .value
+                                                          .message!,
+                                                    ),
+                                                  );
+                                                } else {
+                                                  cartController.getAddToCartResponse(
+                                                    product,
+                                                  );
+                                                }
+
+                                                // EventLogger()
+                                                //     .logAddToCartEvent(
+                                                //       '${product.slug}',
+                                                //       product.salePrice!,
+                                                //     );
+                                              },
+                                              child: Obx(() {
+                                                return AppCardContainer(
+                                                  applyRadius: true,
+                                                  borderRadius:
+                                                      AppSizes.borderRadiusSm,
+                                                  padding:
+                                                      EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            AppSizes.sm,
+                                                        vertical: AppSizes.sm,
+                                                      ),
+                                                  hasBorder: true,
+                                                  borderWidth: 1,
+                                                  backgroundColor:
                                                       homeController
                                                                   .homeProductResponse
                                                                   .value
@@ -383,18 +347,8 @@ class HomeTrendingSection extends StatelessWidget {
                                                                   .trendingProducts?[index2]
                                                                   .stock !=
                                                               0
-                                                          ? cartController
-                                                                  .addingToCartIds
-                                                                  .contains(
-                                                                    homeController
-                                                                        .homeProductResponse
-                                                                        .value
-                                                                        .trending?[index1]
-                                                                        .trendingProducts?[index2]
-                                                                        .id,
-                                                                  )
-                                                              ? "Adding..."
-                                                              : 'Add to cart'
+                                                          ? AppColors
+                                                              .addToCartButton
                                                           : homeController
                                                                   .homeProductResponse
                                                                   .value
@@ -409,51 +363,92 @@ class HomeTrendingSection extends StatelessWidget {
                                                                       .trendingProducts![index2]
                                                                       .requestAvailable ==
                                                                   0
-                                                              ? 'Out of stock'
-                                                              : "Request stock"
-                                                          : 'Preorder now',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium!
-                                                          .apply(
-                                                            color:
-                                                                AppColors.white,
-                                                          ),
-                                                    ),
-                                                  );
-                                                }),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                                              ? AppColors
+                                                                  .primary
+                                                              : AppColors
+                                                                  .request
+                                                          : AppColors
+                                                              .preorder,
+                                                  borderColor:
+                                                      AppColors.borderPrimary,
+                                                  child: Text(
+                                                    homeController
+                                                                .homeProductResponse
+                                                                .value
+                                                                .trending?[index1]
+                                                                .trendingProducts?[index2]
+                                                                .stock !=
+                                                            0
+                                                        ? cartController
+                                                                .addingToCartIds
+                                                                .contains(
+                                                                  homeController
+                                                                      .homeProductResponse
+                                                                      .value
+                                                                      .trending?[index1]
+                                                                      .trendingProducts?[index2]
+                                                                      .id,
+                                                                )
+                                                            ? "Adding..."
+                                                            : 'Add to cart'
+                                                        : homeController
+                                                                .homeProductResponse
+                                                                .value
+                                                                .trending?[index1]
+                                                                .trendingProducts?[index2]
+                                                                .preorderAvailable ==
+                                                            0
+                                                        ? homeController
+                                                                    .homeProductResponse
+                                                                    .value
+                                                                    .trending![index1]
+                                                                    .trendingProducts![index2]
+                                                                    .requestAvailable ==
+                                                                0
+                                                            ? 'Out of stock'
+                                                            : "Request stock"
+                                                        : 'Preorder now',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .apply(
+                                                          color:
+                                                              AppColors.white,
+                                                        ),
+                                                  ),
+                                                );
+                                              }),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        Gap(AppSizes.sm),
+                        SizedBox(
+                          width: 150,
+                          child: AppButtons.largeFlatFilledButton(
+                            onPressed: () {
+                              categoryPassingController.getValuesFromUrl(
+                                homeController
+                                    .homeProductResponse
+                                    .value
+                                    .trending![index1]
+                                    .categoryUrl!,
                               );
+                              bottomController.jumpToTab(1);
                             },
+                            buttonText: "View more",
+                            backgroundColor: AppColors.secondary,
                           ),
-                          Gap(AppSizes.sm),
-                          SizedBox(
-                            width: 150,
-                            child: AppButtons.largeFlatFilledButton(
-                              onPressed: () {
-                                categoryPassingController.getValuesFromUrl(
-                                  homeController
-                                      .homeProductResponse
-                                      .value
-                                      .trending![index1]
-                                      .categoryUrl!,
-                                );
-                                bottomController.jumpToTab(1);
-                              },
-                              buttonText: "View more",
-                              backgroundColor: AppColors.secondary,
-                            ),
-                          ),
-                          Gap(AppSizes.spaceBtwItems),
-                        ],
-                      ),
+                        ),
+                        Gap(AppSizes.spaceBtwItems),
+                      ],
                     ),
                   ),
             );

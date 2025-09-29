@@ -102,11 +102,9 @@ class DetailsPageController extends GetxController {
         productDetails.value.detailedProducts!)
         .then((value) => {
               isAddedToCart.value = true,
-              AppHelperFunctions.showToast(
-                  homeController.addToCartResponse.value.message!),
-              EventLogger().logAddToCartEvent(
-                  productDetails.value.detailedProducts!.slug!,
-                  productDetails.value.detailedProducts!.salePrice)
+              // EventLogger().logAddToCartEvent(
+              //     productDetails.value.detailedProducts!.slug!,
+              //     productDetails.value.detailedProducts!.salePrice)
             });
   }
 

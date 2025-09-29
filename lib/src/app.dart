@@ -9,6 +9,7 @@ import 'package:kirei/src/features/authentication/views/sign_up/view/signup.dart
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/blogs/view/blogs.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
+import 'package:kirei/src/features/bottom_navigation/google_nav_bar.dart';
 import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
@@ -81,22 +82,22 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/home',
             binding: HomeBinding(),
-            page: () => const HelloConvexAppBar(
+            page: () => const GoogleNavBar(
                   pageIndex: 0,
                 )),
         GetPage(
             name: '/shop',
-            page: () => const HelloConvexAppBar(
+            page: () => const GoogleNavBar(
                   pageIndex: 1,
                 )),
         GetPage(
             name: '/cart',
-            page: () => const HelloConvexAppBar(
+            page: () => const GoogleNavBar(
                   pageIndex: 2,
                 )),
         GetPage(
             name: '/account',
-            page: () => const HelloConvexAppBar(
+            page: () => const GoogleNavBar(
                   pageIndex: 3,
                 )),
         GetPage(name: '/account-details', page: () => const AccountDetailsScreen()),

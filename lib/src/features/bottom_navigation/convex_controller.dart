@@ -31,6 +31,8 @@ class ConvexBottomNavController extends GetxController
     jumpToTab(pageIndexInit);
   }
 
+
+
   void jumpToTab(int index) {
     pageIndex.value = index;
     tabController.animateTo(index);

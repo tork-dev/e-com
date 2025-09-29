@@ -13,6 +13,7 @@ import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/blogs/view/blogs.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/bottom_navigation/google_nav_bar.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
@@ -92,7 +93,7 @@ class AppDrawer extends StatelessWidget {
             onPress: () {
               shopController.resetAll();
               if (isFromOtherPage) {
-                Get.to(const HelloConvexAppBar(pageIndex: 1));
+                Get.to(const GoogleNavBar(pageIndex: 1));
               }
               shopController.updateCategory('new');
               shopController.type('new-arrivals');

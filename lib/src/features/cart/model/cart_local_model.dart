@@ -34,6 +34,9 @@ class CartItemLocal {
   @HiveField(15)
   int? upperLimit;
 
+  @HiveField(16) // new field
+  int? requestAvailable;
+
   CartItemLocal({
     this.id,
     this.slug,
@@ -45,6 +48,7 @@ class CartItemLocal {
     this.quantity,
     this.lowerLimit,
     this.upperLimit,
+    this.requestAvailable,
   });
 
   /// ✅ From API JSON
@@ -60,10 +64,11 @@ class CartItemLocal {
       quantity: json['quantity'],
       lowerLimit: json['lower_limit'],
       upperLimit: json['upper_limit'],
+      requestAvailable: json['request_available'], // new param
     );
   }
 
-  /// ✅ To JSON (if you need to send back to API or debug)
+  /// ✅ To JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -76,9 +81,11 @@ class CartItemLocal {
       'quantity': quantity,
       'lower_limit': lowerLimit,
       'upper_limit': upperLimit,
+      'request_available': requestAvailable, // new param
     };
   }
-  // ✅ copyWith helper
+
+  /// ✅ copyWith helper
   CartItemLocal copyWith({
     int? id,
     String? slug,
@@ -90,6 +97,7 @@ class CartItemLocal {
     double? price,
     int? lowerLimit,
     int? upperLimit,
+    int? requestAvailable, // new param
   }) {
     return CartItemLocal(
       id: id ?? this.id,
@@ -100,10 +108,9 @@ class CartItemLocal {
       lowerLimit: lowerLimit ?? this.lowerLimit,
       upperLimit: upperLimit ?? this.upperLimit,
       slug: slug ?? this.slug,
-      productThumbnailImage:
-          productThumbnailImage ?? this.productThumbnailImage,
+      productThumbnailImage: productThumbnailImage ?? this.productThumbnailImage,
       isPreorder: isPreorder ?? this.isPreorder,
+      requestAvailable: requestAvailable ?? this.requestAvailable, // new param
     );
   }
 }
-

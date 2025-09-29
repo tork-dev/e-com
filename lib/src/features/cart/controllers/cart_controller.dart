@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/cart/services/cart_services.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/repositories/checkout_repositories.dart';
@@ -206,37 +207,148 @@ class CartController extends GetxController {
   Future<void> getAddToCartResponse(Product product) async {
     addingToCartIds.add(product.id!);
     update();
+
+    // Handle request product scenario
+    if (product.requestAvailable == 1) {
+      if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null) {
+        // Redirect to login if not logged in
+        Get.to(() => LogIn(), arguments: {
+          "productId": product.id,
+          "afterLoginAction": () async {
+            await getRequestResponse(productId: product.id!);
+            AppHelperFunctions.showToast("Request submitted successfully");
+          }
+        });
+        addingToCartIds.remove(product.id);
+        update();
+        return;
+      } else {
+        // Already logged in, hit request API
+        await getRequestResponse(productId: product.id!);
+        AppHelperFunctions.showToast("Request submitted successfully");
+        addingToCartIds.remove(product.id);
+        update();
+        return;
+      }
+    }
+
+    // Check stock only for regular products
+    if (product.preorderAvailable == 0 && (product.stock == null || product.stock! <= 0)) {
+      AppHelperFunctions.showToast("Product out of stock");
+      addingToCartIds.remove(product.id);
+      update();
+      return;
+    }
+
+    // Check for mixed cart restrictions
+    bool hasPreorderInCart = allCartProducts.any((item) => item.isPreorder == 1);
+    bool hasRegularInCart = allCartProducts.any((item) => item.isPreorder == 0);
+
+    if (product.preorderAvailable == 1 && hasRegularInCart) {
+      AppHelperFunctions.showToast("Remove regular product from cart first");
+      addingToCartIds.remove(product.id);
+      update();
+      return;
+    }
+
+    if (product.preorderAvailable == 0 && hasPreorderInCart) {
+      AppHelperFunctions.showToast("Remove preorder product from cart first");
+      addingToCartIds.remove(product.id);
+      update();
+      return;
+    }
+
+    // Add product to cart locally
     CartService.addCartItem(
       CartItemLocal(
         productId: product.id,
+        slug: product.slug,
         productThumbnailImage: product.pictures![0].url,
         productName: product.name!,
         price: product.price!.toDouble(),
         quantity: 1,
         lowerLimit: 1,
         upperLimit: product.maxQty ?? product.stock,
-        isPreorder: product.preorderAvailable
+        isPreorder: product.preorderAvailable,
       ),
     );
 
+    // Add to cart API call for logged-in users
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
       addToCartResponse.value = await CartRepositories().getCartAddResponse(
         product.id!,
         1,
         product.preorderAvailable,
       );
+
       if (addToCartResponse.value.result == true) {
         CartService.removeCartItemWithId(product.id!);
       }
     }
+
     updateQuantity();
     updateTotalPrice();
     addingToCartIds.remove(product.id);
     update();
+
     AppHelperFunctions.showToast(
-      addToCartResponse.value.message ?? "Added To cart",
+      addToCartResponse.value.message ?? "Added to cart",
     );
   }
+
+
+  // Future<void> getAddToCartResponse(Product product) async {
+  //   addingToCartIds.add(product.id!);
+  //   update();
+  //
+  //   // Check for mixed cart restrictions
+  //   bool hasPreorderInCart = allCartProducts.any((item) => item.isPreorder == 1);
+  //   bool hasRegularInCart = allCartProducts.any((item) => item.isPreorder == 0);
+  //
+  //   if (product.preorderAvailable == 1 && hasRegularInCart) {
+  //     AppHelperFunctions.showToast("Remove regular product from cart first");
+  //     return;
+  //   }
+  //
+  //   if (product.preorderAvailable == 0 && hasPreorderInCart) {
+  //     AppHelperFunctions.showToast("Remove preorder product from cart first");
+  //     return;
+  //   }
+  //
+  //   // Add product to cart
+  //   CartService.addCartItem(
+  //     CartItemLocal(
+  //       productId: product.id,
+  //       slug: product.slug,
+  //       productThumbnailImage: product.pictures![0].url,
+  //       productName: product.name!,
+  //       price: product.price!.toDouble(),
+  //       quantity: 1,
+  //       lowerLimit: 1,
+  //       upperLimit: product.maxQty ?? product.stock,
+  //       isPreorder: product.preorderAvailable,
+  //       requestAvailable: product.requestAvailable
+  //     ),
+  //   );
+  //
+  //   if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
+  //     addToCartResponse.value = await CartRepositories().getCartAddResponse(
+  //       product.id!,
+  //       1,
+  //       product.preorderAvailable,
+  //     );
+  //     if (addToCartResponse.value.result == true) {
+  //       CartService.removeCartItemWithId(product.id!);
+  //     }
+  //   }
+  //   updateQuantity();
+  //   updateTotalPrice();
+  //   addingToCartIds.remove(product.id);
+  //   update();
+  //   AppHelperFunctions.showToast(
+  //     addToCartResponse.value.message ?? "Added To cart",
+  //   );
+  // }
 
 
   Future<ProductRequestResponse> getRequestResponse({

@@ -22,109 +22,106 @@ class HomeShopByConcern extends StatelessWidget {
     final shopController = Get.put(GetShopDataController());
     final bottomController = ConvexBottomNavController.instance;
     double cardWidth = MediaQuery.of(context).size.width / 3.50;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Gap(AppSizes.defaultSpace),
-          const AppSectionTitleText(
-            sectionTitle: 'Shop By Concern',
-            haveTxtButton: false,
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Gap(AppSizes.defaultSpace),
+        const AppSectionTitleText(
+          sectionTitle: 'Shop By Concern',
+          haveTxtButton: false,
+        ),
 
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 210,
-              // enlargeCenterPage: true,
-              viewportFraction: 1 / 3,
-              autoPlay: true,
-            ),
-            items: List.generate(
-              homeController.hittingApi.value
-                  ? 5
-                  : homeController.homeProductResponse.value.skinConcern!.length,
-              (index) {
-                return AppCardContainer(
-                  borderRadius: AppSizes.borderRadiusSm,
-                  child: Column(
-                    children: [
-                      AppBannerImage(
-                        applyOnlyRadius: true,
-                        topRightRadius: AppSizes.borderRadiusMd,
-                        topLeftRadius: AppSizes.borderRadiusMd,
-                        onPress: () {
-                          shopController.resetAll();
-                          shopController.goodFor.value =
-                              homeController
-                                  .homeProductResponse
-                                  .value
-                                  .skinConcern![index]
-                                  .slug ??
-                              '';
-                          bottomController.jumpToTab(1);
-                        },
-                        width: cardWidth,
-                        height: 160,
-                        fit: BoxFit.cover,
-                        isNetworkImage:
-                            homeController
-                                .homeProductResponse
-                                .value
-                                .skinConcern![index]
-                                .banner !=
-                            null,
-                        imgUrl:
-                            homeController
-                                .homeProductResponse
-                                .value
-                                .skinConcern![index]
-                                .banner ??
-                            'assets/images/demo/Acne.png',
-                      ),
-                      AppCardContainer(
-                        onTap: () {
-                          shopController.resetAll();
-                          shopController.goodFor.value =
-                              homeController
-                                  .homeProductResponse
-                                  .value
-                                  .skinConcern![index]
-                                  .slug ??
-                              '';
-                          bottomController.jumpToTab(1);
-                        },
-                        applyOnlyRadius: true,
-                        bottomLeftRadius: AppSizes.borderRadiusMd,
-                        bottomRightRadius: AppSizes.borderRadiusMd,
-                        width: cardWidth,
-                        backgroundColor: AppColors.lightGrey,
-                        applyRadius: false,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSizes.sm,
-                          vertical: AppSizes.spaceBtwDefaultItems,
-                        ),
-                        child: Center(
-                          child: Text(
-                            homeController
-                                    .homeProductResponse
-                                    .value
-                                    .skinConcern![index]
-                                    .title ??
-                                'Acne',
-                            style: Theme.of(context).textTheme.labelLarge,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+        CarouselSlider(
+          options: CarouselOptions(
+            height: 210,
+            // enlargeCenterPage: true,
+            viewportFraction: 1 / 3,
+            autoPlay: true,
           ),
-        ],
-      ),
+          items: List.generate(
+            homeController.hittingApi.value
+                ? 5
+                : homeController.homeProductResponse.value.skinConcern!.length,
+            (index) {
+              return AppCardContainer(
+                borderRadius: AppSizes.borderRadiusSm,
+                child: Column(
+                  children: [
+                    AppBannerImage(
+                      applyOnlyRadius: true,
+                      topRightRadius: AppSizes.borderRadiusMd,
+                      topLeftRadius: AppSizes.borderRadiusMd,
+                      onPress: () {
+                        shopController.resetAll();
+                        shopController.goodFor.value =
+                            homeController
+                                .homeProductResponse
+                                .value
+                                .skinConcern![index]
+                                .slug ??
+                            '';
+                        bottomController.jumpToTab(1);
+                      },
+                      width: cardWidth,
+                      height: 160,
+                      fit: BoxFit.cover,
+                      isNetworkImage:
+                          homeController
+                              .homeProductResponse
+                              .value
+                              .skinConcern![index]
+                              .banner !=
+                          null,
+                      imgUrl:
+                          homeController
+                              .homeProductResponse
+                              .value
+                              .skinConcern![index]
+                              .banner ??
+                          'assets/images/demo/Acne.png',
+                    ),
+                    AppCardContainer(
+                      onTap: () {
+                        shopController.resetAll();
+                        shopController.goodFor.value =
+                            homeController
+                                .homeProductResponse
+                                .value
+                                .skinConcern![index]
+                                .slug ??
+                            '';
+                        bottomController.jumpToTab(1);
+                      },
+                      applyOnlyRadius: true,
+                      bottomLeftRadius: AppSizes.borderRadiusMd,
+                      bottomRightRadius: AppSizes.borderRadiusMd,
+                      width: cardWidth,
+                      backgroundColor: AppColors.lightGrey,
+                      applyRadius: false,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.sm,
+                        vertical: AppSizes.spaceBtwDefaultItems,
+                      ),
+                      child: Center(
+                        child: Text(
+                          homeController
+                                  .homeProductResponse
+                                  .value
+                                  .skinConcern![index]
+                                  .title ??
+                              'Acne',
+                          style: Theme.of(context).textTheme.labelLarge,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

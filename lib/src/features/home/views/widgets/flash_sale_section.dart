@@ -29,16 +29,13 @@ class FlashSaleSection extends StatelessWidget {
         visible: isFlashSaleEnabled && hasValidProduct,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              child: AppSectionTitleText(
-                sectionTitle: 'Hot Deals',
-                flashTime: hasValidProduct
-                    ? featuredProducts[0].flashSaleEndDate ?? DateTime.now()
-                    : DateTime.now(), // fallback
-                haveTxtButton: false,
-                showCountDown: true,
-              ),
+            AppSectionTitleText(
+              sectionTitle: 'Hot Deals',
+              flashTime: hasValidProduct
+                  ? featuredProducts[0].flashSaleEndDate ?? DateTime.now()
+                  : DateTime.now(), // fallback
+              haveTxtButton: false,
+              showCountDown: true,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),

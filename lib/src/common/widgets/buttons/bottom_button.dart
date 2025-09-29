@@ -30,16 +30,7 @@ class AppBottomButton extends StatelessWidget {
                   children: [
                     AppCardContainer(
                         onTap: () {
-                          // if (AppLocalStorage()
-                          //         .readData(LocalStorageKeys.isLoggedIn) !=
-                          //     true) {
-                          //   Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
-                          //   // Get.toNamed(
-                          //   //     '/login/product/${detailsController.productSlug.value}');
-                          //   return;
-                          // }
-
-                          detailsController.onAddToCart().then((value) =>
+                         detailsController.onAddToCart().then((value) =>
                               detailsController.isAddedToCart.value = true);
                         },
                         height: 50,
@@ -66,15 +57,6 @@ class AppBottomButton extends StatelessWidget {
                         )),
                     AppCardContainer(
                         onTap: () {
-                          if (AppLocalStorage()
-                                  .readData(LocalStorageKeys.isLoggedIn) !=
-                              true) {
-                            Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
-                            // Get.toNamed(
-                            //     '/login/product/${detailsController.productSlug.value}');
-                            return;
-                          }
-
                           detailsController.isAddedToCart.value == false
                               ? detailsController
                                   .onAddToCart()
@@ -101,37 +83,33 @@ class AppBottomButton extends StatelessWidget {
                 )
               : AppCardContainer(
                   onTap: () {
-                    if (AppLocalStorage()
-                            .readData(LocalStorageKeys.isLoggedIn) !=
-                        true) {
-                      Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
-                      return;
-                    }
-                    final cartController = Get.put(CartController());
-                    detailsController.productDetails.value.detailedProducts!
-                                .preorderAvailable !=
-                            0
-                        ? cartController
-                            .getAddToCartResponse(
-                                detailsController.productDetails.value.detailedProducts as Product)
-                            .then((value) {
-                            AppHelperFunctions.showToast(cartController
-                                .addToCartResponse.value.message!);
-                            Get.back();
-                            bottomNavController.jumpToTab(2);
-                          })
-                        : detailsController.productDetails.value
-                                    .detailedProducts!.requestAvailable !=
-                                0
-                            ? cartController
-                                .getRequestResponse(
-                                    productId: detailsController.productDetails
-                                        .value.detailedProducts!.id!)
-                                .then((value) {
-                                AppHelperFunctions.showToast(cartController
-                                    .requestStockResponse.value.message!);
-                              })
-                            : null;
+                    detailsController.onAddToCart();
+
+                    // final cartController = Get.put(CartController());
+                    // detailsController.productDetails.value.detailedProducts!
+                    //             .preorderAvailable !=
+                    //         0
+                    //     ? cartController
+                    //         .getAddToCartResponse(
+                    //             detailsController.productDetails.value.detailedProducts as Product)
+                    //         .then((value) {
+                    //         AppHelperFunctions.showToast(cartController
+                    //             .addToCartResponse.value.message!);
+                    //         Get.back();
+                    //         bottomNavController.jumpToTab(2);
+                    //       })
+                    //     : detailsController.productDetails.value
+                    //                 .detailedProducts!.requestAvailable !=
+                    //             0
+                    //         ? cartController
+                    //             .getRequestResponse(
+                    //                 productId: detailsController.productDetails
+                    //                     .value.detailedProducts!.id!)
+                    //             .then((value) {
+                    //             AppHelperFunctions.showToast(cartController
+                    //                 .requestStockResponse.value.message!);
+                    //           })
+                    //         : null;
                   },
                   height: 50,
                   width: AppHelperFunctions.screenWidth() * 1,

@@ -18,19 +18,13 @@ class RecommendedSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-          child: AppSectionTitleText(
-            sectionTitle: 'Recommended For You',
-            haveTxtButton: false,
-          ),
+        AppSectionTitleText(
+          sectionTitle: 'Recommended For You',
+          haveTxtButton: false,
         ),
         Obx(() {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppHorizontalScrollProductCard(
-              sectionName: recommendedProductsResponse.value.data,
-            ),
+          return AppHorizontalScrollProductCard(
+            sectionName: recommendedProductsResponse.value.data,
           );
         }),
       ],

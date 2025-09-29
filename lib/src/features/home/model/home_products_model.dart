@@ -49,7 +49,7 @@ class Product {
   String? name;
   String? slug;
   int? price;
-  int? salePrice;
+  dynamic salePrice;
   int? discount;
   String? sku;
   int? stock;
