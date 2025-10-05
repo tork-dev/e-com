@@ -44,7 +44,7 @@ class AppDrawer extends StatelessWidget {
     HomeController homeController = Get.put(HomeController());
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
-      margin: const EdgeInsets.only(bottom: 50),
+      // padding: const EdgeInsets.only(bottom: 50),
       width: 300,
       backgroundColor: AppColors.dark,
       applyRadius: false,
