@@ -19,13 +19,10 @@ class ShopSubCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     GetShopDataController shopController = GetShopDataController.instance;
     return AppCardContainer(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSizes.sm,
-        ),
-         height: 85,
+        padding: const EdgeInsets.all(AppSizes.sm),
+         height: 95,
          width: AppHelperFunctions.screenWidth() * 1,
         backgroundColor: AppColors.white,
-        applyRadius: false,
         child: Obx(() {
           return AppListViewLayout(
               isScrollVertically: false,

@@ -123,12 +123,25 @@ class AppCartProductCard extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                '৳${cartController.allCartProducts[index].price! * cartController.allCartProducts[index].quantity!}',
-                                                style:
-                                                    Theme.of(
-                                                      context,
-                                                    ).textTheme.titleMedium,
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: "Price: ",
+                                                  style: Theme.of(
+                                                    context,
+                                                  ).textTheme.titleLarge!.apply(
+                                                    color: AppColors.darkerGrey,
+                                                  ),
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                          '৳${cartController.allCartProducts[index].price! * cartController.allCartProducts[index].quantity!}',
+                                                      style:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .titleMedium,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               InkWell(
                                                 onTap: () {
@@ -137,6 +150,7 @@ class AppCartProductCard extends StatelessWidget {
                                                 },
                                                 child: const Icon(
                                                   CupertinoIcons.delete,
+                                                  size: AppSizes.iconMd,
                                                   color: AppColors.error,
                                                 ),
                                               ),
@@ -190,6 +204,7 @@ class AppCartProductCard extends StatelessWidget {
                                               .allCartProducts[index]
                                               .quantity
                                               .toString(),
+                                          style: Theme.of(context).textTheme.headlineSmall,
                                         ),
                                       ),
                                     ),

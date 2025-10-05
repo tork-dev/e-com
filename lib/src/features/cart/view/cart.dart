@@ -10,6 +10,7 @@ import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/cart/view/widgets/cart_proceed_button.dart';
 import 'package:kirei/src/features/cart/view/widgets/cart_screen_card.dart';
 import 'package:kirei/src/features/cart/view/widgets/log_out_view.dart';
+import 'package:kirei/src/features/home/views/widgets/home_appbar_title.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -26,13 +27,11 @@ class CartScreen extends StatelessWidget {
       globalKey: controller.cartKey,
       backToHome: true,
       inHome: true,
-      title: const Text(
-        'Shopping Cart',
-        style: TextStyle(color: AppColors.white),
-      ),
+      leadingIconColor: AppColors.darkGrey,
+      title: AppHomeAppBarTitle(),
       centerTitle: true,
       bodyBackgroundColor: AppColors.secondaryBackground,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.white,
       padding: 0,
       body: Stack(
         children: [
