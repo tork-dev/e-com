@@ -34,6 +34,7 @@ class AuthInputField extends StatelessWidget {
       keyboardType: textInputType,
       autofillHints: autofillHints,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
         hintText: hingText,
         suffixIcon: suffixIcon,
         focusedBorder: OutlineInputBorder(

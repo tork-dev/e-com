@@ -18,47 +18,50 @@ class AppHomeAppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottomController = ConvexBottomNavController.instance;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-            width: 70,
-            child: Image.asset(AppImages.lightAppLogo)),
-         SizedBox(
-            child: InkWell(
-              onTap: (){
-                if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
-                bottomController.jumpToTab(3);
-                }else{
-                  Get.offAll(const LogIn());
-                }
-              },
-              child: Row(
-                  children: [
-                    Container(width: 170,
-                        alignment: Alignment.centerRight,
-                        child: Text('Hi, ${AppLocalStorage().readData(LocalStorageKeys.userName ) ?? 'User'} ', style: Theme.of(context).textTheme.bodyLarge,)),
-                    const Gap(AppSizes.spaceBtwSmallItem),
-                    AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true?
-                     AppCardContainer(
-                       applyRadius: true,
-                       padding: const EdgeInsets.all(5),
-                        height: 40,
-                        width: 40,
-                        borderRadius: 100,
-                       // backgroundColor: Colors.black,
-                       hasBorder: true,
-                        borderWidth: 1,
-                        borderColor: AppColors.secondary,
-                        child: AppBannerImage(
-                          isNetworkImage: true,
-                            imgUrl: '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'))
-                        :
-                    const Icon(Icons.account_circle_outlined, color: AppColors.secondary)
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+              width: 70,
+              child: Image.asset(AppImages.lightAppLogo)),
+           SizedBox(
+              child: InkWell(
+                onTap: (){
+                  if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true){
+                  bottomController.jumpToTab(3);
+                  }else{
+                    Get.offAll(const LogIn());
+                  }
+                },
+                child: Row(
+                    children: [
+                      Container(width: 170,
+                          alignment: Alignment.centerRight,
+                          child: Text('Hi, ${AppLocalStorage().readData(LocalStorageKeys.userName ) ?? 'User'} ', style: Theme.of(context).textTheme.bodyLarge,)),
+                      const Gap(AppSizes.spaceBtwSmallItem),
+                      AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true?
+                       AppCardContainer(
+                         applyRadius: true,
+                         padding: const EdgeInsets.all(5),
+                          height: 40,
+                          width: 40,
+                          borderRadius: 100,
+                         // backgroundColor: Colors.black,
+                         hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: AppColors.secondary,
+                          child: AppBannerImage(
+                            isNetworkImage: true,
+                              imgUrl: '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'))
+                          :
+                      const Icon(Icons.account_circle_outlined, color: AppColors.secondary)
 
-                  ]),
-            ))
-      ],
+                    ]),
+              ))
+        ],
+      ),
     );
   }
 }
