@@ -6,9 +6,7 @@ import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refre
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/texts/section_title_text.dart';
 import 'package:kirei/src/features/address/view/widgets/address_text_field.dart';
-import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
 import 'package:kirei/src/features/checkout/controller/checkout_controller.dart';
-import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/view/widget/checkout_summary.dart';
 import 'package:kirei/src/features/checkout/view/widget/coupon_field.dart';
 import 'package:kirei/src/features/checkout/view/widget/payment_method_type.dart';
@@ -17,7 +15,6 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/colors.dart';
-import '../../cart/model/cart_local_model.dart';
 import 'widget/checkout_order_product_card.dart';
 import 'widget/shipping_address_container.dart';
 
@@ -74,7 +71,9 @@ class CheckoutScreen extends StatelessWidget {
                   const Gap(AppSizes.spaceBtwDefaultItems),
                   const AppCouponField(),
                   const Gap(AppSizes.spaceBtwDefaultItems),
-                  const RedeemPointPart(),
+                  Visibility(
+                      visible: AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null,
+                      child: const RedeemPointPart()),
                   const Gap(AppSizes.spaceBtwDefaultItems),
                   const AppSectionTitleText(
                     sectionTitle: 'Notes about your order',

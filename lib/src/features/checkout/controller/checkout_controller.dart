@@ -129,12 +129,12 @@ class CheckoutController extends GetxController {
       AppHelperFunctions.showToast('Please enter a coupon code');
       return;
     }
-    bool? result = await cartController.getCheckoutSummary(
+    CheckoutSummaryResponse? checkoutSummaryResponse = await cartController.getCheckoutSummary(
       couponCode: couponController.text.toString(),
     );
-    isCouponApplied.value = result!;
+    isCouponApplied.value =checkoutSummaryResponse!.result!;
     AppHelperFunctions.showToast(
-      result ? "Coupon Applied" : "Coupon Not Applied",
+      isCouponApplied.value ? "Coupon Applied" : "Coupon Not Applied",
     );
   }
 
@@ -145,13 +145,13 @@ class CheckoutController extends GetxController {
   // }
 
   Future<void> onCouponRemove() async {
-    bool? result = await cartController.getCheckoutSummary();
-    isCouponApplied.value = !result!;
-    if (result) {
+    CheckoutSummaryResponse? checkoutSummaryResponse = await cartController.getCheckoutSummary();
+    isCouponApplied.value = !checkoutSummaryResponse!.result!;
+    if (isCouponApplied.value ) {
       couponController.clear();
     }
     AppHelperFunctions.showToast(
-      result ? "Coupon Removed" : "Something went wrong",
+      isCouponApplied.value  ? "Coupon Removed" : "Something went wrong",
     );
   }
 

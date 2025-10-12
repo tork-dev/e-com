@@ -34,6 +34,7 @@ class CheckoutRepositories {
   Future<CheckoutSummaryResponse> getCartSummaryResponse({
     int? cityID,
     String? couponCode,
+    String? phone,
     required List<int> cartProductIds,
     required List<int> cartQuantities,
   }) async {
@@ -42,6 +43,7 @@ class CheckoutRepositories {
       "product_quantities_arr": cartQuantities,
       "coupon_code": couponCode,
       "city_id": cityID,
+      "phone_number": phone,
       "app_info": await AppHelperFunctions.appInfo(),
     });
     Uri url = Uri.parse(AppApiEndPoints.checkoutSummary);
