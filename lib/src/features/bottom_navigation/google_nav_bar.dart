@@ -13,6 +13,7 @@ import '../home/controller/home_controller.dart';
 import '../home/views/home_three.dart';
 import '../personalization/view/profile.dart';
 import '../shop/view/shop.dart';
+import '../shop/view/shop_new.dart';
 import 'convex_controller.dart';
 
 class GoogleNavBar extends StatelessWidget {
@@ -22,7 +23,7 @@ class GoogleNavBar extends StatelessWidget {
   final int pageIndex;
   static const List<Widget> _widgetOptions = <Widget>[
     HomeThree(),
-    ShopScreen(),
+    ShopScreenNew(),
     CartScreen(),
     UserDashboard()
     // ProfileScreen()
