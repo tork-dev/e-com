@@ -7,6 +7,8 @@ import 'package:kirei/src/common/styles/app_dividers.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../../utils/helpers/auth_helper.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -55,7 +57,7 @@ class UserDashboard extends StatelessWidget {
                   backgroundColor: AppColors.primary.withAlpha(25),
                   padding: EdgeInsets.all(AppSizes.md),
                   child: Text(
-                    "Hello, \nTork Admin",
+                    "Hello, \n${AppLocalStorage().readData(LocalStorageKeys.userName)}",
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.w500,
                       color: AppColors.darkerGrey,
@@ -89,7 +91,7 @@ class UserDashboard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: DashboardCard(
-                            icon: HugeIcons.strokeRoundedShieldBlockchain,
+                            icon: HugeIcons.strokeRoundedSecurityCheck,
                             label: 'Verify Product',
                             onTap:
                                 () => Get.to(() => const ProductVerifyScreen()),

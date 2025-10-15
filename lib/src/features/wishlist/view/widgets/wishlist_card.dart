@@ -6,7 +6,6 @@ import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
-import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/wishlist/controller/wishlist_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -42,15 +41,26 @@ class AppWishListProductCard extends StatelessWidget {
                           width: 90,
                           height: 90,
                           isNetworkImage: true,
-                          imgUrl:
+                          imgUrl: (wishlistController
+                              .wishlistProducts
+                              .value
+                              .data?[index]
+                              .pictures != null &&
                               wishlistController
                                   .wishlistProducts
                                   .value
                                   .data![index]
-                                  .product!
-                                  .pictures![0].url ??
-                              '',
+                                  .pictures!
+                                  .isNotEmpty)
+                              ? wishlistController
+                              .wishlistProducts
+                              .value
+                              .data![index]
+                              .pictures![0]
+                              .url ?? ''
+                              : '',
                         ),
+
                         const Gap(AppSizes.sm),
                         SizedBox(
                           width: AppHelperFunctions.screenWidth() * .4,
@@ -59,7 +69,7 @@ class AppWishListProductCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${wishlistController.wishlistProducts.value.data![index].product!.name}',
+                                '${wishlistController.wishlistProducts.value.data![index].name}',
                                 style: Theme.of(context).textTheme.bodyLarge,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -70,7 +80,7 @@ class AppWishListProductCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '${wishlistController.wishlistProducts.value.data![index].product!.price}',
+                                    '৳${wishlistController.wishlistProducts.value.data![index].salePrice}',
                                     style:
                                         Theme.of(context).textTheme.titleSmall,
                                   ),
@@ -79,7 +89,6 @@ class AppWishListProductCard extends StatelessWidget {
                                                 .wishlistProducts
                                                 .value
                                                 .data![index]
-                                                .product!
                                                 .stock !=
                                             0
                                         ? 'In Stock'
@@ -87,7 +96,6 @@ class AppWishListProductCard extends StatelessWidget {
                                                 .wishlistProducts
                                                 .value
                                                 .data![index]
-                                                .product!
                                                 .preorderAvailable !=
                                             1
                                         ? 'Stock out'
@@ -100,7 +108,6 @@ class AppWishListProductCard extends StatelessWidget {
                                                       .wishlistProducts
                                                       .value
                                                       .data![index]
-                                                      .product!
                                                       .stock !=
                                                   0
                                               ? AppColors.inStock
@@ -108,7 +115,6 @@ class AppWishListProductCard extends StatelessWidget {
                                                       .wishlistProducts
                                                       .value
                                                       .data![index]
-                                                      .product!
                                                       .preorderAvailable !=
                                                   1
                                               ? AppColors.error
@@ -129,22 +135,25 @@ class AppWishListProductCard extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              cartController
-                                  .getAddToCartResponse(
+                              if(wishlistController.wishlistProducts.value.data![index].stock! > 1) {
+                                cartController
+                                    .getAddToCartResponse(
                                     wishlistController
                                         .wishlistProducts
                                         .value
                                         .data![index]
-                                        .product!
-                                  )
-                                  .then(
-                                    (value) => {
-                                          wishlistController
-                                              .isAddedToCart
-                                              .value = true,
+                                ).then(
+                                      (value) =>
+                                  {
+                                    wishlistController
+                                        .isAddedToCart
+                                        .value = true,
 
-                                    },
-                                  );
+                                  },
+                                );
+                              }else{
+                                AppHelperFunctions.showToast('Product out of stock');
+                              }
                             },
                             child: const Icon(
                               Icons.shopping_cart_checkout,
@@ -161,8 +170,7 @@ class AppWishListProductCard extends StatelessWidget {
                                         .value
                                         .data![index]
                                         .id!,
-                                  )
-                                  .then(
+                                  ).then(
                                     (value) =>
                                         wishlistController.onRefresh().then(
                                           (

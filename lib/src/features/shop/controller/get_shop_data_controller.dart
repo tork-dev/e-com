@@ -36,7 +36,7 @@ class GetShopDataController extends GetxController {
 
   /// Searching params
   RxString searchName = ''.obs;
-  RxString sortKey = 'default'.obs;
+  RxString sortKey = 'Default'.obs;
   RxString tag = ''.obs;
   RxString skinType = ''.obs;
   RxString search = ''.obs;
@@ -44,6 +44,7 @@ class GetShopDataController extends GetxController {
   RxString goodFor = ''.obs;
   RxString categories = ''.obs;
   RxInt pageNumber = 1.obs;
+  RxInt perPage = 24.obs;
   RxString type = ''.obs;
   RxString brand = ''.obs;
 
@@ -64,6 +65,9 @@ class GetShopDataController extends GetxController {
     }
     if (uri.queryParameters.containsKey('page')) {
       pageNumber.value = int.tryParse(uri.queryParameters['page'] ?? '1') ?? 1;
+    }
+    if (uri.queryParameters.containsKey('per_page')) {
+      pageNumber.value = int.tryParse(uri.queryParameters['per_page'] ?? '24') ?? 24;
     }
     if (uri.queryParameters.containsKey('search_name')) {
       searchName.value = uri.queryParameters['search_name'] ?? '';
@@ -193,6 +197,9 @@ class GetShopDataController extends GetxController {
 
   void updateSortKey(String value) {
     sortKey.value = value;
+  }
+  void updatePerPage(int value) {
+    perPage.value = value;
   }
 
   Future<void> getShopData() async {

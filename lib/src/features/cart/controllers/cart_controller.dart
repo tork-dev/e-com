@@ -263,9 +263,12 @@ class CartController extends GetxController {
       CartItemLocal(
         productId: product.id,
         slug: product.slug,
-        productThumbnailImage: product.pictures![0].url,
+        productThumbnailImage: (product.pictures != null && product.pictures!.isNotEmpty)
+            ? product.pictures![0].url
+            : '',
+
         productName: product.name!,
-        price: product.price!.toDouble(),
+        price: product.salePrice!.toDouble(),
         quantity: 1,
         lowerLimit: 1,
         upperLimit: product.maxQty ?? product.stock,
@@ -295,60 +298,6 @@ class CartController extends GetxController {
       addToCartResponse.value.message ?? "Added to cart",
     );
   }
-
-
-  // Future<void> getAddToCartResponse(Product product) async {
-  //   addingToCartIds.add(product.id!);
-  //   update();
-  //
-  //   // Check for mixed cart restrictions
-  //   bool hasPreorderInCart = allCartProducts.any((item) => item.isPreorder == 1);
-  //   bool hasRegularInCart = allCartProducts.any((item) => item.isPreorder == 0);
-  //
-  //   if (product.preorderAvailable == 1 && hasRegularInCart) {
-  //     AppHelperFunctions.showToast("Remove regular product from cart first");
-  //     return;
-  //   }
-  //
-  //   if (product.preorderAvailable == 0 && hasPreorderInCart) {
-  //     AppHelperFunctions.showToast("Remove preorder product from cart first");
-  //     return;
-  //   }
-  //
-  //   // Add product to cart
-  //   CartService.addCartItem(
-  //     CartItemLocal(
-  //       productId: product.id,
-  //       slug: product.slug,
-  //       productThumbnailImage: product.pictures![0].url,
-  //       productName: product.name!,
-  //       price: product.price!.toDouble(),
-  //       quantity: 1,
-  //       lowerLimit: 1,
-  //       upperLimit: product.maxQty ?? product.stock,
-  //       isPreorder: product.preorderAvailable,
-  //       requestAvailable: product.requestAvailable
-  //     ),
-  //   );
-  //
-  //   if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-  //     addToCartResponse.value = await CartRepositories().getCartAddResponse(
-  //       product.id!,
-  //       1,
-  //       product.preorderAvailable,
-  //     );
-  //     if (addToCartResponse.value.result == true) {
-  //       CartService.removeCartItemWithId(product.id!);
-  //     }
-  //   }
-  //   updateQuantity();
-  //   updateTotalPrice();
-  //   addingToCartIds.remove(product.id);
-  //   update();
-  //   AppHelperFunctions.showToast(
-  //     addToCartResponse.value.message ?? "Added To cart",
-  //   );
-  // }
 
 
   Future<ProductRequestResponse> getRequestResponse({

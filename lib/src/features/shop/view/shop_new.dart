@@ -35,21 +35,6 @@ class ShopScreenNew extends StatelessWidget {
       hasEndDrawer: true,
       action: const [SizedBox()],
       title: AppHomeAppBarTitle(),
-      // title: Obx(() {
-      //   return AppBarSearch(
-      //     focusOn: shopDataController.searchOn.value,
-      //     onSubmit: (txt) {
-      //       shopDataController.search.value = txt;
-      //       shopDataController.isFromSearch.value = true;
-      //       shopDataController.allProducts.clear();
-      //       shopDataController.getShopData();
-      //       shopDataController.categoryRouteList.add('/shop?${shopDataController.queryStringValue.value}');
-      //       Log.d('length of routes: ${shopDataController.categoryRouteList}');
-      //       return null;
-      //     },
-      //     prevRoute: '/shop?${shopDataController.queryStringValue.value}',
-      //   );
-      // }),
       body: Stack(
         clipBehavior: Clip.none,
         // fit: StackFit.expand,
@@ -59,7 +44,122 @@ class ShopScreenNew extends StatelessWidget {
             child: AppLayoutWithRefresher(
               onRefresh: shopController.onRefresh,
               scrollController: shopDataController.scrollController,
-              children: const [Gap(120), AppShopGridScrollCard()],
+              children: [
+                Gap(70),
+                // AppCardContainer(
+                //   backgroundColor: AppColors.whitePink,
+                //   padding: EdgeInsets.all(AppSizes.md),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Row(
+                //         children: [
+                //           AppCardContainer(
+                //             onTap: () {
+                //               shopController.shopKey.currentState!.openEndDrawer();
+                //             },
+                //             hasBorder: true,
+                //             borderColor: Colors.grey.shade400,
+                //             backgroundColor: AppColors.white,
+                //             borderRadius: AppSizes.sm,
+                //             padding: EdgeInsets.symmetric(
+                //               horizontal: AppSizes.defaultSpace,
+                //               vertical: AppSizes.sm,
+                //             ),
+                //             child: HugeIcon(
+                //               icon: HugeIcons.strokeRoundedFilter,
+                //               size: 18,
+                //             ),
+                //           ),
+                //           Gap(AppSizes.md),
+                //           Obx(() {
+                //             final currentValue = shopDataController.sortKey.value;
+                //             final validValue = shopController.sortOption.contains(currentValue)
+                //                 ? currentValue
+                //                 : shopController.sortOption.first;
+                //             return AppCardContainer(
+                //               height: 38,
+                //               padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
+                //               hasBorder: true,
+                //               borderColor: Colors.grey.shade400,
+                //               borderRadius: AppSizes.sm,
+                //               backgroundColor: Colors.white,
+                //               child: DropdownButtonHideUnderline(
+                //                 child: DropdownButton<String>(
+                //                   value: validValue,
+                //                   icon: const Icon(
+                //                     Icons.keyboard_arrow_down_rounded,
+                //                     size: 20,
+                //                   ),
+                //                   style: const TextStyle(
+                //                     fontSize: 14,
+                //                     color: Colors.black87,
+                //                   ),
+                //                   dropdownColor: Colors.white,
+                //                   items:
+                //                   shopController.sortOption.map((option) {
+                //                     return DropdownMenuItem<String>(
+                //                       value: option,
+                //                       child: Text(option),
+                //                     );
+                //                   }).toList(),
+                //                   onChanged: (value) {
+                //                     if (value != null) {
+                //                       shopDataController.updateSortKey(value);
+                //                     }
+                //                   },
+                //                 ),
+                //               ),
+                //             );
+                //           }),
+                //         ],
+                //       ),
+                //       Obx(() {
+                //         final currentValue = shopDataController.perPage.value;
+                //         final validValue = shopController.perPageOption.contains(currentValue)
+                //             ? currentValue
+                //             : 24;
+                //         return AppCardContainer(
+                //           height: 38,
+                //           padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
+                //           hasBorder: true,
+                //           borderColor: Colors.grey.shade400,
+                //           borderRadius: AppSizes.sm,
+                //           backgroundColor: Colors.white,
+                //           child: DropdownButtonHideUnderline(
+                //             child: DropdownButton<int>(
+                //               value: validValue,
+                //               icon: const Icon(
+                //                 Icons.keyboard_arrow_down_rounded,
+                //                 size: 20,
+                //               ),
+                //               style: const TextStyle(
+                //                 fontSize: 14,
+                //                 color: Colors.black87,
+                //               ),
+                //               dropdownColor: Colors.white,
+                //               items:
+                //               shopController.perPageOption.map((option) {
+                //                 return DropdownMenuItem<int>(
+                //                   value: option,
+                //                   child: Text(option.toString()),
+                //                 );
+                //               }).toList(),
+                //               onChanged: (value) {
+                //                 if (value != null) {
+                //                   shopDataController.updatePerPage(value);
+                //                 }
+                //               },
+                //             ),
+                //           ),
+                //         );
+                //       }),
+                //     ],
+                //   ),
+                // ),
+                // Gap(AppSizes.md),
+                AppShopGridScrollCard(),
+              ],
             ),
           ),
           Padding(
@@ -67,31 +167,61 @@ class ShopScreenNew extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(bottom: AppSizes.md),
+                  padding: EdgeInsets.only(bottom: AppSizes.sm),
                   color: AppColors.white,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(AppSizes.md), // Adjust this
-                        child: HugeIcon(
-                          icon: HugeIcons.strokeRoundedSearch01,
-                          size: AppSizes.iconMd,
-                          color: AppColors.grey,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(AppSizes.md),
+                              // Adjust this
+                              child: HugeIcon(
+                                icon: HugeIcons.strokeRoundedSearch01,
+                                size: AppSizes.iconMd,
+                                color: AppColors.grey,
+                              ),
+                            ),
+                            suffixIconConstraints: const BoxConstraints(
+                              minHeight: 24,
+                              minWidth: 24,
+                            ),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(AppSizes.inputFieldRadius),
+                              ),
+                              borderSide: BorderSide(color: AppColors.grey),
+                            ),
+                            hintText: "Search for product",
+                          ),
                         ),
                       ),
-                      suffixIconConstraints: const BoxConstraints(
-                        minHeight: 24,
-                        minWidth: 24,
-                      ),
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                      ),
-                      focusedBorder:  OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(AppSizes.inputFieldRadius)),
-                        borderSide: BorderSide(color: AppColors.grey)
-                      ),
-                      hintText: "Search for product",
-                    ),
+                      Gap(AppSizes.sm),
+                      Expanded(
+                        flex: 1,
+                        child: AppCardContainer(
+                            onTap: () {
+                              shopController.shopKey.currentState!.openEndDrawer();
+                            },
+                            hasBorder: true,
+                            borderColor: AppColors.grey,
+                            backgroundColor: AppColors.white,
+                            borderRadius: AppSizes.sm,
+                            padding: EdgeInsets.all(
+                             AppSizes.md,
+                            ),
+                            child: HugeIcon(
+                              icon: HugeIcons.strokeRoundedFilter,
+                              size: 18,
+                            ),
+                          ),
+                      )
+                    ],
                   ),
                 ),
 

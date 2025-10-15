@@ -4,15 +4,14 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 
 import '../../../utils/logging/logger.dart';
 
-class ShopController extends GetxController{
+class ShopController extends GetxController {
   static ShopController get instance => Get.find();
-  GetShopDataController getShopDataController = Get.put(GetShopDataController());
+  GetShopDataController getShopDataController = Get.put(
+    GetShopDataController(),
+  );
 
   /// Key
   final GlobalKey<ScaffoldState> shopKey = GlobalKey<ScaffoldState>();
-
-
-
 
   @override
   void onInit() {
@@ -25,19 +24,21 @@ class ShopController extends GetxController{
     super.onInit();
   }
 
-  Future onRefresh()async{
+  Future onRefresh() async {
     getShopDataController.getShopData();
     getShopDataController.getSkinTypesData();
     Log.d('refresh2');
   }
 
+  final List<String> sortOption = [
+    "Default",
+    "Best Selling",
+    "Rating",
+    "Newest",
+    "Hot Deal",
+    "Price: Low to High",
+    "Price: High to Low",
+  ];
 
-
-
-
-
-
-
-
-
+  final List<int> perPageOption = [9, 12, 24, 36];
 }

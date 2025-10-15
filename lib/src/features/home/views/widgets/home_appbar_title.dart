@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
@@ -37,9 +38,16 @@ class AppHomeAppBarTitle extends StatelessWidget {
                 },
                 child: Row(
                     children: [
-                      Container(width: 170,
-                          alignment: Alignment.centerRight,
-                          child: Text('Hi, ${AppLocalStorage().readData(LocalStorageKeys.userName ) ?? 'User'} ', style: Theme.of(context).textTheme.bodyLarge,)),
+                      const HugeIcon(icon: HugeIcons.strokeRoundedFavourite, color: AppColors.darkerGrey),
+                      const Gap(AppSizes.spaceBtwSmallItem),
+                      InkWell(
+                        onTap: () {
+                          bottomController.jumpToTab(2);
+                        },
+                        child: Badge(
+                          label: Text("${bottomController.cartController.cartCount.value}"),
+                            child: const HugeIcon(icon: HugeIcons.strokeRoundedShoppingCart01, color: AppColors.darkerGrey)),
+                      ),
                       const Gap(AppSizes.spaceBtwSmallItem),
                       AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == true?
                        AppCardContainer(
@@ -56,7 +64,7 @@ class AppHomeAppBarTitle extends StatelessWidget {
                             isNetworkImage: true,
                               imgUrl: '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}'))
                           :
-                      const Icon(Icons.account_circle_outlined, color: AppColors.secondary)
+                      const HugeIcon(icon: HugeIcons.strokeRoundedUser, color: AppColors.darkerGrey)
 
                     ]),
               ))

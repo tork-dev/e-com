@@ -81,7 +81,7 @@ class AppApiEndPoints {
 
 
   ///Wishlist
-  static String wishlistProducts = "$baseUrl/wishlists";
+  static String wishlistProducts = "$baseUrl/all-wishlists";
   static String addWishlistProduct = "$baseUrl/wishlists-add-product?product_id=";
   static String removeWishlistProduct = "$baseUrl/wishlists-remove-product?product_id=";
   static String checkWishlistProduct = "$baseUrl/wishlists-check-product?product_id=";
