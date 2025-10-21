@@ -37,11 +37,8 @@ class FlashSaleSection extends StatelessWidget {
               haveTxtButton: false,
               showCountDown: true,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-              child: AppHorizontalScrollProductCard(
-                sectionName: featuredProducts,
-              ),
+            AppHorizontalScrollProductCard(
+              sectionName: featuredProducts,
             ),
             const Gap(AppSizes.spaceBtwSections),
           ],

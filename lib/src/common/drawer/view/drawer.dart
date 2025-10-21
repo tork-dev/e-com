@@ -52,7 +52,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           // const AppDrawerHeaderPart(),
           AppCardContainer(
-            onTap: () => AppHelperFunctions().openWhatsApp("8801779991110"),
+            onTap: () => AppHelperFunctions().openCaller('+8809666791110'),
             margin: EdgeInsets.symmetric(
               horizontal: AppSizes.sm,
               vertical: AppSizes.md,
@@ -77,7 +77,7 @@ class AppDrawer extends StatelessWidget {
                       ).textTheme.titleSmall?.apply(color: AppColors.white),
                     ),
                     Text(
-                      "+880 1779-991110",
+                      "+880 966679111010",
                       style: Theme.of(
                         context,
                       ).textTheme.titleLarge?.apply(color: AppColors.white),

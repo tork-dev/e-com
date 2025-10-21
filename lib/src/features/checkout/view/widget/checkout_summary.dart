@@ -17,13 +17,7 @@ class AppCheckoutSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
     return Obx(() {
-      return checkoutController
-                  .cartController
-                  .cartSummaryResponse
-                  .value
-                  .data
-                  ?.grandTotalValue ==
-              null
+      return checkoutController.isSummaryLoading.value
           ? ShimmerHelper().buildBasicShimmer(height: 150)
           : AppCardContainer(
             padding: const EdgeInsets.all(AppSizes.md),

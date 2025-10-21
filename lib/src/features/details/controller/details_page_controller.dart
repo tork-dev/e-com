@@ -99,7 +99,7 @@ class DetailsPageController extends GetxController {
 
   Future<void> onAddToCart() async {
     cartController.getAddToCartResponse(
-        productDetails.value.detailedProducts!)
+        productDetails.value.detailedProducts!, productCount.value)
         .then((value) => {
               isAddedToCart.value = true,
               // EventLogger().logAddToCartEvent(

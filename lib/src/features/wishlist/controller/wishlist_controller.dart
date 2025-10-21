@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/wishlist/model/wishlist_model.dart';
 import 'package:kirei/src/features/wishlist/model/wishlist_remove_model.dart';
 import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
+import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
+import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 
 import '../../../utils/logging/logger.dart';
 
@@ -13,11 +15,14 @@ class WishlistController extends GetxController {
       WishlistRemoveResponse().obs;
   RxBool isAddedToCart = false.obs;
   RxBool apiHitting = false.obs;
+  RxInt wishlistCount = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    onRefresh();
+    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
+      onRefresh();
+    }
   }
 
   Future<void> onRefresh() async {
@@ -29,7 +34,8 @@ class WishlistController extends GetxController {
     apiHitting.value = true;
      wishlistProducts.value =
         await WishlistRepositories().getWishlistProduct();
-     apiHitting.value = false;
+    wishlistCount.value = wishlistProducts.value.data?.length ?? 0;
+    apiHitting.value = false;
   }
 
   Future<WishlistRemoveResponse> deleteWishlistProducts(int id) async {

@@ -14,7 +14,7 @@ class WishlistRepositories {
 
   Future<WishListAddResponse> addToWishList({required int productId}) async {
     Uri url = Uri.parse(
-        "${AppApiEndPoints.addWishlistProduct}$productId?source=app");
+        "${AppApiEndPoints.addWishlistProduct}$productId&source=app");
 
     Log.d(url.toString());
     final response = await http.get(

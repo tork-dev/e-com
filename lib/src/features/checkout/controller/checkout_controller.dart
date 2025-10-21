@@ -51,6 +51,7 @@ class CheckoutController extends GetxController {
   RxInt redeemPoint = 0.obs;
   RxInt redeemedPoint = 0.obs;
   RxDouble grandTotal = 0.0.obs;
+  RxBool isSummaryLoading = false.obs;
 
   @override
   void onInit() {
@@ -129,10 +130,13 @@ class CheckoutController extends GetxController {
       AppHelperFunctions.showToast('Please enter a coupon code');
       return;
     }
+    isSummaryLoading.value = true;
     CheckoutSummaryResponse? checkoutSummaryResponse = await cartController.getCheckoutSummary(
       couponCode: couponController.text.toString(),
+      phone: addressController.phoneController.text.toString().trim(),
     );
-    isCouponApplied.value =checkoutSummaryResponse!.result!;
+    isSummaryLoading.value = false;
+    isCouponApplied.value = checkoutSummaryResponse!.result!;
     AppHelperFunctions.showToast(
       isCouponApplied.value ? "Coupon Applied" : "Coupon Not Applied",
     );
@@ -286,7 +290,6 @@ class CheckoutController extends GetxController {
       AppHelperFunctions.showToast('Zone is required');
       return false;
     }
-
     return true;
   }
 
@@ -304,13 +307,11 @@ class CheckoutController extends GetxController {
       }
     }
 
-    String productIdsJsonArray = "[${productIds.join(',')}]";
-    String productQuantitiesJsonArray = "[${cartQuantities.join(',')}]";
     var couponCode = couponController.text.toString();
 
     Map<String, dynamic> requestBody = {
-      "product_ids_arr": productIdsJsonArray,
-      "product_quantities_arr": productQuantitiesJsonArray,
+      "product_ids_arr": productIds,
+      "product_quantities_arr": cartQuantities,
       "shipping_address": addressController.addressController.text,
       "shipping_name": addressController.nameController.text,
       "shipping_phone": addressController.phoneController.text,

@@ -204,7 +204,7 @@ class CartController extends GetxController {
     cartItemTotalPrice.value = totalPrice;
   }
 
-  Future<void> getAddToCartResponse(Product product) async {
+  Future<void> getAddToCartResponse(Product product, [int? quantity]) async {
     addingToCartIds.add(product.id!);
     update();
 
@@ -269,7 +269,7 @@ class CartController extends GetxController {
 
         productName: product.name!,
         price: product.salePrice!.toDouble(),
-        quantity: 1,
+        quantity: quantity ?? 1,
         lowerLimit: 1,
         upperLimit: product.maxQty ?? product.stock,
         isPreorder: product.preorderAvailable,
@@ -363,7 +363,6 @@ class CartController extends GetxController {
         cartProductIds: productIds,
         cartQuantities: cartQuantities
       );
-      // AppHelperFunctions.showToast(cartSummaryResponse.value.message!);
       return cartSummaryResponse.value;
     }
     return null;

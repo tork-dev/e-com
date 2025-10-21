@@ -168,13 +168,6 @@ class AppApiEndPoints {
   static String blogTags = "$baseUrl/trending/tags";
 
 
-  // ///Gigalogy
-  // static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
-  // static String detailsPageEvent = "$gialogyBaseUrl/items/browse";
-  // static String purchaseEvent = "$gialogyBaseUrl/items/purchase";
-  // static String userChoosingEvent = "$gialogyBaseUrl/items/rating";
-  // static String userDataEvent= "$gialogyBaseUrl/users";
-
 
 
 

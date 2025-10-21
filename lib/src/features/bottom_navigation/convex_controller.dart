@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/home/bindings/home_bindings.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
+import 'package:kirei/src/features/wishlist/controller/wishlist_controller.dart';
 
 import '../../utils/local_storage/local_storage_keys.dart';
 import '../../utils/local_storage/storage_utility.dart';
@@ -17,6 +18,7 @@ class ConvexBottomNavController extends GetxController
   ConvexBottomNavController({this.pageIndexInit = 0});
 
   final cartController = Get.put(CartController());
+  final wishListController = Get.put(WishlistController());
   final categoryController = Get.put(GetShopDataController());
 
   //final logInPageController = Get.put(LogInPageController());

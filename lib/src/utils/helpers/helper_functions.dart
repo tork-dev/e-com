@@ -800,6 +800,20 @@ class AppHelperFunctions {
     );
   }
 
+  Future<void> openCaller(String phoneNumber) async {
+    // Ensure no spaces or URL encoding issues
+    final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
+
+    if (await canLaunchUrl(telUri)) {
+      await launchUrl(telUri, mode: LaunchMode.externalApplication);
+    } else {
+      print("Could not open the dialer for $phoneNumber");
+    }
+  }
+
+
+
+
   void openWhatsApp(String phoneNumber) async {
     final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");
     if (await canLaunchUrl(whatsappUri)) {

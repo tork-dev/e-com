@@ -174,6 +174,15 @@ class ShopScreenNew extends StatelessWidget {
                       Expanded(
                         flex: 6,
                         child: TextFormField(
+                          autofocus: false,
+                          onFieldSubmitted: (value){
+                            shopDataController.search.value = value;
+                            shopDataController.isFromSearch.value = true;
+                            shopDataController.allProducts.clear();
+                            shopDataController.getShopData();
+                            shopDataController.categoryRouteList.add('/shop?${shopDataController.queryStringValue.value}');
+                            Log.d('length of routes: ${shopDataController.categoryRouteList}');
+                          },
                           decoration: InputDecoration(
                             suffixIcon: Padding(
                               padding: const EdgeInsets.all(AppSizes.md),
