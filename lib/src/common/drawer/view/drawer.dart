@@ -65,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                 AppBannerImage(
                   height: 48,
                   width: 48,
-                  imgUrl: AppImages.whatsapp,
+                  imgUrl: AppImages.phoneIcon
                 ),
                 Gap(AppSizes.md),
                 Column(
@@ -472,7 +472,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/contact-us?type=app',
+                      url: '$baseUrlWeb/contact?type=app',
                       title: 'Contact us',
                     ),
                   );
@@ -483,7 +483,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/testimonial?type=app',
+                      url: '$baseUrlWeb/testimonials?type=app',
                       title: 'Testimonials',
                     ),
                   );

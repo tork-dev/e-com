@@ -31,7 +31,7 @@ class PurchaseHistory extends StatelessWidget {
       child: AppLayoutWithBackButton(
         showBackButton: false,
         customLeadingIcon: Icons.arrow_back_ios_new_rounded,
-        leadingIconColor: AppColors.white,
+        leadingIconColor: AppColors.darkerGrey,
         showCustomLeading: true,
         centerTitle: true,
         leadingOnPress: () => backToHome
@@ -39,9 +39,10 @@ class PurchaseHistory extends StatelessWidget {
             : Get.back(),
         title: const Text(
           'Purchase History',
-          style: TextStyle(color: AppColors.white),
+          style: TextStyle(color: AppColors.secondary),
         ),
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.white,
+        bodyBackgroundColor: AppColors.secondaryBackground,
         body: Obx(() {
             return AppLayoutWithRefresher(
                 onRefresh: controller.onRefresh,

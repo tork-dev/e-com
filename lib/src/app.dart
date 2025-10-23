@@ -121,7 +121,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/contact-us',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/contact-us?type=app', title: 'Contact Us')),
+                url: '$baseUrlWeb/contact?type=app', title: 'Contact Us')),
         GetPage(
             name: '/testimonials',
             page: () => WebViewScreen(

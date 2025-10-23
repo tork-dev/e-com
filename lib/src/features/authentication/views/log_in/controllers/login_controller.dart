@@ -96,68 +96,6 @@ class LogInPageController extends GetxController {
   }
 
   /// Google SignIn with Api
-  // Future<void> onPressedGoogleLogin() async {
-  //   final GoogleSignIn signIn = GoogleSignIn.instance;
-  //   Log.d(previousRoute.value);
-  //   try {
-  //     CustomLoader.showLoaderDialog(Get.context!);
-  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //
-  //     final GoogleSignInAuthentication? googleAuth =
-  //         await googleUser?.authentication;
-  //     loginResponse.value = await AuthRepository().getSocialLoginResponse(
-  //         "google", googleUser?.displayName, googleUser?.email, googleUser?.id,
-  //         accessToken: googleAuth?.accessToken);
-  //   } on Exception catch (e) {
-  //     AppHelperFunctions.showSimpleSnackBar(e.toString());
-  //     // TODO
-  //   }finally{
-  //     CustomLoader.hideLoader(Get.context!);
-  //     if (loginResponse.value.result == false) {
-  //       AppHelperFunctions.showToast('${loginResponse.value.message}');
-  //     } else {
-  //       AppHelperFunctions.showToast('${loginResponse.value.message}');
-  //       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isSocialLogIn, true);
-  //
-  //       AuthHelper().setUserData(loginResponse.value);
-  //       // if (previousRoute.value == 'cart') {
-  //       //   final cartController = CartController.instance;
-  //       //   EventLogger().logAddToCartEvent('${Get.parameters['product_slug']}',
-  //       //       double.parse(Get.parameters['sale_price']!));
-  //       //
-  //       //   if (Get.parameters['request_available'] != '0') {
-  //       //     cartController
-  //       //         .getRequestResponse(
-  //       //         productId: int.parse(Get.parameters['product_id']!))
-  //       //         .then((value) => AppHelperFunctions.showToast(
-  //       //         cartController.requestStockResponse.value.message!));
-  //       //
-  //       //   } else {
-  //       //     cartController
-  //       //         .getAddToCartResponse(
-  //       //         int.parse(Get.parameters['product_id']!),
-  //       //         1,
-  //       //         int.parse(Get.parameters['preorder_available']!))
-  //       //         .then((value) => {
-  //       //       if (cartController.addToCartResponse.value.result ==
-  //       //           true)
-  //       //         {
-  //       //           cartController.cartCount.value = cartController
-  //       //               .addToCartResponse.value.cartQuantity ??
-  //       //               0,
-  //       //         },
-  //       //       AppHelperFunctions.showToast(
-  //       //           cartController.addToCartResponse.value.message!)
-  //       //     });
-  //       //   }
-  //       // }
-  //       Get.offAllNamed(previousRoute.value);
-  //       EventLogger().logLoginEvent('Google');
-  //     }
-  //     GoogleSignIn().disconnect();
-  //   }
-  // }
-
   Future<void> onPressedGoogleLogin() async {
     final GoogleSignIn signIn = GoogleSignIn.instance;
 
@@ -165,7 +103,6 @@ class LogInPageController extends GetxController {
       CustomLoader.showLoaderDialog(Get.context!);
 
       await signIn.initialize();
-
       // Listen to auth events and extract the signed-in user
       final GoogleSignInAccount? googleUser = await signIn.authenticationEvents
           .map(

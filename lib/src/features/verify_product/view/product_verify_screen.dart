@@ -22,11 +22,13 @@ class ProductVerifyScreen extends StatelessWidget {
       ProductVerifyController(),
     );
     return AppLayoutWithBackButton(
-      title: Text("Verify Product", style: TextStyle(color: AppColors.white)),
+      title: Text("Verify Product", style: TextStyle(color: AppColors.secondary)),
       centerTitle: true,
-      backgroundColor: AppColors.primary,
-      leadingIconColor: AppColors.white,
-      body: Column(
+      backgroundColor: AppColors.white,
+      leadingIconColor: AppColors.darkerGrey,
+      bodyBackgroundColor: AppColors.secondaryBackground,
+
+      body: ListView(
         children: [
           Gap(AppSizes.md),
           Obx(() {
@@ -61,9 +63,10 @@ class ProductVerifyScreen extends StatelessWidget {
                     )
                     : AppCardContainer(
                       hasBorder: true,
-                      borderColor: AppColors.grey,
+                      borderColor: AppColors.lightGrey,
                       padding: const EdgeInsets.all(AppSizes.md),
                       borderRadius: AppSizes.cardRadiusSm,
+                      backgroundColor: AppColors.white,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

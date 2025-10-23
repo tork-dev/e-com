@@ -30,8 +30,8 @@ class BlogsDetails extends StatelessWidget {
       padding: 0,
       title: Text(
         "Blog",
-        style: Theme.of(context).textTheme.headlineMedium,
       ),
+      centerTitle: true,
       body: Stack(
         children: [
           AppLayoutWithRefresher(
@@ -162,21 +162,13 @@ class BlogsDetails extends StatelessWidget {
             right: 0,
             child: PostComment(
               onTextFieldTap: () {},
-              //     blogDetailsController.commentController.clear(),
-              // commentController: blogDetailsController.commentController,
-              // textFileFocusNode: blogDetailsController.focusOnTextField.value,
               onSendButtonPress: () {
-                // Logic for posting the comment
-                // if (blogDetailsController.commentController.text.isNotEmpty) {
-                //   blogDetailsController.postComments();
-                //   // communityController.commentController.clear();
-                //   FocusScope.of(context).unfocus();
-                  // Add the post comment logic here
-                // } else {
-                //   AppHelperFunctions.showToast(
-                //       message: 'Please write something');
-                // }
-              }, textFileFocusNode:   FocusNode(), commentController: blogDetailsController.commentController,
+                blogDetailsController.postComment(
+                  blogDetailsController.blogsDetailsResponseData.value.id!
+                );
+              },
+              textFileFocusNode:FocusNode(),
+              commentController: blogDetailsController.commentController,
             ),
           ),
         ],

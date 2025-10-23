@@ -6,6 +6,7 @@ import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/features/community/controller/community_comment_controller.dart';
+import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -24,11 +25,9 @@ class CommunityCommentScreen extends StatelessWidget {
         padding: 0,
         title: Text(
           'Comment Page',
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .apply(color: AppColors.backLayoutAppBarTitle),
+          style: TextStyle(color: AppColors.secondary),
         ),
+        centerTitle: true,
         backgroundColor: AppColors.white,
         bodyBackgroundColor: Colors.grey[100],
         leadingIconColor: AppColors.darkGrey,
@@ -76,9 +75,9 @@ class CommunityCommentScreen extends StatelessWidget {
                                       imgBoarderRadius: 100,
                                       height: 50,
                                       width: 50,
-                                      isNetworkImage: true,
+                                      isNetworkImage: controller.communityCommentResponse.value.data![index].customerAvatar != null,
                                       imgUrl:
-                                          controller.communityCommentResponse.value.data![index].customerAvatar,
+                                          controller.communityCommentResponse.value.data![index].customerAvatar ?? AppImages.avatarIcon,
                                     ),
                                     title: Text(controller
                                         .communityCommentResponse
