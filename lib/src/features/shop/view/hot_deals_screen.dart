@@ -30,9 +30,9 @@ class HotDealsScreen extends StatelessWidget {
     shopDataController.getShopData();
     return AppLayoutWithBackButton(
         padding: 0,
-        backgroundColor: AppColors.primary,
-        leadingIconColor: AppColors.white,
-        bodyBackgroundColor: AppColors.secondaryBackground,
+        backgroundColor: AppColors.white,
+        leadingIconColor: AppColors.darkerGrey,
+        bodyBackgroundColor: AppColors.white,
         title: Obx(() {
           return AppBarSearch(
             focusOn: shopDataController.searchOn.value,
@@ -66,13 +66,13 @@ class HotDealsScreen extends StatelessWidget {
                         padding: EdgeInsets.all(AppSizes.md),
                         child: Column(
                           children: [
-                            Text("Sale ends in", style: Theme.of(context).textTheme.headlineMedium),
+                            Text("Sale ends in", style: Theme.of(context).textTheme.headlineLarge),
                             Gap(AppSizes.sm),
                             Obx(() {
                                 return shopDataController.allProducts.isEmpty ?
                                 ShimmerHelper().buildBasicShimmer(height: 50) :
                                   SlideCountdownSeparated(
-                                  style: Theme.of(context).textTheme.headlineMedium!.apply(color: AppColors.white),
+                                  style: Theme.of(context).textTheme.headlineSmall!.apply(color: AppColors.white),
                                   duration: AppHelperFunctions().getRemainingDuration(shopDataController.allProducts[0].flashSaleEndDate!),
                                   padding: EdgeInsets.all(AppSizes.md),
                                   separatorStyle: Theme.of(context).textTheme.titleMedium!,

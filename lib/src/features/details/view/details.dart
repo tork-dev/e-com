@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
@@ -78,7 +79,7 @@ class DetailsPage extends StatelessWidget {
         //   }
         // }
       },
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.white,
       bottomNav: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -101,31 +102,40 @@ class DetailsPage extends StatelessWidget {
           prevRoute: '/shop',
         );
       }),
-      leadingIconColor: AppColors.white,
+      leadingIconColor: AppColors.darkerGrey,
       action: [
         InkWell(
           onTap: () {
             Get.offAllNamed('/home');
           },
-          child: const Icon(Icons.home_outlined, color: AppColors.white),
+          child: HugeIcon(icon: HugeIcons.strokeRoundedHome09),
         ),
         const Gap(AppSizes.sm),
-        InkWell(
-          onTap: () {
-            Get.offAllNamed('/cart');
-          },
-          child: const Icon(
-            Icons.shopping_bag_outlined,
-            color: AppColors.white,
-          ),
-        ),
-        const Gap(AppSizes.sm),
+        Obx(() {
+          return Badge(
+            backgroundColor: AppColors.primary,
+            label: Text(
+              "${bottomController.cartController.cartCount.value}",
+            ),
+            child: InkWell(
+              onTap: () {
+                bottomController.jumpToTab(2);
+              },
+              child: const HugeIcon(
+                icon: HugeIcons.strokeRoundedShoppingCart01,
+                color: AppColors.darkerGrey,
+              ),
+            ),
+          );
+        }),
+        const Gap(AppSizes.md),
       ],
       body: Padding(
-        padding: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.only(top: AppSizes.xs),
         child: AppLayoutWithRefresher(
           onRefresh: controller.onRefresh,
           children: [
+            Gap(AppSizes.md),
             const AppDetailsPicturePart(),
             const Gap(AppSizes.spaceBtwDefaultItems),
             const AppDetailsProductNamePart(),

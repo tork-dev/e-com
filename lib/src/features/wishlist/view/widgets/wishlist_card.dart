@@ -29,8 +29,9 @@ class AppWishListProductCard extends StatelessWidget {
               ? ShimmerHelper().buildBasicShimmer(height: 120)
               : AppCardContainer(
                 hasBorder: true,
-                borderColor: AppColors.grey,
+                borderColor: AppColors.lightGrey,
                 padding: const EdgeInsets.all(AppSizes.sm),
+                backgroundColor: AppColors.white,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
