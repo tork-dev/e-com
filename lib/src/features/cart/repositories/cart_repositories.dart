@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/cart/model/card_add_response_model.dart';
 import 'package:kirei/src/features/cart/model/cart_delete_response_model.dart';
-import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
 import 'package:kirei/src/features/cart/model/cart_local_model.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -11,7 +11,6 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/logging/logger.dart';
 import '../../home/model/request_stock_model.dart';
 import '../model/cart_update_response_model.dart';
-import '../model/checkout_cart_update_model.dart';
 import '../services/cart_services.dart';
 
 class CartRepositories {
@@ -178,7 +177,7 @@ class CartRepositories {
 
   /// Bulk add to cart
   Future<void> bulkAddToCart() async {
-    print('bulkAddToCart called');
+    debugPrint('bulkAddToCart called');
 
     List<int> productIds = [];
     List<int> productQuantities = [];
@@ -198,9 +197,9 @@ class CartRepositories {
 
     Uri url = Uri.parse(AppApiEndPoints.bulkAddToCart);
 
-    print("URL: $url");
-    print("Access Token: $accessToken");
-    print("POST Body: $postBody");
+    debugPrint("URL: $url");
+    debugPrint("Access Token: $accessToken");
+    debugPrint("POST Body: $postBody");
 
     try {
       final response = await http.post(
@@ -212,10 +211,10 @@ class CartRepositories {
         body: postBody,
       );
 
-      print("Response status: ${response.statusCode}");
-      print("Response body: ${response.body}");
+      debugPrint("Response status: ${response.statusCode}");
+      debugPrint("Response body: ${response.body}");
     } catch (e) {
-      print("Error in bulkAddToCart: $e");
+      debugPrint("Error in bulkAddToCart: $e");
     }
   }
 

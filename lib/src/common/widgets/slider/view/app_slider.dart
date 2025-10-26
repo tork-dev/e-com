@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart' as cw;
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
-import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';

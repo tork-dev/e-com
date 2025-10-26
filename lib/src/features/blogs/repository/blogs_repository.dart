@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/blogs/model/blog_details_model.dart';
-import 'package:kirei/src/features/blogs/view/widget/post_comment.dart';
-import 'package:kirei/src/features/community/model/community_comment_response.dart';
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
@@ -39,7 +36,7 @@ class BlogsRepository {
         "Content-Type": "application/json",
       },
     );
-    print(response.body.toString());
+    debugPrint(response.body.toString());
 
     return BlogsResponseModel.fromJson(response.body.toString());
   }

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../common/widgets/containers/horizontal_scroll_product_card.dart';
 import '../../../../common/widgets/texts/section_title_text.dart';
-import '../../../../utils/constants/sizes.dart';
 import '../../../details/model/products_model.dart';
 
 class RecommendedSection extends StatelessWidget {

@@ -6,7 +6,7 @@ import '../logging/logger.dart';
 
 class AuthHelper{
 
-  setUserData(AppLoginResponse loginResponse) async{
+  void setUserData(AppLoginResponse loginResponse) async{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, true);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.accessToken, loginResponse.accessToken);
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, loginResponse.user?.id);
@@ -20,7 +20,7 @@ class AuthHelper{
   }
 
 
-  clearUserData() {
+  void clearUserData() {
     AppLocalStorage().removeData(LocalStorageKeys.isLoggedIn, );
     AppLocalStorage().removeData(LocalStorageKeys.accessToken,);
     AppLocalStorage().removeData(LocalStorageKeys.userId);
@@ -32,7 +32,7 @@ class AuthHelper{
   }
 
 
-  saveUserDataByToken(userData){
+  void saveUserDataByToken(dynamic userData){
       // AppLocalStorage().saveDataIfNull(LocalStorageKeys.isLoggedIn, true);
       // AppLocalStorage().saveDataIfNull(LocalStorageKeys.userId, userData.id);
       // AppLocalStorage().saveDataIfNull(LocalStorageKeys.userName, userData.name);

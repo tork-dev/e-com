@@ -13,7 +13,7 @@ class SpinnerRepositories{
     return SpinnerCouponList.fromJson(response.body);
   }
   
-  Future<SpinnerCouponResponse> getSelectedCoupon(accessToken) async{
+  Future<SpinnerCouponResponse> getSelectedCoupon(String accessToken) async{
     final response = await http.post(
         Uri.parse(AppApiEndPoints.spinnerSelectedCoupon),
       headers: {

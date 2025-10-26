@@ -121,7 +121,7 @@ class LogInPageController extends GetxController {
       }
 
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+          googleUser.authentication;
 
       // Call your backend API
       loginResponse.value = await AuthRepository().getSocialLoginResponse(

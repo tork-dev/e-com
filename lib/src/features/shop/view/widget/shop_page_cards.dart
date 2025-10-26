@@ -4,21 +4,12 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
-import 'package:kirei/src/features/cart/model/cart_local_model.dart';
-import 'package:kirei/src/features/cart/services/cart_services.dart';
-import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/firebase/gtm_events.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
-
 import '../../../../common/layouts/gridview_layout/gridview_layout.dart';
 import '../../../../common/styles/app_dividers.dart';
 import '../../../../utils/helpers/helper_functions.dart';
-import '../../../../utils/local_storage/local_storage_keys.dart';
-import '../../../../utils/local_storage/storage_utility.dart';
-import '../../../authentication/views/log_in/view/login.dart';
 import '../../../cart/controllers/cart_controller.dart';
 import 'sub_category.dart';
 

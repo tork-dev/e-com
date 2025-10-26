@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:kirei/src/features/home/model/home_products_model.dart';  // Import for logging
 

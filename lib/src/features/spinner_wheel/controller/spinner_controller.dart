@@ -45,8 +45,8 @@ class SpinnerController extends GetxController {
   }
 }
 
-Future<void> getSelectedCouponResponse(accessToken) async{
-  selectedCouponResponse.value = await SpinnerRepositories().getSelectedCoupon(accessToken);
+Future<void> getSelectedCouponResponse(String? accessToken) async{
+  selectedCouponResponse.value = await SpinnerRepositories().getSelectedCoupon(accessToken!);
    selectedIndex.value =
        couponCodeList.indexOf(selectedCouponResponse.value.data?.couponCode);
 

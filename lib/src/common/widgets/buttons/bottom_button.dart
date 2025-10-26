@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
-import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
-import 'package:kirei/src/features/home/model/home_products_model.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../containers/card_container.dart';
@@ -20,7 +14,6 @@ class AppBottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final detailsController = DetailsPageController.instance;
-    final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
       return detailsController.productDetails.value.detailedProducts == null
           ? ShimmerHelper().buildBasicShimmer(

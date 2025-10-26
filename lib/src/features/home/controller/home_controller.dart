@@ -5,12 +5,9 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/utils/caching/caching_keys.dart';
 import 'package:kirei/src/utils/caching/caching_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../cart/model/card_add_response_model.dart';
 import '../../cart/repositories/cart_repositories.dart';
 import '../../details/model/products_model.dart';
-import '../../details/repositories/details_repositories.dart';
 import '../model/home_featured_category_model.dart';
 import '../model/home_products_model.dart';
 import '../model/request_stock_model.dart';

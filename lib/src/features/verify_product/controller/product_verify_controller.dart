@@ -28,7 +28,7 @@ class ProductVerifyController extends GetxController{
       final response = await _productVerifyRepository.getVerifyProductList(pageNumber.value);
       productVerifyListResponse.value = response;
     } catch (e) {
-      print('Error fetching products: $e');
+      debugPrint('Error fetching products: $e');
     }finally{
       isLoading.value = false;
     }
@@ -43,14 +43,14 @@ class ProductVerifyController extends GetxController{
         return;
       }
       CustomLoader.showLoaderDialog(Get.overlayContext!);
-      print("product id${productVerifyListResponse.value.data![index].productId}");
+      debugPrint("product id${productVerifyListResponse.value.data![index].productId}");
       await _productVerifyRepository.submitFeedback(
         productID: productVerifyListResponse.value.data![index].productId!,
         orderId: productVerifyListResponse.value.data![index].orderId!,
         isAuthentic: isAuthentic.value,
         note: noteController.text.toString(),
       );
-      print("product id${productVerifyListResponse.value.data![index].productId}");
+      debugPrint("product id${productVerifyListResponse.value.data![index].productId}");
       productVerifyListResponse.value.data![index].isAuthenticReview = true;
       AppHelperFunctions.showToast("Submitted successfully");
       noteController.clear();

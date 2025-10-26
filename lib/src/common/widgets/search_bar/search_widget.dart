@@ -27,7 +27,7 @@ class AppSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer? _debounce;
+    Timer? debounce;
     return TypeAheadField(
       direction: VerticalDirection.down,
       itemBuilder: (context, dataItem) {
@@ -97,12 +97,12 @@ class AppSearchWidget extends StatelessWidget {
       },
       onSelected: (value) async {},
       suggestionsCallback: (value) async {
-        if (_debounce?.isActive ?? false) _debounce?.cancel();
+        if (debounce?.isActive ?? false) debounce?.cancel();
 
         final completer = Completer<List<Product>?>();
 
         if (value != '') {
-          _debounce = Timer(Duration(milliseconds: 400), () async {
+          debounce = Timer(Duration(milliseconds: 400), () async {
             var suggestions = await SearchRepositories().getSearchResponse(
               value,
             );

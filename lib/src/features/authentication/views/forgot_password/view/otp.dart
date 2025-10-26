@@ -16,7 +16,7 @@ class Otp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final otpController = Get.put(OtpController());
+    Get.put(OtpController());
     return AppLayoutWithBackButton(
       padding: AppSizes.defaultSpace,
         body: ListView(

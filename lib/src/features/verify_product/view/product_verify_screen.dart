@@ -117,7 +117,7 @@ class ProductVerifyScreen extends StatelessWidget {
                                                   .canUpdateAuthenticReview!,
                                           child: AppCardContainer(
                                             onTap: () {
-                                              print("Submit");
+                                              debugPrint("Submit");
                                               showFeedbackDialog(
                                                 context: context,
                                                 index: index,
@@ -333,7 +333,7 @@ class ProductVerifyScreen extends StatelessWidget {
                       width: double.infinity,
                       child: AppButtons.largeFlatFilledButton(
                         onPressed: () {
-                          print("index $index");
+                          debugPrint("index $index");
                           controller.submitFeedback(index: index);
                         },
                         backgroundColor: AppColors.secondary,

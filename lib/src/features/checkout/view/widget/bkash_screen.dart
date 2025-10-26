@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../utils/helpers/helper_functions.dart';
@@ -37,35 +36,31 @@ class _BkashScreenState extends State<BkashScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.bkashInitialUrl != null) {
-      webViewController = WebViewController()
-        ..setJavaScriptMode(JavaScriptMode.unrestricted)
-        ..setNavigationDelegate(
-          NavigationDelegate(
-            onPageFinished: (String url) {
-              // readResponse();
-
-              print("Url : $url");
-              Log.i('navigation finished $url');
-              if (url.contains("result=true&payment_status=paid&message=Successfully%20Ordered")) {
-                AppHelperFunctions.showToast('Successfully Paid');
-                navigateToOrderSuccess('Successfully Ordered', true);
-              } else if (url.contains("result=false&payment_status=invalid&message=Payment%20Cancelled") ) {
-                AppHelperFunctions.showToast("Payment Cancelled");
-                navigateToOrderSuccess("Payment Cancelled", false);
-              }else if(url.contains("result=false&payment_status=invalid&message=Payment%20Failed")){
-                navigateToOrderSuccess("Payment Failed", false);
-              }
-            },
-            onWebResourceError: (error) {
-              Log.d(error.toString());
-              navigateToOrderSuccess("Something went wrong.", false);
-            },
-          ),
-        )
-        ..loadRequest(Uri.parse(widget.bkashInitialUrl));
+    webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            // readResponse();
+            Log.i('navigation finished $url');
+            if (url.contains("result=true&payment_status=paid&message=Successfully%20Ordered")) {
+              AppHelperFunctions.showToast('Successfully Paid');
+              navigateToOrderSuccess('Successfully Ordered', true);
+            } else if (url.contains("result=false&payment_status=invalid&message=Payment%20Cancelled") ) {
+              AppHelperFunctions.showToast("Payment Cancelled");
+              navigateToOrderSuccess("Payment Cancelled", false);
+            }else if(url.contains("result=false&payment_status=invalid&message=Payment%20Failed")){
+              navigateToOrderSuccess("Payment Failed", false);
+            }
+          },
+          onWebResourceError: (error) {
+            Log.d(error.toString());
+            navigateToOrderSuccess("Something went wrong.", false);
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.bkashInitialUrl));
     }
-  }
 
   @override
   Widget build(BuildContext context) {

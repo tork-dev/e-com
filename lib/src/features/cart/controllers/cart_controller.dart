@@ -6,7 +6,6 @@ import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/cart/services/cart_services.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/repositories/checkout_repositories.dart';
-import 'package:kirei/src/features/checkout/view/checkout_screen.dart';
 import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
@@ -82,13 +81,13 @@ class CartController extends GetxController {
         totalQuantity += item.quantity!;
       }
     }
-    print(totalQuantity);
+    debugPrint(totalQuantity.toString());
     cartCount.value = totalQuantity;
   }
 
   void addQuantity(int index) {
     final item = allCartProducts[index];
-    print("Upper limit ${item.quantity}");
+    debugPrint("Upper limit ${item.quantity}");
     if (item.quantity! < item.upperLimit!) {
       final newQuantity = item.quantity! + 1;
       quantityUpdateApiIDs.add(item.productId!);
@@ -131,7 +130,7 @@ class CartController extends GetxController {
 
   void removeQuantity(int index) {
     final item = allCartProducts[index];
-    print(item.quantity);
+    debugPrint(item.quantity.toString());
     if (item.quantity! > item.lowerLimit!) {
       final newQuantity = item.quantity! - 1;
       update();

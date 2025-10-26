@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:kirei/src/common/controller/common_controller.dart';
-import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/controllers/otp_controller.dart';

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 import '../model/cart_local_model.dart';
@@ -31,7 +32,7 @@ class CartService {
       await _cartBox.add(item);
     }
 
-    print(_cartBox.values.toList());
+    debugPrint(_cartBox.values.toList().toString());
   }
 
   /// remove with index

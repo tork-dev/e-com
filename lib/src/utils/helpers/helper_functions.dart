@@ -85,11 +85,11 @@ class AppHelperFunctions {
   }
 
   static void showSnackBarWithDesign({
-    required title,
-    message = '',
-    duration = 3,
-    backgroundColor,
-    icon,
+    required String title,
+    String message = '',
+    int duration = 3,
+    Color? backgroundColor,
+    IconData? icon,
   }) {
     Get.snackbar(
       title,
@@ -579,7 +579,7 @@ class AppHelperFunctions {
     return false; // They are equal
   }
 
-  static deBouncerSearchDelay(function) {
+  static void deBouncerSearchDelay( Function function) {
     Future.delayed(const Duration(microseconds: 300), () => function);
   }
 
@@ -614,7 +614,7 @@ class AppHelperFunctions {
     }
   }
 
-  static getAndroidDeviceInfo() async {
+  static Future<Map<String, dynamic>> getAndroidDeviceInfo() async {
     final String version = AppLocalStorage().readData(
       LocalStorageKeys.appVersion,
     );
@@ -631,7 +631,7 @@ class AppHelperFunctions {
     return allInfo;
   }
 
-  static getIosDeviceInfo() async {
+  static Future<Map<String, dynamic>> getIosDeviceInfo() async {
     final String version = AppLocalStorage().readData(
       LocalStorageKeys.appVersion,
     );
@@ -647,7 +647,7 @@ class AppHelperFunctions {
     return allInfo;
   }
 
-  static appInfo() async {
+  static Future<Map<String, dynamic>> appInfo() async {
     final Map<String, dynamic> deviceInfoHeaders =
         Platform.isAndroid
             ? await AppHelperFunctions.getAndroidDeviceInfo()
@@ -807,7 +807,7 @@ class AppHelperFunctions {
     if (await canLaunchUrl(telUri)) {
       await launchUrl(telUri, mode: LaunchMode.externalApplication);
     } else {
-      print("Could not open the dialer for $phoneNumber");
+      debugPrint("Could not open the dialer for $phoneNumber");
     }
   }
 

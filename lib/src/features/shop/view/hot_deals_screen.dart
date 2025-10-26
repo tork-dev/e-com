@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/common/widgets/appbar/appbar_bottom.dart';
 import 'package:kirei/src/common/widgets/search_bar/app_bar_search.dart';
 import 'package:kirei/src/features/shop/controller/shop_controller.dart';
 import 'package:kirei/src/features/shop/view/widget/shop_page_cards.dart';
-import 'package:kirei/src/features/shop/view/widget/sort_alert_box.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:slide_countdown/slide_countdown.dart';

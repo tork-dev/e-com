@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
@@ -6,7 +7,7 @@ import '../logging/logger.dart';
 class RoutingHelper {
   static void urlRouting(String? url) {
     String baseUrl = AppLocalStorage().readData(LocalStorageKeys.appUrl);
-    print("url to route $url");
+    debugPrint("url to route $url");
     Log.d(baseUrl);
     if (url != null) {
       if (url.contains(baseUrl)) {
@@ -42,7 +43,7 @@ class RoutingHelper {
         } else if (route.startsWith('/product')) {
           Get.offNamed(route);
         } else {
-          print("route $route");
+          debugPrint("route $route");
           Get.toNamed(route);
         }
       }

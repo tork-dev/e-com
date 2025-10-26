@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:kirei/src/common/widgets/containers/card_container.dart';
 
 class AppColors {
   // App theme colors
@@ -88,7 +87,7 @@ class AppColors {
     const Color(0xffC01E24),
     const Color(0xffE2316B),
   ];
-  getRandomColor(){
+  Color getRandomColor(){
     Random random = Random();
     return colorList[random.nextInt(colorList.length)];
   }

@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
-import '../../../../common/widgets/buttons/app_buttons.dart';
-import '../../../../l10n/app_localizations.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
-import '../log_in/controllers/login_controller.dart';
 
 class OtherLogInOrSignUpOption extends StatelessWidget {
   final String title;
@@ -25,7 +18,6 @@ class OtherLogInOrSignUpOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loginController = LogInPageController.instance;
     final isDark = AppHelperFunctions.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

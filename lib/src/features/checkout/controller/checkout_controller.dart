@@ -114,7 +114,7 @@ class CheckoutController extends GetxController {
   // }
 
   Future<List<PaymentMethodResponse>> getPaymentMethods() async {
-    print("payment methods");
+    debugPrint("payment methods");
     return paymentMethods.value =
         await CheckoutRepositories().getPaymentMethods();
   }
@@ -165,7 +165,7 @@ class CheckoutController extends GetxController {
     CustomLoader.showLoaderDialog(Get.overlayContext!);
 
     Map<String, dynamic> requestBody = await prepareRequestBody();
-    print("called request body");
+    debugPrint("called request body");
     try {
       orderCreateResponse.value = await CheckoutRepositories()
           .getOrderCreateResponseFromCod(requestBody: requestBody);
@@ -515,7 +515,7 @@ class CheckoutController extends GetxController {
     );
     CustomLoader.hideLoader(Get.overlayContext!);
     if (response.result == true) {
-      await AuthHelper().setUserData(response);
+      AuthHelper().setUserData(response);
       onPressProceedToCheckout();
     }
   }

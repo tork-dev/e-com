@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/blogs/controller/blogs_controller.dart';
@@ -71,7 +69,7 @@ class BlogsDetails extends StatelessWidget {
                                   top: 10,
                                   child: InkWell(
                                     onTap: () async {
-                                      final result = await Share.share(
+                                      await Share.share(
                                           '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/blog/${blogDetailsController.blogsDetailsResponseData.value.slug}');
                                     },
                                     child: Card(

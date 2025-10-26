@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
 import 'package:kirei/src/features/checkout/model/checkout_summary_respopnse.dart';
 import 'package:kirei/src/features/checkout/model/coupon_remove_model.dart';
@@ -10,10 +9,8 @@ import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-
 import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/logging/logger.dart';
-import '../../authentication/model/login_model.dart';
 import '../model/coupon_apply_model.dart';
 
 class CheckoutRepositories {

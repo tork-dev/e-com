@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/purchase_history/view/widget/shipping_address_alert.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../common/styles/skeleton_style.dart';

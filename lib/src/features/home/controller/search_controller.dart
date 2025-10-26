@@ -1,12 +1,6 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
-import 'package:kirei/src/features/home/repositories/search_repositories.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
-import '../../../utils/helpers/file_helper.dart';
-import '../../../utils/logging/logger.dart';
 
 class AppSearchController extends GetxController{
   static AppSearchController get instance => Get.find();
@@ -17,8 +11,8 @@ class AppSearchController extends GetxController{
 
   //RxBool isLoading = false.obs;
 
-  final ImagePicker _picker = ImagePicker();
-  XFile? _file;
+  // final ImagePicker _picker = ImagePicker();
+  // XFile? _file;
 
   // chooseAndUploadImage() async {
   //   // var status = await Permission.photos.request();

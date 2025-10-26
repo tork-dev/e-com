@@ -20,7 +20,7 @@ class AppBarSearch extends StatelessWidget {
             onFieldSubmitted: onSubmit,
             controller: controller,
             focusNode: focusNode,
-            cursorColor: AppColors.white,
+            cursorColor: AppColors.primary,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
                 suffixIcon: Padding(

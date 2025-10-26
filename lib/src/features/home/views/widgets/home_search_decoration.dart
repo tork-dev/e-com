@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/home/controller/search_controller.dart';
-import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/logging/logger.dart';
 import '../../../bottom_navigation/convex_controller.dart';
 
 class HomeSearchDecoration extends StatelessWidget {
@@ -23,7 +20,7 @@ class HomeSearchDecoration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchController = Get.put(AppSearchController());
+    Get.put(AppSearchController());
     return SizedBox(
       height: 50,
       child: TextFormField(

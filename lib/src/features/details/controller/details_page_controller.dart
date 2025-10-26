@@ -6,7 +6,6 @@ import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.d
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import '../../../utils/firebase/gtm_events.dart';
 import '../../../utils/logging/logger.dart';
 import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
@@ -71,7 +70,7 @@ class DetailsPageController extends GetxController {
     getRecommendedProducts();
   }
 
-  void getLargePicture(index) {
+  void getLargePicture(int index) {
     pictureIndex.value = index;
   }
 

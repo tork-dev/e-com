@@ -199,7 +199,7 @@ class AppDetailsPicturePart extends StatelessWidget {
                                               const Duration(days: 1),
                                             ),
                                         onEnd: () {
-                                          print("Timer finished");
+                                          debugPrint("Timer finished");
                                         },
                                       ),
                                     ],

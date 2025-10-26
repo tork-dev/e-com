@@ -4,10 +4,10 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppLoaders {
-  static hideSnackBar() =>
+  static void hideSnackBar() =>
       ScaffoldMessenger.of(Get.overlayContext!).hideCurrentSnackBar();
 
-  static customToast(String message) {
+  static void customToast(String message) {
     ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(SnackBar(
         elevation: 0,
         duration: const Duration(seconds: 3),
@@ -29,7 +29,7 @@ class AppLoaders {
         )));
   }
 
-  static void successSnackBar({required String title, String message = '', double duration = 3}) {
+  static void successSnackBar({required String title, String message = '', int duration = 3}) {
     AppHelperFunctions.showSnackBarWithDesign(
         title: title,
         message: message,
@@ -38,7 +38,7 @@ class AppLoaders {
         icon: Icons.check);
   }
 
-  static void warningSnackBar({required String title, String message = '', double duration = 3}) {
+  static void warningSnackBar({required String title, String message = '', int duration = 3}) {
     AppHelperFunctions.showSnackBarWithDesign(
         title: title,
         message: message,
@@ -47,7 +47,7 @@ class AppLoaders {
         icon: Icons.warning);
   }
 
-  static void errorSnackBar({required String title, String message = '', double duration = 3}) {
+  static void errorSnackBar({required String title, String message = '', int duration = 3}) {
     AppHelperFunctions.showSnackBarWithDesign(
         title: title,
         message: message,

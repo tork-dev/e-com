@@ -16,8 +16,8 @@ class AccountDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AccountDetailsController());
-    final loginController = Get.put(LogInPageController());
+    Get.put(AccountDetailsController());
+    Get.put(LogInPageController());
     return AppLayoutWithBackButton(
         title: const Text('Edit Profile', style: TextStyle(color: AppColors.secondary),),
         leadingIconColor: AppColors.darkerGrey,

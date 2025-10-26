@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:kirei/src/features/blogs/controller/blogs_controller.dart';
-
 import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -15,7 +13,6 @@ class BlogCommentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blogDetailsController = BlogsController.instance;
     return Padding(
     padding: const EdgeInsets.only(top: AppSizes.sm),
     child: Column(

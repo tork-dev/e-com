@@ -80,7 +80,7 @@ class KireiTubeController extends GetxController
     update();
   }
 
-  Future<void> getKireitubePlaylistDetails(playlistSlug) async {
+  Future<void> getKireitubePlaylistDetails(String playlistSlug) async {
     hittingApi.value = true;
     playlistDetails.value =
         await KireiTubeRepositories().getKireiPlaylistDetails(playlistSlug);

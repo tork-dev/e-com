@@ -14,7 +14,7 @@ class NewPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final newPasswordController = Get.put(NewPasswordController());
+    Get.put(NewPasswordController());
     return AppLayoutWithBackButton(
       padding: AppSizes.defaultSpace,
         body: ListView(

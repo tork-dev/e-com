@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/blogs/model/blog_details_model.dart' hide Post;
-import 'package:kirei/src/features/community/model/community_comment_response.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';

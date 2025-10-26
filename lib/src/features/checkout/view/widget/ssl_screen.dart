@@ -5,7 +5,6 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../utils/logging/logger.dart';
-import '../../../bottom_navigation/convex_bottom_navigation.dart';
 import '../order_status_page.dart';
 
 class SslCommerzScreen extends StatefulWidget {
@@ -45,7 +44,7 @@ class _SslCommerzScreenState extends State<SslCommerzScreen> {
         NavigationDelegate(
           onPageFinished: (String url) {
             Log.d(url);
-            print("Url : $url");
+            debugPrint("Url : $url");
             Log.i('navigation finished $url');
             if (url.contains("result=true&payment_status=paid&message=Successfully%20Ordered")) {
               AppHelperFunctions.showToast('Successfully Paid');
