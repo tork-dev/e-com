@@ -34,133 +34,130 @@ class UserDashboard extends StatelessWidget {
       backgroundColor: AppColors.white,
       leadingIconColor: AppColors.darkerGrey,
       title: const AppHomeAppBarTitle(),
-      body: Expanded(
-        child: SingleChildScrollView(
-          child: AppCardContainer(
-            margin: EdgeInsets.symmetric(vertical: AppSizes.defaultSpace),
-            backgroundColor: AppColors.contentInversePrimary.withAlpha(90),
-            padding: EdgeInsets.all(AppSizes.md),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Dashboard',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                Gap(AppSizes.sm),
-                Divider(),
-                Gap(AppSizes.sm),
-                AppCardContainer(
-                  hasBorder: true,
-                  width: double.infinity,
-                  borderColor: AppColors.primary,
-                  backgroundColor: AppColors.primary.withAlpha(25),
-                  padding: EdgeInsets.all(AppSizes.md),
-                  child: Text(
-                    "Hello, \n${AppLocalStorage().readData(LocalStorageKeys.userName)}",
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.darkerGrey,
-                    ),
+      body: SingleChildScrollView(
+        child: AppCardContainer(
+          margin: EdgeInsets.symmetric(vertical: AppSizes.defaultSpace),
+          backgroundColor: AppColors.contentInversePrimary.withAlpha(90),
+          padding: EdgeInsets.all(AppSizes.md),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Dashboard',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              Gap(AppSizes.sm),
+              Divider(),
+              Gap(AppSizes.sm),
+              AppCardContainer(
+                hasBorder: true,
+                width: double.infinity,
+                borderColor: AppColors.primary,
+                backgroundColor: AppColors.primary.withAlpha(25),
+                padding: EdgeInsets.all(AppSizes.md),
+                child: Text(
+                  "Hello, \n${AppLocalStorage().readData(LocalStorageKeys.userName)}",
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.darkerGrey,
                   ),
                 ),
-                Gap(AppSizes.spaceBtwItems),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DashboardCard(
-                            icon: HugeIcons.strokeRoundedProductLoading,
-                            label: 'My Orders',
-                            onTap: () => Get.to(() => const PurchaseHistory()),
-                          ),
-                        ),
-                        Expanded(
-                          child: DashboardCard(
-                            icon: HugeIcons.strokeRoundedUserAccount,
-                            label: 'Account Details',
-                            onTap:
-                                () =>
-                                    Get.to(() => const AccountDetailsScreen()),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DashboardCard(
-                            icon: HugeIcons.strokeRoundedSecurityCheck,
-                            label: 'Verify Product',
-                            onTap:
-                                () => Get.to(() => const ProductVerifyScreen()),
-                          ),
-                        ),
-                        Expanded(
-                          child: DashboardCard(
-                            icon: HugeIcons.strokeRoundedFavourite,
-                            label: 'My WishList',
-                            onTap: () => Get.to(() => const WishlistScreen()),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DashboardCard(
-                            icon: HugeIcons.strokeRoundedGift,
-                            label: 'My Rewards',
-                            onTap: () => Get.to(() => const RewardScreen()),
-                          ),
-                        ),
-                        Expanded(
-                          child: DashboardCard(
-                            icon: HugeIcons.strokeRoundedDelete03,
-                            label: 'Delete Account',
-                            onTap: () => Get.to(() => const DeActiveAccount()),
-                          ),
-                        ),
-                        // Blank placeholder to maintain layout structure
-                        // const Expanded(child: SizedBox()),
-                      ],
-                    ),
-                  ],
-                ),
-                Gap(AppSizes.spaceBtwSections),
-                AppCardContainer(
-                  onTap: (){
-                    AppHelperFunctions.showAlert(
-                        message: 'Are you sure you want to logout?',
-                        leftButtonName: 'Yes',
-                        rightButtonName: 'No',
-                        onRightPress: () {
-                          Get.back();
-                        },
-                        onLeftPress: () {
-                          AuthHelper().clearUserData();
-                          CartService.clearCart();
-                          Get.offAllNamed("/home");
-                        },
-                        rightButtonTextColor: AppColors.secondary,
-                        rightButtonColor: Colors.transparent);
-                  },
-                  backgroundColor: AppColors.white,
-                  padding: EdgeInsets.symmetric(vertical: AppSizes.md, horizontal: AppSizes.md),
-                  child: Row(
+              ),
+              Gap(AppSizes.spaceBtwItems),
+              Column(
+                children: [
+                  Row(
                     children: [
-                      HugeIcon(icon: HugeIcons.strokeRoundedLogoutCircle02),
-                      Gap(AppSizes.sm),
-                      Text(
-                        'Logout',
-                        style: Theme.of(context).textTheme.bodyLarge,
+                      Expanded(
+                        child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedProductLoading,
+                          label: 'My Orders',
+                          onTap: () => Get.to(() => const PurchaseHistory()),
+                        ),
+                      ),
+                      Expanded(
+                        child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedUserAccount,
+                          label: 'Account Details',
+                          onTap:
+                              () => Get.to(() => const AccountDetailsScreen()),
+                        ),
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedSecurityCheck,
+                          label: 'Verify Product',
+                          onTap:
+                              () => Get.to(() => const ProductVerifyScreen()),
+                        ),
+                      ),
+                      Expanded(
+                        child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedFavourite,
+                          label: 'My WishList',
+                          onTap: () => Get.to(() => const WishlistScreen()),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedGift,
+                          label: 'My Rewards',
+                          onTap: () => Get.to(() => const RewardScreen()),
+                        ),
+                      ),
+                      Expanded(
+                        child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedDelete03,
+                          label: 'Delete Account',
+                          onTap: () => Get.to(() => const DeActiveAccount()),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Gap(AppSizes.spaceBtwSections),
+              AppCardContainer(
+                onTap: () {
+                  AppHelperFunctions.showAlert(
+                    message: 'Are you sure you want to logout?',
+                    leftButtonName: 'Yes',
+                    rightButtonName: 'No',
+                    onRightPress: Get.back,
+                    onLeftPress: () {
+                      AuthHelper().clearUserData();
+                      CartService.clearCart();
+                      Get.offAllNamed("/home");
+                    },
+                    rightButtonTextColor: AppColors.secondary,
+                    rightButtonColor: Colors.transparent,
+                  );
+                },
+                backgroundColor: AppColors.white,
+                padding: EdgeInsets.symmetric(
+                  vertical: AppSizes.md,
+                  horizontal: AppSizes.md,
                 ),
-              ],
-            ),
+                child: Row(
+                  children: [
+                    HugeIcon(icon: HugeIcons.strokeRoundedLogoutCircle02),
+                    Gap(AppSizes.sm),
+                    Text(
+                      'Logout',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

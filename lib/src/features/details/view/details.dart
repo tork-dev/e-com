@@ -112,15 +112,15 @@ class DetailsPage extends StatelessWidget {
         ),
         const Gap(AppSizes.sm),
         Obx(() {
-          return Badge(
-            backgroundColor: AppColors.primary,
-            label: Text(
-              "${bottomController.cartController.cartCount.value}",
-            ),
-            child: InkWell(
-              onTap: () {
-                bottomController.jumpToTab(2);
-              },
+          return InkWell(
+            onTap: () {
+              Get.offAllNamed('/cart');
+            },
+            child: Badge(
+              backgroundColor: AppColors.primary,
+              label: Text(
+                "${bottomController.cartController.cartCount.value}",
+              ),
               child: const HugeIcon(
                 icon: HugeIcons.strokeRoundedShoppingCart01,
                 color: AppColors.darkerGrey,

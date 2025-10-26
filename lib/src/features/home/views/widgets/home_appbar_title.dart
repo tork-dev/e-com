@@ -25,87 +25,86 @@ class AppHomeAppBarTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(width: 70, child: Image.asset(AppImages.lightAppLogo)),
-          SizedBox(
-            child: InkWell(
-              onTap: () {
-                if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
-                    true) {
-                  bottomController.jumpToTab(3);
-                } else {
-                  Get.offAll(const LogIn());
-                }
-              },
-              child: Row(
-                children: [
-                  Obx(() {
-                    return Badge(
-                      backgroundColor: AppColors.primary,
-                      label: Text(
-                        "${bottomController.wishListController.wishlistCount.value}",
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          if (AppLocalStorage().readData(
-                                LocalStorageKeys.isLoggedIn,
-                              ) !=
-                              null) {
-                            Get.to(() => WishlistScreen());
-                          } else {
-                            Get.to(() => LogIn());
-                          }
-                        },
-                        child: const HugeIcon(
-                          icon: HugeIcons.strokeRoundedFavourite,
-                          color: AppColors.darkerGrey,
-                        ),
-                      ),
-                    );
-                  }),
-                  const Gap(AppSizes.spaceBtwItems),
-                  Obx(() {
-                    return Badge(
-                      backgroundColor: AppColors.primary,
-                      label: Text(
-                        "${bottomController.cartController.cartCount.value}",
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          bottomController.jumpToTab(2);
-                        },
-                        child: const HugeIcon(
-                          icon: HugeIcons.strokeRoundedShoppingCart01,
-                          color: AppColors.darkerGrey,
-                        ),
-                      ),
-                    );
-                  }),
+          Row(
+            children: [
+              Obx(() {
+                return Badge(
+                  backgroundColor: AppColors.primary,
+                  label: Text(
+                    "${bottomController.wishListController.wishlistCount.value}",
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      if (AppLocalStorage().readData(
+                            LocalStorageKeys.isLoggedIn,
+                          ) !=
+                          null) {
+                        Get.to(() => WishlistScreen());
+                      } else {
+                        Get.to(() => LogIn());
+                      }
+                    },
+                    child: const HugeIcon(
+                      icon: HugeIcons.strokeRoundedFavourite,
+                      color: AppColors.darkerGrey,
+                    ),
+                  ),
+                );
+              }),
+              const Gap(AppSizes.spaceBtwItems),
+              Obx(() {
+                return Badge(
+                  backgroundColor: AppColors.primary,
+                  label: Text(
+                    "${bottomController.cartController.cartCount.value}",
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      bottomController.jumpToTab(2);
+                    },
+                    child: const HugeIcon(
+                      icon: HugeIcons.strokeRoundedShoppingCart01,
+                      color: AppColors.darkerGrey,
+                    ),
+                  ),
+                );
+              }),
 
-                  const Gap(AppSizes.spaceBtwItems),
-                  AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
-                          true
-                      ? AppCardContainer(
-                        applyRadius: true,
-                        padding: const EdgeInsets.all(5),
-                        height: 40,
-                        width: 40,
-                        borderRadius: 100,
-                        // backgroundColor: Colors.black,
-                        hasBorder: true,
-                        borderWidth: 1,
-                        borderColor: AppColors.secondary,
-                        child: AppBannerImage(
-                          isNetworkImage: true,
-                          imgUrl:
-                              '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}',
+              const Gap(AppSizes.spaceBtwItems),
+              InkWell(
+                onTap: () {
+                  if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                      true) {
+                    bottomController.jumpToTab(3);
+                  } else {
+                    Get.offAll(const LogIn());
+                  }
+                },
+                child:
+                    AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
+                            true
+                        ? AppCardContainer(
+                          applyRadius: true,
+                          padding: const EdgeInsets.all(5),
+                          height: 40,
+                          width: 40,
+                          borderRadius: 100,
+                          // backgroundColor: Colors.black,
+                          hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: AppColors.secondary,
+                          child: AppBannerImage(
+                            isNetworkImage: true,
+                            imgUrl:
+                                '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}',
+                          ),
+                        )
+                        : const HugeIcon(
+                          icon: HugeIcons.strokeRoundedUser,
+                          color: AppColors.darkerGrey,
                         ),
-                      )
-                      : const HugeIcon(
-                        icon: HugeIcons.strokeRoundedUser,
-                        color: AppColors.darkerGrey,
-                      ),
-                ],
               ),
-            ),
+            ],
           ),
         ],
       ),

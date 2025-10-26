@@ -97,12 +97,12 @@ class GetShopDataController extends GetxController {
       minimumPriceController.text = uri.queryParameters['min_price'] ?? '';
     }
     if (uri.queryParameters.containsKey('brand')) {
-      minimumPriceController.text = uri.queryParameters['brand'] ?? '';
+      brand.value = uri.queryParameters['brand'] ?? '';
     }
   }
 
 
-  setValuesFromUrl(){
+  void setValuesFromUrl(){
     Map<dynamic, dynamic> parameters = {
       'page': pageNumber,
     };
