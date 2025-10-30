@@ -88,21 +88,24 @@ class RewardPointHistoryScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const Gap(AppSizes.spaceBtwDefaultItems),
-                                  Text(
-                                    controller.rewardHistory.value.data![index]
-                                                .event ==
-                                            "Order"
-                                        ? 'Order Id : ${controller.rewardHistory.value.data![index].details?.orderId}'
-                                        : controller.rewardHistory.value
-                                                    .data![index].event ==
-                                                'Review'
-                                            ? "Product Name: ${controller.rewardHistory.value.data![index].details?.productName}"
-                                            : "Post Title : ${controller.rewardHistory.value.data![index].details?.postTitle}",
-                                    style:
-                                        Theme.of(context).textTheme.labelMedium,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  // const Gap(AppSizes.spaceBtwDefaultItems),
+                                  Visibility(
+                                    visible: false,
+                                    child: Text(
+                                      controller.rewardHistory.value.data![index]
+                                                  .event ==
+                                              "Order"
+                                          ? 'Order Id : ${controller.rewardHistory.value.data![index].details?.orderId}'
+                                          : controller.rewardHistory.value
+                                                      .data![index].event ==
+                                                  'Review'
+                                              ? "Product Name: ${controller.rewardHistory.value.data![index].details?.productName}"
+                                              : "Post Title : ${controller.rewardHistory.value.data![index].details?.postTitle}",
+                                      style:
+                                          Theme.of(context).textTheme.labelMedium,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ));

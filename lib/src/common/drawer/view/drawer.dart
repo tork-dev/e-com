@@ -576,6 +576,8 @@ class AppDrawer extends StatelessWidget {
           ),
           const Gap(AppSizes.defaultSpace),
           const AppDrawerBottomButton(),
+          const Gap(AppSizes.defaultSpace),
+
         ],
       ),
     );
