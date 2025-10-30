@@ -21,6 +21,7 @@ class RewardInstructionCard extends StatelessWidget {
         width: AppHelperFunctions.screenWidth(),
         hasBorder: true,
         borderColor: AppColors.lightGrey,
+        backgroundColor: AppColors.white,
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
         child: ListTile(
             // contentPadding: EdgeInsets.symmetric(vertical:AppSizes.sm ),

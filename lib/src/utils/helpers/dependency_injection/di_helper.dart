@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:kirei/src/common/controller/common_controller.dart';
-import 'package:kirei/src/features/ai_recommendation/controller/recommendation_controller.dart';
 import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/controllers/forgot_password_controllers.dart';
 import 'package:kirei/src/features/authentication/views/forgot_password/controllers/otp_controller.dart';
@@ -45,7 +44,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut<UserController>(()=>UserController());
     Get.lazyPut<AccountDetailsController>(()=>AccountDetailsController());
     Get.lazyPut<DetailsPageController>(()=>DetailsPageController());
-    Get.lazyPut<RecommendationController>(()=>RecommendationController());
+    // Get.lazyPut<RecommendationController>(()=>RecommendationController());
     Get.lazyPut<AppointmentController>(()=>AppointmentController());
     Get.lazyPut<CommunityController>(()=>CommunityController());
     Get.lazyPut<GroupShoppingController>(()=>GroupShoppingController());

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:kirei/src/features/review/model/review_response_model.dart';
 import 'package:kirei/src/features/review/model/review_submit_response.dart';
 import 'package:kirei/src/features/review/repositories/review_repositories.dart';
-import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 import '../../../utils/logging/logger.dart';

@@ -8,7 +8,6 @@ import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../../../utils/validators/validation.dart';
-import '../../../log_in/view/login.dart';
 import '../../../widgets/auth_input_field.dart';
 import '../../controllers/signup_controller.dart';
 

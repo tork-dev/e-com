@@ -54,14 +54,18 @@ class AppApiEndPoints {
   static String cartQuantityUpdate = "$baseUrl/carts/change-quantity";
   static String proceedToCheckout = "$baseUrl/carts/process";
   static String requestStock = "$baseUrl/add-product-request/";
+  static String bulkAddToCart = "$baseUrl/carts/bulk-add";
 
 
   ///Checkout
-  static String checkoutSummary = "$baseUrl/cart-summary";
+  // static String checkoutSummary = "$baseUrl/cart-summary";
+  static String checkoutSummary = "$baseUrl/checkout-summary";
   static String paymentTypes = "$baseUrl/payment-types";
   static String couponAdd = "$baseUrl/coupon-apply/on-cart";
   static String couponRemove = "$baseUrl/coupon-remove";
   static String placeOrder = "$baseUrl/credential/order-store/v2";
+  static String sendCheckoutOtp = "$baseUrl/send-checkout-otp";
+  static String verifyCheckoutOtp = "$baseUrl/verify-checkout-otp";
 
 
   ///Purchase History
@@ -77,7 +81,7 @@ class AppApiEndPoints {
 
 
   ///Wishlist
-  static String wishlistProducts = "$baseUrl/wishlists";
+  static String wishlistProducts = "$baseUrl/all-wishlists";
   static String addWishlistProduct = "$baseUrl/wishlists-add-product?product_id=";
   static String removeWishlistProduct = "$baseUrl/wishlists-remove-product?product_id=";
   static String checkWishlistProduct = "$baseUrl/wishlists-check-product?product_id=";
@@ -162,14 +166,8 @@ class AppApiEndPoints {
   static String blogDetails = "$baseUrl/blog";
   static String blogCategories = "$baseUrl/blog/categories";
   static String blogTags = "$baseUrl/trending/tags";
+  static String postBlogComment = "$baseUrl/blog/comment/store";
 
-
-  // ///Gigalogy
-  // static String generateGaipUserId = "$gialogyBaseUrl/users/generate/id";
-  // static String detailsPageEvent = "$gialogyBaseUrl/items/browse";
-  // static String purchaseEvent = "$gialogyBaseUrl/items/purchase";
-  // static String userChoosingEvent = "$gialogyBaseUrl/items/rating";
-  // static String userDataEvent= "$gialogyBaseUrl/users";
 
 
 

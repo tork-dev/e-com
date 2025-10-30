@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
 import 'package:kirei/src/features/personalization/controller/account_details_controller.dart';
-import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/helpers/auth_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';

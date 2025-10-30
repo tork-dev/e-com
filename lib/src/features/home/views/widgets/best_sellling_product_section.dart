@@ -19,19 +19,13 @@ class BestSellingProductSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-          child: AppSectionTitleText(
-            sectionTitle: 'Best Selling Products',
-            haveTxtButton: false,
-          ),
+        AppSectionTitleText(
+          sectionTitle: 'Best Selling Products',
+          haveTxtButton: false,
         ),
         Obx(() {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppHorizontalScrollProductCard(
-              sectionName: homeProductResponse.value.bestsellingProducts,
-            ),
+          return AppHorizontalScrollProductCard(
+            sectionName: homeProductResponse.value.bestsellingProducts,
           );
         }),
 

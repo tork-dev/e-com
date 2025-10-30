@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
-
+import '../../home/model/home_products_model.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 import '../model/shop_data_model.dart';
@@ -36,7 +36,7 @@ class GetShopDataController extends GetxController {
 
   /// Searching params
   RxString searchName = ''.obs;
-  RxString sortKey = 'default'.obs;
+  RxString sortKey = 'Default'.obs;
   RxString tag = ''.obs;
   RxString skinType = ''.obs;
   RxString search = ''.obs;
@@ -44,6 +44,7 @@ class GetShopDataController extends GetxController {
   RxString goodFor = ''.obs;
   RxString categories = ''.obs;
   RxInt pageNumber = 1.obs;
+  RxInt perPage = 24.obs;
   RxString type = ''.obs;
   RxString brand = ''.obs;
 
@@ -64,6 +65,9 @@ class GetShopDataController extends GetxController {
     }
     if (uri.queryParameters.containsKey('page')) {
       pageNumber.value = int.tryParse(uri.queryParameters['page'] ?? '1') ?? 1;
+    }
+    if (uri.queryParameters.containsKey('per_page')) {
+      pageNumber.value = int.tryParse(uri.queryParameters['per_page'] ?? '24') ?? 24;
     }
     if (uri.queryParameters.containsKey('search_name')) {
       searchName.value = uri.queryParameters['search_name'] ?? '';
@@ -93,12 +97,12 @@ class GetShopDataController extends GetxController {
       minimumPriceController.text = uri.queryParameters['min_price'] ?? '';
     }
     if (uri.queryParameters.containsKey('brand')) {
-      minimumPriceController.text = uri.queryParameters['brand'] ?? '';
+      brand.value = uri.queryParameters['brand'] ?? '';
     }
   }
 
 
-  setValuesFromUrl(){
+  void setValuesFromUrl(){
     Map<dynamic, dynamic> parameters = {
       'page': pageNumber,
     };
@@ -194,6 +198,9 @@ class GetShopDataController extends GetxController {
   void updateSortKey(String value) {
     sortKey.value = value;
   }
+  void updatePerPage(int value) {
+    perPage.value = value;
+  }
 
   Future<void> getShopData() async {
     hittingApi.value = true;
@@ -282,7 +289,7 @@ class GetShopDataController extends GetxController {
             newMaxScrollExtent - maxScrollExtentBeforeLoad;
         scrollController.jumpTo(currentScrollPosition +
             scrollOffsetDifference); // Maintain position after loading
-      } else if (pageNumber.value >= shopPageProduct.value.meta!.lastPage! &&
+      } else if (pageNumber.value >= shopPageProduct.value.meta?.lastPage &&
           scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
           !isLoadingMore) {

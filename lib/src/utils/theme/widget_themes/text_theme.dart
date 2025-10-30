@@ -7,8 +7,8 @@ class AppTextTheme {
 
   /// Customizable Light Text Theme
   static TextTheme lightTextTheme = TextTheme(
-    headlineLarge: const TextStyle().copyWith(fontSize: 32.0, fontWeight: FontWeight.bold, color: AppColors.dark),
-    headlineMedium: const TextStyle().copyWith(fontSize: 24.0, fontWeight: FontWeight.w600, color: AppColors.dark),
+    headlineLarge: const TextStyle().copyWith(fontSize: 32.0, fontWeight: FontWeight.w500, color: AppColors.dark, fontFamily: 'ClashDisplay'),
+    headlineMedium: const TextStyle().copyWith(fontSize: 24.0, fontWeight: FontWeight.w600, color: AppColors.dark, fontFamily: 'ClashDisplay'),
     headlineSmall: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w500, color: AppColors.textPrimary, height: 1.25, fontFamily: 'ClashDisplay'),
 
     titleLarge: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w500, color: AppColors.textPrimary, height: 1.5, fontFamily: "ClashDisplay"),

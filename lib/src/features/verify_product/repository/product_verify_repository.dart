@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/app_api_end_points.dart';
@@ -15,7 +16,7 @@ class ProductVerifyRepository{
       "Authorization": "Bearer $accessToken",
       "Content-Type": "application/json"
     });
-    print('uri $uri response ${response.body}');
+    debugPrint('uri $uri response ${response.body}');
     if (response.statusCode == 200) {
       return ProductVerifyListResponse.fromJson(response.body);
     } else {
@@ -29,8 +30,8 @@ class ProductVerifyRepository{
     required int isAuthentic,
     String? note,
   }) async {
-    print("calling from repo");
-    final response = await http.post(
+    debugPrint("calling from repo");
+    await http.post(
       Uri.parse(AppApiEndPoints.submitFeedback),
       headers: {
         "Authorization": "Bearer $accessToken",

@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kirei/src/features/cart/model/card_add_response_model.dart';
 import 'package:kirei/src/features/cart/model/cart_delete_response_model.dart';
-import 'package:kirei/src/features/cart/model/cart_get_response_model.dart';
+import 'package:kirei/src/features/cart/model/cart_local_model.dart';
 import 'package:kirei/src/utils/constants/app_api_end_points.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -10,10 +11,9 @@ import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/logging/logger.dart';
 import '../../home/model/request_stock_model.dart';
 import '../model/cart_update_response_model.dart';
-import '../model/checkout_cart_update_model.dart';
+import '../services/cart_services.dart';
 
 class CartRepositories {
-  final int userId = AppLocalStorage().readData(LocalStorageKeys.userId);
   final dynamic accessToken = AppLocalStorage().readData(
     LocalStorageKeys.accessToken,
   );
@@ -27,7 +27,6 @@ class CartRepositories {
     var postBody = jsonEncode({
       "source": "app",
       "id": id,
-      "user_id": userId,
       "quantity": quantity,
       "is_preorder": "$preorderAvailable",
       'app_info': await AppHelperFunctions.appInfo(),
@@ -47,11 +46,12 @@ class CartRepositories {
   }
 
   /// Get The Cart Products
-  Future<List<CartItemGetResponse>> getCartProducts() async {
+  Future<List<CartItemLocal>> getCartProducts() async {
     var postBody = jsonEncode({
       "source": "app",
       "app_info": await AppHelperFunctions.appInfo(),
     });
+
     final response = await http.post(
       Uri.parse(AppApiEndPoints.cartProducts),
       headers: {
@@ -64,17 +64,26 @@ class CartRepositories {
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
       Log.d('cart response : $jsonResponse');
-      return jsonResponse
-          .map((data) => CartItemGetResponse.fromJson(data))
-          .toList();
+
+      List<CartItemLocal> cartItems = [];
+
+      for (var group in jsonResponse) {
+        var items = group['cart_items'] as List<dynamic>;
+        for (var item in items) {
+          cartItems.add(CartItemLocal.fromJson(item));
+        }
+      }
+
+      return cartItems;
     } else {
       throw Exception('Failed to load cart Products data');
     }
   }
 
+
   ///Cart Quantity Update
   Future<CartUpdateResponse> getCartQuantityUpdate(
-    productId,
+    int productId,
     int productQuantity,
   ) async {
     Uri url = Uri.parse(AppApiEndPoints.cartQuantityUpdate);
@@ -122,30 +131,30 @@ class CartRepositories {
     }
   }
 
-  Future<CheckoutCartUpdateResponse> getCartProcessResponse({
-    required String cartIds,
-    required String cartQuantities,
-  }) async {
-    var postBody = jsonEncode({
-      "source": "app",
-      "cart_ids": cartIds,
-      "cart_quantities": cartQuantities,
-    });
-    Log.d(postBody);
-    Uri url = Uri.parse(AppApiEndPoints.proceedToCheckout);
-    final response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $accessToken",
-      },
-      body: postBody,
-    );
-
-    Log.d(url.toString());
-    Log.d(response.body.toString());
-    return CheckoutCartUpdateResponse.fromJson(jsonDecode(response.body));
-  }
+  // Future<CheckoutCartUpdateResponse> getCartProcessResponse({
+  //   required String cartIds,
+  //   required String cartQuantities,
+  // }) async {
+  //   var postBody = jsonEncode({
+  //     "source": "app",
+  //     "cart_ids": cartIds,
+  //     "cart_quantities": cartQuantities,
+  //   });
+  //   Log.d(postBody);
+  //   Uri url = Uri.parse(AppApiEndPoints.proceedToCheckout);
+  //   final response = await http.post(
+  //     url,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": "Bearer $accessToken",
+  //     },
+  //     body: postBody,
+  //   );
+  //
+  //   Log.d(url.toString());
+  //   Log.d(response.body.toString());
+  //   return CheckoutCartUpdateResponse.fromJson(jsonDecode(response.body));
+  // }
 
   Future<ProductRequestResponse> getRequestStock({
     required int productId,
@@ -165,4 +174,48 @@ class CartRepositories {
       throw Exception('Failed to load data: ${response.statusCode}');
     }
   }
+
+  /// Bulk add to cart
+  Future<void> bulkAddToCart() async {
+    debugPrint('bulkAddToCart called');
+
+    List<int> productIds = [];
+    List<int> productQuantities = [];
+
+    for (var product in CartService.getCartItems()) {
+      productIds.add(product.productId!);
+      productQuantities.add(product.quantity!);
+    }
+
+    final appInfo = await AppHelperFunctions.appInfo();
+
+    var postBody = jsonEncode({
+      "product_ids_arr": productIds,
+      "product_quantities_arr": productQuantities,
+      "app_info": appInfo,
+    });
+
+    Uri url = Uri.parse(AppApiEndPoints.bulkAddToCart);
+
+    debugPrint("URL: $url");
+    debugPrint("Access Token: $accessToken");
+    debugPrint("POST Body: $postBody");
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $accessToken",
+        },
+        body: postBody,
+      );
+
+      debugPrint("Response status: ${response.statusCode}");
+      debugPrint("Response body: ${response.body}");
+    } catch (e) {
+      debugPrint("Error in bulkAddToCart: $e");
+    }
+  }
+
 }

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
+import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/details/repositories/details_repositories.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/wishlist/repositories/wishlist_repositories.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
-import '../../../utils/firebase/gtm_events.dart';
 import '../../../utils/logging/logger.dart';
 import '../../wishlist/model/wish_list_add_model.dart';
 import '../model/product_details_model.dart';
@@ -15,6 +15,7 @@ class DetailsPageController extends GetxController {
   static DetailsPageController get instance => Get.find();
 
   HomeController homeController = Get.put(HomeController(callApis: false));
+  CartController cartController = Get.put(CartController());
 
   RxList<String> productSlugList = <String>[].obs;
   RxInt productSlugIndex = 0.obs;
@@ -69,7 +70,7 @@ class DetailsPageController extends GetxController {
     getRecommendedProducts();
   }
 
-  void getLargePicture(index) {
+  void getLargePicture(int index) {
     pictureIndex.value = index;
   }
 
@@ -96,18 +97,13 @@ class DetailsPageController extends GetxController {
   }
 
   Future<void> onAddToCart() async {
-    homeController
-        .getAddToCartResponse(
-            productDetails.value.detailedProducts!.id!,
-            productCount.value,
-            productDetails.value.detailedProducts!.preorderAvailable!)
+    cartController.getAddToCartResponse(
+        productDetails.value.detailedProducts!, productCount.value)
         .then((value) => {
               isAddedToCart.value = true,
-              AppHelperFunctions.showToast(
-                  homeController.addToCartResponse.value.message!),
-              EventLogger().logAddToCartEvent(
-                  productDetails.value.detailedProducts!.slug!,
-                  productDetails.value.detailedProducts!.salePrice)
+              // EventLogger().logAddToCartEvent(
+              //     productDetails.value.detailedProducts!.slug!,
+              //     productDetails.value.detailedProducts!.salePrice)
             });
   }
 

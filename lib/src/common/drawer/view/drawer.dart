@@ -11,8 +11,8 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/blogs/view/blogs.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/bottom_navigation/google_nav_bar.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/purchase_history/view/purchace_history.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
@@ -43,7 +43,7 @@ class AppDrawer extends StatelessWidget {
     HomeController homeController = Get.put(HomeController());
     final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
     return AppCardContainer(
-      margin: const EdgeInsets.only(bottom: 50),
+      // padding: const EdgeInsets.only(bottom: 50),
       width: 300,
       backgroundColor: AppColors.dark,
       applyRadius: false,
@@ -51,7 +51,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           // const AppDrawerHeaderPart(),
           AppCardContainer(
-            onTap: () => AppHelperFunctions().openWhatsApp("8801779991110"),
+            onTap: () => AppHelperFunctions().openCaller('+8809666791110'),
             margin: EdgeInsets.symmetric(
               horizontal: AppSizes.sm,
               vertical: AppSizes.md,
@@ -64,7 +64,7 @@ class AppDrawer extends StatelessWidget {
                 AppBannerImage(
                   height: 48,
                   width: 48,
-                  imgUrl: AppImages.whatsapp,
+                  imgUrl: AppImages.phoneIcon
                 ),
                 Gap(AppSizes.md),
                 Column(
@@ -76,7 +76,7 @@ class AppDrawer extends StatelessWidget {
                       ).textTheme.titleSmall?.apply(color: AppColors.white),
                     ),
                     Text(
-                      "+880 1779-991110",
+                      "+880 966679111010",
                       style: Theme.of(
                         context,
                       ).textTheme.titleLarge?.apply(color: AppColors.white),
@@ -92,7 +92,7 @@ class AppDrawer extends StatelessWidget {
             onPress: () {
               shopController.resetAll();
               if (isFromOtherPage) {
-                Get.to(const HelloConvexAppBar(pageIndex: 1));
+                Get.to(const GoogleNavBar(pageIndex: 1));
               }
               shopController.updateCategory('new');
               shopController.type('new-arrivals');
@@ -471,7 +471,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/contact-us?type=app',
+                      url: '$baseUrlWeb/contact?type=app',
                       title: 'Contact us',
                     ),
                   );
@@ -482,7 +482,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/testimonial?type=app',
+                      url: '$baseUrlWeb/testimonials?type=app',
                       title: 'Testimonials',
                     ),
                   );
@@ -576,6 +576,8 @@ class AppDrawer extends StatelessWidget {
           ),
           const Gap(AppSizes.defaultSpace),
           const AppDrawerBottomButton(),
+          const Gap(AppSizes.defaultSpace),
+
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 import '../../on_boarding/views/on_boarding.dart';
@@ -27,7 +26,7 @@ class SplashController extends GetxController {
 
 
 
-  changeScreen() {
+  void changeScreen() {
     final bool isNotFirst =
         AppLocalStorage().readData(LocalStorageKeys.isNotFirstTime) ?? false;
     Future.delayed(const Duration(seconds: 3), () {

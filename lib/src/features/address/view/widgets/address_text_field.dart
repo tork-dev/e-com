@@ -14,6 +14,7 @@ class AppAddressTextField extends StatelessWidget {
     this.hasTitle = true,
     this.validator,
     this.textInputType = TextInputType.text,
+    this.autofillHints,
     super.key});
 
   final String fieldTitle, hintText;
@@ -23,6 +24,7 @@ class AppAddressTextField extends StatelessWidget {
   final bool hasTitle;
   final dynamic validator;
   final TextInputType textInputType;
+  final List<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +34,12 @@ class AppAddressTextField extends StatelessWidget {
         hasTitle? Text(fieldTitle, style: Theme.of(context).textTheme.bodySmall!) : const SizedBox(),
         const Gap(AppSizes.xs),
         SizedBox(
-          //height: sizeBoxHeight,
           child: TextFormField(
             controller: controller,
             cursorColor: AppColors.primary,
             validator: validator,
             keyboardType: textInputType,
+            autofillHints: autofillHints,
             decoration: InputDecoration(
               contentPadding:  EdgeInsets.symmetric(horizontal: 8, vertical: verticalPadding),
               hintText: hintText,

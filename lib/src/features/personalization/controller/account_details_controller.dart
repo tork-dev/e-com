@@ -64,7 +64,7 @@ class AccountDetailsController extends GetxController {
   final ImagePicker _picker = ImagePicker();
   XFile? _file;
 
-  chooseAndUploadImage() async {
+  void chooseAndUploadImage() async {
     // var status = await Permission.photos.request();
       _file = await _picker.pickImage(source: ImageSource.gallery);
       Log.d(_file.toString());

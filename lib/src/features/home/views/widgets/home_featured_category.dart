@@ -4,22 +4,15 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
-import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
-import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
-import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
-import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/features/shop/view/hot_deals_screen.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../../common/widgets/texts/section_title_text.dart';
 import '../../../../utils/constants/colors.dart';
-import '../../../ai_recommendation/view/skin_care_history/recomedation_screen_one.dart';
 
 class AppFeatureCategories extends StatelessWidget {
   const AppFeatureCategories({super.key});

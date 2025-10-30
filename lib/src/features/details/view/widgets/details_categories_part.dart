@@ -6,7 +6,6 @@ import '../../../../common/styles/app_dividers.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/logging/logger.dart';
-import 'details_tag_with_border.dart';
 import 'details_tag_with_underline.dart';
 
 class AppDetailsCategoriesPart extends StatelessWidget {

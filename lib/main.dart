@@ -15,6 +15,7 @@ import 'package:kirei/src/utils/helpers/deep_link_helper.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'src/features/cart/model/cart_local_model.dart';
 import 'src/utils/helpers/app_life_cycle_helper.dart';
 
 // Background message handler must be a top-level function
@@ -40,6 +41,12 @@ void main() async {
   await Hive.initFlutter(); // Initialize Hive
   await Hive.openBox('cacheBox'); // Open Hive Box for caching
   CachingUtility.clearAll();
+
+  // Adapter register (from generated file)
+  Hive.registerAdapter(CartItemLocalAdapter());
+  // Open Cart box
+  await Hive.openBox<CartItemLocal>('cartBox');
+
 
   // Ensure BASE_URL_WEB is available
   String? baseUrlWeb = dotenv.env["BASE_URL_WEB"];

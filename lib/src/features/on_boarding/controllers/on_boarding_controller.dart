@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/controller/common_controller.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
 
@@ -16,12 +15,12 @@ class OnBoardingController extends GetxController{
 
 
   /// Update Current Index when Page Scroll
-  void updatePageIndicator(index){
+  void updatePageIndicator(int index){
     currentPageIndex.value = index;
   }
 
   /// Jump To specific Page
-  void dotNavigationClick(index){
+  void dotNavigationClick(int index){
     currentPageIndex.value = index;
     pageController.jumpToPage(index);
   }

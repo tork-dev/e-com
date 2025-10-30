@@ -6,8 +6,9 @@ import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+import '../../../checkout/model/checkout_summary_respopnse.dart';
+import '../../../checkout/view/checkout_screen.dart';
 
 class AppCartProceedButton extends StatelessWidget {
   const AppCartProceedButton({super.key});
@@ -16,12 +17,12 @@ class AppCartProceedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     return AppCardContainer(
-      height: 150,
+      // height: 150,
       width: AppHelperFunctions.screenWidth(),
       backgroundColor: AppColors.white,
         applyRadius: false,
         padding: const EdgeInsets.all(16),
-        margin: EdgeInsets.only(bottom: AppDeviceUtils.getBottomNavigationBarHeight() - 16),
+        // margin: EdgeInsets.only(bottom: AppDeviceUtils.getBottomNavigationBarHeight() - 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,9 +43,12 @@ class AppCartProceedButton extends StatelessWidget {
              ),
             const Gap(AppSizes.spaceBtwDefaultItems),
             AppButtons.largeFlatFilledButton(
-                onPressed: (){
-                  cartController.proceedToCheckout();
-                  // Get.to(()=> const CheckoutScreen());
+                onPressed: () async{
+                  CheckoutSummaryResponse? checkoutSummaryResponse = await cartController.getCheckoutSummary();
+                  if (checkoutSummaryResponse!.result == true) {
+                    Get.to(() => CheckoutScreen());
+                  }
+
                 },
                 buttonText: 'Proceed to Checkout', backgroundColor: AppColors.secondary)
           ],

@@ -22,7 +22,7 @@ class AppShippingAddressContainer extends StatelessWidget {
               child: checkoutController.isAddressAvailable.value == false
                   ? const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: AppAllAddressFields(),
+                      child: AppAllAddressFields(isCallSummary: true,),
                     )
                   : ExpansionTile(
                       title: RichText(

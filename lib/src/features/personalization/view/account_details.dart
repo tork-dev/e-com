@@ -16,14 +16,14 @@ class AccountDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AccountDetailsController());
-    final loginController = Get.put(LogInPageController());
+    Get.put(AccountDetailsController());
+    Get.put(LogInPageController());
     return AppLayoutWithBackButton(
-        title: const Text('Edit Profile', style: TextStyle(color: AppColors.white),),
-        leadingIconColor: AppColors.white,
+        title: const Text('Edit Profile', style: TextStyle(color: AppColors.secondary),),
+        leadingIconColor: AppColors.darkerGrey,
         centerTitle: true,
-        backgroundColor: AppColors.primary,
-        // bodyBackgroundColor: AppColors.secondaryBackground,
+        backgroundColor: AppColors.white,
+        bodyBackgroundColor: AppColors.secondaryBackground,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

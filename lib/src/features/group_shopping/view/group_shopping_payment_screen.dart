@@ -29,7 +29,7 @@ class GroupShoppingPaymentScreen extends StatelessWidget {
             buttonName: buttonName ?? "JOIN GROUP",
             buttonWork: (){
               Log.d('button tapped');
-              buttonWork == "createGroup" ? groupShoppingController.createGroup(productId) : groupShoppingController.joinGroup(token, productId);
+              buttonWork == "createGroup" ? groupShoppingController.createGroup(int.parse(productId!)) : groupShoppingController.joinGroup(token!, int.parse(productId!));
             },
           ),
         ));

@@ -13,6 +13,7 @@ class AuthInputField extends StatelessWidget {
     this.suffixIcon,
     this.textInputType = TextInputType.text,
     this.enableTextField = true,
+    this.autofillHints
   });
 
   final bool isDark, obscured, enableTextField;
@@ -21,6 +22,7 @@ class AuthInputField extends StatelessWidget {
   final Widget? suffixIcon;
   final dynamic validator;
   final TextInputType textInputType;
+  final List<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +32,11 @@ class AuthInputField extends StatelessWidget {
       obscureText: obscured,
       cursorColor: AppColors.primary,
       keyboardType: textInputType,
+      autofillHints: autofillHints,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
         hintText: hingText,
-        // suffix: suffixIcon,
         suffixIcon: suffixIcon,
-        //contentPadding: const EdgeInsets.only(left: AppSizes.sm),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.inputFieldRadius),
           borderSide: BorderSide(width: 1, color: AppColors.primary),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
 import '../../utils/constants/sizes.dart';
-import '../../utils/logging/logger.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url, title;
@@ -60,10 +58,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
           ? widget.bodyPadding!
           : AppSizes.defaultSpace,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: WebViewWidget(controller: controllers),
-        ),
+        child: WebViewWidget(controller: controllers),
       ),
     );
   }

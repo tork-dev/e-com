@@ -5,7 +5,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
-import 'package:kirei/src/utils/device/device_utility.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
 import '../../../../utils/local_storage/local_storage_keys.dart';
 import '../../../../utils/local_storage/storage_utility.dart';

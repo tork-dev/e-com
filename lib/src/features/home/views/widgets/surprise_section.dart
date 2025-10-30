@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
-import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -44,7 +42,6 @@ class HomeSurpriseSection extends StatelessWidget {
           vertical: AppSizes.defaultSpace,
           horizontal: AppHelperFunctions.screenWidth() * .1,
         ),
-        margin: EdgeInsets.symmetric(horizontal: AppSizes.md),
         backgroundColor: backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +57,7 @@ class HomeSurpriseSection extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.headlineMedium!,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w500),
               ),
             ),
             const Gap(AppSizes.sm),

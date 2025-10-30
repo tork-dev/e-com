@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,6 @@ import 'package:kirei/src/common/layouts/layout_without_appbar/layout_without_ap
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_bottom_navigation.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../common/widgets/containers/card_container.dart';

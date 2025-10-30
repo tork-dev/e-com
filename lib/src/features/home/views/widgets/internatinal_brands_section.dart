@@ -19,19 +19,13 @@ class InternationalBrandsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-          child: AppSectionTitleText(
-            sectionTitle: 'International Brands',
-            haveTxtButton: false,
-          ),
+        AppSectionTitleText(
+          sectionTitle: 'International Brands',
+          haveTxtButton: false,
         ),
         Obx(() {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppHorizontalScrollProductCard(
-              sectionName: homeProductResponse.value.internationalBrands,
-            ),
+          return AppHorizontalScrollProductCard(
+            sectionName: homeProductResponse.value.internationalBrands,
           );
         }),
         const Gap(AppSizes.spaceBtwSections),

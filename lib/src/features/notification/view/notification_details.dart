@@ -101,7 +101,7 @@ class NotificationDetails extends StatelessWidget {
                   child: AppCardContainer(
                     onTap:
                         () => WidgetsBinding.instance.addPostFrameCallback((_) {
-                          print(detailsController.userNotification.value.data?.data?[0].route);
+                          debugPrint(detailsController.userNotification.value.data?.data?[0].route);
                           RoutingHelper.urlRouting(
                             detailsController
                                 .userNotification

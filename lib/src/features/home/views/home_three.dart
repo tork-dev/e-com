@@ -9,17 +9,17 @@ import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/home/controller/home_controller.dart';
 import 'package:kirei/src/features/home/views/widgets/home_featured_category.dart';
 import 'package:kirei/src/common/widgets/search_bar/search_widget.dart';
-import 'package:kirei/src/features/home/views/widgets/home_new_sections.dart';
+import 'package:kirei/src/features/home/views/widgets/home_page_service_show.dart';
 import 'package:kirei/src/features/home/views/widgets/home_review_section.dart';
 import 'package:kirei/src/features/home/views/widgets/home_search_decoration.dart';
 import 'package:kirei/src/features/home/views/widgets/home_trending_section.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
-import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/helpers/routing_helper.dart';
+import '../../web_view/web_view.dart';
 import 'widgets/best_sellling_product_section.dart';
 import 'widgets/flash_sale_section.dart';
 import 'widgets/home_appbar_title.dart';
@@ -39,7 +39,6 @@ class HomeThree extends StatelessWidget {
         GetShopDataController.instance;
     ConvexBottomNavController convexBottomNavController =
         ConvexBottomNavController.instance;
-    print("HomeController exists: ${Get.isRegistered<HomeController>()}");
     return AppLayoutWithDrawer(
       backToHome: true,
       inHome: true,
@@ -47,38 +46,29 @@ class HomeThree extends StatelessWidget {
       title: const AppHomeAppBarTitle(),
       leadingIconColor: AppColors.darkerGrey,
       backgroundColor: AppColors.white,
-      padding: 0,
+      padding: AppSizes.md,
       body: AppLayoutWithRefresher(
         onRefresh: controller.onRefresh,
         children: [
           const Gap(AppSizes.spaceBtwItems),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppSearchWidget(
-              builder:
-                  (
-                    BuildContext context,
-                    TextEditingController controller,
-                    FocusNode focusNode,
-                  ) => HomeSearchDecoration(
-                    categoryController: getShopDataController,
-                    bottomController: convexBottomNavController,
-                    controller: controller,
-                    focusNode: focusNode,
-                  ),
-              prevRoute: '/home',
-            ),
+          AppSearchWidget(
+            builder:
+                (
+                  BuildContext context,
+                  TextEditingController controller,
+                  FocusNode focusNode,
+                ) => HomeSearchDecoration(
+                  categoryController: getShopDataController,
+                  bottomController: convexBottomNavController,
+                  controller: controller,
+                  focusNode: focusNode,
+                ),
+            prevRoute: '/home',
           ),
           const Gap(AppSizes.spaceBtwItems),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: CustomSlider(),
-          ),
+          CustomSlider(),
           const Gap(AppSizes.spaceBtwSections),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppFeatureCategories(),
-          ),
+          AppFeatureCategories(),
           Obx(() {
             return Visibility(
               visible: controller.showSkinConcern,
@@ -88,18 +78,47 @@ class HomeThree extends StatelessWidget {
           const Gap(AppSizes.spaceBtwSections),
           FlashSaleSection(homeProductResponse: controller.homeProductResponse),
           Obx(() {
-            return HomeImageTitleAndButtonSection(
-              bgUrl: AppImages.skinCareFlowerBg,
-              sectionName:
+            return SkinCareCardAiCard(
+              onPress: () {
+                Get.to(
+                  () => WebViewScreen(
+                    bodyPadding: 0,
+                    url:
+                        controller
+                            .homeProductResponse
+                            .value
+                            .homepageSettings
+                            ?.recommendation
+                            ?.route ??
+                        "${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/chat",
+                    title: 'Chat',
+                  ),
+                );
+              },
+              title:
                   controller
                       .homeProductResponse
                       .value
                       .homepageSettings
-                      ?.recommendation,
-              showTheSection: controller.showRecommendation,
+                      ?.recommendation
+                      ?.title,
+              subtitle:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.recommendation
+                      ?.description,
+              buttonText:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.recommendation
+                      ?.btnName,
             );
           }),
-          const Gap(AppSizes.md),
+          const Gap(AppSizes.spaceBtwSections),
           BestSellingProductSection(
             homeProductResponse: controller.homeProductResponse,
           ),
@@ -118,12 +137,14 @@ class HomeThree extends StatelessWidget {
                       ?.features
                       ?.surprizeGift ??
                   false,
-              imageUrl: controller
-                  .homeProductResponse
-                  .value
-                  .homepageSettings
-                  ?.surprizeGift
-                  ?.banner ?? "",
+              imageUrl:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.surprizeGift
+                      ?.banner ??
+                  "",
               title:
                   controller
                       .homeProductResponse
@@ -232,18 +253,64 @@ class HomeThree extends StatelessWidget {
           NewArrivalsSection(
             homeProductResponse: controller.homeProductResponse,
           ),
+
           Obx(() {
-            return HomeImageTitleAndButtonSection(
-              bgUrl: AppImages.kireiTubeBg,
-              sectionName:
+            return SkinCareCardAiCard(
+              onPress: () {
+                RoutingHelper.urlRouting(
+                  controller
+                          .homeProductResponse
+                          .value
+                          .homepageSettings
+                          ?.kireitube
+                          ?.route ??
+                      '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/kirei-tube',
+                );
+              },
+              backgroundColor: AppColors.whitePink,
+              title:
                   controller
                       .homeProductResponse
                       .value
                       .homepageSettings
-                      ?.kireitube,
-              showTheSection: controller.showKireiTube,
+                      ?.kireitube
+                      ?.title,
+              subtitle:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.kireitube
+                      ?.description,
+              buttonText:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.kireitube
+                      ?.btnName,
+              imageUrl:
+                  controller
+                      .homeProductResponse
+                      .value
+                      .homepageSettings
+                      ?.kireitube
+                      ?.banner,
+              hasImageSize: true,
             );
           }),
+          // Obx(() {
+          //   return HomeImageTitleAndButtonSection(
+          //     bgUrl: AppImages.kireiTubeBg,
+          //     sectionName:
+          //         controller
+          //             .homeProductResponse
+          //             .value
+          //             .homepageSettings
+          //             ?.kireitube,
+          //     showTheSection: controller.showKireiTube,
+          //   );
+          // }),
           const Gap(100),
         ],
       ),

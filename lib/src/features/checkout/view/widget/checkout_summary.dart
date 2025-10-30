@@ -8,6 +8,7 @@ import 'package:kirei/src/features/checkout/controller/checkout_controller.dart'
 import 'package:kirei/src/features/purchase_history/view/widget/summary_text_widget.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/helper_functions.dart';
 
 class AppCheckoutSummary extends StatelessWidget {
   const AppCheckoutSummary({super.key});
@@ -16,41 +17,53 @@ class AppCheckoutSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
     return Obx(() {
-      return checkoutController.checkoutSummary.value.grandTotalValue == null
+      return checkoutController.isSummaryLoading.value
           ? ShimmerHelper().buildBasicShimmer(height: 150)
           : AppCardContainer(
-              padding: const EdgeInsets.all(AppSizes.md),
-              backgroundColor: AppColors.white,
-              child: Column(
-                children: [
-                  AppSummaryTextWidget(
-                      title: 'Subtotal',
-                      amount:
-                          '${checkoutController.checkoutSummary.value.subTotal}'),
-                  const Gap(AppSizes.sm),
-                  AppSummaryTextWidget(
-                      title: 'Shipping Cost',
-                      amount:
-                          '${checkoutController.checkoutSummary.value.shippingCost}'),
-                  const Gap(AppSizes.sm),
-                  AppSummaryTextWidget(
-                      title: 'Discount',
-                      amount:
-                          '${checkoutController.checkoutSummary.value.discount}'),
-                  const Gap(AppSizes.sm),
-                  Visibility(
-                    visible: checkoutController.redeemedPoint > 99,
-                    child: AppSummaryTextWidget(
-                        title: 'Redeem Point',
-                        amount: '৳${checkoutController.redeemedPoint}'),
+            padding: const EdgeInsets.all(AppSizes.md),
+            backgroundColor: AppColors.white,
+            child: Column(
+              children: [
+                AppSummaryTextWidget(
+                  title: 'Subtotal',
+                  amount:
+                      '${checkoutController.cartController.cartSummaryResponse.value.data?.subTotal}',
+                ),
+                const Gap(AppSizes.sm),
+                AppSummaryTextWidget(
+                  title: 'Shipping Cost',
+                  amount:
+                      '${checkoutController.cartController.cartSummaryResponse.value.data?.shippingCost}',
+                ),
+                const Gap(AppSizes.sm),
+                AppSummaryTextWidget(
+                  title: 'Discount',
+                  amount:
+                      '${checkoutController.cartController.cartSummaryResponse.value.data?.discount}',
+                ),
+                const Gap(AppSizes.sm),
+                Visibility(
+                  visible: checkoutController.redeemedPoint > 99,
+                  child: AppSummaryTextWidget(
+                    title: 'Redeem Point',
+                    amount: '৳${checkoutController.redeemedPoint}',
                   ),
-                  const Gap(AppSizes.sm),
-                  AppSummaryTextWidget(
-                      title: 'Total',
-                      amount:
-                          '৳${checkoutController.grandTotal.value}'),
-                ],
-              ));
+                ),
+                const Gap(AppSizes.sm),
+                AppSummaryTextWidget(
+                  title: 'Total',
+                  amount: AppHelperFunctions.formatPrice(
+                    checkoutController
+                        .cartController
+                        .cartSummaryResponse
+                        .value
+                        .data
+                        ?.grandTotalValue,
+                  ),
+                ),
+              ],
+            ),
+          );
     });
   }
 }

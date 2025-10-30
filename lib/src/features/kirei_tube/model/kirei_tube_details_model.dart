@@ -1,4 +1,7 @@
 import 'dart:convert';
+import '../../home/model/home_products_model.dart';
+
+
 
 class KireiTubeDetailsResponse {
   Data? data;
@@ -24,12 +27,6 @@ class KireiTubeDetailsResponse {
     status: json["status"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "data": data?.toJson(),
-    "success": success,
-    "result": result,
-    "status": status,
-  };
 }
 
 class Data {
@@ -85,19 +82,6 @@ class Data {
     products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
   );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "slug": slug,
-    "category_name": categoryName,
-    "banner": banner,
-    "short_description": shortDescription,
-    "description": description,
-    "video": video,
-    "orientation" : orientation,
-    'statistics': statistics?.toJson(),
-    "products": products == null ? [] : List<dynamic>.from(products!.map((x) => x.toMap())),
-  };
 }
 
 class NextVideo{
@@ -122,209 +106,6 @@ class NextVideo{
 
 }
 
-class Product {
-  dynamic id;
-  String? name;
-  String? slug;
-  dynamic price;
-  dynamic salePrice;
-  dynamic discount;
-  String? sku;
-  dynamic stock;
-  String? shortDescription;
-  String? description;
-  String? guide;
-  List<dynamic>? skdynamicypes;
-  List<dynamic>? keyIngredients;
-  List<dynamic>? goodFor;
-  dynamic preorderAvailable;
-  dynamic requestAvailable;
-  String? preorderDeliveryDate;
-  dynamic preorderAmount;
-  String? preorderStartDate;
-  String? preorderEndDate;
-  dynamic saleCount;
-  dynamic ratings;
-  dynamic reviews;
-  dynamic isHot;
-  bool? isSale;
-  dynamic isNew;
-  dynamic isOutOfStock;
-  dynamic releaseDate;
-  dynamic developer;
-  dynamic publisher;
-  dynamic gameMode;
-  dynamic rated;
-  dynamic until;
-  List<ProductCategory>? productCategories;
-  List<ProductBrand>? productBrands;
-  List<ProductTag>? productTags;
-  String? onlyTags;
-  List<Picture>? pictures;
-  List<Picture>? largePictures;
-  List<Picture>? smallPictures;
-  List<dynamic>? variants;
-  dynamic isCouponApplicable;
-  String? metaImage;
-  String? metaTitle;
-  String? metaDescription;
-  String? metaTags;
-  String? productLink;
-
-  Product({
-    this.id,
-    this.name,
-    this.slug,
-    this.price,
-    this.salePrice,
-    this.discount,
-    this.sku,
-    this.stock,
-    this.shortDescription,
-    this.description,
-    this.guide,
-    this.skdynamicypes,
-    this.keyIngredients,
-    this.goodFor,
-    this.preorderAvailable,
-    this.requestAvailable,
-    this.preorderDeliveryDate,
-    this.preorderAmount,
-    this.preorderStartDate,
-    this.preorderEndDate,
-    this.saleCount,
-    this.ratings,
-    this.reviews,
-    this.isHot,
-    this.isSale,
-    this.isNew,
-    this.isOutOfStock,
-    this.releaseDate,
-    this.developer,
-    this.publisher,
-    this.gameMode,
-    this.rated,
-    this.until,
-    this.productCategories,
-    this.productBrands,
-    this.productTags,
-    this.onlyTags,
-    this.pictures,
-    this.largePictures,
-    this.smallPictures,
-    this.variants,
-    this.isCouponApplicable,
-    this.metaImage,
-    this.metaTitle,
-    this.metaDescription,
-    this.metaTags,
-    this.productLink,
-  });
-
-  factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Product.fromMap(Map<String, dynamic> json) => Product(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    price: json["price"],
-    salePrice: json["sale_price"],
-    discount: json["discount"],
-    sku: json["sku"],
-    stock: json["stock"],
-    shortDescription: json["short_description"],
-    description: json["description"],
-    guide: json["guide"],
-    skdynamicypes: json["skin_types"] == null ? [] : List<dynamic>.from(json["skin_types"]!.map((x) => x)),
-    keyIngredients: json["key_ingredients"] == null ? [] : List<dynamic>.from(json["key_ingredients"]!.map((x) => x)),
-    goodFor: json["good_for"] == null ? [] : List<dynamic>.from(json["good_for"]!.map((x) => x)),
-    preorderAvailable: json["preorder_available"],
-    requestAvailable: json["request_available"],
-    preorderDeliveryDate: json["preorder_delivery_date"],
-    preorderAmount: json["preorder_amount"],
-    preorderStartDate: json["preorder_start_date"],
-    preorderEndDate: json["preorder_end_date"],
-    saleCount: json["sale_count"],
-    ratings: json["ratings"],
-    reviews: json["reviews"],
-    isHot: json["is_hot"],
-    isSale: json["is_sale"],
-    isNew: json["is_new"],
-    isOutOfStock: json["is_out_of_stock"],
-    releaseDate: json["release_date"],
-    developer: json["developer"],
-    publisher: json["publisher"],
-    gameMode: json["game_mode"],
-    rated: json["rated"],
-    until: json["until"],
-    productCategories: json["product_categories"] == null ? [] : List<ProductCategory>.from(json["product_categories"]!.map((x) => ProductCategory.fromMap(x))),
-    productBrands: json["product_brands"] == null ? [] : List<ProductBrand>.from(json["product_brands"]!.map((x) => ProductBrand.fromMap(x))),
-    productTags: json["product_tags"] == null ? [] : List<ProductTag>.from(json["product_tags"]!.map((x) => ProductTag.fromMap(x))),
-    onlyTags: json["only_tags"],
-    pictures: json["pictures"] == null ? [] : List<Picture>.from(json["pictures"]!.map((x) => Picture.fromMap(x))),
-    largePictures: json["large_pictures"] == null ? [] : List<Picture>.from(json["large_pictures"]!.map((x) => Picture.fromMap(x))),
-    smallPictures: json["small_pictures"] == null ? [] : List<Picture>.from(json["small_pictures"]!.map((x) => Picture.fromMap(x))),
-    variants: json["variants"] == null ? [] : List<dynamic>.from(json["variants"]!.map((x) => x)),
-    isCouponApplicable: json["is_coupon_applicable"],
-    metaImage: json["meta_image"],
-    metaTitle: json["meta_title"],
-    metaDescription: json["meta_description"],
-    metaTags: json["meta_tags"],
-    productLink: json["product_link"],
-  );
-
-  Map<String, dynamic> toMap() => {
-    "id": id,
-    "name": name,
-    "slug": slug,
-    "price": price,
-    "sale_price": salePrice,
-    "discount": discount,
-    "sku": sku,
-    "stock": stock,
-    "short_description": shortDescription,
-    "description": description,
-    "guide": guide,
-    "skin_types": skdynamicypes == null ? [] : List<dynamic>.from(skdynamicypes!.map((x) => x)),
-    "key_ingredients": keyIngredients == null ? [] : List<dynamic>.from(keyIngredients!.map((x) => x)),
-    "good_for": goodFor == null ? [] : List<dynamic>.from(goodFor!.map((x) => x)),
-    "preorder_available": preorderAvailable,
-    "request_available": requestAvailable,
-    "preorder_delivery_date": preorderDeliveryDate,
-    "preorder_amount": preorderAmount,
-    "preorder_start_date": preorderStartDate,
-    "preorder_end_date": preorderEndDate,
-    "sale_count": saleCount,
-    "ratings": ratings,
-    "reviews": reviews,
-    "is_hot": isHot,
-    "is_sale": isSale,
-    "is_new": isNew,
-    "is_out_of_stock": isOutOfStock,
-    "release_date": releaseDate,
-    "developer": developer,
-    "publisher": publisher,
-    "game_mode": gameMode,
-    "rated": rated,
-    "until": until,
-    "product_categories": productCategories == null ? [] : List<dynamic>.from(productCategories!.map((x) => x.toMap())),
-    "product_brands": productBrands == null ? [] : List<dynamic>.from(productBrands!.map((x) => x.toMap())),
-    "product_tags": productTags == null ? [] : List<dynamic>.from(productTags!.map((x) => x.toMap())),
-    "only_tags": onlyTags,
-    "pictures": pictures == null ? [] : List<dynamic>.from(pictures!.map((x) => x.toMap())),
-    "large_pictures": largePictures == null ? [] : List<dynamic>.from(largePictures!.map((x) => x.toMap())),
-    "small_pictures": smallPictures == null ? [] : List<dynamic>.from(smallPictures!.map((x) => x.toMap())),
-    "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
-    "is_coupon_applicable": isCouponApplicable,
-    "meta_image": metaImage,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "meta_tags": metaTags,
-    "product_link": productLink,
-  };
-}
 
 class Picture {
   String? url;

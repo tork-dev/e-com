@@ -8,8 +8,6 @@ import 'package:kirei/src/features/details/controller/details_page_controller.da
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
-import '../../../../common/widgets/texts/expandable_text.dart';
-
 class AppDetailsDescriptionPart extends StatelessWidget {
   const AppDetailsDescriptionPart({super.key});
 

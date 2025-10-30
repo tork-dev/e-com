@@ -17,10 +17,11 @@ class DeActiveAccount extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .titleLarge!
-              .apply(color: AppColors.white),
+              .apply(color: AppColors.secondary),
         ),
-        leadingIconColor: AppColors.white,
-        backgroundColor: AppColors.primary,
+        leadingIconColor: AppColors.darkerGrey,
+        backgroundColor: AppColors.white,
+        bodyBackgroundColor: AppColors.secondaryBackground,
         body: DeActiveWidgets().accountDeletionTermsCondition()
     );
   }

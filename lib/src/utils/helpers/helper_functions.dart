@@ -55,6 +55,15 @@ class AppHelperFunctions {
     }
   }
 
+  static String formatPrice(num price) {
+    final formatter = NumberFormat.currency(
+      locale: 'en_BD',   // Bangladesh locale
+      symbol: '৳',       // Currency symbol
+      decimalDigits: 2,  // Always show 2 decimal places
+    );
+    return formatter.format(price);
+  }
+
   static void showToast(String message) {
     Fluttertoast.showToast(
       msg: message,
@@ -76,11 +85,11 @@ class AppHelperFunctions {
   }
 
   static void showSnackBarWithDesign({
-    required title,
-    message = '',
-    duration = 3,
-    backgroundColor,
-    icon,
+    required String title,
+    String message = '',
+    int duration = 3,
+    Color? backgroundColor,
+    IconData? icon,
   }) {
     Get.snackbar(
       title,
@@ -570,7 +579,7 @@ class AppHelperFunctions {
     return false; // They are equal
   }
 
-  static deBouncerSearchDelay(function) {
+  static void deBouncerSearchDelay( Function function) {
     Future.delayed(const Duration(microseconds: 300), () => function);
   }
 
@@ -605,7 +614,7 @@ class AppHelperFunctions {
     }
   }
 
-  static getAndroidDeviceInfo() async {
+  static Future<Map<String, dynamic>> getAndroidDeviceInfo() async {
     final String version = AppLocalStorage().readData(
       LocalStorageKeys.appVersion,
     );
@@ -622,7 +631,7 @@ class AppHelperFunctions {
     return allInfo;
   }
 
-  static getIosDeviceInfo() async {
+  static Future<Map<String, dynamic>> getIosDeviceInfo() async {
     final String version = AppLocalStorage().readData(
       LocalStorageKeys.appVersion,
     );
@@ -638,7 +647,7 @@ class AppHelperFunctions {
     return allInfo;
   }
 
-  static appInfo() async {
+  static Future<Map<String, dynamic>> appInfo() async {
     final Map<String, dynamic> deviceInfoHeaders =
         Platform.isAndroid
             ? await AppHelperFunctions.getAndroidDeviceInfo()
@@ -790,6 +799,20 @@ class AppHelperFunctions {
       },
     );
   }
+
+  Future<void> openCaller(String phoneNumber) async {
+    // Ensure no spaces or URL encoding issues
+    final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
+
+    if (await canLaunchUrl(telUri)) {
+      await launchUrl(telUri, mode: LaunchMode.externalApplication);
+    } else {
+      debugPrint("Could not open the dialer for $phoneNumber");
+    }
+  }
+
+
+
 
   void openWhatsApp(String phoneNumber) async {
     final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");

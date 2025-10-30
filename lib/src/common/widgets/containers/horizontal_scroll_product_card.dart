@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
+import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
-import '../../../features/ai_recommendation/model/products_response.dart';
 import '../../../utils/constants/colors.dart';
-import '../../../utils/helpers/helper_functions.dart';
-import '../../../utils/local_storage/local_storage_keys.dart';
-import '../../../utils/local_storage/storage_utility.dart';
 import '../../layouts/listview_layout/listview_layout.dart';
 import '../../styles/skeleton_style.dart';
 import 'vertical_product_card.dart';
@@ -15,7 +11,7 @@ import 'vertical_product_card.dart';
 class AppHorizontalScrollProductCard extends StatelessWidget {
   const AppHorizontalScrollProductCard({super.key, this.sectionName});
 
-  final List? sectionName;
+  final List<Product>? sectionName;
 
   @override
   Widget build(BuildContext context) {
@@ -47,48 +43,66 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                             );
                           },
                           onCartTap: () {
-                            if (AppLocalStorage().readData(
-                                  LocalStorageKeys.isLoggedIn,
-                                ) !=
-                                null) {
-                              if (sectionName![index].requestAvailable != 0) {
-                                cartController
-                                    .getRequestResponse(
-                                      productId: sectionName![index].id!,
-                                    )
-                                    .then(
-                                      (value) => AppHelperFunctions.showToast(
-                                        cartController
-                                            .requestStockResponse
-                                            .value
-                                            .message!,
-                                      ),
-                                    );
-                                return;
-                              }
-
+                            // if (sectionName![index].preorderAvailable != 1 && sectionName![index].stock == 0) {
+                            //   AppHelperFunctions.showToast(
+                            //     "Product is not in stock",
+                            //   );
+                            //   return;
+                            // }
+                            // if (AppLocalStorage().readData(
+                            //           LocalStorageKeys.isLoggedIn,
+                            //         ) ==
+                            //         null &&
+                            //     sectionName![index].requestAvailable != 0) {
+                            //   Get.toNamed(
+                            //     '/login/cart',
+                            //     parameters: {
+                            //       'product_id':
+                            //           sectionName![index].id.toString(),
+                            //       'product_slug': sectionName![index].slug!,
+                            //       'sale_price':
+                            //           sectionName![index].salePrice.toString(),
+                            //       'request_available':
+                            //           sectionName![index].requestAvailable
+                            //               .toString(),
+                            //       'preorder_available':
+                            //           sectionName![index].preorderAvailable
+                            //               .toString(),
+                            //     },
+                            //   );
+                            // } else if (sectionName![index].requestAvailable !=
+                            //     0) {
+                            //   cartController
+                            //       .getRequestResponse(
+                            //         productId: sectionName![index].id!,
+                            //       )
+                            //       .then(
+                            //         (value) => AppHelperFunctions.showToast(
+                            //           cartController
+                            //               .requestStockResponse
+                            //               .value
+                            //               .message!,
+                            //         ),
+                            //       );
+                            // } else if (sectionName![index].requestAvailable !=
+                            //     0) {
+                            //   cartController
+                            //       .getRequestResponse(
+                            //         productId: sectionName![index].id!,
+                            //       )
+                            //       .then(
+                            //         (value) => AppHelperFunctions.showToast(
+                            //           cartController
+                            //               .requestStockResponse
+                            //               .value
+                            //               .message!,
+                            //         ),
+                            //       );
+                            // } else {
                               cartController.getAddToCartResponse(
-                                sectionName![index].id!,
-                                1,
-                                sectionName![index].preorderAvailable,
+                                sectionName![index],
                               );
-                            } else {
-                              Get.toNamed(
-                                '/login/cart',
-                                parameters: {
-                                  'product_id': sectionName![index].id.toString(),
-                                  'product_slug': sectionName![index].slug!,
-                                  'sale_price':
-                                      sectionName![index].salePrice.toString(),
-                                  'request_available':
-                                      sectionName![index].requestAvailable
-                                          .toString(),
-                                  'preorder_available':
-                                      sectionName![index].preorderAvailable
-                                          .toString(),
-                                },
-                              );
-                            }
+                            // }
 
                             // EventLogger().logAddToCartEvent('${sectionName![index].slug}',
                             //     sectionName![index].salePrice!);
@@ -100,7 +114,8 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                           price: sectionName![index].price!,
                           imgUrl:
                               sectionName?[index].pictures?.isNotEmpty == true
-                                  ? sectionName![index].pictures!.first.url ?? ''
+                                  ? sectionName![index].pictures!.first.url ??
+                                      ''
                                   : '',
                           isStockAvailable: sectionName![index].stock != 0,
                           buttonName:
@@ -124,11 +139,12 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                                       : AppColors.request
                                   : AppColors.preorder,
                           isNetworkImage: true,
-                          isDiscountAvailable: sectionName![index].discount != 0,
+                          isDiscountAvailable:
+                              sectionName![index].discount != 0,
                           discount: sectionName![index].discount!,
                           buttonColor: AppColors.white,
                         );
-                      }
+                      },
                     ),
       ),
     );

@@ -8,7 +8,6 @@ import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/cart/view/widgets/log_out_view.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
-import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/containers/banner_image.dart';
 import '../../../../common/widgets/containers/card_container.dart';
@@ -37,7 +36,7 @@ class AppCartProductCard extends StatelessWidget {
             itemCount:
                 cartController.allCartProducts.isEmpty
                     ? 5
-                    : cartController.allCartProducts[0].cartItems!.length,
+                    : cartController.allCartProducts.length,
             builderFunction:
                 (context, index) =>
                     cartController.allCartProducts.isEmpty
@@ -69,7 +68,7 @@ class AppCartProductCard extends StatelessWidget {
                                     AppBannerImage(
                                       onPress:
                                           () => Get.toNamed(
-                                            '/product/${cartController.allCartProducts[0].cartItems![index].slug}',
+                                            '/product/${cartController.allCartProducts[index].slug}',
                                             parameters: {'prevRoute': '/cart'},
                                           ),
                                       height: 100,
@@ -77,15 +76,13 @@ class AppCartProductCard extends StatelessWidget {
                                       applyImageRadius: true,
                                       isNetworkImage:
                                           cartController
-                                              .allCartProducts[0]
-                                              .cartItems![index]
+                                              .allCartProducts[index]
                                               .productThumbnailImage !=
                                           null,
                                       fit: BoxFit.cover,
                                       imgUrl:
                                           cartController
-                                              .allCartProducts[0]
-                                              .cartItems![index]
+                                              .allCartProducts[index]
                                               .productThumbnailImage ??
                                           AppImages.placeholder,
                                     ),
@@ -95,7 +92,6 @@ class AppCartProductCard extends StatelessWidget {
                                           AppHelperFunctions.screenWidth() *
                                           0.49,
                                       height: 100,
-                                      //backgroundColor: AppColors.secondary,
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -105,15 +101,14 @@ class AppCartProductCard extends StatelessWidget {
                                           InkWell(
                                             onTap:
                                                 () => Get.toNamed(
-                                                  '/product/${cartController.allCartProducts[0].cartItems![index].slug}',
+                                                  '/product/${cartController.allCartProducts[index].slug}',
                                                   parameters: {
                                                     'prevRoute': '/cart',
                                                   },
                                                 ),
                                             child: Text(
                                               cartController
-                                                  .allCartProducts[0]
-                                                  .cartItems![index]
+                                                  .allCartProducts[index]
                                                   .productName!,
                                               style: const TextStyle(
                                                 fontSize: 16,
@@ -127,19 +122,34 @@ class AppCartProductCard extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                '৳${cartController.allCartProducts[0].cartItems![index].price! * cartController.allCartProducts[0].cartItems![index].quantity!}',
-                                                style:
-                                                    Theme.of(
-                                                      context,
-                                                    ).textTheme.titleMedium,
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: "Price: ",
+                                                  style: Theme.of(
+                                                    context,
+                                                  ).textTheme.titleLarge!.apply(
+                                                    color: AppColors.darkerGrey,
+                                                  ),
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                          '৳${cartController.allCartProducts[index].price! * cartController.allCartProducts[index].quantity!}',
+                                                      style:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .titleMedium,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  cartController.deleteCartProduct(index);
+                                                  cartController
+                                                      .deleteCartProduct(index);
                                                 },
                                                 child: const Icon(
                                                   CupertinoIcons.delete,
+                                                  size: AppSizes.iconMd,
                                                   color: AppColors.error,
                                                 ),
                                               ),
@@ -166,8 +176,7 @@ class AppCartProductCard extends StatelessWidget {
                                           !cartController.quantityUpdateApiIDs
                                                   .contains(
                                                     cartController
-                                                        .allCartProducts[0]
-                                                        .cartItems![index]
+                                                        .allCartProducts[index]
                                                         .id,
                                                   )
                                               ? Icon(Icons.add)
@@ -191,10 +200,10 @@ class AppCartProductCard extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           cartController
-                                              .allCartProducts[0]
-                                              .cartItems![index]
-                                              .quantity!
+                                              .allCartProducts[index]
+                                              .quantity
                                               .toString(),
+                                          style: Theme.of(context).textTheme.headlineSmall,
                                         ),
                                       ),
                                     ),
@@ -206,8 +215,7 @@ class AppCartProductCard extends StatelessWidget {
                                           !cartController.quantityUpdateApiIDs
                                                   .contains(
                                                     cartController
-                                                        .allCartProducts[0]
-                                                        .cartItems![index]
+                                                        .allCartProducts[index]
                                                         .id,
                                                   )
                                               ? Icon(Icons.remove)

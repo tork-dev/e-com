@@ -23,7 +23,7 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final signUpController = Get.put(SignUpPageController());
+    Get.put(SignUpPageController());
     final logInController = LogInPageController.instance;
     return AppLayoutWithBackButton(
       title: Text("Signup"),

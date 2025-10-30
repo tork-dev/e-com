@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 
@@ -85,7 +84,7 @@ class AppSectionTitleText extends StatelessWidget {
                   spacerWidth: AppSizes.sm,
                   endTime: flashTime?? DateTime.now().add(const Duration(days: 1)),
                   onEnd: () {
-                    print("Timer finished");
+                    debugPrint("Timer finished");
                   },
                 ),
               ),

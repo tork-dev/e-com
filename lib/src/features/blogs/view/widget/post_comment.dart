@@ -35,7 +35,7 @@ class PostComment extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               ),
               onChanged: (value){
-                print('print ${commentController.text}');
+                debugPrint('print ${commentController.text}');
               },
             ),
           ),

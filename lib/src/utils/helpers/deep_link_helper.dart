@@ -21,7 +21,7 @@ class DeepLinkController extends GetxController {
     try {
       // Handle initial deep link when app is launched from a terminated state
       final Uri? initialLink = await _appLinks.getInitialLink();
-      print("initial url $initialLink");
+      debugPrint("initial url $initialLink");
       if (initialLink != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Future.delayed(const Duration(seconds: 3), () {
@@ -44,20 +44,20 @@ class DeepLinkController extends GetxController {
         },
       );
     } catch (e) {
-      print("Deep link setup error: $e");
+      debugPrint("Deep link setup error: $e");
     }
   }
 
   void handleDeepLink(Uri uri) {
     try {
-      print("Handling URI Path: ${uri.path}");
+      debugPrint("Handling URI Path: ${uri.path}");
       if (uri.path.isNotEmpty) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           RoutingHelper.urlRouting(uri.toString());
         });
       }
     } catch (e) {
-      print("Error handling deep link: $e");
+      debugPrint("Error handling deep link: $e");
     }
   }
 

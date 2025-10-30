@@ -38,9 +38,9 @@ class RedeemPointPart extends StatelessWidget {
                     onTap: () {
                       checkoutController.rewardBalance.value > 99
                           ? checkoutController.pointRedeemAlert()
-                          // checkoutController.pointRedeemAlert();
+                      //     checkoutController.pointRedeemAlert();
                           : AppHelperFunctions.showToast(
-                              'You have not enough points');
+                              'Minimum redeemable value is 100');
                     },
                     child: Text(
                       "redeem points".toUpperCase(),

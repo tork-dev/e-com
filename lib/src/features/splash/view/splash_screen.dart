@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SplashController controller = Get.put(SplashController());
+    Get.put(SplashController());
     final bool isDark = AppHelperFunctions.isDarkMode(context);
     final String? baseUrl = dotenv.env['BASE_URL'];
     return Scaffold(

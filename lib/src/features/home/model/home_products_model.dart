@@ -49,7 +49,7 @@ class Product {
   String? name;
   String? slug;
   int? price;
-  int? salePrice;
+  dynamic salePrice;
   int? discount;
   String? sku;
   int? stock;
@@ -101,6 +101,9 @@ class Product {
   String? productLink;
   DateTime? flashSaleStartDate;
   DateTime? flashSaleEndDate;
+  int? authenticReviewPositiveCount;
+  int? upperLimit;
+  int? lowerLimit;
 
   Product({
     this.id,
@@ -158,11 +161,13 @@ class Product {
     this.metaTags,
     this.productLink,
     this.flashSaleEndDate,
-    this.flashSaleStartDate
+    this.flashSaleStartDate,
+    this.authenticReviewPositiveCount,
+    this.upperLimit,
+    this.lowerLimit
   });
 
-  factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
-
+  factory Product.fromJson(Map<String, dynamic> json) => Product.fromMap(json);
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
     id: json["id"],
@@ -221,6 +226,9 @@ class Product {
     productLink: json["product_link"],
     flashSaleStartDate: json["hot_deals_start_datetime"] == null ? null : DateTime.parse(json["hot_deals_start_datetime"]),
     flashSaleEndDate: json["hot_deals_end_datetime"] == null ? null : DateTime.parse(json["hot_deals_end_datetime"]),
+    authenticReviewPositiveCount: json["authentic_reviews_positive_count"],
+    upperLimit: json["upper_limit"],
+    lowerLimit: json["lower_limit"],
   );
 }
 

@@ -15,7 +15,6 @@ import '../../../../common/layouts/listview_layout/listview_layout.dart';
 import '../../../../common/styles/skeleton_style.dart';
 import '../../../../utils/logging/logger.dart';
 import '../../controller/kirei_tube_controller.dart';
-import '../kirei_tube_details.dart';
 import '../kirei_tube_playlist_view.dart';
 import 'kirei_tube_list_card.dart';
 import 'kirei_tube_shorts_card.dart';

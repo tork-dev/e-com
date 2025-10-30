@@ -5,6 +5,9 @@ import 'package:kirei/src/features/checkout/controller/checkout_controller.dart'
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
+  import 'package:kirei/src/utils/local_storage/storage_utility.dart';
+
+import '../../../../utils/local_storage/local_storage_keys.dart';
 
 class AppCouponField extends StatelessWidget {
   const AppCouponField({super.key});
@@ -38,7 +41,13 @@ class AppCouponField extends StatelessWidget {
          Obx(() {
              return AppCardContainer(
                onTap: (){
-                 !checkoutController.isCouponApplied.value? checkoutController.onCouponApplied() : checkoutController.onCouponRemove();
+                 if(AppLocalStorage().readData(LocalStorageKeys.userPhone) != null || checkoutController.addressController.phoneController.text.isNotEmpty) {
+                   !checkoutController.isCouponApplied.value
+                       ? checkoutController.onCouponApplied()
+                       : checkoutController.onCouponRemove();
+                 }else{
+                   AppHelperFunctions.showToast("Please enter your phone number");
+                 }
                },
                 height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),

@@ -134,7 +134,6 @@ class AppDetailsPicturePart extends StatelessWidget {
                                 1,
                             child: AppCardContainer(
                               width: AppHelperFunctions.screenWidth() * .63,
-                              // backgroundColor: AppColors.primary.withAlpha(240),
                               borderRadius: AppSizes.borderRadiusSm,
                               gradient: LinearGradient(
                                 colors: [AppColors.primary, Colors.red],
@@ -200,7 +199,7 @@ class AppDetailsPicturePart extends StatelessWidget {
                                               const Duration(days: 1),
                                             ),
                                         onEnd: () {
-                                          print("Timer finished");
+                                          debugPrint("Timer finished");
                                         },
                                       ),
                                     ],

@@ -162,7 +162,7 @@ class AppEndDrawer extends StatelessWidget {
 
           // Fixed buttons at the bottom
           AppCardContainer(
-            margin: const EdgeInsets.only(bottom: 60),
+            // margin: const EdgeInsets.only(bottom: 60),
             height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

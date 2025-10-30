@@ -3,6 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:kirei/src/features/wishlist/controller/wishlist_controller.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:kirei/src/common/styles/app_dividers.dart';
@@ -23,6 +25,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DetailsPageController detailsController = DetailsPageController.instance;
+    WishlistController wishlistController = Get.put(WishlistController());
     return Obx(() {
       return Column(
         children: [
@@ -129,7 +132,9 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                     );
                                   }
                                 },
-                                child: const Icon(Icons.share),
+                                child: const HugeIcon(
+                                  icon: HugeIcons.strokeRoundedNavigation03,
+                                ),
                               ),
                               const Gap(AppSizes.defaultSpace),
                               InkWell(
@@ -145,6 +150,19 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                             false
                                         ? detailsController.getWishListAdd().then(
                                           (value) => {
+                                            detailsController
+                                                    .checkWishList
+                                                    .value
+                                                    .isInWishlist =
+                                                detailsController
+                                                    .addToWishlist
+                                                    .value
+                                                    .isInWishlist!,
+                                            wishlistController
+                                                .wishlistCount
+                                                .value++,
+                                            detailsController.checkWishList
+                                                .refresh(),
                                             EventLogger().logAddToWishlistEvent(
                                               '${detailsController.productDetails.value.detailedProducts!.slug}',
                                               detailsController
@@ -153,8 +171,6 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                                   .detailedProducts!
                                                   .salePrice,
                                             ),
-                                            detailsController
-                                                .checkWishListAdd(),
                                             AppHelperFunctions.showToast(
                                               detailsController
                                                   .addToWishlist
@@ -168,7 +184,18 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                             .then(
                                               (value) => {
                                                 detailsController
-                                                    .checkWishListAdd(),
+                                                        .checkWishList
+                                                        .value
+                                                        .isInWishlist =
+                                                    detailsController
+                                                        .removeFromWishList
+                                                        .value
+                                                        .isInWishlist!,
+                                                wishlistController
+                                                    .wishlistCount
+                                                    .value--,
+                                                detailsController.checkWishList
+                                                    .refresh(),
                                                 AppHelperFunctions.showToast(
                                                   detailsController
                                                       .removeFromWishList
@@ -182,15 +209,16 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                   }
                                 },
                                 child: Obx(() {
-                                  return Icon(
-                                    detailsController
-                                                .checkWishList
-                                                .value
-                                                .isInWishlist ==
-                                            true
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                  );
+                                  return detailsController
+                                              .checkWishList
+                                              .value
+                                              .isInWishlist ==
+                                          true
+                                      ? Icon(
+                                        Icons.favorite,
+                                        color: AppColors.primary,
+                                      )
+                                      : Icon(Icons.favorite_border);
                                 }),
                               ),
                             ],
@@ -233,64 +261,84 @@ class AppDetailsProductNamePart extends StatelessWidget {
                     : const SizedBox(),
                 const Gap(AppSizes.lg),
                 detailsController.productDetails.value.detailedProducts == null
-                    ? ShimmerHelper().buildBasicShimmer(height: 30) :
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: AppSizes.spaceBtwItems,
-                    children: [
-                      Visibility(
-                        visible: detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount! > 0,
-                        child: AppCardContainer(
-                          onTap: (){
-                            AppHelperFunctions().showKireiAuthenticity(context, detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount ?? 0);
+                    ? ShimmerHelper().buildBasicShimmer(height: 30)
+                    : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: AppSizes.spaceBtwItems,
+                      children: [
+                        Visibility(
+                          visible:
+                              detailsController
+                                  .productDetails
+                                  .value
+                                  .detailedProducts!
+                                  .authenticReviewPositiveCount! >
+                              0,
+                          child: AppCardContainer(
+                            onTap: () {
+                              AppHelperFunctions().showKireiAuthenticity(
+                                context,
+                                detailsController
+                                        .productDetails
+                                        .value
+                                        .detailedProducts!
+                                        .authenticReviewPositiveCount ??
+                                    0,
+                              );
+                            },
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSizes.spaceBtwDefaultItems,
+                              vertical: AppSizes.sm,
+                            ),
+                            borderRadius: AppSizes.cardRadiusXs,
+                            backgroundColor: AppColors.lightGrey,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.verified_user_outlined,
+                                  color: AppColors.black,
+                                ),
+                                Gap(AppSizes.sm),
+                                Text(
+                                  '${detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount}+  Confirm Authenticity',
+                                  style:
+                                      Theme.of(context).textTheme.labelLarge!,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        AppCardContainer(
+                          onTap: () {
+                            AppHelperFunctions().showKireiReturnPolicyAlert(
+                              context,
+                            );
                           },
+                          borderRadius: AppSizes.cardRadiusXs,
                           padding: EdgeInsets.symmetric(
                             horizontal: AppSizes.spaceBtwDefaultItems,
                             vertical: AppSizes.sm,
                           ),
-                          borderRadius: AppSizes.cardRadiusXs,
-                          backgroundColor: AppColors.lightGrey,
+                          backgroundColor: AppColors.primary.withAlpha(21),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.verified_user_outlined, color: AppColors.black),
+                              Icon(
+                                Icons.touch_app_outlined,
+                                color: AppColors.black,
+                              ),
                               Gap(AppSizes.sm),
                               Text(
-                                '${detailsController.productDetails.value.detailedProducts!.authenticReviewPositiveCount}+  Confirm Authenticity',
+                                'Concerned About the Product?',
                                 style: Theme.of(context).textTheme.labelLarge!,
                               ),
                             ],
                           ),
                         ),
-                      ),
-
-                      AppCardContainer(
-                        onTap: () {
-                          AppHelperFunctions().showKireiReturnPolicyAlert(context);
-                        },
-                        borderRadius: AppSizes.cardRadiusXs,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSizes.spaceBtwDefaultItems,
-                          vertical: AppSizes.sm,
-                        ),
-                        backgroundColor: AppColors.primary.withAlpha(21),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.touch_app_outlined, color: AppColors.black),
-                            Gap(AppSizes.sm),
-                            Text(
-                              'Concerned About the Product?',
-                              style:
-                                  Theme.of(context).textTheme.labelLarge!,
-                            ),
-                          ],
-                        ),
-                      ),
-
-
-                    ],
-                  )
+                      ],
+                    ),
               ],
             ),
           ),
@@ -303,15 +351,14 @@ class AppDetailsProductNamePart extends StatelessWidget {
                 detailsController.productDetails.value.detailedProducts == null
                     ? ShimmerHelper().buildBasicShimmer(height: 30)
                     : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
                             Text(
                               'Price: ',
-                              style: Theme.of(context).textTheme.bodyMedium!.apply(
-                                color: AppColors.darkGrey,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium!
+                                  .apply(color: AppColors.darkGrey),
                             ),
                             const Gap(AppSizes.sm),
                             Visibility(
@@ -343,9 +390,8 @@ class AppDetailsProductNamePart extends StatelessWidget {
                             ),
                             Text(
                               '৳${detailsController.productDetails.value.detailedProducts!.salePrice}',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.titleLarge!.apply(color: AppColors.dark),
+                              style: Theme.of(context).textTheme.titleLarge!
+                                  .apply(color: AppColors.dark),
                             ),
                           ],
                         ),
@@ -362,7 +408,12 @@ class AppDetailsProductNamePart extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                Text("Sale\nEnd's in", style: Theme.of(context).textTheme.bodyMedium!.apply(color: AppColors.textWhite), textAlign: TextAlign.center,),
+                                Text(
+                                  "Sale\nEnd's in",
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .apply(color: AppColors.textWhite),
+                                  textAlign: TextAlign.center,
+                                ),
                                 const Gap(AppSizes.sm),
                                 TimerCountdown(
                                   format: CountDownTimerFormat.daysHoursMinutes,
@@ -392,9 +443,16 @@ class AppDetailsProductNamePart extends StatelessWidget {
                                   minutesDescription: 'Min',
                                   secondsDescription: 'Sec',
                                   spacerWidth: 1,
-                                  endTime: detailsController.productDetails.value.detailedProducts!.flashSaleEndDate ?? DateTime.now().add(const Duration(days: 1)),
-                                  onEnd: () {
-                                  },
+                                  endTime:
+                                      detailsController
+                                          .productDetails
+                                          .value
+                                          .detailedProducts!
+                                          .flashSaleEndDate ??
+                                      DateTime.now().add(
+                                        const Duration(days: 1),
+                                      ),
+                                  onEnd: () {},
                                 ),
                               ],
                             ),

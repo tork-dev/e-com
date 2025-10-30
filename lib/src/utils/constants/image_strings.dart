@@ -40,6 +40,7 @@ class AppImages {
   static const String twitterInIcon = "assets/images/icons/twitter_in_icon.png";
   static const String aiIcon = "assets/images/icons/ai_icon.png";
   static const String redeemPoint = "assets/images/icons/redeem_point.png";
+  static const String phoneIcon = "assets/images/icons/phone-call.png";
 
   // -- OnBoarding images
   static const String onBoardingImage1 = "assets/images/on_boarding_images/ask_expert.gif";

@@ -92,7 +92,7 @@ class GroupShoppingController extends GetxController {
     await AddressRepositories().getAreas(selectedZoneId);
   }
 
-  Future<void> createGroup(productId) async {
+  Future<void> createGroup(int productId) async {
     checkoutResponse.value = await GroupShoppingRepo().createAGroup(
         AppApiEndPoints.createGroup,
         productId,
@@ -113,7 +113,7 @@ class GroupShoppingController extends GetxController {
     }
   }
 
-  Future<void> joinGroup(token, productId) async {
+  Future<void> joinGroup(String token, int productId) async {
     checkoutResponse.value = await GroupShoppingRepo().createAGroup(
         '${AppApiEndPoints.joinGroup}/$token',
         productId,

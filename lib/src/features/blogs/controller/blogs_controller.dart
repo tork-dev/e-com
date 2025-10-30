@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/blogs/model/blog_details_model.dart' hide Post;
 import 'package:kirei/src/utils/logging/logger.dart';
+import '../../../utils/helpers/helper_functions.dart';
+import '../../../utils/local_storage/local_storage_keys.dart';
+import '../../../utils/local_storage/storage_utility.dart';
+import '../../community/model/create_community_post_response.dart';
 import '../model/blog_response.dart';
 import '../repository/blogs_repository.dart';
 
@@ -24,6 +28,7 @@ class BlogsController extends GetxController {
       BlogDetailsResponseModel> blogsDetailsResponseData = BlogDetailsResponseModel()
       .obs;
 
+  Rx<NewCommunityPostResponse> commentResponse = NewCommunityPostResponse().obs;
   RxInt currentPage = 1.obs;
   RxInt lastPage = 1.obs; // Store the last page from API
   RxBool hasMore = true.obs;
@@ -66,12 +71,24 @@ class BlogsController extends GetxController {
     selectedCategories.value = 'All';
   }
 
+  Future<void> postComment(int blogID) async {
+    if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true){
+      Get.toNamed('/login/blogs');
+      return;
+    }
+    commentResponse.value = await BlogsRepository()
+        .postComment(message: commentController.text, blogId: blogID);
+    commentController.clear();
+    AppHelperFunctions.showToast(commentResponse.value.message!);
+  }
 
   Future<void> getBlogDetails({required String slug}) async {
     isApiHitting.value = true;
     blogsDetailsResponseData.value =
     await BlogsRepository().getBlogsDetailsResponse(slug: slug);
     isApiHitting.value = false;
-    print(blogsDetailsResponseData.value.title);
   }
+
+
+
 }

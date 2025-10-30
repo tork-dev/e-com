@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
-import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
-import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
-import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/details/controller/details_page_controller.dart';
-import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
-import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../containers/card_container.dart';
@@ -19,7 +14,6 @@ class AppBottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final detailsController = DetailsPageController.instance;
-    final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
       return detailsController.productDetails.value.detailedProducts == null
           ? ShimmerHelper().buildBasicShimmer(
@@ -29,16 +23,7 @@ class AppBottomButton extends StatelessWidget {
                   children: [
                     AppCardContainer(
                         onTap: () {
-                          if (AppLocalStorage()
-                                  .readData(LocalStorageKeys.isLoggedIn) !=
-                              true) {
-                            Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
-                            // Get.toNamed(
-                            //     '/login/product/${detailsController.productSlug.value}');
-                            return;
-                          }
-
-                          detailsController.onAddToCart().then((value) =>
+                         detailsController.onAddToCart().then((value) =>
                               detailsController.isAddedToCart.value = true);
                         },
                         height: 50,
@@ -65,15 +50,6 @@ class AppBottomButton extends StatelessWidget {
                         )),
                     AppCardContainer(
                         onTap: () {
-                          if (AppLocalStorage()
-                                  .readData(LocalStorageKeys.isLoggedIn) !=
-                              true) {
-                            Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
-                            // Get.toNamed(
-                            //     '/login/product/${detailsController.productSlug.value}');
-                            return;
-                          }
-
                           detailsController.isAddedToCart.value == false
                               ? detailsController
                                   .onAddToCart()
@@ -100,41 +76,33 @@ class AppBottomButton extends StatelessWidget {
                 )
               : AppCardContainer(
                   onTap: () {
-                    if (AppLocalStorage()
-                            .readData(LocalStorageKeys.isLoggedIn) !=
-                        true) {
-                      Get.to(() => const LogIn(), arguments: {"prevRoute" : Get.currentRoute});
-                      return;
-                    }
-                    final cartController = Get.put(CartController());
-                    detailsController.productDetails.value.detailedProducts!
-                                .preorderAvailable !=
-                            0
-                        ? cartController
-                            .getAddToCartResponse(
-                                detailsController
-                                    .productDetails.value.detailedProducts!.id!,
-                                1,
-                                detailsController.productDetails.value
-                                    .detailedProducts!.preorderAvailable)
-                            .then((value) {
-                            AppHelperFunctions.showToast(cartController
-                                .addToCartResponse.value.message!);
-                            Get.back();
-                            bottomNavController.jumpToTab(2);
-                          })
-                        : detailsController.productDetails.value
-                                    .detailedProducts!.requestAvailable !=
-                                0
-                            ? cartController
-                                .getRequestResponse(
-                                    productId: detailsController.productDetails
-                                        .value.detailedProducts!.id!)
-                                .then((value) {
-                                AppHelperFunctions.showToast(cartController
-                                    .requestStockResponse.value.message!);
-                              })
-                            : null;
+                    detailsController.onAddToCart();
+
+                    // final cartController = Get.put(CartController());
+                    // detailsController.productDetails.value.detailedProducts!
+                    //             .preorderAvailable !=
+                    //         0
+                    //     ? cartController
+                    //         .getAddToCartResponse(
+                    //             detailsController.productDetails.value.detailedProducts as Product)
+                    //         .then((value) {
+                    //         AppHelperFunctions.showToast(cartController
+                    //             .addToCartResponse.value.message!);
+                    //         Get.back();
+                    //         bottomNavController.jumpToTab(2);
+                    //       })
+                    //     : detailsController.productDetails.value
+                    //                 .detailedProducts!.requestAvailable !=
+                    //             0
+                    //         ? cartController
+                    //             .getRequestResponse(
+                    //                 productId: detailsController.productDetails
+                    //                     .value.detailedProducts!.id!)
+                    //             .then((value) {
+                    //             AppHelperFunctions.showToast(cartController
+                    //                 .requestStockResponse.value.message!);
+                    //           })
+                    //         : null;
                   },
                   height: 50,
                   width: AppHelperFunctions.screenWidth() * 1,

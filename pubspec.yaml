@@ -4,7 +4,7 @@ description: "Japanese Beauty Products Store in Bangladesh – Authentic Product
 
 publish_to: 'none'
 
-version: 5.0.7+52
+version: 5.0.9+54
 
 
 
@@ -80,6 +80,8 @@ dependencies:
   app_links: ^6.4.1
   firebase_crashlytics: ^5.0.0
   flutter_timer_countdown: ^1.0.7
+  google_nav_bar: ^5.0.7
+  hugeicons: ^1.1.1
 
 
 
