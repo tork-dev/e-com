@@ -23,13 +23,12 @@ import '../repositories/cart_repositories.dart';
 class CartController extends GetxController {
   static CartController get instance => Get.find();
 
-  CartController({this.callingApis = true});
-
-  final bool callingApis;
   RxSet<int> addingToCartIds = <int>{}.obs;
 
   // bool callingQuantityUpdateApi;
   RxSet<int> quantityUpdateApiIDs = <int>{}.obs;
+
+  RxBool shouldBulkAdd = true.obs;
 
   /// Key
   final GlobalKey<ScaffoldState> cartKey = GlobalKey<ScaffoldState>();
@@ -51,10 +50,15 @@ class CartController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    if (Get.arguments != null) {
+      shouldBulkAdd.value = Get.arguments["shouldBulkAdd"];
+    }
+
     final box = Hive.box<CartItemLocal>('cartBox');
-    if (callingApis &&
+    if (shouldBulkAdd.value &&
         AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      CartRepositories().bulkAddToCart().then((value)=> getAllCartProducts());
+      // CartRepositories().bulkAddToCart().then((value)=> getAllCartProducts());
     } else {
       allCartProducts.assignAll(box.values.toList());
     }
@@ -154,7 +158,7 @@ class CartController extends GetxController {
         return;
       }
 
-      getCartUpdateQuantity(item.productId!, newQuantity).then((value) {
+      getCartUpdateQuantity(item.id!, newQuantity).then((value) {
         // ✅ Update only this item's quantity locally
         allCartProducts[index].quantity = newQuantity;
 
@@ -204,99 +208,97 @@ class CartController extends GetxController {
   }
 
   Future<void> getAddToCartResponse(Product product, [int? quantity]) async {
+    final int qty = quantity ?? 1;
+    final bool isLoggedIn = AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null;
+
     addingToCartIds.add(product.id!);
     update();
 
-    // Handle request product scenario
-    if (product.requestAvailable == 1) {
-      if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null) {
-        // Redirect to login if not logged in
-        Get.to(() => LogIn(), arguments: {
-          "productId": product.id,
-          "afterLoginAction": () async {
-            await getRequestResponse(productId: product.id!);
-            AppHelperFunctions.showToast("Request submitted successfully");
-          }
-        });
-        addingToCartIds.remove(product.id);
-        update();
-        return;
-      } else {
-        // Already logged in, hit request API
-        await getRequestResponse(productId: product.id!);
-        AppHelperFunctions.showToast("Request submitted successfully");
-        addingToCartIds.remove(product.id);
-        update();
+    try {
+      // Handle request product scenario
+      if (product.requestAvailable == 1) {
+        if (!isLoggedIn) {
+          Get.to(() => LogIn(), arguments: {
+            "productId": product.id,
+            "afterLoginAction": () async {
+              await getRequestResponse(productId: product.id!);
+              AppHelperFunctions.showToast("Request submitted successfully");
+            }
+          });
+          return;
+        } else {
+          await getRequestResponse(productId: product.id!);
+          AppHelperFunctions.showToast("Request submitted successfully");
+          return;
+        }
+      }
+
+      // Stock Check for regular
+      if (product.preorderAvailable == 0 && (product.stock == null || product.stock! <= 0)) {
+        AppHelperFunctions.showToast("Product out of stock");
         return;
       }
-    }
 
-    // Check stock only for regular products
-    if (product.preorderAvailable == 0 && (product.stock == null || product.stock! <= 0)) {
-      AppHelperFunctions.showToast("Product out of stock");
-      addingToCartIds.remove(product.id);
-      update();
-      return;
-    }
+      // Mixed cart restriction
+      bool hasPreorderInCart = allCartProducts.any((item) => item.isPreorder == 1);
+      bool hasRegularInCart = allCartProducts.any((item) => item.isPreorder == 0);
 
-    // Check for mixed cart restrictions
-    bool hasPreorderInCart = allCartProducts.any((item) => item.isPreorder == 1);
-    bool hasRegularInCart = allCartProducts.any((item) => item.isPreorder == 0);
+      if (product.preorderAvailable == 1 && hasRegularInCart) {
+        AppHelperFunctions.showToast("Remove regular product from cart first");
+        return;
+      }
 
-    if (product.preorderAvailable == 1 && hasRegularInCart) {
-      AppHelperFunctions.showToast("Remove regular product from cart first");
-      addingToCartIds.remove(product.id);
-      update();
-      return;
-    }
+      if (product.preorderAvailable == 0 && hasPreorderInCart) {
+        AppHelperFunctions.showToast("Remove preorder product from cart first");
+        return;
+      }
 
-    if (product.preorderAvailable == 0 && hasPreorderInCart) {
-      AppHelperFunctions.showToast("Remove preorder product from cart first");
-      addingToCartIds.remove(product.id);
-      update();
-      return;
-    }
-
-    // Add product to cart locally
-    CartService.addCartItem(
-      CartItemLocal(
-        productId: product.id,
-        slug: product.slug,
-        productThumbnailImage: (product.pictures != null && product.pictures!.isNotEmpty)
-            ? product.pictures![0].url
-            : '',
-
-        productName: product.name!,
-        price: product.salePrice!.toDouble(),
-        quantity: quantity ?? 1,
-        lowerLimit: 1,
-        upperLimit: product.maxQty ?? product.stock,
-        isPreorder: product.preorderAvailable,
-      ),
-    );
-
-    // Add to cart API call for logged-in users
-    if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      addToCartResponse.value = await CartRepositories().getCartAddResponse(
-        product.id!,
-        1,
-        product.preorderAvailable,
+      // Add locally
+      CartService.addCartItem(
+        CartItemLocal(
+          productId: product.id,
+          slug: product.slug,
+          productThumbnailImage: (product.pictures != null && product.pictures!.isNotEmpty)
+              ? product.pictures![0].url
+              : '',
+          productName: product.name!,
+          price: product.salePrice!.toDouble(),
+          quantity: qty,
+          lowerLimit: 1,
+          upperLimit: product.maxQty ?? product.stock,
+          isPreorder: product.preorderAvailable,
+        ),
       );
 
-      if (addToCartResponse.value.result == true) {
-        CartService.removeCartItemWithId(product.id!);
+      // Sync to server if logged in
+      if (isLoggedIn) {
+        addToCartResponse.value = await CartRepositories().getCartAddResponse(
+          product.id!,
+          qty,
+          product.preorderAvailable,
+        );
+
+        if (addToCartResponse.value.result == false) {
+          // Remove if server rejects
+          await CartService.removeCartItemWithId(product.id!);
+          CartService.refreshCart();
+          AppHelperFunctions.showToast(addToCartResponse.value.message ?? "Failed to add to cart");
+          return;
+        }
       }
+
+
+      updateQuantity();
+      updateTotalPrice();
+      AppHelperFunctions.showToast(
+        addToCartResponse.value.message ?? "Added to cart",
+      );
+    } finally {
+      addingToCartIds.remove(product.id);
+      update();
     }
-
-    updateQuantity();
-    updateTotalPrice();
-    addingToCartIds.remove(product.id);
-    update();
-
-    AppHelperFunctions.showToast(
-      addToCartResponse.value.message ?? "Added to cart",
-    );
   }
+
 
 
   Future<ProductRequestResponse> getRequestResponse({

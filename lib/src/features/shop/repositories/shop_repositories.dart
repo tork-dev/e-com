@@ -5,6 +5,7 @@ import 'package:kirei/src/features/shop/model/sub_category_model.dart';
 import '../../../utils/caching/caching_keys.dart';
 import '../../../utils/caching/caching_utility.dart';
 import '../../../utils/constants/app_api_end_points.dart';
+import '../../../utils/logging/logger.dart';
 import '../model/shop_data_model.dart';
 import '../model/skin_type_model.dart';
 
@@ -28,6 +29,7 @@ class ShopRepositories{
     }
     final response = await http.get(url, headers: {
     });
+    Log.d("Url: $url, Status code: ${response.statusCode}, response: ${response.body}");
     await CachingUtility.saveData(CachingKeys.skinTypesCachedData, response.body);
     return skinTypesResponseFromJson(response.body);
   }

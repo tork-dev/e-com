@@ -32,6 +32,8 @@ class CartRepositories {
       'app_info': await AppHelperFunctions.appInfo(),
     });
 
+    Log.d(postBody);
+
     Uri url = Uri.parse(AppApiEndPoints.addToCart);
 
     final response = await http.post(
@@ -42,24 +44,27 @@ class CartRepositories {
       },
       body: postBody,
     );
+    Log.d("Url: $url, post body: $postBody, Status code: ${response.statusCode}, response: ${response.body}");
     return AddToCartResponse.fromJson(response.body);
   }
 
   /// Get The Cart Products
   Future<List<CartItemLocal>> getCartProducts() async {
+
+    Uri url = Uri.parse(AppApiEndPoints.cartProducts);
     var postBody = jsonEncode({
       "source": "app",
       "app_info": await AppHelperFunctions.appInfo(),
     });
-
     final response = await http.post(
-      Uri.parse(AppApiEndPoints.cartProducts),
+      url,
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $accessToken",
       },
       body: postBody,
     );
+    Log.d("Url: $url, post body: $postBody, Status code: ${response.statusCode}, response: ${response.body}");
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
@@ -94,7 +99,6 @@ class CartRepositories {
       "id": productId,
       "quantity": productQuantity,
     });
-    Log.d(postBody);
 
     final response = await http.post(
       url,
@@ -104,9 +108,7 @@ class CartRepositories {
       },
       body: postBody,
     );
-    Log.d("access token $accessToken");
-
-    Log.d("cart Quantity res ${response.body}");
+    Log.d("Url: $url, post body: $postBody, Status code: ${response.statusCode}, response: ${response.body}");
 
     return CartUpdateResponse.fromJson(jsonDecode(response.body));
   }
@@ -123,6 +125,7 @@ class CartRepositories {
         "Authorization": "Bearer $accessToken",
       },
     );
+    Log.d("Url: $url, Status code: ${response.statusCode}, response: ${response.body}");
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       return CartDeleteResponse.fromJson(responseBody);
@@ -159,14 +162,16 @@ class CartRepositories {
   Future<ProductRequestResponse> getRequestStock({
     required int productId,
   }) async {
-    final response = await http.post(
-      Uri.parse("${AppApiEndPoints.requestStock}$productId"),
+    Uri url = Uri.parse("${AppApiEndPoints.requestStock}$productId");
+    final response = await http.post(url,
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $accessToken",
       },
       body: jsonEncode({"source": "app"}),
     );
+
+    Log.d("Url: $url, Status code: ${response.statusCode}, response: ${response.body}");
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body.toString());
       return ProductRequestResponse.fromJson(responseBody);
@@ -210,9 +215,7 @@ class CartRepositories {
         },
         body: postBody,
       );
-
-      debugPrint("Response status: ${response.statusCode}");
-      debugPrint("Response body: ${response.body}");
+      Log.d("Url: $url, post body: $postBody, Status code: ${response.statusCode}, response: ${response.body}");
     } catch (e) {
       debugPrint("Error in bulkAddToCart: $e");
     }

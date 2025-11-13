@@ -52,6 +52,7 @@ class CheckoutRepositories {
       },
       body: postBody,
     );
+    Log.d("Url: $url, post body: $postBody, Status code: ${response.statusCode}, response: ${response.body}");
     return CheckoutSummaryResponse.fromJson(jsonDecode(response.body));
   }
 

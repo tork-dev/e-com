@@ -19,10 +19,11 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NotificationController());
     return AppLayoutWithBackButton(
-      title: Text('Notification', style: TextStyle(color: AppColors.white),),
+      title: Text('Notification', style: TextStyle(color: AppColors.secondary),),
       centerTitle: true,
-      leadingIconColor: AppColors.white,
-      backgroundColor: AppColors.primary,
+      leadingIconColor: AppColors.darkerGrey,
+      backgroundColor: AppColors.white,
+      bodyBackgroundColor: AppColors.secondaryBackground,
       body: AppLayoutWithRefresher(onRefresh: controller.onRefresh, children: [
         const Gap(AppSizes.lg),
         Obx(() {
@@ -49,6 +50,7 @@ class NotificationScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(top: AppSizes.sm),
                         hasBorder: true,
                         borderWidth: 1,
+                        backgroundColor: AppColors.white,
                         borderColor: AppColors.lightGrey,
                         child: ListTile(
                           leading: AppCardContainer(

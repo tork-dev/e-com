@@ -42,11 +42,14 @@ class WishlistRepositories {
   }
 
   Future<WishlistResponse> getWishlistProduct() async {
-    final response = await http.get(Uri.parse("${AppApiEndPoints.wishlistProducts}?source=app"),
+    Uri url = Uri.parse("${AppApiEndPoints.wishlistProducts}?source=app");
+    final response = await http.get(url,
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $accessToken",
         });
+
+    Log.d("Url: $url, Status code: ${response.statusCode}, response: ${response.body}");
 
     if(response.statusCode == 200){
       var responseBody = jsonDecode(response.body);

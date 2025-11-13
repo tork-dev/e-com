@@ -20,7 +20,7 @@ class KireiTubeProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartController = Get.put(CartController(callingApis: false));
+    final cartController = Get.put(CartController());
     final kireiTubeDetailsController = KireiTubeDetailsController.instance;
     return Obx(() {
       return AppListViewLayout(

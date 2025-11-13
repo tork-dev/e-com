@@ -14,6 +14,7 @@ import '../../../utils/helpers/helper_functions.dart';
 import '../../cart/services/cart_services.dart';
 import '../../de_active_account/view/de_active_account.dart';
 import '../../home/views/widgets/home_appbar_title.dart';
+import '../../notification/view/notification_screen.dart';
 import '../../purchase_history/view/purchace_history.dart';
 import '../../reward_point/view/reward_screen.dart';
 import '../../verify_product/view/product_verify_screen.dart';
@@ -114,10 +115,24 @@ class UserDashboard extends StatelessWidget {
                       ),
                       Expanded(
                         child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedNotification01,
+                          label: 'Notification',
+                          onTap: () => Get.to(() => const NotificationScreen()),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DashboardCard(
                           icon: HugeIcons.strokeRoundedDelete03,
                           label: 'Delete Account',
                           onTap: () => Get.to(() => const DeActiveAccount()),
                         ),
+                      ),
+                      Expanded(
+                        child: SizedBox(),
                       ),
                     ],
                   ),

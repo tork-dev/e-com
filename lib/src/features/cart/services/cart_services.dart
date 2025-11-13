@@ -57,4 +57,10 @@ class CartService {
       await _cartBox.add(item);
     }
   }
+
+  /// Force reload of cart items (useful after add/remove)
+  static List<CartItemLocal> refreshCart() {
+    return _cartBox.values.toList();
+  }
+
 }
