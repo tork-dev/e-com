@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:kirei/src/common/layouts/layout_with_refresher/layout_with_refresher.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
@@ -20,6 +21,7 @@ class ShopScreenNew extends StatelessWidget {
   Widget build(BuildContext context) {
     final shopDataController = Get.put(GetShopDataController());
     final shopController = Get.put(ShopController());
+    final drawerController = Get.put(AppDrawerController());
     return AppLayoutWithDrawer(
       backToHome: true,
       inHome: true,
@@ -30,7 +32,9 @@ class ShopScreenNew extends StatelessWidget {
       bodyBackgroundColor: AppColors.white,
       hasEndDrawer: true,
       action: const [SizedBox()],
-      title: AppHomeAppBarTitle(),
+      title: AppHomeAppBarTitle(
+        globalKey: shopController.shopKey,
+      ),
       body: Stack(
         clipBehavior: Clip.none,
         // fit: StackFit.expand,
@@ -99,7 +103,9 @@ class ShopScreenNew extends StatelessWidget {
                         flex: 1,
                         child: AppCardContainer(
                             onTap: () {
-                              shopController.shopKey.currentState!.openEndDrawer();
+                              drawerController.setActiveEndDrawerIndex(0).then((value) =>
+                              shopController.shopKey.currentState!.openEndDrawer()
+                              );
                             },
                             hasBorder: true,
                             borderColor: AppColors.grey,

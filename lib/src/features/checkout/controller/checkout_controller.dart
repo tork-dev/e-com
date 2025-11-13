@@ -218,6 +218,8 @@ class CheckoutController extends GetxController {
           ),
         );
       }
+
+      CartService.refreshCart();
     } catch (e) {
       CustomLoader.hideLoader(
         Get.overlayContext!,

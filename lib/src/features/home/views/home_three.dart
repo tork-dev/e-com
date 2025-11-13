@@ -43,9 +43,13 @@ class HomeThree extends StatelessWidget {
       backToHome: true,
       inHome: true,
       globalKey: controller.homeKey,
-      title: const AppHomeAppBarTitle(),
+      title: AppHomeAppBarTitle(
+        globalKey: controller.homeKey,
+      ),
       leadingIconColor: AppColors.darkerGrey,
       backgroundColor: AppColors.white,
+      hasEndDrawer: true,
+      action: const [SizedBox()],
       padding: AppSizes.md,
       body: AppLayoutWithRefresher(
         onRefresh: controller.onRefresh,

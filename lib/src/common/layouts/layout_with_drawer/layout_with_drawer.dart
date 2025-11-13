@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/drawer/view/end_drawer.dart';
 import '../../../utils/constants/colors.dart';
 import '../../drawer/view/drawer.dart';
+import '../../drawer/view/end_drawer_two.dart';
 import '../../widgets/appbar/custom_app_bar.dart';
 
 class AppLayoutWithDrawer extends StatelessWidget {
@@ -34,6 +36,7 @@ class AppLayoutWithDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final drawerController = Get.put(AppDrawerController());
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: PopScope(
@@ -43,26 +46,28 @@ class AppLayoutWithDrawer extends StatelessWidget {
               ? Get.offAllNamed("/home")
               : null;
         },
-
-        child: Scaffold(
-          backgroundColor: bodyBackgroundColor,
-          resizeToAvoidBottomInset: true,
-          key: globalKey,
-          drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
-          endDrawer: hasEndDrawer ? const AppEndDrawer() : null,
-          bottomNavigationBar: bottomNav,
-          appBar: CustomAppBar(
-            title: title,
-            showBackArrow: false,
-            leadingIcon: Icons.menu_rounded,
-            leadingOnPress: () => globalKey.currentState!.openDrawer(),
-            centerTitle: centerTitle,
-            backgroundColor: backgroundColor,
-            leadingIconColor: leadingIconColor,
-            actions: action,
-          ),
-          body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: padding), child: body),
+        child: Obx( () {
+            return Scaffold(
+              backgroundColor: bodyBackgroundColor,
+              resizeToAvoidBottomInset: true,
+              key: globalKey,
+              drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
+              endDrawer: hasEndDrawer ? drawerController.activeEndDrawerIndex.value == 0 ? AppEndDrawer() : AppEndDrawerTwo() : null,
+              bottomNavigationBar: bottomNav,
+              appBar: CustomAppBar(
+                title: title,
+                showBackArrow: false,
+                leadingIcon: Icons.menu_rounded,
+                leadingOnPress: () => globalKey.currentState!.openDrawer(),
+                centerTitle: centerTitle,
+                backgroundColor: backgroundColor,
+                leadingIconColor: leadingIconColor,
+                actions: action,
+              ),
+              body: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: padding), child: body),
+            );
+          }
         ),
       ),
     );

@@ -23,7 +23,11 @@ class CartScreen extends StatelessWidget {
       backToHome: true,
       inHome: true,
       leadingIconColor: AppColors.darkGrey,
-      title: AppHomeAppBarTitle(),
+      title: AppHomeAppBarTitle(
+        globalKey: controller.cartKey,
+      ),
+      hasEndDrawer: true,
+      action: [SizedBox()],
       centerTitle: true,
       bodyBackgroundColor: AppColors.secondaryBackground,
       backgroundColor: AppColors.white,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
@@ -14,10 +15,13 @@ import '../../../../common/widgets/containers/card_container.dart';
 import '../../../../utils/constants/image_strings.dart';
 
 class AppHomeAppBarTitle extends StatelessWidget {
-  const AppHomeAppBarTitle({super.key});
+  const AppHomeAppBarTitle({super.key, required this.globalKey});
+
+  final GlobalKey<ScaffoldState> globalKey;
 
   @override
   Widget build(BuildContext context) {
+    final drawerController = Get.put(AppDrawerController());
     final bottomController = ConvexBottomNavController.instance;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -28,22 +32,21 @@ class AppHomeAppBarTitle extends StatelessWidget {
           Row(
             children: [
               Obx(() {
-                return Badge(
-                  backgroundColor: AppColors.primary,
-                  label: Text(
-                    "${bottomController.wishListController.wishlistCount.value}",
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      if (AppLocalStorage().readData(
-                            LocalStorageKeys.isLoggedIn,
-                          ) !=
-                          null) {
-                        Get.to(() => WishlistScreen());
-                      } else {
-                        Get.to(() => LogIn());
-                      }
-                    },
+                return InkWell(
+                  onTap: (){
+                    if (AppLocalStorage().readData(
+                      LocalStorageKeys.isLoggedIn,
+                    ) != null) {
+                      Get.to(() => WishlistScreen());
+                    } else {
+                      Get.to(() => LogIn());
+                    }
+                  },
+                  child: Badge(
+                    backgroundColor: AppColors.primary,
+                    label: Text(
+                      "${bottomController.wishListController.wishlistCount.value}",
+                    ),
                     child: const HugeIcon(
                       icon: HugeIcons.strokeRoundedFavourite,
                       color: AppColors.darkerGrey,
@@ -53,15 +56,16 @@ class AppHomeAppBarTitle extends StatelessWidget {
               }),
               const Gap(AppSizes.spaceBtwItems),
               Obx(() {
-                return Badge(
-                  backgroundColor: AppColors.primary,
-                  label: Text(
-                    "${bottomController.cartController.cartCount.value}",
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      bottomController.jumpToTab(2);
-                    },
+                return InkWell(
+                  onTap: (){
+                    drawerController.activeEndDrawerIndex.value = 1;
+                    globalKey.currentState?.openEndDrawer();
+                  },
+                  child: Badge(
+                    backgroundColor: AppColors.primary,
+                    label: Text(
+                      "${bottomController.cartController.cartCount.value}",
+                    ),
                     child: const HugeIcon(
                       icon: HugeIcons.strokeRoundedShoppingCart01,
                       color: AppColors.darkerGrey,

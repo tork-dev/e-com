@@ -33,7 +33,11 @@ class UserDashboard extends StatelessWidget {
       globalKey: profileController.profileKey,
       backgroundColor: AppColors.white,
       leadingIconColor: AppColors.darkerGrey,
-      title: const AppHomeAppBarTitle(),
+      hasEndDrawer: true,
+      action: [SizedBox()],
+      title: AppHomeAppBarTitle(
+        globalKey: profileController.profileKey,
+      ),
       body: SingleChildScrollView(
         child: AppCardContainer(
           margin: EdgeInsets.symmetric(vertical: AppSizes.defaultSpace),
