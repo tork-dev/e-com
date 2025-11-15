@@ -9,6 +9,7 @@ import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/env_config.dart';
 
 class BeautyTipsScreen extends StatelessWidget {
   const BeautyTipsScreen({super.key});
@@ -16,7 +17,7 @@ class BeautyTipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(BeautyTipsController());
-    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
+    final String baseUrlWeb = EnvConfig.baseUrlWeb;
     return AppLayoutWithDrawer(
       backToHome: true,
       isFromOtherPage: true,

@@ -92,8 +92,6 @@ class AppBannerImage extends StatelessWidget {
                   ? Image(
                     image: AssetImage(imgUrl) as ImageProvider,
                     fit: fit,
-                    //opacity: AlwaysStoppedAnimation(imageOpacity!),
-                    //color: Colors.red.withOpacity(.2),
                   )
                   : Image(image: FileImage(imgUrl as File)),
         ),

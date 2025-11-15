@@ -130,7 +130,7 @@ class MobileBlogs extends StatelessWidget {
                                           ),
                                           const Gap(AppSizes.md),
                                           Text(
-                                            AppHelperFunctions().stripHtmlTags(
+                                            AppHelperFunctions.stripHtmlTags(
                                               blogsController
                                                       .blogList[index]
                                                       .content ??

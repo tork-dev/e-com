@@ -74,7 +74,7 @@ class BlogsDetails extends StatelessWidget {
                                     },
                                     child: Card(
                                       shape: const CircleBorder(),
-                                      color: AppColors.white.withOpacity(.9),
+                                      color: AppColors.white.withAlpha(AppHelperFunctions.toAlpha(.9)),
                                       elevation: 20,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),

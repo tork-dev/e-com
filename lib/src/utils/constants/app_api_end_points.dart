@@ -1,10 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:kirei/src/utils/helpers/env_config.dart';
 
 class AppApiEndPoints {
   AppApiEndPoints._();
 
-  static final String baseUrl = dotenv.env["BASE_URL"]!;
-   // static final String gialogyBaseUrl = dotenv.env["GIGALOGY_BASE_URL"]!;
+  static final String baseUrl = EnvConfig.baseUrl;
 
   ///Authentication
   static String logIn = "$baseUrl/auth/login";

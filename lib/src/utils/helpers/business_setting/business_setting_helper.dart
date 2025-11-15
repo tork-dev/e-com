@@ -7,6 +7,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/features/on_boarding/controllers/on_boarding_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
+import 'package:kirei/src/utils/helpers/env_config.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -126,7 +127,7 @@ class BusinessSettingHelper extends GetxController {
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
-    bool updateAvailable = AppHelperFunctions().isVersionLessThan(
+    bool updateAvailable = AppHelperFunctions.isVersionLessThan(
       version,
       Platform.isAndroid ? androidAppVersion.value : iosAppVersion.value,
     );
@@ -136,7 +137,7 @@ class BusinessSettingHelper extends GetxController {
             : isIosUpdateRequired.value;
 
     debugPrint(
-      'update required ${AppHelperFunctions().isVersionLessThan(version, Platform.isAndroid ? androidAppVersion.value : iosAppVersion.value)}',
+      'update required ${AppHelperFunctions.isVersionLessThan(version, Platform.isAndroid ? androidAppVersion.value : iosAppVersion.value)}',
     );
     debugPrint('Device OS ${Platform.operatingSystem}');
     debugPrint('Device android version ${Platform.operatingSystemVersion}');
@@ -192,8 +193,8 @@ class BusinessSettingHelper extends GetxController {
                                       onPressed: () {
                                         AppDeviceUtils.browseUrl(
                                           Platform.isAndroid
-                                              ? 'https://play.google.com/store/apps/details?id=com.thetork.kirei&hl=en&gl=US'
-                                              : 'https://apps.apple.com/us/app/kirei/id6502335026?platform=iphone',
+                                              ? EnvConfig.androidAppLink
+                                              : EnvConfig.iosAppLink,
                                         );
                                       },
                                       buttonText: 'Update',
@@ -237,7 +238,7 @@ class BusinessSettingHelper extends GetxController {
       Get.put(SpinnerController());
       Future.delayed(
         const Duration(seconds: 10),
-        () => AppHelperFunctions().showAlertForFirstTime(),
+        () => AppHelperFunctions.showAlertForFirstTime(),
       );
       return;
     }

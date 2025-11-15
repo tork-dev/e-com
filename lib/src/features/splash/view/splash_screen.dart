@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/utils/helpers/env_config.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -13,7 +14,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(SplashController());
     final bool isDark = AppHelperFunctions.isDarkMode(context);
-    final String? baseUrl = dotenv.env['BASE_URL'];
+    final String? baseUrl = EnvConfig.baseUrl;
     return Scaffold(
 
       backgroundColor: isDark ? AppColors.dark : AppColors.primaryBackground,

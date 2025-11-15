@@ -19,6 +19,7 @@ import '../local_storage/local_storage_keys.dart';
 import '../local_storage/storage_utility.dart';
 
 class AppHelperFunctions {
+  AppHelperFunctions._();
   static Color? getColor(String value) {
     /// Define your product specific colors here and it will match the attribute colors and show specific 🟠🟡🟢🔵🟣🟤
 
@@ -75,8 +76,6 @@ class AppHelperFunctions {
       fontSize: 16.0,
     );
   }
-
-
 
   static void showSimpleSnackBar(String message) {
     ScaffoldMessenger.of(
@@ -332,7 +331,7 @@ class AppHelperFunctions {
     );
   }
 
-  void showAlertForFirstTime() {
+  static void showAlertForFirstTime() {
     showDialog(
       context: Get.context!,
       useSafeArea: true,
@@ -341,7 +340,7 @@ class AppHelperFunctions {
     );
   }
 
-  void verifyPhone() {
+  static void verifyPhone() {
     showDialog(
       context: Get.context!,
       barrierDismissible: false,
@@ -519,7 +518,7 @@ class AppHelperFunctions {
     return DateFormat(format).format(date);
   }
 
-  Duration getRemainingDuration(DateTime futureDateString) {
+  static Duration getRemainingDuration(DateTime futureDateString) {
     DateTime futureDate = futureDateString;
     return futureDate.difference(DateTime.now());
   }
@@ -540,7 +539,7 @@ class AppHelperFunctions {
     return wrappedList;
   }
 
-  String stripHtmlTags(String htmlString) {
+  static String stripHtmlTags(String htmlString) {
     // Remove HTML comments and metadata tags
     final RegExp regExpComments = RegExp(
       r'<!--.*?-->',
@@ -568,7 +567,7 @@ class AppHelperFunctions {
     return result.trim();
   }
 
-  bool isVersionLessThan(String version1, String version2) {
+  static bool isVersionLessThan(String version1, String version2) {
     List<int> v1 = version1.split('.').map(int.parse).toList();
     List<int> v2 = version2.split('.').map(int.parse).toList();
 
@@ -656,7 +655,7 @@ class AppHelperFunctions {
     return deviceInfoHeaders;
   }
 
-  void showKireiReturnPolicyAlert(BuildContext context) {
+  static void showKireiReturnPolicyAlert(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -738,7 +737,7 @@ class AppHelperFunctions {
     );
   }
 
-  void showKireiAuthenticity(BuildContext context, int confirmUser) {
+  static void showKireiAuthenticity(BuildContext context, int confirmUser) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -800,7 +799,7 @@ class AppHelperFunctions {
     );
   }
 
-  Future<void> openCaller(String phoneNumber) async {
+  static Future<void> openCaller(String phoneNumber) async {
     // Ensure no spaces or URL encoding issues
     final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
 
@@ -819,4 +818,7 @@ class AppHelperFunctions {
       throw "Could not launch WhatsApp";
     }
   }
+
+  static int toAlpha(double opacity) => (opacity * 255).round();
+
 }

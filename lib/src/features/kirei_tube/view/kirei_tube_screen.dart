@@ -69,7 +69,7 @@ class KireiTubeScreen extends StatelessWidget {
                                 ),
                                 const Gap(AppSizes.sm),
                                 Text(
-                                  AppHelperFunctions().stripHtmlTags(controller
+                                  AppHelperFunctions.stripHtmlTags(controller
                                           .kireiTubeHomeResponse
                                           .value
                                           .setting

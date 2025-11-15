@@ -218,7 +218,7 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                             .toString());
                                     AppHelperFunctions.showToast(
                                         'We have sent OTP to your phone.');
-                                    AppHelperFunctions().verifyPhone();
+                                    AppHelperFunctions.verifyPhone();
                                     AppLocalStorage().saveData(
                                         LocalStorageKeys.sowedSpinner, true);
 

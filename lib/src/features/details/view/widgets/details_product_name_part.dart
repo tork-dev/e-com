@@ -276,7 +276,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
                               0,
                           child: AppCardContainer(
                             onTap: () {
-                              AppHelperFunctions().showKireiAuthenticity(
+                              AppHelperFunctions.showKireiAuthenticity(
                                 context,
                                 detailsController
                                         .productDetails
@@ -312,7 +312,7 @@ class AppDetailsProductNamePart extends StatelessWidget {
 
                         AppCardContainer(
                           onTap: () {
-                            AppHelperFunctions().showKireiReturnPolicyAlert(
+                            AppHelperFunctions.showKireiReturnPolicyAlert(
                               context,
                             );
                           },

@@ -69,7 +69,7 @@ class HotDealsScreen extends StatelessWidget {
                                 ShimmerHelper().buildBasicShimmer(height: 50) :
                                   SlideCountdownSeparated(
                                   style: Theme.of(context).textTheme.headlineSmall!.apply(color: AppColors.white),
-                                  duration: AppHelperFunctions().getRemainingDuration(shopDataController.allProducts[0].flashSaleEndDate!),
+                                  duration: AppHelperFunctions.getRemainingDuration(shopDataController.allProducts[0].flashSaleEndDate!),
                                   padding: EdgeInsets.all(AppSizes.md),
                                   separatorStyle: Theme.of(context).textTheme.titleMedium!,
                                   separatorPadding: EdgeInsets.all(AppSizes.sm),

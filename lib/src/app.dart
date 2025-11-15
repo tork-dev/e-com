@@ -15,6 +15,7 @@ import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dar
 import 'package:kirei/src/features/reward_point/view/reward_details_screen.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
+import 'package:kirei/src/utils/helpers/env_config.dart';
 import 'features/ai_recommendation/view/kaira_chat_bot.dart';
 import 'features/appoinment/view/appointment_screen.dart';
 import 'features/group_shopping/view/group_shopping_payment_screen.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
+    final String baseUrlWeb = EnvConfig.baseUrlWeb;
     return GetMaterialApp(
       navigatorKey: navigatorKey,
       initialBinding: DependencyInjection(),

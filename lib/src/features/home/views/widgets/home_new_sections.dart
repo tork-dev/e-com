@@ -11,6 +11,7 @@ import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/env_config.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../../utils/helpers/routing_helper.dart';
 
@@ -31,7 +32,7 @@ class HomeImageTitleAndButtonSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = HomeController.instance;
-    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
+    final String baseUrlWeb = EnvConfig.baseUrlWeb;
     return Obx(() {
       return Visibility(
         visible: showTheSection,

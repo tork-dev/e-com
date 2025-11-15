@@ -262,50 +262,52 @@ class AppEndDrawerTwo extends StatelessWidget {
           ),
 
           /// -------- FOOTER ----------
-          Obx( () {
-              return Visibility(
-                visible: cartController.allCartProducts.isNotEmpty,
-                child: Column(
-                  children: [
-                    AppDividersStyle.fullFlatAppDivider,
-                    const Gap(AppSizes.md),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Subtotal:",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        Text("৳${cartController.cartItemTotalPrice.value}", style: Theme.of(context).textTheme.titleLarge),
-                      ],
-                    ),
-                    const Gap(AppSizes.md),
-                    AppButtons.largeFlatOutlineButton(
-                      verticallyPadding: AppSizes.sm,
-                      onPressed: () {
-                        bottomNavController.pageIndex.value == 2
-                            ? Get.back()
-                            : bottomNavController.jumpToTab(2);
-                      },
-                      buttonText: "View Cart",
-                    ),
-                    AppButtons.largeFlatFilledButton(
-                      verticallyPadding: AppSizes.sm,
-                      backgroundColor: AppColors.secondary,
-                      onPressed: () async {
-                        CheckoutSummaryResponse? checkoutSummaryResponse =
-                            await cartController.getCheckoutSummary();
-                        if (checkoutSummaryResponse!.result == true) {
-                          Get.to(() => CheckoutScreen());
-                        }
-                      },
-                      buttonText: "Checkout",
-                    ),
-                  ],
-                ),
-              );
-            }
-          ),
+          Obx(() {
+            return Visibility(
+              visible: cartController.allCartProducts.isNotEmpty,
+              child: Column(
+                children: [
+                  AppDividersStyle.fullFlatAppDivider,
+                  const Gap(AppSizes.md),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Subtotal:",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        "৳${cartController.cartItemTotalPrice.value}",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ],
+                  ),
+                  const Gap(AppSizes.md),
+                  AppButtons.largeFlatOutlineButton(
+                    verticallyPadding: AppSizes.sm,
+                    onPressed: () {
+                      bottomNavController.pageIndex.value == 2
+                          ? Get.back()
+                          : bottomNavController.jumpToTab(2);
+                    },
+                    buttonText: "View Cart",
+                  ),
+                  AppButtons.largeFlatFilledButton(
+                    verticallyPadding: AppSizes.sm,
+                    backgroundColor: AppColors.secondary,
+                    onPressed: () async {
+                      CheckoutSummaryResponse? checkoutSummaryResponse =
+                          await cartController.getCheckoutSummary();
+                      if (checkoutSummaryResponse!.result == true) {
+                        Get.to(() => CheckoutScreen());
+                      }
+                    },
+                    buttonText: "Checkout",
+                  ),
+                ],
+              ),
+            );
+          }),
         ],
       ),
     );

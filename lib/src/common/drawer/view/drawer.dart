@@ -19,6 +19,7 @@ import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/constants/image_strings.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
+import 'package:kirei/src/utils/helpers/env_config.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
 import 'package:kirei/src/utils/local_storage/storage_utility.dart';
@@ -41,7 +42,7 @@ class AppDrawer extends StatelessWidget {
       ConvexBottomNavController(),
     );
     HomeController homeController = Get.put(HomeController());
-    final String baseUrlWeb = dotenv.env["BASE_URL_WEB"]!;
+    final String baseUrlWeb = EnvConfig.baseUrlWeb;
     return AppCardContainer(
       // padding: const EdgeInsets.only(bottom: 50),
       width: 300,
@@ -51,7 +52,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           // const AppDrawerHeaderPart(),
           AppCardContainer(
-            onTap: () => AppHelperFunctions().openCaller('+8809666791110'),
+            onTap: () => AppHelperFunctions.openCaller('+8809666791110'),
             margin: EdgeInsets.symmetric(
               horizontal: AppSizes.sm,
               vertical: AppSizes.md,
