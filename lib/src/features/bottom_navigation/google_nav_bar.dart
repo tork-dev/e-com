@@ -8,7 +8,7 @@ import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:badges/badges.dart' as badge;
 import '../cart/view/cart.dart';
 import '../home/views/home_three.dart';
-import '../shop/view/shop_new.dart';
+import '../shop/view/shop.dart';
 import 'convex_controller.dart';
 
 class GoogleNavBar extends StatelessWidget {
@@ -18,7 +18,7 @@ class GoogleNavBar extends StatelessWidget {
 
   static const List _widgetOptions = [
     HomeThree(),
-    ShopScreenNew(),
+    ShopScreen(),
     CartScreen(),
     UserDashboard(),
   ];

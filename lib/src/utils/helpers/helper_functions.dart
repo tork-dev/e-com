@@ -811,9 +811,6 @@ class AppHelperFunctions {
     }
   }
 
-
-
-
   void openWhatsApp(String phoneNumber) async {
     final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");
     if (await canLaunchUrl(whatsappUri)) {

@@ -37,7 +37,7 @@ class AppEndDrawerTwo extends StatelessWidget {
         top: AppSizes.appBarHeight,
       ),
       backgroundColor: AppColors.secondaryBackground,
-      applyRadius: false,
+      applyRadius: true,
       child: Column(
         children: [
           /// -------- HEADER ----------

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/cart/controllers/cart_controller.dart';
 import 'package:kirei/src/features/home/model/home_products_model.dart';
 import 'package:kirei/src/utils/firebase/gtm_events.dart';
@@ -15,7 +16,7 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final cartController = CartController.instance;
+    final bottomController = ConvexBottomNavController.instance;
     return SizedBox(
       height: sectionName == null ? 170 : 285,
       child: AppListViewLayout(
@@ -43,69 +44,12 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                             );
                           },
                           onCartTap: () {
-                            // if (sectionName![index].preorderAvailable != 1 && sectionName![index].stock == 0) {
-                            //   AppHelperFunctions.showToast(
-                            //     "Product is not in stock",
-                            //   );
-                            //   return;
-                            // }
-                            // if (AppLocalStorage().readData(
-                            //           LocalStorageKeys.isLoggedIn,
-                            //         ) ==
-                            //         null &&
-                            //     sectionName![index].requestAvailable != 0) {
-                            //   Get.toNamed(
-                            //     '/login/cart',
-                            //     parameters: {
-                            //       'product_id':
-                            //           sectionName![index].id.toString(),
-                            //       'product_slug': sectionName![index].slug!,
-                            //       'sale_price':
-                            //           sectionName![index].salePrice.toString(),
-                            //       'request_available':
-                            //           sectionName![index].requestAvailable
-                            //               .toString(),
-                            //       'preorder_available':
-                            //           sectionName![index].preorderAvailable
-                            //               .toString(),
-                            //     },
-                            //   );
-                            // } else if (sectionName![index].requestAvailable !=
-                            //     0) {
-                            //   cartController
-                            //       .getRequestResponse(
-                            //         productId: sectionName![index].id!,
-                            //       )
-                            //       .then(
-                            //         (value) => AppHelperFunctions.showToast(
-                            //           cartController
-                            //               .requestStockResponse
-                            //               .value
-                            //               .message!,
-                            //         ),
-                            //       );
-                            // } else if (sectionName![index].requestAvailable !=
-                            //     0) {
-                            //   cartController
-                            //       .getRequestResponse(
-                            //         productId: sectionName![index].id!,
-                            //       )
-                            //       .then(
-                            //         (value) => AppHelperFunctions.showToast(
-                            //           cartController
-                            //               .requestStockResponse
-                            //               .value
-                            //               .message!,
-                            //         ),
-                            //       );
-                            // } else {
+                            cartController.allCartProducts.any((element) =>
+                            element.productId == sectionName![index].id)
+                                ? bottomController.jumpToTab(2):
                               cartController.getAddToCartResponse(
                                 sectionName![index],
                               );
-                            // }
-
-                            // EventLogger().logAddToCartEvent('${sectionName![index].slug}',
-                            //     sectionName![index].salePrice!);
                           },
                           productName: sectionName![index].name!,
                           ratings: sectionName![index].ratings!.toDouble(),
@@ -119,6 +63,10 @@ class AppHorizontalScrollProductCard extends StatelessWidget {
                                   : '',
                           isStockAvailable: sectionName![index].stock != 0,
                           buttonName:
+                              cartController.allCartProducts.any((element) =>
+                                  element.productId == sectionName![index].id)
+                                  ? 'View Cart'
+                                  :
                               sectionName![index].stock != 0
                                   ? cartController.addingToCartIds.contains(
                                         sectionName![index].id,

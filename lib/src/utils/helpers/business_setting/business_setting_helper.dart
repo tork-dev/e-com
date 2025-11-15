@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:kirei/src/common/widgets/buttons/app_buttons.dart';
 import 'package:kirei/src/features/on_boarding/controllers/on_boarding_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
@@ -111,7 +112,10 @@ class BusinessSettingHelper extends GetxController {
         case 'maintenance_mode':
           {
             bool isEnabled = element.value.toString() == "1";
-            AppLocalStorage().saveData(LocalStorageKeys.isInMaintenanceMode, isEnabled);
+            AppLocalStorage().saveData(
+              LocalStorageKeys.isInMaintenanceMode,
+              isEnabled,
+            );
           }
           break;
         default:
@@ -159,7 +163,11 @@ class BusinessSettingHelper extends GetxController {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.update),
+                              HugeIcon(
+                                icon: HugeIcons.strokeRoundedSystemUpdate02,
+                                size: AppSizes.iconLg,
+                                color: AppColors.darkGrey,
+                              ),
                               const Gap(AppSizes.md),
                               Text(
                                 'Update Available',

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/common/widgets/containers/vertical_product_card.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -19,6 +20,7 @@ class AppShopGridScrollCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shopController = GetShopDataController.instance;
+    final bottomController = ConvexBottomNavController.instance;
     return Obx(() {
       return !shopController.hittingApi.value &&
               shopController.allProducts.isEmpty
@@ -73,57 +75,14 @@ class AppShopGridScrollCard extends StatelessWidget {
                                             '/shop?${shopController.queryStringValue.value}',
                                       },
                                     );
-                                    // EventLogger().logProductDetailsViewEvent(
-                                    //   shopController.allProducts[index].slug!,
-                                    //   shopController
-                                    //       .allProducts[index]
-                                    //       .salePrice!,
-                                    // );
                                   },
                                   onCartTap: () {
-                                    // if (shopController
-                                    //         .allProducts[index]
-                                    //         .stock ==
-                                    //     0) {
-                                    //   AppHelperFunctions.showToast(
-                                    //     "Product is not in stock",
-                                    //   );
-                                    //   return;
-                                    // }
-                                    // if (AppLocalStorage().readData(
-                                    //           LocalStorageKeys.isLoggedIn,
-                                    //         ) ==
-                                    //         null &&
-                                    //     shopController
-                                    //             .allProducts[index]
-                                    //             .requestAvailable !=
-                                    //         0) {
-                                    //   Get.to(() => const LogIn());
-                                    // } else if (shopController
-                                    //         .allProducts[index]
-                                    //         .requestAvailable !=
-                                    //     0) {
-                                    //   cartController
-                                    //       .getRequestResponse(
-                                    //         productId:
-                                    //             shopController
-                                    //                 .allProducts[index]
-                                    //                 .id!,
-                                    //       )
-                                    //       .then(
-                                    //         (value) =>
-                                    //             AppHelperFunctions.showToast(
-                                    //               cartController
-                                    //                   .requestStockResponse
-                                    //                   .value
-                                    //                   .message!,
-                                    //             ),
-                                    //       );
-                                    // } else {
+                                    cartController.allCartProducts.any((element) =>
+                                    element.productId == shopController.allProducts[index].id)
+                                        ? bottomController.jumpToTab(2):
                                       cartController.getAddToCartResponse(
                                         shopController.allProducts[index],
                                       );
-                                    // }
                                   },
                                   productName:
                                       shopController.allProducts[index].name ??
@@ -161,6 +120,10 @@ class AppShopGridScrollCard extends StatelessWidget {
                                           ?.toInt() ??
                                       0,
                                   buttonName:
+                                  cartController.allCartProducts.any((element) =>
+                                  element.productId == shopController.allProducts[index].id)
+                                      ? 'View Cart'
+                                      :
                                       shopController.allProducts[index].stock !=
                                               0
                                           ? cartController.addingToCartIds
