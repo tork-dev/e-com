@@ -16,6 +16,7 @@ class AppDrawerController extends GetxController{
 
   Future<void> setActiveEndDrawerIndex(int index) async{
     activeEndDrawerIndex.value = index;
+    update();
   }
 
 

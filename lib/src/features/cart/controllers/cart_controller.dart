@@ -87,6 +87,7 @@ class CartController extends GetxController {
     }
     debugPrint(totalQuantity.toString());
     cartCount.value = totalQuantity;
+    update();
   }
 
   void addQuantity(int index) {
@@ -109,6 +110,8 @@ class CartController extends GetxController {
           isPreorder: item.isPreorder
         ),
       );
+      updateTotalPrice();
+      updateQuantity();
 
       if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null ||
           AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == false) {
@@ -124,7 +127,6 @@ class CartController extends GetxController {
 
         AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
         cartCount.value = cartCount.value + 1;
-        updateTotalPrice();
       });
       update();
     } else {
@@ -153,6 +155,9 @@ class CartController extends GetxController {
         ),
       );
 
+      updateTotalPrice();
+      updateQuantity();
+
       if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null ||
           AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == false) {
         return;
@@ -168,7 +173,6 @@ class CartController extends GetxController {
         AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
 
         cartCount.value = cartCount.value - 1;
-        updateTotalPrice();
       });
       update();
     } else {
@@ -205,6 +209,7 @@ class CartController extends GetxController {
       }
     }
     cartItemTotalPrice.value = totalPrice;
+    update();
   }
 
   Future<void> getAddToCartResponse(Product product, [int? quantity]) async {

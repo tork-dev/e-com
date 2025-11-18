@@ -46,30 +46,31 @@ class AppLayoutWithDrawer extends StatelessWidget {
               ? Get.offAllNamed("/home")
               : null;
         },
-        child: Obx( () {
+        child: GetBuilder<AppDrawerController>(
+          builder: (controller) {
             return Scaffold(
-              backgroundColor: bodyBackgroundColor,
-              resizeToAvoidBottomInset: true,
-              key: globalKey,
-              drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
-              endDrawer: hasEndDrawer ? drawerController.activeEndDrawerIndex.value == 0 ? AppEndDrawer() : AppEndDrawerTwo() : null,
-              bottomNavigationBar: bottomNav,
-              appBar: CustomAppBar(
-                title: title,
-                showBackArrow: false,
-                leadingIcon: Icons.menu_rounded,
-                leadingOnPress: () => globalKey.currentState!.openDrawer(),
-                centerTitle: centerTitle,
-                backgroundColor: backgroundColor,
-                leadingIconColor: leadingIconColor,
-                actions: action,
-              ),
-              body: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: padding), child: body),
-            );
+                  backgroundColor: bodyBackgroundColor,
+                  resizeToAvoidBottomInset: true,
+                  key: globalKey,
+                  drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
+                  endDrawer: hasEndDrawer ? controller.activeEndDrawerIndex.value == 0 ? AppEndDrawer() : AppEndDrawerTwo() : null,
+                  bottomNavigationBar: bottomNav,
+                  appBar: CustomAppBar(
+                    title: title,
+                    showBackArrow: false,
+                    leadingIcon: Icons.menu_rounded,
+                    leadingOnPress: () => globalKey.currentState!.openDrawer(),
+                    centerTitle: centerTitle,
+                    backgroundColor: backgroundColor,
+                    leadingIconColor: leadingIconColor,
+                    actions: action,
+                  ),
+                  body: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: padding), child: body),
+                );
           }
+        )
         ),
-      ),
-    );
+      );
   }
 }

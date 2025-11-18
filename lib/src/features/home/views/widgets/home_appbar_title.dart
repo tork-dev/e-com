@@ -33,10 +33,11 @@ class AppHomeAppBarTitle extends StatelessWidget {
             children: [
               Obx(() {
                 return InkWell(
-                  onTap: (){
+                  onTap: () {
                     if (AppLocalStorage().readData(
-                      LocalStorageKeys.isLoggedIn,
-                    ) != null) {
+                          LocalStorageKeys.isLoggedIn,
+                        ) !=
+                        null) {
                       Get.to(() => WishlistScreen());
                     } else {
                       Get.to(() => LogIn());
@@ -57,9 +58,12 @@ class AppHomeAppBarTitle extends StatelessWidget {
               const Gap(AppSizes.spaceBtwItems),
               Obx(() {
                 return InkWell(
-                  onTap: (){
-                    drawerController.activeEndDrawerIndex.value = 1;
-                    globalKey.currentState?.openEndDrawer();
+                  onTap: () {
+                    drawerController
+                        .setActiveEndDrawerIndex(1)
+                        .then(
+                          (value) => globalKey.currentState?.openEndDrawer(),
+                        );
                   },
                   child: Badge(
                     backgroundColor: AppColors.primary,
