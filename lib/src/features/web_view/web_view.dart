@@ -56,10 +56,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
       padding:
       widget.bodyPadding != null
           ? widget.bodyPadding!
-          : AppSizes.defaultSpace,
-      body: SafeArea(
-        child: WebViewWidget(controller: controllers),
-      ),
+          : AppSizes.md,
+      body: SafeArea(child: WebViewWidget(controller: controllers)),
     );
   }
 }

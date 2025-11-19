@@ -450,7 +450,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/about-us?type=app',
+                      url: '$baseUrlWeb/about-us?app=true',
                       title: 'Who We Are?',
                     ),
                   );
@@ -461,7 +461,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/faq?type=app',
+                      url: '$baseUrlWeb/faq?app=true',
                       title: 'FAQs',
                     ),
                   );
@@ -472,7 +472,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/contact?type=app',
+                      url: '$baseUrlWeb/contact?app=true',
                       title: 'Contact us',
                     ),
                   );
@@ -483,7 +483,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/testimonials?type=app',
+                      url: '$baseUrlWeb/testimonials?app=true',
                       title: 'Testimonials',
                     ),
                   );
@@ -494,7 +494,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/privacy-policy?type=app',
+                      url: '$baseUrlWeb/privacy-policy?app=true',
                       title: 'Privacy & Policy',
                     ),
                   );
@@ -505,7 +505,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/term-condition?type=app',
+                      url: '$baseUrlWeb/term-condition?app=true',
                       title: 'Terms & Conditions',
                     ),
                   );
@@ -516,7 +516,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/return-refund?type=app',
+                      url: '$baseUrlWeb/return-refund?app=true',
                       title: 'Returns & Refunds',
                     ),
                   );
@@ -527,7 +527,7 @@ class AppDrawer extends StatelessWidget {
                 onPress: () {
                   Get.to(
                     () => WebViewScreen(
-                      url: '$baseUrlWeb/responsible-disclosure?type=app',
+                      url: '$baseUrlWeb/responsible-disclosure?app=true',
                       title: 'Responsible Disclosure',
                     ),
                   );

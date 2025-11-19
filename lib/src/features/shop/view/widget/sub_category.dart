@@ -43,6 +43,10 @@ class ShopSubCategory extends StatelessWidget {
                                 applyImageRadius: true,
                                 boarderRadius: 100,
                                 imgBoarderRadius: 100,
+                                backgroundColor: AppColors.primary.withAlpha(AppHelperFunctions.toAlpha(0.1)),
+                                borderColor: AppColors.primary.withAlpha(AppHelperFunctions.toAlpha(0.1)),
+                                borderWidth: .5,
+                                hasBorder: true,
                                 onPress: (){
                                   Log.d(shopController.categoryRouteList.toString());
                                   shopController.resetAll();

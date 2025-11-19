@@ -33,7 +33,7 @@ class BeautyTipsScreen extends StatelessWidget {
                  AppBannerImage(
                   onPress: (){
                     Get.to(()=> WebViewScreen(
-                        url: '$baseUrlWeb/blogs?type=app',
+                        url: '$baseUrlWeb/blogs?app=true',
                         title: 'Blogs'));
                   },
                     imgUrl: AppImages.beautyTipsOne),

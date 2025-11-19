@@ -111,39 +111,39 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/about-us',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/about-us?type=app', title: 'Who We Are?')),
+                url: '$baseUrlWeb/about-us?app=true', title: 'Who We Are?')),
         GetPage(
             name: '/faq',
             page: () =>
-                WebViewScreen(url: '$baseUrlWeb/faq?type=app', title: 'FAQs')),
+                WebViewScreen(url: '$baseUrlWeb/faq?app=true', title: 'FAQs')),
         GetPage(
             name: '/contact-us',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/contact?type=app', title: 'Contact Us')),
+                url: '$baseUrlWeb/contact?app=true', title: 'Contact Us')),
         GetPage(
             name: '/testimonials',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/testimonials?type=app',
+                url: '$baseUrlWeb/testimonials?app=true',
                 title: 'Testimonials')),
         GetPage(
             name: '/privacy-policy',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/privacy-policy?type=app',
+                url: '$baseUrlWeb/privacy-policy?app=true',
                 title: 'Privacy & Policy')),
         GetPage(
             name: '/term-condition',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/term-condition?type=app',
+                url: '$baseUrlWeb/term-condition?app=true',
                 title: 'Terms & Conditions')),
         GetPage(
             name: '/return-refund',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/return-refund?type=app',
+                url: '$baseUrlWeb/return-refund?app=true',
                 title: 'Returns & Refunds')),
         GetPage(
             name: '/responsible-disclosure',
             page: () => WebViewScreen(
-                url: '$baseUrlWeb/responsible-disclosure?type=app',
+                url: '$baseUrlWeb/responsible-disclosure?app=true',
                 title: 'Responsible Disclosure')),
         GetPage(
             name: '/reward-details',
