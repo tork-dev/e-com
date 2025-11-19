@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/styles/skeleton_style.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
@@ -147,8 +148,8 @@ class AppCartProductCard extends StatelessWidget {
                                                   cartController
                                                       .deleteCartProduct(index);
                                                 },
-                                                child: const Icon(
-                                                  CupertinoIcons.delete,
+                                                child: HugeIcon(
+                                                  icon: HugeIcons.strokeRoundedDelete03,
                                                   size: AppSizes.iconMd,
                                                   color: AppColors.error,
                                                 ),

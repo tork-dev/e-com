@@ -45,7 +45,6 @@ class CheckoutController extends GetxController {
   RxInt selectedPaymentMethod = 0.obs;
   RxString selectedPaymentMethodName = 'cash_on_delivery'.obs;
   RxBool isTermsChecked = false.obs;
-  RxBool isAddressAvailable = false.obs;
   RxBool isCouponApplied = false.obs;
   RxInt rewardBalance = 0.obs;
   RxInt redeemPoint = 0.obs;
@@ -79,7 +78,6 @@ class CheckoutController extends GetxController {
     // await getCheckoutSummary();
     await getPaymentMethods();
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      addressAvailabilityCheck();
       getUserRewardBalance();
     }
   }
@@ -96,14 +94,6 @@ class CheckoutController extends GetxController {
     Log.d('this is balance : ${response.body}');
   }
 
-  void addressAvailabilityCheck() {
-    if (addressController.nameController.text == "Guest" ||
-        addressController.addressController.text == "") {
-      isAddressAvailable.value = false;
-    } else {
-      isAddressAvailable.value = true;
-    }
-  }
 
   // Future<void> getCheckoutSummary() async {
   //   checkoutSummary.value =

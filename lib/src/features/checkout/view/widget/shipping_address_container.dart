@@ -15,11 +15,11 @@ class AppShippingAddressContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
         return Obx(() {
-          Log.d('address check ${checkoutController.isAddressAvailable.value}');
+          Log.d('address check ${checkoutController.addressController.hasData}');
             return AppCardContainer(
               padding: const EdgeInsets.only(top: AppSizes.sm, bottom: AppSizes.sm),
               backgroundColor: AppColors.white,
-              child: checkoutController.isAddressAvailable.value == false
+              child: !checkoutController.addressController.hasData
                   ? const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: AppAllAddressFields(isCallSummary: true,),
