@@ -6,7 +6,6 @@ import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
 import '../../../utils/logging/logger.dart';
 
 class AppointmentPaymentScreen extends StatefulWidget {

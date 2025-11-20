@@ -1,6 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kirei/main.dart';
@@ -17,7 +16,7 @@ import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
 import 'package:kirei/src/utils/helpers/env_config.dart';
 import 'features/ai_recommendation/view/kaira_chat_bot.dart';
-import 'features/appoinment/view/appointment_screen.dart';
+import 'features/appointment/view/appointment_screen.dart';
 import 'features/group_shopping/view/group_shopping_payment_screen.dart';
 import 'features/home/bindings/home_bindings.dart';
 import 'features/kirei_tube/view/kirei_tube_screen.dart';

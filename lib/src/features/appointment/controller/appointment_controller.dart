@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/appoinment/repositories/appoinment_repositories.dart';
-import 'package:kirei/src/features/appoinment/view/payment_screen.dart';
+import 'package:kirei/src/features/appointment/repositories/appoinment_repositories.dart';
+import 'package:kirei/src/features/appointment/view/payment_screen.dart';
 import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import '../../../utils/logging/logger.dart';
 import '../model/appointment_model.dart';

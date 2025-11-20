@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
+import 'package:kirei/src/features/appointment/controller/appointment_controller.dart';
 import '../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';

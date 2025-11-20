@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-
 import '../../../features/shop/controller/get_shop_data_controller.dart';
 import '../../../features/shop/view/widget/price_filter_field.dart';
 import '../../../utils/constants/colors.dart';

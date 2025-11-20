@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/appoinment/controller/appointment_controller.dart';
+import 'package:kirei/src/features/appointment/controller/appointment_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/local_storage/local_storage_keys.dart';

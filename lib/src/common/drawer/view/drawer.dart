@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
@@ -8,7 +7,7 @@ import 'package:kirei/src/common/drawer/view/widgets/drawer_bottom_button.dart';
 import 'package:kirei/src/common/layouts/listview_layout/listview_layout.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
-import 'package:kirei/src/features/appoinment/view/appointment_screen.dart';
+import 'package:kirei/src/features/appointment/view/appointment_screen.dart';
 import 'package:kirei/src/features/beauty_tips/view/beauty_tips.dart';
 import 'package:kirei/src/features/blogs/view/blogs.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
