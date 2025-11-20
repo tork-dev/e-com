@@ -56,7 +56,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                           ),
                           Text(
                             detailsController.purchaseHistoryDetails.value
-                                .data![0].shippingType!,
+                                .data![0].shippingType ?? "",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!

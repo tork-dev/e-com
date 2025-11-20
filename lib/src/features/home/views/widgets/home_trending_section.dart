@@ -211,9 +211,7 @@ class HomeTrendingSection extends StatelessWidget {
                                                             TextOverflow
                                                                 .ellipsis,
                                                         maxLines: 1,
-                                                        style: Theme.of(
-                                                              context,
-                                                            )
+                                                        style: Theme.of(context)
                                                             .textTheme
                                                             .bodyLarge
                                                             ?.copyWith(
@@ -235,13 +233,11 @@ class HomeTrendingSection extends StatelessWidget {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   maxLines: 1,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.apply(
-                                                        color:
-                                                            AppColors.primary,
-                                                      ),
+                                                  style: Theme.of(
+                                                    context,
+                                                  ).textTheme.bodyLarge?.apply(
+                                                    color: AppColors.primary,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -254,86 +250,29 @@ class HomeTrendingSection extends StatelessWidget {
                                                         .value
                                                         .trending?[index1]
                                                         .trendingProducts?[index2];
-
-                                                if (product!.stock == 0) {
-                                                  AppHelperFunctions.showToast(
-                                                    "Product is not in stock",
-                                                  );
-                                                  return;
-                                                }
-
-                                                if (AppLocalStorage().readData(
-                                                  LocalStorageKeys.isLoggedIn,
-                                                ) ==
-                                                    null &&
-                                                    product.requestAvailable != 0) {
-                                                  Get.toNamed(
-                                                    '/login/cart',
-                                                    parameters: {
-                                                      'product_id':
-                                                      product.id.toString(),
-                                                      'product_slug': product.slug!,
-                                                      'sale_price':
-                                                      product.salePrice.toString(),
-                                                      'request_available':
-                                                      product.requestAvailable
-                                                          .toString(),
-                                                      'preorder_available':
-                                                      product.preorderAvailable
-                                                          .toString(),
-                                                    },
-                                                  );
-                                                } else if (product.requestAvailable !=
-                                                    0) {
-                                                  cartController
-                                                      .getRequestResponse(
-                                                    productId: product.id!,
-                                                  )
-                                                      .then(
-                                                        (value) => AppHelperFunctions.showToast(
-                                                      cartController
-                                                          .requestStockResponse
-                                                          .value
-                                                          .message!,
-                                                    ),
-                                                  );
-                                                } else if (product.requestAvailable !=
-                                                    0) {
-                                                  cartController
-                                                      .getRequestResponse(
-                                                    productId: product.id!,
-                                                  )
-                                                      .then(
-                                                        (value) => AppHelperFunctions.showToast(
-                                                      cartController
-                                                          .requestStockResponse
-                                                          .value
-                                                          .message!,
-                                                    ),
-                                                  );
-                                                } else {
-                                                  cartController.getAddToCartResponse(
-                                                    product,
-                                                  );
-                                                }
-
-                                                // EventLogger()
-                                                //     .logAddToCartEvent(
-                                                //       '${product.slug}',
-                                                //       product.salePrice!,
-                                                //     );
+                                                cartController.allCartProducts
+                                                        .any(
+                                                          (element) =>
+                                                              element
+                                                                  .productId ==
+                                                              product?.id,
+                                                        )
+                                                    ? bottomController
+                                                        .jumpToTab(2)
+                                                    : cartController
+                                                        .getAddToCartResponse(
+                                                          product!,
+                                                        );
                                               },
                                               child: Obx(() {
                                                 return AppCardContainer(
                                                   applyRadius: true,
                                                   borderRadius:
                                                       AppSizes.borderRadiusSm,
-                                                  padding:
-                                                      EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            AppSizes.sm,
-                                                        vertical: AppSizes.sm,
-                                                      ),
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: AppSizes.sm,
+                                                    vertical: AppSizes.sm,
+                                                  ),
                                                   hasBorder: true,
                                                   borderWidth: 1,
                                                   backgroundColor:
@@ -364,8 +303,7 @@ class HomeTrendingSection extends StatelessWidget {
                                                                   .primary
                                                               : AppColors
                                                                   .request
-                                                          : AppColors
-                                                              .preorder,
+                                                          : AppColors.preorder,
                                                   borderColor:
                                                       AppColors.borderPrimary,
                                                   child: Text(
@@ -376,7 +314,19 @@ class HomeTrendingSection extends StatelessWidget {
                                                                 .trendingProducts?[index2]
                                                                 .stock !=
                                                             0
-                                                        ? cartController
+                                                        ? cartController.allCartProducts.any(
+                                                              (element) =>
+                                                                  element
+                                                                      .productId ==
+                                                                  homeController
+                                                                      .homeProductResponse
+                                                                      .value
+                                                                      .trending?[index1]
+                                                                      .trendingProducts?[index2]
+                                                                      .id,
+                                                            )
+                                                            ? 'View Cart'
+                                                            : cartController
                                                                 .addingToCartIds
                                                                 .contains(
                                                                   homeController

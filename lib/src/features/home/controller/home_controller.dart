@@ -173,7 +173,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> submitSurprisePhone() async {
-    if (!surprisePhoneKey.currentState!.validate()) return;
+    // if (!surprisePhoneKey.currentState!.validate()) return;
     surpriseGiftResponse.value = await HomeRepositories().getSurprizResponse(
       surprisePhoneController.text.toString(),
     );

@@ -73,7 +73,6 @@ class CommunityController extends GetxController {
     //   AppHelperFunctions.showToast('Please select a picture');
     //   return;
     // }
-    Log.d('going');
     try {
       isLoading.value = true;
       createCommunityResponse.value = await CommunityRepositories()
