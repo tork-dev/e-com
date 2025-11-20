@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
+import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -29,6 +30,7 @@ class UserDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileController = Get.put(UserController());
+    ConvexBottomNavController bottomController = ConvexBottomNavController.instance;
     return AppLayoutWithDrawer(
       globalKey: profileController.profileKey,
       backgroundColor: AppColors.white,

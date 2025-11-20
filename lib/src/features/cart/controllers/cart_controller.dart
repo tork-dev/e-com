@@ -67,6 +67,9 @@ class CartController extends GetxController {
 
     box.listenable().addListener(() {
       allCartProducts.assignAll(box.values.toList());
+      updateTotalPrice();
+      updateQuantity();
+      update();
     });
   }
 
