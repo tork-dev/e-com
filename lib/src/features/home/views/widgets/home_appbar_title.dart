@@ -6,6 +6,7 @@ import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/home/views/home_three.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -28,7 +29,11 @@ class AppHomeAppBarTitle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 70, child: Image.asset(AppImages.lightAppLogo)),
+          InkWell(
+              onTap: () {
+                bottomController.jumpToTab(0);
+              },
+              child: SizedBox(width: 70, child: Image.asset(AppImages.lightAppLogo))),
           Row(
             children: [
               Obx(() {

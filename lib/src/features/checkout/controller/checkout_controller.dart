@@ -128,8 +128,11 @@ class CheckoutController extends GetxController {
     isSummaryLoading.value = false;
     isCouponApplied.value = checkoutSummaryResponse!.result!;
     AppHelperFunctions.showToast(
-      isCouponApplied.value ? "Coupon Applied" : "Coupon Not Applied",
+      isCouponApplied.value ? "Coupon applied successfully" : checkoutSummaryResponse.message!,
     );
+    if (!isCouponApplied.value) {
+      couponController.clear();
+    }
   }
 
   // /// Coupon Remove
@@ -145,7 +148,7 @@ class CheckoutController extends GetxController {
       couponController.clear();
     }
     AppHelperFunctions.showToast(
-      isCouponApplied.value  ? "Coupon Removed" : "Something went wrong",
+      isCouponApplied.value  ? "Coupon Removed" : checkoutSummaryResponse.message!,
     );
   }
 

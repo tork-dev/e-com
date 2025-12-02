@@ -20,7 +20,8 @@ class GetShopDataController extends GetxController {
   RxString queryStringValue = ''.obs;
   final searchOn = Rx<FocusNode>(FocusNode());
   RxList<String> categoryRouteList = <String>[].obs;
-  // RxInt currentRouteIndex = 0.obs;
+  RxInt currentRouteIndex = 0.obs;
+  RxBool isNavigatingBack = false.obs;
 
   /// Model
   Rx<ShopPageResponse> shopPageProduct = ShopPageResponse().obs;
@@ -240,6 +241,7 @@ class GetShopDataController extends GetxController {
       selectedSkinTypes.remove(title);
     } else {
       selectedSkinTypes.add(title);
+      skinType.value = selectedSkinTypes.join(',');
     }
   }
 

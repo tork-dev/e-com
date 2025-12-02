@@ -92,6 +92,9 @@ class AppEndDrawer extends StatelessWidget {
                                 groupValue: categoryPassingController
                                     .selectedCategoryIndex.value,
                                 onChanged: (value) {
+
+                                  if (categoryPassingController.isNavigatingBack.value) return;
+
                                   categoryPassingController
                                       .updateSelectedCategoryIndex(
                                     value!,
@@ -143,6 +146,9 @@ class AppEndDrawer extends StatelessWidget {
                                             .skinTypes![index]
                                             .slug!),
                                     onChanged: (value) {
+
+                                      if (categoryPassingController.isNavigatingBack.value) return;
+
                                       categoryPassingController.selectSkinTypes(
                                           categoryPassingController
                                               .skinTypeResponse
@@ -172,6 +178,7 @@ class AppEndDrawer extends StatelessWidget {
                   child: AppButtons.largeFlatFilledButton(
                     verticallyPadding: 0,
                     onPressed: () {
+                      if (categoryPassingController.isNavigatingBack.value) return;
                       categoryPassingController.resetAll();
                       categoryPassingController.getShopData();
                       Get.back();
@@ -186,6 +193,7 @@ class AppEndDrawer extends StatelessWidget {
                     verticallyPadding: 0,
                     backgroundColor: AppColors.success,
                     onPressed: () {
+                      if (categoryPassingController.isNavigatingBack.value) return;
                       categoryPassingController.allProducts.clear();
                       categoryPassingController.getShopData();
                       categoryPassingController.categoryRouteList.add('/shop?${categoryPassingController.queryStringValue.value}');
