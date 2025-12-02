@@ -58,14 +58,9 @@ class GoogleNavBar extends StatelessWidget {
               rightButtonTextColor: AppColors.secondary,
               rightButtonColor: Colors.transparent);
         } else if (controller.pageIndex.value == 1 &&
-            controller.categoryController.categoryRouteList.length > 1) {
-
-          final categoryCtrl = controller.categoryController;
+            categoryCtrl.categoryRouteList.length > 1) {
 
           Log.d('Back press in category');
-
-          // Block all navigation from UI while back logic runs
-          categoryCtrl.isNavigatingBack.value = true;
 
           // Clear old products
           categoryCtrl.allProducts.clear();
@@ -86,9 +81,6 @@ class GoogleNavBar extends StatelessWidget {
           categoryCtrl.categoryRouteList.removeLast();
 
           Log.i("Updated route list: ${categoryCtrl.categoryRouteList}");
-
-          // Now allow navigation again
-          categoryCtrl.isNavigatingBack.value = false;
         } else {
           Log.d(controller.categoryController.categoryRouteList.length.toString());
           GetShopDataController().resetAll();

@@ -21,7 +21,6 @@ class GetShopDataController extends GetxController {
   final searchOn = Rx<FocusNode>(FocusNode());
   RxList<String> categoryRouteList = <String>[].obs;
   RxInt currentRouteIndex = 0.obs;
-  RxBool isNavigatingBack = false.obs;
 
   /// Model
   Rx<ShopPageResponse> shopPageProduct = ShopPageResponse().obs;
