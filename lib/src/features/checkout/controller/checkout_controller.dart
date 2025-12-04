@@ -76,6 +76,13 @@ class CheckoutController extends GetxController {
     // await Future.delayed(const Duration(seconds: 1));
 
     // await getCheckoutSummary();
+
+    if(cartController.cartSummaryResponse.value.data!.couponApplied == true){
+      isCouponApplied.value = true;
+      couponController.text = cartController.cartSummaryResponse.value.data!.couponCode ?? "";
+    }
+
+
     await getPaymentMethods();
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
       getUserRewardBalance();
@@ -142,13 +149,15 @@ class CheckoutController extends GetxController {
   // }
 
   Future<void> onCouponRemove() async {
-    CheckoutSummaryResponse? checkoutSummaryResponse = await cartController.getCheckoutSummary();
-    isCouponApplied.value = !checkoutSummaryResponse!.result!;
-    if (isCouponApplied.value ) {
+    CheckoutSummaryResponse? checkoutSummaryResponse = await cartController.getCheckoutSummary(
+      removeCoupon: true,
+    );
+    isCouponApplied.value = checkoutSummaryResponse!.data!.couponApplied!;
+    if (!isCouponApplied.value) {
       couponController.clear();
     }
     AppHelperFunctions.showToast(
-      isCouponApplied.value  ? "Coupon Removed" : checkoutSummaryResponse.message!,
+      !isCouponApplied.value  ? "Coupon Removed" : checkoutSummaryResponse.message!,
     );
   }
 

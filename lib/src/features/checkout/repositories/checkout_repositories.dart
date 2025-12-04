@@ -32,6 +32,7 @@ class CheckoutRepositories {
     int? cityID,
     String? couponCode,
     String? phone,
+    bool? removeCoupon,
     required List<int> cartProductIds,
     required List<int> cartQuantities,
   }) async {
@@ -41,6 +42,7 @@ class CheckoutRepositories {
       "coupon_code": couponCode,
       "city_id": cityID,
       "phone_number": phone,
+      "remove_coupon" : removeCoupon ?? false,
       "app_info": await AppHelperFunctions.appInfo(),
     });
     Uri url = Uri.parse(AppApiEndPoints.checkoutSummary);

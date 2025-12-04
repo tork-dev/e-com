@@ -14,12 +14,12 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(SplashController());
     final bool isDark = AppHelperFunctions.isDarkMode(context);
-    final String? baseUrl = EnvConfig.baseUrl;
+    final String baseUrl = EnvConfig.baseUrl;
     return Scaffold(
 
       backgroundColor: isDark ? AppColors.dark : AppColors.primaryBackground,
       body: Center(
-        child: baseUrl!.contains('beta') ?
+        child: baseUrl.contains('beta') ?
         Banner(
           message: 'BETA',
           location: BannerLocation.topStart,

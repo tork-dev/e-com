@@ -50,7 +50,7 @@ dependencies:
   facebook_app_events: ^0.21.0
   clipboard: ^2.0.2
   youtube_player_iframe: ^5.2.2
-  device_info_plus: ^12.2.0
+  device_info_plus: ^12.3.0
   slide_countdown: ^2.0.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -62,8 +62,12 @@ dependencies:
 
 
   #State Management
-  get: ^4.7.2
+  get: ^4.7.3
   get_storage: ^2.1.1
+  hugeicons: ^1.1.2
+  google_nav_bar: ^5.0.7
+  flutter_timer_countdown: ^1.0.7
+
 
   # Localization
   flutter_localizations:
@@ -77,12 +81,6 @@ dependencies:
   firebase_analytics: ^12.0.0
   app_links: ^6.4.1
   firebase_crashlytics: ^5.0.0
-  flutter_timer_countdown: ^1.0.7
-  google_nav_bar: ^5.0.7
-  hugeicons: ^1.1.1
-
-
-
 
 
 

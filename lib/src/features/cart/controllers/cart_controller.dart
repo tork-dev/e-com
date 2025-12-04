@@ -59,6 +59,7 @@ class CartController extends GetxController {
     if (shouldBulkAdd.value &&
         AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
       // CartRepositories().bulkAddToCart().then((value)=> getAllCartProducts());
+      onRefresh();
     } else {
       allCartProducts.assignAll(box.values.toList());
     }
@@ -345,7 +346,7 @@ class CartController extends GetxController {
         .getCartQuantityUpdate(productId, productQuantity);
   }
 
-  Future<CheckoutSummaryResponse?> getCheckoutSummary({String? couponCode, int? cityId, String? phone}) async {
+  Future<CheckoutSummaryResponse?> getCheckoutSummary({String? couponCode, int? cityId, String? phone, bool? removeCoupon}) async {
     List<int> productIds = [];
     List<int> cartQuantities = [];
 
@@ -370,7 +371,8 @@ class CartController extends GetxController {
         phone: phone,
         cityID: cityId,
         cartProductIds: productIds,
-        cartQuantities: cartQuantities
+        cartQuantities: cartQuantities,
+        removeCoupon: removeCoupon,
       );
       return cartSummaryResponse.value;
     }

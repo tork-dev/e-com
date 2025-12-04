@@ -14,7 +14,7 @@ class AuthHelper{
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userEmail, loginResponse.user?.email );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userPhone, loginResponse.user?.phone );
       AppLocalStorage().saveDataIfNull(LocalStorageKeys.userHavePassword, loginResponse.user?.passwordSaved);
-      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avatarOriginal);
+      AppLocalStorage().saveDataIfNull(LocalStorageKeys.avatarOriginal, loginResponse.user?.avatar);
       AppLocalStorage().saveData(LocalStorageKeys.sowedSpinner, true);
       EventLogger().logUserDataEvent();
   }
@@ -47,7 +47,7 @@ class AuthHelper{
       AppLocalStorage().saveData(LocalStorageKeys.userEmail, userData.email );
       AppLocalStorage().saveData(LocalStorageKeys.userPhone, userData.phone );
       AppLocalStorage().saveData(LocalStorageKeys.userHavePassword, userData.passwordSaved);
-      AppLocalStorage().saveData(LocalStorageKeys.avatarOriginal, userData.avatarOriginal);
+      AppLocalStorage().saveData(LocalStorageKeys.avatarOriginal, userData.avatar);
 
       Log.d(AppLocalStorage().readData(LocalStorageKeys.userId));
       EventLogger().logUserDataEvent();

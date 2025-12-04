@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:kirei/src/features/home/model/surprize_gift_model.dart';
 import 'package:kirei/src/features/shop/controller/get_shop_data_controller.dart';
 import 'package:kirei/src/utils/caching/caching_keys.dart';
@@ -88,6 +91,7 @@ class HomeController extends GetxController {
     if (callApis == true) {
       getData();
     }
+    // checkAndShowUpdatePrompt();
     super.onInit();
   }
 
@@ -180,4 +184,28 @@ class HomeController extends GetxController {
     AppHelperFunctions.showToast(surpriseGiftResponse.value.message!);
     surprisePhoneController.clear();
   }
+
+
+  Future<void> checkAndShowUpdatePrompt() async {
+    if (!Platform.isAndroid) return;
+
+    try {
+      final info = await InAppUpdate.checkForUpdate();
+
+      if (info.updateAvailability == UpdateAvailability.updateAvailable) {
+        // If immediate update is allowed → Play Store shows the DEFAULT prompt
+        if (info.immediateUpdateAllowed) {
+          await InAppUpdate.performImmediateUpdate();
+        }
+        // If flexible allowed → uses Google’s small built-in update bar (default UI)
+        else if (info.flexibleUpdateAllowed) {
+          await InAppUpdate.startFlexibleUpdate();
+          await InAppUpdate.completeFlexibleUpdate();
+        }
+      }
+    } catch (e) {
+      print("Update check error: $e");
+    }
+  }
+
 }
