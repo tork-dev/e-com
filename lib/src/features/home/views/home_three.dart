@@ -99,6 +99,7 @@ class HomeThree extends StatelessWidget {
                   ),
                 );
               },
+              isVisible: controller.showRecommendation,
               title:
                   controller
                       .homeProductResponse
@@ -122,7 +123,7 @@ class HomeThree extends StatelessWidget {
                       ?.btnName,
             );
           }),
-          const Gap(AppSizes.spaceBtwSections),
+
           BestSellingProductSection(
             homeProductResponse: controller.homeProductResponse,
           ),
@@ -271,6 +272,7 @@ class HomeThree extends StatelessWidget {
                       '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/kirei-tube',
                 );
               },
+              isVisible: controller.showKireiTube,
               backgroundColor: AppColors.whitePink,
               title:
                   controller
@@ -303,19 +305,6 @@ class HomeThree extends StatelessWidget {
               hasImageSize: true,
             );
           }),
-          // Obx(() {
-          //   return HomeImageTitleAndButtonSection(
-          //     bgUrl: AppImages.kireiTubeBg,
-          //     sectionName:
-          //         controller
-          //             .homeProductResponse
-          //             .value
-          //             .homepageSettings
-          //             ?.kireitube,
-          //     showTheSection: controller.showKireiTube,
-          //   );
-          // }),
-          const Gap(100),
         ],
       ),
     );

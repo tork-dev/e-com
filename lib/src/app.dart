@@ -12,6 +12,7 @@ import 'package:kirei/src/features/community/view/community_screen.dart';
 import 'package:kirei/src/features/details/view/details.dart';
 import 'package:kirei/src/features/group_shopping/view/group_shopping_screen.dart';
 import 'package:kirei/src/features/reward_point/view/reward_details_screen.dart';
+import 'package:kirei/src/features/spin/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/features/web_view/web_view.dart';
 import 'package:kirei/src/utils/helpers/dependency_injection/di_helper.dart';
 import 'package:kirei/src/utils/helpers/env_config.dart';
@@ -172,6 +173,8 @@ class MyApp extends StatelessWidget {
             name: '/hot-deals', page: () => const HotDealsScreen()),
         GetPage(
             name: '/blogs', page: () => const Blogs()),
+        GetPage(
+            name: '/spin', page: () => const AppSpinnerWheelForSale()),
         // GetPage(name: '/influencer-store', page: ()=> const InfluencerStore())
       ],
     );

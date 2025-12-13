@@ -1,15 +1,12 @@
 name: kirei
-
 description: "Japanese Beauty Products Store in Bangladesh – Authentic Products..."
-
 publish_to: 'none'
 
-version: 6.0.2+57
-
+version: 6.0.3+58
 
 
 environment:
-  sdk: '>=3.7.0 <4.0.0'
+  sdk: '>=3.10.0 <4.0.0'
 
 #----------Packages----------#
 dependencies:
@@ -24,7 +21,7 @@ dependencies:
   url_launcher: ^6.3.2
   connectivity_plus: ^7.0.0
   carousel_slider: ^5.1.1
-  smooth_page_indicator: ^1.2.1
+  smooth_page_indicator: ^2.0.1
   webview_flutter: ^4.13.0
   fluttertoast: ^9.0.0
   flutter_dotenv: ^6.0.0
@@ -48,7 +45,7 @@ dependencies:
   comment_box: ^0.0.18
   flutter_local_notifications: ^19.5.0
   facebook_app_events: ^0.21.0
-  clipboard: ^2.0.2
+  clipboard: ^3.0.5
   youtube_player_iframe: ^5.2.2
   device_info_plus: ^12.3.0
   slide_countdown: ^2.0.2
@@ -81,8 +78,6 @@ dependencies:
   firebase_analytics: ^12.0.0
   app_links: ^6.4.1
   firebase_crashlytics: ^5.0.0
-
-
 
 
 dev_dependencies:

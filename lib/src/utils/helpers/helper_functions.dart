@@ -13,6 +13,7 @@ import 'package:kirei/src/features/authentication/views/forgot_password/view/otp
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
+import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/colors.dart';
 import '../local_storage/local_storage_keys.dart';
@@ -367,17 +368,18 @@ class AppHelperFunctions {
       context: Get.context!,
       builder: (BuildContext context) {
         return Dialog(
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)),
           insetPadding: const EdgeInsets.all(AppSizes.md),
           backgroundColor: AppColors.popUpBackground,
           child: Stack(
             children: [
               Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: .center,
                 children: [
                   const Gap(AppSizes.xl),
                   AppBannerImage(
-                    applyImageRadius: false,
+                    applyImageRadius: true,
                     height: 100,
                     isNetworkImage: true,
                     imgUrl: imgUrl,
@@ -385,31 +387,38 @@ class AppHelperFunctions {
                   Padding(
                     padding: const EdgeInsets.all(AppSizes.defaultSpace),
                     child: Column(
+                      crossAxisAlignment: .center,
                       children: [
                         Text(
                           title,
                           style: Theme.of(context).textTheme.headlineMedium,
+                          textAlign: .center,
                         ),
                         const Gap(AppSizes.sm),
                         Text(
                           subTitle,
                           style: Theme.of(context).textTheme.bodyLarge,
+                          textAlign: .center,
                         ),
                         const Gap(AppSizes.md),
-                        Text(
-                          "*NOTE: $expireMessage",
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium!.apply(color: AppColors.error),
-                          textAlign: TextAlign.center,
+                        Visibility(
+                          visible: expireMessage != '',
+                          child: Text(
+                            "*NOTE: $expireMessage",
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.apply(color: AppColors.error),
+                            textAlign: .center,
+                          ),
                         ),
                         const Gap(AppSizes.xl),
                         Visibility(
                           visible: couponCode != null,
                           child: AppCardContainer(
-                            applyRadius: false,
+                            applyRadius: true,
                             onTap: onCouponPress,
                             backgroundColor: AppColors.white,
+                            borderRadius: AppSizes.borderRadiusMd,
                             padding: const EdgeInsets.symmetric(
                               vertical: AppSizes.md,
                             ),
@@ -426,7 +435,7 @@ class AppHelperFunctions {
                         ),
                         const Gap(AppSizes.defaultSpace),
                         AppButtons.largeFlatFilledButton(
-                          backgroundColor: const Color(0xffDA5555),
+                          backgroundColor: AppColors.primary,
                           onPressed: () {
                             Get.offAllNamed('/shop');
                           },
@@ -441,9 +450,10 @@ class AppHelperFunctions {
                 right: AppSizes.md,
                 top: AppSizes.md,
                 child: AppCardContainer(
-                  onTap: () => Get.back(),
-                  applyRadius: false,
-                  backgroundColor: AppColors.grey,
+                  onTap: () => Get.offAllNamed('/shop'),
+                  applyRadius: true,
+                  borderRadius: AppSizes.borderRadiusMd,
+                  backgroundColor: AppColors.whitePink,
                   height: 40,
                   width: 40,
                   child: const Icon(Icons.clear),

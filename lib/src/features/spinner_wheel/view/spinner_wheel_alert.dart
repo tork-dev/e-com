@@ -69,7 +69,9 @@ class AppSpinnerWheelAlert extends StatelessWidget {
                                     items: [
                                       for (var it in spinController.couponList)
                                         FortuneItem(
-                                            child: Text(it),
+                                            child: SizedBox(
+                                              width: 70,
+                                                child: Text(it, maxLines: 2, overflow: .ellipsis,)),
                                             style: FortuneItemStyle(
                                               color: AppColors().colorList[
                                                   spinController.couponList

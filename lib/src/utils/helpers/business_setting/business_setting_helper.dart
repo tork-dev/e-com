@@ -118,6 +118,14 @@ class BusinessSettingHelper extends GetxController {
               isEnabled,
             );
           }
+        case 'sales_spinner_status':
+          {
+            bool isEnabled = element.value.toString() == "1";
+            AppLocalStorage().saveData(
+              LocalStorageKeys.saleSpinnerStatus,
+              isEnabled,
+            );
+          }
           break;
         default:
           {}

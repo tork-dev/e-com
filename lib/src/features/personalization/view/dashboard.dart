@@ -5,6 +5,7 @@ import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.d
 import 'package:get/get.dart';
 import 'package:kirei/src/common/widgets/containers/card_container.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
+import 'package:kirei/src/features/my_coupons/view/my_coupons_screen.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/local_storage/local_storage_keys.dart';
@@ -121,9 +122,9 @@ class UserDashboard extends StatelessWidget {
                       ),
                       Expanded(
                         child: DashboardCard(
-                          icon: HugeIcons.strokeRoundedNotification01,
-                          label: 'Notification',
-                          onTap: () => Get.to(() => const NotificationScreen()),
+                          icon: HugeIcons.strokeRoundedCoupon02,
+                          label: 'My Coupons',
+                          onTap: () => Get.to(() => const MyCouponsScreen()),
                         ),
                       ),
                     ],
@@ -132,13 +133,17 @@ class UserDashboard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: DashboardCard(
+                          icon: HugeIcons.strokeRoundedNotification01,
+                          label: 'Notification',
+                          onTap: () => Get.to(() => const NotificationScreen()),
+                        ),
+                      ),
+                      Expanded(
+                        child: DashboardCard(
                           icon: HugeIcons.strokeRoundedDelete03,
                           label: 'Delete Account',
                           onTap: () => Get.to(() => const DeActiveAccount()),
                         ),
-                      ),
-                      Expanded(
-                        child: SizedBox(),
                       ),
                     ],
                   ),

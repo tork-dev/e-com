@@ -24,5 +24,6 @@ class LocalStorageKeys{
   static const String doctorAppointmentBanner = "doctorAppointmentBanner";
   static const String doctorAppointmentFee = "doctorAppointmentFee";
   static const String isInMaintenanceMode = "isInMaintenanceMode";
+  static const String saleSpinnerStatus = "saleSpinnerStatus";
 
  }

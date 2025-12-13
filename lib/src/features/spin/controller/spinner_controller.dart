@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/spinner_wheel/model/spinner_coupon_list_response.dart';
-import 'package:kirei/src/features/spinner_wheel/model/spinner_coupon_response.dart';
-import 'package:kirei/src/features/spinner_wheel/repositories/spinner_repositories.dart';
+
+import '../model/spinner_coupon_list_response.dart';
+import '../model/spinner_coupon_response.dart';
+import '../repositories/spinner_repositories.dart';
 
 
-class SpinnerController extends GetxController {
- static SpinnerController get instance => Get.find<SpinnerController>();
+class SaleSpinnerController extends GetxController {
+ static SaleSpinnerController get instance => Get.find<SaleSpinnerController>();
 
  /// TextEditingController
  final phoneNumberController = TextEditingController();
@@ -15,19 +16,14 @@ class SpinnerController extends GetxController {
  /// StreamController with broadcast
  StreamController<int> selected = StreamController<int>();
 
- /// formKey
- GlobalKey<FormState> phoneKey = GlobalKey<FormState>();
-
- /// Checkbox value
- RxBool isChecked = false.obs;
-
  ///selected Coupon
  RxInt selectedIndex = 0.obs;
  RxString selectedCoupon = ''.obs;
- Rx<SpinnerCouponList> spinnerCouponList = SpinnerCouponList().obs;
- Rx<SpinnerCouponResponse> selectedCouponResponse = SpinnerCouponResponse().obs;
+ Rx<SaleSpinnerCouponList> spinnerCouponList = SaleSpinnerCouponList().obs;
+ Rx<SaleSpinnerCouponResponse> selectedCouponResponse = SaleSpinnerCouponResponse().obs;
  RxList<String> couponList = <String>[].obs;
  RxList<String> couponCodeList = <String>[].obs;
+ RxBool isLoading = false.obs;
 
  @override
   void onInit() {
@@ -38,15 +34,17 @@ class SpinnerController extends GetxController {
 
 
  Future<void>getSpinnerCouponList() async{
-  spinnerCouponList.value = await SpinnerRepositories().getCouponList();
+   isLoading.value = true;
+  spinnerCouponList.value = await SaleSpinnerRepositories().getCouponList();
   for (var item in spinnerCouponList.value.data!) {
    couponList.add('${item.title}');
    couponCodeList.add(item.couponCode.toString());
   }
+  isLoading.value = false;
 }
 
-Future<void> getSelectedCouponResponse(String? accessToken) async{
-  selectedCouponResponse.value = await SpinnerRepositories().getSelectedCoupon(accessToken!);
+Future<void> getSelectedCouponResponse() async{
+  selectedCouponResponse.value = await SaleSpinnerRepositories().getSelectedCoupon();
    selectedIndex.value =
        couponCodeList.indexOf(selectedCouponResponse.value.data?.couponCode);
 

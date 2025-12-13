@@ -169,6 +169,10 @@ class AppApiEndPoints {
   static String postBlogComment = "$baseUrl/blog/comment/store";
 
 
+  ///My Coupons
+  static String myCoupons = "$baseUrl/coupon-rewards";
+
+
 
 
 

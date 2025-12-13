@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class SpinnerCouponList {
+class SaleSpinnerCouponList {
   List<Datum>? data;
   bool? success;
   int? status;
 
-  SpinnerCouponList({
+  SaleSpinnerCouponList({
     this.data,
     this.success,
     this.status,
   });
 
-  factory SpinnerCouponList.fromJson(String str) => SpinnerCouponList.fromMap(json.decode(str));
+  factory SaleSpinnerCouponList.fromJson(String str) => SaleSpinnerCouponList.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory SpinnerCouponList.fromMap(Map<String, dynamic> json) => SpinnerCouponList(
+  factory SaleSpinnerCouponList.fromMap(Map<String, dynamic> json) => SaleSpinnerCouponList(
     data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromMap(x))),
     success: json["success"],
     status: json["status"],
@@ -34,6 +34,7 @@ class Datum {
   String? discountType;
   int? discount;
   String? title;
+
 
   Datum({
     this.id,

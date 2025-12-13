@@ -26,6 +26,7 @@ import '../../../features/authentication/views/log_in/view/login.dart';
 import '../../../features/authentication/views/sign_up/view/signup.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/auth_helper.dart';
+import '../../widgets/buttons/glow_button.dart';
 import 'widgets/common_drawer_card.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -84,6 +85,24 @@ class AppDrawer extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+          ),
+          Visibility(
+            visible: AppLocalStorage().readData(LocalStorageKeys.saleSpinnerStatus) == true,
+            child: Padding(
+              padding: const .symmetric(horizontal: AppSizes.md),
+              child: GlowingButton(
+                text: "Spin Now",
+                onTap: () {
+                  if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true){
+                    Get.toNamed("/login", arguments: {
+                      "prevRoute" : "/spin"
+                    });
+                    return;
+                  }
+                  Get.toNamed("/spin");
+                },
+              ),
             ),
           ),
           AppDrawerCard(title: 'HOME', onPress: () => Get.offAllNamed("/home")),

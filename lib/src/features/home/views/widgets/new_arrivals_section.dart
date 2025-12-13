@@ -16,19 +16,13 @@ class NewArrivalsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
-          child: AppSectionTitleText(
-            sectionTitle: 'New Arrivals',
-            haveTxtButton: false,
-          ),
+        AppSectionTitleText(
+          sectionTitle: 'New Arrivals',
+          haveTxtButton: false,
         ),
         Obx(() {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSizes.md),
-            child: AppHorizontalScrollProductCard(
-              sectionName: homeProductResponse.value.newProducts,
-            ),
+          return AppHorizontalScrollProductCard(
+            sectionName: homeProductResponse.value.newProducts,
           );
         }),
         Gap(AppSizes.spaceBtwSections),
