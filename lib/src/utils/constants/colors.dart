@@ -80,36 +80,34 @@ class AppColors {
 
   /// for fixed three color
   List<Color> colorList = [
-    const Color(0xFF1F2937), // Dark Gray
-    const Color(0xFF111827), // Almost Black
-    const Color(0xFF3B82F6), // Blue
-    const Color(0xFF2563EB), // Darker Blue
-    const Color(0xFF60A5FA), // Light Blue
-    const Color(0xFF10B981), // Green
-    const Color(0xFF059669), // Darker Green
-    const Color(0xFF6EE7B7), // Mint Green
-    const Color(0xFFF59E0B), // Amber / Orange
-    const Color(0xFFFBBF24), // Light Amber
-    const Color(0xFFEF4444), // Red
-    const Color(0xFFDC2626), // Dark Red
-    const Color(0xFFF472B6), // Pink
-    const Color(0xFFE11D48), // Deep Pink
+    const Color(0xFF2563EB), // Blue
+    const Color(0xFF16A34A), // Green
+    const Color(0xFFF59E0B), // Amber
     const Color(0xFF8B5CF6), // Purple
-    const Color(0xFF7C3AED), // Dark Purple
+    const Color(0xFFDC2626), // Red
+    const Color(0xFF0EA5E9), // Sky Blue
+    const Color(0xFF84CC16), // Lime
     const Color(0xFFF97316), // Orange
-    const Color(0xFFEA580C), // Dark Orange
     const Color(0xFF6366F1), // Indigo
-    const Color(0xFF4F46E5), // Dark Indigo
+    const Color(0xFFF43F5E), // Pink
     const Color(0xFF14B8A6), // Teal
-    const Color(0xFF0D9488), // Dark Teal
-    const Color(0xFFFACC15), // Yellow
-    const Color(0xFFEAB308), // Dark Yellow
-    const Color(0xFF22D3EE), // Cyan
-    const Color(0xFF06B6D4), // Dark Cyan
+    const Color(0xFFEAB308), // Yellow
+    const Color(0xFF9333EA), // Violet
+    const Color(0xFF22C55E), // Fresh Green
+    const Color(0xFFEA580C), // Deep Orange
+    const Color(0xFF06B6D4), // Cyan
+    const Color(0xFFBE123C), // Rose Red
+    const Color(0xFF64748B), // Neutral Gray
   ];
-  Color getRandomColor(){
-    Random random = Random();
-    return colorList[random.nextInt(colorList.length)];
+
+  Color getRandomColor(int index) {
+    final hue = (index * 47) % 360; // prime gap → repeat কম
+    return HSLColor.fromAHSL(
+      1,
+      hue.toDouble(),
+      0.65,
+      0.55,
+    ).toColor();
   }
 
 }

@@ -56,7 +56,7 @@ class AppSpinnerWheelForSale extends StatelessWidget {
                                 FortuneIndicator(
                                   alignment: Alignment.topCenter,
                                   child: TriangleIndicator(
-                                    color: Colors.white,
+                                    color: AppColors.error,
                                     width: 20,
                                     height: 24.0,
                                     elevation: 0,
@@ -71,8 +71,7 @@ class AppSpinnerWheelForSale extends StatelessWidget {
                                         // height: 35,
                                         child: Text(item, maxLines: 2, overflow: .ellipsis,)),
                                     style: FortuneItemStyle(
-                                      color: AppColors().colorList[
-                                      spinController.couponList
+                                      color: AppColors().colorList[spinController.couponList
                                           .indexOf(item)],
                                       borderWidth: 0,
                                     ),
