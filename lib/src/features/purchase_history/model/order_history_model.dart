@@ -284,7 +284,7 @@ class Product {
   String? slug;
   List<SmallPicture>? smallPictures;
   dynamic variation;
-  int? unitPrice;
+  dynamic unitPrice;
   int? price;
   String? tax;
   int? shippingCost;

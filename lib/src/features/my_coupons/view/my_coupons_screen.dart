@@ -29,17 +29,16 @@ class MyCouponsScreen extends StatelessWidget {
       bodyBackgroundColor: AppColors.secondaryBackground,
       centerTitle: true,
       body: Obx(() {
-        bool isCopied =
-            controller.myCoupons.value.data?.any(
-              (item) =>
-                  item.couponCode == controller.selectedCoupon.value.couponCode,
-            ) ??
-            false;
         return AppListViewLayout(
-          itemCount: controller.myCoupons.value.data?.length ?? 10,
-          builderFunction: (context, index) =>
-              controller.myCoupons.value.data == null
+          itemCount: controller.hittingApi.value
+              ? 10
+              : controller.myCoupons.value.data!.isEmpty
+              ? 1
+              : controller.myCoupons.value.data!.length,
+          builderFunction: (context, index) => controller.hittingApi.value
               ? ShimmerHelper().buildBasicShimmer(height: 50)
+              : controller.myCoupons.value.data == null
+              ? Center(child: Text("No Coupons Exist"))
               : Stack(
                   alignment: Alignment.center,
                   children: [
@@ -114,8 +113,7 @@ class MyCouponsScreen extends StatelessWidget {
                                                 .data![index]
                                                 .isUsed!
                                             ? null
-                                            : isCopied
-                                            ? FlutterClipboard.copy(
+                                            : FlutterClipboard.copy(
                                                 controller
                                                     .myCoupons
                                                     .value
@@ -129,8 +127,7 @@ class MyCouponsScreen extends StatelessWidget {
                                                         .myCoupons
                                                         .value
                                                         .data![index],
-                                              )
-                                            : Get.offAllNamed("/shop");
+                                              );
                                       },
                                       padding: const EdgeInsets.symmetric(
                                         vertical: AppSizes.sm,
@@ -144,8 +141,6 @@ class MyCouponsScreen extends StatelessWidget {
                                               .data![index]
                                               .isUsed!
                                           ? AppColors.buttonDisabled
-                                          : isCopied
-                                          ? AppColors.primary
                                           : AppColors.secondary,
                                       child: Text(
                                         controller
@@ -154,9 +149,8 @@ class MyCouponsScreen extends StatelessWidget {
                                                 .data![index]
                                                 .isUsed!
                                             ? " Used "
-                                            : isCopied
-                                            ? 'Copy Now'
-                                            : 'Use Now',
+                                            : 'Copy Now',
+
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelMedium!

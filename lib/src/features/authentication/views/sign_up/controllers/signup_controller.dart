@@ -37,7 +37,7 @@ class SignUpPageController extends GetxController {
   Future<void> sendOtpSignUp(
 
       ) async {
-    final isConnected = await NetworkManager.instance.isConnected();
+    // final isConnected = await NetworkManager.instance.isConnected();
     try {
       /// Validate Form
       if (!signupFormKey.currentState!.validate()) return;

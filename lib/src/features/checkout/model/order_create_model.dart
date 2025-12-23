@@ -4,7 +4,7 @@ class OrderCreateResponse {
   bool? result;
   String? message;
   Data? data;
-  dynamic code;
+  int? code;
 
   OrderCreateResponse({
     this.result,
@@ -57,27 +57,35 @@ class Data {
 }
 
 class Order {
-  int? userId;
-  String? shippingAddress;
+  int? id;
+  User? user;
+  String? orderSource;
   String? paymentType;
   String? paymentStatus;
+  int? deliveryStatus;
+  DateTime? date;
+  dynamic note;
   dynamic grandTotal;
-  dynamic shippingCost;
+  int? shippingCost;
   dynamic couponDiscount;
-  int? id;
-  dynamic rewardPointEarned;
+  dynamic rewardPoint;
+  ShippingAddress? shippingAddress;
   List<OrderDetail>? orderDetails;
 
   Order({
-    this.userId,
-    this.shippingAddress,
+    this.id,
+    this.user,
+    this.orderSource,
     this.paymentType,
     this.paymentStatus,
+    this.deliveryStatus,
+    this.date,
+    this.note,
     this.grandTotal,
     this.shippingCost,
     this.couponDiscount,
-    this.id,
-    this.rewardPointEarned,
+    this.rewardPoint,
+    this.shippingAddress,
     this.orderDetails,
   });
 
@@ -86,83 +94,59 @@ class Order {
   String toRawJson() => json.encode(toJson());
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-    userId: json["user_id"],
-    shippingAddress: json["shipping_address"],
+    id: json["id"],
+    user: json["user"] == null ? null : User.fromJson(json["user"]),
+    orderSource: json["order_source"],
     paymentType: json["payment_type"],
     paymentStatus: json["payment_status"],
-    grandTotal: json["grand_total"]?.toDouble(),
+    deliveryStatus: json["delivery_status"],
+    date: json["date"] == null ? null : DateTime.parse(json["date"]),
+    note: json["note"],
+    grandTotal: json["grand_total"],
     shippingCost: json["shipping_cost"],
-    couponDiscount: json["coupon_discount"]?.toDouble(),
-    id: json["id"],
-    rewardPointEarned: json["reward_point_earned"]?.toDouble(),
+    couponDiscount: json["coupon_discount"],
+    rewardPoint: json["reward_point"],
+    shippingAddress: json["shipping_address"] == null ? null : ShippingAddress.fromJson(json["shipping_address"]),
     orderDetails: json["order_details"] == null ? [] : List<OrderDetail>.from(json["order_details"]!.map((x) => OrderDetail.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "user_id": userId,
-    "shipping_address": shippingAddress,
+    "id": id,
+    "user": user?.toJson(),
+    "order_source": orderSource,
     "payment_type": paymentType,
     "payment_status": paymentStatus,
+    "delivery_status": deliveryStatus,
+    "date": date?.toIso8601String(),
+    "note": note,
     "grand_total": grandTotal,
     "shipping_cost": shippingCost,
     "coupon_discount": couponDiscount,
-    "id": id,
-    "reward_point_earned": rewardPointEarned,
+    "reward_point": rewardPoint,
+    "shipping_address": shippingAddress?.toJson(),
     "order_details": orderDetails == null ? [] : List<dynamic>.from(orderDetails!.map((x) => x.toJson())),
   };
 }
 
 class OrderDetail {
   int? id;
-  int? orderId;
-  dynamic sellerId;
   int? productId;
-  dynamic comboProductId;
-  dynamic variation;
-  dynamic unitPrice;
-  dynamic price;
-  dynamic rewardPointUsed;
+  int? quantity;
+  double? unitPrice;
+  dynamic totalPrice;
   dynamic discount;
-  dynamic couponCode;
-  dynamic tax;
-  dynamic shippingCost;
-  dynamic quantity;
-  dynamic productStockId;
-  int? isPreOrder;
   String? paymentStatus;
   String? deliveryStatus;
-  dynamic shippingType;
-  dynamic pickupPointId;
-  dynamic productReferralCode;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  Product? product;
 
   OrderDetail({
     this.id,
-    this.orderId,
-    this.sellerId,
     this.productId,
-    this.comboProductId,
-    this.variation,
-    this.unitPrice,
-    this.price,
-    this.rewardPointUsed,
-    this.discount,
-    this.couponCode,
-    this.tax,
-    this.shippingCost,
     this.quantity,
-    this.productStockId,
-    this.isPreOrder,
+    this.unitPrice,
+    this.totalPrice,
+    this.discount,
     this.paymentStatus,
     this.deliveryStatus,
-    this.shippingType,
-    this.pickupPointId,
-    this.productReferralCode,
-    this.createdAt,
-    this.updatedAt,
-    this.product,
   });
 
   factory OrderDetail.fromRawJson(String str) => OrderDetail.fromJson(json.decode(str));
@@ -171,265 +155,115 @@ class OrderDetail {
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
     id: json["id"],
-    orderId: json["order_id"],
-    sellerId: json["seller_id"],
     productId: json["product_id"],
-    comboProductId: json["combo_product_id"],
-    variation: json["variation"],
-    unitPrice: json["unit_price"],
-    price: json["price"],
-    rewardPointUsed: json["reward_point_used"],
-    discount: json["discount"]?.toDouble(),
-    couponCode: json["coupon_code"],
-    tax: json["tax"],
-    shippingCost: json["shipping_cost"],
     quantity: json["quantity"],
-    productStockId: json["product_stock_id"],
-    isPreOrder: json["is_pre_order"],
+    unitPrice: json["unit_price"]?.toDouble(),
+    totalPrice: json["total_price"],
+    discount: json["discount"],
     paymentStatus: json["payment_status"],
     deliveryStatus: json["delivery_status"],
-    shippingType: json["shipping_type"],
-    pickupPointId: json["pickup_point_id"],
-    productReferralCode: json["product_referral_code"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    product: json["product"] == null ? null : Product.fromJson(json["product"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "order_id": orderId,
-    "seller_id": sellerId,
     "product_id": productId,
-    "combo_product_id": comboProductId,
-    "variation": variation,
-    "unit_price": unitPrice,
-    "price": price,
-    "reward_point_used": rewardPointUsed,
-    "discount": discount,
-    "coupon_code": couponCode,
-    "tax": tax,
-    "shipping_cost": shippingCost,
     "quantity": quantity,
-    "product_stock_id": productStockId,
-    "is_pre_order": isPreOrder,
+    "unit_price": unitPrice,
+    "total_price": totalPrice,
+    "discount": discount,
     "payment_status": paymentStatus,
     "delivery_status": deliveryStatus,
-    "shipping_type": shippingType,
-    "pickup_point_id": pickupPointId,
-    "product_referral_code": productReferralCode,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "product": product?.toJson(),
   };
 }
 
-class Product {
-  int? id;
+class ShippingAddress {
   String? name;
-  String? photos;
-  String? thumbnailImg;
-  String? tags;
-  String? shortDescription;
-  String? description;
-  String? goodFor;
-  String? skinTypes;
-  String? keyIngredients;
-  dynamic unitPrice;
-  dynamic purchasePrice;
-  dynamic groupPurchasePrice;
-  dynamic costPrice;
-  String? attributes;
-  String? choiceOptions;
-  String? colors;
-  String? variations;
-  String? stockVisibilityState;
-  dynamic sideFeatured;
-  DateTime? preorderDeliveryDate;
-  dynamic preorderStartDate;
-  dynamic preorderEndDate;
-  String? unit;
-  dynamic lowStockQuantity;
-  String? discountType;
-  dynamic discountStartDate;
-  dynamic discountEndDate;
-  dynamic tax;
-  dynamic taxType;
-  String? shippingType;
-  dynamic estShippingDays;
-  String? metaTitle;
-  String? metaDescription;
-  String? metaImg;
-  String? metaTags;
-  dynamic pdf;
-  String? slug;
-  double? rating;
-  dynamic barcode;
-  dynamic jenCode;
-  dynamic fileName;
-  dynamic filePath;
-  dynamic externalLink;
-  String? externalLinkBtn;
-  String? totalStock;
-  String? sixtyDaysSale;
-  dynamic comboIds;
-  dynamic comboQuantities;
-  List<dynamic>? taxes;
+  dynamic email;
+  String? address;
+  int? cityId;
+  String? state;
+  int? zoneId;
+  String? city;
+  int? areaId;
+  String? area;
+  String? phone;
 
-  Product({
-    this.id,
+  ShippingAddress({
     this.name,
-    this.photos,
-    this.thumbnailImg,
-    this.shortDescription,
-    this.description,
-    this.unitPrice,
-    this.purchasePrice,
-    this.groupPurchasePrice,
-    this.costPrice,
-    this.attributes,
-    this.choiceOptions,
-    this.colors,
-    this.variations,
-    this.stockVisibilityState,
-    this.sideFeatured,
-    this.preorderDeliveryDate,
-    this.preorderStartDate,
-    this.preorderEndDate,
-    this.unit,
-    this.lowStockQuantity,
-    this.discountType,
-    this.discountStartDate,
-    this.discountEndDate,
-    this.tax,
-    this.taxType,
-    this.shippingType,
-    this.estShippingDays,
-    this.metaTitle,
-    this.metaDescription,
-    this.metaImg,
-    this.metaTags,
-    this.pdf,
-    this.slug,
-    this.rating,
-    this.barcode,
-    this.jenCode,
-    this.fileName,
-    this.filePath,
-    this.externalLink,
-    this.externalLinkBtn,
-    this.totalStock,
-    this.sixtyDaysSale,
-    this.comboIds,
-    this.comboQuantities,
-    this.taxes,
+    this.email,
+    this.address,
+    this.cityId,
+    this.state,
+    this.zoneId,
+    this.city,
+    this.areaId,
+    this.area,
+    this.phone,
   });
 
-  factory Product.fromRawJson(String str) => Product.fromJson(json.decode(str));
+  factory ShippingAddress.fromRawJson(String str) => ShippingAddress.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory ShippingAddress.fromJson(Map<String, dynamic> json) => ShippingAddress(
+    name: json["name"],
+    email: json["email"],
+    address: json["address"],
+    cityId: json["city_id"],
+    state: json["state"],
+    zoneId: json["zone_id"],
+    city: json["city"],
+    areaId: json["area_id"],
+    area: json["area"],
+    phone: json["phone"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "email": email,
+    "address": address,
+    "city_id": cityId,
+    "state": state,
+    "zone_id": zoneId,
+    "city": city,
+    "area_id": areaId,
+    "area": area,
+    "phone": phone,
+  };
+}
+
+class User {
+  int? id;
+  String? name;
+  String? email;
+  String? avatar;
+  String? membership;
+
+  User({
+    this.id,
+    this.name,
+    this.email,
+    this.avatar,
+    this.membership,
+  });
+
+  factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
     id: json["id"],
     name: json["name"],
-    photos: json["photos"],
-    thumbnailImg: json["thumbnail_img"],
-    shortDescription: json["short_description"],
-    description: json["description"],
-    unitPrice: json["unit_price"],
-    purchasePrice: json["purchase_price"],
-    groupPurchasePrice: json["group_purchase_price"],
-    costPrice: json["cost_price"],
-    attributes: json["attributes"],
-    choiceOptions: json["choice_options"],
-    colors: json["colors"],
-    variations: json["variations"],
-    stockVisibilityState: json["stock_visibility_state"],
-    sideFeatured: json["side_featured"],
-    preorderDeliveryDate: json["preorder_delivery_date"] == null ? null : DateTime.parse(json["preorder_delivery_date"]),
-    preorderStartDate: json["preorder_start_date"],
-    preorderEndDate: json["preorder_end_date"],
-    unit: json["unit"],
-    lowStockQuantity: json["low_stock_quantity"],
-    discountType: json["discount_type"],
-    discountStartDate: json["discount_start_date"],
-    discountEndDate: json["discount_end_date"],
-    tax: json["tax"],
-    taxType: json["tax_type"],
-    shippingType: json["shipping_type"],
-    estShippingDays: json["est_shipping_days"],
-    metaTitle: json["meta_title"],
-    metaDescription: json["meta_description"],
-    metaImg: json["meta_img"],
-    metaTags: json["meta_tags"],
-    pdf: json["pdf"],
-    slug: json["slug"],
-    rating: json["rating"]?.toDouble(),
-    barcode: json["barcode"],
-    jenCode: json["jen_code"],
-    fileName: json["file_name"],
-    filePath: json["file_path"],
-    externalLink: json["external_link"],
-    externalLinkBtn: json["external_link_btn"],
-    totalStock: json["total_stock"],
-    sixtyDaysSale: json["sixty_days_sale"],
-    comboIds: json["combo_ids"],
-    comboQuantities: json["combo_quantities"],
-    taxes: json["taxes"] == null ? [] : List<dynamic>.from(json["taxes"]!.map((x) => x)),
+    email: json["email"],
+    avatar: json["avatar"],
+    membership: json["membership"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-    "photos": photos,
-    "thumbnail_img": thumbnailImg,
-    "tags": tags,
-    "short_description": shortDescription,
-    "description": description,
-    "good_for": goodFor,
-    "skin_types": skinTypes,
-    "key_ingredients": keyIngredients,
-    "unit_price": unitPrice,
-    "purchase_price": purchasePrice,
-    "group_purchase_price": groupPurchasePrice,
-    "cost_price": costPrice,
-    "attributes": attributes,
-    "choice_options": choiceOptions,
-    "colors": colors,
-    "variations": variations,
-    "stock_visibility_state": stockVisibilityState,
-    "side_featured": sideFeatured,
-    "preorder_delivery_date": "${preorderDeliveryDate!.year.toString().padLeft(4, '0')}-${preorderDeliveryDate!.month.toString().padLeft(2, '0')}-${preorderDeliveryDate!.day.toString().padLeft(2, '0')}",
-    "preorder_start_date": preorderStartDate,
-    "preorder_end_date": preorderEndDate,
-    "unit": unit,
-    "low_stock_quantity": lowStockQuantity,
-    "discount_type": discountType,
-    "discount_start_date": discountStartDate,
-    "discount_end_date": discountEndDate,
-    "tax": tax,
-    "tax_type": taxType,
-    "shipping_type": shippingType,
-    "est_shipping_days": estShippingDays,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "meta_img": metaImg,
-    "meta_tags": metaTags,
-    "pdf": pdf,
-    "slug": slug,
-    "rating": rating,
-    "barcode": barcode,
-    "jen_code": jenCode,
-    "file_name": fileName,
-    "file_path": filePath,
-    "external_link": externalLink,
-    "external_link_btn": externalLinkBtn,
-
-    "total_stock": totalStock,
-    "sixty_days_sale": sixtyDaysSale,
-    "combo_ids": comboIds,
-    "combo_quantities": comboQuantities,
-    "taxes": taxes == null ? [] : List<dynamic>.from(taxes!.map((x) => x)),
+    "email": email,
+    "avatar": avatar,
+    "membership": membership,
   };
 }
-
