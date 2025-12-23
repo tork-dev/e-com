@@ -21,7 +21,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
     final listController = PurchaseHistoryController();
     // final bottomNavController = ConvexBottomNavController.instance;
     return Obx(() {
-      return detailsController.purchaseHistoryDetails.value.data == null
+      return detailsController.orderDetailsData.value.shippingAddress == null
           ? ShimmerHelper().buildBasicShimmer(height: 250)
           : AppCardContainer(
               padding: const EdgeInsets.all(AppSizes.md),
@@ -39,7 +39,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                            '${detailsController.purchaseHistoryDetails.value.data![0].id!}',
+                            '${detailsController.orderDetailsData.value.id!}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
@@ -55,8 +55,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                            detailsController.purchaseHistoryDetails.value
-                                .data![0].shippingType ?? "",
+                            detailsController.orderDetailsData.value.shippingType ?? "",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
@@ -79,7 +78,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                           ),
                           Text(
                               detailsController
-                                  .purchaseHistoryDetails.value.data![0].date!,
+                                  .orderDetailsData.value.date!,
                               style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
@@ -91,8 +90,8 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                              detailsController.purchaseHistoryDetails.value
-                                  .data![0].paymentType!,
+                              detailsController.orderDetailsData.value
+                                  .paymentType!,
                               style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
@@ -112,16 +111,14 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                  detailsController.purchaseHistoryDetails.value
-                                      .data![0].paymentStatus!,
+                                  detailsController.orderDetailsData.value.paymentStatus!,
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
                               const Gap(AppSizes.xs),
                               PaymentStatusIndicator(
                                 paymentStatus: detailsController
-                                    .purchaseHistoryDetails
+                                    .orderDetailsData
                                     .value
-                                    .data![0]
                                     .paymentStatus!,
                               )
                             ],
@@ -136,8 +133,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                              detailsController.purchaseHistoryDetails.value
-                                  .data![0].deliveryStatusString!,
+                              detailsController.orderDetailsData.value.deliveryStatusString!,
                               style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
@@ -158,19 +154,19 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             Text(
-                                'Name: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.name}',
+                                'Name: ${detailsController.orderDetailsData.value.shippingAddress!.name}',
                                 style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'Address: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.address}',
+                                'Address: ${detailsController.orderDetailsData.value.shippingAddress!.address}',
                                 style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'City: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.city}',
+                                'City: ${detailsController.orderDetailsData.value.shippingAddress!.city}',
                                 style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'Area: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.state}',
+                                'Area: ${detailsController.orderDetailsData.value.shippingAddress!.state}',
                                 style: Theme.of(context).textTheme.bodyMedium),
                             Text(
-                                'Phone: ${detailsController.purchaseHistoryDetails.value.data![0].shippingAddress!.phone}',
+                                'Phone: ${detailsController.orderDetailsData.value.shippingAddress!.phone}',
                                 style: Theme.of(context).textTheme.bodyMedium),
                           ],
                         ),
@@ -183,8 +179,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                              detailsController.purchaseHistoryDetails.value
-                                  .data![0].grandTotal!,
+                              "${detailsController.orderDetailsData.value.grandTotal}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -199,7 +194,7 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
                       backgroundColor: AppColors.secondary,
                       onPressed: () {
                         listController
-                            .getReorderResponse(detailsController.purchaseHistoryDetails.value.data![0].id!)
+                            .getReorderResponse(detailsController.orderDetailsData.value.id!)
                             .then((value) => {
                                   AppHelperFunctions.showToast(listController
                                       .reOrderResponse.value.message!),
@@ -210,8 +205,8 @@ class AppOrderShippingDetailsCard extends StatelessWidget {
 
                   const Gap(AppSizes.sm),
                   Visibility(
-                      visible: detailsController.purchaseHistoryDetails.value
-                              .data![0].deliveryStatusString ==
+                      visible: detailsController.orderDetailsData.value
+                              .deliveryStatusString ==
                           'Processing',
                       child: AppButtons.largeFlatFilledButton(
                           onPressed: () {

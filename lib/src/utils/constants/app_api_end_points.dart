@@ -73,6 +73,7 @@ class AppApiEndPoints {
   static String purchaseHistoryDetails = "$baseUrl/purchase-history-details";
   static String purchaseHistoryItem = "$baseUrl/purchase-history-items";
   static String reOrder = "$baseUrl/reorder";
+  static String orderHistory = "$baseUrl/order-details";
 
 
   ///Update Profile info

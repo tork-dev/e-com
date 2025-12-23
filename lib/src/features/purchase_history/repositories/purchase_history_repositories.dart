@@ -5,6 +5,7 @@ import 'package:kirei/src/features/purchase_history/model/purchase_history_detai
 import '../../../utils/constants/app_api_end_points.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
 import '../../../utils/local_storage/storage_utility.dart';
+import '../model/order_history_model.dart';
 import '../model/product_history_items_model.dart';
 import '../model/purchase_history_model.dart';
 
@@ -76,6 +77,21 @@ class PurchaseHistoryRepositories {
       throw Error();
     }
   }
+
+  Future<OrderDetailsResponseModel> getOrderDetails(int id) async{
+    final response = await http.post(
+      Uri.parse('${AppApiEndPoints.orderHistory}/$id'),
+      headers: {"Authorization": "Bearer $accessToken"},
+    );
+    if (response.statusCode == 200) {
+      var responseBody = jsonDecode(response.body);
+      return OrderDetailsResponseModel.fromJson(responseBody);
+    } else {
+      throw Error();
+    }
+  }
+
+
 
   // Future<dynamic> getReOrder({@required int id = 0}) async {
   //   Uri url = Uri.parse("${ENDP.RE_ORDER}"+id.toString());

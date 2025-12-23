@@ -11,15 +11,18 @@ import '../../address/model/area_response.dart';
 import '../../address/model/order_address_change.dart';
 import '../../address/model/zone_response.dart';
 import '../../address/repositories/address_repositories.dart';
+import '../model/order_history_model.dart';
 import '../model/product_history_items_model.dart';
 
 class PurchaseHistoryDetailsController extends GetxController {
   static PurchaseHistoryDetailsController get instance => Get.find();
 
-  Rx<PurchaseHistoryDetailsResponse> purchaseHistoryDetails =
-      PurchaseHistoryDetailsResponse().obs;
-  Rx<PurchaseHistoryItemsResponse> purchaseHistoryItemDetails =
-      PurchaseHistoryItemsResponse().obs;
+  // Rx<PurchaseHistoryDetailsResponse> purchaseHistoryDetails =
+  //     PurchaseHistoryDetailsResponse().obs;
+  // Rx<PurchaseHistoryItemsResponse> purchaseHistoryItemDetails =
+  //     PurchaseHistoryItemsResponse().obs;
+
+  Rx<OrderDetailsResponseModel> orderDetailsData = OrderDetailsResponseModel().obs;
 
   RxInt isAuthentic = 1.obs;
   TextEditingController noteController = TextEditingController();
@@ -44,22 +47,23 @@ class PurchaseHistoryDetailsController extends GetxController {
 
 
   Future onRefresh(int orderId) async {
-     await getPurchaseHistoryDetails(orderId);
-     await getPurchaseHistoryItemDetails(orderId);
+     // await getPurchaseHistoryDetails(orderId);
+     // await getPurchaseHistoryItemDetails(orderId);
+    await getOrderDetails(orderId);
     setAddress();
   }
 
   void setAddress(){
-    nameController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.name!;
-    phoneController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.phone!;
-    emailController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.email ?? '';
-    addressController.text = purchaseHistoryDetails.value.data![0].shippingAddress!.address!;
-    selectedCityName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.state!;
-    selectedCityId.value = purchaseHistoryDetails.value.data![0].shippingAddress!.cityId!;
-    selectedZoneName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.city!;
-    selectedZoneId.value = purchaseHistoryDetails.value.data![0].shippingAddress!.zoneId!;
-    selectedAreaName.text = purchaseHistoryDetails.value.data![0].shippingAddress!.area!;
-    selectedAreaId.value = purchaseHistoryDetails.value.data![0].shippingAddress!.areaId!;
+    nameController.text = orderDetailsData.value.shippingAddress!.name!;
+    phoneController.text = orderDetailsData.value.shippingAddress!.phone!;
+    emailController.text = orderDetailsData.value.shippingAddress!.email ?? '';
+    addressController.text = orderDetailsData.value.shippingAddress!.address!;
+    selectedCityName.text = orderDetailsData.value.shippingAddress!.state!;
+    selectedCityId.value = orderDetailsData.value.shippingAddress!.cityId!;
+    selectedZoneName.text = orderDetailsData.value.shippingAddress!.city!;
+    selectedZoneId.value = orderDetailsData.value.shippingAddress!.zoneId!;
+    selectedAreaName.text = orderDetailsData.value.shippingAddress!.area!;
+    selectedAreaId.value = orderDetailsData.value.shippingAddress!.areaId!;
   }
 
 
@@ -77,14 +81,19 @@ class PurchaseHistoryDetailsController extends GetxController {
     await AddressRepositories().getAreas(selectedZoneId);
   }
 
-  Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails(int orderId) async {
-    return purchaseHistoryDetails.value =
-        await PurchaseHistoryRepositories().getPurchaseHistoryDetails(orderId);
-  }
+  // Future<PurchaseHistoryDetailsResponse> getPurchaseHistoryDetails(int orderId) async {
+  //   return purchaseHistoryDetails.value =
+  //       await PurchaseHistoryRepositories().getPurchaseHistoryDetails(orderId);
+  // }
+  //
+  // Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails(int orderId) async {
+  //   return purchaseHistoryItemDetails.value =
+  //   await PurchaseHistoryRepositories().getPurchaseHistoryItemDetails(orderId);
+  // }
 
-  Future<PurchaseHistoryItemsResponse> getPurchaseHistoryItemDetails(int orderId) async {
-    return purchaseHistoryItemDetails.value =
-    await PurchaseHistoryRepositories().getPurchaseHistoryItemDetails(orderId);
+  Future<OrderDetailsResponseModel> getOrderDetails(int orderId) async {
+    return orderDetailsData.value =
+    await PurchaseHistoryRepositories().getOrderDetails(orderId);
   }
 
 

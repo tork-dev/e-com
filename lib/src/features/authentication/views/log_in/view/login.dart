@@ -15,6 +15,7 @@ import '../../../../../l10n/app_localizations.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../sign_up/view/widgets/signup_forms_and_button.dart';
+import '../../widgets/other_login_option.dart';
 import '../controllers/login_controller.dart';
 import 'widgets/login_forms&button.dart';
 
@@ -58,7 +59,10 @@ class LogIn extends StatelessWidget {
                         labelColor: AppColors.primary,
                         indicatorSize: TabBarIndicatorSize.tab,
                         labelStyle: Theme.of(context).textTheme.titleSmall,
-                        tabs: const [Tab(text: 'Login'), Tab(text: 'Register')],
+                        tabs: const [
+                          Tab(text: 'Login'),
+                          Tab(text: 'Register'),
+                        ],
                       ),
                       Expanded(
                         child: TabBarView(
@@ -72,74 +76,74 @@ class LogIn extends StatelessWidget {
                                 Obx(() {
                                   return logInController.hittingApi.value
                                       ? AppListViewLayout(
-                                        itemCount: 3,
-                                        builderFunction: (context, index) {
-                                          return ShimmerHelper()
-                                              .buildBasicShimmer(height: 50);
-                                        },
-                                      )
+                                          itemCount: 3,
+                                          builderFunction: (context, index) {
+                                            return ShimmerHelper()
+                                                .buildBasicShimmer(height: 50);
+                                          },
+                                        )
                                       : Column(
-                                        spacing: AppSizes.spaceBtwItems,
-                                        children: [
-                                          Visibility(
-                                            visible:
-                                                AppLocalStorage().readData(
-                                                  LocalStorageKeys.googleLogin,
-                                                ) ==
-                                                true,
-                                            child:
-                                                AppButtons.largeFlatOutlineButtonWithIcon(
-                                                  onPressed: () {
-                                                    logInController
-                                                        .onPressedGoogleLogin();
-                                                  },
-                                                  verticallyPadding: 14,
-                                                  imgUrl: AppImages.google,
-                                                  buttonText:
-                                                      'Login with Google',
-                                                ),
-                                          ),
-                                          Visibility(
-                                            visible:
-                                                AppLocalStorage().readData(
-                                                  LocalStorageKeys
-                                                      .facebookLogin,
-                                                ) ==
-                                                true,
-                                            child:
-                                                AppButtons.largeFlatOutlineButtonWithIcon(
-                                                  onPressed: () {
-                                                    logInController
-                                                        .onPressedFacebookLogin();
-                                                  },
-                                                  verticallyPadding: 14,
-                                                  imgUrl: AppImages.facebook,
-                                                  buttonText:
-                                                      'Login with Facebook',
-                                                ),
-                                          ),
-                                          Visibility(
-                                            visible:
-                                                !Platform.isAndroid &&
-                                                AppLocalStorage().readData(
-                                                      LocalStorageKeys
-                                                          .appleLogin,
-                                                    ) ==
-                                                    true,
-                                            child:
-                                                AppButtons.largeFlatOutlineButtonWithIcon(
-                                                  onPressed: () {
-                                                    logInController
-                                                        .onPressAppleLogin();
-                                                  },
-                                                  verticallyPadding: 14,
-                                                  imgUrl: AppImages.appleLogo,
-                                                  buttonText:
-                                                      'Login with Apple',
-                                                ),
-                                          ),
-                                        ],
-                                      );
+                                          spacing: AppSizes.spaceBtwItems,
+                                          children: [
+                                            Visibility(
+                                              visible:
+                                                  AppLocalStorage().readData(
+                                                    LocalStorageKeys
+                                                        .googleLogin,
+                                                  ) ==
+                                                  true,
+                                              child:
+                                                  AppButtons.largeFlatOutlineButtonWithIcon(
+                                                    onPressed: () {
+                                                      logInController
+                                                          .onPressedGoogleLogin();
+                                                    },
+                                                    verticallyPadding: 14,
+                                                    imgUrl: AppImages.google,
+                                                    buttonText:
+                                                        'Login with Google',
+                                                  ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  AppLocalStorage().readData(
+                                                    LocalStorageKeys
+                                                        .facebookLogin,
+                                                  ) ==
+                                                  true,
+                                              child: AppButtons.largeFlatOutlineButtonWithIcon(
+                                                onPressed: () {
+                                                  logInController
+                                                      .onPressedFacebookLogin();
+                                                },
+                                                verticallyPadding: 14,
+                                                imgUrl: AppImages.facebook,
+                                                buttonText:
+                                                    'Login with Facebook',
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  !Platform.isAndroid &&
+                                                  AppLocalStorage().readData(
+                                                        LocalStorageKeys
+                                                            .appleLogin,
+                                                      ) ==
+                                                      true,
+                                              child:
+                                                  AppButtons.largeFlatOutlineButtonWithIcon(
+                                                    onPressed: () {
+                                                      logInController
+                                                          .onPressAppleLogin();
+                                                    },
+                                                    verticallyPadding: 14,
+                                                    imgUrl: AppImages.appleLogo,
+                                                    buttonText:
+                                                        'Login with Apple',
+                                                  ),
+                                            ),
+                                          ],
+                                        );
                                 }),
                                 Gap(AppSizes.sm),
                                 Center(
@@ -147,34 +151,32 @@ class LogIn extends StatelessWidget {
                                     builder: (context) {
                                       return InkWell(
                                         onTap: () {
-                                          // Get.to(const SignUp());
                                           DefaultTabController.of(
                                             context,
                                           ).animateTo(1);
                                         },
                                         child: RichText(
                                           text: TextSpan(
-                                            text:
-                                                AppLocalizations.of(
-                                                  context,
-                                                )!.dontHaveAccount,
-                                            style:
-                                                Theme.of(
-                                                  context,
-                                                ).textTheme.titleMedium,
+                                            text: AppLocalizations.of(
+                                              context,
+                                            )!.dontHaveAccount,
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.titleMedium,
                                             children: [
                                               TextSpan(
                                                 text:
                                                     " ${AppLocalizations.of(context)!.signUp}",
-                                                style: Theme.of(
-                                                  context,
-                                                ).textTheme.titleLarge?.apply(
-                                                  color: AppColors.primary,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                  decorationColor:
-                                                      AppColors.primary,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge
+                                                    ?.apply(
+                                                      color: AppColors.primary,
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      decorationColor:
+                                                          AppColors.primary,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -191,78 +193,94 @@ class LogIn extends StatelessWidget {
                               physics: const BouncingScrollPhysics(),
                               children: [
                                 const SignUpFormsAndButton(),
+                                Visibility(
+                                  visible:
+                                      AppLocalStorage().readData(
+                                            LocalStorageKeys.googleLogin,
+                                          ) ==
+                                          true ||
+                                      AppLocalStorage().readData(
+                                            LocalStorageKeys.facebookLogin,
+                                          ) ==
+                                          true ||
+                                      !Platform.isAndroid &&
+                                          AppLocalStorage().readData(
+                                                LocalStorageKeys.appleLogin,
+                                              ) ==
+                                              true,
+                                  child: OtherLogInOrSignUpOption(
+                                    title: "Or Register With",
+                                  ),
+                                ),
                                 const Gap(AppSizes.spaceBtwItems),
                                 Obx(() {
                                   return logInController.hittingApi.value
                                       ? AppListViewLayout(
-                                        itemCount: 3,
-                                        builderFunction: (context, index) {
-                                          return ShimmerHelper()
-                                              .buildBasicShimmer(height: 50);
-                                        },
-                                      )
+                                          itemCount: 3,
+                                          builderFunction: (context, index) {
+                                            return ShimmerHelper()
+                                                .buildBasicShimmer(height: 50);
+                                          },
+                                        )
                                       : Column(
-                                        spacing: AppSizes.spaceBtwItems,
-                                        children: [
-                                          Visibility(
-                                            visible:
-                                                AppLocalStorage().readData(
-                                                  LocalStorageKeys.googleLogin,
-                                                ) ==
-                                                true,
-                                            child:
-                                                AppButtons.largeFlatOutlineButtonWithIcon(
-                                                  onPressed: () {
-                                                    logInController
-                                                        .onPressedFacebookLogin();
-                                                  },
-                                                  verticallyPadding: 14,
-                                                  imgUrl: AppImages.google,
-                                                  buttonText:
-                                                      'Signup with Google',
-                                                ),
-                                          ),
-                                          Visibility(
-                                            visible:
-                                                AppLocalStorage().readData(
-                                                  LocalStorageKeys
-                                                      .facebookLogin,
-                                                ) ==
-                                                true,
-                                            child:
-                                                AppButtons.largeFlatOutlineButtonWithIcon(
-                                                  onPressed: () {
-                                                    logInController
-                                                        .onPressedFacebookLogin();
-                                                  },
-                                                  verticallyPadding: 14,
-                                                  imgUrl: AppImages.facebook,
-                                                  buttonText:
-                                                      'Signup with Facebook',
-                                                ),
-                                          ),
-                                          Visibility(
-                                            visible:
-                                                !Platform.isAndroid &&
-                                                AppLocalStorage().readData(
-                                                      LocalStorageKeys
-                                                          .appleLogin,
-                                                    ) ==
-                                                    true,
-                                            child:
-                                                AppButtons.largeFlatOutlineButtonWithIcon(
-                                                  onPressed: () {
-                                                    logInController
-                                                        .onPressedFacebookLogin();
-                                                  },
-                                                  verticallyPadding: 14,
-                                                  imgUrl: AppImages.appleLogo,
-                                                  buttonText:
-                                                      'Signup with Apple',
-                                                ),
-                                          ),
-                                        ],
-                                      );
+                                          spacing: AppSizes.spaceBtwItems,
+                                          children: [
+                                            Visibility(
+                                              visible:
+                                                  AppLocalStorage().readData(
+                                                    LocalStorageKeys
+                                                        .googleLogin,
+                                                  ) ==
+                                                  true,
+                                              child: AppButtons.largeFlatOutlineButtonWithIcon(
+                                                onPressed: () {
+                                                  logInController
+                                                      .onPressedFacebookLogin();
+                                                },
+                                                verticallyPadding: 14,
+                                                imgUrl: AppImages.google,
+                                                buttonText:
+                                                    'Signup with Google',
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  AppLocalStorage().readData(
+                                                    LocalStorageKeys
+                                                        .facebookLogin,
+                                                  ) ==
+                                                  true,
+                                              child: AppButtons.largeFlatOutlineButtonWithIcon(
+                                                onPressed: () {
+                                                  logInController
+                                                      .onPressedFacebookLogin();
+                                                },
+                                                verticallyPadding: 14,
+                                                imgUrl: AppImages.facebook,
+                                                buttonText:
+                                                    'Signup with Facebook',
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  !Platform.isAndroid &&
+                                                  AppLocalStorage().readData(
+                                                        LocalStorageKeys
+                                                            .appleLogin,
+                                                      ) ==
+                                                      true,
+                                              child: AppButtons.largeFlatOutlineButtonWithIcon(
+                                                onPressed: () {
+                                                  logInController
+                                                      .onPressedFacebookLogin();
+                                                },
+                                                verticallyPadding: 14,
+                                                imgUrl: AppImages.appleLogo,
+                                                buttonText: 'Signup with Apple',
+                                              ),
+                                            ),
+                                          ],
+                                        );
                                 }),
                                 Center(
                                   child: Builder(
@@ -276,27 +294,26 @@ class LogIn extends StatelessWidget {
                                         },
                                         child: RichText(
                                           text: TextSpan(
-                                            text:
-                                                AppLocalizations.of(
-                                                  context,
-                                                )!.alreadyHaveAccount,
-                                            style:
-                                                Theme.of(
-                                                  context,
-                                                ).textTheme.titleMedium,
+                                            text: AppLocalizations.of(
+                                              context,
+                                            )!.alreadyHaveAccount,
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.titleMedium,
                                             children: [
                                               TextSpan(
                                                 text:
                                                     " ${AppLocalizations.of(context)!.login}",
-                                                style: Theme.of(
-                                                  context,
-                                                ).textTheme.titleLarge?.apply(
-                                                  color: AppColors.primary,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                  decorationColor:
-                                                      AppColors.primary,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge
+                                                    ?.apply(
+                                                      color: AppColors.primary,
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      decorationColor:
+                                                          AppColors.primary,
+                                                    ),
                                               ),
                                             ],
                                           ),

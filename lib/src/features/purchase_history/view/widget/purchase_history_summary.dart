@@ -17,7 +17,7 @@ class AppPurchaseHistoryDetailsSummary extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Obx((){
-          return detailsController.purchaseHistoryDetails.value.data == null?
+          return detailsController.orderDetailsData.value.products == null?
               ShimmerHelper().buildBasicShimmer(height: 150):
           SizedBox(
             width: 250,
@@ -25,25 +25,25 @@ class AppPurchaseHistoryDetailsSummary extends StatelessWidget {
               children: [
                 AppSummaryTextWidget(
                     title: 'SUBTOTAL',
-                    amount: detailsController.purchaseHistoryDetails.value.data![0].subtotal!),
-                const Gap(AppSizes.xs),
-                AppSummaryTextWidget(
-                    title: 'TAX',
-                    amount: detailsController.purchaseHistoryDetails.value.data![0].tax!),
+                    amount: "${detailsController.orderDetailsData.value.subtotal}"),
+                // const Gap(AppSizes.xs),
+                // AppSummaryTextWidget(
+                //     title: 'TAX',
+                //     amount: detailsController.purchaseHistoryDetails.value.data![0].tax!),
                 const Gap(AppSizes.xs),
                 AppSummaryTextWidget(
                     title: 'SHIPPING COST',
-                    amount: detailsController.purchaseHistoryDetails.value.data![0].shippingCost!),
+                    amount: "${detailsController.orderDetailsData.value.shippingCost}"),
                 const Gap(AppSizes.xs),
                 AppSummaryTextWidget(
                     title: 'DISCOUNT',
-                    amount: detailsController.purchaseHistoryDetails.value.data![0].couponDiscount!),
+                    amount: "${detailsController.orderDetailsData.value.couponDiscount}"),
                 const Gap(AppSizes.xs),
                 Visibility(
-                  visible: detailsController.purchaseHistoryDetails.value.data![0].redeemPoint! > 0,
+                  visible: detailsController.orderDetailsData.value.redeemPoint! > 0,
                   child: AppSummaryTextWidget(
                       title: 'REDEEM POINT',
-                      amount: "৳${detailsController.purchaseHistoryDetails.value.data![0].redeemPoint}"),
+                      amount: "৳${detailsController.orderDetailsData.value.redeemPoint}"),
                 ),
                 const Gap(AppSizes.xs),
                  SizedBox(
@@ -53,7 +53,7 @@ class AppPurchaseHistoryDetailsSummary extends StatelessWidget {
                 const Gap(AppSizes.xs),
                 AppSummaryTextWidget(
                     title: 'GRAND TOTAL',
-                    amount: detailsController.purchaseHistoryDetails.value.data![0].grandTotal!),
+                    amount: "${detailsController.orderDetailsData.value.grandTotal}"),
                 const Gap(AppSizes.xl),
               ],),
           );

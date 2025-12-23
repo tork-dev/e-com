@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/authentication/views/widgets/other_login_option.dart';
 import '../../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../../l10n/app_localizations.dart';
 import '../../../../../../utils/constants/colors.dart';
@@ -24,28 +23,28 @@ class SignUpFormsAndButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Obx(
-            () => Visibility(
-              visible: signUpController.signupWithPassword.value,
-              child: Column(
-                spacing: AppSizes.xs,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Full Name",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  AuthInputField(
-                    isDark: isDark,
-                    controller: signUpController.nameController,
-                    validator: (value) => null,
-                    hingText: AppLocalizations.of(context)!.nameHintText,
-                    obscured: false,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Obx(
+          //   () => Visibility(
+          //     visible: false,
+          //     child: Column(
+          //       spacing: AppSizes.xs,
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text(
+          //           "Full Name",
+          //           style: Theme.of(context).textTheme.titleMedium,
+          //         ),
+          //         AuthInputField(
+          //           isDark: isDark,
+          //           controller: signUpController.nameController,
+          //           validator: (value) => null,
+          //           hingText: AppLocalizations.of(context)!.nameHintText,
+          //           obscured: false,
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           const Gap(AppSizes.spaceBtwInputFields),
           Text("Phone", style: Theme.of(context).textTheme.titleMedium),
           Gap(AppSizes.xs),
@@ -136,21 +135,21 @@ class SignUpFormsAndButton extends StatelessWidget {
             ),
           ),
           const Gap(AppSizes.spaceBtwItems),
-          OtherLogInOrSignUpOption(title: "Or Register With"),
-          Obx(
-            () => AppButtons.largeFlatFilledButton(
-              onPressed: () {
-                // Get.offAll(const LogIn());
-                signUpController.signupWithPassword.value =
-                    !signUpController.signupWithPassword.value;
-              },
-              backgroundColor: AppColors.buttonSecondary,
-              buttonText:
-                  signUpController.signupWithPassword.value
-                      ? AppLocalizations.of(context)!.signupWithOtp
-                      : AppLocalizations.of(context)!.signupWithPassword,
-            ),
-          ),
+
+          // Obx(
+          //   () => AppButtons.largeFlatFilledButton(
+          //     onPressed: () {
+          //       // Get.offAll(const LogIn());
+          //       signUpController.signupWithPassword.value =
+          //           !signUpController.signupWithPassword.value;
+          //     },
+          //     backgroundColor: AppColors.buttonSecondary,
+          //     buttonText:
+          //         signUpController.signupWithPassword.value
+          //             ? AppLocalizations.of(context)!.signupWithOtp
+          //             : AppLocalizations.of(context)!.signupWithPassword,
+          //   ),
+          // ),
         ],
       ),
     );

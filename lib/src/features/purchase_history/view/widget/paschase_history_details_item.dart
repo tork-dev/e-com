@@ -15,25 +15,27 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final detailsItemController = PurchaseHistoryDetailsController.instance;
     return Obx(() {
-      return AppListViewLayout(
-        itemCount:
-            detailsItemController.purchaseHistoryItemDetails.value.data == null
-                ? 5
+      return Column(
+        children: [
+          AppListViewLayout(
+            itemCount:
+            detailsItemController.orderDetailsData.value.comboProducts == null
+                ? 1
                 : detailsItemController
-                    .purchaseHistoryItemDetails
-                    .value
-                    .data!
-                    .length,
-        builderFunction: (context, index) {
-          return detailsItemController.purchaseHistoryItemDetails.value.data ==
+                .orderDetailsData
+                .value
+                .comboProducts!
+                .length,
+            builderFunction: (context, index) {
+              return detailsItemController.orderDetailsData.value.comboProducts ==
                   null
-              ? ShimmerHelper().buildBasicShimmer(height: 100)
-              : AppCardContainer(
-            onTap: (){
-              // Get.toNamed('/product/${detailsItemController.purchaseHistoryItemDetails.value.data![index].productSlug}',
-              //     parameters: {'prevRoute': prevRoute});
-              // Get.toNamed("/");
-            },
+                  ? ShimmerHelper().buildBasicShimmer(height: 100)
+                  : AppCardContainer(
+                onTap: (){
+                  Get.toNamed('/product/${detailsItemController.orderDetailsData.value.comboProducts![index].comboProduct!.slug}',
+                      parameters: {'prevRoute': "order/${detailsItemController.orderDetailsData.value.id}"});
+                  // Get.toNamed("/");
+                },
                 hasBorder: true,
                 padding: const EdgeInsets.all(AppSizes.md),
                 borderRadius: 12,
@@ -45,7 +47,7 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${detailsItemController.purchaseHistoryItemDetails.value.data![index].productName}',
+                            '${detailsItemController.orderDetailsData.value.comboProducts![index].comboProduct?.name}',
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Gap(AppSizes.sm),
@@ -62,13 +64,13 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
-                                  '${detailsItemController.purchaseHistoryItemDetails.value.data![index].quantity} item',
+                                  '${detailsItemController.orderDetailsData.value.comboProducts![index].quantity} item',
                                   style:
-                                      Theme.of(context).textTheme.bodySmall,
+                                  Theme.of(context).textTheme.bodySmall,
                                 ),
                               ),
                               Text(
-                                '${detailsItemController.purchaseHistoryItemDetails.value.data![index].price}',
+                                '${detailsItemController.orderDetailsData.value.comboProducts![index].subTotal}',
                                 style: Theme.of(
                                   context,
                                 ).textTheme.titleMedium!.copyWith(
@@ -84,7 +86,80 @@ class AppPurchaseHistoryDetailsItem extends StatelessWidget {
                   ],
                 ),
               );
-        },
+            },
+          ),
+          AppListViewLayout(
+            itemCount:
+                detailsItemController.orderDetailsData.value.products == null
+                    ? 5
+                    : detailsItemController
+                        .orderDetailsData
+                        .value
+                        .products!
+                        .length,
+            builderFunction: (context, index) {
+              return detailsItemController.orderDetailsData.value.products ==
+                      null
+                  ? ShimmerHelper().buildBasicShimmer(height: 100)
+                  : AppCardContainer(
+                onTap: (){
+                  Get.toNamed('/product/${detailsItemController.orderDetailsData.value.products![index].slug}',
+                      parameters: {'prevRoute': "order/${detailsItemController.orderDetailsData.value.id}"});
+                  // Get.toNamed("/");
+                },
+                    hasBorder: true,
+                    padding: const EdgeInsets.all(AppSizes.md),
+                    borderRadius: 12,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${detailsItemController.orderDetailsData.value.products![index].productName}',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Gap(AppSizes.sm),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: AppSizes.sm,
+                                      vertical: AppSizes.xs,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary.withAlpha(51),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Text(
+                                      '${detailsItemController.orderDetailsData.value.products![index].quantity} item',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${detailsItemController.orderDetailsData.value.products![index].price}',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleMedium!.copyWith(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+            },
+          ),
+        ],
       );
     });
   }

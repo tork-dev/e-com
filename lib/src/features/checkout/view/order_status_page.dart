@@ -40,13 +40,13 @@ class AppOrderStatusScreen extends StatelessWidget {
         centerTitle: true,
         body: Obx(() {
           if (status == true &&
-              controller.purchaseHistoryItemDetails.value.data != null) {
+              controller.orderDetailsData.value.products != null) {
             final List<Map<String, dynamic>> items =
-                controller.purchaseHistoryItemDetails.value.data!.map((item) {
+                controller.orderDetailsData.value.products!.map((item) {
               return {
-                'item_id': item.productSlug,
+                'item_id': item.slug,
                 'price': double.parse(
-                    item.price!.replaceAll('৳', '').replaceAll(',', '')),
+                    item.price!.toString()),
                 'quantity': item.quantity,
               };
             }).toList();
@@ -55,15 +55,12 @@ class AppOrderStatusScreen extends StatelessWidget {
             EventLogger().logPurchaseEvent(
               items, // pass directly, not jsonEncode
               double.parse(
-                controller.purchaseHistoryDetails.value.data![0].grandTotal!
-                    .replaceAll('৳', '')
-                    .replaceAll(',', '')
-                    .trim(),
+                controller.orderDetailsData.value.grandTotal!.toString()
               ),
                 orderId.toString()
             );
           }
-          return controller.purchaseHistoryDetails.value.data == null
+          return controller.orderDetailsData.value.products == null
               ? AppListViewLayout(
                   itemCount: 5,
                   builderFunction: (context, index) =>
@@ -97,8 +94,8 @@ class AppOrderStatusScreen extends StatelessWidget {
                       visible: status,
                       child: Text(
                         textAlign: TextAlign.center,
-                        '🎉 Congrats!\n You’ll get ${controller.purchaseHistoryDetails.value
-                            .data![0].rewardPoint} points after delivery!',
+                        '🎉 Congrats!\n You’ll get ${controller.orderDetailsData.value
+                           .rewardPoint} points after delivery!',
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
@@ -124,7 +121,7 @@ class AppOrderStatusScreen extends StatelessWidget {
                               ),
                               Text(
                                 controller
-                                    .purchaseHistoryDetails.value.data![0].id
+                                    .orderDetailsData.value.id
                                     .toString(),
                                 style:
                                     Theme.of(context).textTheme.headlineSmall,
@@ -134,32 +131,27 @@ class AppOrderStatusScreen extends StatelessWidget {
                           const Gap(AppSizes.md),
                           AppOrderStatusDetailsSection(
                             title: 'Subtotal',
-                            subTitle: controller.purchaseHistoryDetails.value
-                                .data![0].subtotal!,
+                            subTitle: "${controller.orderDetailsData.value.subtotal}",
                           ),
                           AppOrderStatusDetailsSection(
                             title: 'Coupon Discount',
-                            subTitle: controller.purchaseHistoryDetails.value
-                                .data![0].couponDiscount!,
+                            subTitle: "${controller.orderDetailsData.value.couponDiscount}",
                           ),
                           Visibility(
-                            visible: controller.purchaseHistoryDetails.value
-                                    .data![0].redeemPoint! >
+                            visible: controller.orderDetailsData.value.redeemPoint! >
                                 0,
                             child: AppOrderStatusDetailsSection(
                               title: 'Redeem Point',
-                              subTitle: "৳${controller.purchaseHistoryDetails.value.data![0].redeemPoint!}",
+                              subTitle: "৳${controller.orderDetailsData.value.redeemPoint!}",
                             ),
                           ),
                           AppOrderStatusDetailsSection(
                             title: 'Delivery Charge',
-                            subTitle: controller.purchaseHistoryDetails.value
-                                .data![0].shippingCost!,
+                            subTitle: "${controller.orderDetailsData.value.shippingCost}",
                           ),
                           AppOrderStatusDetailsSection(
                             title: 'Total',
-                            subTitle: controller.purchaseHistoryDetails.value
-                                .data![0].grandTotal!,
+                            subTitle: "${controller.orderDetailsData.value.grandTotal}",
                           ),
                         ],
                       ),
