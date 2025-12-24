@@ -37,8 +37,16 @@ class MyCouponsScreen extends StatelessWidget {
               : controller.myCoupons.value.data!.length,
           builderFunction: (context, index) => controller.hittingApi.value
               ? ShimmerHelper().buildBasicShimmer(height: 50)
-              : controller.myCoupons.value.data == null
-              ? Center(child: Text("No Coupons Exist"))
+              : controller.myCoupons.value.data!.isEmpty
+              ? Padding(
+                  padding: .symmetric(vertical: AppSizes.md),
+                  child: Center(
+                    child: Text(
+                      "No Coupons Exist",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                )
               : Stack(
                   alignment: Alignment.center,
                   children: [
