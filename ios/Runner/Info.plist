@@ -132,7 +132,7 @@
       <string>tel</string>
     </array>
 
-    // for Scene
+    <!-- for Scene -->
     <key>UIApplicationSceneManifest</key>
     <dict>
         <key>UIApplicationSupportsMultipleScenes</key>
