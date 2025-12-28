@@ -43,60 +43,60 @@ class SignUp extends StatelessWidget {
               children: [
                 const SignUpFormsAndButton(),
                 const Gap(AppSizes.spaceBtwItems),
-                Obx(() {
-                  return logInController.hittingApi.value
-                      ? AppListViewLayout(
-                      itemCount: 3,
-                      builderFunction: (context, index) {
-                        return ShimmerHelper()
-                            .buildBasicShimmer(height: 50);
-                      })
-                      : Column(
-                    spacing: AppSizes.spaceBtwItems,
-                    children: [
-                      Visibility(
-                          visible: AppLocalStorage()
-                              .readData(LocalStorageKeys.googleLogin) == true,
-                          child: AppButtons.largeFlatOutlineButtonWithIcon(
-                            onPressed: () {
-                              logInController.onPressedFacebookLogin();
-                            },
-                            verticallyPadding: 14,
-                            imgUrl: AppImages.google,
-                            buttonText:
-                            'Signup with Google',
-                          )
-                      ),
-                      Visibility(
-                        visible: AppLocalStorage()
-                            .readData(LocalStorageKeys.facebookLogin) == true,
-                        child: AppButtons.largeFlatOutlineButtonWithIcon(
-                          onPressed: () {
-                            logInController.onPressedFacebookLogin();
-                          },
-                          verticallyPadding: 14,
-                          imgUrl: AppImages.facebook,
-                          buttonText:
-                          'Signup with Facebook',
-                        ),
-                      ),
-                      Visibility(
-                        visible: !Platform.isAndroid &&
-                            AppLocalStorage()
-                                .readData(LocalStorageKeys.appleLogin) == true,
-                        child: AppButtons.largeFlatOutlineButtonWithIcon(
-                          onPressed: () {
-                            logInController.onPressedFacebookLogin();
-                          },
-                          verticallyPadding: 14,
-                          imgUrl: AppImages.appleLogo,
-                          buttonText:
-                          'Signup with Apple',
-                        ),
-                      ),
-                    ],
-                  );
-                }),
+                // Obx(() {
+                //   return logInController.hittingApi.value
+                //       ? AppListViewLayout(
+                //       itemCount: 3,
+                //       builderFunction: (context, index) {
+                //         return ShimmerHelper()
+                //             .buildBasicShimmer(height: 50);
+                //       })
+                //       : Column(
+                //     spacing: AppSizes.spaceBtwItems,
+                //     children: [
+                //       Visibility(
+                //           visible: AppLocalStorage()
+                //               .readData(LocalStorageKeys.googleLogin) == true,
+                //           child: AppButtons.largeFlatOutlineButtonWithIcon(
+                //             onPressed: () {
+                //               logInController.onPressedFacebookLogin();
+                //             },
+                //             verticallyPadding: 14,
+                //             imgUrl: AppImages.google,
+                //             buttonText:
+                //             'Signup with Google',
+                //           )
+                //       ),
+                //       Visibility(
+                //         visible: AppLocalStorage()
+                //             .readData(LocalStorageKeys.facebookLogin) == true,
+                //         child: AppButtons.largeFlatOutlineButtonWithIcon(
+                //           onPressed: () {
+                //             logInController.onPressedFacebookLogin();
+                //           },
+                //           verticallyPadding: 14,
+                //           imgUrl: AppImages.facebook,
+                //           buttonText:
+                //           'Signup with Facebook',
+                //         ),
+                //       ),
+                //       Visibility(
+                //         visible: !Platform.isAndroid &&
+                //             AppLocalStorage()
+                //                 .readData(LocalStorageKeys.appleLogin) == true,
+                //         child: AppButtons.largeFlatOutlineButtonWithIcon(
+                //           onPressed: () {
+                //             logInController.onPressedFacebookLogin();
+                //           },
+                //           verticallyPadding: 14,
+                //           imgUrl: AppImages.appleLogo,
+                //           buttonText:
+                //           'Signup with Apple',
+                //         ),
+                //       ),
+                //     ],
+                //   );
+                // }),
                 Center(
                     child: InkWell(
                         onTap: () {

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/features/authentication/data/repositories/auth_repositories.dart';
 import 'package:kirei/src/features/authentication/views/log_in/model/login_response.dart';
@@ -157,41 +157,41 @@ class LogInPageController extends GetxController {
   }
 
   ////////////////////////facebook login //////////////////////
-  Future<void> onPressedFacebookLogin() async {
-    try {
-      CustomLoader.showLoaderDialog(Get.context!);
-      final LoginResult result = await FacebookAuth.instance.login();
-
-      if (result.status == LoginStatus.success) {
-        final AccessToken? accessToken = result.accessToken;
-        final userData = await FacebookAuth.instance.getUserData();
-        loginResponse.value = await AuthRepository().getSocialLoginResponse(
-          "facebook",
-          userData["name"].toString(),
-          userData["email"].toString(),
-          userData["id"].toString(),
-          accessToken: accessToken?.tokenString,
-        );
-        AppHelperFunctions.showToast(loginResponse.value.message!);
-      } else {
-        AppHelperFunctions.showToast(result.message!);
-      }
-    } on Exception catch (e) {
-      Log.e(e.toString());
-      AppHelperFunctions.showSimpleSnackBar(
-        "Something went wrong, Please try again",
-      );
-      // TODO
-    } finally {
-      CustomLoader.hideLoader(Get.context!);
-      if (loginResponse.value.result == true) {
-        EventLogger().logLoginEvent('Facebook');
-        AuthHelper().setUserData(loginResponse.value);
-        HomeRepositories().getDeviceTokenUpdateResponse();
-        Get.offAllNamed(previousRoute.value);
-      }
-    }
-  }
+  // Future<void> onPressedFacebookLogin() async {
+  //   try {
+  //     CustomLoader.showLoaderDialog(Get.context!);
+  //     final LoginResult result = await FacebookAuth.instance.login();
+  //
+  //     if (result.status == LoginStatus.success) {
+  //       final AccessToken? accessToken = result.accessToken;
+  //       final userData = await FacebookAuth.instance.getUserData();
+  //       loginResponse.value = await AuthRepository().getSocialLoginResponse(
+  //         "facebook",
+  //         userData["name"].toString(),
+  //         userData["email"].toString(),
+  //         userData["id"].toString(),
+  //         accessToken: accessToken?.tokenString,
+  //       );
+  //       AppHelperFunctions.showToast(loginResponse.value.message!);
+  //     } else {
+  //       AppHelperFunctions.showToast(result.message!);
+  //     }
+  //   } on Exception catch (e) {
+  //     Log.e(e.toString());
+  //     AppHelperFunctions.showSimpleSnackBar(
+  //       "Something went wrong, Please try again",
+  //     );
+  //     // TODO
+  //   } finally {
+  //     CustomLoader.hideLoader(Get.context!);
+  //     if (loginResponse.value.result == true) {
+  //       EventLogger().logLoginEvent('Facebook');
+  //       AuthHelper().setUserData(loginResponse.value);
+  //       HomeRepositories().getDeviceTokenUpdateResponse();
+  //       Get.offAllNamed(previousRoute.value);
+  //     }
+  //   }
+  // }
 
   /// Login with OTP
   Future<void> sendCode() async {
