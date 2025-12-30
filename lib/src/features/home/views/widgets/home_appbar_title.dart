@@ -110,6 +110,7 @@ class AppHomeAppBarTitle extends StatelessWidget {
                             isNetworkImage: true,
                             imgUrl:
                                 '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}',
+                            errorImage: AppImages.profileIcon,
                           ),
                         )
                         : const HugeIcon(

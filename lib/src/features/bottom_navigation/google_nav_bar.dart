@@ -113,7 +113,7 @@ class GoogleNavBar extends StatelessWidget {
               // 👇 wrap GNav in Obx so it rebuilds when pageIndex changes
               child: Obx(
                     () => GNav(
-                  tabBorderRadius: 14,
+                  tabBorderRadius: AppSizes.sm,
                   curve: Curves.easeInOut,
                   color: Colors.grey[800],
                   gap: AppSizes.sm,
@@ -121,14 +121,15 @@ class GoogleNavBar extends StatelessWidget {
                   iconSize: 24,
                   padding:
                   const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  tabBackgroundGradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      AppColors.primary,
-                      AppColors.primary.withAlpha(128),
-                    ],
-                  ),
+                  tabBackgroundColor: AppColors.primary,
+                  // tabBackgroundGradient: LinearGradient(
+                  //   begin: Alignment.centerLeft,
+                  //   end: Alignment.centerRight,
+                  //   colors: [
+                  //     AppColors.primary,
+                  //     AppColors.primary.withAlpha(128),
+                  //   ],
+                  // ),
                   tabs: [
                     const GButton(
                       icon: CupertinoIcons.home,

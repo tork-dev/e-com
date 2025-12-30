@@ -92,7 +92,7 @@ class ShopScreen extends StatelessWidget {
                               borderRadius: BorderRadius.all(
                                 Radius.circular(AppSizes.inputFieldRadius),
                               ),
-                              borderSide: BorderSide(color: AppColors.grey),
+                              borderSide: BorderSide(color: AppColors.primary),
                             ),
                             hintText: "Search for product",
                           ),

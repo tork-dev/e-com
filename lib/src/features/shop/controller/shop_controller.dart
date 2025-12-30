@@ -25,6 +25,7 @@ class ShopController extends GetxController {
   }
 
   Future onRefresh() async {
+    getShopDataController.allProducts.clear();
     getShopDataController.getShopData();
     getShopDataController.getSkinTypesData();
     Log.d('refresh2');

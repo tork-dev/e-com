@@ -248,6 +248,7 @@ class GetShopDataController extends GetxController {
 
   void addItems() {
     scrollController.addListener(() {
+      // Log.d("Loading..");
       if (scrollController.position.pixels <=
               scrollController.position.minScrollExtent + 50 &&
           pageNumber.value > 1 &&

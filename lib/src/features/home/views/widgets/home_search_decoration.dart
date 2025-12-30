@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:kirei/src/features/home/controller/search_controller.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import '../../../../utils/constants/colors.dart';
@@ -34,7 +35,15 @@ class HomeSearchDecoration extends StatelessWidget {
         },
         decoration: InputDecoration(
           focusColor: AppColors.grey,
-          prefixIcon: const Icon(Icons.search, color: AppColors.grey),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(AppSizes.sm),
+            // Adjust this
+            child: HugeIcon(
+              icon: HugeIcons.strokeRoundedSearch01,
+              size: AppSizes.iconMd,
+              color: AppColors.grey,
+            ),
+          ),
           hintText: 'Search for product',
           hintStyle: Theme.of(context).textTheme.bodySmall,
           // suffixIcon: InkWell(
@@ -44,7 +53,7 @@ class HomeSearchDecoration extends StatelessWidget {
           //     },
           //     child: const Icon(Icons.camera_alt)),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppColors.grey),
+            borderSide: const BorderSide(color: AppColors.primary),
             borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
           ),
           border: OutlineInputBorder(
