@@ -24,7 +24,7 @@ class DeepLinkController extends GetxController {
       debugPrint("initial url $initialLink");
       if (initialLink != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Future.delayed(const Duration(seconds: 3), () {
+          Future.delayed(const Duration(milliseconds: 500), () {
             handleDeepLink(initialLink);
           });
         });
@@ -32,12 +32,12 @@ class DeepLinkController extends GetxController {
 
       // Listen for future deep link events while app is running
       _uriLinkSubscription = _appLinks.uriLinkStream.listen(
-            (Uri uri) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Future.delayed(const Duration(seconds: 3), () {
-                  handleDeepLink(uri);
-                });
-              });
+        (Uri uri) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Future.delayed(const Duration(milliseconds: 500), () {
+              handleDeepLink(uri);
+            });
+          });
         },
         onError: (err) {
           Log.e("Deep link stream error: $err");
@@ -50,18 +50,19 @@ class DeepLinkController extends GetxController {
 
   void handleDeepLink(Uri uri) {
     try {
-      debugPrint("Handling URI Path: ${uri.path}");
-      if (uri.path.isNotEmpty) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          RoutingHelper.urlRouting(uri.toString());
-        });
+      debugPrint("Handling Deep Link: $uri");
+      String path = uri.path;
+      if (path.isEmpty || path == '/') {
+        debugPrint("Deep link points to root, allowing default navigation.");
+        return;
       }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        RoutingHelper.urlRouting(uri.toString());
+      });
     } catch (e) {
       debugPrint("Error handling deep link: $e");
     }
   }
-
-
 
   @override
   void onClose() {

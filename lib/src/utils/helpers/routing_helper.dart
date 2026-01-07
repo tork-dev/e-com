@@ -10,8 +10,20 @@ class RoutingHelper {
     debugPrint("url to route $url");
     Log.d(baseUrl);
     if (url != null) {
-      if (url.contains(baseUrl)) {
-        String route = url.replaceFirst(baseUrl, '/');
+      Uri uri = Uri.parse(url);
+      String route = uri.path;
+
+      // Ensure it starts with /
+      if (!route.startsWith('/')) {
+        route = '/$route';
+      }
+
+      // Add query params if they exist (except for specific app-only params if needed)
+      if (uri.hasQuery) {
+        route += '?${uri.query}';
+      }
+
+      if (url.contains('kireibd.com') || url.contains('app-link')) {
         if ((route.startsWith('/account') ||
                 route.startsWith('/wishlist') ||
                 route.startsWith("/account-details") ||
