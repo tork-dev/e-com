@@ -36,41 +36,45 @@ class AppLayoutWithDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final drawerController = Get.put(AppDrawerController());
+    Get.put(AppDrawerController());
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: PopScope(
         canPop: !backToHome,
         onPopInvokedWithResult: (bool didPop, Object? result) async {
-          !inHome
-              ? Get.offAllNamed("/home")
-              : null;
+          !inHome ? Get.offAllNamed("/home") : null;
         },
         child: GetBuilder<AppDrawerController>(
           builder: (controller) {
             return Scaffold(
-                  backgroundColor: bodyBackgroundColor,
-                  resizeToAvoidBottomInset: true,
-                  key: globalKey,
-                  drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
-                  endDrawer: hasEndDrawer ? controller.activeEndDrawerIndex.value == 0 ? AppEndDrawer() : AppEndDrawerTwo() : null,
-                  bottomNavigationBar: bottomNav,
-                  appBar: CustomAppBar(
-                    title: title,
-                    showBackArrow: false,
-                    leadingIcon: Icons.menu_rounded,
-                    leadingOnPress: () => globalKey.currentState!.openDrawer(),
-                    centerTitle: centerTitle,
-                    backgroundColor: backgroundColor,
-                    leadingIconColor: leadingIconColor,
-                    actions: action,
-                  ),
-                  body: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: padding), child: body),
-                );
-          }
-        )
+              backgroundColor: bodyBackgroundColor,
+              resizeToAvoidBottomInset: true,
+              key: globalKey,
+              drawer: AppDrawer(isFromOtherPage: isFromOtherPage),
+              endDrawer: hasEndDrawer
+                  ? controller.activeEndDrawerIndex.value == 0
+                        ? AppEndDrawer()
+                        : AppEndDrawerTwo()
+                  : null,
+              bottomNavigationBar: bottomNav,
+              appBar: CustomAppBar(
+                title: title,
+                showBackArrow: false,
+                leadingIcon: Icons.menu_rounded,
+                leadingOnPress: () => globalKey.currentState!.openDrawer(),
+                centerTitle: centerTitle,
+                backgroundColor: backgroundColor,
+                leadingIconColor: leadingIconColor,
+                actions: action,
+              ),
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                child: body,
+              ),
+            );
+          },
         ),
-      );
+      ),
+    );
   }
 }

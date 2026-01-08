@@ -6,7 +6,6 @@ import 'package:kirei/src/common/drawer/controller/drawer_controller.dart';
 import 'package:kirei/src/common/widgets/containers/banner_image.dart';
 import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import 'package:kirei/src/features/bottom_navigation/convex_controller.dart';
-import 'package:kirei/src/features/home/views/home_three.dart';
 import 'package:kirei/src/features/wishlist/view/wishlist.dart';
 import 'package:kirei/src/utils/constants/colors.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
@@ -30,10 +29,14 @@ class AppHomeAppBarTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-              onTap: () {
-                bottomController.jumpToTab(0);
-              },
-              child: SizedBox(width: 70, child: Image.asset(AppImages.lightAppLogo))),
+            onTap: () {
+              bottomController.jumpToTab(0);
+            },
+            child: SizedBox(
+              width: 70,
+              child: Image.asset(AppImages.lightAppLogo),
+            ),
+          ),
           Row(
             children: [
               Obx(() {
@@ -95,28 +98,28 @@ class AppHomeAppBarTitle extends StatelessWidget {
                 },
                 child:
                     AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) ==
-                            true
-                        ? AppCardContainer(
-                          applyRadius: true,
-                          padding: const EdgeInsets.all(5),
-                          height: 40,
-                          width: 40,
-                          borderRadius: 100,
-                          // backgroundColor: Colors.black,
-                          hasBorder: true,
-                          borderWidth: 1,
-                          borderColor: AppColors.secondary,
-                          child: AppBannerImage(
-                            isNetworkImage: true,
-                            imgUrl:
-                                '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}',
-                            errorImage: AppImages.profileIcon,
-                          ),
-                        )
-                        : const HugeIcon(
-                          icon: HugeIcons.strokeRoundedUser,
-                          color: AppColors.darkerGrey,
+                        true
+                    ? AppCardContainer(
+                        applyRadius: true,
+                        padding: const EdgeInsets.all(5),
+                        height: 40,
+                        width: 40,
+                        borderRadius: 100,
+                        // backgroundColor: Colors.black,
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: AppColors.secondary,
+                        child: AppBannerImage(
+                          isNetworkImage: true,
+                          imgUrl:
+                              '${AppLocalStorage().readData(LocalStorageKeys.avatarOriginal)}',
+                          errorImage: AppImages.profileIcon,
                         ),
+                      )
+                    : const HugeIcon(
+                        icon: HugeIcons.strokeRoundedUser,
+                        color: AppColors.darkerGrey,
+                      ),
               ),
             ],
           ),

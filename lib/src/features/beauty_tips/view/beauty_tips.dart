@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/common/layouts/layout_with_drawer/layout_with_drawer.dart';
@@ -21,35 +20,45 @@ class BeautyTipsScreen extends StatelessWidget {
     return AppLayoutWithDrawer(
       backToHome: true,
       isFromOtherPage: true,
-        globalKey: controller.beautyKey,
-        title: const Text('Beauty Tips', style: TextStyle(color: AppColors.backLayoutAppBarTitle),),
-        backgroundColor: AppColors.white,
-        leadingIconColor: AppColors.darkGrey,
-        centerTitle: true,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                 AppBannerImage(
-                  onPress: (){
-                    Get.to(()=> WebViewScreen(
-                        url: '$baseUrlWeb/blogs?app=true',
-                        title: 'Blogs'));
-                  },
-                    imgUrl: AppImages.beautyTipsOne),
-                Text('Beauty Blogs', style: Theme.of(context).textTheme.titleMedium,),
-                const Gap(AppSizes.spaceBtwSections),
-                 AppBannerImage(
-                  onPress: (){
-                    Get.toNamed('/kirei-tube');
-                  },
-                    imgUrl: AppImages.kireiYoutube),
-                Text('KireiTube', style: Theme.of(context).textTheme.titleMedium),
-
-              ],
-            ),
+      globalKey: controller.beautyKey,
+      title: const Text(
+        'Beauty Tips',
+        style: TextStyle(color: AppColors.backLayoutAppBarTitle),
+      ),
+      backgroundColor: AppColors.white,
+      leadingIconColor: AppColors.darkGrey,
+      centerTitle: true,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              AppBannerImage(
+                onPress: () {
+                  Get.to(
+                    () => WebViewScreen(
+                      url: '$baseUrlWeb/blogs?app=true',
+                      title: 'Blogs',
+                    ),
+                  );
+                },
+                imgUrl: AppImages.beautyTipsOne,
+              ),
+              Text(
+                'Beauty Blogs',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const Gap(AppSizes.spaceBtwSections),
+              AppBannerImage(
+                onPress: () {
+                  Get.toNamed('/kirei-tube');
+                },
+                imgUrl: AppImages.kireiYoutube,
+              ),
+              Text('KireiTube', style: Theme.of(context).textTheme.titleMedium),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
-

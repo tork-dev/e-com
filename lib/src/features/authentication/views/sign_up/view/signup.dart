@@ -1,20 +1,12 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/features/authentication/views/log_in/controllers/login_controller.dart';
+import 'package:kirei/src/features/authentication/views/log_in/view/login.dart';
 import '../../../../../common/layouts/layout_with_back_button/layout_with_back_button.dart';
-import '../../../../../common/layouts/listview_layout/listview_layout.dart';
-import '../../../../../common/styles/skeleton_style.dart';
-import '../../../../../common/widgets/buttons/app_buttons.dart';
 import '../../../../../common/widgets/containers/card_container.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../../../utils/local_storage/local_storage_keys.dart';
-import '../../../../../utils/local_storage/storage_utility.dart';
-import '../../log_in/view/login.dart';
 import '../controllers/signup_controller.dart';
 import 'widgets/signup_forms_and_button.dart';
 
@@ -24,7 +16,6 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(SignUpPageController());
-    final logInController = LogInPageController.instance;
     return AppLayoutWithBackButton(
       title: Text("Signup"),
       padding: AppSizes.defaultSpace,
@@ -98,24 +89,29 @@ class SignUp extends StatelessWidget {
                 //   );
                 // }),
                 Center(
-                    child: InkWell(
-                        onTap: () {
-                          Get.to(const LogIn());
-                        },
-                        child: RichText(
-                            text: TextSpan(text: AppLocalizations.of(context)!.alreadyHaveAccount,
-                                style: Theme.of(context).textTheme.titleMedium,
-                                children:[
-                                  TextSpan(
-                                      text: " ${AppLocalizations.of(context)!.login}",
-                                      style: Theme.of(context).textTheme.titleLarge?.apply(
-                                        color: AppColors.primary,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: AppColors.primary,
-                                      ))
-                                ]
-                            )
-                        ))),
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(const LogIn());
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        text: AppLocalizations.of(context)!.alreadyHaveAccount,
+                        style: Theme.of(context).textTheme.titleMedium,
+                        children: [
+                          TextSpan(
+                            text: " ${AppLocalizations.of(context)!.login}",
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.apply(
+                                  color: AppColors.primary,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: AppColors.primary,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -124,4 +120,3 @@ class SignUp extends StatelessWidget {
     );
   }
 }
-

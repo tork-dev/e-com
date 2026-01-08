@@ -15,9 +15,11 @@ class MaintenanceHttpClient extends http.BaseClient {
     final res = await http.Response.fromStream(response);
 
     try {
-      final data = jsonDecode(res.body);
+      jsonDecode(res.body);
 
-      if (res.statusCode == 404 || AppLocalStorage().readData(LocalStorageKeys.isInMaintenanceMode) == true) {
+      if (res.statusCode == 404 ||
+          AppLocalStorage().readData(LocalStorageKeys.isInMaintenanceMode) ==
+              true) {
         Get.offAllNamed('/maintenance');
       }
     } catch (_) {
