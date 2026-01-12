@@ -53,14 +53,19 @@ class OrderDetailsResponseModel {
     this.comboProducts,
   });
 
-  factory OrderDetailsResponseModel.fromRawJson(String str) => OrderDetailsResponseModel.fromJson(json.decode(str));
+  factory OrderDetailsResponseModel.fromRawJson(String str) =>
+      OrderDetailsResponseModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory OrderDetailsResponseModel.fromJson(Map<String, dynamic> json) => OrderDetailsResponseModel(
+  factory OrderDetailsResponseModel.fromJson(
+    Map<String, dynamic> json,
+  ) => OrderDetailsResponseModel(
     id: json["id"],
     userId: json["user_id"],
-    shippingAddress: json["shipping_address"] == null ? null : ShippingAddress.fromJson(json["shipping_address"]),
+    shippingAddress: json["shipping_address"] == null
+        ? null
+        : ShippingAddress.fromJson(json["shipping_address"]),
     paymentType: json["payment_type"],
     shippingType: json["shipping_type"],
     shippingTypeString: json["shipping_type_string"],
@@ -80,8 +85,14 @@ class OrderDetailsResponseModel {
     cancelRequest: json["cancel_request"],
     manuallyPayable: json["manually_payable"],
     links: json["links"] == null ? null : Links.fromJson(json["links"]),
-    products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
-    comboProducts: json["combo_products"] == null ? [] : List<ComboProductElement>.from(json["combo_products"]!.map((x) => ComboProductElement.fromJson(x))),
+    products: json["products"] == null
+        ? []
+        : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
+    comboProducts: json["combo_products"] == null
+        ? []
+        : List<ComboProductElement>.from(
+            json["combo_products"]!.map((x) => ComboProductElement.fromJson(x)),
+          ),
   );
 
   Map<String, dynamic> toJson() => {
@@ -107,8 +118,12 @@ class OrderDetailsResponseModel {
     "cancel_request": cancelRequest,
     "manually_payable": manuallyPayable,
     "links": links?.toJson(),
-    "products": products == null ? [] : List<dynamic>.from(products!.map((x) => x.toJson())),
-    "combo_products": comboProducts == null ? [] : List<dynamic>.from(comboProducts!.map((x) => x.toJson())),
+    "products": products == null
+        ? []
+        : List<dynamic>.from(products!.map((x) => x.toJson())),
+    "combo_products": comboProducts == null
+        ? []
+        : List<dynamic>.from(comboProducts!.map((x) => x.toJson())),
   };
 }
 
@@ -125,16 +140,20 @@ class ComboProductElement {
     this.comboProduct,
   });
 
-  factory ComboProductElement.fromRawJson(String str) => ComboProductElement.fromJson(json.decode(str));
+  factory ComboProductElement.fromRawJson(String str) =>
+      ComboProductElement.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ComboProductElement.fromJson(Map<String, dynamic> json) => ComboProductElement(
-    comboProductId: json["combo_product_id"],
-    quantity: json["quantity"],
-    subTotal: json["sub_total"],
-    comboProduct: json["combo_product"] == null ? null : ComboProductComboProduct.fromJson(json["combo_product"]),
-  );
+  factory ComboProductElement.fromJson(Map<String, dynamic> json) =>
+      ComboProductElement(
+        comboProductId: json["combo_product_id"],
+        quantity: json["quantity"],
+        subTotal: json["sub_total"],
+        comboProduct: json["combo_product"] == null
+            ? null
+            : ComboProductComboProduct.fromJson(json["combo_product"]),
+      );
 
   Map<String, dynamic> toJson() => {
     "combo_product_id": comboProductId,
@@ -169,22 +188,30 @@ class ComboProductComboProduct {
     this.productCategories,
   });
 
-  factory ComboProductComboProduct.fromRawJson(String str) => ComboProductComboProduct.fromJson(json.decode(str));
+  factory ComboProductComboProduct.fromRawJson(String str) =>
+      ComboProductComboProduct.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ComboProductComboProduct.fromJson(Map<String, dynamic> json) => ComboProductComboProduct(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    price: json["price"],
-    salePrice: json["sale_price"],
-    thumbnailImage: json["thumbnail_image"],
-    stock: json["stock"],
-    rating: json["rating"],
-    sales: json["sales"],
-    productCategories: json["product_categories"] == null ? [] : List<ProductCategory>.from(json["product_categories"]!.map((x) => ProductCategory.fromJson(x))),
-  );
+  factory ComboProductComboProduct.fromJson(Map<String, dynamic> json) =>
+      ComboProductComboProduct(
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        price: json["price"],
+        salePrice: json["sale_price"],
+        thumbnailImage: json["thumbnail_image"],
+        stock: json["stock"],
+        rating: json["rating"],
+        sales: json["sales"],
+        productCategories: json["product_categories"] == null
+            ? []
+            : List<ProductCategory>.from(
+                json["product_categories"]!.map(
+                  (x) => ProductCategory.fromJson(x),
+                ),
+              ),
+      );
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -196,7 +223,9 @@ class ComboProductComboProduct {
     "stock": stock,
     "rating": rating,
     "sales": sales,
-    "product_categories": productCategories == null ? [] : List<dynamic>.from(productCategories!.map((x) => x.toJson())),
+    "product_categories": productCategories == null
+        ? []
+        : List<dynamic>.from(productCategories!.map((x) => x.toJson())),
   };
 }
 
@@ -206,23 +235,22 @@ class ProductCategory {
   int? parentName;
   ProductCategoryPivot? pivot;
 
-  ProductCategory({
-    this.name,
-    this.slug,
-    this.parentName,
-    this.pivot,
-  });
+  ProductCategory({this.name, this.slug, this.parentName, this.pivot});
 
-  factory ProductCategory.fromRawJson(String str) => ProductCategory.fromJson(json.decode(str));
+  factory ProductCategory.fromRawJson(String str) =>
+      ProductCategory.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ProductCategory.fromJson(Map<String, dynamic> json) => ProductCategory(
-    name: json["name"],
-    slug: json["slug"],
-    parentName: json["parent_name"],
-    pivot: json["pivot"] == null ? null : ProductCategoryPivot.fromJson(json["pivot"]),
-  );
+  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
+      ProductCategory(
+        name: json["name"],
+        slug: json["slug"],
+        parentName: json["parent_name"],
+        pivot: json["pivot"] == null
+            ? null
+            : ProductCategoryPivot.fromJson(json["pivot"]),
+      );
 
   Map<String, dynamic> toJson() => {
     "name": name,
@@ -236,19 +264,18 @@ class ProductCategoryPivot {
   int? productId;
   int? productCategoryId;
 
-  ProductCategoryPivot({
-    this.productId,
-    this.productCategoryId,
-  });
+  ProductCategoryPivot({this.productId, this.productCategoryId});
 
-  factory ProductCategoryPivot.fromRawJson(String str) => ProductCategoryPivot.fromJson(json.decode(str));
+  factory ProductCategoryPivot.fromRawJson(String str) =>
+      ProductCategoryPivot.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ProductCategoryPivot.fromJson(Map<String, dynamic> json) => ProductCategoryPivot(
-    productId: json["product_id"],
-    productCategoryId: json["product_category_id"],
-  );
+  factory ProductCategoryPivot.fromJson(Map<String, dynamic> json) =>
+      ProductCategoryPivot(
+        productId: json["product_id"],
+        productCategoryId: json["product_category_id"],
+      );
 
   Map<String, dynamic> toJson() => {
     "product_id": productId,
@@ -259,21 +286,16 @@ class ProductCategoryPivot {
 class Links {
   String? details;
 
-  Links({
-    this.details,
-  });
+  Links({this.details});
 
   factory Links.fromRawJson(String str) => Links.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Links.fromJson(Map<String, dynamic> json) => Links(
-    details: json["details"],
-  );
+  factory Links.fromJson(Map<String, dynamic> json) =>
+      Links(details: json["details"]);
 
-  Map<String, dynamic> toJson() => {
-    "details": details,
-  };
+  Map<String, dynamic> toJson() => {"details": details};
 }
 
 class Product {
@@ -337,7 +359,11 @@ class Product {
     productId: json["product_id"],
     productName: json["product_name"],
     slug: json["slug"],
-    smallPictures: json["small_pictures"] == null ? [] : List<SmallPicture>.from(json["small_pictures"]!.map((x) => SmallPicture.fromJson(x))),
+    smallPictures: json["small_pictures"] == null
+        ? []
+        : List<SmallPicture>.from(
+            json["small_pictures"]!.map((x) => SmallPicture.fromJson(x)),
+          ),
     variation: json["variation"],
     unitPrice: json["unit_price"],
     price: json["price"],
@@ -363,7 +389,9 @@ class Product {
     "product_id": productId,
     "product_name": productName,
     "slug": slug,
-    "small_pictures": smallPictures == null ? [] : List<dynamic>.from(smallPictures!.map((x) => x.toJson())),
+    "small_pictures": smallPictures == null
+        ? []
+        : List<dynamic>.from(smallPictures!.map((x) => x.toJson())),
     "variation": variation,
     "unit_price": unitPrice,
     "price": price,
@@ -390,14 +418,10 @@ class SmallPicture {
   int? height;
   SmallPicturePivot? pivot;
 
-  SmallPicture({
-    this.url,
-    this.width,
-    this.height,
-    this.pivot,
-  });
+  SmallPicture({this.url, this.width, this.height, this.pivot});
 
-  factory SmallPicture.fromRawJson(String str) => SmallPicture.fromJson(json.decode(str));
+  factory SmallPicture.fromRawJson(String str) =>
+      SmallPicture.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
@@ -405,7 +429,9 @@ class SmallPicture {
     url: json["url"],
     width: json["width"],
     height: json["height"],
-    pivot: json["pivot"] == null ? null : SmallPicturePivot.fromJson(json["pivot"]),
+    pivot: json["pivot"] == null
+        ? null
+        : SmallPicturePivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -420,19 +446,18 @@ class SmallPicturePivot {
   int? relatedId;
   String? uploadFileId;
 
-  SmallPicturePivot({
-    this.relatedId,
-    this.uploadFileId,
-  });
+  SmallPicturePivot({this.relatedId, this.uploadFileId});
 
-  factory SmallPicturePivot.fromRawJson(String str) => SmallPicturePivot.fromJson(json.decode(str));
+  factory SmallPicturePivot.fromRawJson(String str) =>
+      SmallPicturePivot.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory SmallPicturePivot.fromJson(Map<String, dynamic> json) => SmallPicturePivot(
-    relatedId: json["related_id"],
-    uploadFileId: json["upload_file_id"],
-  );
+  factory SmallPicturePivot.fromJson(Map<String, dynamic> json) =>
+      SmallPicturePivot(
+        relatedId: json["related_id"],
+        uploadFileId: json["upload_file_id"],
+      );
 
   Map<String, dynamic> toJson() => {
     "related_id": relatedId,
@@ -446,12 +471,12 @@ class ShippingAddress {
   String? address;
   dynamic cityId;
   String? state;
-  int? zoneId;
+  dynamic zoneId;
   String? city;
-  int? areaId;
+  dynamic areaId;
   String? area;
   String? phone;
-  int? stateId;
+  dynamic stateId;
 
   ShippingAddress({
     this.name,
@@ -467,23 +492,25 @@ class ShippingAddress {
     this.stateId,
   });
 
-  factory ShippingAddress.fromRawJson(String str) => ShippingAddress.fromJson(json.decode(str));
+  factory ShippingAddress.fromRawJson(String str) =>
+      ShippingAddress.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ShippingAddress.fromJson(Map<String, dynamic> json) => ShippingAddress(
-    name: json["name"],
-    email: json["email"],
-    address: json["address"],
-    cityId: json["city_id"],
-    state: json["state"],
-    zoneId: json["zone_id"],
-    city: json["city"],
-    areaId: json["area_id"],
-    area: json["area"],
-    phone: json["phone"],
-    stateId: json["state_id"],
-  );
+  factory ShippingAddress.fromJson(Map<String, dynamic> json) =>
+      ShippingAddress(
+        name: json["name"],
+        email: json["email"],
+        address: json["address"],
+        cityId: json["city_id"],
+        state: json["state"],
+        zoneId: json["zone_id"],
+        city: json["city"],
+        areaId: json["area_id"],
+        area: json["area"],
+        phone: json["phone"],
+        stateId: json["state_id"],
+      );
 
   Map<String, dynamic> toJson() => {
     "name": name,
