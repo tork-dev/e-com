@@ -8,7 +8,7 @@ workflows:
 
       ios_signing:
         distribution_type: development
-        bundle_identifier: "com.thetork.yourapp.dev"
+        bundle_identifier: "com.thetork.kireibd"
 
     scripts:
       - name: Flutter pub get
