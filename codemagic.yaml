@@ -8,21 +8,14 @@ workflows:
 
       ios_signing:
         distribution_type: development
-        automatic_signing: true
         bundle_identifier: "com.thetork.kireibd"
-
-      vars:
-        BASEURL: ""
-        BASEURLWEB: ""
-        ANDROIDAPPLINK: ""
-        IOSAPPLINK: ""
 
     scripts:
       - name: Flutter pub get
         script: |
           flutter pub get
 
-      # Optional: generate .env for flutter_dotenv
+      # Optional: generate .env if using flutter_dotenv
       - name: Generate .env
         script: |
           echo "BASEURL=$BASEURL" > .env
@@ -36,7 +29,7 @@ workflows:
           pod install
           cd ..
 
-      - name: Build IPA (Development)
+      - name: Build iOS Dev IPA
         script: |
           flutter build ipa --debug \
             --dart-define=BASEURL=$BASEURL \
