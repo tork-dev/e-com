@@ -97,7 +97,6 @@ class NotificationServices {
 
   Future<void> showNotification(RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
 
     if (notification == null) {
       Log.w('Notification payload missing, skipping showNotification');

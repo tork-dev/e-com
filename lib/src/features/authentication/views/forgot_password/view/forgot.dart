@@ -7,32 +7,32 @@ import 'package:kirei/src/features/authentication/views/widgets/header_logo_part
 import 'package:kirei/src/utils/constants/colors.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../../../utils/constants/sizes.dart';
-import 'widgets/forgot_forms&button.dart';
+import 'widgets/forgot_forms_and_button.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
-  Get.put(ForgotPasswordController());
+    Get.put(ForgotPasswordController());
     return AppLayoutWithBackButton(
       padding: AppSizes.defaultSpace,
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            const HeaderLogoPart(),
-            const Gap(AppSizes.spaceBtwSections),
-            Text(
-              AppLocalizations.of(context)!.forgotPassword,
-              style: Theme.of(context).textTheme.headlineMedium!.apply(
-                color: AppColors.primary
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const Gap(AppSizes.spaceBtwSections),
-            const ForgotFormsAndButton()
-          ],
-        ),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          const HeaderLogoPart(),
+          const Gap(AppSizes.spaceBtwSections),
+          Text(
+            AppLocalizations.of(context)!.forgotPassword,
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium!.apply(color: AppColors.primary),
+            textAlign: TextAlign.center,
+          ),
+          const Gap(AppSizes.spaceBtwSections),
+          const ForgotFormsAndButton(),
+        ],
+      ),
     );
   }
 }

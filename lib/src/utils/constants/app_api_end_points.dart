@@ -1,4 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kirei/src/utils/helpers/env_config.dart';
 
 class AppApiEndPoints {
@@ -31,12 +30,10 @@ class AppApiEndPoints {
   static String deviceToken = "$baseUrl/profile/update-device-token";
   static String surpriseGift = "$baseUrl/surprize-store";
 
-
   ///Shop
   static String shopProducts = "$baseUrl/gigalogy/items/search?";
   static String shopSkinTypes = "$baseUrl/skin-types";
   static String subCategory = "$baseUrl/sub-categories";
-
 
   ///Details
   static String productDetails = "$baseUrl/products/details/";
@@ -46,7 +43,6 @@ class AppApiEndPoints {
   static String recommendedProductForUser = "$baseUrl/gigalogy/users/recommend";
   // static String trendingProduct = "$baseUrl/gigalogy/items/trending";
 
-
   ///Carts
   static String addToCart = "$baseUrl/carts/add";
   static String cartProducts = "$baseUrl/carts";
@@ -55,7 +51,6 @@ class AppApiEndPoints {
   static String proceedToCheckout = "$baseUrl/carts/process";
   static String requestStock = "$baseUrl/add-product-request/";
   static String bulkAddToCart = "$baseUrl/carts/bulk-add";
-
 
   ///Checkout
   // static String checkoutSummary = "$baseUrl/cart-summary";
@@ -67,7 +62,6 @@ class AppApiEndPoints {
   static String sendCheckoutOtp = "$baseUrl/send-checkout-otp";
   static String verifyCheckoutOtp = "$baseUrl/verify-checkout-otp";
 
-
   ///Purchase History
   static String purchaseHistory = "$baseUrl/purchase-history";
   static String purchaseHistoryDetails = "$baseUrl/purchase-history-details";
@@ -75,37 +69,35 @@ class AppApiEndPoints {
   static String reOrder = "$baseUrl/reorder";
   static String orderHistory = "$baseUrl/order-details";
 
-
   ///Update Profile info
   static String updateProfile = "$baseUrl/profile/update";
   static String updateProfileImage = "$baseUrl/profile/update-image";
 
-
   ///Wishlist
   static String wishlistProducts = "$baseUrl/all-wishlists";
-  static String addWishlistProduct = "$baseUrl/wishlists-add-product?product_id=";
-  static String removeWishlistProduct = "$baseUrl/wishlists-remove-product?product_id=";
-  static String checkWishlistProduct = "$baseUrl/wishlists-check-product?product_id=";
-
+  static String addWishlistProduct =
+      "$baseUrl/wishlists-add-product?product_id=";
+  static String removeWishlistProduct =
+      "$baseUrl/wishlists-remove-product?product_id=";
+  static String checkWishlistProduct =
+      "$baseUrl/wishlists-check-product?product_id=";
 
   ///Address
   static String shippingAddress = "$baseUrl/user/shipping/address";
-  static String shippingAddressCreateOrUpdate = "$baseUrl/user/shipping/create-or-update";
-  static String cityAddresses  = "$baseUrl/cities-by-country/3069";
-  static String zoneAddresses  = "$baseUrl/zones-by-city";
-  static String areaAddresses  = "$baseUrl/areas-by-zone";
-  static String changeOrderAddresses  = "$baseUrl/order/shipping-update/";
-
+  static String shippingAddressCreateOrUpdate =
+      "$baseUrl/user/shipping/create-or-update";
+  static String cityAddresses = "$baseUrl/cities-by-country/3069";
+  static String zoneAddresses = "$baseUrl/zones-by-city";
+  static String areaAddresses = "$baseUrl/areas-by-zone";
+  static String changeOrderAddresses = "$baseUrl/order/shipping-update/";
 
   ///Product Review
   static String productReview = "$baseUrl/reviews/product";
   static String submitReview = "$baseUrl/new-reviews/submit";
 
-
   ///Product Questions
   static String productQuestions = "$baseUrl/product-questions/";
   static String submitQuestion = "$baseUrl/product-question";
-
 
   ///Community
   static String communityPost = "$baseUrl/community-posts";
@@ -118,8 +110,8 @@ class AppApiEndPoints {
   static String imageSearch = "$baseUrl/gigalogy/items/search";
 
   ///Recommendation question
-  static String recommendationQuestion = "$baseUrl/gigalogy/questions/recommend";
-
+  static String recommendationQuestion =
+      "$baseUrl/gigalogy/questions/recommend";
 
   ///Appointment
   static String appointmentStore = "$baseUrl/new-appointment/store";
@@ -141,13 +133,11 @@ class AppApiEndPoints {
   static String pointLevel = "$baseUrl/memberships";
   static String rewardHistory = "$baseUrl/user-rewards";
 
-
   ///Kirei-tube
   static String kireiTubeHome = "$baseUrl/kireitube-home";
   static String kireiTubeVideos = "$baseUrl/kireitube-videos";
   static String kireiPlaylist = "$baseUrl/kireitube-playlists";
   static String kireiPlaylistDetails = "$baseUrl/kireitube-playlist";
-
 
   ///Group Shopping
   static String shoppingGroups = "$baseUrl/groups";
@@ -169,12 +159,6 @@ class AppApiEndPoints {
   static String blogTags = "$baseUrl/trending/tags";
   static String postBlogComment = "$baseUrl/blog/comment/store";
 
-
   ///My Coupons
   static String myCoupons = "$baseUrl/coupon-rewards";
-
-
-
-
-
 }

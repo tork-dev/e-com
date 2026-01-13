@@ -19,16 +19,13 @@ import 'widget/post_comment.dart';
 class BlogsDetails extends StatelessWidget {
   const BlogsDetails({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final blogDetailsController = BlogsController.instance;
 
     return AppLayoutWithBackButton(
       padding: 0,
-      title: Text(
-        "Blog",
-      ),
+      title: Text("Blog"),
       centerTitle: true,
       body: Stack(
         children: [
@@ -37,15 +34,12 @@ class BlogsDetails extends StatelessWidget {
             children: [
               Obx(() {
                 return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSizes.md
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: AppSizes.md),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Gap(AppSizes.md),
-                      blogDetailsController
-                                  .isApiHitting.value
+                      blogDetailsController.isApiHitting.value
                           ? ShimmerHelper().buildBasicShimmer(
                               height: 160,
                               width: AppHelperFunctions.screenWidth(),
@@ -70,11 +64,14 @@ class BlogsDetails extends StatelessWidget {
                                   child: InkWell(
                                     onTap: () async {
                                       await Share.share(
-                                          '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/blog/${blogDetailsController.blogsDetailsResponseData.value.slug}');
+                                        '${AppLocalStorage().readData(LocalStorageKeys.appUrl)}/blog/${blogDetailsController.blogsDetailsResponseData.value.slug}',
+                                      );
                                     },
                                     child: Card(
                                       shape: const CircleBorder(),
-                                      color: AppColors.white.withAlpha(AppHelperFunctions.toAlpha(.9)),
+                                      color: AppColors.white.withAlpha(
+                                        AppHelperFunctions.toAlpha(.9),
+                                      ),
                                       elevation: 20,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -90,25 +87,19 @@ class BlogsDetails extends StatelessWidget {
                               ],
                             ),
                       const Gap(AppSizes.defaultSpace),
-                      blogDetailsController
-                          .isApiHitting.value
+                      blogDetailsController.isApiHitting.value
                           ? ShimmerHelper().buildBasicShimmer(
-                        height: 30,
-                        width: AppHelperFunctions.screenWidth(),
-                      )
+                              height: 30,
+                              width: AppHelperFunctions.screenWidth(),
+                            )
                           : Text(
-                        "${blogDetailsController.blogsDetailsResponseData.value.title}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                              "${blogDetailsController.blogsDetailsResponseData.value.title}",
+                              style: Theme.of(context).textTheme.headlineSmall!
+                                  .copyWith(fontWeight: FontWeight.w700),
+                            ),
 
                       const Gap(AppSizes.defaultSpace),
-                      blogDetailsController
-                                  .isApiHitting.value
+                      blogDetailsController.isApiHitting.value
                           ? ShimmerHelper().buildBasicShimmer(
                               height: 300,
                               width: AppHelperFunctions.screenWidth(),
@@ -120,10 +111,12 @@ class BlogsDetails extends StatelessWidget {
                           //             ''),
                           //     style: Theme.of(context).textTheme.bodyLarge,
                           //   ),
-                      : HtmlWidget(
-                                blogDetailsController.blogsDetailsResponseData
-                                        .value.description!
-                      ),
+                          : HtmlWidget(
+                              blogDetailsController
+                                  .blogsDetailsResponseData
+                                  .value
+                                  .description!,
+                            ),
                       const Gap(AppSizes.md),
                       // blogDetailsController.isApiHitting.value
                       //     ? ShimmerHelper().buildBasicShimmer(height: 20)
@@ -147,7 +140,7 @@ class BlogsDetails extends StatelessWidget {
                       //                     .value
                       //                     .blogComments![index])),
                       const Gap(AppSizes.appBarHeight),
-                      const Gap(AppSizes.appBarHeight)
+                      const Gap(AppSizes.appBarHeight),
                     ],
                   ),
                 );
@@ -162,10 +155,10 @@ class BlogsDetails extends StatelessWidget {
               onTextFieldTap: () {},
               onSendButtonPress: () {
                 blogDetailsController.postComment(
-                  blogDetailsController.blogsDetailsResponseData.value.id!
+                  blogDetailsController.blogsDetailsResponseData.value.id!,
                 );
               },
-              textFileFocusNode:FocusNode(),
+              textFileFocusNode: FocusNode(),
               commentController: blogDetailsController.commentController,
             ),
           ),

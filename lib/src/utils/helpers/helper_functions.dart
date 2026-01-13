@@ -13,7 +13,6 @@ import 'package:kirei/src/features/authentication/views/forgot_password/view/otp
 import 'package:kirei/src/features/spinner_wheel/view/spinner_wheel_alert.dart';
 import 'package:kirei/src/utils/constants/sizes.dart';
 import 'package:kirei/src/utils/helpers/routing_helper.dart';
-import 'package:kirei/src/utils/logging/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/colors.dart';
 import '../local_storage/local_storage_keys.dart';
@@ -59,9 +58,9 @@ class AppHelperFunctions {
 
   static String formatPrice(num price) {
     final formatter = NumberFormat.currency(
-      locale: 'en_BD',   // Bangladesh locale
-      symbol: '৳',       // Currency symbol
-      decimalDigits: 2,  // Always show 2 decimal places
+      locale: 'en_BD', // Bangladesh locale
+      symbol: '৳', // Currency symbol
+      decimalDigits: 2, // Always show 2 decimal places
     );
     return formatter.format(price);
   }
@@ -280,8 +279,9 @@ class AppHelperFunctions {
                                 child: Center(
                                   child: Text(
                                     leftButtonName,
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
                                   ),
                                 ),
                               ),
@@ -368,7 +368,9 @@ class AppHelperFunctions {
       context: Get.context!,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
+          ),
           insetPadding: const EdgeInsets.all(AppSizes.md),
           backgroundColor: AppColors.popUpBackground,
           child: Stack(
@@ -405,9 +407,8 @@ class AppHelperFunctions {
                           visible: expireMessage != '',
                           child: Text(
                             "*NOTE: $expireMessage",
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyMedium!.apply(color: AppColors.error),
+                            style: Theme.of(context).textTheme.bodyMedium!
+                                .apply(color: AppColors.error),
                             textAlign: .center,
                           ),
                         ),
@@ -588,7 +589,7 @@ class AppHelperFunctions {
     return false; // They are equal
   }
 
-  static void deBouncerSearchDelay( Function function) {
+  static void deBouncerSearchDelay(Function function) {
     Future.delayed(const Duration(microseconds: 300), () => function);
   }
 
@@ -657,10 +658,9 @@ class AppHelperFunctions {
   }
 
   static Future<Map<String, dynamic>> appInfo() async {
-    final Map<String, dynamic> deviceInfoHeaders =
-        Platform.isAndroid
-            ? await AppHelperFunctions.getAndroidDeviceInfo()
-            : await AppHelperFunctions.getIosDeviceInfo();
+    final Map<String, dynamic> deviceInfoHeaders = Platform.isAndroid
+        ? await AppHelperFunctions.getAndroidDeviceInfo()
+        : await AppHelperFunctions.getIosDeviceInfo();
 
     return deviceInfoHeaders;
   }
@@ -830,5 +830,4 @@ class AppHelperFunctions {
   }
 
   static int toAlpha(double opacity) => (opacity * 255).round();
-
 }

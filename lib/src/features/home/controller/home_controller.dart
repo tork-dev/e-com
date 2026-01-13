@@ -92,12 +92,12 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  // @override
-  // void onClose() {
-  //   emailController.dispose();
-  //   surprisePhoneController.dispose();
-  //   super.onClose();
-  // }
+  @override
+  void onClose() {
+    emailController.dispose();
+    surprisePhoneController.dispose();
+    super.onClose();
+  }
 
   Future<void> onRefresh() async {
     CachingUtility.clearCache(CachingKeys.allCategoryCachedData);
@@ -128,8 +128,8 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchFeaturedCategories() async {
-    homeFeaturedCategoryResponse.value =
-        await HomeRepositories().getHomeFeaturedCategories();
+    homeFeaturedCategoryResponse.value = await HomeRepositories()
+        .getHomeFeaturedCategories();
   }
   //
   // Future<void> getAddToCartResponse(
@@ -182,7 +182,6 @@ class HomeController extends GetxController {
     surprisePhoneController.clear();
   }
 
-
   // Future<void> checkAndShowUpdatePrompt() async {
   //   if (!Platform.isAndroid) return;
   //
@@ -204,5 +203,4 @@ class HomeController extends GetxController {
   //     print("Update check error: $e");
   //   }
   // }
-
 }

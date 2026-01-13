@@ -3,7 +3,6 @@ import 'package:hive/hive.dart';
 
 import '../model/cart_local_model.dart';
 
-
 class CartService {
   static Box<CartItemLocal> get _cartBox => Hive.box<CartItemLocal>('cartBox');
 
@@ -16,7 +15,7 @@ class CartService {
   static Future<void> addCartItem(CartItemLocal item) async {
     // check if product already exists in the box
     final existingIndex = _cartBox.values.toList().indexWhere(
-          (cartItem) => cartItem.productId == item.productId,
+      (cartItem) => cartItem.productId == item.productId,
     );
 
     if (existingIndex != -1) {
@@ -41,8 +40,13 @@ class CartService {
   }
 
   /// remove with id
-  static Future<void> removeCartItemWithId(int id) async {
-    await _cartBox.deleteAt(id);
+  static Future<void> removeCartItemWithId(int productId) async {
+    final index = _cartBox.values.toList().indexWhere(
+      (item) => item.productId == productId,
+    );
+    if (index != -1) {
+      await _cartBox.deleteAt(index);
+    }
   }
 
   /// all cart clear
@@ -62,5 +66,4 @@ class CartService {
   static List<CartItemLocal> refreshCart() {
     return _cartBox.values.toList();
   }
-
 }

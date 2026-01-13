@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:kirei/src/utils/helpers/helper_functions.dart';
 import 'package:kirei/src/utils/logging/logger.dart';
 import '../../home/model/home_products_model.dart';
 import '../../../utils/local_storage/local_storage_keys.dart';
@@ -54,7 +53,7 @@ class GetShopDataController extends GetxController {
     getValuesFromUrl(Get.currentRoute);
   }
 
-  void getValuesFromUrl(String url){
+  void getValuesFromUrl(String url) {
     Uri uri = Uri.parse(url);
     Log.d('this is the url ${uri.path}');
     if (uri.queryParameters.containsKey('type')) {
@@ -67,7 +66,8 @@ class GetShopDataController extends GetxController {
       pageNumber.value = int.tryParse(uri.queryParameters['page'] ?? '1') ?? 1;
     }
     if (uri.queryParameters.containsKey('per_page')) {
-      pageNumber.value = int.tryParse(uri.queryParameters['per_page'] ?? '24') ?? 24;
+      pageNumber.value =
+          int.tryParse(uri.queryParameters['per_page'] ?? '24') ?? 24;
     }
     if (uri.queryParameters.containsKey('search_name')) {
       searchName.value = uri.queryParameters['search_name'] ?? '';
@@ -101,11 +101,8 @@ class GetShopDataController extends GetxController {
     }
   }
 
-
-  void setValuesFromUrl(){
-    Map<dynamic, dynamic> parameters = {
-      'page': pageNumber,
-    };
+  void setValuesFromUrl() {
+    Map<dynamic, dynamic> parameters = {'page': pageNumber};
 
     if (searchName.value != "") parameters['search'] = searchName;
     if (categories.value != "") {
@@ -120,12 +117,14 @@ class GetShopDataController extends GetxController {
       parameters['skin_type'] = skinType;
     }
     if (minimumPriceController.text.toString() != "") {
-      parameters['min_price'] =
-          int.tryParse(minimumPriceController.text.toString());
+      parameters['min_price'] = int.tryParse(
+        minimumPriceController.text.toString(),
+      );
     }
     if (maximumPriceController.text.toString() != "") {
-      parameters['max_price'] =
-          int.tryParse(maximumPriceController.text.toString());
+      parameters['max_price'] = int.tryParse(
+        maximumPriceController.text.toString(),
+      );
     }
     if (keyIngredients.value != "") {
       parameters['key_ingredients'] = keyIngredients;
@@ -148,13 +147,15 @@ class GetShopDataController extends GetxController {
 
     // Constructing the query string manually
     String queryString = parameters.entries
-        .map((entry) =>
-    '${entry.key}=${Uri.encodeComponent(entry.value.toString())}')
+        .map(
+          (entry) =>
+              '${entry.key}=${Uri.encodeComponent(entry.value.toString())}',
+        )
         .join('&');
 
     // Append gaip_user_id=null at the end
     queryString +=
-    '&gaip_user_id=${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}';
+        '&gaip_user_id=${AppLocalStorage().readData(LocalStorageKeys.gaipUserId)}';
     // Fetch products for the current page
 
     queryStringValue.value = queryString;
@@ -184,6 +185,7 @@ class GetShopDataController extends GetxController {
     isFromCategory.value = false;
     allProducts.clear();
     isFromSearch.value = false;
+    hasMoreProducts.value = true;
   }
 
   void updateCategory(String category) {
@@ -198,32 +200,41 @@ class GetShopDataController extends GetxController {
   void updateSortKey(String value) {
     sortKey.value = value;
   }
+
   void updatePerPage(int value) {
     perPage.value = value;
   }
 
-  Future<void> getShopData() async {
-    hittingApi.value = true;
-      setValuesFromUrl();
+  Future<void> getShopData({bool isInitialLoad = true}) async {
+    // Only show shimmer loading for initial load, not for pagination
+    if (isInitialLoad) {
+      hittingApi.value = true;
+    }
+    setValuesFromUrl();
 
-    if(categories.value != ''){
+    if (categories.value != '') {
       getSubCategory();
     }
-    shopPageProduct.value =
-        await ShopRepositories().getFilteredProducts(queryString: queryStringValue.value);
+    shopPageProduct.value = await ShopRepositories().getFilteredProducts(
+      queryString: queryStringValue.value,
+    );
 
     if (shopPageProduct.value.data != null) {
       allProducts.addAll(shopPageProduct.value.data ?? []);
       Log.i('all products : ${allProducts.length}');
     }
-    hittingApi.value = false;
+
+    if (isInitialLoad) {
+      hittingApi.value = false;
+    }
   }
 
   Future<void> getSubCategory() async {
     isFromCategory.value = true;
     hittingSubCategoryApi.value = true;
-    subCategoryResponse.value =
-        await ShopRepositories().getSubCategories(categories.value);
+    subCategoryResponse.value = await ShopRepositories().getSubCategories(
+      categories.value,
+    );
     hittingSubCategoryApi.value = false;
     if (subCategoryResponse.isEmpty) {
       isFromCategory.value = false;
@@ -231,8 +242,8 @@ class GetShopDataController extends GetxController {
   }
 
   Future<SkinTypesResponse> getSkinTypesData() async {
-    return skinTypeResponse.value =
-        await ShopRepositories().getFilterPageSkinTypes();
+    return skinTypeResponse.value = await ShopRepositories()
+        .getFilterPageSkinTypes();
   }
 
   void selectSkinTypes(String title) {
@@ -244,60 +255,51 @@ class GetShopDataController extends GetxController {
     }
   }
 
-  bool isLoadingMore = false; // Prevents continuous loading
+  RxBool isLoadingMore = false.obs;
+  RxBool hasMoreProducts = true.obs;
 
   void addItems() {
     scrollController.addListener(() {
-      // Log.d("Loading..");
-      if (scrollController.position.pixels <=
-              scrollController.position.minScrollExtent + 50 &&
-          pageNumber.value > 1 &&
-          !isLoadingMore &&
-          !hittingApi.value) {
-        isLoadingMore = true; // Set loading flag to true
-
-        AppHelperFunctions.showToast('Loading more...');
-        Log.d('Reached the top of the list, loading previous page...');
-        pageNumber.value--;
-        getShopData().then((_) {
-          isLoadingMore = false; // Reset loading flag
-          update(); // Trigger UI update
-        });
-      }
+      // Only trigger when scrolling near the bottom
       if (scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent - 50 &&
-          pageNumber.value < shopPageProduct.value.meta!.lastPage! &&
-          !isLoadingMore &&
-          !hittingApi.value) {
-        isLoadingMore = true; // Set loading flag to true
-
-        AppHelperFunctions.showToast('Loading more...');
-        Log.d('Loading more data for page number: ${pageNumber.value}');
-
-        // Save current scroll position and content height before loading more data
-        double currentScrollPosition = scrollController.position.pixels;
-        double maxScrollExtentBeforeLoad =
-            scrollController.position.maxScrollExtent;
-
-        pageNumber.value++;
-        hittingApi.value = true;
-
-        getShopData();
-        hittingApi.value = false;
-        isLoadingMore = false; // Reset loading flag
-
-        double newMaxScrollExtent = scrollController.position.maxScrollExtent;
-        double scrollOffsetDifference =
-            newMaxScrollExtent - maxScrollExtentBeforeLoad;
-        scrollController.jumpTo(currentScrollPosition +
-            scrollOffsetDifference); // Maintain position after loading
-      } else if (pageNumber.value >= shopPageProduct.value.meta?.lastPage &&
-          scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent &&
-          !isLoadingMore) {
-        isLoadingMore = true;
-        AppHelperFunctions.showToast('No more products in this category');
+              scrollController.position.maxScrollExtent - 200 &&
+          !isLoadingMore.value &&
+          !hittingApi.value &&
+          hasMoreProducts.value) {
+        loadMoreProducts();
       }
     });
+  }
+
+  /// Load more products when scrolling to bottom
+  Future<void> loadMoreProducts() async {
+    // Check if there are more pages
+    if (shopPageProduct.value.meta?.lastPage == null ||
+        pageNumber.value >= shopPageProduct.value.meta!.lastPage!) {
+      hasMoreProducts.value = false;
+      return;
+    }
+
+    isLoadingMore.value = true;
+    pageNumber.value++;
+
+    // Use isInitialLoad: false to avoid showing shimmer
+    await getShopData(isInitialLoad: false);
+
+    // Check again after loading
+    if (shopPageProduct.value.meta != null) {
+      hasMoreProducts.value =
+          pageNumber.value < shopPageProduct.value.meta!.lastPage!;
+    }
+
+    isLoadingMore.value = false;
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    minimumPriceController.dispose();
+    maximumPriceController.dispose();
+    super.onClose();
   }
 }

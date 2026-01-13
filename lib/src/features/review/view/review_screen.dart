@@ -35,25 +35,37 @@ class ReviewScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
             child: AppLayoutWithRefresher(
               onRefresh: controller.onRefresh,
-              children: [
-                AppReviewCards(),
-                Gap(200)
-              ],
+              scrollController: controller.scrollController,
+              children: [AppReviewCards(), Gap(200)],
             ),
           ),
           Obx(() {
-            Log.d("${controller.reviewResponse.value.loggerReview?.isApproved}");
+            Log.d(
+              "${controller.reviewResponse.value.loggerReview?.isApproved}",
+            );
             return Positioned(
               bottom: 0,
-              child:
-                  controller.reviewResponse.value.canReview ?? true
-                      ? AppReviewPostCard()
-                      : controller.reviewResponse.value.loggerReview != null?   UserReview(
-                        reviewerName: "${controller.reviewResponse.value.loggerReview?.userName}",
-                        reviewText: "${controller.reviewResponse.value.loggerReview?.comment}",
-                        rating: controller.reviewResponse.value.loggerReview?.rating?.toDouble() ?? 0,
-                        status: controller.reviewResponse.value.loggerReview?.isApproved ?? 0,
-                      ) : SizedBox(),
+              child: controller.reviewResponse.value.canReview ?? true
+                  ? AppReviewPostCard()
+                  : controller.reviewResponse.value.loggerReview != null
+                  ? UserReview(
+                      reviewerName:
+                          "${controller.reviewResponse.value.loggerReview?.userName}",
+                      reviewText:
+                          "${controller.reviewResponse.value.loggerReview?.comment}",
+                      rating:
+                          controller.reviewResponse.value.loggerReview?.rating
+                              ?.toDouble() ??
+                          0,
+                      status:
+                          controller
+                              .reviewResponse
+                              .value
+                              .loggerReview
+                              ?.isApproved ??
+                          0,
+                    )
+                  : SizedBox(),
             );
           }),
         ],

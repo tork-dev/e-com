@@ -28,12 +28,14 @@ class AppReviewDescriptionPart extends StatelessWidget {
                 Expandable(
                   collapsed: SizedBox(
                     height: 40,
-                    child: Text(reviewController
-                        .reviewResponse.value.data![index].comment!),
+                    child: Text(
+                      reviewController.allReviews[index].comment ?? '',
+                    ),
                   ),
                   expanded: SizedBox(
-                    child: Text(reviewController
-                        .reviewResponse.value.data![index].comment!),
+                    child: Text(
+                      reviewController.allReviews[index].comment ?? '',
+                    ),
                   ),
                 ),
                 Row(
@@ -45,26 +47,34 @@ class AppReviewDescriptionPart extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.only(right: 10.0, top: 8.0),
                           child: Visibility(
-                            visible: reviewController.reviewResponse.value
-                                    .data![index].comment!.length >
+                            visible:
+                                (reviewController
+                                        .allReviews[index]
+                                        .comment
+                                        ?.length ??
+                                    0) >
                                 100,
                             child: GestureDetector(
                               child: Text(
-                                  !controller!.expanded
-                                      ? 'view More'
-                                      : 'Show Less',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge!
-                                      .apply(
-                                          color: AppColors.primary,
-                                          decoration:
-                                              TextDecoration.underline)),
+                                !controller!.expanded
+                                    ? 'view More'
+                                    : 'Show Less',
+                                style: Theme.of(context).textTheme.labelLarge!
+                                    .apply(
+                                      color: AppColors.primary,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                              ),
                               onTap: () {
                                 controller.toggle();
-                                Log.d(reviewController.reviewResponse.value
-                                    .data![index].comment!.length
-                                    .toString());
+                                Log.d(
+                                  (reviewController
+                                              .allReviews[index]
+                                              .comment
+                                              ?.length ??
+                                          0)
+                                      .toString(),
+                                );
                               },
                             ),
                           ),

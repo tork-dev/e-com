@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:kirei/src/utils/helpers/env_config.dart';
 import '../../../utils/constants/colors.dart';
@@ -16,22 +15,21 @@ class SplashScreen extends StatelessWidget {
     final bool isDark = AppHelperFunctions.isDarkMode(context);
     final String baseUrl = EnvConfig.baseUrl;
     return Scaffold(
-
       backgroundColor: isDark ? AppColors.dark : AppColors.primaryBackground,
       body: Center(
-        child: baseUrl.contains('beta') ?
-        Banner(
-          message: 'BETA',
-          location: BannerLocation.topStart,
-          child: Image(
-            width: AppHelperFunctions.screenWidth() * .3,
-            image: const AssetImage(AppImages.lightAppLogo),
-          ),
-        ) :
-        Image(
-          width: AppHelperFunctions.screenWidth() * .3,
-          image: const AssetImage(AppImages.lightAppLogo),
-        ),
+        child: baseUrl.contains('beta')
+            ? Banner(
+                message: 'BETA',
+                location: BannerLocation.topStart,
+                child: Image(
+                  width: AppHelperFunctions.screenWidth() * .3,
+                  image: const AssetImage(AppImages.lightAppLogo),
+                ),
+              )
+            : Image(
+                width: AppHelperFunctions.screenWidth() * .3,
+                image: const AssetImage(AppImages.lightAppLogo),
+              ),
       ),
     );
   }

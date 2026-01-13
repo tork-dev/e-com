@@ -9,7 +9,7 @@ class GlowingButton extends StatefulWidget {
   final Color glowColor;
   final VoidCallback onTap;
 
-   const GlowingButton({
+  const GlowingButton({
     required this.text,
     required this.onTap,
     this.color = AppColors.primary,
@@ -18,7 +18,7 @@ class GlowingButton extends StatefulWidget {
   });
 
   @override
-  _GlowingButtonState createState() => _GlowingButtonState();
+  State<GlowingButton> createState() => _GlowingButtonState();
 }
 
 class _GlowingButtonState extends State<GlowingButton>
@@ -56,7 +56,9 @@ class _GlowingButtonState extends State<GlowingButton>
               borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd),
               boxShadow: [
                 BoxShadow(
-                  color: widget.glowColor.withOpacity(_controller.value),
+                  color: widget.glowColor.withAlpha(
+                    (_controller.value * 255).toInt(),
+                  ),
                   blurRadius: 15,
                   spreadRadius: 2,
                 ),

@@ -17,10 +17,11 @@ import '../../../../../utils/constants/sizes.dart';
 import '../../sign_up/view/widgets/signup_forms_and_button.dart';
 import '../../widgets/other_login_option.dart';
 import '../controllers/login_controller.dart';
-import 'widgets/login_forms&button.dart';
+import 'widgets/login_forms_and_button.dart';
 
 class LogIn extends StatelessWidget {
-  const LogIn({super.key});
+  final int? pageIndex;
+  const LogIn({super.key, this.pageIndex = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +154,7 @@ class LogIn extends StatelessWidget {
                                         onTap: () {
                                           DefaultTabController.of(
                                             context,
-                                          ).animateTo(1);
+                                          ).animateTo(pageIndex!);
                                         },
                                         child: RichText(
                                           text: TextSpan(
@@ -289,8 +290,7 @@ class LogIn extends StatelessWidget {
                                         onTap: () {
                                           DefaultTabController.of(
                                             context,
-                                          ).animateTo(0);
-                                          // Get.to(const LogIn());
+                                          ).animateTo(pageIndex!);
                                         },
                                         child: RichText(
                                           text: TextSpan(

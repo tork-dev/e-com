@@ -65,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                 AppBannerImage(
                   height: 48,
                   width: 48,
-                  imgUrl: AppImages.phoneIcon
+                  imgUrl: AppImages.phoneIcon,
                 ),
                 Gap(AppSizes.md),
                 Column(
@@ -88,16 +88,19 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: AppLocalStorage().readData(LocalStorageKeys.saleSpinnerStatus) == true,
+            visible:
+                AppLocalStorage().readData(
+                  LocalStorageKeys.saleSpinnerStatus,
+                ) ==
+                true,
             child: Padding(
               padding: const .symmetric(horizontal: AppSizes.md),
               child: GlowingButton(
                 text: "Spin Now",
                 onTap: () {
-                  if(AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true){
-                    Get.toNamed("/login", arguments: {
-                      "prevRoute" : "/spin"
-                    });
+                  if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) !=
+                      true) {
+                    Get.toNamed("/login", arguments: {"prevRoute": "/spin"});
                     return;
                   }
                   Get.toNamed("/spin");
@@ -126,246 +129,243 @@ class AppDrawer extends StatelessWidget {
             return AppListViewLayout(
               itemCount: drawerController.allNewCategories.length,
               applyPadding: false,
-              builderFunction:
-                  (BuildContext context, int index) =>
-                      drawerController
-                              .allNewCategories[index]
-                              .children!
-                              .isNotEmpty
-                          ? ExpansionTile(
-                            collapsedShape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                              side: BorderSide.none,
-                            ),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                              side: BorderSide.none,
-                            ),
-                            iconColor: AppColors.white,
-                            collapsedIconColor: AppColors.white,
-                            backgroundColor: AppColors.white.withAlpha(13),
-                            title: InkWell(
-                              onTap: () {
-                                shopController.getValuesFromUrl(drawerController
-                                    .allNewCategories[index]
-                                    .url!);
+              builderFunction: (BuildContext context, int index) =>
+                  drawerController.allNewCategories[index].children!.isNotEmpty
+                  ? ExpansionTile(
+                      collapsedShape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                        side: BorderSide.none,
+                      ),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                        side: BorderSide.none,
+                      ),
+                      iconColor: AppColors.white,
+                      collapsedIconColor: AppColors.white,
+                      backgroundColor: AppColors.white.withAlpha(13),
+                      title: InkWell(
+                        onTap: () {
+                          shopController.getValuesFromUrl(
+                            drawerController.allNewCategories[index].url!,
+                          );
 
-                                  if(bottomController.pageIndex.value == 1){
-                                    Get.back();
-                                    shopController.allProducts.clear();
-                                    shopController.getShopData();
-                                    return;
-                                  }
+                          if (bottomController.pageIndex.value == 1) {
+                            Get.back();
+                            shopController.allProducts.clear();
+                            shopController.getShopData();
+                            return;
+                          }
 
-                                  bottomController.jumpToTab(1);
-                              },
-                              child: Text(
-                                drawerController.allNewCategories[index].name!
-                                    .toUpperCase(),
-                                style: Theme.of(context).textTheme.bodyLarge!
-                                    .apply(color: AppColors.light),
-                              ),
-                            ),
-                            children:
-                                drawerController.allNewCategories[index].children!.asMap().entries.map((
-                                  entry,
-                                ) {
-                                  final category = entry.value;
-                                  return category.children != null &&
-                                          category.children!.isNotEmpty
-                                      ? Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: AppSizes.sm,
-                                        ),
-                                        child: ExpansionTile(
-                                          backgroundColor: AppColors.white
-                                              .withAlpha((0.09 * 255).toInt()),
-                                          iconColor: AppColors.white,
-                                          collapsedIconColor: AppColors.white,
-                                          collapsedShape:
-                                              const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.zero,
-                                                side: BorderSide.none,
-                                              ),
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.zero,
-                                            side: BorderSide.none,
-                                          ),
-                                          title: GestureDetector(
-                                            onTap: () {
-                                              shopController.getValuesFromUrl(category.url!);
-                                              if(bottomController.pageIndex.value == 1){
-                                                Get.back();
-                                                shopController.allProducts.clear();
-                                                shopController.getShopData();
-                                                return;
-                                              }
-                                              bottomController.jumpToTab(1);
-                                            },
-                                            child: Text(
-                                              category.counts != null
-                                                  ? '${category.name!} (${category.counts})'
-                                                  : '${category.name}',
-                                              style: Theme.of(
-                                                context,
-                                              ).textTheme.bodyLarge!.apply(
-                                                color: AppColors.light,
-                                              ),
-                                            ),
-                                          ),
-                                          children:
-                                              category.children!.asMap().entries.map((
-                                                childEntry,
-                                              ) {
-                                                final child = childEntry.value;
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                        left: 16,
-                                                      ),
-                                                  child:
-                                                      child.children!.isNotEmpty
-                                                          ? ExpansionTile(
-                                                            backgroundColor:
-                                                                AppColors.white
-                                                                    .withAlpha(
-                                                                      26,
-                                                                    ),
-                                                            iconColor:
-                                                                AppColors.white,
-                                                            collapsedIconColor:
-                                                                AppColors.white,
-                                                            collapsedShape:
-                                                                const RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .zero,
-                                                                  side:
-                                                                      BorderSide
-                                                                          .none,
-                                                                ),
-                                                            shape:
-                                                                const RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .zero,
-                                                                  side:
-                                                                      BorderSide
-                                                                          .none,
-                                                                ),
-                                                            title: Text(
-                                                              child.name!,
-                                                              style: Theme.of(
-                                                                    context,
-                                                                  )
-                                                                  .textTheme
-                                                                  .bodyLarge!
-                                                                  .apply(
-                                                                    color:
-                                                                        AppColors
-                                                                            .light,
-                                                                  ),
-                                                            ),
-                                                            children:
-                                                                child.children!.asMap().entries.map((
-                                                                  children,
-                                                                ) {
-                                                                  final childValue =
-                                                                      children
-                                                                          .value;
-                                                                  return Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.only(
-                                                                          left:
-                                                                              16,
-                                                                        ),
-                                                                    child: AppDrawerCard(
-                                                                      onPress: () {
-                                                                              shopController.getValuesFromUrl(childValue.url!);
-                                                                              if(bottomController.pageIndex.value == 1){
-                                                                                Get.back();
-                                                                                shopController.allProducts.clear();
-                                                                                shopController.getShopData();
-                                                                                return;
-                                                                              }
-                                                                              bottomController.jumpToTab(1);
-                                                                      },
-                                                                      title:
-                                                                          childValue.counts !=
-                                                                                  null
-                                                                              ? '${childValue.name!} (${childValue.counts})'
-                                                                              : '${childValue.name}',
-                                                                    ),
-                                                                  );
-                                                                }).toList(),
-                                                          )
-                                                          : AppDrawerCard(
-                                                            onPress: () {
-                                                              WidgetsBinding
-                                                                  .instance
-                                                                  .addPostFrameCallback((
-                                                                    _,
-                                                                  ) {
-                                                                shopController.getValuesFromUrl(child.url!);
-                                                                if(bottomController.pageIndex.value == 1){
-                                                                  Get.back();
-                                                                  shopController.allProducts.clear();
-                                                                  shopController.getShopData();
-                                                                  return;
-                                                                }
-                                                                bottomController.jumpToTab(1);
-                                                                  });
-                                                            },
-                                                            title:
-                                                                child.counts !=
-                                                                        null
-                                                                    ? "${child.name} (${child.counts})"
-                                                                    : "${child.name}",
-                                                          ),
-                                                );
-                                              }).toList(),
-                                        ),
-                                      )
-                                      : Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 8.0,
-                                        ),
-                                        child: AppDrawerCard(
-                                          title: category.name!,
-                                          onPress: () {
-                                            WidgetsBinding.instance
-                                                .addPostFrameCallback((_) {
-                                                  shopController.getValuesFromUrl(category.url!);
-                                                  if(bottomController.pageIndex.value == 1){
-                                                    Get.back();
-                                                    shopController.allProducts.clear();
-                                                    shopController.getShopData();
-                                                    return;
-                                                  }
-                                                  bottomController.jumpToTab(1);
-                                                });
-                                          },
-                                        ),
+                          bottomController.jumpToTab(1);
+                        },
+                        child: Text(
+                          drawerController.allNewCategories[index].name!
+                              .toUpperCase(),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyLarge!.apply(color: AppColors.light),
+                        ),
+                      ),
+                      children: drawerController.allNewCategories[index].children!.asMap().entries.map((
+                        entry,
+                      ) {
+                        final category = entry.value;
+                        return category.children != null &&
+                                category.children!.isNotEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                  left: AppSizes.sm,
+                                ),
+                                child: ExpansionTile(
+                                  backgroundColor: AppColors.white.withAlpha(
+                                    (0.09 * 255).toInt(),
+                                  ),
+                                  iconColor: AppColors.white,
+                                  collapsedIconColor: AppColors.white,
+                                  collapsedShape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero,
+                                    side: BorderSide.none,
+                                  ),
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero,
+                                    side: BorderSide.none,
+                                  ),
+                                  title: GestureDetector(
+                                    onTap: () {
+                                      shopController.getValuesFromUrl(
+                                        category.url!,
                                       );
-                                }).toList(),
-                          )
-                          : AppDrawerCard(
-                            title:
-                                drawerController.allNewCategories[index].name!
-                                    .toUpperCase(),
-                            onPress: () {
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                shopController.getValuesFromUrl(drawerController.allNewCategories[index].url!);
-                                if(bottomController.pageIndex.value == 1){
-                                  Get.back();
-                                  shopController.allProducts.clear();
-                                  shopController.getShopData();
-                                  return;
-                                }
-                                bottomController.jumpToTab(1);
-                              });
-                            },
-                          ),
+                                      if (bottomController.pageIndex.value ==
+                                          1) {
+                                        Get.back();
+                                        shopController.allProducts.clear();
+                                        shopController.getShopData();
+                                        return;
+                                      }
+                                      bottomController.jumpToTab(1);
+                                    },
+                                    child: Text(
+                                      category.counts != null
+                                          ? '${category.name!} (${category.counts})'
+                                          : '${category.name}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .apply(color: AppColors.light),
+                                    ),
+                                  ),
+                                  children: category.children!.asMap().entries.map((
+                                    childEntry,
+                                  ) {
+                                    final child = childEntry.value;
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: child.children!.isNotEmpty
+                                          ? ExpansionTile(
+                                              backgroundColor: AppColors.white
+                                                  .withAlpha(26),
+                                              iconColor: AppColors.white,
+                                              collapsedIconColor:
+                                                  AppColors.white,
+                                              collapsedShape:
+                                                  const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.zero,
+                                                    side: BorderSide.none,
+                                                  ),
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.zero,
+                                                    side: BorderSide.none,
+                                                  ),
+                                              title: Text(
+                                                child.name!,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .apply(
+                                                      color: AppColors.light,
+                                                    ),
+                                              ),
+                                              children: child.children!
+                                                  .asMap()
+                                                  .entries
+                                                  .map((children) {
+                                                    final childValue =
+                                                        children.value;
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                            left: 16,
+                                                          ),
+                                                      child: AppDrawerCard(
+                                                        onPress: () {
+                                                          shopController
+                                                              .getValuesFromUrl(
+                                                                childValue.url!,
+                                                              );
+                                                          if (bottomController
+                                                                  .pageIndex
+                                                                  .value ==
+                                                              1) {
+                                                            Get.back();
+                                                            shopController
+                                                                .allProducts
+                                                                .clear();
+                                                            shopController
+                                                                .getShopData();
+                                                            return;
+                                                          }
+                                                          bottomController
+                                                              .jumpToTab(1);
+                                                        },
+                                                        title:
+                                                            childValue.counts !=
+                                                                null
+                                                            ? '${childValue.name!} (${childValue.counts})'
+                                                            : '${childValue.name}',
+                                                      ),
+                                                    );
+                                                  })
+                                                  .toList(),
+                                            )
+                                          : AppDrawerCard(
+                                              onPress: () {
+                                                WidgetsBinding.instance
+                                                    .addPostFrameCallback((_) {
+                                                      shopController
+                                                          .getValuesFromUrl(
+                                                            child.url!,
+                                                          );
+                                                      if (bottomController
+                                                              .pageIndex
+                                                              .value ==
+                                                          1) {
+                                                        Get.back();
+                                                        shopController
+                                                            .allProducts
+                                                            .clear();
+                                                        shopController
+                                                            .getShopData();
+                                                        return;
+                                                      }
+                                                      bottomController
+                                                          .jumpToTab(1);
+                                                    });
+                                              },
+                                              title: child.counts != null
+                                                  ? "${child.name} (${child.counts})"
+                                                  : "${child.name}",
+                                            ),
+                                    );
+                                  }).toList(),
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: AppDrawerCard(
+                                  title: category.name!,
+                                  onPress: () {
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                          shopController.getValuesFromUrl(
+                                            category.url!,
+                                          );
+                                          if (bottomController
+                                                  .pageIndex
+                                                  .value ==
+                                              1) {
+                                            Get.back();
+                                            shopController.allProducts.clear();
+                                            shopController.getShopData();
+                                            return;
+                                          }
+                                          bottomController.jumpToTab(1);
+                                        });
+                                  },
+                                ),
+                              );
+                      }).toList(),
+                    )
+                  : AppDrawerCard(
+                      title: drawerController.allNewCategories[index].name!
+                          .toUpperCase(),
+                      onPress: () {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          shopController.getValuesFromUrl(
+                            drawerController.allNewCategories[index].url!,
+                          );
+                          if (bottomController.pageIndex.value == 1) {
+                            Get.back();
+                            shopController.allProducts.clear();
+                            shopController.getShopData();
+                            return;
+                          }
+                          bottomController.jumpToTab(1);
+                        });
+                      },
+                    ),
             );
           }),
           Visibility(
@@ -576,27 +576,46 @@ class AppDrawer extends StatelessWidget {
               ],
             ),
           ),
+          const Gap(AppSizes.defaultSpace),
           Visibility(
             visible:
                 AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != true,
-            child: Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AppDrawerCard(
-                  title: 'Login'.toUpperCase(),
-                  onPress: () => Get.to(const LogIn()),
+                Expanded(
+                  child: AppCardContainer(
+                    onTap: () => Get.to(const LogIn()),
+                    margin: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                    padding: EdgeInsets.all(AppSizes.md),
+                    backgroundColor: AppColors.darkerGrey,
+
+                    child: const Text(
+                      'Login',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: AppColors.white),
+                    ),
+                  ),
                 ),
-                AppDrawerCard(
-                  title: 'Register'.toUpperCase(),
-                  onPress: () => Get.to(const SignUp()),
+                Expanded(
+                  child: AppCardContainer(
+                    onTap: () => Get.to(const LogIn(pageIndex: 1)),
+                    margin: EdgeInsets.symmetric(horizontal: AppSizes.md),
+                    padding: EdgeInsets.all(AppSizes.md),
+                    backgroundColor: AppColors.darkerGrey,
+
+                    child: const Text(
+                      'Register',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: AppColors.white),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          const Gap(AppSizes.defaultSpace),
           const AppDrawerBottomButton(),
           const Gap(AppSizes.defaultSpace),
-
         ],
       ),
     );

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -18,7 +16,7 @@ class AppColors {
   static const Color greenButton = Color(0xff198754);
   static const Color facebookBg = Color(0xff4c69ba);
   static const Color googleBg = Color(0xffdd4b39);
-  static const Color preorder=Color(0xff17a2be);
+  static const Color preorder = Color(0xff17a2be);
   static const Color inStock = Colors.green;
   static const Color backLayoutAppBarTitle = Colors.blueGrey;
   static const Color whitePink = Color(0xffFFF5F9);
@@ -59,24 +57,21 @@ class AppColors {
   // Neutral Shades
   static const Color black = Color(0xFF232323);
   static const Color darkerGrey = Color(0xFF4F4F4F);
- // static const Color darkGrey = Color(0xFF939393);
+  // static const Color darkGrey = Color(0xFF939393);
   static const Color grey = Color(0xFFE0E0E0);
   static const Color softGrey = Color(0xFFF4F4F4);
   static const Color linkColor = Color(0xFFF4F4F4);
   //static const Color lightGrey = Color(0xFFF9F9F9);
   //static const Color white = Color(0xFFFFFFFF);
 
-
   static const Color silver = Color(0xFF808080);
   static const Color gold = Color(0xFFE6CB3F);
   static const Color platinum = Color(0xFFFFB763);
-
 
   static const Color popUpBackground = Color(0xFFDFDFF5);
   static const Color drawerBackground = Color(0xFF1E1F22);
   static const Color drawerPrimary = Color(0xFF232529);
   Color drawerExpanded = Colors.white.withAlpha((0.3 * 255).toInt());
-
 
   /// for fixed three color
   List<Color> colorList = [
@@ -102,15 +97,6 @@ class AppColors {
 
   Color getRandomColor(int index) {
     final hue = (index * 47) % 360; // prime gap → repeat কম
-    return HSLColor.fromAHSL(
-      1,
-      hue.toDouble(),
-      0.65,
-      0.55,
-    ).toColor();
+    return HSLColor.fromAHSL(1, hue.toDouble(), 0.65, 0.55).toColor();
   }
-
 }
-
-
-

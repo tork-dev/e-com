@@ -7,7 +7,7 @@ import '../../../../../l10n/app_localizations.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../widgets/header_logo_part.dart';
 import '../controllers/new_password_controller.dart';
-import 'widgets/new_password_forms&button.dart';
+import 'widgets/new_password_forms_and_button.dart';
 
 class NewPassword extends StatelessWidget {
   const NewPassword({super.key});
@@ -17,21 +17,21 @@ class NewPassword extends StatelessWidget {
     Get.put(NewPasswordController());
     return AppLayoutWithBackButton(
       padding: AppSizes.defaultSpace,
-        body: ListView(
-          children: [
-            const HeaderLogoPart(),
-            const Gap(AppSizes.spaceBtwSections),
-            Text(
-              textAlign: TextAlign.center,
-              AppLocalizations.of(context)!.newPassword,
-              style: Theme.of(context).textTheme.headlineMedium!.apply(
-                color: AppColors.primary
-              ),
-            ),
-            const Gap(AppSizes.spaceBtwSections),
-            const NewPasswordFormsAndButton()
-          ],
-        ),
+      body: ListView(
+        children: [
+          const HeaderLogoPart(),
+          const Gap(AppSizes.spaceBtwSections),
+          Text(
+            textAlign: TextAlign.center,
+            AppLocalizations.of(context)!.newPassword,
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium!.apply(color: AppColors.primary),
+          ),
+          const Gap(AppSizes.spaceBtwSections),
+          const NewPasswordFormsAndButton(),
+        ],
+      ),
     );
   }
 }

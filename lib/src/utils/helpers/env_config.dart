@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Read from dart-define for web/mobile
-const String baseUrlFromDefine = String.fromEnvironment('BASEURL');
-const String baseUrlWebFromDefine = String.fromEnvironment('BASEURLWEB');
-const String androidAppLinkFromDefine = String.fromEnvironment('ANDROIDAPPLINK');
-const String iosAppLinkFromDefine = String.fromEnvironment('IOSAPPLINK');
+const String baseUrlFromDefine = String.fromEnvironment('BASE_URL');
+const String baseUrlWebFromDefine = String.fromEnvironment('BASE_URL_WEB');
+const String androidAppLinkFromDefine = String.fromEnvironment('ANDROID_APP_LINK');
+const String iosAppLinkFromDefine = String.fromEnvironment('IOS_APP_LINK');
 
 
 class EnvConfig {
@@ -20,7 +20,7 @@ class EnvConfig {
           : 'https://frontendapi.kireibd.com/api/v2';
     } else {
       // Mobile uses dotenv
-      return dotenv.env['BASEURL'] ?? 'https://frontendapi.kireibd.com/api/v2';
+      return dotenv.env['BASE_URL'] ?? 'https://frontendapi.kireibd.com/api/v2';
     }
   }
 
@@ -37,11 +37,11 @@ class EnvConfig {
 
   /// Android app link
   static String get androidAppLink {
-    return dotenv.env['ANDROIDAPPLINK'] ?? 'https://play.google.com/store/apps/details?id=com.thetork.kirei';
+    return dotenv.env['ANDROID_APP_LINK'] ?? 'https://play.google.com/store/apps/details?id=com.thetork.kirei';
   }
 
   /// iOS app link
   static String get iosAppLink {
-    return dotenv.env['IOSAPPLINK'] ?? 'https://apps.apple.com/hu/app/kirei/id6502335026';
+    return dotenv.env['IOS_APP_LINK'] ?? 'https://apps.apple.com/hu/app/kirei/id6502335026';
   }
 }

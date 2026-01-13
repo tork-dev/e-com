@@ -76,9 +76,7 @@ class CartController extends GetxController {
 
   Future<void> onRefresh() async {
     if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-      getAllCartProducts().then(
-        (value) => {updateTotalPrice(), updateQuantity()},
-      );
+      await getAllCartProducts();
     }
   }
 
@@ -94,14 +92,14 @@ class CartController extends GetxController {
     update();
   }
 
-  void addQuantity(int index) {
+  void addQuantity(int index) async {
     final item = allCartProducts[index];
-    debugPrint("Upper limit ${item.quantity}");
     if (item.quantity! < item.upperLimit!) {
       final newQuantity = item.quantity! + 1;
       quantityUpdateApiIDs.add(item.productId!);
       update();
-      CartService.addCartItem(
+
+      await CartService.addCartItem(
         CartItemLocal(
           id: item.id,
           productId: item.productId,
@@ -111,74 +109,65 @@ class CartController extends GetxController {
           quantity: 1,
           lowerLimit: item.lowerLimit,
           upperLimit: item.upperLimit,
-          isPreorder: item.isPreorder
+          isPreorder: item.isPreorder,
         ),
       );
-      updateTotalPrice();
-      updateQuantity();
 
       if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null ||
           AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == false) {
+        quantityUpdateApiIDs.remove(item.productId!);
+        update();
         return;
       }
 
-      getCartUpdateQuantity(item.id!, newQuantity).then((value) {
-        // ✅ Update only this item's quantity locally
-        allCartProducts[index].quantity = newQuantity;
-
-        // ✅ Force refresh so UI rebuilds
-        allCartProducts.refresh();
-
+      try {
+        await getCartUpdateQuantity(item.id!, newQuantity);
+        // Lokally update is handled by listener on Hive box
         AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
-        cartCount.value = cartCount.value + 1;
-      });
-      update();
+      } finally {
+        quantityUpdateApiIDs.remove(item.productId!);
+        update();
+      }
     } else {
       AppHelperFunctions.showToast('Cannot order more than ${item.upperLimit}');
     }
   }
 
-  void removeQuantity(int index) {
+  void removeQuantity(int index) async {
     final item = allCartProducts[index];
-    debugPrint(item.quantity.toString());
     if (item.quantity! > item.lowerLimit!) {
       final newQuantity = item.quantity! - 1;
+      quantityUpdateApiIDs.add(item.productId!);
       update();
 
-      CartService.addCartItem(
+      await CartService.addCartItem(
         CartItemLocal(
-            id: item.id,
-            productId: item.productId,
-            productThumbnailImage: item.productThumbnailImage,
-            productName: item.productName,
-            price: item.price,
-            quantity: -1,
-            lowerLimit: item.lowerLimit,
-            upperLimit: item.upperLimit,
-            isPreorder: item.isPreorder
+          id: item.id,
+          productId: item.productId,
+          productThumbnailImage: item.productThumbnailImage,
+          productName: item.productName,
+          price: item.price,
+          quantity: -1,
+          lowerLimit: item.lowerLimit,
+          upperLimit: item.upperLimit,
+          isPreorder: item.isPreorder,
         ),
       );
 
-      updateTotalPrice();
-      updateQuantity();
-
       if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == null ||
           AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) == false) {
+        quantityUpdateApiIDs.remove(item.productId!);
+        update();
         return;
       }
 
-      getCartUpdateQuantity(item.id!, newQuantity).then((value) {
-        // ✅ Update only this item's quantity locally
-        allCartProducts[index].quantity = newQuantity;
-
-        // ✅ Force refresh so UI rebuilds
-        allCartProducts.refresh();
-
+      try {
+        await getCartUpdateQuantity(item.id!, newQuantity);
         AppHelperFunctions.showToast(cartUpdateResponse.value.message!);
-
-        cartCount.value = cartCount.value - 1;
-      });
-      update();
+      } finally {
+        quantityUpdateApiIDs.remove(item.productId!);
+        update();
+      }
     } else {
       AppHelperFunctions.showToast('Cannot order less than ${item.lowerLimit}');
     }
@@ -187,15 +176,13 @@ class CartController extends GetxController {
   void deleteCartProduct(int index) {
     final item = allCartProducts[index];
     AppHelperFunctions.showAlert(
-      onRightPress: () {
-        CartService.removeCartItem(index);
+      onRightPress: () async {
+        await CartService.removeCartItem(index);
 
         if (AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null) {
-          getCartDelete(item.productId!);
+          await getCartDelete(item.productId!);
         }
         Get.back();
-        updateTotalPrice();
-        updateQuantity();
       },
       onLeftPress: () => Get.back(),
       message: 'Are you sure to remove this item?',
@@ -218,22 +205,26 @@ class CartController extends GetxController {
 
   Future<void> getAddToCartResponse(Product product, [int? quantity]) async {
     final int qty = quantity ?? 1;
-    final bool isLoggedIn = AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null;
+    final bool isLoggedIn =
+        AppLocalStorage().readData(LocalStorageKeys.isLoggedIn) != null;
 
     addingToCartIds.add(product.id!);
     update();
 
     try {
-      // Handle request product scenario
+      // 1. Handle "Request Product" scenario
       if (product.requestAvailable == 1) {
         if (!isLoggedIn) {
-          Get.to(() => LogIn(), arguments: {
-            "productId": product.id,
-            "afterLoginAction": () async {
-              await getRequestResponse(productId: product.id!);
-              AppHelperFunctions.showToast("Request submitted successfully");
-            }
-          });
+          Get.to(
+            () => LogIn(),
+            arguments: {
+              "productId": product.id,
+              "afterLoginAction": () async {
+                await getRequestResponse(productId: product.id!);
+                AppHelperFunctions.showToast("Request submitted successfully");
+              },
+            },
+          );
           return;
         } else {
           await getRequestResponse(productId: product.id!);
@@ -242,15 +233,20 @@ class CartController extends GetxController {
         }
       }
 
-      // Stock Check for regular
-      if (product.preorderAvailable == 0 && (product.stock == null || product.stock! <= 0)) {
+      // 2. Stock Checks for regular products
+      if (product.preorderAvailable == 0 &&
+          (product.stock == null || product.stock! <= 0)) {
         AppHelperFunctions.showToast("Product out of stock");
         return;
       }
 
-      // Mixed cart restriction
-      bool hasPreorderInCart = allCartProducts.any((item) => item.isPreorder == 1);
-      bool hasRegularInCart = allCartProducts.any((item) => item.isPreorder == 0);
+      // 3. Mixed cart restriction (Pre-order vs Regular)
+      bool hasPreorderInCart = allCartProducts.any(
+        (item) => item.isPreorder == 1,
+      );
+      bool hasRegularInCart = allCartProducts.any(
+        (item) => item.isPreorder == 0,
+      );
 
       if (product.preorderAvailable == 1 && hasRegularInCart) {
         AppHelperFunctions.showToast("Remove regular product from cart first");
@@ -262,12 +258,13 @@ class CartController extends GetxController {
         return;
       }
 
-      // Add locally
-      CartService.addCartItem(
+      // 4. Add locally (Optimistic)
+      await CartService.addCartItem(
         CartItemLocal(
           productId: product.id,
           slug: product.slug,
-          productThumbnailImage: (product.pictures != null && product.pictures!.isNotEmpty)
+          productThumbnailImage:
+              (product.pictures != null && product.pictures!.isNotEmpty)
               ? product.pictures![0].url
               : '',
           productName: product.name!,
@@ -279,36 +276,36 @@ class CartController extends GetxController {
         ),
       );
 
-      // Sync to server if logged in
+      // 5. Sync to server if logged in
       if (isLoggedIn) {
-        addToCartResponse.value = await CartRepositories().getCartAddResponse(
+        final response = await CartRepositories().getCartAddResponse(
           product.id!,
           qty,
           product.preorderAvailable,
         );
+        addToCartResponse.value = response;
 
-        if (addToCartResponse.value.result == false) {
-          // Remove if server rejects
+        if (response.result == false) {
+          // ROLLBACK: Remove if server rejects
           await CartService.removeCartItemWithId(product.id!);
-          CartService.refreshCart();
-          AppHelperFunctions.showToast(addToCartResponse.value.message ?? "Failed to add to cart");
+          AppHelperFunctions.showToast(
+            response.message ?? "Failed to add to cart",
+          );
           return;
         }
       }
 
-
-      updateQuantity();
-      updateTotalPrice();
+      // Redundant updates removed as Hive listener handles it
       AppHelperFunctions.showToast(
         addToCartResponse.value.message ?? "Added to cart",
       );
+    } catch (e) {
+      Log.e("Error adding to cart: $e");
     } finally {
       addingToCartIds.remove(product.id);
       update();
     }
   }
-
-
 
   Future<ProductRequestResponse> getRequestResponse({
     required int productId,
@@ -319,18 +316,25 @@ class CartController extends GetxController {
 
   Future<void> getAllCartProducts() async {
     hittingApi.value = true;
-    CartService.saveCartItems(await CartRepositories().getCartProducts());
-    hittingApi.value = false;
-    final List<Map<String, dynamic>> items =
-        allCartProducts.map((item) {
-          return {
-            'item_id': item.productId,
-            'price': item.price,
-            'quantity': item.quantity,
-          };
-        }).toList();
+    try {
+      final products = await CartRepositories().getCartProducts();
+      await CartService.saveCartItems(products);
 
-    EventLogger().logViewCartEvent(jsonEncode(items), cartItemTotalPrice.value);
+      final List<Map<String, dynamic>> items = allCartProducts.map((item) {
+        return {
+          'item_id': item.productId,
+          'price': item.price,
+          'quantity': item.quantity,
+        };
+      }).toList();
+
+      EventLogger().logViewCartEvent(
+        jsonEncode(items),
+        cartItemTotalPrice.value,
+      );
+    } finally {
+      hittingApi.value = false;
+    }
   }
 
   Future<CartDeleteResponse> getCartDelete(int cartId) async {
@@ -346,7 +350,12 @@ class CartController extends GetxController {
         .getCartQuantityUpdate(productId, productQuantity);
   }
 
-  Future<CheckoutSummaryResponse?> getCheckoutSummary({String? couponCode, int? cityId, String? phone, bool? removeCoupon}) async {
+  Future<CheckoutSummaryResponse?> getCheckoutSummary({
+    String? couponCode,
+    int? cityId,
+    String? phone,
+    bool? removeCoupon,
+  }) async {
     List<int> productIds = [];
     List<int> cartQuantities = [];
 
@@ -367,18 +376,22 @@ class CartController extends GetxController {
 
       cartSummaryResponse.value = await CheckoutRepositories()
           .getCartSummaryResponse(
-        couponCode: couponCode,
-        phone: phone,
-        cityID: cityId,
-        cartProductIds: productIds,
-        cartQuantities: cartQuantities,
-        removeCoupon: removeCoupon,
-      );
+            couponCode: couponCode,
+            phone: phone,
+            cityID: cityId,
+            cartProductIds: productIds,
+            cartQuantities: cartQuantities,
+            removeCoupon: removeCoupon,
+          );
       return cartSummaryResponse.value;
     }
     return null;
   }
 
-
-
+  @override
+  void onClose() {
+    addingToCartIds.clear();
+    quantityUpdateApiIDs.clear();
+    super.onClose();
+  }
 }
